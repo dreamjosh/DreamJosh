@@ -118,14 +118,14 @@
             border-radius: 10px;
         }
 
-        /* ================= SLIDE NAVIGATION ================= */
+        /* ================= SLIDE NAVIGATION (Only for non-home pages) ================= */
         .slide-nav {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 999;
-            display: flex;
+            display: none; /* Hidden by default */
             gap: 12px;
             background: rgba(13, 27, 62, 0.95);
             padding: 12px 20px;
@@ -136,6 +136,10 @@
             flex-wrap: wrap;
             justify-content: center;
             max-width: 95%;
+        }
+
+        .slide-nav.active {
+            display: flex; /* Show only on non-home pages */
         }
 
         .slide-nav button {
@@ -209,6 +213,7 @@
             font-size: 14px;
             font-weight: bold;
             color: #172033;
+            transition: 0.3s;
         }
 
         .home-original .home-nav button:hover {
@@ -937,9 +942,8 @@
 
     </div>
 
-    <!-- ================= SLIDE NAVIGATION ================= -->
+    <!-- ================= SLIDE NAVIGATION (Hidden on Home) ================= -->
     <nav class="slide-nav" id="slideNav">
-        <button class="active" data-slide="home" onclick="goToSlide('home')">🏠 Home</button>
         <button data-slide="centralJobs" onclick="goToSlide('centralJobs')">🇮🇳 Central</button>
         <button data-slide="stateJobs" onclick="goToSlide('stateJobs')">🏜️ Rajasthan</button>
         <button data-slide="study" onclick="goToSlide('study')">📚 Study</button>
@@ -1080,7 +1084,15 @@
             });
             container.style.transform = `translateX(-${index * 100}%)`;
 
-            // Update nav
+            // Update slide nav visibility
+            const slideNav = document.getElementById('slideNav');
+            if (slideId === 'home') {
+                slideNav.classList.remove('active');
+            } else {
+                slideNav.classList.add('active');
+            }
+
+            // Update nav buttons
             document.querySelectorAll('.slide-nav button').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.slide === slideId);
             });
@@ -1193,7 +1205,7 @@
 
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
                 e.preventDefault();
-                if (currentIndex < slides.length - 1) {
+                if (currentIndex < slides.length - 1 && currentSlide !== 'home') {
                     goToSlide(slides[currentIndex + 1].dataset.slide);
                 }
             } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
@@ -1231,7 +1243,7 @@
                     if (s.dataset.slide === currentSlide) currentIndex = i;
                 });
 
-                if (diffX < 0 && currentIndex < slides.length - 1) {
+                if (diffX < 0 && currentIndex < slides.length - 1 && currentSlide !== 'home') {
                     goToSlide(slides[currentIndex + 1].dataset.slide);
                     isSwiping = false;
                 } else if (diffX > 0 && currentIndex > 0) {
@@ -1305,12 +1317,18 @@
             ['centralJobs', 'stateJobs', 'study', 'rajasthan', 'quiz', 'career', 'books', 'more'].forEach(id => {
                 loadSlideContent(id);
             });
+            
+            // Ensure home nav is active
+            document.querySelector('.home-original .home-nav .nav-btn:first-child').classList.add('home-active');
+            
+            // Hide slide nav initially (home page)
+            document.getElementById('slideNav').classList.remove('active');
         });
 
         console.log('🚀 Dream Josh - Original Home + Slide Mode Activated!');
-        console.log('🏠 Home page original style mein hai');
-        console.log('📌 Baaki saare pages slide mode mein hain');
-        console.log('⌨️ Arrow keys ya swipe se navigate karein');
+        console.log('🏠 Home page: Bottom nav hidden');
+        console.log('📌 Other pages: Bottom nav visible');
+        console.log('⌨️ Arrow keys or swipe to navigate (only on non-home pages)');
     </script>
 </body>
 </html>
