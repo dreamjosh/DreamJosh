@@ -10,8 +10,14 @@
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="application-name" content="Dream Josh"/>
     <meta name="description" content="Study • Govt. Jobs • Career Guide • Sarkari Yojnaye"/>
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkRyZWFtIEpvc2giLAogICJzaG9ydF9uYW1lIjogIkRyZWFtIEpvc2giLAogICJkZXNjcmlwdGlvbiI6ICJTdHVkeSAtIEdvdnQuIEpvYnMgLSBDYXJlZXIgR3VpZGUiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzEyM2M5YiIsCiAgInRoZW1lX2NvbG9yIjogIiMxMjNjOWIiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDUxMiA1MTInJTNFJTNDcmVjdCB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMicgcng9JzUwJyBmaWxsPSclMjMxMjNjOWInLyUzRSUzQ3RleHQgeD0nMjU2JyB5PScyNzAnIGZvbnQtc2l6ZT0nMjAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPSclMjNmZmRkNzAwJyUzRfCfk6AlM0MvdGV4dCUzRSUzQy9zdmclM0UiLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFzayBhbnlsYW5nIgogICAgfQogIF0sCiAgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwKICAiZGlzcGxheV9vdmVyc3RhbmRieSI6ICJzdGFuZGFsb25lIiwKICAicHJlZmVyX3JlbGF0ZWRfYXBwbGljYXRpb25zIjogW10sCiAgInNjb3BlIjogW10KfQ=="/>
     <title>Dream Josh - Study • Govt Jobs • Sarkari Yojnaye</title>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js">
+    </script>
+
     <style>
         /* ================= CSS VARIABLES ================= */
         :root {
@@ -24,7 +30,7 @@
             --warning-red: #d62839;
             --highlight-bg: #eefaf4;
             --border-color: #dce5f0;
-            --shadow-color: rgba(0,0,0,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
             --nav-bg: #ffffff;
             --header-bg: linear-gradient(135deg, #123c9b, #1976d2);
             --ticker-latest: #d62839;
@@ -48,7 +54,7 @@
             --warning-red: #d62839;
             --highlight-bg: #1a2a1a;
             --border-color: #2a2a4a;
-            --shadow-color: rgba(0,0,0,0.3);
+            --shadow-color: rgba(0, 0, 0, 0.3);
             --nav-bg: #1a1a2e;
             --header-bg: linear-gradient(135deg, #0d1b3e, #1a3a8a);
             --ticker-latest: #8b1a1a;
@@ -79,8 +85,8 @@
             transition: background 0.3s ease, color 0.3s ease;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            padding-top: var(--safe-top);
-            padding-bottom: var(--safe-bottom);
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
         }
 
         /* ================= SPLASH SCREEN ================= */
@@ -133,19 +139,26 @@
             margin-top: 30px;
             width: 40px;
             height: 40px;
-            border: 3px solid rgba(255,255,255,0.2);
+            border: 3px solid rgba(255, 255, 255, 0.2);
             border-top-color: #ffd700;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.08);
+            }
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* ================= HEADER ================= */
@@ -163,7 +176,7 @@
             height: 65px;
             box-shadow: 0 2px 20px var(--shadow-color);
             transition: background 0.3s ease;
-            padding-top: calc(12px + var(--safe-top));
+            padding-top: calc(12px + env(safe-area-inset-top, 0px));
         }
 
         .app-header .logo {
@@ -189,8 +202,8 @@
         }
 
         .app-header .header-controls button {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
             padding: 6px 14px;
             border-radius: 20px;
@@ -220,10 +233,20 @@
             color: #fff;
         }
 
+        .app-header .header-controls .save-btn {
+            background: #16a34a;
+            border-color: #16a34a;
+        }
+
+        .app-header .header-controls .save-btn:hover {
+            background: #1aaf50;
+            color: #fff;
+        }
+
         /* ================= SLIDE CONTAINER ================= */
         .slide-container {
             display: flex;
-            height: calc(100vh - 65px - 65px - var(--safe-top) - var(--safe-bottom));
+            height: calc(100vh - 65px - 65px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
             margin-top: 65px;
             margin-bottom: 65px;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -276,7 +299,7 @@
             height: 65px;
             box-shadow: 0 -4px 20px var(--shadow-color);
             transition: background 0.3s ease, border 0.3s ease;
-            padding-bottom: calc(10px + var(--safe-bottom));
+            padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
         }
 
         .bottom-dropdown-nav select {
@@ -372,6 +395,8 @@
 
         .home-original header p {
             margin: 7px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
         }
 
         .home-original .ticker {
@@ -399,8 +424,12 @@
         }
 
         @keyframes move {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%);
+            }
         }
 
         .home-original .container {
@@ -416,15 +445,11 @@
         }
 
         .home-original .left-content {
-            flex: 1.5;
+            flex: 3;
         }
 
-        .home-original .middle-content {
-            flex: 2;
-        }
-
-        .home-original .right-content {
-            flex: 1.5;
+        .home-original .right-sidebar {
+            flex: 1;
         }
 
         .home-original .sidebar-box {
@@ -438,28 +463,29 @@
 
         .home-original .sidebar-box h3 {
             margin: 0;
-            padding: 12px 16px;
+            padding: 12px;
             color: #fff;
-            font-size: 16px;
         }
 
         .home-original .sidebar-box h3.govt-scheme {
             background: #16a34a;
         }
 
+        .home-original .sidebar-box h3.notice-head {
+            background: var(--secondary-blue);
+        }
+
         .home-original .sidebar-box h3.links-head {
             background: var(--primary-blue);
         }
 
-        .home-original .imp-links {
-            padding: 5px 0;
+        .home-original .sidebar-box h3.exam-head {
+            background: #ff6b35;
         }
 
         .home-original .imp-links a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 16px;
+            display: block;
+            padding: 10px 15px;
             border-bottom: 1px solid var(--border-color);
             color: var(--text-color);
             text-decoration: none;
@@ -474,47 +500,55 @@
         }
 
         .home-original .imp-links a .icon {
-            font-size: 18px;
+            margin-right: 8px;
+        }
+
+        .home-original .imp-links .loading-text {
+            padding: 15px;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .home-original .card {
+            background: var(--card-bg);
+            padding: 18px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border-left: 5px solid var(--secondary-blue);
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+
+        .home-original .card h3 {
+            margin-top: 0;
+            color: var(--primary-blue);
+        }
+
+        .home-original .card p {
+            opacity: 0.8;
+            line-height: 1.6;
         }
 
         .home-original .about-home {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px 22px;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            transition: background 0.3s ease;
-            margin-bottom: 20px;
+            line-height: 1.75;
         }
 
-        .home-original .about-home h2 {
-            color: var(--primary-blue);
-            font-size: 24px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .home-original .about-home p {
-            line-height: 1.8;
-            font-size: 15px;
+        .home-original .about-home h3 {
+            margin-top: 18px;
+            margin-bottom: 8px;
         }
 
         .home-original .about-home ul {
             padding-left: 24px;
-            margin: 12px 0 16px;
-            list-style: none;
+            margin: 8px 0 14px;
         }
 
-        .home-original .about-home ul li {
-            margin: 8px 0;
-            padding-left: 8px;
-            font-size: 14px;
+        .home-original .about-home li {
+            margin: 6px 0;
         }
 
-        .home-original .about-home .about-highlight {
+        .home-original .about-highlight {
             margin-top: 18px;
-            padding: 16px 20px;
+            padding: 16px;
             border-left: 4px solid var(--success-green);
             background: var(--highlight-bg);
             border-radius: 8px;
@@ -533,6 +567,129 @@
             transition: background 0.3s ease;
         }
 
+        .home-original .notice {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .home-original .notice ul {
+            padding: 10px 25px;
+            animation: scroll 15s linear infinite;
+        }
+
+        .home-original .notice ul li {
+            list-style: none;
+            padding: 6px 0;
+            font-size: 14px;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+
+        /* ================= ADMIN PANEL ================= */
+        .admin-panel {
+            display: none;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-panel h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .admin-panel .form-group {
+            margin-bottom: 12px;
+        }
+
+        .admin-panel label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .admin-panel input,
+        .admin-panel textarea,
+        .admin-panel select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .admin-panel input:focus,
+        .admin-panel textarea:focus,
+        .admin-panel select:focus {
+            border-color: var(--secondary-blue);
+            outline: none;
+        }
+
+        .admin-panel textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .admin-panel .btn-submit {
+            background: var(--secondary-blue);
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .admin-panel .btn-submit:hover {
+            background: var(--primary-blue);
+        }
+
+        .admin-panel .btn-danger {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            margin-left: 10px;
+        }
+
+        .admin-panel .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .admin-panel .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media(max-width:600px) {
+            .admin-panel .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* ================= GOVT JOB SLIDE ================= */
         .govt-job-section {
             padding: 10px 0;
@@ -540,1045 +697,4 @@
 
         .govt-job-section .section-title {
             font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .govt-job-section .section-subtitle {
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .job-filter-tabs {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .job-filter-tabs button {
-            padding: 8px 18px;
-            border: 2px solid var(--border-color);
-            background: var(--card-bg);
-            color: var(--text-color);
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            transition: 0.3s;
-            touch-action: manipulation;
-        }
-
-        .job-filter-tabs button.active {
-            background: var(--secondary-blue);
-            color: #fff;
-            border-color: var(--secondary-blue);
-        }
-
-        .job-filter-tabs button:hover {
-            border-color: var(--secondary-blue);
-        }
-
-        .job-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
-            box-shadow: 0 2px 8px var(--shadow-color);
-        }
-
-        .job-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px var(--shadow-color);
-        }
-
-        .job-card .job-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .job-card .job-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary-blue);
-        }
-
-        .job-card .job-org {
-            font-size: 14px;
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-
-        .job-card .job-badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .job-card .job-badge.new {
-            background: #dc3545;
-            color: #fff;
-        }
-
-        .job-card .job-badge.active {
-            background: #16a34a;
-            color: #fff;
-        }
-
-        .job-card .job-badge.soon {
-            background: #ffc107;
-            color: #000;
-        }
-
-        .job-card .job-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 10px;
-            margin: 12px 0;
-        }
-
-        .job-card .job-details span {
-            font-size: 13px;
-            color: var(--text-color);
-        }
-
-        .job-card .job-details strong {
-            color: var(--primary-blue);
-        }
-
-        .job-card .job-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-
-        .job-card .job-actions a {
-            padding: 8px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            transition: 0.3s;
-        }
-
-        .job-card .job-actions .apply-btn {
-            background: var(--secondary-blue);
-            color: #fff;
-        }
-
-        .job-card .job-actions .apply-btn:hover {
-            background: var(--primary-blue);
-        }
-
-        .job-card .job-actions .detail-btn {
-            background: var(--border-color);
-            color: var(--text-color);
-        }
-
-        .job-card .job-actions .detail-btn:hover {
-            background: var(--card-hover);
-        }
-
-        /* ================= STUDY SLIDE ================= */
-        .study-section .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 5px;
-        }
-
-        .study-section .section-subtitle {
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-bottom: 20px;
-        }
-
-        .study-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .study-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
-            box-shadow: 0 2px 8px var(--shadow-color);
-        }
-
-        .study-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px var(--shadow-color);
-        }
-
-        .study-card .study-icon {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        .study-card h3 {
-            color: var(--primary-blue);
-            margin-bottom: 8px;
-            font-size: 17px;
-        }
-
-        .study-card p {
-            font-size: 14px;
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-
-        .study-card .study-tag {
-            display: inline-block;
-            padding: 3px 12px;
-            border-radius: 12px;
-            background: var(--highlight-bg);
-            color: var(--success-green);
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-
-        /* ================= CAREER SLIDE ================= */
-        .career-section .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 5px;
-        }
-
-        .career-section .section-subtitle {
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-bottom: 20px;
-        }
-
-        .career-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .career-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
-            box-shadow: 0 2px 8px var(--shadow-color);
-        }
-
-        .career-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px var(--shadow-color);
-        }
-
-        .career-card .career-icon {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        .career-card h3 {
-            color: var(--primary-blue);
-            margin-bottom: 8px;
-            font-size: 17px;
-        }
-
-        .career-card p {
-            font-size: 14px;
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-
-        /* ================= QUIZ SLIDE ================= */
-        .quiz-section .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 5px;
-        }
-
-        .quiz-section .section-subtitle {
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-bottom: 20px;
-        }
-
-        .quiz-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .quiz-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .quiz-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px var(--shadow-color);
-        }
-
-        .quiz-card .quiz-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        .quiz-card h3 {
-            color: var(--primary-blue);
-            margin-bottom: 6px;
-        }
-
-        .quiz-card p {
-            font-size: 13px;
-            opacity: 0.7;
-        }
-
-        .quiz-card .quiz-questions {
-            display: inline-block;
-            padding: 4px 14px;
-            border-radius: 12px;
-            background: var(--secondary-blue);
-            color: #fff;
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-
-        /* ================= CONTACT SLIDE ================= */
-        .contact-section .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 5px;
-        }
-
-        .contact-section .section-subtitle {
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-bottom: 20px;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .contact-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            text-align: center;
-            transition: 0.3s;
-            box-shadow: 0 2px 8px var(--shadow-color);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px var(--shadow-color);
-        }
-
-        .contact-card .contact-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-
-        .contact-card h3 {
-            color: var(--primary-blue);
-            margin-bottom: 6px;
-        }
-
-        .contact-card p {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        .contact-card a {
-            color: var(--secondary-blue);
-            text-decoration: none;
-        }
-
-        /* ================= RESPONSIVE ================= */
-        @media(max-width:992px) {
-            .home-original .home-layout {
-                flex-direction: column;
-            }
-            .home-original .left-content,
-            .home-original .middle-content,
-            .home-original .right-content {
-                width: 100%;
-            }
-        }
-
-        @media(max-width:768px) {
-            .home-original header h1 {
-                font-size: 27px;
-            }
-            .home-original .container {
-                padding: 10px;
-            }
-            .bottom-dropdown-nav select {
-                min-width: 150px;
-                font-size: 13px;
-            }
-            .bottom-dropdown-nav .nav-label {
-                display: none;
-            }
-            .job-card .job-details {
-                grid-template-columns: 1fr 1fr;
-            }
-            .slide {
-                padding: 15px 15px 15px 15px;
-            }
-            .study-grid,
-            .career-grid,
-            .quiz-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media(max-width:480px) {
-            .app-header .logo {
-                font-size: 18px;
-            }
-            .app-header .header-controls button {
-                padding: 4px 10px;
-                font-size: 11px;
-            }
-            .job-card .job-details {
-                grid-template-columns: 1fr;
-            }
-            .bottom-dropdown-nav select {
-                min-width: 120px;
-                font-size: 12px;
-                padding: 8px 12px;
-                padding-right: 30px;
-            }
-            .home-original header h1 {
-                font-size: 22px;
-            }
-            .home-original .about-home h2 {
-                font-size: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- ================= SPLASH SCREEN ================= -->
-    <div id="splashScreen">
-        <div class="splash-logo">🇮🇳</div>
-        <div class="splash-title">Dream <span>Josh</span></div>
-        <div class="splash-sub">Study • Govt Jobs • Career</div>
-        <div class="splash-loader"></div>
-    </div>
-
-    <!-- ================= HEADER ================= -->
-    <header class="app-header" id="appHeader">
-        <div class="logo" onclick="goHome()">
-            🇮🇳 Dream <span>Josh</span>
-        </div>
-        <div class="header-controls">
-            <button id="themeToggle" onclick="toggleTheme()">🌓</button>
-            <button class="admin-btn" onclick="alert('📌 Admin Panel: Coming Soon!')">🔑 Admin</button>
-        </div>
-    </header>
-
-    <!-- ================= SLIDE CONTAINER ================= -->
-    <div class="slide-container" id="slideContainer">
-
-        <!-- ===== SLIDE 0: HOME ===== -->
-        <div class="slide" id="homeSlide">
-            <div class="home-original">
-                <header>
-                    <h1>🇮🇳 Dream Josh</h1>
-                    <p>Study • Govt. Jobs • Career Guide • Sarkari Yojnaye</p>
-                </header>
-
-                <!-- TICKER -->
-                <div class="ticker latest">
-                    <span>🔥 सरकारी योजनाएँ: PM-KISAN 18वीं किस्त | आयुष्मान भारत का विस्तार | नई शिक्षा नीति 2026</span>
-                </div>
-                <div class="ticker update">
-                    <span>📢 अपडेट: SSC GD 2026 एडमिट कार्ड | रेलवे भर्ती 2026 | UPSC 2026 नोटिफिकेशन</span>
-                </div>
-
-                <div class="container">
-                    <div class="home-layout">
-                        
-                        <!-- ===== LEFT: सरकारी योजनाएँ ===== -->
-                        <div class="left-content">
-                            <div class="sidebar-box">
-                                <h3 class="govt-scheme">📌 सरकारी योजनाएँ</h3>
-                                <div class="imp-links">
-                                    <a href="#"><span class="icon">🏠</span> प्रधानमंत्री आवास योजना (PMAY)</a>
-                                    <a href="#"><span class="icon">🌾</span> प्रधानमंत्री किसान सम्मान निधि (PM-KISAN)</a>
-                                    <a href="#"><span class="icon">🏥</span> आयुष्मान भारत योजना (Ayushman Bharat)</a>
-                                    <a href="#"><span class="icon">🔥</span> उज्ज्वला योजना (Ujjwala)</a>
-                                    <a href="#"><span class="icon">🚀</span> स्टार्टअप इंडिया (Startup India)</a>
-                                    <a href="#"><span class="icon">🎯</span> स्किल इंडिया (Skill India)</a>
-                                    <a href="#"><span class="icon">💻</span> डिजिटल इंडिया (Digital India)</a>
-                                    <a href="#"><span class="icon">🏭</span> मेक इन इंडिया (Make in India)</a>
-                                    <a href="#"><span class="icon">👧</span> बेटी बचाओ बेटी पढ़ाओ</a>
-                                    <a href="#"><span class="icon">🧹</span> स्वच्छ भारत अभियान</a>
-                                    <a href="#"><span class="icon">💪</span> आत्मनिर्भर भारत (Atmanirbhar Bharat)</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ===== MIDDLE: ABOUT ===== -->
-                        <div class="middle-content">
-                            <div class="about-home">
-                                <h2>🇮🇳 Dream Josh के बारे में</h2>
-                                <p>
-                                    <strong>Dream Josh</strong> एक ऑल-इन-वन प्लेटफॉर्म है जो <strong>स्टडी, गवर्नमेंट जॉब्स</strong> और <strong>करियर गाइडेंस</strong> के लिए बनाया गया है। यहाँ आपको <strong>सरकारी योजनाओं, नौकरी के अपडेट्स, स्टडी मटेरियल</strong> और <strong>करियर टिप्स</strong> की पूरी जानकारी मिलेगी।
-                                </p>
-                                <ul>
-                                    <li>✅ सरकारी योजनाओं की पूरी जानकारी</li>
-                                    <li>✅ नवीनतम सरकारी नौकरी के अपडेट</li>
-                                    <li>✅ प्रतियोगी परीक्षा की तैयारी</li>
-                                    <li>✅ करियर काउंसलिंग और गाइडेंस</li>
-                                    <li>✅ स्टडी नोट्स और प्रैक्टिस सेट</li>
-                                </ul>
-                                <div class="about-highlight">
-                                    🎯 <strong>हमारा मिशन:</strong> हर छात्र और जॉब सीकर को सही दिशा और संसाधन देना
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ===== RIGHT: Important Links ===== -->
-                        <div class="right-content">
-                            <div class="sidebar-box">
-                                <h3 class="links-head">🔗 महत्वपूर्ण लिंक्स</h3>
-                                <div class="imp-links">
-                                    <a href="#"><span class="icon">📝</span> UPSC Official Website</a>
-                                    <a href="#"><span class="icon">📝</span> SSC Official Website</a>
-                                    <a href="#"><span class="icon">🚂</span> Railway Recruitment</a>
-                                    <a href="#"><span class="icon">🏛️</span> State Govt Jobs</a>
-                                    <a href="#"><span class="icon">📝</span> NTA Official Website</a>
-                                    <a href="#"><span class="icon">🏦</span> IBPS Official Website</a>
-                                    <a href="#"><span class="icon">💼</span> PSU Jobs Portal</a>
-                                    <a href="#"><span class="icon">📅</span> आगामी परीक्षाएँ</a>
-                                    <a href="#" style="font-size:13px; padding-left:16px; border-bottom:none;">
-                                        <span style="display:flex; flex-direction:column; gap:4px;">
-                                            <span>🔹 SSC GD - 15 Feb 2026</span>
-                                            <span>🔹 UPSC Prelims - 28 June 2026</span>
-                                            <span>🔹 RRB NTPC - 10 March 2026</span>
-                                            <span>🔹 IBPS PO - 20 Oct 2026</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <footer>
-                        <p>🇮🇳 Dream Josh &copy; 2026 | सरकारी योजनाएँ, स्टडी और करियर</p>
-                        <p style="font-size:12px; opacity:0.7;">अपडेटेड: 7 अगस्त 2026</p>
-                    </footer>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== SLIDE 1: GOVT JOBS ===== -->
-        <div class="slide" id="govtJobSlide">
-            <div class="govt-job-section">
-                <div class="section-title">💼 Govt Jobs</div>
-                <div class="section-subtitle">नवीनतम सरकारी नौकरियाँ, अपडेट्स और आवेदन लिंक</div>
-
-                <div class="job-filter-tabs">
-                    <button class="active" onclick="filterJobs('all')">सभी</button>
-                    <button onclick="filterJobs('central')">केंद्रीय</button>
-                    <button onclick="filterJobs('state')">राज्य</button>
-                    <button onclick="filterJobs('psu')">PSU</button>
-                    <button onclick="filterJobs('defence')">रक्षा</button>
-                </div>
-
-                <div id="jobList">
-                    <div class="job-card" data-category="central">
-                        <div class="job-header">
-                            <div>
-                                <div class="job-title">UPSC Civil Services 2026</div>
-                                <div class="job-org">🏛️ Union Public Service Commission</div>
-                            </div>
-                            <span class="job-badge new">नया</span>
-                        </div>
-                        <div class="job-details">
-                            <span>📅 <strong>Last Date:</strong> 15 Feb 2026</span>
-                            <span>🎓 <strong>Qualification:</strong> Graduation</span>
-                            <span>📋 <strong>Total Posts:</strong> 1056</span>
-                            <span>💰 <strong>Pay Scale:</strong> ₹56,100 - ₹2,50,000</span>
-                        </div>
-                        <div class="job-actions">
-                            <a href="#" class="apply-btn">आवेदन करें</a>
-                            <a href="#" class="detail-btn">विस्तार से पढ़ें</a>
-                        </div>
-                    </div>
-
-                    <div class="job-card" data-category="central">
-                        <div class="job-header">
-                            <div>
-                                <div class="job-title">SSC GD Constable 2026</div>
-                                <div class="job-org">👮 Staff Selection Commission</div>
-                            </div>
-                            <span class="job-badge active">आवेदन खुला</span>
-                        </div>
-                        <div class="job-details">
-                            <span>📅 <strong>Last Date:</strong> 10 Feb 2026</span>
-                            <span>🎓 <strong>Qualification:</strong> 10th Pass</span>
-                            <span>📋 <strong>Total Posts:</strong> 4528</span>
-                            <span>💰 <strong>Pay Scale:</strong> ₹21,700 - ₹69,100</span>
-                        </div>
-                        <div class="job-actions">
-                            <a href="#" class="apply-btn">आवेदन करें</a>
-                            <a href="#" class="detail-btn">विस्तार से पढ़ें</a>
-                        </div>
-                    </div>
-
-                    <div class="job-card" data-category="railway">
-                        <div class="job-header">
-                            <div>
-                                <div class="job-title">RRB NTPC 2026</div>
-                                <div class="job-org">🚂 Railway Recruitment Board</div>
-                            </div>
-                            <span class="job-badge soon">जल्द आ रहा</span>
-                        </div>
-                        <div class="job-details">
-                            <span>📅 <strong>Last Date:</strong> 15 March 2026</span>
-                            <span>🎓 <strong>Qualification:</strong> 12th/Graduation</span>
-                            <span>📋 <strong>Total Posts:</strong> 8234</span>
-                            <span>💰 <strong>Pay Scale:</strong> ₹19,900 - ₹92,300</span>
-                        </div>
-                        <div class="job-actions">
-                            <a href="#" class="apply-btn">आवेदन करें</a>
-                            <a href="#" class="detail-btn">विस्तार से पढ़ें</a>
-                        </div>
-                    </div>
-
-                    <div class="job-card" data-category="state">
-                        <div class="job-header">
-                            <div>
-                                <div class="job-title">UPPSC RO/ARO 2026</div>
-                                <div class="job-org">🏛️ Uttar Pradesh Public Service Commission</div>
-                            </div>
-                            <span class="job-badge new">नया</span>
-                        </div>
-                        <div class="job-details">
-                            <span>📅 <strong>Last Date:</strong> 20 Feb 2026</span>
-                            <span>🎓 <strong>Qualification:</strong> Graduation</span>
-                            <span>📋 <strong>Total Posts:</strong> 342</span>
-                            <span>💰 <strong>Pay Scale:</strong> ₹47,600 - ₹1,51,000</span>
-                        </div>
-                        <div class="job-actions">
-                            <a href="#" class="apply-btn">आवेदन करें</a>
-                            <a href="#" class="detail-btn">विस्तार से पढ़ें</a>
-                        </div>
-                    </div>
-
-                    <div class="job-card" data-category="defence">
-                        <div class="job-header">
-                            <div>
-                                <div class="job-title">Indian Army Soldier GD 2026</div>
-                                <div class="job-org">🎖️ Indian Army</div>
-                            </div>
-                            <span class="job-badge active">आवेदन खुला</span>
-                        </div>
-                        <div class="job-details">
-                            <span>📅 <strong>Last Date:</strong> 28 Feb 2026</span>
-                            <span>🎓 <strong>Qualification:</strong> 10th/12th</span>
-                            <span>📋 <strong>Total Posts:</strong> 15000+</span>
-                            <span>💰 <strong>Pay Scale:</strong> ₹21,700 - ₹69,100</span>
-                        </div>
-                        <div class="job-actions">
-                            <a href="#" class="apply-btn">आवेदन करें</a>
-                            <a href="#" class="detail-btn">विस्तार से पढ़ें</a>
-                        </div>
-                    </div>
-
-                    <div class="job-card" data-category="psu">
-                        <div class="job-header">
-                            <div>
-                                <div class="job-title">ONGC Graduate Trainee 2026</div>
-                                <div class="job-org">🛢️ Oil and Natural Gas Corporation</div>
-                            </div>
-                            <span class="job-badge new">नया</span>
-                        </div>
-                        <div class="job-details">
-                            <span>📅 <strong>Last Date:</strong> 5 March 2026</span>
-                            <span>🎓 <strong>Qualification:</strong> BE/B.Tech</span>
-                            <span>📋 <strong>Total Posts:</strong> 456</span>
-                            <span>💰 <strong>Pay Scale:</strong> ₹60,000 - ₹1,80,000</span>
-                        </div>
-                        <div class="job-actions">
-                            <a href="#" class="apply-btn">आवेदन करें</a>
-                            <a href="#" class="detail-btn">विस्तार से पढ़ें</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== SLIDE 2: STUDY MATERIAL ===== -->
-        <div class="slide" id="studySlide">
-            <div class="study-section">
-                <div class="section-title">📚 Study Material</div>
-                <div class="section-subtitle">प्रतियोगी परीक्षाओं के लिए अध्ययन सामग्री</div>
-
-                <div class="study-grid">
-                    <div class="study-card">
-                        <div class="study-icon">📖</div>
-                        <h3>UPSC Notes</h3>
-                        <p>पूरा सिलेबस, करंट अफेयर्स, पिछले पेपर और प्रैक्टिस सेट</p>
-                        <span class="study-tag">UPSC</span>
-                    </div>
-                    <div class="study-card">
-                        <div class="study-icon">📝</div>
-                        <h3>SSC Preparation</h3>
-                        <p>CGL, CHSL, MTS, GD के लिए क्वांट, रीजनिंग, इंग्लिश नोट्स</p>
-                        <span class="study-tag">SSC</span>
-                    </div>
-                    <div class="study-card">
-                        <div class="study-icon">🚂</div>
-                        <h3>Railway Exams</h3>
-                        <p>RRB NTPC, Group D, ALP के लिए पूरा स्टडी पैकेज</p>
-                        <span class="study-tag">Railway</span>
-                    </div>
-                    <div class="study-card">
-                        <div class="study-icon">🏛️</div>
-                        <h3>State PCS</h3>
-                        <p>UPPSC, MPPSC, BPSC, RPSC आदि के लिए राज्यवार नोट्स</p>
-                        <span class="study-tag">State PCS</span>
-                    </div>
-                    <div class="study-card">
-                        <div class="study-icon">💻</div>
-                        <h3>Banking Exams</h3>
-                        <p>IBPS PO, Clerk, SBI PO के लिए रीजनिंग, क्वांट, GA</p>
-                        <span class="study-tag">Banking</span>
-                    </div>
-                    <div class="study-card">
-                        <div class="study-icon">🎯</div>
-                        <h3>Current Affairs</h3>
-                        <p>दैनिक, साप्ताहिक और मासिक करंट अफेयर्स अपडेट</p>
-                        <span class="study-tag">Current Affairs</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== SLIDE 3: CAREER GUIDE ===== -->
-        <div class="slide" id="careerSlide">
-            <div class="career-section">
-                <div class="section-title">🎯 Career Guide</div>
-                <div class="section-subtitle">अपने करियर को सही दिशा दें - एक्सपर्ट गाइडेंस</div>
-
-                <div class="career-grid">
-                    <div class="career-card">
-                        <div class="career-icon">🎓</div>
-                        <h3>करियर काउंसलिंग</h3>
-                        <p>अपनी रुचि और योग्यता के अनुसार सही करियर चुनें। एक्सपर्ट से मार्गदर्शन लें।</p>
-                    </div>
-                    <div class="career-card">
-                        <div class="career-icon">📈</div>
-                        <h3>स्किल डेवलपमेंट</h3>
-                        <p>आधुनिक युग की आवश्यक स्किल्स सीखें - डिजिटल मार्केटिंग, AI, डेटा एनालिटिक्स</p>
-                    </div>
-                    <div class="career-card">
-                        <div class="career-icon">💼</div>
-                        <h3>जॉब सर्च टिप्स</h3>
-                        <p>सही तरीके से जॉब सर्च करना, रिज्यूमे बनाना और इंटरव्यू की तैयारी</p>
-                    </div>
-                    <div class="career-card">
-                        <div class="career-icon">🚀</div>
-                        <h3>प्रतियोगी परीक्षा रणनीति</h3>
-                        <p>UPSC, SSC, Banking, Railway, State PCS के लिए विशेष रणनीति और टिप्स</p>
-                    </div>
-                    <div class="career-card">
-                        <div class="career-icon">🌍</div>
-                        <h3>अध्ययन विदेश में</h3>
-                        <p>विदेश में उच्च शिक्षा, छात्रवृत्ति और वीज़ा प्रक्रिया की पूरी जानकारी</p>
-                    </div>
-                    <div class="career-card">
-                        <div class="career-icon">💡</div>
-                        <h3>स्टार्टअप और उद्यमिता</h3>
-                        <p>अपना बिजनेस कैसे शुरू करें, फंडिंग, मार्केटिंग और ग्रोथ स्ट्रैटेजी</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== SLIDE 4: QUIZ ===== -->
-        <div class="slide" id="quizSlide">
-            <div class="quiz-section">
-                <div class="section-title">🧠 Quiz</div>
-                <div class="section-subtitle">अपनी तैयारी का टेस्ट करें - मुफ्त प्रैक्टिस सेट</div>
-
-                <div class="quiz-grid">
-                    <div class="quiz-card">
-                        <div class="quiz-icon">📋</div>
-                        <h3>UPSC Prelims Mock</h3>
-                        <p>100 प्रश्न, 2 घंटे - पूरी तरह मुफ्त</p>
-                        <span class="quiz-questions">100 प्रश्न</span>
-                    </div>
-                    <div class="quiz-card">
-                        <div class="quiz-icon">📊</div>
-                        <h3>SSC CGL Practice</h3>
-                        <p>75 प्रश्न, 1.5 घंटे - मुफ्त प्रैक्टिस</p>
-                        <span class="quiz-questions">75 प्रश्न</span>
-                    </div>
-                    <div class="quiz-card">
-                        <div class="quiz-icon">🧮</div>
-                        <h3>Quantitative Aptitude</h3>
-                        <p>50 प्रश्न, 1 घंटा - क्वांट स्किल्स</p>
-                        <span class="quiz-questions">50 प्रश्न</span>
-                    </div>
-                    <div class="quiz-card">
-                        <div class="quiz-icon">📚</div>
-                        <h3>Current Affairs Quiz</h3>
-                        <p>30 प्रश्न, 30 मिनट - नवीनतम घटनाएँ</p>
-                        <span class="quiz-questions">30 प्रश्न</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== SLIDE 5: CONTACT ===== -->
-        <div class="slide" id="contactSlide">
-            <div class="contact-section">
-                <div class="section-title">📞 Contact Us</div>
-                <div class="section-subtitle">हमसे जुड़ें - सवाल, सुझाव या सहायता के लिए</div>
-
-                <div class="contact-grid">
-                    <div class="contact-card">
-                        <div class="contact-icon">📧</div>
-                        <h3>Email</h3>
-                        <p><a href="mailto:dreamjosh@example.com">dreamjosh@example.com</a></p>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">📱</div>
-                        <h3>WhatsApp</h3>
-                        <p><a href="tel:+919999999999">+91 99999 99999</a></p>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">📞</div>
-                        <h3>Call</h3>
-                        <p><a href="tel:+919999999999">+91 99999 99999</a></p>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">📷</div>
-                        <h3>Instagram</h3>
-                        <p><a href="#">@dreamjosh</a></p>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">🐦</div>
-                        <h3>Twitter/X</h3>
-                        <p><a href="#">@dreamjosh</a></p>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">▶️</div>
-                        <h3>YouTube</h3>
-                        <p><a href="#">Dream Josh</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ================= BOTTOM DROPDOWN NAVIGATION ================= -->
-    <nav class="bottom-dropdown-nav" id="bottomNav">
-        <span class="nav-label">📌</span>
-        <select id="navSelect" onchange="navigateTo(this.value)">
-            <option value="0">🏠 Home</option>
-            <option value="1">💼 Govt Jobs</option>
-            <option value="2">📚 Study</option>
-            <option value="3">🎯 Career</option>
-            <option value="4">🧠 Quiz</option>
-            <option value="5">📞 Contact</option>
-        </select>
-        <div class="nav-arrows">
-            <button onclick="prevSlide()">◀</button>
-            <button onclick="nextSlide()">▶</button>
-        </div>
-    </nav>
-
-    <script>
-        // ================= CONFIGURATION =================
-        const TOTAL_SLIDES = 6;
-        let currentSlide = 0;
-        const slideContainer = document.getElementById('slideContainer');
-        const navSelect = document.getElementById('navSelect');
-
-        // ================= NAVIGATION FUNCTIONS =================
-        function goToSlide(index) {
-            if (index < 0) index = TOTAL_SLIDES - 1;
-            if (index >= TOTAL_SLIDES) index = 0;
-            currentSlide = index;
-            slideContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
-            navSelect.value = currentSlide;
-            const slide = document.querySelectorAll('.slide')[currentSlide];
-            if (slide) slide.scrollTop = 0;
-        }
-
-        function nextSlide() {
-            goToSlide(currentSlide + 1);
-        }
-
-        function prevSlide() {
-            goToSlide(currentSlide - 1);
-        }
-
-        function navigateTo(value) {
-            goToSlide(parseInt(value));
-        }
-
-        function goHome() {
-            goToSlide(0);
-        }
-
-        // ================= JOB FILTER =================
-        function filterJobs(category) {
-            const jobCards = document.querySelectorAll('.job-card');
-            const buttons = document.querySelectorAll('.job-filter-tabs button');
-            
-            buttons.forEach(btn => btn.classList.remove('active'));
-            buttons.forEach(btn => {
-                if (btn.textContent.trim() === 'सभी' && category === 'all') btn.classList.add('active');
-                if (btn.textContent.trim() === 'केंद्रीय' && category === 'central') btn.classList.add('active');
-                if (btn.textContent.trim() === 'राज्य' && category === 'state') btn.classList.add('active');
-                if (btn.textContent.trim() === 'PSU' && category === 'psu') btn.classList.add('active');
-                if (btn.textContent.trim() === 'रक्षा' && category === 'defence') btn.classList.add('active');
-            });
-            
-            jobCards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // ================= THEME TOGGLE =================
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const btn = document.getElementById('themeToggle');
-            if (document.body.classList.contains('dark-mode')) {
-                btn.textContent = '☀️';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                btn.textContent = '🌓';
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
-        // ================= KEYBOARD SHORTCUTS =================
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
-            if (e.key === 'Home') goToSlide(0);
-        });
-
-        // ================= TOUCH SWIPE =================
-        let touchStartX = 0;
-        let touchEndX = 0;
         
-        document.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-        
-        document.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-        
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
-            }
-        }
-
-        // ================= SPLASH SCREEN =================
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const splash = document.getElementById('splashScreen');
-                splash.classList.add('hide');
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                }, 800);
-            }, 1500);
-            
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.getElementById('themeToggle').textContent = '☀️';
-            }
-        });
-
-        // ================= ADAPTIVE HEIGHT =================
-        function adjustHeight() {
-            const header = document.querySelector('.app-header');
-            const nav = document.querySelector('.bottom-dropdown-nav');
-            const container = document.querySelector('.slide-container');
-            const vh = window.innerHeight;
-            const headerHeight = header.offsetHeight || 65;
-            const navHeight = nav.offsetHeight || 65;
-            container.style.height = `${vh - headerHeight - navHeight}px`;
-        }
-
-        window.addEventListener('resize', adjustHeight);
-        window.addEventListener('load', () => {
-            setTimeout(adjustHeight, 200);
-        });
-
-        // ================= PREVENT DEFAULT BEHAVIORS =================
-        document.querySelectorAll('a[href="#"]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert('🔗 यह लिंक जल्द ही उपलब्ध होगा!');
-            });
-        });
-
-        document.querySelectorAll('.quiz-card').forEach(card => {
-            card.addEventListener('click', () => {
-                alert('🧠 क्विज शुरू होने वाला है! जल्द आ रहा है।');
-            });
-        });
-
-        console.log('🇮🇳 Dream Josh - Study • Govt Jobs • Sarkari Yojnaye');
-        console.log('📌 अपडेटेड: 7 अगस्त 2026');
-    </script>
-
-</body>
-</html>
