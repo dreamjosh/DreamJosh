@@ -5,6 +5,46 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
     <title>Dream Josh - Study &amp; Govt. Jobs</title>
     <style>
+        /* ================= CSS VARIABLES ================= */
+        :root {
+            --bg-color: #eef5ff;
+            --card-bg: #ffffff;
+            --text-color: #172033;
+            --primary-blue: #123c9b;
+            --secondary-blue: #1976d2;
+            --success-green: #16a34a;
+            --warning-red: #d62839;
+            --highlight-bg: #eefaf4;
+            --border-color: #dce5f0;
+            --shadow-color: rgba(0,0,0,0.1);
+            --nav-bg: #ffffff;
+            --header-bg: linear-gradient(135deg, #123c9b, #1976d2);
+            --ticker-latest: #d62839;
+            --ticker-update: #079455;
+            --footer-bg: #123c9b;
+            --card-hover: #f4f8ff;
+        }
+
+        /* Dark Mode Variables */
+        .dark-mode {
+            --bg-color: #0a0e1a;
+            --card-bg: #141428;
+            --text-color: #e8e8e8;
+            --primary-blue: #1a3a8a;
+            --secondary-blue: #2a5ac8;
+            --success-green: #16a34a;
+            --warning-red: #d62839;
+            --highlight-bg: #1a2a1a;
+            --border-color: #2a2a4a;
+            --shadow-color: rgba(0,0,0,0.3);
+            --nav-bg: #1a1a2e;
+            --header-bg: linear-gradient(135deg, #0d1b3e, #1a3a8a);
+            --ticker-latest: #8b1a1a;
+            --ticker-update: #0a5a2a;
+            --footer-bg: #0d1b3e;
+            --card-hover: #1a1a3a;
+        }
+
         /* ================= RESET & BASE ================= */
         * {
             margin: 0;
@@ -14,17 +54,18 @@
 
         body {
             font-family: Arial, "Noto Sans Devanagari", sans-serif;
-            background: #0a0e1a;
-            color: #fff;
+            background: var(--bg-color);
+            color: var(--text-color);
             overflow: hidden;
             height: 100vh;
             width: 100vw;
             position: fixed;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* ================= HEADER ================= */
         .app-header {
-            background: linear-gradient(135deg, #0d1b3e, #1a3a8a);
+            background: var(--header-bg);
             padding: 12px 20px;
             display: flex;
             justify-content: space-between;
@@ -35,7 +76,8 @@
             right: 0;
             z-index: 1000;
             height: 65px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 20px var(--shadow-color);
+            transition: background 0.3s ease;
         }
 
         .app-header .logo {
@@ -45,6 +87,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            color: #fff;
         }
 
         .app-header .logo span {
@@ -58,7 +101,7 @@
         }
 
         .app-header .header-controls button {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
             border: 1px solid rgba(255,255,255,0.2);
             color: #fff;
             padding: 6px 14px;
@@ -100,9 +143,10 @@
             overflow-y: auto;
             overflow-x: hidden;
             padding: 20px 25px 100px 25px;
-            background: #0a0e1a;
+            background: var(--bg-color);
             scroll-behavior: smooth;
             position: relative;
+            transition: background 0.3s ease;
         }
 
         .slide::-webkit-scrollbar {
@@ -110,11 +154,11 @@
         }
 
         .slide::-webkit-scrollbar-track {
-            background: #1a1a2e;
+            background: var(--border-color);
         }
 
         .slide::-webkit-scrollbar-thumb {
-            background: #ffd700;
+            background: var(--secondary-blue);
             border-radius: 10px;
         }
 
@@ -127,15 +171,16 @@
             z-index: 999;
             display: none;
             gap: 12px;
-            background: rgba(13, 27, 62, 0.95);
+            background: var(--card-bg);
             padding: 12px 20px;
             border-radius: 50px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,215,0,0.2);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 30px var(--shadow-color);
             flex-wrap: wrap;
             justify-content: center;
             max-width: 95%;
+            transition: background 0.3s ease, border 0.3s ease;
         }
 
         .slide-nav.active {
@@ -145,7 +190,8 @@
         .slide-nav button {
             background: transparent;
             border: none;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-color);
+            opacity: 0.5;
             padding: 6px 14px;
             border-radius: 20px;
             cursor: pointer;
@@ -156,31 +202,34 @@
         }
 
         .slide-nav button:hover {
-            background: rgba(255,215,0,0.15);
-            color: #ffd700;
+            background: var(--card-hover);
+            opacity: 1;
         }
 
         .slide-nav button.active {
-            background: #ffd700;
-            color: #0a0e1a;
+            background: var(--primary-blue);
+            color: #fff;
+            opacity: 1;
         }
 
         /* ================= ORIGINAL HOME PAGE ================= */
         .home-original {
-            background: #eef5ff;
-            color: #172033;
+            background: var(--bg-color);
+            color: var(--text-color);
             min-height: 100%;
             border-radius: 16px;
             overflow: hidden;
             padding: 0;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .home-original header {
-            background: linear-gradient(135deg, #123c9b, #1976d2);
+            background: var(--header-bg);
             color: white;
             text-align: center;
             padding: 25px 10px;
             border-radius: 16px 16px 0 0;
+            transition: background 0.3s ease;
         }
 
         .home-original header h1 {
@@ -193,36 +242,37 @@
         }
 
         .home-original .home-nav {
-            background: white;
+            background: var(--nav-bg);
             overflow: visible;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            box-shadow: 0 2px 8px #aaa;
+            box-shadow: 0 2px 8px var(--shadow-color);
             position: sticky;
             top: 0;
             z-index: 100;
             border-radius: 0;
+            transition: background 0.3s ease;
         }
 
         .home-original .home-nav button {
             border: 0;
-            background: white;
+            background: transparent;
             padding: 12px 16px;
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
-            color: #172033;
+            color: var(--text-color);
             transition: 0.3s;
         }
 
         .home-original .home-nav button:hover {
-            background: #e8f1ff;
-            color: #123c9b;
+            background: var(--card-hover);
+            color: var(--primary-blue);
         }
 
         .home-original .home-nav .home-active {
-            background: #16a34a !important;
+            background: var(--success-green) !important;
             color: #fff !important;
         }
 
@@ -237,11 +287,11 @@
         }
 
         .home-original .latest {
-            background: #d62839;
+            background: var(--ticker-latest);
         }
 
         .home-original .update {
-            background: #079455;
+            background: var(--ticker-update);
         }
 
         .home-original .ticker span {
@@ -276,17 +326,18 @@
         }
 
         .home-original .sidebar-box {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 10px;
-            box-shadow: 0 2px 8px #ccc;
+            box-shadow: 0 2px 8px var(--shadow-color);
             margin-bottom: 20px;
             overflow: hidden;
+            transition: background 0.3s ease;
         }
 
         .home-original .sidebar-box h3 {
             margin: 0;
             padding: 12px;
-            background: #1976d2;
+            background: var(--secondary-blue);
             color: #fff;
         }
 
@@ -308,26 +359,28 @@
         .home-original .imp-links a {
             display: block;
             padding: 10px;
-            border-bottom: 1px solid #eee;
-            color: #123c9b;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--primary-blue);
             text-decoration: none;
+            transition: 0.3s;
         }
 
         .home-original .imp-links a:hover {
-            background: #eef5ff;
+            background: var(--card-hover);
         }
 
         .home-original .card {
-            background: #f4f8ff;
+            background: var(--card-bg);
             padding: 18px;
             margin: 12px 0;
             border-radius: 10px;
-            border-left: 5px solid #1976d2;
+            border-left: 5px solid var(--secondary-blue);
+            transition: background 0.3s ease, border 0.3s ease;
         }
 
         .home-original .card h3 {
             margin-top: 0;
-            color: #123c9b;
+            color: var(--primary-blue);
         }
 
         .home-original .about-home {
@@ -351,20 +404,22 @@
         .home-original .about-highlight {
             margin-top: 18px;
             padding: 16px;
-            border-left: 4px solid #0b8f55;
-            background: #eefaf4;
+            border-left: 4px solid var(--success-green);
+            background: var(--highlight-bg);
             border-radius: 8px;
             text-align: center;
             font-size: 17px;
+            transition: background 0.3s ease;
         }
 
         .home-original footer {
-            background: #123c9b;
+            background: var(--footer-bg);
             color: white;
             text-align: center;
             padding: 20px;
             border-radius: 0 0 16px 16px;
             margin-top: 10px;
+            transition: background 0.3s ease;
         }
 
         @media(max-width:768px) {
@@ -384,14 +439,14 @@
             .home-original .home-nav button {
                 width: 100%;
                 text-align: left;
-                border-bottom: 1px solid #eee;
+                border-bottom: 1px solid var(--border-color);
             }
             .home-original .container {
                 padding: 10px;
             }
         }
 
-        /* ================= COOL SECTION CARDS ================= */
+        /* ================= SECTION CARDS ================= */
         .section-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -400,62 +455,47 @@
         }
 
         .section-card {
-            background: linear-gradient(145deg, #141428, #1a1a3a);
-            border-radius: 20px;
+            background: var(--card-bg);
+            border-radius: 16px;
             padding: 24px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
             min-height: 140px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-        }
-
-        .section-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,215,0,0.05) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-
-        .section-card:hover::before {
-            opacity: 1;
+            box-shadow: 0 2px 8px var(--shadow-color);
         }
 
         .section-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            border-color: rgba(255,215,0,0.4);
-            box-shadow: 0 12px 40px rgba(255,215,0,0.15);
+            transform: translateY(-4px);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 8px 30px var(--shadow-color);
         }
 
         .section-card:active {
-            transform: scale(0.96);
+            transform: scale(0.97);
         }
 
         .section-card .icon {
-            font-size: 38px;
+            font-size: 34px;
             margin-bottom: 10px;
-            filter: drop-shadow(0 4px 12px rgba(255,215,0,0.2));
         }
 
         .section-card h3 {
-            font-size: 18px;
-            color: #ffd700;
+            font-size: 17px;
+            color: var(--primary-blue);
             margin-bottom: 6px;
             font-weight: 700;
         }
 
         .section-card p {
             font-size: 13px;
-            color: rgba(255,255,255,0.6);
+            color: var(--text-color);
+            opacity: 0.7;
             line-height: 1.5;
         }
 
@@ -463,14 +503,12 @@
             position: absolute;
             top: 14px;
             right: 14px;
-            background: rgba(255,215,0,0.15);
-            color: #ffd700;
+            background: var(--secondary-blue);
+            color: #fff;
             font-size: 11px;
             padding: 3px 12px;
             border-radius: 20px;
             font-weight: 600;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,215,0,0.1);
         }
 
         .section-card .click-hint {
@@ -478,13 +516,14 @@
             bottom: 14px;
             right: 14px;
             font-size: 11px;
-            color: rgba(255,255,255,0.15);
+            color: var(--text-color);
+            opacity: 0.2;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.15; }
-            50% { opacity: 0.4; }
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.5; }
         }
 
         /* ================= DETAIL OVERLAY ================= */
@@ -495,9 +534,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.88);
+            background: rgba(0,0,0,0.6);
             z-index: 2000;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(8px);
             animation: fadeIn 0.3s ease;
         }
 
@@ -509,16 +548,17 @@
         }
 
         .detail-content {
-            background: linear-gradient(145deg, #141428, #1a1a3a);
-            border-radius: 28px;
+            background: var(--card-bg);
+            border-radius: 20px;
             padding: 35px;
             max-width: 750px;
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
-            border: 1px solid rgba(255,215,0,0.15);
+            border: 1px solid var(--border-color);
             animation: slideUp 0.4s ease;
             position: relative;
+            color: var(--text-color);
         }
 
         .detail-content::-webkit-scrollbar {
@@ -526,7 +566,7 @@
         }
 
         .detail-content::-webkit-scrollbar-thumb {
-            background: #ffd700;
+            background: var(--secondary-blue);
             border-radius: 10px;
         }
 
@@ -534,9 +574,9 @@
             position: sticky;
             top: 0;
             float: right;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
+            background: var(--card-hover);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -547,7 +587,8 @@
         }
 
         .detail-content .close-btn:hover {
-            background: #dc3545;
+            background: var(--warning-red);
+            color: #fff;
             transform: rotate(90deg);
         }
 
@@ -557,13 +598,14 @@
         }
 
         .detail-content h2 {
-            color: #ffd700;
+            color: var(--primary-blue);
             font-size: 26px;
             margin-bottom: 12px;
         }
 
         .detail-content p {
-            color: rgba(255,255,255,0.7);
+            color: var(--text-color);
+            opacity: 0.7;
             line-height: 1.8;
             font-size: 15px;
         }
@@ -576,20 +618,21 @@
 
         .detail-content .detail-list li {
             padding: 12px 18px;
-            background: rgba(255,255,255,0.04);
-            border-radius: 12px;
+            background: var(--card-hover);
+            border-radius: 10px;
             margin-bottom: 8px;
-            color: rgba(255,255,255,0.85);
-            border-left: 3px solid #ffd700;
+            color: var(--text-color);
+            border-left: 3px solid var(--secondary-blue);
             transition: 0.3s;
             cursor: pointer;
             font-size: 15px;
         }
 
         .detail-content .detail-list li:hover {
-            background: rgba(255,215,0,0.1);
+            background: var(--secondary-blue);
+            color: #fff;
             transform: translateX(8px);
-            border-left-color: #ff6b6b;
+            border-left-color: var(--primary-blue);
         }
 
         .detail-content .detail-list li::before {
@@ -599,8 +642,8 @@
         .detail-content .detail-link {
             display: inline-block;
             padding: 10px 24px;
-            background: #ffd700;
-            color: #0a0e1a;
+            background: var(--secondary-blue);
+            color: #fff;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
@@ -612,18 +655,19 @@
         }
 
         .detail-content .detail-link:hover {
+            background: var(--primary-blue);
             transform: scale(1.05);
-            box-shadow: 0 6px 30px rgba(255,215,0,0.3);
+            box-shadow: 0 6px 30px var(--shadow-color);
         }
 
         .detail-content .detail-link.secondary {
-            background: rgba(255,255,255,0.06);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--card-hover);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
         }
 
         .detail-content .detail-link.secondary:hover {
-            background: rgba(255,255,255,0.12);
+            background: var(--border-color);
         }
 
         /* ================= PAGE TITLE ================= */
@@ -631,14 +675,16 @@
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 6px;
-            color: #fff;
-            background: linear-gradient(135deg, #fff, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-color);
+        }
+
+        .page-title span {
+            color: var(--primary-blue);
         }
 
         .page-subtitle {
-            color: rgba(255,255,255,0.4);
+            color: var(--text-color);
+            opacity: 0.5;
             font-size: 14px;
             margin-bottom: 20px;
         }
@@ -718,7 +764,7 @@
             }
         }
 
-        /* ================= ADMIN PANEL (ORIGINAL) ================= */
+        /* ================= ADMIN PANEL ================= */
         #adminPanelContainer {
             display: none;
             position: fixed;
@@ -727,7 +773,7 @@
             right: 0;
             bottom: 0;
             z-index: 3000;
-            background: #0a0e1a;
+            background: var(--bg-color);
             overflow-y: auto;
         }
 
@@ -736,7 +782,7 @@
         }
 
         #adminPanelContainer .admin-header {
-            background: #1a2332;
+            background: var(--primary-blue);
             color: white;
             padding: 15px 30px;
             display: flex;
@@ -745,7 +791,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 10px var(--shadow-color);
         }
 
         #adminPanelContainer .admin-logo {
@@ -755,7 +801,7 @@
         }
 
         #adminPanelContainer .admin-badge {
-            background: #16a34a;
+            background: var(--success-green);
             padding: 2px 10px;
             border-radius: 20px;
             font-size: 11px;
@@ -768,18 +814,46 @@
             gap: 15px;
         }
 
-        #adminPanelContainer .logout-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
+        #adminPanelContainer .admin-user button {
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
+            border: none;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        #adminPanelContainer .logout-btn {
+            background: var(--warning-red);
+            color: white;
         }
 
         #adminPanelContainer .logout-btn:hover {
             background: #a71d2a;
+        }
+
+        #adminPanelContainer .dark-toggle-btn {
+            background: #2c3e50;
+            color: white;
+        }
+
+        #adminPanelContainer .dark-toggle-btn:hover {
+            background: #1a2332;
+        }
+
+        #adminPanelContainer .dark-toggle-btn.active {
+            background: #ffd700;
+            color: #0a0e1a;
+        }
+
+        #adminPanelContainer .back-btn-admin {
+            background: #6c757d;
+            color: white;
+        }
+
+        #adminPanelContainer .back-btn-admin:hover {
+            background: #5a6268;
         }
 
         #adminPanelContainer .admin-body {
@@ -789,14 +863,15 @@
 
         #adminPanelContainer .admin-sidebar {
             width: 250px;
-            background: #2c3e50;
-            color: white;
+            background: var(--card-bg);
+            color: var(--text-color);
             padding: 20px 0;
             position: sticky;
             top: 70px;
             height: calc(100vh - 70px);
             overflow-y: auto;
             flex-shrink: 0;
+            border-right: 1px solid var(--border-color);
         }
 
         #adminPanelContainer .sidebar-menu {
@@ -807,7 +882,8 @@
         #adminPanelContainer .sidebar-menu button {
             background: transparent;
             border: none;
-            color: #b0c4de;
+            color: var(--text-color);
+            opacity: 0.7;
             padding: 14px 24px;
             text-align: left;
             font-size: 15px;
@@ -818,21 +894,22 @@
         }
 
         #adminPanelContainer .sidebar-menu button:hover {
-            background: #34495e;
-            color: white;
+            background: var(--card-hover);
+            opacity: 1;
         }
 
         #adminPanelContainer .sidebar-menu button.active {
-            background: #34495e;
-            color: white;
-            border-left-color: #16a34a;
+            background: var(--card-hover);
+            opacity: 1;
+            border-left-color: var(--secondary-blue);
+            color: var(--primary-blue);
         }
 
         #adminPanelContainer .admin-content {
             flex: 1;
             padding: 25px;
             overflow-y: auto;
-            background: #f0f2f5;
+            background: var(--bg-color);
             max-height: calc(100vh - 70px);
         }
 
@@ -852,41 +929,45 @@
         }
 
         #adminPanelContainer .stat-card {
-            background: white;
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px var(--shadow-color);
             text-align: center;
+            border: 1px solid var(--border-color);
         }
 
         #adminPanelContainer .stat-card h3 {
             font-size: 14px;
-            color: #888;
+            color: var(--text-color);
+            opacity: 0.6;
             margin-bottom: 10px;
         }
 
         #adminPanelContainer .stat-card p {
             font-size: 32px;
             font-weight: bold;
-            color: #123c9b;
+            color: var(--primary-blue);
         }
 
         #adminPanelContainer .quick-actions {
-            background: white;
+            background: var(--card-bg);
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px var(--shadow-color);
             margin-top: 20px;
+            border: 1px solid var(--border-color);
         }
 
         #adminPanelContainer .quick-actions h3 {
             margin-bottom: 15px;
+            color: var(--text-color);
         }
 
         #adminPanelContainer .quick-actions button {
             padding: 10px 20px;
             margin: 5px;
-            background: #1976d2;
+            background: var(--secondary-blue);
             color: white;
             border: none;
             border-radius: 6px;
@@ -895,7 +976,7 @@
         }
 
         #adminPanelContainer .quick-actions button:hover {
-            background: #123c9b;
+            background: var(--primary-blue);
         }
 
         #adminPanelContainer .toolbar {
@@ -907,7 +988,7 @@
 
         #adminPanelContainer .toolbar button {
             padding: 10px 20px;
-            background: #16a34a;
+            background: var(--success-green);
             color: white;
             border: none;
             border-radius: 6px;
@@ -922,11 +1003,13 @@
         #adminPanelContainer .toolbar input,
         #adminPanelContainer .toolbar select {
             padding: 10px;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-color);
             border-radius: 6px;
             font-size: 14px;
             flex: 1;
             min-width: 200px;
+            background: var(--card-bg);
+            color: var(--text-color);
         }
 
         #adminPanelContainer .content-list,
@@ -934,10 +1017,11 @@
         #adminPanelContainer .quiz-list,
         #adminPanelContainer .user-list,
         #adminPanelContainer .notification-list {
-            background: white;
+            background: var(--card-bg);
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px var(--shadow-color);
             overflow: hidden;
+            border: 1px solid var(--border-color);
         }
 
         #adminPanelContainer .content-item,
@@ -949,16 +1033,17 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
             transition: 0.3s;
             flex-wrap: wrap;
             gap: 10px;
+            color: var(--text-color);
         }
 
         #adminPanelContainer .content-item:hover,
         #adminPanelContainer .job-item:hover,
         #adminPanelContainer .quiz-item:hover {
-            background: #f8f9fa;
+            background: var(--card-hover);
         }
 
         #adminPanelContainer .content-item .actions,
@@ -979,7 +1064,7 @@
         }
 
         #adminPanelContainer .btn-delete {
-            background: #dc3545;
+            background: var(--warning-red);
             color: white;
             border: none;
             padding: 5px 12px;
@@ -990,7 +1075,8 @@
         #adminPanelContainer .empty-state {
             padding: 30px;
             text-align: center;
-            color: #999;
+            color: var(--text-color);
+            opacity: 0.5;
         }
 
         #adminPanelContainer .modal {
@@ -1006,7 +1092,7 @@
         }
 
         #adminPanelContainer .modal-content {
-            background: white;
+            background: var(--card-bg);
             margin: 50px auto;
             padding: 30px;
             border-radius: 16px;
@@ -1014,6 +1100,8 @@
             max-width: 700px;
             position: relative;
             animation: slideDown 0.3s ease;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
         }
 
         @keyframes slideDown {
@@ -1027,11 +1115,12 @@
             right: 20px;
             font-size: 28px;
             cursor: pointer;
-            color: #999;
+            color: var(--text-color);
+            opacity: 0.5;
         }
 
         #adminPanelContainer .modal-content .close:hover {
-            color: #333;
+            opacity: 1;
         }
 
         #adminPanelContainer .modal-content input,
@@ -1040,10 +1129,12 @@
             width: 100%;
             padding: 12px;
             margin: 8px 0;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-color);
             border-radius: 6px;
             font-size: 14px;
             font-family: inherit;
+            background: var(--bg-color);
+            color: var(--text-color);
         }
 
         #adminPanelContainer .modal-content textarea {
@@ -1053,7 +1144,7 @@
 
         #adminPanelContainer .modal-content button {
             padding: 12px 24px;
-            background: #1976d2;
+            background: var(--secondary-blue);
             color: white;
             border: none;
             border-radius: 6px;
@@ -1065,15 +1156,15 @@
         }
 
         #adminPanelContainer .modal-content button:hover {
-            background: #123c9b;
+            background: var(--primary-blue);
         }
 
         #adminPanelContainer .question-item {
-            background: #f8f9fa;
+            background: var(--card-hover);
             padding: 15px;
             border-radius: 8px;
             margin: 10px 0;
-            border: 1px solid #eee;
+            border: 1px solid var(--border-color);
         }
 
         #adminPanelContainer .question-item input,
@@ -1082,11 +1173,12 @@
         }
 
         #adminPanelContainer .notification-form {
-            background: white;
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px var(--shadow-color);
             margin-bottom: 20px;
+            border: 1px solid var(--border-color);
         }
 
         #adminPanelContainer .notification-form input,
@@ -1095,14 +1187,16 @@
             width: 100%;
             padding: 12px;
             margin: 8px 0;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-color);
             border-radius: 6px;
             font-size: 14px;
+            background: var(--bg-color);
+            color: var(--text-color);
         }
 
         #adminPanelContainer .notification-form button {
             padding: 12px 24px;
-            background: #16a34a;
+            background: var(--success-green);
             color: white;
             border: none;
             border-radius: 6px;
@@ -1117,25 +1211,28 @@
         }
 
         #adminPanelContainer .settings-form {
-            background: white;
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            border: 1px solid var(--border-color);
         }
 
         #adminPanelContainer .settings-form input {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-color);
             border-radius: 6px;
             font-size: 14px;
+            background: var(--bg-color);
+            color: var(--text-color);
         }
 
         #adminPanelContainer .settings-form button {
             padding: 10px 20px;
             margin: 5px;
-            background: #1976d2;
+            background: var(--secondary-blue);
             color: white;
             border: none;
             border-radius: 6px;
@@ -1144,11 +1241,11 @@
         }
 
         #adminPanelContainer .settings-form button:hover {
-            background: #123c9b;
+            background: var(--primary-blue);
         }
 
         #adminPanelContainer .settings-form .btn-danger {
-            background: #dc3545;
+            background: var(--warning-red);
         }
 
         #adminPanelContainer .settings-form .btn-danger:hover {
@@ -1160,27 +1257,29 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #123c9b, #1976d2);
+            background: var(--header-bg);
         }
 
         #adminPanelContainer .login-box {
-            background: white;
+            background: var(--card-bg);
             padding: 40px;
             border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px var(--shadow-color);
             width: 100%;
             max-width: 400px;
             text-align: center;
+            border: 1px solid var(--border-color);
         }
 
         #adminPanelContainer .login-box h1 {
             font-size: 28px;
-            color: #123c9b;
+            color: var(--primary-blue);
         }
 
         #adminPanelContainer .login-box h2 {
             font-size: 18px;
-            color: #666;
+            color: var(--text-color);
+            opacity: 0.6;
             margin-bottom: 20px;
         }
 
@@ -1188,15 +1287,17 @@
             width: 100%;
             padding: 12px;
             margin: 10px 0;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-color);
             border-radius: 8px;
             font-size: 16px;
+            background: var(--bg-color);
+            color: var(--text-color);
         }
 
         #adminPanelContainer .login-box button {
             width: 100%;
             padding: 12px;
-            background: #1976d2;
+            background: var(--secondary-blue);
             color: white;
             border: none;
             border-radius: 8px;
@@ -1207,11 +1308,11 @@
         }
 
         #adminPanelContainer .login-box button:hover {
-            background: #123c9b;
+            background: var(--primary-blue);
         }
 
         #adminPanelContainer .login-error {
-            color: #dc3545;
+            color: var(--warning-red);
             display: none;
             margin-top: 10px;
         }
@@ -1219,7 +1320,8 @@
         #adminPanelContainer .login-note {
             margin-top: 15px;
             font-size: 12px;
-            color: #999;
+            color: var(--text-color);
+            opacity: 0.5;
         }
 
         @media (max-width: 768px) {
@@ -1231,6 +1333,8 @@
                 height: auto;
                 position: static;
                 padding: 10px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
             }
             #adminPanelContainer .sidebar-menu {
                 flex-direction: row;
@@ -1246,7 +1350,7 @@
                 text-align: center;
             }
             #adminPanelContainer .sidebar-menu button.active {
-                border-bottom-color: #16a34a;
+                border-bottom-color: var(--secondary-blue);
                 border-left: none;
             }
             #adminPanelContainer .admin-header {
@@ -1271,9 +1375,9 @@
 
         /* ================= BACK BUTTON ================= */
         .back-btn {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
             padding: 8px 18px;
             border-radius: 20px;
             cursor: pointer;
@@ -1283,23 +1387,23 @@
         }
 
         .back-btn:hover {
-            background: rgba(255,215,0,0.15);
-            color: #ffd700;
+            background: var(--card-hover);
+            color: var(--primary-blue);
         }
 
         .home-original .home-nav .nav-btn {
             border: 0;
-            background: white;
+            background: transparent;
             padding: 12px 16px;
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
-            color: #172033;
+            color: var(--text-color);
         }
 
         .home-original .home-nav .nav-btn:hover {
-            background: #e8f1ff;
-            color: #123c9b;
+            background: var(--card-hover);
+            color: var(--primary-blue);
         }
 
         /* ================= SCROLL INDICATOR ================= */
@@ -1308,7 +1412,8 @@
             bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255,255,255,0.1);
+            color: var(--text-color);
+            opacity: 0.1;
             font-size: 12px;
             animation: bounce 2s infinite;
         }
@@ -1439,7 +1544,7 @@
         <!-- ================= SLIDE 1: CENTRAL JOBS ================= -->
         <div class="slide" data-slide="centralJobs">
             <button class="back-btn" onclick="goHome()">← Home</button>
-            <div class="page-title">🇮🇳 Central Govt. Jobs</div>
+            <div class="page-title">🇮🇳 <span>Central Govt. Jobs</span></div>
             <div class="page-subtitle">भारत सरकार की प्रमुख भर्ती परीक्षाएँ</div>
             <div class="section-grid" id="centralJobsGrid"></div>
         </div>
@@ -1447,7 +1552,7 @@
         <!-- ================= SLIDE 2: STATE JOBS ================= -->
         <div class="slide" data-slide="stateJobs">
             <button class="back-btn" onclick="goHome()">← Home</button>
-            <div class="page-title">🏜️ Rajasthan Govt. Jobs</div>
+            <div class="page-title">🏜️ <span>Rajasthan Govt. Jobs</span></div>
             <div class="page-subtitle">राजस्थान सरकार की प्रमुख भर्ती परीक्षाएँ</div>
             <div class="section-grid" id="stateJobsGrid"></div>
         </div>
@@ -1455,7 +1560,7 @@
         <!-- ================= SLIDE 3: STUDY ================= -->
         <div class="slide" data-slide="study">
             <button class="back-btn" onclick="goHome()">← Home</button>
-            <div class="page-title">📚 Study Notes</div>
+            <div class="page-title">📚 <span>Study Notes</span></div>
             <div class="page-subtitle">अध्ययन सामग्री और नोट्स</div>
             <div class="section-grid" id="studyGrid"></div>
         </div>
@@ -1463,7 +1568,7 @@
         <!-- ================= SLIDE 4: RAJASTHAN GK ================= -->
         <div class="slide" data-slide="rajasthan">
             <button class="back-btn" onclick="goHome()">← Home</button>
-            <div class="page-title">🏜️ Rajasthan GK</div>
+            <div class="page-title">🏜️ <span>Rajasthan GK</span></div>
             <div class="page-subtitle">राजस्थान सामान्य ज्ञान</div>
             <div class="section-grid" id="rajasthanGrid"></div>
         </div>
@@ -1471,7 +1576,7 @@
         <!-- ================= SLIDE 5: QUIZ ================= -->
         <div class="slide" data-slide="quiz">
             <button class="back-btn" onclick="goHome()">← Home</button>
-            <div class="page-title">🧠 Daily Quiz</div>
+            <div class="page-title">🧠 <span>Daily Quiz</span></div>
             <div class="page-subtitle">प्रतिदिन नए प्रश्न और अभ्यास</div>
             <div class="section-grid" id="quizGrid"></div>
         </div>
@@ -1479,7 +1584,7 @@
         <!-- ================= SLIDE 6: CAREER ================= -->
         <div class="slide" data-slide="career">
             <button class="back-btn" onclick="goHome()">← Home</button>
-            <div class="page-title">🎯 Career Guide</div>
+            <div class="page-title">🎯 <span>Career Guide</span></div>
             <div class="page-subtitle">अपने करियर को सही दिशा दें</div>
             <div class="section-grid" id="careerGrid"></div>
         </div>
@@ -1487,7 +1592,7 @@
         <!-- ================= SLIDE 7: BOOKS ================= -->
         <div class="slide" data-slide="books">
             <button class="back-btn" onclick="goHome()">← Home</button>
-            <div class="page-title">📖 Books</div>
+            <div class="page-title">📖 <span>Books</span></div>
             <div class="page-subtitle">प्रतियोगी परीक्षाओं और अध्ययन के लिए किताबें</div>
             <div class="section-grid" id="booksGrid"></div>
         </div>
@@ -1495,7 +1600,7 @@
         <!-- ================= SLIDE 8: MORE ================= -->
         <div class="slide" data-slide="more">
             <button class="back-btn" onclick="goHome()">← Home</button>
-            <div class="page-title">⚙️ More Features</div>
+            <div class="page-title">⚙️ <span>More Features</span></div>
             <div class="page-subtitle">PDF Tools • Ads • Forms • Gallery • Motivation • Videos</div>
             <div class="section-grid" id="moreGrid"></div>
         </div>
@@ -1638,7 +1743,7 @@
             quizzes: [{ id: 1, title: 'Sample Quiz', category: 'GK', questions: [{ question: 'Sample question?', options: ['A', 'B', 'C', 'D'], answer: 0 }] }],
             users: [{ id: 1, name: 'Test User', email: 'test@email.com', joined: '2026-01-01' }],
             notifications: [{ id: 1, title: 'Welcome', message: 'Admin panel ready.', type: 'success', date: '2026-01-01' }],
-            settings: { password: 'admin123' }
+            settings: { password: 'admin123', darkMode: false }
         };
 
         function loadAdminData() {
@@ -1646,6 +1751,12 @@
                 const saved = localStorage.getItem('dreamjosh_admin_data');
                 if (saved) {
                     adminData = JSON.parse(saved);
+                    // Apply dark mode if enabled
+                    if (adminData.settings.darkMode) {
+                        document.body.classList.add('dark-mode');
+                    } else {
+                        document.body.classList.remove('dark-mode');
+                    }
                 } else {
                     saveAdminData();
                 }
@@ -1654,6 +1765,23 @@
 
         function saveAdminData() {
             try { localStorage.setItem('dreamjosh_admin_data', JSON.stringify(adminData)); } catch (e) { console.error('Error saving admin data:', e); }
+        }
+
+        // ================= DARK MODE TOGGLE =================
+        function toggleDarkMode() {
+            adminData.settings.darkMode = !adminData.settings.darkMode;
+            if (adminData.settings.darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            saveAdminData();
+            // Update toggle button if visible
+            const toggleBtn = document.getElementById('darkModeToggle');
+            if (toggleBtn) {
+                toggleBtn.textContent = adminData.settings.darkMode ? '🌙 Dark' : '☀️ Light';
+                toggleBtn.classList.toggle('active', adminData.settings.darkMode);
+            }
         }
 
         // ================= SLIDE FUNCTIONS =================
@@ -1834,7 +1962,7 @@
 
         document.addEventListener('touchend', () => { isSwiping = false; });
 
-        // ================= ADMIN PANEL (ORIGINAL) =================
+        // ================= ADMIN PANEL =================
         function openAdminPanel() {
             const container = document.getElementById('adminPanelContainer');
             container.innerHTML = getAdminPanelHTML();
@@ -1850,6 +1978,7 @@
         }
 
         function getAdminPanelHTML() {
+            const darkModeStatus = adminData.settings.darkMode || false;
             return `
             <div id="adminDashboard">
                 <div id="adminLoginPage" class="login-container">
@@ -1868,7 +1997,12 @@
                 <div id="adminDashboardContent" style="display:none;">
                     <div class="admin-header">
                         <div class="admin-logo"><h2>🚀 Dream Josh Admin</h2><span class="admin-badge">v2.0</span></div>
-                        <div class="admin-user"><span>👤 Admin</span><button onclick="adminLogout()" class="logout-btn">🚪 Logout</button><button onclick="closeAdminPanel()" class="logout-btn" style="background:#6c757d;">← वापस</button></div>
+                        <div class="admin-user">
+                            <span>👤 Admin</span>
+                            <button id="darkModeToggle" class="dark-toggle-btn ${darkModeStatus ? 'active' : ''}" onclick="toggleDarkMode()">${darkModeStatus ? '🌙 Dark' : '☀️ Light'}</button>
+                            <button onclick="adminLogout()" class="logout-btn">🚪 Logout</button>
+                            <button onclick="closeAdminPanel()" class="back-btn-admin">← वापस</button>
+                        </div>
                     </div>
                     <div class="admin-body">
                         <div class="admin-sidebar">
@@ -1898,6 +2032,7 @@
                                     <button onclick="showAdminSection('quiz')">🧠 Add Quiz</button>
                                     <button onclick="showAdminSection('notifications')">🔔 Send Notification</button>
                                     <button onclick="showAdminSection('settings')">⚙️ Settings</button>
+                                    <button onclick="toggleDarkMode()" style="background: #6c757d;">${adminData.settings.darkMode ? '🌙 Dark Mode ON' : '☀️ Light Mode ON'}</button>
                                 </div>
                             </div>
                             
@@ -1943,6 +2078,8 @@
                                     <input type="password" id="adminNewPass" placeholder="New Password (min 6)">
                                     <input type="password" id="adminConfirmPass" placeholder="Confirm Password">
                                     <button onclick="changeAdminPassword()">🔒 Update</button>
+                                    <h3 style="margin-top:20px;">🌓 Dark Mode</h3>
+                                    <button onclick="toggleDarkMode()" style="background: #6c757d; padding: 12px 24px; font-size: 16px;">${adminData.settings.darkMode ? '🌙 Switch to Light Mode' : '☀️ Switch to Dark Mode'}</button>
                                     <h3 style="margin-top:20px;">💾 Backup & Restore</h3>
                                     <button onclick="exportAdminData()">📥 Export Data</button>
                                     <input type="file" id="adminImportFile" accept=".json" style="display:none;" onchange="importAdminData(event)">
@@ -2390,6 +2527,8 @@
             adminData.quizzes = [];
             adminData.users = [];
             adminData.notifications = [];
+            adminData.settings.darkMode = false;
+            document.body.classList.remove('dark-mode');
             saveAdminData();
             renderAdminDashboard();
             alert('🗑️ All data reset!');
@@ -2412,9 +2551,10 @@
         });
 
         console.log('🚀 Dream Josh - Complete Edition!');
-        console.log('🏠 Home page: Original style');
-        console.log('🔐 Admin panel: Full website update options');
-        console.log('📌 Other pages: Cool section cards with click to list');
+        console.log('🏠 Home page: Original style with Home Page colors');
+        console.log('🔐 Admin panel: Dark Mode Toggle available');
+        console.log('📌 All pages: Home Page color scheme applied');
+        console.log('🌓 Dark Mode: Toggle from Admin Panel only');
     </script>
 </body>
 </html>
