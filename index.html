@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+
+<html lang="hi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dream Josh - Study &amp; Govt. Jobs</title>
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ font-family:Arial,"Noto Sans Devanagari",sans-serif;
+ background:#eef5ff;
+ color:#172033;
+}
+
+header{
+ background:linear-gradient(135deg,#123c9b,#1976d2);
+ color:white;
+ text-align:center;
+ padding:25px 10px;
+}
+
+header h1{margin:0;font-size:34px}
+header p{margin:7px 0 0}
+
+nav{
+ background:white;
+ overflow:visible;
+ display:flex;
+ justify-content:center;
+ flex-wrap:wrap;
+ box-shadow:0 2px 8px #aaa;
+ position:relative;
+ z-index:1000;
+}
+
+nav button{
+ border:0;
+ background:white;
+ padding:15px 18px;
+ cursor:pointer;
+ font-size:15px;
+ font-weight:bold;
+}
+
+nav button:hover{
+ background:#e8f1ff;
+ color:#123c9b;
+}
+
+/* Global clicked/active navigation state — Home stays unchanged */
+nav button.nav-active{
+ background:#16a34a !important;
+ color:#fff !important;
+ font-weight:700;
+}
+.dropdown-submenu > button.nav-active,
+.submenu-content button.nav-active{
+ background:#16a34a !important;
+ color:#fff !important;
+ font-weight:700;
+}
+.dropdown-submenu > button.nav-active span{color:#fff !important;}
+
+.dropdown{
+ position:relative;
+ z-index:10001;
+ display:inline-block;
+}
+
+.dropdown-content{
+ display:none;
+ position:absolute;
+ background:white;
+ min-width:250px;
+ max-height:75vh;
+ overflow-y:auto;
+ box-shadow:0 5px 15px #999;
+ z-index:9999;
+ text-align:left;
+}
+
+.dropdown.open .dropdown-content{
+ display:block !important;
+ visibility:visible;
+ opacity:1;
+}
+
+.dropdown-content button{
+ width:100%;
+ text-align:left;
+ padding:12px 15px;
+ border-bottom:1px solid #edf1f7;
+}
+
+.dropdown-content button:hover{
+ background:#e8f1ff;
+}
+
+.ticker{
+ margin:10px auto;
+ max-width:1100px;
+ padding:10px;
+ border-radius:8px;
+ color:white;
+ overflow:hidden;
+ white-space:nowrap;
+}
+
+.latest{background:#d62839}
+.update{background:#079455}
+
+.ticker span{
+ display:inline-block;
+ padding-left:100%;
+ animation:move 18s linear infinite;
+}
+
+@keyframes move{
+ from{transform:translateX(0)}
+ to{transform:translateX(-100%)}
+}
+
+.container{
+ max-width:1100px;
+}
+.home-layout{display:flex;gap:20px;align-items:flex-start}.left-content{flex:3}.right-sidebar{flex:1}.sidebar-box{background:#fff;border-radius:10px;box-shadow:0 2px 8px #ccc;margin-bottom:20px;overflow:hidden}.sidebar-box h3{margin:0;padding:12px;background:#1976d2;color:#fff}.notice{height:250px;overflow:hidden}.notice ul{padding:10px 25px;animation:scroll 15s linear infinite}@keyframes scroll{0%{transform:translateY(100%)}100%{transform:translateY(-100%)}}.imp-links a{display:block;padding:10px;border-bottom:1px solid #eee;color:#123c9b;text-decoration:none}.imp-links a:hover{background:#eef5ff}@media(max-width:768px){.home-layout{flex-direction:column}.left-content,.right-sidebar{width:100%}}
+.container{
+ max-width:1100px;
+ margin:auto;
+ padding:15px;
+}
+
+.page{
+ display:none;
+ background:white;
+ padding:25px;
+ border-radius:12px;
+ box-shadow:0 2px 10px #ccd;
+ margin-top:15px;
+}
+
+.page.active{
+ display:block;
+}
+
+.card{
+ background:#f4f8ff;
+ padding:18px;
+ margin:12px 0;
+ border-radius:10px;
+ border-left:5px solid #1976d2;
+}
+
+.card h3{
+ margin-top:0;
+ color:#123c9b;
+}
+
+a.link{
+ display:inline-block;
+ margin:7px;
+ padding:10px 15px;
+ border-radius:7px;
+ background:#1976d2;
+ color:white;
+ text-decoration:none;
+ cursor:pointer;
+}
+
+a.link:hover{
+ background:#123c9b;
+}
+
+.job-section-dropdown{
+ margin:12px 0;
+ border:1px solid #d9e5f5;
+ border-radius:10px;
+ background:#f8fbff;
+ overflow:hidden;
+}
+
+.job-section-dropdown summary{
+ cursor:pointer;
+ padding:15px;
+ font-weight:bold;
+ color:#123c9b;
+ list-style:none;
+}
+
+.job-section-dropdown summary::-webkit-details-marker{
+ display:none;
+}
+
+.job-section-dropdown summary:after{
+ content:"＋";
+ float:right;
+}
+
+.job-section-dropdown[open] summary:after{
+ content:"−";
+}
+
+.job-section-dropdown[open] summary{
+ background:#e8f1ff;
+}
+
+.job-list{
+ padding:10px 15px 15px;
+ display:flex;
+ flex-wrap:wrap;
+ gap:5px;
+}
+
+.job-list .link{
+ margin:4px;
+}
+
+.share-buttons{
+ display:flex;
+ flex-wrap:wrap;
+ gap:10px;
+}
+
+.share-buttons button{
+ border:0;
+ padding:12px 16px;
+ border-radius:8px;
+ cursor:pointer;
+ font-weight:bold;
+ background:#1976d2;
+ color:white;
+}
+
+iframe{
+ border:0;
+ border-radius:10px;
+}
+
+footer{
+ margin-top:30px;
+ padding:25px;
+ text-align:center;
+ background:#123c9b;
+ color:white;
+}
+
+@media(max-width:768px){
+
+ header h1{
+  font-size:27px;
+ }
+
+ nav{
+  display:block;
+ }
+
+ nav>button,
+ .dropdown{
+  width:100%;
+ }
+
+ nav>button,
+ .dropdown>button{
+  width:100%;
+  text-align:left;
+  border-bottom:1px solid #eee;
+ }
+
+ .dropdown-content{
+  position:static;
+  width:100%;
+  max-height:none;
+  box-shadow:none;
+ }
+
+ .container{
+  padding:10px;
+ }
+
+ .page{
+  padding:15px;
+ }
+
+ .job-list{
+  display:block;
+ }
+
+ a.link{
+  display:block;
+  text-align:center;
+ }
+
+}
+
+/* ================= PROFESSIONAL CAREER GUIDE ================= */
+.career-hero{background:linear-gradient(135deg,#123c9b,#1976d2);color:#fff;border-radius:14px;padding:24px;margin-bottom:18px}
+.career-hero h2{margin:0 0 8px;font-size:28px}.career-hero p{margin:6px 0;line-height:1.7}
+.career-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:15px 0}
+.career-card{background:#fff;border:1px solid #dce7f5;border-radius:12px;padding:17px;box-shadow:0 2px 7px #dce3ee}.career-card h3{margin:0 0 8px;color:#123c9b}.career-card p{line-height:1.7;margin:7px 0}.career-card ul{margin:8px 0 0;padding-left:22px;line-height:1.8}
+.career-table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}.career-table th,.career-table td{border:1px solid #dce5f0;padding:10px;text-align:left;vertical-align:top;line-height:1.5}.career-table th{background:#e8f1ff;color:#123c9b}
+.career-badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#eef5ff;color:#123c9b;font-weight:bold;font-size:13px;margin:3px}.career-note{padding:13px 15px;border-left:5px solid #1976d2;background:#f4f8ff;border-radius:8px;line-height:1.7;margin:12px 0}
+.career-steps{counter-reset:step;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.career-step{position:relative;background:#f8fbff;border:1px solid #dce7f5;border-radius:10px;padding:14px 14px 14px 48px;line-height:1.6}.career-step:before{counter-increment:step;content:counter(step);position:absolute;left:12px;top:14px;width:26px;height:26px;border-radius:50%;background:#1976d2;color:#fff;text-align:center;line-height:26px;font-weight:bold}
+@media(max-width:768px){.career-grid,.career-steps{grid-template-columns:1fr}.career-table{font-size:14px;display:block;overflow-x:auto}}
+
+/* Govt. Jobs nested dropdown */
+.jobs-menu{min-width:290px}
+.dropdown-submenu{position:relative}
+.dropdown-submenu>button{display:flex;justify-content:space-between;align-items:center;width:100%}
+.dropdown-submenu>button span{font-size:18px;color:#123c9b}
+.submenu-content{display:none;visibility:hidden;opacity:0;position:absolute;left:100%;top:0;min-width:285px;max-height:75vh;overflow-y:auto;background:#fff;box-shadow:0 5px 15px #999;z-index:10000;text-align:left}
+.dropdown-submenu.open>.submenu-content{display:block !important;visibility:visible;opacity:1}
+.submenu-content button{width:100%;border:0;background:#fff;text-align:left;padding:11px 14px;border-bottom:1px solid #edf1f7;cursor:pointer;font-size:14px}
+.submenu-content button:hover{background:#e8f1ff;color:#123c9b}
+.dropdown-submenu.open>button{background:#e8f1ff;color:#123c9b}
+@media(max-width:768px){.submenu-content{position:static;width:100%;max-height:none;box-shadow:none;border-left:3px solid #1976d2}}
+.job-section-dropdown[open] summary{
+  background:#16a34a !important;
+  color:#fff !important;
+}
+.job-section-dropdown summary:hover{
+  background:#e9f8ee;
+  color:#15803d;
+}
+.job-section-dropdown[open]{border-color:#16a34a;box-shadow:0 0 0 1px rgba(22,163,74,.08)}
+
+/* Career Guide nested menu */
+.career-menu{min-width:310px;max-height:80vh;overflow:visible}
+.career-menu .submenu-content{min-width:285px}
+.career-menu .dropdown-submenu>button{font-weight:600}
+@media(max-width:768px){.career-menu{max-height:70vh;overflow-y:auto}.career-menu .submenu-content{min-width:100%}}
+
+/* ALL MAIN MENUS - PROFESSIONAL NESTED NAV */
+.main-menu{min-width:285px;max-height:80vh;overflow:visible}
+.main-menu .dropdown-submenu>button{font-weight:600;display:flex;justify-content:space-between;align-items:center;width:100%}
+.main-menu .submenu-content{min-width:270px;max-height:75vh;overflow-y:auto}
+.main-menu .menu-note{padding:9px 13px;font-size:12px;color:#667085;background:#f7f9fc;border-bottom:1px solid #e7edf5}
+.page .info-section{background:#fff;border:1px solid #dce7f5;border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 2px 7px #dce3ee}
+.page .info-section h3{margin:0 0 7px;color:#123c9b}
+.page .info-section p,.page .info-section li{line-height:1.7}
+.page .info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:768px){.main-menu{max-height:70vh;overflow-y:auto}.main-menu .submenu-content{min-width:100%}.page .info-grid{grid-template-columns:1fr}}
+
+/* Govt. Jobs – Career Guide style */
+.jobs-menu .menu-note{padding:9px 13px;font-size:12px;color:#667085;background:#f7f9fc;border-bottom:1px solid #e7edf5}
+.jobs-menu .dropdown-submenu>button{font-weight:600}
+.jobs-menu{min-width:310px;max-height:80vh;overflow:visible}
+.jobs-menu .submenu-content{min-width:285px}
+.page .job-section-dropdown{background:#fff;border:1px solid #dce7f5;border-radius:12px;box-shadow:0 2px 7px #dce3ee;margin:12px 0;overflow:hidden}
+.page .job-section-dropdown summary{padding:16px;font-size:16px;background:#f8fbff}
+.page .job-section-dropdown[open] summary{background:#e8f1ff}
+.page .job-list{padding:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.page .job-list .link{margin:0;padding:10px 12px;background:#f7f9fc;border:1px solid #e7edf5;border-radius:8px;text-align:center}
+.page .job-list .link:hover{background:#e8f1ff}
+@media(max-width:768px){.jobs-menu{max-height:70vh;overflow-y:auto}.page .job-list{grid-template-columns:1fr}.jobs-menu .submenu-content{min-width:100%}}
+
+/* ================= PROFESSIONAL GOVERNMENT JOBS ================= */
+.gov-job-intro{background:#fff;border:1px solid #dce7f5;border-radius:14px;padding:18px;margin:15px 0;box-shadow:0 2px 7px #dce3ee}
+.gov-job-intro h3{margin:0 0 8px;color:#123c9b}
+.gov-job-intro p{line-height:1.7;margin:6px 0}
+.job-section-dropdown{background:#fff;border:1px solid #dce7f5;border-radius:12px;margin:11px 0;overflow:hidden;box-shadow:0 2px 6px #e3e8ef}
+.job-section-dropdown summary{cursor:pointer;list-style:none;padding:15px 17px;font-weight:700;color:#123c9b;background:#f7faff}
+.job-section-dropdown summary::-webkit-details-marker{display:none}
+.job-section-dropdown[open] summary{background:#e8f1ff;border-bottom:1px solid #dce7f5}
+.job-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:14px}
+.job-list .link{display:block;margin:0;padding:11px 12px;border:1px solid #e2eaf5;border-radius:9px;background:#fff;text-align:left}
+.job-list .link:hover{background:#f1f6ff;color:#123c9b}
+.gov-roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:15px 0}
+.gov-roadmap .career-step{min-height:70px}
+@media(max-width:900px){.job-list{grid-template-columns:repeat(2,minmax(0,1fr))}.gov-roadmap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.job-list,.gov-roadmap{grid-template-columns:1fr}}
+
+/* Job detail focus view: open selected category at the top, never scroll to it */
+.job-page-focus .job-page-overview{display:none!important}
+.job-page-focus .job-section-dropdown{display:none!important}
+.job-page-focus .job-section-dropdown.job-focused{display:block!important;margin:0!important}
+.job-focus-header{display:flex;align-items:center;gap:12px;margin:0 0 18px;padding:12px 14px;background:#f4fbf6;border:1px solid #b7dfc2;border-radius:12px}
+.job-focus-header button{border:0;background:#198754;color:#fff;padding:9px 15px;border-radius:8px;cursor:pointer;font-weight:700}
+.job-focus-header button:hover{background:#146c43}
+.job-focus-header strong{color:#146c43}
+.job-section-dropdown.job-focused summary{background:#198754!important;color:#fff!important;border-radius:10px}
+
+
+/* Generic section focus navigation: open only what was clicked */
+.section-page-focus .section-focus-back{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin:0 0 18px;padding:12px 14px;background:#f1fdf5;
+  border:1px solid #b7e4c7;border-radius:12px;
+}
+.section-focus-back button{border:0;background:#198754;color:#fff;padding:9px 14px;border-radius:8px;cursor:pointer;font-weight:700}
+.section-focus-back strong{color:#146c43}
+.section-focus-content{background:#fff;border:1px solid #dce7f5;border-radius:14px;padding:18px;box-shadow:0 3px 10px #e5eaf0}
+.section-focus-content .career-card,.section-focus-content .info-section,.section-focus-content .career-note,.section-focus-content .career-step{margin:0}
+.section-focus-content table{width:100%;border-collapse:collapse}
+.section-focus-content td,.section-focus-content th{padding:12px;border:1px solid #dce7f5;text-align:left}
+
+
+/* Desktop: cross out only the Motivation label in the header.
+   Mobile keeps the normal text. */
+.desktop-motivation-cross{
+  text-decoration:line-through;
+  text-decoration-thickness:2px;
+  text-decoration-color:currentColor;
+}
+@media(max-width:768px){
+  .desktop-motivation-cross{
+    text-decoration:none;
+  }
+}
+
+
+
+.about-home{
+  line-height:1.75;
+}
+.about-home h3{
+  margin-top:18px;
+  margin-bottom:8px;
+}
+.about-home ul{
+  padding-left:24px;
+  margin:8px 0 14px;
+}
+.about-home li{
+  margin:6px 0;
+}
+.about-highlight{
+  margin-top:18px;
+  padding:16px;
+  border-left:4px solid #0b8f55;
+  background:#eefaf4;
+  border-radius:8px;
+  text-align:center;
+  font-size:17px;
+}
+
+</style>
+</head>
+<body>
+<header>
+<h1>🚀 DREAM JOSH</h1>
+<p>“पढ़ेंगे यहाँ, बढ़ेंगे जहाँ”</p>
+<small>Motivation • Study • Govt. Jobs • Career Guide</small>
+</header>
+<!-- ================= NAVIGATION ================= -->
+<nav>
+<button onclick="showPage('home')">🏠 Home</button>
+<!-- GOVERNMENT JOBS -->
+<div class="dropdown jobs-dropdown">
+<button type="button" onclick="toggleMenu(this)">💼 Govt. Jobs ▾</button>
+<div class="dropdown-content career-menu jobs-menu">
+<div class="menu-note">सरकारी नौकरी को विभाग और भर्ती संस्था के अनुसार चुनें</div>
+<div class="dropdown-submenu">
+<button type="button" onclick="toggleSubMenu(this)">🇮🇳 Central Govt. Jobs <span>▸</span></button>
+<div class="submenu-content">
+<button onclick="openJobSection('centralJobs','UPSC Jobs', this)">🏛️ UPSC Jobs</button>
+<button onclick="openJobSection('centralJobs','SSC Jobs', this)">📑 SSC Jobs</button>
+<button onclick="openJobSection('centralJobs','Railway / RRB Jobs', this)">🚆 Railway / RRB Jobs</button>
+<button onclick="openJobSection('centralJobs','Banking & Financial Jobs', this)">🏦 Banking & Financial Jobs</button>
+<button onclick="openJobSection('centralJobs','Defence Jobs', this)">🪖 Defence Jobs</button>
+<button onclick="openJobSection('centralJobs','Police / CAPF Jobs', this)">👮 Police / CAPF Jobs</button>
+<button onclick="openJobSection('centralJobs','India Post Jobs', this)">📮 India Post Jobs</button>
+<button onclick="openJobSection('centralJobs','Central Teaching Jobs', this)">👩‍🏫 Central Teaching Jobs</button>
+<button onclick="openJobSection('centralJobs','Central Health / Medical Jobs', this)">🏥 Central Health / Medical Jobs</button>
+<button onclick="openJobSection('centralJobs','PSU / Government Companies', this)">🏭 PSU / Government Companies</button>
+<button onclick="openJobSection('centralJobs','Technical / Engineering Jobs', this)">🛠️ Technical / Engineering Jobs</button>
+<button onclick="openJobSection('centralJobs','Court / Judiciary Jobs', this)">⚖️ Court / Judiciary Jobs</button>
+</div></div>
+<div class="dropdown-submenu">
+<button type="button" onclick="toggleSubMenu(this)">🏜️ Rajasthan State Govt. Jobs <span>▸</span></button>
+<div class="submenu-content">
+<button onclick="openJobSection('stateJobs','RPSC', this)">🏛️ RPSC</button>
+<button onclick="openJobSection('stateJobs','RSSB / RSMSSB', this)">📋 RSSB / RSMSSB</button>
+<button onclick="openJobSection('stateJobs','Rajasthan High Court', this)">⚖️ Rajasthan High Court</button>
+<button onclick="openJobSection('stateJobs','Government Boards & Corporations', this)">🏢 Boards & Corporations</button>
+<button onclick="openJobSection('stateJobs','Government Universities', this)">🎓 Government Universities</button>
+<button onclick="openJobSection('stateJobs','Rajasthan Police', this)">👮 Rajasthan Police</button>
+<button onclick="openJobSection('stateJobs','Education Recruitment', this)">👩‍🏫 Education Recruitment</button>
+<button onclick="openJobSection('stateJobs','Medical & Health', this)">🏥 Medical & Health</button>
+<button onclick="openJobSection('stateJobs','Agriculture & Animal Husbandry', this)">🌾 Agriculture & Animal Husbandry</button>
+<button onclick="openJobSection('stateJobs','Engineering & Technical', this)">🛠️ Engineering & Technical</button>
+<button onclick="openJobSection('stateJobs','Revenue Department', this)">📑 Revenue Department</button>
+<button onclick="openJobSection('stateJobs','Panchayati Raj', this)">🏘️ Panchayati Raj</button>
+<button onclick="openJobSection('stateJobs','Urban Local Bodies', this)">🏙️ Urban Local Bodies</button>
+<button onclick="openJobSection('stateJobs','Forest Department', this)">🌳 Forest Department</button>
+<button onclick="openJobSection('stateJobs','Cooperative Department', this)">🤝 Cooperative Department</button>
+<button onclick="openJobSection('stateJobs','Social Welfare & Women Empowerment', this)">👨‍👩‍👧 Social Welfare & Women Empowerment</button>
+<button onclick="openJobSection('stateJobs','Other Rajasthan Departments', this)">📂 Other Rajasthan Departments</button>
+</div></div>
+</div></div>
+<!-- STUDY -->
+<div class="dropdown">
+<button type="button" onclick="toggleMenu(this)">📚 Study ▾</button>
+<div class="dropdown-content main-menu">
+<div class="menu-note">Study material को topic-wise खोलें</div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">📖 Study Notes <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('study','Study Material')">📚 Study Material</button><button onclick="openInfoSection('study','Important Questions')">📝 Important Questions</button><button onclick="openInfoSection('study','Subject-wise Notes')">📘 Subject-wise Notes</button><button onclick="openInfoSection('study','Revision')">🔁 Revision &amp; Practice</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🏜️ Rajasthan GK <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('rajasthan','History')">🏰 History</button><button onclick="openInfoSection('rajasthan','Geography')">🗺️ Geography</button><button onclick="openInfoSection('rajasthan','Art & Culture')">🎭 Art &amp; Culture</button><button onclick="openInfoSection('rajasthan','Districts')">📍 Districts</button><button onclick="openInfoSection('rajasthan','Important Facts')">⭐ Important Facts</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🧠 Daily Quiz <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('quiz','Daily GK')">🌐 Daily GK</button><button onclick="openInfoSection('quiz','Rajasthan Quiz')">🏜️ Rajasthan Quiz</button><button onclick="openInfoSection('quiz','Exam Practice')">📝 Exam Practice</button><button onclick="openInfoSection('quiz','Current Affairs')">📰 Current Affairs</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">📄 Study PDF <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('pdf','Notes PDF')">📚 Notes PDF</button><button onclick="openInfoSection('pdf','Question PDF')">📝 Question PDF</button><button onclick="openInfoSection('pdf','GK PDF')">🏜️ GK PDF</button><button onclick="openInfoSection('pdf','Revision PDF')">🔁 Revision PDF</button></div></div>
+</div></div>
+
+<!-- CAREER -->
+<div class="dropdown career-dropdown">
+<button type="button" onclick="toggleMenu(this)">🎯 Career Guide ▾</button>
+<div class="dropdown-content career-menu">
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🎓 12th के बाद Career <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('career12','Arts')">🎨 Arts / Humanities</button><button onclick="openCareerSection('career12','Science')">🔬 Science</button><button onclick="openCareerSection('career12','Commerce')">💰 Commerce</button><button onclick="openCareerSection('career12','Any Stream')">🎯 Any Stream</button><button onclick="openCareerSection('career12','Decision Checklist')">✅ Decision Checklist</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🏫 College & Degree Courses <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('college','Arts & Humanities')">📚 Arts & Humanities</button><button onclick="openCareerSection('college','Science')">🔬 Science</button><button onclick="openCareerSection('college','Commerce & Management')">💼 Commerce & Management</button><button onclick="openCareerSection('college','Computer')">💻 Computer / IT</button><button onclick="openCareerSection('college','Professional')">🎓 Professional Courses</button><button onclick="openCareerSection('college','College')">📌 College Selection</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">💡 Skills & Certificate Courses <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('skills','Digital Skills')">💻 Digital Skills</button><button onclick="openCareerSection('skills','Technology')">🧑‍💻 Technology</button><button onclick="openCareerSection('skills','Professional Skills')">🗣️ Professional Skills</button><button onclick="openCareerSection('skills','Career Skills')">📈 Career Skills</button><button onclick="openCareerSection('skills','Certificate')">📜 Certificates</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">📝 Competitive Exams <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('competitive','Central Government')">🇮🇳 UPSC / SSC</button><button onclick="openCareerSection('competitive','Railway')">🚆 Railway / RRB</button><button onclick="openCareerSection('competitive','Banking')">🏦 Banking</button><button onclick="openCareerSection('competitive','Rajasthan')">🏜️ RPSC / RSSB</button><button onclick="openCareerSection('competitive','Teaching')">👩‍🏫 Teaching Exams</button><button onclick="openCareerSection('competitive','Preparation')">📚 Preparation Roadmap</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🏛️ Government Job Career <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('govcareer','10वीं')">📘 After 10th</button><button onclick="openCareerSection('govcareer','12वीं')">🎓 After 12th</button><button onclick="openCareerSection('govcareer','Graduation')">🎯 After Graduation</button><button onclick="openCareerSection('govcareer','Specialised')">🛠️ Specialised Qualification</button><button onclick="openCareerSection('govcareer','notification')">🔎 Eligibility & Notification</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🪖 Defence Career <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('defencecareer','Officer Entry')">⭐ Officer Entry</button><button onclick="openCareerSection('defencecareer','Army')">🪖 Army</button><button onclick="openCareerSection('defencecareer','Navy')">⚓ Navy</button><button onclick="openCareerSection('defencecareer','Air Force')">✈️ Air Force</button><button onclick="openCareerSection('defencecareer','Coast Guard')">🚢 Coast Guard</button><button onclick="openCareerSection('defencecareer','fitness')">🏃 Fitness & Selection</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">👩‍🏫 Teaching Career <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('teachingcareer','School Teaching')">🏫 School Teaching</button><button onclick="openCareerSection('teachingcareer','Teaching Exams')">📝 REET / CTET & Exams</button><button onclick="openCareerSection('teachingcareer','Higher Education')">🎓 Higher Education</button><button onclick="openCareerSection('teachingcareer','Modern Teaching Skills')">💻 Modern Teaching Skills</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🏥 Medical & Paramedical Career <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('medicalcareer','Medical')">🩺 Medical</button><button onclick="openCareerSection('medicalcareer','Nursing')">👩‍⚕️ Nursing</button><button onclick="openCareerSection('medicalcareer','Pharmacy')">💊 Pharmacy</button><button onclick="openCareerSection('medicalcareer','Lab')">🧪 Lab / Diagnostics</button><button onclick="openCareerSection('medicalcareer','Imaging')">🩻 Imaging / Radiography</button><button onclick="openCareerSection('medicalcareer','Recognition')">📌 Recognition & Registration</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🛠️ Engineering & Technical Career <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('engineeringcareer','Civil')">🏗️ Civil</button><button onclick="openCareerSection('engineeringcareer','Mechanical')">⚙️ Mechanical</button><button onclick="openCareerSection('engineeringcareer','Electrical')">⚡ Electrical</button><button onclick="openCareerSection('engineeringcareer','Electronics')">🔌 Electronics</button><button onclick="openCareerSection('engineeringcareer','Computer/IT')">💻 Computer / IT</button><button onclick="openCareerSection('engineeringcareer','Technical Skills')">📐 Technical Skills</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">💻 IT & Computer Career <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('itcareer','Web Development')">🌐 Web Development</button><button onclick="openCareerSection('itcareer','Software Development')">🧑‍💻 Software Development</button><button onclick="openCareerSection('itcareer','Data')">📊 Data & Analytics</button><button onclick="openCareerSection('itcareer','Cyber')">🔐 Cyber Security</button><button onclick="openCareerSection('itcareer','Networking')">🌐 Networking</button><button onclick="openCareerSection('itcareer','Digital & Creative')">🎨 Digital & Creative</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🔧 ITI & Polytechnic <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('iti','ITI')">🔩 ITI Trades</button><button onclick="openCareerSection('iti','Polytechnic')">🏗️ Polytechnic Diploma</button><button onclick="openCareerSection('iti','After ITI')">🎯 After ITI / Polytechnic</button><button onclick="openCareerSection('iti','Must-Have Skills')">🧰 Essential Technical Skills</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🧭 Career Planning & Guidance <span>▸</span></button><div class="submenu-content">
+<button onclick="openCareerSection('careerplanning','Self Assessment')">🧠 Self Assessment</button><button onclick="openCareerSection('careerplanning','Explore Options')">🔍 Explore Careers</button><button onclick="openCareerSection('careerplanning','Check Eligibility')">📋 Check Eligibility</button><button onclick="openCareerSection('careerplanning','Select a Route')">🛣️ Select Career Route</button><button onclick="openCareerSection('careerplanning','Build Skills')">📈 Build Skills</button><button onclick="openCareerSection('careerplanning','Prepare & Apply')">🚀 Prepare & Apply</button><button onclick="openCareerSection('careerplanning','Simple 1-Year Career Plan')">📅 1-Year Plan</button></div></div>
+</div></div>
+
+<!-- BOOKS -->
+<div class="dropdown">
+<button type="button" onclick="toggleMenu(this)">📖 Books ▾</button>
+<div class="dropdown-content main-menu">
+<div class="menu-note">Books और shopping को अलग-अलग category में देखें</div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">📚 Books <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('books','Competitive Exams')">📝 Competitive Exams</button><button onclick="openInfoSection('books','Rajasthan GK')">🏜️ Rajasthan GK</button><button onclick="openInfoSection('books','General Knowledge')">🌐 General Knowledge</button><button onclick="openInfoSection('books','Study & Career')">🎯 Study &amp; Career</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🛒 Book Shopping <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('shopping','Exam Books')">📕 Exam Books</button><button onclick="openInfoSection('shopping','GK Books')">📗 GK Books</button><button onclick="openInfoSection('shopping','Career Books')">📘 Career Books</button><button onclick="openInfoSection('shopping','Book Links')">🔗 Book Links</button></div></div>
+</div></div>
+
+<!-- OTHER -->
+<div class="dropdown">
+<button type="button" onclick="toggleMenu(this)">⚙️ Other ▾</button>
+<div class="dropdown-content main-menu">
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🛠️ PDF Tools <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('pdftools','Merge PDF')">🔗 Merge PDF</button><button onclick="openInfoSection('pdftools','Split PDF')">✂️ Split PDF</button><button onclick="openInfoSection('pdftools','Compress PDF')">📦 Compress PDF</button><button onclick="openInfoSection('pdftools','Convert PDF')">🔄 Convert PDF</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">📢 Advertisement <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('advertisement','Local Business')">🏪 Local Business</button><button onclick="openInfoSection('advertisement','Coaching')">🎓 Coaching</button><button onclick="openInfoSection('advertisement','Services')">🛎️ Services</button><button onclick="openInfoSection('advertisement','Contact')">📞 Advertisement Contact</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">📤 Share Website <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('share','Share Website')">📱 Share Website</button><button onclick="openInfoSection('share','Copy Link')">🔗 Copy Link</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">📝 Important Forms <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('forms','Government Forms')">🏛️ Government Forms</button><button onclick="openInfoSection('forms','Job Forms')">💼 Job Forms</button><button onclick="openInfoSection('forms','Education Forms')">🎓 Education Forms</button><button onclick="openInfoSection('forms','Application Links')">🔗 Application Links</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🖼️ Photo Gallery <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('gallery','Events')">🎉 Events</button><button onclick="openInfoSection('gallery','Study')">📚 Study</button><button onclick="openInfoSection('gallery','Career')">🎯 Career</button><button onclick="openInfoSection('gallery','Dream Josh')">🚀 Dream Josh</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🔗 Main Links <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('links','Govt. Jobs')">💼 Govt. Jobs</button><button onclick="openInfoSection('links','Study')">📚 Study</button><button onclick="openInfoSection('links','Career')">🎯 Career</button><button onclick="openInfoSection('links','Useful Links')">🌐 Useful Links</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">🔥 Motivation <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('motivation','Daily Motivation')">🔥 Daily Motivation</button><button onclick="openInfoSection('motivation','Study Motivation')">📚 Study Motivation</button><button onclick="openInfoSection('motivation','Career Motivation')">🎯 Career Motivation</button><button onclick="openInfoSection('motivation','Success Tips')">🏆 Success Tips</button></div></div>
+<div class="dropdown-submenu"><button type="button" onclick="toggleSubMenu(this)">▶️ Videos <span>▸</span></button><div class="submenu-content">
+<button onclick="openInfoSection('videos','Study Videos')">📚 Study Videos</button><button onclick="openInfoSection('videos','Job Updates')">💼 Job Updates</button><button onclick="openInfoSection('videos','Career Guidance')">🎯 Career Guidance</button><button onclick="openInfoSection('videos','Motivation')">🔥 Motivation</button></div></div>
+</div></div>
+
+</nav>
+<!-- ================= HOME TICKERS ================= -->
+<div class="ticker latest">
+<span>
+🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन
+</span>
+</div>
+<div class="ticker update">
+<span>
+✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी
+</span>
+</div>
+<div class="container">
+<!-- ================= HOME ================= -->
+<section class="page active" id="home">
+  <div class="home-layout">
+    <div class="left-content">
+      <h2>🚀 Dream Josh में आपका स्वागत है</h2>
+
+      <div class="card about-home">
+        <h3>🌟 Dream Josh के बारे में</h3>
+        <p>
+          <b>Dream Josh</b> एक educational और career guidance platform है,
+          जिसका उद्देश्य विद्यार्थियों, प्रतियोगी परीक्षा की तैयारी करने वाले
+          अभ्यर्थियों और अपने करियर को बेहतर दिशा देने वाले युवाओं को
+          <b>पढ़ाई, सरकारी नौकरी, करियर और परीक्षा तैयारी</b> से जुड़ी
+          उपयोगी जानकारी एक ही जगह उपलब्ध कराना है।
+        </p>
+
+        <p>
+          हमारा प्रयास है कि विद्यार्थियों को सही जानकारी सरल और समझने योग्य
+          भाषा में मिले, ताकि वे अपनी पढ़ाई और करियर से जुड़े बेहतर निर्णय
+          ले सकें।
+        </p>
+
+        <h3>📚 Dream Josh पर क्या मिलेगा?</h3>
+        <ul>
+          <li>📖 Study Notes और अध्ययन सामग्री</li>
+          <li>🏛️ Govt. Jobs से संबंधित जानकारी</li>
+          <li>🎯 Career Guide और Career Options</li>
+          <li>📝 Exam Preparation की महत्वपूर्ण जानकारी</li>
+          <li>🌍 Rajasthan GK और सामान्य ज्ञान</li>
+          <li>📄 Study PDFs और उपयोगी Resources</li>
+          <li>💡 Skills & Courses की जानकारी</li>
+          <li>🔥 Motivation और प्रेरणादायक सामग्री</li>
+          <li>▶️ Educational Videos और Learning Resources</li>
+          <li>📚 Competitive Exams की Books और Study Resources</li>
+        </ul>
+
+        <h3>🎯 हमारा उद्देश्य</h3>
+        <p>
+          हमारा उद्देश्य केवल जानकारी देना नहीं, बल्कि विद्यार्थियों को
+          <b>सही दिशा, सही संसाधन और सही समय पर सही जानकारी</b> उपलब्ध कराने
+          में मदद करना है।
+        </p>
+
+        <div class="about-highlight">
+          <b>“पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।”</b><br>
+          सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div class="right-sidebar">
+      <div class="sidebar-box">
+        <h3>📢 Latest Updates</h3>
+        <div class="notice">
+          <ul>
+            <li>SSC CGL Update</li>
+            <li>RPSC New Vacancy</li>
+            <li>REET Latest News</li>
+            <li>Rajasthan Government Jobs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <h3>📋 Important Forms</h3>
+        <div class="imp-links">
+          <a href="#">🪪 Aadhaar Card</a>
+          <a href="#">💳 PAN Card</a>
+          <a href="#">🗳️ Voter ID</a>
+          <a href="#">🛂 Passport</a>
+          <a href="#">🚗 Driving License</a>
+          <a href="#">📄 Income Certificate</a>
+          <a href="#">📜 Caste Certificate</a>
+          <a href="#">🏅 EWS Certificate</a>
+          <a href="#">🏠 Domicile Certificate</a>
+          <a href="#">🍚 Ration Card</a>
+          <a href="#">🆔 Jan Aadhaar</a>
+          <a href="#">🏥 Ayushman Card</a>
+          <a href="#">🌾 PM Kisan</a>
+          <a href="#">👷 e-Shram Card</a>
+          <a href="#">🔐 Rajasthan SSO ID</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==================================================
+     CENTRAL GOVERNMENT JOBS
+================================================== -->
+<section class="page" id="centralJobs"><div class="job-page-overview">
+<div class="career-hero"><h2>🇮🇳 Central Govt. Jobs</h2><p>भारत सरकार की प्रमुख भर्ती परीक्षाओं, departments और career opportunities को category-wise देखें। अपनी qualification के अनुसार सही भर्ती section चुनें।</p><div><span class="career-badge">🏛️ Central Jobs</span><span class="career-badge">📝 Exams</span><span class="career-badge">💼 Careers</span><span class="career-badge">📋 Recruitment</span></div></div>
+<div class="gov-job-intro"><h3>🎯 Government Job Selection Roadmap</h3><p>अपनी qualification के अनुसार category चुनें, official notification पढ़ें और फिर syllabus तथा selection process के अनुसार preparation शुरू करें।</p></div><div class="gov-roadmap"><div class="career-step"><b>Qualification</b><br>10वीं / 12वीं / Graduation check करें।</div><div class="career-step"><b>Eligibility</b><br>Age, subjects और category rules देखें।</div><div class="career-step"><b>Preparation</b><br>Syllabus + PYQ + Mock Tests पर काम करें।</div><div class="career-step"><b>Application</b><br>Official notice के अनुसार apply करें।</div></div><div class="career-grid"><div class="career-card"><h3>📌 किस आधार पर नौकरी चुनें?</h3><ul><li>10वीं, 12वीं या Graduation qualification देखें।</li><li>Age limit और eligibility notification में verify करें।</li><li>Exam pattern, syllabus और selection process समझें।</li><li>Official recruitment notice के अनुसार आवेदन करें।</li></ul></div><div class="career-card"><h3>🧭 Popular Central Job Routes</h3><p>UPSC • SSC • Railway • Banking • Defence • Police/CAPF • India Post • Teaching • Medical • PSU • Technical • Judiciary</p></div></div>
+<div class="card">
+<p>नीचे किसी category को खोलकर उससे संबंधित jobs और recruitment options देखें।</p>
+</div><details class="job-section-dropdown">
+<summary>🏛️ UPSC Jobs</summary>
+<div class="job-list">
+<a class="link">Civil Services</a>
+<a class="link">IAS / IPS / IFS</a>
+<a class="link">Indian Forest Service</a>
+<a class="link">Engineering Services</a>
+<a class="link">CDS</a>
+<a class="link">NDA / NA</a>
+<a class="link">CAPF</a>
+<a class="link">Combined Medical Services</a>
+<a class="link">Other UPSC Recruitment</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>📑 SSC Jobs</summary>
+<div class="job-list">
+<a class="link">SSC CGL</a>
+<a class="link">SSC CHSL</a>
+<a class="link">SSC MTS</a>
+<a class="link">SSC GD Constable</a>
+<a class="link">SSC CPO</a>
+<a class="link">SSC JE</a>
+<a class="link">SSC Stenographer</a>
+<a class="link">SSC Selection Post</a>
+<a class="link">SSC JHT</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🚆 Railway / RRB Jobs</summary>
+<div class="job-list">
+<a class="link">RRB NTPC</a>
+<a class="link">Railway Group D</a>
+<a class="link">ALP</a>
+<a class="link">Technician</a>
+<a class="link">Junior Engineer</a>
+<a class="link">RPF</a>
+<a class="link">Paramedical</a>
+<a class="link">Ministerial &amp; Isolated Categories</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🏦 Banking &amp; Financial Jobs</summary>
+<div class="job-list">
+<a class="link">IBPS PO</a>
+<a class="link">IBPS Clerk</a>
+<a class="link">IBPS RRB</a>
+<a class="link">SBI PO</a>
+<a class="link">SBI Clerk</a>
+<a class="link">RBI</a>
+<a class="link">NABARD</a>
+<a class="link">SEBI</a>
+<a class="link">LIC</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🪖 Defence Jobs</summary>
+<div class="job-list">
+<a class="link">Indian Army</a>
+<a class="link">Indian Navy</a>
+<a class="link">Indian Air Force</a>
+<a class="link">Indian Coast Guard</a>
+<a class="link">NDA</a>
+<a class="link">CDS</a>
+<a class="link">Agniveer</a>
+<a class="link">Defence Civilian Posts</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>👮 Police / CAPF Jobs</summary>
+<div class="job-list">
+<a class="link">BSF</a>
+<a class="link">CRPF</a>
+<a class="link">CISF</a>
+<a class="link">ITBP</a>
+<a class="link">SSB</a>
+<a class="link">Assam Rifles</a>
+<a class="link">Delhi Police</a>
+<a class="link">Other CAPF Recruitment</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>📮 India Post Jobs</summary>
+<div class="job-list">
+<a class="link">GDS</a>
+<a class="link">Postal Assistant</a>
+<a class="link">Sorting Assistant</a>
+<a class="link">Postman</a>
+<a class="link">Mail Guard</a>
+<a class="link">MTS</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>👩‍🏫 Central Teaching Jobs</summary>
+<div class="job-list">
+<a class="link">KVS</a>
+<a class="link">NVS</a>
+<a class="link">CTET</a>
+<a class="link">Teacher</a>
+<a class="link">Lecturer</a>
+<a class="link">Assistant Professor</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🏥 Central Health / Medical Jobs</summary>
+<div class="job-list">
+<a class="link">AIIMS</a>
+<a class="link">ESIC</a>
+<a class="link">Nursing Officer</a>
+<a class="link">Pharmacist</a>
+<a class="link">Lab Technician</a>
+<a class="link">Medical Officer</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🏭 PSU / Government Companies</summary>
+<div class="job-list">
+<a class="link">ONGC</a>
+<a class="link">NTPC</a>
+<a class="link">BHEL</a>
+<a class="link">SAIL</a>
+<a class="link">GAIL</a>
+<a class="link">IOCL</a>
+<a class="link">HAL</a>
+<a class="link">BEL</a>
+<a class="link">Coal India</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🛠️ Technical / Engineering Jobs</summary>
+<div class="job-list">
+<a class="link">Junior Engineer</a>
+<a class="link">Assistant Engineer</a>
+<a class="link">Technician</a>
+<a class="link">Civil Engineering</a>
+<a class="link">Electrical Engineering</a>
+<a class="link">Mechanical Engineering</a>
+<a class="link">Electronics</a>
+<a class="link">IT / Computer</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>⚖️ Court / Judiciary Jobs</summary>
+<div class="job-list">
+<a class="link">Supreme Court</a>
+<a class="link">High Courts</a>
+<a class="link">Judicial Services</a>
+<a class="link">Court Clerk</a>
+<a class="link">Stenographer</a>
+<a class="link">Assistant</a>
+</div>
+</details>
+</div>
+</section>
+<!-- ==================================================
+     RAJASTHAN GOVERNMENT JOBS
+================================================== -->
+<section class="page" id="stateJobs"><div class="job-page-overview">
+<div class="career-hero"><h2>🏜️ Rajasthan State Govt. Jobs</h2><p>राजस्थान की सरकारी भर्ती, विभाग, भर्ती संस्थाओं और career opportunities को एक professional category-wise structure में देखें।</p><div><span class="career-badge">🏜️ Rajasthan Jobs</span><span class="career-badge">🏛️ RPSC</span><span class="career-badge">📋 RSSB</span><span class="career-badge">👮 Departments</span></div></div>
+<div class="gov-job-intro"><h3>🎯 Rajasthan Government Job Roadmap</h3><p>RPSC, RSSB/RSMSSB और department-wise recruitment को qualification और career goal के अनुसार shortlist करें।</p></div><div class="gov-roadmap"><div class="career-step"><b>Recruiting Body</b><br>RPSC, RSSB या संबंधित department पहचानें।</div><div class="career-step"><b>Eligibility</b><br>Qualification, age और category rules verify करें।</div><div class="career-step"><b>Rajasthan Focus</b><br>GK, GS और post-specific syllabus पढ़ें।</div><div class="career-step"><b>Apply & Prepare</b><br>Official notification के अनुसार आवेदन और तैयारी करें।</div></div><div class="career-grid"><div class="career-card"><h3>📌 मुख्य भर्ती संस्थाएँ</h3><ul><li>RPSC और RSSB/RSMSSB की recruitments।</li><li>Police, Education, Health और Technical recruitments।</li><li>High Court, Universities, Boards और Corporations।</li><li>विभागीय vacancies को qualification के अनुसार देखें।</li></ul></div><div class="career-card"><h3>🧭 Career Routes</h3><p>Administrative • Teaching • Police • Medical • Agriculture • Engineering • Revenue • Panchayati Raj • Forest • Boards &amp; Corporations</p></div></div>
+<div class="card">
+<p>नीचे किसी category को खोलकर उससे संबंधित Rajasthan jobs और recruitment options देखें।</p>
+</div><details class="job-section-dropdown">
+<summary>🏛️ RPSC</summary>
+<div class="job-list">
+<a class="link">RAS / RTS</a>
+<a class="link">School Lecturer</a>
+<a class="link">Senior Teacher Grade II</a>
+<a class="link">Assistant Professor</a>
+<a class="link">Assistant Engineer (AEN)</a>
+<a class="link">Assistant Town Planner</a>
+<a class="link">Junior Legal Officer (JLO)</a>
+<a class="link">APO</a>
+<a class="link">Statistical Officer</a>
+<a class="link">Agriculture Officer</a>
+<a class="link">Research Assistant</a>
+<a class="link">Other RPSC Recruitment</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>📋 RSSB / RSMSSB</summary>
+<div class="job-list">
+<a class="link">CET Senior Secondary Level</a>
+<a class="link">CET Graduation Level</a>
+<a class="link">Patwari</a>
+<a class="link">VDO</a>
+<a class="link">LDC / Junior Assistant</a>
+<a class="link">Junior Accountant</a>
+<a class="link">Account Assistant</a>
+<a class="link">Agriculture Supervisor</a>
+<a class="link">Junior Engineer</a>
+<a class="link">Lab Assistant</a>
+<a class="link">Informatics Assistant</a>
+<a class="link">Stenographer</a>
+<a class="link">Personal Assistant</a>
+<a class="link">Forest Guard</a>
+<a class="link">Forester</a>
+<a class="link">Animal Attendant</a>
+<a class="link">Livestock Assistant</a>
+<a class="link">Women Supervisor</a>
+<a class="link">Librarian Grade III</a>
+<a class="link">PTI Grade III</a>
+<a class="link">Computer Instructor</a>
+<a class="link">Junior Instructor</a>
+<a class="link">Other RSSB Recruitment</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>⚖️ Rajasthan High Court</summary>
+<div class="job-list">
+<a class="link">Civil Judge</a>
+<a class="link">District Judge</a>
+<a class="link">Junior Judicial Assistant</a>
+<a class="link">Junior Assistant</a>
+<a class="link">Clerk</a>
+<a class="link">Stenographer</a>
+<a class="link">Junior Personal Assistant</a>
+<a class="link">Other High Court Recruitment</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🏢 Government Boards &amp; Corporations</summary>
+<div class="job-list">
+<a class="link">RSRTC</a>
+<a class="link">Rajasthan Housing Board</a>
+<a class="link">RIICO</a>
+<a class="link">RRECL</a>
+<a class="link">RSMML</a>
+<a class="link">Rajasthan State Warehousing Corporation</a>
+<a class="link">Rajasthan Financial Corporation</a>
+<a class="link">Rajasthan State Cooperative Bank</a>
+<a class="link">JVVNL</a>
+<a class="link">AVVNL</a>
+<a class="link">JdVVNL</a>
+<a class="link">RVUNL</a>
+<a class="link">RVPNL</a>
+<a class="link">RTDC</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🎓 Government Universities</summary>
+<div class="job-list">
+<a class="link">University of Rajasthan</a>
+<a class="link">Mohanlal Sukhadia University</a>
+<a class="link">MDS University</a>
+<a class="link">Jai Narain Vyas University</a>
+<a class="link">University of Kota</a>
+<a class="link">Maharaja Ganga Singh University</a>
+<a class="link">Maharaja Surajmal Brij University</a>
+<a class="link">Govind Guru Tribal University</a>
+<a class="link">VMOU</a>
+<a class="link">Rajasthan Technical University</a>
+<a class="link">Rajasthan University of Health Sciences</a>
+<a class="link">Agriculture Universities</a>
+<a class="link">Veterinary Universities</a>
+<a class="link">Sanskrit Universities</a>
+<a class="link">Law Universities</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>👮 Rajasthan Police</summary>
+<div class="job-list">
+<a class="link">Constable</a>
+<a class="link">Driver Constable</a>
+<a class="link">Telecommunication Constable</a>
+<a class="link">Sub Inspector (SI)</a>
+<a class="link">Platoon Commander</a>
+<a class="link">Home Guard</a>
+<a class="link">Other Police Recruitment</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>👩‍🏫 Education Recruitment</summary>
+<div class="job-list">
+<a class="link">REET</a>
+<a class="link">Teacher Grade III Level 1</a>
+<a class="link">Teacher Grade III Level 2</a>
+<a class="link">Senior Teacher Grade II</a>
+<a class="link">School Lecturer</a>
+<a class="link">PTI</a>
+<a class="link">Librarian</a>
+<a class="link">Assistant Professor</a>
+<a class="link">Headmaster / Principal</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🏥 Medical &amp; Health</summary>
+<div class="job-list">
+<a class="link">Medical Officer</a>
+<a class="link">Nursing Officer</a>
+<a class="link">ANM</a>
+<a class="link">GNM</a>
+<a class="link">CHO</a>
+<a class="link">Pharmacist</a>
+<a class="link">Lab Technician</a>
+<a class="link">Assistant Radiographer</a>
+<a class="link">Ophthalmic Assistant</a>
+<a class="link">ECG Technician</a>
+<a class="link">Dental Technician</a>
+<a class="link">X-Ray Technician</a>
+<a class="link">Food Safety Officer</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🌾 Agriculture &amp; Animal Husbandry</summary>
+<div class="job-list">
+<a class="link">Agriculture Officer</a>
+<a class="link">Agriculture Supervisor</a>
+<a class="link">Horticulture Officer</a>
+<a class="link">Assistant Agriculture Officer</a>
+<a class="link">Veterinary Officer</a>
+<a class="link">Livestock Assistant</a>
+<a class="link">Fisheries Development Officer</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🛠️ Engineering &amp; Technical</summary>
+<div class="job-list">
+<a class="link">Assistant Engineer Civil</a>
+<a class="link">Assistant Engineer Mechanical</a>
+<a class="link">Assistant Engineer Electrical</a>
+<a class="link">Junior Engineer Civil</a>
+<a class="link">Junior Engineer Mechanical</a>
+<a class="link">Junior Engineer Electrical</a>
+<a class="link">Junior Engineer PHED</a>
+<a class="link">Technical Assistant</a>
+<a class="link">Junior Technical Assistant</a>
+<a class="link">Programmer</a>
+<a class="link">IT Assistant</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>📑 Revenue Department</summary>
+<div class="job-list">
+<a class="link">Tehsildar</a>
+<a class="link">Naib Tehsildar</a>
+<a class="link">Revenue Inspector</a>
+<a class="link">Patwari</a>
+<a class="link">Junior Revenue Accountant</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🏘️ Panchayati Raj</summary>
+<div class="job-list">
+<a class="link">VDO</a>
+<a class="link">Junior Technical Assistant</a>
+<a class="link">Account Assistant</a>
+<a class="link">Gram Panchayat Jobs</a>
+<a class="link">Other Panchayati Raj Jobs</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🏙️ Urban Local Bodies</summary>
+<div class="job-list">
+<a class="link">Municipal Assistant</a>
+<a class="link">Fireman</a>
+<a class="link">Fire Officer</a>
+<a class="link">Sanitary Inspector</a>
+<a class="link">Town Planning Assistant</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🌳 Forest Department</summary>
+<div class="job-list">
+<a class="link">Forest Guard</a>
+<a class="link">Forester</a>
+<a class="link">Forest Ranger</a>
+<a class="link">Assistant Conservator of Forests</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>🤝 Cooperative Department</summary>
+<div class="job-list">
+<a class="link">Cooperative Inspector</a>
+<a class="link">Cooperative Supervisor</a>
+<a class="link">Assistant Registrar Cooperative Societies</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>👨‍👩‍👧 Social Welfare &amp; Women Empowerment</summary>
+<div class="job-list">
+<a class="link">Social Welfare Officer</a>
+<a class="link">Probation Officer</a>
+<a class="link">Child Development Project Officer</a>
+<a class="link">Women Supervisor</a>
+<a class="link">Anganwadi Worker</a>
+<a class="link">Anganwadi Helper</a>
+</div>
+</details>
+<details class="job-section-dropdown">
+<summary>📂 Other Rajasthan Departments</summary>
+<div class="job-list">
+<a class="link">Transport Department</a>
+<a class="link">Water Resources</a>
+<a class="link">PHED</a>
+<a class="link">Energy / DISCOM</a>
+<a class="link">RSRTC</a>
+<a class="link">Other Department Posts</a>
+</div>
+</details>
+</div>
+</section>
+<!-- ================= STUDY ================= -->
+<section class="page" id="study"><h2>📚 Study Notes</h2><div class="info-grid"><div class="info-section"><h3>📚 Study Material</h3><p>History • Geography • Polity • Science • Current Affairs के व्यवस्थित notes और topic-wise study material।</p></div><div class="info-section"><h3>📝 Important Questions</h3><p>प्रतियोगी परीक्षाओं के महत्वपूर्ण प्रश्न, practice questions और revision points।</p></div><div class="info-section"><h3>📘 Subject-wise Notes</h3><p>हर विषय को अलग topic के अनुसार पढ़ें और जरूरी concepts को short notes में revise करें।</p></div><div class="info-section"><h3>🔁 Revision &amp; Practice</h3><p>Revision schedule, previous questions और नियमित practice के लिए dedicated section।</p></div></div></section>
+<!-- ================= RAJASTHAN GK ================= -->
+<section class="page" id="rajasthan"><h2>🏜️ राजस्थान सामान्य ज्ञान</h2><div class="info-grid"><div class="info-section"><h3>🏰 History</h3><p>राजस्थान का इतिहास, प्रमुख राजवंश, युद्ध, शासक और ऐतिहासिक घटनाएँ।</p></div><div class="info-section"><h3>🗺️ Geography</h3><p>भौगोलिक क्षेत्र, नदियाँ, झीलें, जलवायु, मिट्टी, वन और प्राकृतिक संसाधन।</p></div><div class="info-section"><h3>🎭 Art &amp; Culture</h3><p>लोक कला, लोक नृत्य, संगीत, मेले, त्योहार, परंपराएँ और हस्तशिल्प।</p></div><div class="info-section"><h3>📍 Districts</h3><p>राजस्थान के जिलों से संबंधित प्रमुख स्थान, प्रशासनिक और सामान्य ज्ञान facts।</p></div><div class="info-section"><h3>⭐ Important Facts</h3><p>किले, पर्यटन स्थल, लोक देवता और परीक्षाओं के लिए महत्वपूर्ण facts।</p></div></div></section>
+<!-- ================= QUIZ ================= -->
+<section class="page" id="quiz"><h2>🧠 Daily Quiz</h2><div class="info-grid"><div class="info-section"><h3>🌐 Daily GK</h3><p>रोज के सामान्य ज्ञान प्रश्नों से अपनी तैयारी check करें।</p></div><div class="info-section"><h3>🏜️ Rajasthan Quiz</h3><p>राजस्थान इतिहास, भूगोल और संस्कृति पर आधारित quiz practice।</p></div><div class="info-section"><h3>📝 Exam Practice</h3><p>Competitive exams के pattern के अनुसार practice questions और self-check।</p></div><div class="info-section"><h3>📰 Current Affairs</h3><p>Current affairs based questions के लिए dedicated quiz space।</p></div></div></section>
+<!-- ================= STUDY PDF ================= -->
+<section class="page" id="pdf"><h2>📄 Study PDF</h2><div class="info-grid"><div class="info-section"><h3>📚 Notes PDF</h3><p>Subject-wise notes और revision material की PDFs यहाँ उपलब्ध कराई जा सकती हैं।</p></div><div class="info-section"><h3>📝 Question PDF</h3><p>Important questions, practice sets और previous-question based PDFs।</p></div><div class="info-section"><h3>🏜️ GK PDF</h3><p>Rajasthan GK और General Knowledge की topic-wise PDF सामग्री।</p></div><div class="info-section"><h3>🔁 Revision PDF</h3><p>Quick revision और last-minute preparation के लिए short PDFs।</p></div></div></section>
+<!-- ================= PROFESSIONAL CAREER GUIDE ================= -->
+<section class="page" id="career">
+<div class="career-hero"><h2>🎯 Career Guide – सही दिशा, सही करियर</h2><p>Dream Josh Career Guide में 10वीं, 12वीं, Graduation और skill-based career के लिए course, eligibility, career options, preparation और आगे की opportunities को एक जगह व्यवस्थित किया गया है।</p><div><span class="career-badge">🎓 Education</span><span class="career-badge">💼 Jobs</span><span class="career-badge">🛠️ Skills</span><span class="career-badge">🧭 Career Planning</span></div></div>
+<div class="career-grid"><div class="career-card"><h3>📌 Career चुनने से पहले</h3><ul><li>अपनी रुचि और मजबूत subjects पहचानें।</li><li>अपनी qualification और learning ability देखें।</li><li>Course की duration, cost और future scope समझें।</li><li>Job, higher study या business में अपना लक्ष्य तय करें।</li></ul></div><div class="career-card"><h3>🧭 Career का आसान Formula</h3><p><b>Interest → Eligibility → Course → Skills → Preparation → Internship/Experience → Job/Higher Study</b></p><p>एक अच्छा career केवल course से नहीं, बल्कि relevant skills और लगातार practice से बनता है।</p></div></div>
+<div class="career-note">💡 <b>Important:</b> किसी भी admission, exam या recruitment के लिए अंतिम eligibility, age, fee और rules संबंधित official notification/institution से जरूर verify करें।</div>
+<div class="card"><h3>📚 Career Guide में क्या-क्या मिलेगा?</h3><p>ऊपर के <b>Career Guide</b> dropdown से किसी भी category पर क्लिक करके उसका पूरा अलग page खोलें। एक समय में केवल चुना हुआ page दिखाई देगा।</p></div>
+</section>
+
+<section class="page" id="career12"><div class="career-hero"><h2>🎓 12th के बाद Career Options</h2><p>12वीं के बाद stream और interest के अनुसार higher education, professional course, skill training या competitive exams का रास्ता चुना जा सकता है।</p></div><table class="career-table"><tr><th>Stream</th><th>Popular Study Options</th><th>Career Directions</th></tr><tr><td>Arts</td><td>BA, Languages, History, Geography, Political Science, Law pathways</td><td>Teaching, Civil Services, Law, Media, Social Sector</td></tr><tr><td>Science</td><td>BSc, Engineering, Medical, Pharmacy, Allied Health</td><td>Research, Technology, Healthcare, Teaching, Govt. Jobs</td></tr><tr><td>Commerce</td><td>BCom, BBA, Economics, Finance and professional pathways</td><td>Banking, Finance, Accounting, Business, Govt. Jobs</td></tr><tr><td>Any Stream</td><td>Graduation, Diploma, ITI, Skill Courses</td><td>Competitive Exams, Skilled Jobs, Entrepreneurship</td></tr></table><div class="career-card"><h3>✅ Decision Checklist</h3><ul><li>किस subject में आपकी genuine रुचि है?</li><li>आपको जल्दी job चाहिए या long-term professional career?</li><li>आपकी financial और location constraints क्या हैं?</li><li>क्या आप entrance/competitive exam preparation के लिए तैयार हैं?</li></ul></div></section>
+
+<section class="page" id="college"><div class="career-hero"><h2>🏫 College &amp; Degree Courses</h2><p>Graduation को career goal के साथ जोड़कर चुनें। Degree के साथ communication, computer, internship और domain skills विकसित करना भी जरूरी है।</p></div><table class="career-table"><tr><th>Course Area</th><th>Examples</th><th>Possible Directions</th></tr><tr><td>Arts &amp; Humanities</td><td>BA, Languages, Political Science, History, Geography</td><td>Teaching, Civil Services, Research, Media</td></tr><tr><td>Science</td><td>BSc, Mathematics, Physics, Chemistry, Biology</td><td>Research, Teaching, Lab, Government Exams</td></tr><tr><td>Commerce &amp; Management</td><td>BCom, BBA, Economics, Finance</td><td>Banking, Finance, Accounting, Management</td></tr><tr><td>Computer</td><td>BCA, Computer-related degrees</td><td>Software, Web, Data, IT Support</td></tr><tr><td>Professional</td><td>Law, Education, Pharmacy, Nursing, Engineering</td><td>Professional practice and specialised careers</td></tr></table><div class="career-note">📌 College चुनते समय recognition/affiliation, course curriculum, fees, location, placement/internship opportunities और आगे की eligibility को compare करें।</div></section>
+
+<section class="page" id="skills"><div class="career-hero"><h2>💡 Skills &amp; Certificate Courses</h2><p>आज के job market में degree के साथ practical skills आपकी employability बढ़ा सकती हैं।</p></div><div class="career-grid"><div class="career-card"><h3>💻 Digital Skills</h3><ul><li>Computer fundamentals</li><li>MS Office / productivity tools</li><li>Typing &amp; documentation</li><li>Internet research &amp; online safety</li></ul></div><div class="career-card"><h3>🧑‍💻 Technology</h3><ul><li>Coding fundamentals</li><li>Web development</li><li>Database basics</li><li>Data &amp; analytics fundamentals</li></ul></div><div class="career-card"><h3>🗣️ Professional Skills</h3><ul><li>Communication</li><li>English/Hindi writing</li><li>Interview skills</li><li>Presentation &amp; teamwork</li></ul></div><div class="career-card"><h3>📈 Career Skills</h3><ul><li>Resume preparation</li><li>Time management</li><li>Problem solving</li><li>Workplace discipline</li></ul></div></div><div class="career-note">🎯 Certificate से ज्यादा important है कि skill को practical projects, practice और real work में apply किया जाए।</div></section>
+
+<section class="page" id="competitive"><div class="career-hero"><h2>📝 Competitive Exams Career</h2><p>सरकारी नौकरी और अन्य competitive careers के लिए exam category, eligibility, syllabus और preparation strategy को पहले समझें।</p></div><table class="career-table"><tr><th>Category</th><th>Examples</th><th>Preparation Focus</th></tr><tr><td>Central Government</td><td>UPSC, SSC</td><td>General Studies, Reasoning, Quantitative Aptitude, Language</td></tr><tr><td>Railway</td><td>RRB examinations</td><td>Maths, Reasoning, General Awareness, Technical/subject sections</td></tr><tr><td>Banking</td><td>IBPS, SBI and related exams</td><td>Quant, Reasoning, English, General/Banking Awareness</td></tr><tr><td>Rajasthan</td><td>RPSC, RSSB and state recruitments</td><td>Rajasthan GK, General Studies and post-specific syllabus</td></tr><tr><td>Teaching</td><td>REET, CTET and related pathways</td><td>Pedagogy, subject knowledge and language</td></tr></table><div class="career-steps"><div class="career-step">Target exam चुनें</div><div class="career-step">Official syllabus समझें</div><div class="career-step">Daily study timetable बनाएं</div><div class="career-step">PYQ + mock tests लगाएं</div></div></section>
+
+<section class="page" id="govcareer">
+<div class="career-hero"><h2>🏛️ Government Job Career</h2><p>अपनी qualification के अनुसार सही सरकारी नौकरी का रास्ता चुनें। नीचे हर stage के लिए संबंधित jobs, सामान्य eligibility, preparation और next steps दिए गए हैं।</p></div>
+
+<div class="career-grid">
+<div class="career-card"><h3>📘 After 10th</h3><ul><li>10वीं स्तर की eligible भर्ती और support/entry-level posts देखें।</li><li>Railway, Police, Defence तथा अन्य विभागों की post-wise eligibility check करें।</li><li>ITI, trade और technical skill pathways से future government technical jobs के विकल्प बढ़ सकते हैं।</li><li>तैयारी में Maths, Reasoning, General Awareness और basic language पर foundation बनाएं।</li></ul></div>
+<div class="career-card"><h3>🎓 After 12th</h3><ul><li>12वीं के बाद clerical, assistant, defence, police, railway और अन्य eligible recruitments देखें।</li><li>Science, Commerce या Arts stream के अनुसार post-specific eligibility अलग हो सकती है।</li><li>Defence pathways में written exam के साथ physical/medical standards भी लागू हो सकते हैं।</li><li>Basic Computer, Typing, Maths, Reasoning और General Awareness मजबूत करें।</li></ul></div>
+<div class="career-card"><h3>🎯 After Graduation</h3><ul><li>UPSC, SSC, Banking, State PSC और graduate-level recruitments explore करें।</li><li>Graduation subject और post की specific qualification को notification से मिलाएं।</li><li>General Studies, Quantitative Aptitude, Reasoning, English/Hindi और current affairs पर structured preparation करें।</li><li>PYQ, mock tests और revision timetable को preparation का हिस्सा बनाएं।</li></ul></div>
+<div class="career-card"><h3>🛠️ Specialised Qualification</h3><ul><li>Engineering, Medical, Law, Teaching, Agriculture, Pharmacy और अन्य professional qualifications के अनुसार specialised posts देखें।</li><li>Professional registration, experience या subject-specific eligibility जहाँ लागू हो, notification में verify करें।</li><li>Technical/subject knowledge के साथ recruitment exam pattern और selection stages समझें।</li><li>अपने qualification से सीधे संबंधित departments और government organisations की recruitments track करें।</li></ul></div>
+</div>
+
+<div class="career-info-block"><h3>🔎 Eligibility & Notification कैसे देखें?</h3><div class="career-grid">
+<div class="career-card"><h3>1️⃣ Eligibility Check</h3><p>Age limit, educational qualification, nationality/domicile, category rules, required certificate और अन्य conditions को सबसे पहले check करें।</p></div>
+<div class="career-card"><h3>2️⃣ Selection Process</h3><p>Written exam, skill/typing test, physical test, interview, document verification या medical जैसे stages post के अनुसार अलग हो सकते हैं।</p></div>
+<div class="career-card"><h3>3️⃣ Official Notification</h3><p>Application शुरू करने से पहले official notification में vacancy, dates, fee, syllabus, exam pattern और instructions ध्यान से पढ़ें।</p></div>
+<div class="career-card"><h3>4️⃣ Preparation Plan</h3><p>Target post चुनें → syllabus बनाएं → daily timetable रखें → PYQ लगाएं → mock test दें → कमजोर topics revise करें।</p></div>
+</div></div>
+
+<div class="career-table-wrap"><table class="career-table"><tr><th>Qualification</th><th>Career Direction</th><th>Preparation Focus</th></tr><tr><td>10वीं</td><td>Entry-level, Railway, Police, Defence, Skill/ITI pathways</td><td>Maths, Reasoning, GK, Language, Physical where applicable</td></tr><tr><td>12वीं</td><td>Clerical, Assistant, Defence, Police, Railway and other eligible posts</td><td>Maths, Reasoning, Language, GK, Computer/Typing where applicable</td></tr><tr><td>Graduation</td><td>UPSC, SSC, Banking, State PSC and graduate-level posts</td><td>GS, Quant, Reasoning, Language, Current Affairs, PYQ</td></tr><tr><td>Professional</td><td>Engineering, Medical, Law, Teaching, Agriculture and specialised posts</td><td>Subject knowledge + post-specific exam/selection pattern</td></tr></table></div>
+
+<div class="career-note">⚠️ Eligibility, age limit, vacancies, syllabus और selection process भर्ती-दर-भर्ती बदल सकते हैं। इसलिए अंतिम निर्णय हमेशा संबंधित official notification की शर्तों के आधार पर लें।</div>
+</section>
+
+<section class="page" id="defencecareer"><div class="career-hero"><h2>🪖 Defence Career</h2><p>Defence sector में officer, technical, non-technical और support roles के अलग-अलग pathways होते हैं।</p></div><table class="career-table"><tr><th>Pathway</th><th>Examples</th><th>Focus</th></tr><tr><td>Officer Entry</td><td>NDA, CDS and other officer pathways</td><td>Academics, physical fitness, leadership and selection stages</td></tr><tr><td>Army</td><td>Various entry/recruitment routes</td><td>Physical fitness, discipline and role-specific preparation</td></tr><tr><td>Navy</td><td>Officer and other recruitment routes</td><td>Academic/technical eligibility plus fitness</td></tr><tr><td>Air Force</td><td>Officer and airmen-related pathways</td><td>Relevant academic subjects, aptitude and fitness</td></tr><tr><td>Coast Guard</td><td>Officer and other eligible roles</td><td>Qualification, physical standards and selection process</td></tr></table><div class="career-note">🏃 Defence preparation में written preparation के साथ physical fitness, medical standards और selection procedure को भी पहले समझना चाहिए।</div></section>
+
+<section class="page" id="teachingcareer"><div class="career-hero"><h2>👩‍🏫 Teaching Career</h2><p>Teaching field में school teaching, lecturer, higher education और specialised education roles के अलग-अलग qualification pathways होते हैं।</p></div><div class="career-grid"><div class="career-card"><h3>🏫 School Teaching</h3><p>Relevant graduation/post-graduation, teacher education और applicable eligibility tests/recruitment pathways को समझें।</p></div><div class="career-card"><h3>📚 Teaching Exams</h3><p>REET, CTET और state/central teaching recruitment के syllabus और eligibility को official notification से verify करें।</p></div><div class="career-card"><h3>🎓 Higher Education</h3><p>Post-graduation, research/eligibility pathways और institution-specific requirements देखें।</p></div><div class="career-card"><h3>💻 Modern Teaching Skills</h3><p>Digital classroom, presentation, communication, content creation और educational technology skills विकसित करें।</p></div></div></section>
+
+<section class="page" id="medicalcareer"><div class="career-hero"><h2>🏥 Medical &amp; Paramedical Career</h2><p>Healthcare sector में doctor के अलावा nursing, pharmacy, laboratory, radiography और अन्य allied-health roles भी होते हैं।</p></div><table class="career-table"><tr><th>Area</th><th>Examples</th><th>Career Direction</th></tr><tr><td>Medical</td><td>Medicine-related professional pathways</td><td>Clinical healthcare</td></tr><tr><td>Nursing</td><td>Nursing programmes</td><td>Hospitals, clinics, public health</td></tr><tr><td>Pharmacy</td><td>Pharmacy programmes</td><td>Pharmacy, healthcare and related sectors</td></tr><tr><td>Lab</td><td>Lab Technician pathways</td><td>Diagnostic laboratories and hospitals</td></tr><tr><td>Imaging</td><td>Radiography/Imaging-related pathways</td><td>Diagnostic services</td></tr></table><div class="career-note">⚕️ Healthcare courses में recognition, clinical training, registration/licensing requirements और institution की approval status को admission से पहले verify करें।</div></section>
+
+<section class="page" id="engineeringcareer"><div class="career-hero"><h2>🛠️ Engineering &amp; Technical Career</h2><p>Technical career में branch selection के साथ practical projects, tools और industry-relevant skills पर ध्यान देना जरूरी है।</p></div><div class="career-grid"><div class="career-card"><h3>🏗️ Civil</h3><p>Construction, infrastructure, surveying, design और government technical services से जुड़े roles।</p></div><div class="career-card"><h3>⚙️ Mechanical</h3><p>Manufacturing, maintenance, production, design और industrial operations।</p></div><div class="career-card"><h3>⚡ Electrical</h3><p>Power, electrical systems, maintenance, automation और utilities।</p></div><div class="career-card"><h3>🔌 Electronics</h3><p>Embedded systems, electronics, instrumentation, communication और automation।</p></div><div class="career-card"><h3>💻 Computer/IT</h3><p>Software, web, cloud, data, networking और technology services।</p></div><div class="career-card"><h3>📐 Technical Skills</h3><p>CAD, programming, documentation, safety, project work और problem solving।</p></div></div></section>
+
+<section class="page" id="itcareer"><div class="career-hero"><h2>💻 IT &amp; Computer Career</h2><p>IT field में एक साथ सब कुछ सीखने के बजाय एक career track चुनकर fundamentals से projects तक बढ़ें।</p></div><div class="career-grid"><div class="career-card"><h3>🌐 Web Development</h3><p>HTML, CSS, JavaScript और आगे framework/backend concepts के साथ websites और web applications बनाना।</p></div><div class="career-card"><h3>🧑‍💻 Software Development</h3><p>Programming fundamentals, data structures, databases, version control और software projects।</p></div><div class="career-card"><h3>📊 Data &amp; Analytics</h3><p>Excel/spreadsheets, SQL, statistics, data visualisation और analytical thinking।</p></div><div class="career-card"><h3>🔐 Cyber Security</h3><p>Networking, operating systems, security fundamentals, ethical practices और defensive security skills।</p></div><div class="career-card"><h3>🌐 Networking</h3><p>Computer networks, troubleshooting, systems administration और infrastructure basics।</p></div><div class="career-card"><h3>🎨 Digital &amp; Creative</h3><p>Graphic design, video editing, UI basics, content creation और digital marketing।</p></div></div></section>
+
+<section class="page" id="iti"><div class="career-hero"><h2>🔧 ITI &amp; Polytechnic</h2><p>Hands-on technical education उन विद्यार्थियों के लिए उपयोगी हो सकती है जो practical skill और early employment pathway चाहते हैं।</p></div><div class="career-grid"><div class="career-card"><h3>🔩 ITI</h3><p>Trade-based practical training, workshop skills और technical employment/apprenticeship pathways पर focus।</p></div><div class="career-card"><h3>🏗️ Polytechnic</h3><p>Diploma-level technical education जैसे Civil, Mechanical, Electrical, Computer आदि fields।</p></div><div class="career-card"><h3>🎯 After ITI/Polytechnic</h3><p>Apprenticeship, technical jobs, further studies और relevant competitive recruitments explore किए जा सकते हैं।</p></div><div class="career-card"><h3>🧰 Must-Have Skills</h3><p>Safety, tools, measurements, technical drawing, troubleshooting, communication और workplace discipline।</p></div></div></section>
+
+<section class="page" id="careerplanning"><div class="career-hero"><h2>🧭 Career Planning &amp; Guidance</h2><p>Career planning एक बार का decision नहीं है। इसे goals, skills, opportunities और आपकी progress के अनुसार समय-समय पर update करें।</p></div><div class="career-steps"><div class="career-step"><b>Self Assessment</b><br>Interest, strengths, subjects और preferred work style लिखें।</div><div class="career-step"><b>Explore Options</b><br>Courses, jobs, exams और career paths compare करें।</div><div class="career-step"><b>Check Eligibility</b><br>Qualification, age, subjects और required skills verify करें।</div><div class="career-step"><b>Select a Route</b><br>Degree, diploma, ITI, skill course या exam pathway चुनें।</div><div class="career-step"><b>Build Skills</b><br>Communication, computer और domain-specific practical skills विकसित करें।</div><div class="career-step"><b>Prepare &amp; Apply</b><br>Entrance/exam preparation, projects, resume और applications पर काम करें।</div></div><div class="career-card" style="margin-top:15px"><h3>📅 Simple 1-Year Career Plan</h3><table class="career-table"><tr><th>Phase</th><th>Action</th></tr><tr><td>Month 1–2</td><td>Goal और career options shortlist करें।</td></tr><tr><td>Month 3–5</td><td>Core subject + skill learning शुरू करें।</td></tr><tr><td>Month 6–8</td><td>Projects/PYQ/mock tests/internship preparation करें।</td></tr><tr><td>Month 9–10</td><td>Resume, applications और exam revision पर focus करें।</td></tr><tr><td>Month 11–12</td><td>Mock interviews/tests, applications और next-step planning करें।</td></tr></table></div><div class="career-note">⭐ <b>Golden Rule:</b> एक साथ बहुत सारे career options के पीछे न भागें। 1–2 realistic options चुनें, उनकी eligibility और roadmap लिखें, फिर measurable weekly targets बनाकर लगातार काम करें।</div></section>
+
+<!-- ================= BOOKS ================= -->
+<section class="page" id="books"><h2>📖 Books</h2><div class="info-grid"><div class="info-section"><h3>📝 Competitive Exams</h3><p>SSC, Railway, Banking, UPSC और अन्य competitive preparation के लिए books category।</p></div><div class="info-section"><h3>🏜️ Rajasthan GK</h3><p>राजस्थान GK, history, geography और culture की reference books।</p></div><div class="info-section"><h3>🌐 General Knowledge</h3><p>General Knowledge, static GK और practice books की जानकारी।</p></div><div class="info-section"><h3>🎯 Study &amp; Career</h3><p>Career planning, skills और academic guidance से जुड़ी उपयोगी books।</p></div></div></section>
+<!-- ================= SHOPPING ================= -->
+<section class="page" id="shopping"><h2>🛒 Book Shopping</h2><div class="info-grid"><div class="info-section"><h3>📕 Exam Books</h3><p>Competitive exams की recommended books के links यहाँ जोड़े जा सकते हैं।</p></div><div class="info-section"><h3>📗 GK Books</h3><p>Rajasthan GK और General Knowledge books के shopping links।</p></div><div class="info-section"><h3>📘 Career Books</h3><p>Career planning और skill development books की category।</p></div><div class="info-section"><h3>🔗 Book Links</h3><p><a class="link" href="#">🛍️ Book Link 1</a><a class="link" href="#">🛍️ Book Link 2</a></p></div></div></section>
+<!-- ================= PDF TOOLS ================= -->
+<section class="page" id="pdftools"><h2>🛠️ PDF Tools</h2><div class="info-grid"><div class="info-section"><h3>🔗 Merge PDF</h3><p>Multiple PDF files को एक document में combine करने के लिए tool category।</p></div><div class="info-section"><h3>✂️ Split PDF</h3><p>PDF के pages को अलग files में निकालने के लिए tool category।</p></div><div class="info-section"><h3>📦 Compress PDF</h3><p>PDF file size कम करने के लिए compression tools।</p></div><div class="info-section"><h3>🔄 Convert PDF</h3><p>PDF को दूसरे document/image formats में convert करने के लिए tools।</p></div><div class="info-section"><a class="link" href="https://www.ilovepdf.com/" target="_blank">PDF Tools</a><a class="link" href="https://smallpdf.com/" target="_blank">SmallPDF</a></div></div></section>
+<!-- ================= ADVERTISEMENT ================= -->
+<section class="page" id="advertisement"><h2>📢 Advertisement</h2><div class="info-grid"><div class="info-section"><h3>🏪 Local Business</h3><p>Local shops, businesses और services के लिए advertisement space।</p></div><div class="info-section"><h3>🎓 Coaching</h3><p>Coaching institutes, libraries और educational services के advertisements।</p></div><div class="info-section"><h3>🛎️ Services</h3><p>Useful local services और community announcements के लिए section।</p></div><div class="info-section"><h3>📞 Advertisement Contact</h3><p>Advertisement details, rates और contact information यहाँ जोड़ी जा सकती है।</p></div></div></section>
+<!-- ================= SHARE ================= -->
+<section class="page" id="share"><h2>📤 Share Dream Josh</h2><div class="info-grid"><div class="info-section"><h3>📱 Share Website</h3><p>Dream Josh को दोस्तों और परिवार के साथ share करें।</p><button onclick="shareSite()">📱 Share Website</button></div><div class="info-section"><h3>🔗 Copy Link</h3><p>Website का current link copy करके कहीं भी share करें।</p><button onclick="copyLink()">🔗 Copy Link</button></div></div></section>
+<!-- ================= FORMS ================= -->
+<section class="page" id="forms"><h2>📝 Important Forms</h2><div class="info-grid"><div class="info-section"><h3>🏛️ Government Forms</h3><p>सरकारी applications और department forms के useful links।</p></div><div class="info-section"><h3>💼 Job Forms</h3><p>Job application और recruitment related forms के links।</p></div><div class="info-section"><h3>🎓 Education Forms</h3><p>Admission, scholarship और education-related application forms।</p></div><div class="info-section"><h3>🔗 Application Links</h3><p>Important form links को category-wise यहाँ रखा जा सकता है।</p></div></div></section>
+<!-- ================= GALLERY ================= -->
+<section class="page" id="gallery"><h2>🖼️ Photo Gallery</h2><div class="info-grid"><div class="info-section"><h3>🎉 Events</h3><p>Dream Josh events और special activities की photos।</p></div><div class="info-section"><h3>📚 Study</h3><p>Study sessions, notes और educational activities की gallery।</p></div><div class="info-section"><h3>🎯 Career</h3><p>Career guidance और educational events से जुड़ी photos।</p></div><div class="info-section"><h3>🚀 Dream Josh</h3><p>Website, team और community related photos।</p></div></div></section>
+<!-- ================= MAIN LINKS ================= -->
+<section class="page" id="links">
+<h2>🔗 Main Links</h2>
+<div class="card">
+<a class="link" onclick="showPage('centralJobs')">
+🇮🇳 Central Govt. Jobs
+</a>
+<a class="link" onclick="showPage('stateJobs')">
+🏜️ Rajasthan Govt. Jobs
+</a>
+<a class="link" onclick="showPage('study')">
+📚 Study Notes
+</a>
+<a class="link" onclick="showPage('career')">
+🎯 Career Guide
+</a>
+<a class="link" onclick="showPage('videos')">
+▶️ YouTube Videos
+</a>
+<a class="link" onclick="showPage('forms')">
+📝 Important Forms
+</a>
+<a class="link" onclick="showPage('pdftools')">
+🛠️ PDF Tools
+</a>
+<a class="link" onclick="showPage('books')">
+📖 Books
+</a>
+</div>
+</section>
+<!-- ================= MOTIVATION ================= -->
+<section class="page" id="motivation"><h2>🔥 Motivation</h2><div class="info-grid"><div class="info-section"><h3>🔥 Daily Motivation</h3><p>हर दिन consistency और positive action पर focus करने वाली motivation।</p></div><div class="info-section"><h3>📚 Study Motivation</h3><p>Study routine, discipline और परीक्षा preparation में consistency के लिए प्रेरणा।</p></div><div class="info-section"><h3>🎯 Career Motivation</h3><p>Career goals को छोटे actionable steps में बदलकर आगे बढ़ने की प्रेरणा।</p></div><div class="info-section"><h3>🏆 Success Tips</h3><p>Goal setting, time management, revision और continuous improvement के practical tips।</p></div></div></section>
+<!-- ================= YOUTUBE ================= -->
+<section class="page" id="videos"><h2>▶️ Videos</h2><div class="info-grid"><div class="info-section"><h3>📚 Study Videos</h3><p>Study notes, concepts और exam preparation videos।</p></div><div class="info-section"><h3>💼 Job Updates</h3><p>Govt. Jobs और recruitment information से जुड़े videos।</p></div><div class="info-section"><h3>🎯 Career Guidance</h3><p>Courses, careers और skill pathways पर guidance videos।</p></div><div class="info-section"><h3>🔥 Motivation</h3><p>Study और career journey के लिए motivational videos।</p></div></div></section>
+</div>
+<!-- ================= FOOTER ================= -->
+<footer>
+
+🚀 DREAM JOSH © 2026
+
+<br/><br/>
+
+Study • Govt. Jobs • Career • Motivation
+
+</footer>
+<script>
+
+/* ================= MENU ================= */
+
+function toggleMenu(button){
+ const dropdown=button.parentElement;
+ document.querySelectorAll(".dropdown").forEach(function(d){
+   if(d!==dropdown){
+     d.classList.remove("open");
+     d.querySelectorAll(".dropdown-submenu").forEach(function(s){s.classList.remove("open");});
+   }
+ });
+ dropdown.classList.toggle("open");
+}
+
+function toggleSubMenu(button){
+ const submenu=button.parentElement;
+ const parentMenu=submenu.parentElement;
+ parentMenu.querySelectorAll(":scope > .dropdown-submenu").forEach(function(item){
+   if(item!==submenu){
+     item.classList.remove("open");
+     const b=item.querySelector(":scope > button");
+     if(b) b.classList.remove("nav-active");
+   }
+ });
+ submenu.classList.toggle("open");
+ button.classList.toggle("nav-active", submenu.classList.contains("open"));
+}
+
+function openJobSection(pageId, sectionTitle, menuButton){
+ const jobsDropdown=document.querySelector(".jobs-dropdown");
+ const clickedSubmenu=menuButton ? menuButton.closest(".dropdown-submenu") : null;
+ const parentButton=clickedSubmenu ? clickedSubmenu.querySelector(":scope > button") : null;
+
+ if(jobsDropdown){
+   jobsDropdown.classList.add("open");
+   const govButton=jobsDropdown.querySelector(":scope > button");
+   if(govButton) govButton.classList.add("nav-active");
+ }
+ if(clickedSubmenu){
+   clickedSubmenu.classList.add("open");
+   if(parentButton) parentButton.classList.add("nav-active");
+ }
+ document.querySelectorAll(".jobs-menu .submenu-content button.nav-active").forEach(function(b){
+   if(b!==menuButton) b.classList.remove("nav-active");
+ });
+ if(menuButton) menuButton.classList.add("nav-active");
+
+ showPage(pageId);
+ const page=document.getElementById(pageId);
+ if(!page) return;
+ page.classList.add("job-page-focus");
+ page.querySelectorAll(".job-section-dropdown").forEach(function(section){
+   section.open=false;
+   section.classList.remove("job-focused");
+   const sm=section.querySelector("summary");
+   if(sm) sm.classList.remove("job-page-active");
+ });
+ const section=Array.from(page.querySelectorAll(".job-section-dropdown")).find(function(item){
+   const summary=item.querySelector("summary");
+   return summary && summary.textContent.trim().includes(sectionTitle);
+ });
+ if(!section) return;
+ section.classList.add("job-focused");
+ section.open=true;
+ const summary=section.querySelector("summary");
+ if(summary) summary.classList.add("job-page-active");
+
+ let header=page.querySelector(".job-focus-header");
+ if(!header){
+   header=document.createElement("div");
+   header.className="job-focus-header";
+   page.insertBefore(header,page.firstElementChild);
+ }
+ const backLabel=pageId==="stateJobs" ? "← Back to Rajasthan Jobs" : "← Back to Central Jobs";
+ header.innerHTML='<button type="button" onclick="backToJobCategories(\''+pageId+'\')">'+backLabel+'</button><strong>Selected: '+sectionTitle+'</strong>';
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function backToJobCategories(pageId){
+ const page=document.getElementById(pageId);
+ if(!page) return;
+ page.classList.remove("job-page-focus");
+ page.querySelectorAll(".job-section-dropdown").forEach(function(section){
+   section.classList.remove("job-focused");
+   section.open=false;
+   const sm=section.querySelector("summary");
+   if(sm) sm.classList.remove("job-page-active");
+ });
+ const header=page.querySelector(".job-focus-header");
+ if(header) header.remove();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+
+document.addEventListener("click",function(e){
+ const summary=e.target.closest(".job-section-dropdown summary");
+ if(summary){
+   setTimeout(function(){
+     const page=summary.closest(".page");
+     if(page){
+       page.querySelectorAll(".job-section-dropdown summary.job-page-active").forEach(function(x){
+         if(x!==summary) x.classList.remove("job-page-active");
+       });
+     }
+     summary.classList.toggle("job-page-active", summary.parentElement.open);
+   },0);
+ }
+});
+
+/* ================= PAGE ================= */
+
+document.addEventListener("click",function(e){
+  if(!e.target.closest(".dropdown") && !e.target.closest(".page")){
+    document.querySelectorAll(".dropdown").forEach(function(d){d.classList.remove("open");d.querySelectorAll(".dropdown-submenu").forEach(function(s){s.classList.remove("open");});});
+  }
+});
+
+function clearSectionFocus(page){
+ if(!page) return;
+ page.classList.remove('section-page-focus');
+ const focus=page.querySelector('.section-focus-wrapper');
+ if(focus) focus.remove();
+ page.querySelectorAll('[data-section-original]').forEach(function(el){
+   el.style.display=el.getAttribute('data-section-original') || '';
+   el.removeAttribute('data-section-original');
+ });
+}
+
+function getSectionTarget(page, sectionTitle){
+ const selectors='.career-card,.career-step,.career-note,.career-table,.info-section,details,li';
+ const wanted=sectionTitle.toLowerCase();
+ let exact=null;
+ for(const el of page.querySelectorAll(selectors)){
+   const text=(el.textContent||'').trim().toLowerCase();
+   if(text===wanted || text.includes(wanted)){ exact=el; break; }
+ }
+ if(exact && exact.tagName==='LI') exact=exact.closest('.career-card,.info-section') || exact;
+ return exact;
+}
+
+function focusPageSection(pageId, sectionTitle, kind){
+ const page=document.getElementById(pageId);
+ if(!page) return;
+ showPage(pageId);
+ const target=getSectionTarget(page,sectionTitle);
+ if(!target) return;
+ clearSectionFocus(page);
+
+ page.querySelectorAll(':scope > *').forEach(function(el){
+   if(el!==target && !el.classList.contains('section-focus-wrapper')){
+     el.setAttribute('data-section-original',el.style.display || '');
+     el.style.display='none';
+   }
+ });
+
+ const wrapper=document.createElement('div');
+ wrapper.className='section-focus-wrapper';
+ const back=document.createElement('div');
+ back.className='section-focus-back';
+ back.innerHTML='<button type="button" onclick="backToSectionCategories(\''+pageId+'\')">← Back</button><strong>'+sectionTitle+'</strong>';
+ const content=document.createElement('div');
+ content.className='section-focus-content';
+
+ if(target.tagName==='TABLE') {
+   const clone=target.cloneNode(true);
+   const wanted=sectionTitle.toLowerCase();
+   const rows=Array.from(clone.querySelectorAll('tr'));
+   rows.forEach(function(row,i){
+     if(i>0 && !(row.textContent||'').toLowerCase().includes(wanted)) row.remove();
+   });
+   content.appendChild(clone);
+ } else {
+   content.appendChild(target.cloneNode(true));
+ }
+ wrapper.appendChild(back);
+ wrapper.appendChild(content);
+ page.insertBefore(wrapper,page.firstElementChild);
+ page.classList.add('section-page-focus');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function backToSectionCategories(pageId){
+ const page=document.getElementById(pageId);
+ if(!page) return;
+ clearSectionFocus(page);
+ page.querySelectorAll('[data-section-original]').forEach(function(el){
+   el.style.display=el.getAttribute('data-section-original') || '';
+   el.removeAttribute('data-section-original');
+ });
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function openCareerSection(pageId, sectionTitle){
+ focusPageSection(pageId,sectionTitle,'career');
+}
+
+function openInfoSection(pageId, sectionTitle){
+ focusPageSection(pageId,sectionTitle,'info');
+}
+
+function showPage(id){
+ document.querySelectorAll('.section-page-focus').forEach(function(p){ clearSectionFocus(p); });
+
+ document.querySelectorAll(".job-page-focus").forEach(function(p){
+   p.classList.remove("job-page-focus");
+   p.querySelectorAll(".job-section-dropdown").forEach(function(section){section.classList.remove("job-focused"); section.open=false;});
+   const h=p.querySelector(".job-focus-header"); if(h) h.remove();
+ });
+ document.querySelectorAll(".job-page-focus").forEach(function(p){
+   p.classList.remove("job-page-focus");
+   p.querySelectorAll(".job-section-dropdown").forEach(function(section){section.classList.remove("job-focused"); section.open=false;});
+   const h=p.querySelector(".job-focus-header"); if(h) h.remove();
+ });
+ document.querySelectorAll(".page").forEach(function(page){
+   page.classList.remove("active");
+ });
+
+ const page=document.getElementById(id);
+ if(page){
+   page.classList.add("active");
+   window.scrollTo({top:0,behavior:"smooth"});
+ }
+
+ // Clear all clicked navigation states.
+ document.querySelectorAll("nav .nav-active").forEach(function(el){
+   el.classList.remove("nav-active");
+ });
+
+ // Home keeps its original color. Every other page gets green on click.
+ if(id !== "home"){
+   document.querySelectorAll("nav [onclick]").forEach(function(el){
+     const code=el.getAttribute("onclick") || "";
+     const targetMatch=code.match(/showPage\(['"]([^'"]+)['"]\)/);
+     if(targetMatch && targetMatch[1] === id){
+       el.classList.add("nav-active");
+     }
+   });
+ }
+
+ document.querySelectorAll(".dropdown").forEach(function(d){
+   d.classList.remove("open");
+ });
+}
+
+/* Highlight every clicked navigation item green; Home remains unchanged. */
+document.addEventListener("click",function(e){
+ const navItem=e.target.closest("nav button, nav a");
+ if(!navItem) return;
+
+ document.querySelectorAll("nav .nav-active").forEach(function(el){
+   if(el!==navItem) el.classList.remove("nav-active");
+ });
+
+ const homeButton=navItem.closest("nav")?.querySelector(':scope > button[onclick*="showPage(\'home\')"]');
+ const code=navItem.getAttribute("onclick") || "";
+ if(code.includes("showPage('home')") || code.includes('showPage("home")')){
+   document.querySelectorAll("nav .nav-active").forEach(function(el){el.classList.remove("nav-active");});
+ }else{
+   navItem.classList.add("nav-active");
+ }
+});
+
+/* ================= SHARE ================= */
+
+function shareSite(){
+
+ if(navigator.share){
+
+   navigator.share({
+
+     title:"Dream Josh",
+
+     text:"Dream Josh - Study & Govt. Jobs",
+
+     url:window.location.href
+
+   });
+
+ }else{
+
+   copyLink();
+
+ }
+
+}
+
+
+/* ================= COPY LINK ================= */
+
+function copyLink(){
+
+ navigator.clipboard.writeText(window.location.href)
+
+ .then(function(){
+
+   alert("Website link copy हो गया।");
+
+ })
+
+ .catch(function(){
+
+   alert("Link copy नहीं हो पाया।");
+
+ });
+
+}
+
+</script>
+</body>
+</html>
