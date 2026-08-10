@@ -17,18 +17,12 @@
             --highlight-bg: #eefaf4;
             --border-color: #dce5f0;
             --shadow-color: rgba(0,0,0,0.1);
-            --nav-bg: #ffffff;
             --header-bg: linear-gradient(135deg, #123c9b, #1976d2);
-            --ticker-latest: #d62839;
-            --ticker-update: #079455;
             --footer-bg: #123c9b;
             --card-hover: #f4f8ff;
-            --dropdown-bg: #ffffff;
+            --gold: #ffd700;
             --safe-bottom: env(safe-area-inset-bottom, 0px);
             --safe-top: env(safe-area-inset-top, 0px);
-            --professional-gray: #f8f9fa;
-            --professional-border: #e9ecef;
-            --gold: #ffd700;
         }
 
         .dark-mode {
@@ -37,9 +31,6 @@
             --text-color: #e8e8e8;
             --primary-blue: #1a3a8a;
             --secondary-blue: #2a5ac8;
-            --success-green: #16a34a;
-            --warning-red: #d62839;
-            --highlight-bg: #1a2a1a;
             --border-color: #2a2a4a;
             --shadow-color: rgba(0,0,0,0.3);
             --footer-bg: #0d1b3e;
@@ -47,10 +38,10 @@
             --gold: #ffd700;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Noto Sans Devanagari", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background: var(--bg-color);
             color: var(--text-color);
             overflow: hidden;
@@ -58,8 +49,8 @@
             width: 100vw;
             position: fixed;
             transition: background 0.3s ease, color 0.3s ease;
-            padding-top: env(safe-area-inset-top, 0px);
-            padding-bottom: env(safe-area-inset-bottom, 0px);
+            padding-top: var(--safe-top);
+            padding-bottom: var(--safe-bottom);
         }
 
         /* ================= HEADER ================= */
@@ -76,30 +67,11 @@
             z-index: 1000;
             height: 60px;
             box-shadow: 0 2px 20px var(--shadow-color);
-            transition: background 0.3s ease;
-            padding-top: calc(10px + env(safe-area-inset-top, 0px));
+            padding-top: calc(10px + var(--safe-top));
         }
-
-        .app-header .logo {
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #fff;
-            user-select: none;
-            white-space: nowrap;
-        }
+        .app-header .logo { font-size: 20px; font-weight: bold; cursor: pointer; color: #fff; user-select: none; }
         .app-header .logo span { color: var(--gold); }
-
-        .app-header .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
+        .app-header .header-controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
         .app-header .header-controls .nav-btn {
             background: rgba(255,255,255,0.12);
             border: 1px solid rgba(255,255,255,0.15);
@@ -110,13 +82,11 @@
             font-size: 12px;
             font-weight: 600;
             transition: 0.3s;
-            touch-action: manipulation;
             white-space: nowrap;
         }
-        .app-header .header-controls .nav-btn:hover { background: var(--gold); color: #0a0e1a; border-color: var(--gold); }
-        .app-header .header-controls .nav-btn:active { transform: scale(0.95); }
+        .app-header .header-controls .nav-btn:hover { background: var(--gold); color: #0a0e1a; }
         .app-header .header-controls .admin-btn { background: #dc3545; border-color: #dc3545; }
-        .app-header .header-controls .admin-btn:hover { background: #ff4757; color: #fff; border-color: #ff4757; }
+        .app-header .header-controls .admin-btn:hover { background: #ff4757; color: #fff; }
         .app-header .header-controls .refresh-btn { background: var(--success-green); border-color: var(--success-green); }
         .app-header .header-controls .refresh-btn:hover { background: #15803d; color: #fff; }
 
@@ -132,10 +102,9 @@
             font-size: 12px;
             font-weight: 600;
             transition: 0.3s;
-            touch-action: manipulation;
             white-space: nowrap;
         }
-        .govt-dropdown .govt-btn:hover { background: var(--gold); color: #0a0e1a; border-color: var(--gold); }
+        .govt-dropdown .govt-btn:hover { background: var(--gold); color: #0a0e1a; }
         .govt-dropdown .govt-btn .arrow { font-size: 10px; margin-left: 3px; }
 
         .govt-dropdown .govt-dropdown-content {
@@ -149,71 +118,41 @@
             box-shadow: 0 8px 30px var(--shadow-color);
             min-width: 260px;
             z-index: 1001;
-            overflow: hidden;
             padding: 6px 0;
             max-height: 70vh;
             overflow-y: auto;
         }
         .govt-dropdown .govt-dropdown-content.show { display: block; animation: dropdownFade 0.25s ease; }
-
-        @keyframes dropdownFade {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes dropdownFade { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
         .govt-dropdown .govt-dropdown-content button {
-            display: block;
-            width: 100%;
-            padding: 10px 20px;
-            background: transparent;
-            border: none;
-            text-align: left;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-color);
-            cursor: pointer;
-            transition: 0.2s;
-            touch-action: manipulation;
+            display: block; width: 100%; padding: 10px 20px;
+            background: transparent; border: none; text-align: left;
+            font-size: 13px; font-weight: 600; color: var(--text-color);
+            cursor: pointer; transition: 0.2s;
         }
         .govt-dropdown .govt-dropdown-content button:hover { background: var(--card-hover); }
         .govt-dropdown .govt-dropdown-content .dropdown-divider { height: 1px; background: var(--border-color); margin: 4px 12px; }
         .govt-dropdown .govt-dropdown-content .dropdown-label {
-            padding: 8px 20px;
-            font-size: 11px;
-            text-transform: uppercase;
-            color: var(--text-color);
-            opacity: 0.4;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-        .govt-dropdown .govt-dropdown-content .dropdown-job-count {
-            padding: 4px 20px 8px 20px;
-            font-size: 12px;
-            color: var(--secondary-blue);
-            font-weight: 600;
+            padding: 8px 20px; font-size: 11px; text-transform: uppercase;
+            color: var(--text-color); opacity: 0.4; font-weight: 700;
         }
 
         /* ================= SLIDE CONTAINER ================= */
         .slide-container {
             display: flex;
-            height: calc(100vh - 60px - 55px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+            height: calc(100vh - 60px - 55px - var(--safe-top) - var(--safe-bottom));
             margin-top: 60px;
             margin-bottom: 55px;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
             position: relative;
-            will-change: transform;
         }
-
         .slide {
             min-width: 100%;
             height: 100%;
             overflow-y: auto;
-            overflow-x: hidden;
-            padding: 15px 20px 15px 20px;
+            padding: 15px 20px;
             background: var(--bg-color);
-            scroll-behavior: smooth;
-            position: relative;
             transition: background 0.3s ease;
             -webkit-overflow-scrolling: touch;
         }
@@ -223,41 +162,23 @@
 
         /* ================= FOOTER ================= */
         .app-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 999;
-            background: var(--footer-bg);
-            padding: 8px 16px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 55px;
-            box-shadow: 0 -2px 15px var(--shadow-color);
-            transition: background 0.3s ease;
-            padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
-            gap: 8px;
-            flex-wrap: wrap;
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
+            background: var(--footer-bg); padding: 8px 16px;
+            display: flex; justify-content: center; align-items: center;
+            height: 55px; box-shadow: 0 -2px 15px var(--shadow-color);
+            padding-bottom: calc(8px + var(--safe-bottom));
+            gap: 8px; flex-wrap: wrap;
         }
         .app-footer .footer-text { color: rgba(255,255,255,0.7); font-size: 12px; text-align: center; }
         .app-footer .footer-text span { color: var(--gold); }
         .app-footer .footer-nav { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
         .app-footer .footer-nav .nav-btn {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.8);
-            padding: 4px 10px;
-            border-radius: 14px;
-            cursor: pointer;
-            font-size: 11px;
-            font-weight: 500;
-            transition: 0.3s;
-            touch-action: manipulation;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8); padding: 4px 10px; border-radius: 14px;
+            cursor: pointer; font-size: 11px; font-weight: 500; transition: 0.3s;
             white-space: nowrap;
         }
         .app-footer .footer-nav .nav-btn:hover { background: rgba(255,215,0,0.3); color: #fff; border-color: var(--gold); }
-        .app-footer .footer-nav .nav-btn:active { transform: scale(0.95); }
 
         /* ================= RESPONSIVE ================= */
         @media (max-width: 768px) {
@@ -269,20 +190,13 @@
             .app-footer .footer-text { font-size: 10px; }
             .app-footer .footer-nav .nav-btn { font-size: 9px; padding: 3px 8px; }
             .slide-container {
-                height: calc(100vh - 55px - 50px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
-                margin-top: 55px;
-                margin-bottom: 50px;
+                height: calc(100vh - 55px - 50px - var(--safe-top) - var(--safe-bottom));
+                margin-top: 55px; margin-bottom: 50px;
             }
             .slide { padding: 12px 15px; }
             .govt-dropdown .govt-dropdown-content {
-                position: fixed;
-                top: 55px;
-                left: 0;
-                right: 0;
-                border-radius: 0 0 16px 16px;
-                max-height: 60vh;
-                overflow-y: auto;
-                min-width: 100%;
+                position: fixed; top: 55px; left: 0; right: 0;
+                border-radius: 0 0 16px 16px; max-height: 60vh; min-width: 100%;
             }
         }
         @media (max-width: 480px) {
@@ -290,52 +204,34 @@
             .app-header .header-controls .nav-btn,
             .app-header .header-controls .govt-btn { font-size: 9px; padding: 3px 6px; border-radius: 12px; }
             .app-footer .footer-nav .nav-btn { font-size: 8px; padding: 2px 6px; }
-            .app-footer .footer-text { font-size: 9px; }
             .slide { padding: 10px 12px; }
         }
 
         /* ================= HOME PAGE ================= */
         .home-original {
-            background: var(--bg-color);
-            color: var(--text-color);
-            min-height: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            padding: 0;
+            background: var(--bg-color); color: var(--text-color);
+            min-height: 100%; border-radius: 16px; overflow: hidden;
             transition: background 0.3s ease, color 0.3s ease;
         }
         .home-original header {
-            background: var(--header-bg);
-            color: white;
-            text-align: center;
-            padding: 20px 10px;
-            border-radius: 16px 16px 0 0;
-            transition: background 0.3s ease;
+            background: var(--header-bg); color: white; text-align: center;
+            padding: 20px 10px; border-radius: 16px 16px 0 0;
         }
         .home-original header h1 { margin: 0; font-size: 30px; }
         .home-original header p { margin: 5px 0 0; font-size: 14px; }
         .home-original header small { font-size: 12px; opacity: 0.8; }
 
         .home-original .ticker {
-            margin: 8px auto;
-            max-width: 1100px;
-            padding: 8px 10px;
-            border-radius: 8px;
-            color: white;
-            overflow: hidden;
-            white-space: nowrap;
+            margin: 8px auto; max-width: 1100px; padding: 8px 10px;
+            border-radius: 8px; color: white; overflow: hidden; white-space: nowrap;
         }
-        .home-original .latest { background: var(--ticker-latest); }
-        .home-original .update { background: var(--ticker-update); }
+        .home-original .latest { background: #d62839; }
+        .home-original .update { background: #079455; }
         .home-original .ticker span {
-            display: inline-block;
-            padding-left: 100%;
+            display: inline-block; padding-left: 100%;
             animation: move 18s linear infinite;
         }
-        @keyframes move {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
-        }
+        @keyframes move { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 
         .home-original .container { max-width: 1100px; margin: auto; padding: 12px; }
         .home-original .home-layout { display: flex; gap: 20px; align-items: flex-start; }
@@ -343,50 +239,31 @@
         .home-original .right-sidebar { flex: 1; }
 
         .home-original .sidebar-box {
-            background: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            margin-bottom: 16px;
-            overflow: hidden;
-            transition: background 0.3s ease;
+            background: var(--card-bg); border-radius: 10px;
+            box-shadow: 0 2px 8px var(--shadow-color); margin-bottom: 16px;
+            overflow: hidden; transition: background 0.3s ease;
         }
         .home-original .sidebar-box h3 {
-            margin: 0;
-            padding: 10px 14px;
-            background: var(--secondary-blue);
-            color: #fff;
-            font-size: 14px;
+            margin: 0; padding: 10px 14px; background: var(--secondary-blue);
+            color: #fff; font-size: 14px;
         }
         .home-original .notice { height: 200px; overflow: hidden; }
         .home-original .notice ul {
-            padding: 8px 20px;
-            animation: scroll 15s linear infinite;
-            list-style: none;
+            padding: 8px 20px; animation: scroll 15s linear infinite; list-style: none;
         }
         .home-original .notice ul li { padding: 4px 0; font-size: 13px; }
-        @keyframes scroll {
-            0% { transform: translateY(100%); }
-            100% { transform: translateY(-100%); }
-        }
+        @keyframes scroll { 0% { transform: translateY(100%); } 100% { transform: translateY(-100%); } }
 
         .home-original .imp-links a {
-            display: block;
-            padding: 8px 14px;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--primary-blue);
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 13px;
+            display: block; padding: 8px 14px; border-bottom: 1px solid var(--border-color);
+            color: var(--primary-blue); text-decoration: none; transition: 0.3s; font-size: 13px;
         }
         .home-original .imp-links a:hover { background: var(--card-hover); }
 
         .home-original .card {
-            background: var(--card-bg);
-            padding: 16px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border-left: 5px solid var(--secondary-blue);
-            transition: background 0.3s ease, border 0.3s ease;
+            background: var(--card-bg); padding: 16px; margin: 10px 0;
+            border-radius: 10px; border-left: 5px solid var(--secondary-blue);
+            transition: background 0.3s ease;
         }
         .home-original .card h3 { margin-top: 0; color: var(--primary-blue); font-size: 16px; }
         .home-original .about-home { line-height: 1.7; font-size: 14px; }
@@ -394,14 +271,8 @@
         .home-original .about-home ul { padding-left: 20px; margin: 6px 0 12px; }
         .home-original .about-home li { margin: 4px 0; font-size: 13px; }
         .home-original .about-highlight {
-            margin-top: 14px;
-            padding: 14px;
-            border-left: 4px solid var(--success-green);
-            background: var(--highlight-bg);
-            border-radius: 8px;
-            text-align: center;
-            font-size: 16px;
-            transition: background 0.3s ease;
+            margin-top: 14px; padding: 14px; border-left: 4px solid var(--success-green);
+            background: var(--highlight-bg); border-radius: 8px; text-align: center; font-size: 16px;
         }
         @media(max-width:768px) {
             .home-original .home-layout { flex-direction: column; }
@@ -412,236 +283,115 @@
             .home-original .about-home { font-size: 13px; }
         }
 
-        /* ================= SECTION GRID ================= */
+        /* ================= GRID ================= */
         .section-grid, .professional-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 16px;
-            margin-top: 12px;
+            gap: 16px; margin-top: 12px;
         }
         .grid-item, .section-card {
-            background: var(--card-bg);
-            padding: 14px 16px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
-            cursor: pointer;
+            background: var(--card-bg); padding: 14px 16px; border-radius: 10px;
+            border: 1px solid var(--border-color); transition: 0.3s; cursor: pointer;
             box-shadow: 0 2px 8px var(--shadow-color);
-            position: relative;
-            overflow: hidden;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            min-height: 120px; display: flex; flex-direction: column; justify-content: center;
         }
         .grid-item:hover, .section-card:hover {
-            border-color: var(--secondary-blue);
-            transform: translateY(-3px);
+            border-color: var(--secondary-blue); transform: translateY(-3px);
             box-shadow: 0 8px 30px var(--shadow-color);
         }
-        .grid-item:active, .section-card:active { transform: scale(0.97); }
         .grid-item .item-icon, .section-card .icon { font-size: 30px; margin-bottom: 8px; }
         .grid-item .item-title, .section-card h3 {
-            font-size: 16px;
-            color: var(--primary-blue);
-            margin-bottom: 4px;
-            font-weight: 700;
+            font-size: 16px; color: var(--primary-blue); margin-bottom: 4px; font-weight: 700;
         }
         .grid-item .item-desc, .section-card p {
-            font-size: 12px;
-            color: var(--text-color);
-            opacity: 0.7;
-            line-height: 1.4;
+            font-size: 12px; color: var(--text-color); opacity: 0.7; line-height: 1.4;
         }
         .grid-item .item-badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 600;
-            background: var(--success-green);
-            color: #fff;
-            margin-top: 4px;
-            align-self: flex-start;
+            display: inline-block; padding: 2px 10px; border-radius: 12px;
+            font-size: 10px; font-weight: 600; background: var(--success-green);
+            color: #fff; margin-top: 4px; align-self: flex-start;
         }
 
         /* ================= FULL LIST VIEW ================= */
         .full-list-view { display: none; padding: 15px 0; }
         .full-list-view.active { display: block; }
         .full-list-view .list-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--border-color);
-            flex-wrap: wrap;
-            gap: 8px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 15px; padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color); flex-wrap: wrap; gap: 8px;
         }
         .full-list-view .list-header h2 { color: var(--primary-blue); font-size: 20px; }
         .full-list-view .list-header .close-list-btn {
-            background: var(--warning-red);
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-            touch-action: manipulation;
-            min-height: 40px;
-            font-size: 13px;
+            background: var(--warning-red); color: #fff; border: none;
+            padding: 8px 16px; border-radius: 8px; cursor: pointer;
+            font-weight: 600; transition: 0.3s; min-height: 40px; font-size: 13px;
         }
         .full-list-view .list-item {
-            background: var(--card-bg);
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: 0.3s;
-            cursor: pointer;
-            touch-action: manipulation;
-            flex-wrap: wrap;
+            background: var(--card-bg); padding: 12px 16px; margin-bottom: 8px;
+            border-radius: 10px; border: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 12px;
+            transition: 0.3s; cursor: pointer; flex-wrap: wrap;
         }
         .full-list-view .list-item:hover { border-color: var(--secondary-blue); transform: translateX(4px); }
         .full-list-view .list-item .item-icon { font-size: 20px; }
         .full-list-view .list-item .item-text { font-size: 13px; color: var(--text-color); flex: 1; }
         .full-list-view .list-item .item-number {
-            background: var(--secondary-blue);
-            color: #fff;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: bold;
-            flex-shrink: 0;
+            background: var(--secondary-blue); color: #fff; border-radius: 50%;
+            width: 24px; height: 24px; display: flex; align-items: center;
+            justify-content: center; font-size: 11px; font-weight: bold; flex-shrink: 0;
         }
         .full-list-view .back-to-cards {
-            background: var(--secondary-blue);
-            color: #fff;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-            margin-top: 12px;
-            touch-action: manipulation;
-            min-height: 40px;
-            font-size: 13px;
+            background: var(--secondary-blue); color: #fff; border: none;
+            padding: 10px 24px; border-radius: 10px; cursor: pointer;
+            font-weight: 600; transition: 0.3s; margin-top: 12px; min-height: 40px; font-size: 13px;
         }
         .full-list-view .back-to-cards:hover { background: var(--primary-blue); }
 
         /* ================= DETAIL OVERLAY ================= */
         .detail-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            animation: fadeIn 0.3s ease;
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6); z-index: 2000; backdrop-filter: blur(8px);
         }
         .detail-overlay.active { display: flex; align-items: center; justify-content: center; padding: 20px; }
-
         .detail-content {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 700px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            border: 1px solid var(--border-color);
-            animation: slideUp 0.4s ease;
-            position: relative;
-            color: var(--text-color);
+            background: var(--card-bg); border-radius: 20px; padding: 30px;
+            max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto;
+            border: 1px solid var(--border-color); position: relative; color: var(--text-color);
         }
-        .detail-content::-webkit-scrollbar { width: 4px; }
-        .detail-content::-webkit-scrollbar-thumb { background: var(--secondary-blue); border-radius: 10px; }
-
         .detail-content .close-btn {
-            position: sticky;
-            top: 0;
-            float: right;
-            background: var(--card-hover);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            z-index: 10;
-            touch-action: manipulation;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: sticky; top: 0; float: right; background: var(--card-hover);
+            border: 1px solid var(--border-color); color: var(--text-color);
+            width: 40px; height: 40px; border-radius: 50%; font-size: 20px;
+            cursor: pointer; transition: 0.3s; z-index: 10;
+            display: flex; align-items: center; justify-content: center;
         }
         .detail-content .close-btn:hover { background: var(--warning-red); color: #fff; transform: rotate(90deg); }
         .detail-content .detail-icon { font-size: 48px; margin-bottom: 10px; }
         .detail-content h2 { color: var(--primary-blue); font-size: 22px; margin-bottom: 10px; }
         .detail-content p { color: var(--text-color); opacity: 0.7; line-height: 1.7; font-size: 14px; }
-
         .detail-content .detail-list { list-style: none; padding: 0; margin: 12px 0; }
         .detail-content .detail-list li {
-            padding: 10px 16px;
-            background: var(--card-hover);
-            border-radius: 10px;
-            margin-bottom: 6px;
-            color: var(--text-color);
-            border-left: 3px solid var(--secondary-blue);
-            transition: 0.3s;
-            cursor: pointer;
-            font-size: 14px;
-            touch-action: manipulation;
+            padding: 10px 16px; background: var(--card-hover); border-radius: 10px;
+            margin-bottom: 6px; color: var(--text-color);
+            border-left: 3px solid var(--secondary-blue); transition: 0.3s;
+            cursor: pointer; font-size: 14px;
         }
         .detail-content .detail-list li:hover { background: var(--secondary-blue); color: #fff; transform: translateX(6px); }
-
         .detail-content .detail-link {
-            display: inline-block;
-            padding: 10px 24px;
-            background: var(--secondary-blue);
-            color: #fff;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 4px;
-            transition: 0.3s;
-            font-size: 13px;
-            cursor: pointer;
-            border: none;
-            touch-action: manipulation;
-            min-height: 40px;
+            display: inline-block; padding: 10px 24px; background: var(--secondary-blue);
+            color: #fff; border-radius: 10px; font-weight: 600; margin: 4px;
+            transition: 0.3s; font-size: 13px; cursor: pointer; border: none; min-height: 40px;
         }
         .detail-content .detail-link:hover { background: var(--primary-blue); transform: scale(1.03); }
         .detail-content .detail-link.secondary { background: var(--card-hover); color: var(--text-color); border: 1px solid var(--border-color); }
 
-        /* ================= PAGE TITLE ================= */
         .page-title { font-size: 28px; font-weight: 700; margin-bottom: 4px; color: var(--text-color); }
         .page-title span { color: var(--primary-blue); }
         .page-subtitle { color: var(--text-color); opacity: 0.5; font-size: 13px; margin-bottom: 16px; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(40px) scale(0.96); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
-
         .job-info-box {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin: 8px 0;
-            border-left: 4px solid var(--secondary-blue);
+            background: var(--card-bg); border-radius: 12px; padding: 14px 18px;
+            margin: 8px 0; border-left: 4px solid var(--secondary-blue);
             box-shadow: 0 2px 8px var(--shadow-color);
         }
         .job-info-box .job-count { font-size: 18px; font-weight: bold; color: var(--primary-blue); }
@@ -649,45 +399,23 @@
 
         /* ================= ADMIN PANEL ================= */
         #adminPanelContainer {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 3000;
-            background: var(--bg-color);
-            overflow-y: auto;
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 3000; background: var(--bg-color); overflow-y: auto;
         }
         #adminPanelContainer.active { display: block; }
 
         #adminPanelContainer .admin-header {
-            background: var(--primary-blue);
-            color: white;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px var(--shadow-color);
-            flex-wrap: wrap;
-            gap: 8px;
+            background: var(--primary-blue); color: white; padding: 12px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px var(--shadow-color);
+            flex-wrap: wrap; gap: 8px;
         }
         #adminPanelContainer .admin-logo { display: flex; align-items: center; gap: 8px; font-size: 16px; }
         #adminPanelContainer .admin-badge { background: var(--success-green); padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: bold; }
         #adminPanelContainer .admin-user { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         #adminPanelContainer .admin-user button {
-            padding: 6px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            border: none;
-            font-size: 12px;
-            transition: 0.3s;
-            touch-action: manipulation;
-            min-height: 34px;
+            padding: 6px 14px; border-radius: 6px; cursor: pointer;
+            font-weight: bold; border: none; font-size: 12px; transition: 0.3s; min-height: 34px;
         }
         #adminPanelContainer .admin-user button:active { transform: scale(0.95); }
         #adminPanelContainer .logout-btn { background: var(--warning-red); color: white; }
@@ -699,120 +427,70 @@
 
         #adminPanelContainer .admin-body { display: flex; min-height: calc(100vh - 60px); }
         #adminPanelContainer .admin-sidebar {
-            width: 220px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            padding: 15px 0;
-            position: sticky;
-            top: 60px;
-            height: calc(100vh - 60px);
-            overflow-y: auto;
-            flex-shrink: 0;
+            width: 220px; background: var(--card-bg); color: var(--text-color);
+            padding: 15px 0; position: sticky; top: 60px;
+            height: calc(100vh - 60px); overflow-y: auto; flex-shrink: 0;
             border-right: 1px solid var(--border-color);
         }
         #adminPanelContainer .sidebar-menu { display: flex; flex-direction: column; }
         #adminPanelContainer .sidebar-menu button {
-            background: transparent;
-            border: none;
-            color: var(--text-color);
-            opacity: 0.7;
-            padding: 12px 20px;
-            text-align: left;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.3s;
-            border-left: 3px solid transparent;
-            width: 100%;
-            touch-action: manipulation;
+            background: transparent; border: none; color: var(--text-color);
+            opacity: 0.7; padding: 12px 20px; text-align: left;
+            font-size: 14px; cursor: pointer; transition: 0.3s;
+            border-left: 3px solid transparent; width: 100%;
         }
         #adminPanelContainer .sidebar-menu button:hover { background: var(--card-hover); opacity: 1; }
         #adminPanelContainer .sidebar-menu button.active {
-            background: var(--card-hover);
-            opacity: 1;
-            border-left-color: var(--secondary-blue);
-            color: var(--primary-blue);
+            background: var(--card-hover); opacity: 1;
+            border-left-color: var(--secondary-blue); color: var(--primary-blue);
         }
 
         #adminPanelContainer .admin-content {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            background: var(--bg-color);
-            max-height: calc(100vh - 60px);
+            flex: 1; padding: 20px; overflow-y: auto;
+            background: var(--bg-color); max-height: calc(100vh - 60px);
         }
         #adminPanelContainer .admin-section { display: none; }
         #adminPanelContainer .admin-section.active { display: block; }
 
         #adminPanelContainer .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin: 16px 0;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px; margin: 16px 0;
         }
         #adminPanelContainer .stat-card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            text-align: center;
+            background: var(--card-bg); padding: 20px; border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-color); text-align: center;
             border: 1px solid var(--border-color);
         }
         #adminPanelContainer .stat-card h3 { font-size: 13px; color: var(--text-color); opacity: 0.6; margin-bottom: 8px; }
         #adminPanelContainer .stat-card p { font-size: 28px; font-weight: bold; color: var(--primary-blue); }
 
         #adminPanelContainer .quick-actions {
-            background: var(--card-bg);
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            margin-top: 16px;
+            background: var(--card-bg); padding: 16px; border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-color); margin-top: 16px;
             border: 1px solid var(--border-color);
         }
         #adminPanelContainer .quick-actions h3 { margin-bottom: 12px; color: var(--text-color); font-size: 15px; }
         #adminPanelContainer .quick-actions button {
-            padding: 8px 16px;
-            margin: 4px;
-            background: var(--secondary-blue);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s;
-            touch-action: manipulation;
-            min-height: 36px;
-            font-size: 12px;
+            padding: 8px 16px; margin: 4px; background: var(--secondary-blue);
+            color: white; border: none; border-radius: 6px; cursor: pointer;
+            transition: 0.3s; min-height: 36px; font-size: 12px;
         }
         #adminPanelContainer .quick-actions button:hover { background: var(--primary-blue); }
 
         #adminPanelContainer .toolbar {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: 12px 0;
+            display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0;
         }
         #adminPanelContainer .toolbar button {
-            padding: 8px 16px;
-            background: var(--success-green);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s;
-            touch-action: manipulation;
-            min-height: 36px;
-            font-size: 12px;
+            padding: 8px 16px; background: var(--success-green);
+            color: white; border: none; border-radius: 6px; cursor: pointer;
+            transition: 0.3s; min-height: 36px; font-size: 12px;
         }
         #adminPanelContainer .toolbar button:hover { background: #15803d; }
         #adminPanelContainer .toolbar input,
         #adminPanelContainer .toolbar select {
-            padding: 8px 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 13px;
-            flex: 1;
-            min-width: 180px;
-            background: var(--card-bg);
-            color: var(--text-color);
+            padding: 8px 12px; border: 2px solid var(--border-color);
+            border-radius: 6px; font-size: 13px; flex: 1;
+            min-width: 180px; background: var(--card-bg); color: var(--text-color);
         }
 
         #adminPanelContainer .content-list,
@@ -820,10 +498,8 @@
         #adminPanelContainer .quiz-list,
         #adminPanelContainer .user-list,
         #adminPanelContainer .notification-list {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            overflow: hidden;
+            background: var(--card-bg); border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-color); overflow: hidden;
             border: 1px solid var(--border-color);
         }
         #adminPanelContainer .content-item,
@@ -831,16 +507,10 @@
         #adminPanelContainer .quiz-item,
         #adminPanelContainer .user-item,
         #adminPanelContainer .notif-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-color);
-            transition: 0.3s;
-            flex-wrap: wrap;
-            gap: 8px;
-            color: var(--text-color);
-            font-size: 13px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 16px; border-bottom: 1px solid var(--border-color);
+            transition: 0.3s; flex-wrap: wrap; gap: 8px;
+            color: var(--text-color); font-size: 13px;
         }
         #adminPanelContainer .content-item:hover,
         #adminPanelContainer .job-item:hover,
@@ -851,175 +521,93 @@
         #adminPanelContainer .empty-state { padding: 24px; text-align: center; color: var(--text-color); opacity: 0.5; font-size: 13px; }
 
         #adminPanelContainer .modal {
-            display: none;
-            position: fixed;
-            z-index: 99999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            overflow-y: auto;
+            display: none; position: fixed; z-index: 99999;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); overflow-y: auto;
         }
         #adminPanelContainer .modal-content {
-            background: var(--card-bg);
-            margin: 40px auto;
-            padding: 25px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 650px;
-            position: relative;
-            animation: slideDown 0.3s ease;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
+            background: var(--card-bg); margin: 40px auto; padding: 25px;
+            border-radius: 16px; width: 90%; max-width: 650px;
+            position: relative; animation: slideDown 0.3s ease;
+            border: 1px solid var(--border-color); color: var(--text-color);
         }
-        @keyframes slideDown {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+        @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         #adminPanelContainer .modal-content .close { position: absolute; top: 12px; right: 16px; font-size: 24px; cursor: pointer; color: var(--text-color); opacity: 0.5; }
         #adminPanelContainer .modal-content .close:hover { opacity: 1; }
         #adminPanelContainer .modal-content input,
         #adminPanelContainer .modal-content textarea,
         #adminPanelContainer .modal-content select {
-            width: 100%;
-            padding: 10px;
-            margin: 6px 0;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 13px;
-            font-family: inherit;
-            background: var(--bg-color);
-            color: var(--text-color);
+            width: 100%; padding: 10px; margin: 6px 0;
+            border: 2px solid var(--border-color); border-radius: 6px;
+            font-size: 13px; font-family: inherit;
+            background: var(--bg-color); color: var(--text-color);
         }
         #adminPanelContainer .modal-content textarea { min-height: 100px; resize: vertical; }
         #adminPanelContainer .modal-content button {
-            padding: 10px 20px;
-            background: var(--secondary-blue);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: 0.3s;
-            margin-top: 8px;
-            touch-action: manipulation;
-            min-height: 40px;
+            padding: 10px 20px; background: var(--secondary-blue);
+            color: white; border: none; border-radius: 6px; cursor: pointer;
+            font-size: 14px; font-weight: bold; transition: 0.3s;
+            margin-top: 8px; min-height: 40px;
         }
         #adminPanelContainer .modal-content button:hover { background: var(--primary-blue); }
 
         #adminPanelContainer .notification-form {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            margin-bottom: 16px;
+            background: var(--card-bg); padding: 20px; border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-color); margin-bottom: 16px;
             border: 1px solid var(--border-color);
         }
         #adminPanelContainer .notification-form input,
         #adminPanelContainer .notification-form textarea,
         #adminPanelContainer .notification-form select {
-            width: 100%;
-            padding: 10px;
-            margin: 6px 0;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 13px;
-            background: var(--bg-color);
-            color: var(--text-color);
+            width: 100%; padding: 10px; margin: 6px 0;
+            border: 2px solid var(--border-color); border-radius: 6px;
+            font-size: 13px; background: var(--bg-color); color: var(--text-color);
         }
         #adminPanelContainer .notification-form button {
-            padding: 10px 20px;
-            background: var(--success-green);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: 0.3s;
-            touch-action: manipulation;
-            min-height: 40px;
+            padding: 10px 20px; background: var(--success-green);
+            color: white; border: none; border-radius: 6px; cursor: pointer;
+            font-size: 14px; font-weight: bold; transition: 0.3s; min-height: 40px;
         }
         #adminPanelContainer .notification-form button:hover { background: #15803d; }
 
         #adminPanelContainer .settings-form {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            border: 1px solid var(--border-color);
+            background: var(--card-bg); padding: 20px; border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-color); border: 1px solid var(--border-color);
         }
         #adminPanelContainer .settings-form input {
-            width: 100%;
-            padding: 10px;
-            margin: 6px 0;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 13px;
-            background: var(--bg-color);
-            color: var(--text-color);
+            width: 100%; padding: 10px; margin: 6px 0;
+            border: 2px solid var(--border-color); border-radius: 6px;
+            font-size: 13px; background: var(--bg-color); color: var(--text-color);
         }
         #adminPanelContainer .settings-form button {
-            padding: 8px 16px;
-            margin: 4px;
-            background: var(--secondary-blue);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s;
-            touch-action: manipulation;
-            min-height: 36px;
-            font-size: 12px;
+            padding: 8px 16px; margin: 4px; background: var(--secondary-blue);
+            color: white; border: none; border-radius: 6px; cursor: pointer;
+            transition: 0.3s; min-height: 36px; font-size: 12px;
         }
         #adminPanelContainer .settings-form button:hover { background: var(--primary-blue); }
         #adminPanelContainer .settings-form .btn-danger { background: var(--warning-red); }
 
         #adminPanelContainer .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: var(--header-bg);
-            padding: 20px;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; background: var(--header-bg); padding: 20px;
         }
         #adminPanelContainer .login-box {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
+            background: var(--card-bg); padding: 30px; border-radius: 16px;
             box-shadow: 0 10px 40px var(--shadow-color);
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
+            width: 100%; max-width: 380px; text-align: center;
             border: 1px solid var(--border-color);
         }
         #adminPanelContainer .login-box h1 { font-size: 24px; color: var(--primary-blue); }
         #adminPanelContainer .login-box h2 { font-size: 16px; color: var(--text-color); opacity: 0.6; margin-bottom: 16px; }
         #adminPanelContainer .login-box input {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 14px;
-            background: var(--bg-color);
-            color: var(--text-color);
+            width: 100%; padding: 10px; margin: 8px 0;
+            border: 2px solid var(--border-color); border-radius: 8px;
+            font-size: 14px; background: var(--bg-color); color: var(--text-color);
         }
         #adminPanelContainer .login-box button {
-            width: 100%;
-            padding: 10px;
-            background: var(--secondary-blue);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            touch-action: manipulation;
-            min-height: 40px;
+            width: 100%; padding: 10px; background: var(--secondary-blue);
+            color: white; border: none; border-radius: 8px;
+            font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; min-height: 40px;
         }
         #adminPanelContainer .login-box button:hover { background: var(--primary-blue); }
         #adminPanelContainer .login-error { color: var(--warning-red); display: none; margin-top: 8px; font-size: 13px; }
@@ -1028,22 +616,13 @@
         @media (max-width: 768px) {
             #adminPanelContainer .admin-body { flex-direction: column; }
             #adminPanelContainer .admin-sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
-                padding: 8px;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
+                width: 100%; height: auto; position: static;
+                padding: 8px; border-right: none; border-bottom: 1px solid var(--border-color);
             }
             #adminPanelContainer .sidebar-menu { flex-direction: row; flex-wrap: wrap; }
             #adminPanelContainer .sidebar-menu button {
-                padding: 8px 12px;
-                font-size: 12px;
-                border-left: none;
-                border-bottom: 3px solid transparent;
-                flex: 1;
-                min-width: 60px;
-                text-align: center;
+                padding: 8px 12px; font-size: 12px; border-left: none;
+                border-bottom: 3px solid transparent; flex: 1; min-width: 60px; text-align: center;
             }
             #adminPanelContainer .sidebar-menu button.active { border-bottom-color: var(--secondary-blue); border-left: none; }
             #adminPanelContainer .admin-header { flex-direction: column; gap: 8px; padding: 12px; }
@@ -1052,22 +631,11 @@
         }
         @media (max-width: 480px) { #adminPanelContainer .stats-grid { grid-template-columns: 1fr; } }
 
-        /* ================= TOAST ================= */
         .toast {
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 12px 24px;
-            border-radius: 12px;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            z-index: 9999;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            max-width: 90%;
-            text-align: center;
-            animation: slideUp 0.4s ease;
+            position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+            padding: 12px 24px; border-radius: 12px; color: white;
+            font-size: 14px; font-weight: 600; z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3); max-width: 90%; text-align: center;
         }
         .toast.success { background: #16a34a; }
         .toast.error { background: #dc3545; }
@@ -1127,11 +695,11 @@
 
         <!-- SLIDE 0: HOME -->
         <div class="slide active" data-slide="home">
-            <div class="home-original" id="homeOriginal">
+            <div class="home-original">
                 <header>
-                    <h1 id="siteTitle">🚀 DREAM JOSH</h1>
-                    <p id="siteTagline">"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"</p>
-                    <small id="siteSubtitle">Motivation • Study • Govt. Jobs • Career Guide</small>
+                    <h1>🚀 DREAM JOSH</h1>
+                    <p>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"</p>
+                    <small>Motivation • Study • Govt. Jobs • Career Guide</small>
                 </header>
                 <div class="ticker latest"><span>🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन</span></div>
                 <div class="ticker update"><span>✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी</span></div>
@@ -1228,7 +796,7 @@
         <!-- SLIDE 3: STUDY -->
         <div class="slide" data-slide="study">
             <div class="page-title">📚 <span>Study Notes</span></div>
-            <div class="page-subtitle">अध्ययन सामग्री और नोट्स - पूरी जानकारी</div>
+            <div class="page-subtitle">अध्ययन सामग्री और नोट्स</div>
             <div id="studyContainer">
                 <div class="section-grid" id="studyGrid"></div>
                 <div class="full-list-view" id="studyList"></div>
@@ -1238,7 +806,7 @@
         <!-- SLIDE 4: RAJASTHAN GK -->
         <div class="slide" data-slide="rajasthan">
             <div class="page-title">🏜️ <span>Rajasthan GK</span></div>
-            <div class="page-subtitle">राजस्थान सामान्य ज्ञान - पूरी जानकारी</div>
+            <div class="page-subtitle">राजस्थान सामान्य ज्ञान</div>
             <div id="rajasthanContainer">
                 <div class="section-grid" id="rajasthanGrid"></div>
                 <div class="full-list-view" id="rajasthanList"></div>
@@ -1248,7 +816,7 @@
         <!-- SLIDE 5: QUIZ -->
         <div class="slide" data-slide="quiz">
             <div class="page-title">🧠 <span>Daily Quiz</span></div>
-            <div class="page-subtitle">प्रतिदिन नए प्रश्न और अभ्यास - पूरी जानकारी</div>
+            <div class="page-subtitle">प्रतिदिन नए प्रश्न और अभ्यास</div>
             <div id="quizContainer">
                 <div class="section-grid" id="quizGrid"></div>
                 <div class="full-list-view" id="quizList"></div>
@@ -1258,7 +826,7 @@
         <!-- SLIDE 6: CAREER -->
         <div class="slide" data-slide="career">
             <div class="page-title">🎯 <span>Career Guide</span></div>
-            <div class="page-subtitle">अपने करियर को सही दिशा दें - पूरी जानकारी</div>
+            <div class="page-subtitle">अपने करियर को सही दिशा दें</div>
             <div id="careerContainer">
                 <div class="section-grid" id="careerGrid"></div>
                 <div class="full-list-view" id="careerList"></div>
@@ -1268,7 +836,7 @@
         <!-- SLIDE 7: BOOKS -->
         <div class="slide" data-slide="books">
             <div class="page-title">📖 <span>Books</span></div>
-            <div class="page-subtitle">प्रतियोगी परीक्षाओं और अध्ययन के लिए किताबें - पूरी जानकारी</div>
+            <div class="page-subtitle">प्रतियोगी परीक्षाओं के लिए किताबें</div>
             <div id="booksContainer">
                 <div class="section-grid" id="booksGrid"></div>
                 <div class="full-list-view" id="booksList"></div>
@@ -1278,7 +846,7 @@
         <!-- SLIDE 8: MORE -->
         <div class="slide" data-slide="more">
             <div class="page-title">⚙️ <span>More Features</span></div>
-            <div class="page-subtitle">PDF Tools • Ads • Forms • Gallery • Motivation • Videos - पूरी जानकारी</div>
+            <div class="page-subtitle">PDF Tools • Ads • Forms • Gallery • Motivation • Videos</div>
             <div id="moreContainer">
                 <div class="section-grid" id="moreGrid"></div>
                 <div class="full-list-view" id="moreList"></div>
@@ -1288,7 +856,7 @@
     </div>
 
     <!-- ================= FOOTER ================= -->
-    <footer class="app-footer" id="mainFooter">
+    <footer class="app-footer">
         <div class="footer-nav">
             <button class="nav-btn" onclick="goHome()">🏠 Home</button>
             <button class="nav-btn" onclick="goToSlide('study')">📚 Study</button>
@@ -1318,56 +886,50 @@
 
         // ================= CONFIGURATION =================
         const CACHE_KEY = 'dreamjosh_sheet_data';
-        const CACHE_DURATION = 300000; // 5 minutes
+        const CACHE_DURATION = 300000;
 
-        // ================= COMPLETE DEFAULT DATA (फॉलबैक के लिए) =================
-        const defaultData = {
+        // ================= DEFAULT DATA (Fallback) =================
+        let siteData = {
             centralJobs: {
                 sections: [
-                    { id: 'upsc', icon: '🏛️', title: 'UPSC Jobs', items: ['Civil Services - परीक्षा: जून 2026', 'Indian Forest Service - परीक्षा: जुलाई 2026'], details: 'UPSC भारत की प्रमुख सेवा परीक्षा', examDate: 'जून-सितंबर 2026', eligibility: 'स्नातक', ageLimit: '21-32' },
+                    { id: 'upsc', icon: '🏛️', title: 'UPSC Jobs', items: ['Civil Services - परीक्षा: जून 2026', 'IFS - परीक्षा: जुलाई 2026'], details: 'UPSC भारत की प्रमुख सेवा परीक्षा', examDate: 'जून-सितंबर 2026', eligibility: 'स्नातक', ageLimit: '21-32' },
                     { id: 'ssc', icon: '📑', title: 'SSC Jobs', items: ['SSC CGL - परीक्षा: अगस्त 2026', 'SSC CHSL - परीक्षा: नवंबर 2026'], details: 'SSC केंद्र सरकार के मंत्रालयों में भर्ती', examDate: 'अगस्त 2026 - जून 2027', eligibility: '10वीं से स्नातक', ageLimit: '18-32' }
                 ]
             },
             stateJobs: {
                 sections: [
                     { id: 'rpsc', icon: '🏛️', title: 'RPSC', items: ['RAS - परीक्षा: अक्टूबर 2026', 'School Lecturer - परीक्षा: नवंबर 2026'], details: 'RPSC राजस्थान की प्रमुख सेवा परीक्षा', examDate: 'अक्टूबर 2026 - अप्रैल 2027', eligibility: 'स्नातक से स्नातकोत्तर', ageLimit: '21-40' },
-                    { id: 'rssb', icon: '📋', title: 'RSSB / RSMSSB', items: ['CET Senior Secondary - परीक्षा: मई 2026', 'CET Graduation - परीक्षा: जून 2026'], details: 'RSSB राजस्थान अधीनस्थ सेवाओं के लिए भर्ती', examDate: 'मई 2026 - फरवरी 2027', eligibility: '10वीं से स्नातक', ageLimit: '18-40' }
+                    { id: 'rssb', icon: '📋', title: 'RSSB', items: ['CET Senior Secondary - परीक्षा: मई 2026', 'CET Graduation - परीक्षा: जून 2026'], details: 'RSSB राजस्थान अधीनस्थ सेवाओं के लिए भर्ती', examDate: 'मई 2026 - फरवरी 2027', eligibility: '10वीं से स्नातक', ageLimit: '18-40' }
                 ]
             },
             study: {
                 sections: [
-                    { id: 'material', icon: '📚', title: 'Study Material', items: ['📘 History Notes', '🌍 Geography Notes', '⚖️ Polity Notes', '🔬 Science Notes'], details: 'सभी विषयों के व्यवस्थित नोट्स' },
-                    { id: 'questions', icon: '📝', title: 'Important Questions', items: ['❓ History Questions - 500+', '❓ Geography Questions - 400+', '❓ Polity Questions - 300+'], details: 'महत्वपूर्ण प्रश्नों का संग्रह' }
+                    { id: 'material', icon: '📚', title: 'Study Material', items: ['📘 History Notes', '🌍 Geography Notes', '⚖️ Polity Notes'], details: 'सभी विषयों के व्यवस्थित नोट्स' }
                 ]
             },
             career: {
                 sections: [
-                    { id: 'after12', icon: '🎓', title: '12वीं के बाद Career', items: ['🎨 Arts', '🔬 Science', '💰 Commerce', '🎯 Any Stream'], details: '12वीं के बाद के सभी विकल्प' },
-                    { id: 'college', icon: '🏫', title: 'College & Degree', items: ['🏛️ Arts & Humanities', '🔬 Science', '💼 Commerce & Management', '💻 Computer / IT'], details: 'कॉलेज और डिग्री कोर्स की जानकारी' }
+                    { id: 'after12', icon: '🎓', title: '12वीं के बाद Career', items: ['🎨 Arts', '🔬 Science', '💰 Commerce'], details: '12वीं के बाद के सभी विकल्प' }
                 ]
             },
             books: {
                 sections: [
-                    { id: 'competitivebooks', icon: '📝', title: 'Competitive Exams Books', items: ['📘 SSC CGL', '📘 Railway RRB', '📘 Banking', '📘 UPSC'], details: 'प्रतियोगी परीक्षाओं की किताबें' },
-                    { id: 'rajasthanbooks', icon: '🏜️', title: 'Rajasthan GK Books', items: ['📗 Rajasthan History', '📗 Rajasthan Geography', '📗 Rajasthan Culture'], details: 'राजस्थान GK की किताबें' }
+                    { id: 'competitive', icon: '📝', title: 'Competitive Exams Books', items: ['📘 SSC CGL', '📘 Railway RRB', '📘 Banking'], details: 'प्रतियोगी परीक्षाओं की किताबें' }
                 ]
             },
             rajasthan: {
                 sections: [
-                    { id: 'history', icon: '🏰', title: 'History', items: ['📜 प्राचीन राजस्थान', '📜 मध्यकालीन राजस्थान', '📜 आधुनिक राजस्थान'], details: 'राजस्थान का समृद्ध इतिहास' },
-                    { id: 'geography', icon: '🗺️', title: 'Geography', items: ['🗺️ भौगोलिक स्थिति', '🌊 नदियाँ', '🏞️ झीलें'], details: 'राजस्थान का भौगोलिक स्वरूप' }
+                    { id: 'history', icon: '🏰', title: 'History', items: ['📜 प्राचीन राजस्थान', '📜 मध्यकालीन राजस्थान'], details: 'राजस्थान का समृद्ध इतिहास' }
                 ]
             },
             quiz: {
                 sections: [
-                    { id: 'dailygk', icon: '🌐', title: 'Daily GK', items: ['🇮🇳 भारत की राजधानी?', '🏜️ राजस्थान का सबसे बड़ा जिला?', '📅 संविधान दिवस?'], details: 'रोजाना सामान्य ज्ञान' },
-                    { id: 'rajasthanquiz', icon: '🏜️', title: 'Rajasthan Quiz', items: ['📏 राजस्थान का क्षेत्रफल?', '🏛️ राजस्थान की राजधानी?', '🗺️ राजस्थान में कितने जिले?'], details: 'राजस्थान से संबंधित प्रश्न' }
+                    { id: 'dailygk', icon: '🌐', title: 'Daily GK', items: ['🇮🇳 भारत की राजधानी?', '🏜️ राजस्थान का सबसे बड़ा जिला?'], details: 'रोजाना सामान्य ज्ञान' }
                 ]
             },
             more: {
                 sections: [
-                    { id: 'pdftools', icon: '🛠️', title: 'PDF Tools', items: ['🔗 Merge PDF', '✂️ Split PDF', '📦 Compress PDF', '🔄 Convert PDF'], details: 'PDF कार्यों के लिए टूल्स' },
-                    { id: 'motivation', icon: '🔥', title: 'Motivation', items: ['🔥 Daily Motivation', '📚 Study Motivation', '🎯 Career Motivation'], details: 'प्रेरणादायक संदेश' }
+                    { id: 'pdftools', icon: '🛠️', title: 'PDF Tools', items: ['🔗 Merge PDF', '✂️ Split PDF'], details: 'PDF कार्यों के लिए टूल्स' }
                 ]
             }
         };
@@ -1382,27 +944,19 @@
             settings: { password: 'admin123', darkMode: false }
         };
 
-        // ================= SITE DATA (Dynamic) =================
-        let siteData = JSON.parse(JSON.stringify(defaultData));
-
         // ================= CACHE FUNCTIONS =================
         function getCachedData() {
             try {
                 const cached = localStorage.getItem(CACHE_KEY);
                 if (cached) {
                     const data = JSON.parse(cached);
-                    if (Date.now() - data.timestamp < CACHE_DURATION) {
-                        return data.data;
-                    }
+                    if (Date.now() - data.timestamp < CACHE_DURATION) return data.data;
                 }
                 return null;
             } catch (e) { return null; }
         }
-
         function setCachedData(data) {
-            try {
-                localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: data }));
-            } catch (e) {}
+            try { localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: data })); } catch (e) {}
         }
 
         // ================= FETCH FROM GOOGLE SHEET =================
@@ -1411,12 +965,7 @@
                 const cached = getCachedData();
                 if (cached) { console.log('📦 Using cached data'); return cached; }
             }
-
-            if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE') {
-                console.warn('⚠️ Google Sheet URL not configured');
-                return null;
-            }
-
+            if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes('YOUR_GOOGLE_SHEET')) return null;
             try {
                 console.log('🔄 Fetching from Google Sheet...');
                 const response = await fetch(GOOGLE_SHEET_URL);
@@ -1441,12 +990,11 @@
             }
             return '📌';
         }
-
-        function getStudyIcon(c) { const i = { 'History': '📘', 'Geography': '🌍', 'Polity': '⚖️', 'Science': '🔬', 'Current Affairs': '📰', 'Economics': '📊' }; return i[c] || '📚'; }
-        function getCareerIcon(c) { const i = { 'After 12th': '🎓', 'College': '🏫', 'Skills': '💡', 'Competitive': '📝', 'Government': '🏛️', 'Defence': '🪖', 'Teaching': '👩‍🏫', 'Medical': '🏥', 'Engineering': '🛠️', 'IT': '💻' }; return i[c] || '🎯'; }
-        function getRajasthanIcon(c) { const i = { 'History': '🏰', 'Geography': '🗺️', 'Culture': '🎭', 'Districts': '📍', 'Facts': '⭐' }; return i[c] || '🏜️'; }
-        function getQuizIcon(c) { const i = { 'GK': '🌐', 'Rajasthan': '🏜️', 'Exam': '📝', 'Current Affairs': '📰' }; return i[c] || '🧠'; }
-        function getMoreIcon(c) { const i = { 'PDF Tools': '🛠️', 'Advertisement': '📢', 'Share': '📤', 'Forms': '📝', 'Gallery': '🖼️', 'Links': '🔗', 'Motivation': '🔥', 'Videos': '▶️' }; return i[c] || '⚙️'; }
+        function getStudyIcon(c) { const i = { 'History': '📘', 'Geography': '🌍', 'Polity': '⚖️', 'Science': '🔬' }; return i[c] || '📚'; }
+        function getCareerIcon(c) { const i = { 'After 12th': '🎓', 'College': '🏫', 'Skills': '💡', 'Government': '🏛️' }; return i[c] || '🎯'; }
+        function getRajasthanIcon(c) { const i = { 'History': '🏰', 'Geography': '🗺️', 'Culture': '🎭' }; return i[c] || '🏜️'; }
+        function getQuizIcon(c) { const i = { 'GK': '🌐', 'Rajasthan': '🏜️', 'Exam': '📝' }; return i[c] || '🧠'; }
+        function getMoreIcon(c) { const i = { 'PDF Tools': '🛠️', 'Motivation': '🔥', 'Videos': '▶️' }; return i[c] || '⚙️'; }
 
         // ================= LOAD DATA FROM GOOGLE SHEET =================
         async function loadAllDataFromSheet(forceRefresh = false) {
@@ -1458,7 +1006,6 @@
                 if (data['Govt Jobs'] && data['Govt Jobs'].length > 0) {
                     const central = data['Govt Jobs'].filter(j => j.category === 'central');
                     const state = data['Govt Jobs'].filter(j => j.category === 'state');
-                    
                     if (central.length > 0) {
                         siteData.centralJobs.sections = central.map(j => ({
                             id: j.id || j.title.toLowerCase().replace(/\s/g, ''),
@@ -1584,7 +1131,6 @@
             console.log('🔄 Refreshing...');
             const btn = document.querySelector('.refresh-btn');
             if (btn) { btn.textContent = '⏳ Loading...'; btn.disabled = true; }
-
             try {
                 localStorage.removeItem(CACHE_KEY);
                 await loadAllDataFromSheet(true);
@@ -1624,14 +1170,8 @@
             slides.forEach(s => { if (s.dataset.slide === slideId) s.scrollTop = 0; });
         }
 
-        function nextSlide() {
-            let i = allSlideIds.indexOf(currentSlide);
-            if (i < allSlideIds.length - 1) goToSlide(allSlideIds[i + 1]);
-        }
-        function prevSlide() {
-            let i = allSlideIds.indexOf(currentSlide);
-            if (i > 0) goToSlide(allSlideIds[i - 1]);
-        }
+        function nextSlide() { let i = allSlideIds.indexOf(currentSlide); if (i < allSlideIds.length - 1) goToSlide(allSlideIds[i + 1]); }
+        function prevSlide() { let i = allSlideIds.indexOf(currentSlide); if (i > 0) goToSlide(allSlideIds[i - 1]); }
         function goHome() { goToSlide('home'); }
 
         function loadSlideContent(slideId) {
@@ -1744,12 +1284,8 @@
         }
 
         // ================= GOVT DROPDOWN =================
-        function toggleGovtDropdown() {
-            document.getElementById('govtDropdownContent').classList.toggle('show');
-        }
-        function closeGovtDropdown() {
-            document.getElementById('govtDropdownContent').classList.remove('show');
-        }
+        function toggleGovtDropdown() { document.getElementById('govtDropdownContent').classList.toggle('show'); }
+        function closeGovtDropdown() { document.getElementById('govtDropdownContent').classList.remove('show'); }
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.govt-dropdown')) closeGovtDropdown();
         });
@@ -1898,7 +1434,7 @@
                                     <h3 style="margin-top:20px;">🌓 Dark Mode</h3>
                                     <button onclick="toggleDarkMode()" style="background: #6c757d; padding: 12px 24px; font-size: 16px;">${adminData.settings.darkMode?'🌙 Switch to Light Mode':'☀️ Switch to Dark Mode'}</button>
                                     <h3 style="margin-top:20px;">📊 Google Sheet</h3>
-                                    <p style="font-size:13px;color:var(--text-color);opacity:0.7;">URL: <span id="sheetUrlDisplay">${GOOGLE_SHEET_URL === 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE' ? '🔴 Not configured' : '✅ Configured'}</span></p>
+                                    <p style="font-size:13px;color:var(--text-color);opacity:0.7;">URL: <span id="sheetUrlDisplay">${GOOGLE_SHEET_URL.includes('YOUR_GOOGLE_SHEET') ? '🔴 Not configured' : '✅ Configured'}</span></p>
                                     <button onclick="refreshFromGoogleSheet()" style="background: #16a34a; padding: 12px 24px; font-size: 16px;">🔄 Refresh from Google Sheet</button>
                                     <button onclick="clearGoogleSheetCache()" style="background: #ffc107; color: #333; padding: 12px 24px; font-size: 16px;">🗑️ Clear Cache</button>
                                     <h3 style="margin-top:20px;">💾 Backup & Restore</h3>
@@ -1917,8 +1453,8 @@
                         <h2 id="adminContentModalTitle">📝 Add Content</h2>
                         <input type="hidden" id="adminContentEditId">
                         <input type="text" id="adminContentTitle" placeholder="Title">
-                        <input type="text" id="adminContentCategory" placeholder="Category">
-                        <textarea id="adminContentBody" placeholder="Content..."></textarea>
+                        <input type="text" id="adminContentCategory" placeholder="Category (Study/Career/Books etc)">
+                        <textarea id="adminContentBody" placeholder="Content description..."></textarea>
                         <input type="text" id="adminContentTags" placeholder="Tags (comma separated)">
                         <button onclick="saveAdminContent()">💾 Save</button>
                     </div>
@@ -1928,12 +1464,12 @@
                         <h2 id="adminJobModalTitle">💼 Add Job</h2>
                         <input type="hidden" id="adminJobEditId">
                         <input type="text" id="adminJobTitle" placeholder="Job Title">
-                        <input type="text" id="adminJobDepartment" placeholder="Department">
+                        <input type="text" id="adminJobDepartment" placeholder="Department (UPSC/SSC/RPSC etc)">
                         <select id="adminJobCategory"><option value="central">🇮🇳 Central</option><option value="state">🏜️ Rajasthan</option></select>
-                        <input type="text" id="adminJobEligibility" placeholder="Eligibility">
-                        <input type="text" id="adminJobAge" placeholder="Age">
-                        <input type="text" id="adminJobLastDate" placeholder="Last Date">
-                        <textarea id="adminJobDescription" placeholder="Description..."></textarea>
+                        <input type="text" id="adminJobEligibility" placeholder="Eligibility (Graduation/12th etc)">
+                        <input type="text" id="adminJobAge" placeholder="Age Limit (21-32)">
+                        <input type="text" id="adminJobLastDate" placeholder="Last Date (31 Dec 2026)">
+                        <textarea id="adminJobDescription" placeholder="Job Description..."></textarea>
                         <button onclick="saveAdminJob()">💾 Save</button>
                     </div>
                 </div>
@@ -1942,7 +1478,7 @@
                         <h2 id="adminQuizModalTitle">🧠 Add Quiz</h2>
                         <input type="hidden" id="adminQuizEditId">
                         <input type="text" id="adminQuizTitle" placeholder="Quiz Title">
-                        <input type="text" id="adminQuizCategory" placeholder="Category">
+                        <input type="text" id="adminQuizCategory" placeholder="Category (GK/Rajasthan/Exam)">
                         <div id="adminQuizQuestions"></div>
                         <button onclick="addAdminQuestion()">➕ Add Question</button>
                         <button onclick="saveAdminQuiz()">💾 Save</button>
@@ -2024,12 +1560,12 @@
             if (section === 'notifications') renderAdminNotifications();
         }
 
-        // Content
+        // ================= ADMIN CONTENT =================
         function renderAdminContent(filter = '') {
             const container = document.getElementById('adminContentList');
             let items = adminData.content;
             if (filter) items = items.filter(c => c.title.toLowerCase().includes(filter.toLowerCase()));
-            if (items.length === 0) { container.innerHTML = '<div class="empty-state">📭 No content.</div>'; return; }
+            if (items.length === 0) { container.innerHTML = '<div class="empty-state">📭 No content. Click "Add New Content" to add.</div>'; return; }
             container.innerHTML = items.map(c => `
                 <div class="content-item">
                     <div><strong>${c.title}</strong><span style="color:#888;font-size:13px;margin-left:10px;">📂 ${c.category}</span></div>
@@ -2044,7 +1580,7 @@
         function filterAdminContent(input) { renderAdminContent(input.value); }
 
         function openAdminContentForm() {
-            document.getElementById('adminContentModalTitle').textContent = '📝 Add Content';
+            document.getElementById('adminContentModalTitle').textContent = '📝 Add New Content';
             document.getElementById('adminContentEditId').value = '';
             document.getElementById('adminContentTitle').value = '';
             document.getElementById('adminContentCategory').value = '';
@@ -2072,12 +1608,23 @@
             const body = document.getElementById('adminContentBody').value.trim();
             const tags = document.getElementById('adminContentTags').value.trim();
             if (!title || !category || !body) { alert('⚠️ Fill all required fields!'); return; }
-            if (id) { const item = adminData.content.find(c => c.id === parseInt(id)); if (item) { item.title = title; item.category = category; item.body = body; item.tags = tags; } }
-            else { adminData.content.push({ id: Date.now(), title, category, body, tags }); }
+            
+            let newItem = { id: Date.now(), title, category, body, tags };
+            
+            if (id) {
+                const item = adminData.content.find(c => c.id === parseInt(id));
+                if (item) { item.title = title; item.category = category; item.body = body; item.tags = tags; }
+            } else {
+                adminData.content.push(newItem);
+            }
             saveAdminData();
             closeAdminModal('adminContentModal');
             renderAdminContent();
             renderAdminDashboard();
+            
+            // ✅ Update website data with new content
+            updateWebsiteFromAdmin();
+            showToast('✅ Content saved! Refreshing website...', 'success');
         }
 
         function deleteAdminContent(id) {
@@ -2086,14 +1633,16 @@
             saveAdminData();
             renderAdminContent();
             renderAdminDashboard();
+            updateWebsiteFromAdmin();
+            showToast('✅ Content deleted!', 'success');
         }
 
-        // Jobs
+        // ================= ADMIN JOBS =================
         function renderAdminJobs(category = 'all') {
             const container = document.getElementById('adminJobList');
             let items = adminData.jobs;
             if (category !== 'all') items = items.filter(j => j.category === category);
-            if (items.length === 0) { container.innerHTML = '<div class="empty-state">💼 No jobs.</div>'; return; }
+            if (items.length === 0) { container.innerHTML = '<div class="empty-state">💼 No jobs. Click "Add New Job" to add.</div>'; return; }
             container.innerHTML = items.map(j => `
                 <div class="job-item">
                     <div><strong>${j.title}</strong><span style="color:#888;font-size:13px;margin-left:10px;">🏛️ ${j.department}</span></div>
@@ -2108,7 +1657,7 @@
         function filterAdminJobs(value) { renderAdminJobs(value); }
 
         function openAdminJobForm() {
-            document.getElementById('adminJobModalTitle').textContent = '💼 Add Job';
+            document.getElementById('adminJobModalTitle').textContent = '💼 Add New Job';
             document.getElementById('adminJobEditId').value = '';
             document.getElementById('adminJobTitle').value = '';
             document.getElementById('adminJobDepartment').value = '';
@@ -2145,12 +1694,19 @@
             const lastDate = document.getElementById('adminJobLastDate').value.trim();
             const description = document.getElementById('adminJobDescription').value.trim();
             if (!title || !department) { alert('⚠️ Fill title and department!'); return; }
-            if (id) { const item = adminData.jobs.find(j => j.id === parseInt(id)); if (item) { item.title = title; item.department = department; item.category = category; item.eligibility = eligibility; item.age = age; item.lastDate = lastDate; item.description = description; } }
-            else { adminData.jobs.push({ id: Date.now(), title, department, category, eligibility, age, lastDate, description }); }
+            
+            if (id) {
+                const item = adminData.jobs.find(j => j.id === parseInt(id));
+                if (item) { item.title = title; item.department = department; item.category = category; item.eligibility = eligibility; item.age = age; item.lastDate = lastDate; item.description = description; }
+            } else {
+                adminData.jobs.push({ id: Date.now(), title, department, category, eligibility, age, lastDate, description });
+            }
             saveAdminData();
             closeAdminModal('adminJobModal');
             renderAdminJobs();
             renderAdminDashboard();
+            updateWebsiteFromAdmin();
+            showToast('✅ Job saved! Refreshing website...', 'success');
         }
 
         function deleteAdminJob(id) {
@@ -2159,12 +1715,14 @@
             saveAdminData();
             renderAdminJobs();
             renderAdminDashboard();
+            updateWebsiteFromAdmin();
+            showToast('✅ Job deleted!', 'success');
         }
 
-        // Quiz
+        // ================= ADMIN QUIZ =================
         function renderAdminQuizzes() {
             const container = document.getElementById('adminQuizList');
-            if (adminData.quizzes.length === 0) { container.innerHTML = '<div class="empty-state">🧠 No quizzes.</div>'; return; }
+            if (adminData.quizzes.length === 0) { container.innerHTML = '<div class="empty-state">🧠 No quizzes. Click "Add New Quiz" to add.</div>'; return; }
             container.innerHTML = adminData.quizzes.map(q => `
                 <div class="quiz-item">
                     <div><strong>${q.title}</strong><span style="color:#888;font-size:13px;margin-left:10px;">📂 ${q.category}</span></div>
@@ -2177,7 +1735,7 @@
         }
 
         function openAdminQuizForm() {
-            document.getElementById('adminQuizModalTitle').textContent = '🧠 Add Quiz';
+            document.getElementById('adminQuizModalTitle').textContent = '🧠 Add New Quiz';
             document.getElementById('adminQuizEditId').value = '';
             document.getElementById('adminQuizTitle').value = '';
             document.getElementById('adminQuizCategory').value = '';
@@ -2223,10 +1781,10 @@
             div.className = 'question-item';
             div.innerHTML = `
                 <input type="text" placeholder="Question" class="q-text">
-                <input type="text" placeholder="A" class="q-opt1">
-                <input type="text" placeholder="B" class="q-opt2">
-                <input type="text" placeholder="C" class="q-opt3">
-                <input type="text" placeholder="D" class="q-opt4">
+                <input type="text" placeholder="Option A" class="q-opt1">
+                <input type="text" placeholder="Option B" class="q-opt2">
+                <input type="text" placeholder="Option C" class="q-opt3">
+                <input type="text" placeholder="Option D" class="q-opt4">
                 <select class="q-answer"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select>
             `;
             container.appendChild(div);
@@ -2249,12 +1807,19 @@
                 if (q && opt1 && opt2 && opt3 && opt4) { questions.push({ question: q, options: [opt1, opt2, opt3, opt4], answer }); }
             });
             if (questions.length === 0) { alert('⚠️ Add at least one complete question!'); return; }
-            if (id) { const item = adminData.quizzes.find(q => q.id === parseInt(id)); if (item) { item.title = title; item.category = category; item.questions = questions; } }
-            else { adminData.quizzes.push({ id: Date.now(), title, category, questions }); }
+            
+            if (id) {
+                const item = adminData.quizzes.find(q => q.id === parseInt(id));
+                if (item) { item.title = title; item.category = category; item.questions = questions; }
+            } else {
+                adminData.quizzes.push({ id: Date.now(), title, category, questions });
+            }
             saveAdminData();
             closeAdminModal('adminQuizModal');
             renderAdminQuizzes();
             renderAdminDashboard();
+            updateWebsiteFromAdmin();
+            showToast('✅ Quiz saved! Refreshing website...', 'success');
         }
 
         function deleteAdminQuiz(id) {
@@ -2263,9 +1828,11 @@
             saveAdminData();
             renderAdminQuizzes();
             renderAdminDashboard();
+            updateWebsiteFromAdmin();
+            showToast('✅ Quiz deleted!', 'success');
         }
 
-        // Users
+        // ================= ADMIN USERS =================
         function renderAdminUsers(filter = '') {
             const container = document.getElementById('adminUserList');
             let items = adminData.users;
@@ -2289,7 +1856,7 @@
             renderAdminDashboard();
         }
 
-        // Notifications
+        // ================= ADMIN NOTIFICATIONS =================
         function sendAdminNotification() {
             const title = document.getElementById('adminNotifTitle').value.trim();
             const message = document.getElementById('adminNotifMessage').value.trim();
@@ -2300,6 +1867,7 @@
             document.getElementById('adminNotifTitle').value = '';
             document.getElementById('adminNotifMessage').value = '';
             renderAdminNotifications();
+            showToast('✅ Notification sent!', 'success');
         }
 
         function renderAdminNotifications() {
@@ -2320,7 +1888,112 @@
             renderAdminNotifications();
         }
 
-        // Settings
+        // ================= UPDATE WEBSITE FROM ADMIN =================
+        function updateWebsiteFromAdmin() {
+            // Update Content to website
+            const contentData = adminData.content;
+            if (contentData.length > 0) {
+                // Map content to appropriate sections
+                contentData.forEach(item => {
+                    const category = item.category.toLowerCase();
+                    if (category.includes('study') || category.includes('notes')) {
+                        siteData.study.sections.push({
+                            id: 'admin_' + item.id,
+                            icon: '📚',
+                            title: item.title,
+                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No content'],
+                            details: item.tags || 'Study material'
+                        });
+                    } else if (category.includes('career')) {
+                        siteData.career.sections.push({
+                            id: 'admin_' + item.id,
+                            icon: '🎯',
+                            title: item.title,
+                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No items'],
+                            details: item.tags || 'Career guidance'
+                        });
+                    } else if (category.includes('books')) {
+                        siteData.books.sections.push({
+                            id: 'admin_' + item.id,
+                            icon: '📖',
+                            title: item.title,
+                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No books'],
+                            details: item.tags || 'Books'
+                        });
+                    } else if (category.includes('rajasthan') || category.includes('gk')) {
+                        siteData.rajasthan.sections.push({
+                            id: 'admin_' + item.id,
+                            icon: '🏜️',
+                            title: item.title,
+                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No content'],
+                            details: item.tags || 'Rajasthan GK'
+                        });
+                    } else if (category.includes('quiz')) {
+                        siteData.quiz.sections.push({
+                            id: 'admin_' + item.id,
+                            icon: '🧠',
+                            title: item.title,
+                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No questions'],
+                            details: item.tags || 'Quiz'
+                        });
+                    } else {
+                        siteData.more.sections.push({
+                            id: 'admin_' + item.id,
+                            icon: '⚙️',
+                            title: item.title,
+                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No items'],
+                            details: item.tags || 'More features'
+                        });
+                    }
+                });
+            }
+
+            // Update Jobs
+            const jobsData = adminData.jobs;
+            if (jobsData.length > 0) {
+                const central = jobsData.filter(j => j.category === 'central');
+                const state = jobsData.filter(j => j.category === 'state');
+                if (central.length > 0) {
+                    siteData.centralJobs.sections = central.map(j => ({
+                        id: 'admin_' + j.id,
+                        icon: getJobIcon(j.title),
+                        title: j.title,
+                        items: [j.description || 'No description'],
+                        details: j.description || '',
+                        examDate: j.lastDate || 'Coming soon',
+                        eligibility: j.eligibility || 'Check notification',
+                        ageLimit: j.age || 'Check notification'
+                    }));
+                }
+                if (state.length > 0) {
+                    siteData.stateJobs.sections = state.map(j => ({
+                        id: 'admin_' + j.id,
+                        icon: getJobIcon(j.title),
+                        title: j.title,
+                        items: [j.description || 'No description'],
+                        details: j.description || '',
+                        examDate: j.lastDate || 'Coming soon',
+                        eligibility: j.eligibility || 'Check notification',
+                        ageLimit: j.age || 'Check notification'
+                    }));
+                }
+            }
+
+            // Reload all slides
+            const slideIds = ['centralJobs', 'stateJobs', 'study', 'career', 'books', 'rajasthan', 'quiz', 'more'];
+            slideIds.forEach(id => {
+                const grid = document.getElementById(id + 'Grid');
+                if (grid) {
+                    grid.dataset.loaded = 'false';
+                    loadSlideContent(id);
+                    grid.dataset.loaded = 'true';
+                }
+            });
+
+            console.log('✅ Website updated from Admin data!');
+        }
+
+        // ================= SETTINGS =================
         function changeAdminPassword() {
             const newPass = document.getElementById('adminNewPass').value;
             const confirmPass = document.getElementById('adminConfirmPass').value;
@@ -2360,6 +2033,7 @@
                         adminData = data;
                         saveAdminData();
                         renderAdminDashboard();
+                        updateWebsiteFromAdmin();
                         alert('✅ Data imported!');
                     } else { alert('❌ Invalid format!'); }
                 } catch (err) { alert('❌ Error reading file!'); }
@@ -2380,6 +2054,7 @@
             document.body.classList.remove('dark-mode');
             saveAdminData();
             renderAdminDashboard();
+            updateWebsiteFromAdmin();
             alert('🗑️ All data reset!');
         }
 
@@ -2398,15 +2073,15 @@
             });
 
             // Load from Google Sheet if configured
-            if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE') {
+            if (GOOGLE_SHEET_URL && !GOOGLE_SHEET_URL.includes('YOUR_GOOGLE_SHEET')) {
                 setTimeout(() => {
                     loadAllDataFromSheet();
                 }, 500);
             }
 
             console.log('🚀 Dream Josh - Complete Edition!');
-            console.log('📌 Press "R" to refresh from Google Sheet');
-            console.log('🔐 Admin Panel: Password "admin123"');
+            console.log('📌 Admin Panel: Password "admin123"');
+            console.log('📌 Admin se Add/Edit karein, website auto-update hogi!');
         });
 
         // ================= EXPOSE FUNCTIONS =================
@@ -2450,6 +2125,7 @@
         window.clearGoogleSheetCache = clearGoogleSheetCache;
         window.closeAdminModal = closeAdminModal;
         window.showToast = showToast;
+        window.updateWebsiteFromAdmin = updateWebsiteFromAdmin;
         window.loadAllDataFromSheet = loadAllDataFromSheet;
     </script>
 </body>
