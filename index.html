@@ -260,6 +260,7 @@
         .home-original .imp-links a {
             display: block; padding: 8px 14px; border-bottom: 1px solid var(--border-color);
             color: var(--primary-blue); text-decoration: none; transition: 0.3s; font-size: 13px;
+            cursor: pointer;
         }
         .home-original .imp-links a:hover { background: var(--card-hover); }
 
@@ -714,11 +715,6 @@
             color: #fff;
         }
         .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-refresh-admin:hover { background: #15803d; }
-        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-sync-sheet {
-            background: #17a2b8;
-            color: #fff;
-        }
-        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-sync-sheet:hover { background: #138496; }
 
         /* Admin Stats */
         .admin-panel-overlay .admin-stats {
@@ -982,12 +978,14 @@
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
-        @media (max-width: 600px) { .admin-panel-overlay .admin-modal .form-row { grid-template-columns: 1fr; } }
-        @media (max-width: 600px) { .admin-panel-overlay .admin-modal .form-row-3 { grid-template-columns: 1fr; } }
         .admin-panel-overlay .admin-modal .form-row-3 {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 12px;
+        }
+        @media (max-width: 600px) {
+            .admin-panel-overlay .admin-modal .form-row,
+            .admin-panel-overlay .admin-modal .form-row-3 { grid-template-columns: 1fr; }
         }
 
         .admin-panel-overlay .admin-modal .btn-submit {
@@ -1047,11 +1045,6 @@
             color: var(--text-color);
             margin-bottom: 6px;
         }
-        .admin-panel-overlay .admin-settings .setting-group p {
-            font-size: 12px;
-            color: var(--text-light);
-            margin-bottom: 6px;
-        }
         .admin-panel-overlay .admin-settings .setting-group .btn-setting {
             padding: 6px 16px;
             border: none;
@@ -1083,6 +1076,7 @@
             max-width: 100%;
         }
 
+        /* Admin Notifications */
         .admin-panel-overlay .admin-notification-form {
             display: flex;
             flex-wrap: wrap;
@@ -1115,49 +1109,6 @@
             min-height: 36px;
         }
         .admin-panel-overlay .admin-notification-form button:hover { background: #15803d; }
-
-        /* Sheet Config */
-        .sheet-config-box {
-            background: var(--card-bg);
-            border: 2px dashed var(--border-color);
-            border-radius: 10px;
-            padding: 16px 20px;
-            margin-bottom: 16px;
-        }
-        .sheet-config-box .config-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .sheet-config-box .config-row input {
-            flex: 1;
-            padding: 8px 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 13px;
-            background: var(--bg-color);
-            color: var(--text-color);
-            min-width: 200px;
-        }
-        .sheet-config-box .config-row button {
-            padding: 8px 16px;
-            background: var(--secondary-blue);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: 0.3s;
-            min-height: 36px;
-        }
-        .sheet-config-box .config-row button:hover { background: var(--primary-blue); }
-        .sheet-config-box .config-status {
-            margin-top: 8px;
-            font-size: 12px;
-            color: var(--text-light);
-        }
 
         /* Responsive Admin */
         @media (max-width: 768px) {
@@ -1205,6 +1156,22 @@
             border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
+        }
+
+        /* Loading animation for dropdown */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border-color);
+            border-top: 2px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -1300,9 +1267,7 @@
                             <div class="sidebar-box">
                                 <h3>📋 Important Forms</h3>
                                 <div class="imp-links" id="formsList">
-                                    <a href="#">🪪 Aadhaar Card</a>
-                                    <a href="#">💳 PAN Card</a>
-                                    <a href="#">🗳️ Voter ID</a>
+                                    <!-- Forms loaded from admin -->
                                 </div>
                             </div>
                         </div>
@@ -1424,9 +1389,8 @@
         // ============================================================
         // CONFIGURATION
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_admin_data_v5';
-        const DEFAULT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1nMoPaIQD5fYen6skaIWf_RenFLoAXrhtdy-nLkxNYyY/edit?usp=sharing';
-        
+        const STORAGE_KEY = 'dreamjosh_admin_data_v8';
+
         // ============================================================
         // DATA STORE
         // ============================================================
@@ -1440,6 +1404,7 @@
                 more: []
             },
             jobs: [],
+            forms: [],
             notifications: [],
             homeContent: {
                 heading: '🚀 Dream Josh में आपका स्वागत है',
@@ -1449,30 +1414,135 @@
                 features: ['📖 Study Notes और अध्ययन सामग्री', '🏛️ Govt. Jobs से संबंधित जानकारी', '🎯 Career Guide और Career Options'],
                 highlight: '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>'
             },
-            settings: { password: 'admin123', darkMode: false, sheetUrl: DEFAULT_SHEET_URL }
+            settings: { password: 'admin123', darkMode: false }
         };
 
         let isAdminLoggedIn = false;
 
         // ============================================================
-        // CATEGORIES CONFIG
+        // JOB HIERARCHY DATA
         // ============================================================
-        const CATEGORIES = {
-            study: ['Notes', 'Practice Sets', 'Previous Papers', 'Revision', 'General'],
-            career: ['After 12th', 'Graduation', 'Competitive Exams', 'Skills', 'General'],
-            books: ['Competitive', 'Rajasthan GK', 'General Knowledge', 'Motivation', 'General'],
-            rajasthan: ['History', 'Geography', 'Culture', 'Districts', 'General'],
-            quiz: ['GK', 'Rajasthan', 'Exam', 'Current Affairs', 'General'],
-            more: ['PDF Tools', 'Motivation', 'Videos', 'Gallery', 'General']
-        };
-
-        const PAGE_NAMES = {
-            study: 'Study',
-            career: 'Career',
-            books: 'Books',
-            rajasthan: 'Rajasthan GK',
-            quiz: 'Quiz',
-            more: 'More Features'
+        const JOB_DATA = {
+            central: {
+                'UPSC': {
+                    posts: ['IAS', 'IPS', 'IFS', 'IRS', 'IES', 'IRTS', 'IRPS', 'IRAS', 'IDES', 'IAAS', 'ICAS', 'ICOAS']
+                },
+                'SSC': {
+                    posts: ['CGL', 'CHSL', 'MTS', 'CPO', 'GD Constable', 'Stenographer', 'Selection Post']
+                },
+                'Railway / RRB': {
+                    posts: ['NTPC', 'Group D', 'ALP', 'Technician', 'JE', 'SSE', 'RPSF', 'RPF Constable', 'RPF SI']
+                },
+                'Banking': {
+                    posts: ['SBI PO', 'SBI Clerk', 'IBPS PO', 'IBPS Clerk', 'RBI Grade B', 'RBI Assistant', 'NABARD Grade A', 'SBI SO']
+                },
+                'Defence': {
+                    posts: ['NDA', 'CDS', 'AFCAT', 'SSB', 'Indian Army Soldier', 'Indian Navy SSR', 'Indian Air Force Airmen']
+                },
+                'Police / CAPF': {
+                    posts: ['IPS', 'BSF', 'CRPF', 'CISF', 'ITBP', 'SSB', 'CPO']
+                },
+                'India Post': {
+                    posts: ['Postal Assistant', 'Postman', 'Mail Guard', 'GDS', 'MTS']
+                },
+                'Teaching': {
+                    posts: ['KVS TGT', 'KVS PGT', 'NVS TGT', 'NVS PGT', 'DSSSB Teacher', 'CTET', 'UGC NET']
+                },
+                'Medical': {
+                    posts: ['MBBS', 'BDS', 'BAMS', 'BHMS', 'Nursing Officer', 'Lab Technician', 'Pharmacist']
+                },
+                'PSU Companies': {
+                    posts: ['Management Trainee', 'Engineer', 'Finance Officer', 'HR Officer', 'IT Officer']
+                },
+                'Technical': {
+                    posts: ['JE', 'AEE', 'AE', 'SDO', 'DGM', 'AGM']
+                },
+                'Court / Judiciary': {
+                    posts: ['Civil Judge', 'Judicial Magistrate', 'Public Prosecutor', 'Law Clerk', 'Court Manager']
+                }
+            },
+            state: {
+                'RPSC': {
+                    posts: ['RAS', 'Revenue Officer', 'Tehsildar', 'BDO', 'SDM', 'Deputy SP', 'Rajasthan Judicial Services']
+                },
+                'RSSB / RSMSSB': {
+                    posts: ['LDC', 'UDC', 'Patwari', 'Grameen Vikas Adhikari', 'Junior Accountant', 'Rajasthan Police Constable', 'SI']
+                },
+                'Rajasthan High Court': {
+                    posts: ['Civil Judge', 'Judicial Magistrate', 'Law Clerk', 'Assistant Registrar', 'Stenographer']
+                },
+                'Boards & Corporations': {
+                    posts: ['Junior Engineer', 'Assistant Manager', 'Accountant', 'Clerk', 'Junior Accountant']
+                },
+                'Rajasthan Police': {
+                    posts: ['Constable', 'SI', 'ASI', 'Head Constable', 'SP', 'DSP', 'ACP']
+                },
+                'Education Recruitment': {
+                    posts: ['REET', 'School Lecturer', 'PTI', 'Art Teacher', 'Music Teacher', 'Computer Teacher']
+                },
+                'Medical & Health': {
+                    posts: ['Medical Officer', 'Staff Nurse', 'Lab Technician', 'Pharmacist', 'Community Health Officer']
+                },
+                'Agriculture & Animal': {
+                    posts: ['Agriculture Supervisor', 'Animal Attendant', 'Veterinary Officer', 'Farm Manager']
+                },
+                'Engineering & Technical': {
+                    posts: ['Junior Engineer', 'Assistant Engineer', 'Sub-Divisional Officer', 'Technical Assistant']
+                },
+                'Revenue Department': {
+                    posts: ['Patwari', 'Tehsildar', 'Revenue Officer', 'Kanungo', 'LDC']
+                },
+                'Panchayati Raj': {
+                    posts: ['BDO', 'Panchayat Secretary', 'Junior Engineer', 'Accountant']
+                },
+                'Forest Department': {
+                    posts: ['Forest Guard', 'Forester', 'Range Forest Officer', 'Wildlife Guard']
+                }
+            },
+            private: {
+                'IT / Software': {
+                    posts: ['Software Engineer', 'Senior Developer', 'Team Lead', 'Project Manager', 'QA Engineer', 'DevOps Engineer', 'Data Scientist']
+                },
+                'Finance / Banking': {
+                    posts: ['Accounts Executive', 'Finance Manager', 'CA', 'CFA', 'Internal Auditor', 'Risk Analyst']
+                },
+                'Marketing / Sales': {
+                    posts: ['Marketing Executive', 'Sales Manager', 'Brand Manager', 'Digital Marketing Specialist', 'SEO Expert']
+                },
+                'Human Resources': {
+                    posts: ['HR Executive', 'HR Manager', 'Recruiter', 'Training & Development', 'Payroll Specialist']
+                },
+                'Operations': {
+                    posts: ['Operations Executive', 'Operations Manager', 'Supply Chain Manager', 'Logistics Coordinator']
+                },
+                'Healthcare': {
+                    posts: ['Doctor', 'Nurse', 'Physiotherapist', 'Lab Technician', 'Radiologist', 'Pharmacist']
+                },
+                'Education': {
+                    posts: ['Teacher', 'Professor', 'Principal', 'Academic Coordinator', 'Curriculum Developer']
+                },
+                'Manufacturing': {
+                    posts: ['Production Engineer', 'Quality Inspector', 'Plant Manager', 'Maintenance Engineer']
+                },
+                'Retail': {
+                    posts: ['Store Manager', 'Sales Associate', 'Visual Merchandiser', 'Inventory Manager']
+                },
+                'Consulting': {
+                    posts: ['Management Consultant', 'Strategy Consultant', 'IT Consultant', 'HR Consultant']
+                },
+                'Media / Entertainment': {
+                    posts: ['Journalist', 'Content Writer', 'Video Editor', 'Graphic Designer', 'Social Media Manager']
+                },
+                'Real Estate': {
+                    posts: ['Real Estate Agent', 'Property Manager', 'Site Engineer', 'Sales Executive']
+                },
+                'Hospitality': {
+                    posts: ['Hotel Manager', 'Chef', 'Restaurant Manager', 'Event Manager', 'Front Desk Executive']
+                },
+                'Logistics': {
+                    posts: ['Logistics Manager', 'Supply Chain Analyst', 'Warehouse Supervisor', 'Transport Coordinator']
+                }
+            }
         };
 
         // ============================================================
@@ -1498,6 +1568,9 @@
                 if (!adminData.content) {
                     adminData.content = { study: [], career: [], books: [], rajasthan: [], quiz: [], more: [] };
                 }
+                if (!adminData.jobs) adminData.jobs = [];
+                if (!adminData.forms) adminData.forms = [];
+                if (!adminData.notifications) adminData.notifications = [];
             } catch(e) { console.error('Load error:', e); }
             applyDarkMode();
             updateWebsiteFromAdmin();
@@ -1526,45 +1599,30 @@
             }
             document.getElementById('homeHighlight').innerHTML = hc.highlight || '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>';
 
-            // Update content for each page
-            const slideIds = ['study', 'career', 'books', 'rajasthan', 'quiz', 'more'];
-            slideIds.forEach(id => {
-                const items = adminData.content[id] || [];
-                const container = document.getElementById(id + 'Container');
-                if (!container) return;
-                const grid = container.querySelector('.section-grid');
-                if (!grid) return;
-                
-                grid.innerHTML = '';
-                if (items.length === 0) {
-                    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-light);">No content added yet</div>';
-                    return;
-                }
-                
-                items.forEach((item, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'grid-item';
-                    const preview = item.items ? item.items.split(',').slice(0, 2).join(', ') + (item.items.split(',').length > 2 ? '...' : '') : '';
-                    card.innerHTML = `
-                        <div class="item-icon">${item.icon || '📌'}</div>
-                        <div class="item-title">${item.title || 'Untitled'}</div>
-                        <div class="item-desc">${item.category || 'General'}</div>
-                        <div class="item-desc" style="font-size:11px;opacity:0.5;margin-top:4px;">${preview}</div>
-                        <span class="item-badge">${item.items ? item.items.split(',').length : 0}</span>
+            // Update Forms
+            const formsList = document.getElementById('formsList');
+            if (formsList) {
+                const forms = adminData.forms || [];
+                if (forms.length === 0) {
+                    formsList.innerHTML = `
+                        <a href="#">🪪 Aadhaar Card</a>
+                        <a href="#">💳 PAN Card</a>
+                        <a href="#">🗳️ Voter ID</a>
+                        <a href="#">🛂 Passport</a>
                     `;
-                    card.addEventListener('click', () => openDetailModal(id, index));
-                    grid.appendChild(card);
-                });
-            });
+                } else {
+                    formsList.innerHTML = forms.map(f => `
+                        <a href="${f.link || '#'}" target="${f.link ? '_blank' : ''}">${f.icon || '📋'} ${f.title}</a>
+                    `).join('');
+                }
+            }
 
-            // Update Jobs
+            // Update Jobs - Filter by type
             const jobsData = adminData.jobs || [];
-            const centralJobs = jobsData.filter(j => j.type === 'central');
-            const stateJobs = jobsData.filter(j => j.type === 'state');
             
+            // Central Jobs
+            const centralJobs = jobsData.filter(j => j.jobType === 'central');
             const centralGrid = document.getElementById('centralJobsGrid');
-            const stateGrid = document.getElementById('stateJobsGrid');
-            
             if (centralGrid) {
                 centralGrid.innerHTML = '';
                 if (centralJobs.length === 0) {
@@ -1576,7 +1634,7 @@
                         card.innerHTML = `
                             <div class="item-icon">🏛️</div>
                             <div class="item-title">${job.title || 'Untitled'}</div>
-                            <div class="item-desc">${job.department || ''}</div>
+                            <div class="item-desc">${job.department || ''} | ${job.post || ''}</div>
                             <div class="item-desc" style="font-size:11px;opacity:0.5;margin-top:4px;">${job.eligibility || ''}</div>
                             <span class="item-badge">${job.lastDate || ''}</span>
                         `;
@@ -1585,7 +1643,10 @@
                     });
                 }
             }
-            
+
+            // State Jobs
+            const stateJobs = jobsData.filter(j => j.jobType === 'state');
+            const stateGrid = document.getElementById('stateJobsGrid');
             if (stateGrid) {
                 stateGrid.innerHTML = '';
                 if (stateJobs.length === 0) {
@@ -1597,7 +1658,7 @@
                         card.innerHTML = `
                             <div class="item-icon">🏜️</div>
                             <div class="item-title">${job.title || 'Untitled'}</div>
-                            <div class="item-desc">${job.department || ''}</div>
+                            <div class="item-desc">${job.department || ''} | ${job.post || ''}</div>
                             <div class="item-desc" style="font-size:11px;opacity:0.5;margin-top:4px;">${job.eligibility || ''}</div>
                             <span class="item-badge">${job.lastDate || ''}</span>
                         `;
@@ -1626,29 +1687,29 @@
                 <div class="detail-icon">${item.icon || '📌'}</div>
                 <h2>${item.title || 'Untitled'}</h2>
                 <p><strong>Category:</strong> ${item.category || 'General'}</p>
-                <p><strong>Sub-Category:</strong> ${item.subCategory || '-'}</p>
-                <p>${item.shortDescription || ''}</p>
+                ${item.subCategory ? `<p><strong>Sub-Category:</strong> ${item.subCategory}</p>` : ''}
+                ${item.shortDescription ? `<p>${item.shortDescription}</p>` : ''}
                 ${item.fullDescription ? `<p>${item.fullDescription}</p>` : ''}
             `;
             
-            // Add type-specific fields
+            // Page-specific fields
             if (page === 'books') {
                 html += `
-                    <p><strong>Author:</strong> ${item.author || '-'}</p>
-                    <p><strong>Publisher:</strong> ${item.publisher || '-'}</p>
-                    <p><strong>Subject:</strong> ${item.subject || '-'}</p>
-                    <p><strong>Exam:</strong> ${item.exam || '-'}</p>
-                    <p><strong>Price:</strong> ${item.price || '-'}</p>
-                    <p><strong>Language:</strong> ${item.language || '-'}</p>
+                    ${item.author ? `<p><strong>Author:</strong> ${item.author}</p>` : ''}
+                    ${item.publisher ? `<p><strong>Publisher:</strong> ${item.publisher}</p>` : ''}
+                    ${item.subject ? `<p><strong>Subject:</strong> ${item.subject}</p>` : ''}
+                    ${item.exam ? `<p><strong>Exam:</strong> ${item.exam}</p>` : ''}
+                    ${item.price ? `<p><strong>Price:</strong> ${item.price}</p>` : ''}
+                    ${item.language ? `<p><strong>Language:</strong> ${item.language}</p>` : ''}
                     ${item.pdfLink ? `<p><strong>PDF:</strong> <a href="${item.pdfLink}" target="_blank">Download</a></p>` : ''}
                     ${item.purchaseLink ? `<p><strong>Purchase:</strong> <a href="${item.purchaseLink}" target="_blank">Buy Now</a></p>` : ''}
                 `;
             } else if (page === 'career') {
                 html += `
-                    <p><strong>Eligibility:</strong> ${item.eligibility || '-'}</p>
-                    <p><strong>Qualification:</strong> ${item.qualification || '-'}</p>
-                    <p><strong>Skills Required:</strong> ${item.skills || '-'}</p>
-                    <p><strong>Salary:</strong> ${item.salary || '-'}</p>
+                    ${item.eligibility ? `<p><strong>Eligibility:</strong> ${item.eligibility}</p>` : ''}
+                    ${item.qualification ? `<p><strong>Qualification:</strong> ${item.qualification}</p>` : ''}
+                    ${item.skills ? `<p><strong>Skills Required:</strong> ${item.skills}</p>` : ''}
+                    ${item.salary ? `<p><strong>Salary:</strong> ${item.salary}</p>` : ''}
                     ${item.applyLink ? `<p><strong>Apply:</strong> <a href="${item.applyLink}" target="_blank">Apply Now</a></p>` : ''}
                     ${item.officialWebsite ? `<p><strong>Official:</strong> <a href="${item.officialWebsite}" target="_blank">Visit Site</a></p>` : ''}
                 `;
@@ -1674,22 +1735,33 @@
         }
 
         function openJobDetail(type, index) {
-            const jobs = adminData.jobs.filter(j => j.type === type);
+            const jobs = adminData.jobs.filter(j => j.jobType === type);
             const job = jobs[index];
             if (!job) return;
             
             const overlay = document.getElementById('detailOverlay');
             const body = document.getElementById('detailBody');
             
+            const typeLabels = {
+                central: '🇮🇳 Central Govt.',
+                state: '🏜️ Rajasthan Govt.',
+                private: '💼 Private'
+            };
+            
             body.innerHTML = `
-                <div class="detail-icon">${type === 'central' ? '🏛️' : '🏜️'}</div>
+                <div class="detail-icon">${type === 'central' ? '🏛️' : type === 'state' ? '🏜️' : '💼'}</div>
                 <h2>${job.title || 'Untitled'}</h2>
+                <p><strong>Job Type:</strong> ${typeLabels[type] || type}</p>
                 <p><strong>Department:</strong> ${job.department || '-'}</p>
-                <p><strong>Type:</strong> ${type === 'central' ? '🇮🇳 Central Govt.' : '🏜️ Rajasthan Govt.'}</p>
+                <p><strong>Post:</strong> ${job.post || '-'}</p>
+                <p><strong>Job Category:</strong> ${job.jobCategory || 'Government'}</p>
                 <p><strong>Eligibility:</strong> ${job.eligibility || '-'}</p>
                 <p><strong>Age Limit:</strong> ${job.age || '-'}</p>
                 <p><strong>Last Date:</strong> ${job.lastDate || '-'}</p>
-                <p>${job.description || ''}</p>
+                ${job.experience ? `<p><strong>Experience:</strong> ${job.experience}</p>` : ''}
+                ${job.description ? `<p><strong>Description:</strong><br>${job.description}</p>` : ''}
+                ${job.website ? `<p><strong>Official Website:</strong> <a href="${job.website}" target="_blank">Visit</a></p>` : ''}
+                ${job.applyLink ? `<p><strong>Apply Link:</strong> <a href="${job.applyLink}" target="_blank">Apply Now</a></p>` : ''}
                 <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
                     <span class="detail-link secondary" onclick="closeDetail()">✕ बंद करें</span>
                 </div>
@@ -1858,8 +1930,9 @@
                 const overlay = document.getElementById('adminPanelOverlay');
                 overlay.innerHTML = renderAdminPanel();
                 renderAdminDashboard();
-                renderAdminContentTable();
+                ['study', 'career', 'books', 'rajasthan', 'quiz', 'more'].forEach(p => renderAdminContentTable(p));
                 renderAdminJobsTable();
+                renderAdminFormsTable();
                 renderAdminNotifications();
                 renderAdminHomeEditor();
                 showToast('✅ Welcome Admin!', 'success');
@@ -1882,8 +1955,6 @@
         // ============================================================
         function renderAdminPanel() {
             const dark = adminData.settings?.darkMode || false;
-            const sheetUrl = adminData.settings?.sheetUrl || DEFAULT_SHEET_URL;
-            
             const contentCount = Object.values(adminData.content || {}).reduce((sum, arr) => sum + arr.length, 0);
             
             return `
@@ -1891,7 +1962,7 @@
                 <div class="admin-sidebar" id="adminSidebar">
                     <div class="admin-logo">
                         <h1>🚀 <span>Dream</span>Josh</h1>
-                        <span class="badge">v5.0</span>
+                        <span class="badge">v8.0</span>
                     </div>
                     <div class="admin-user">
                         <div class="avatar">A</div>
@@ -1913,6 +1984,7 @@
                         <li><a data-page="more" onclick="showAdminPage('more')"><i class="fas fa-plus-circle"></i> More <span class="count">${adminData.content?.more?.length || 0}</span></a></li>
                         <li class="section-title">Management</li>
                         <li><a data-page="jobs" onclick="showAdminPage('jobs')"><i class="fas fa-briefcase"></i> Jobs <span class="count">${adminData.jobs?.length || 0}</span></a></li>
+                        <li><a data-page="forms" onclick="showAdminPage('forms')"><i class="fas fa-list-check"></i> Forms <span class="count">${adminData.forms?.length || 0}</span></a></li>
                         <li><a data-page="notifications" onclick="showAdminPage('notifications')"><i class="fas fa-bell"></i> Notifications</a></li>
                         <li class="section-title">System</li>
                         <li><a data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
@@ -1928,7 +2000,6 @@
                         <div class="admin-actions">
                             <button class="admin-menu-toggle" onclick="toggleAdminSidebar()"><i class="fas fa-bars"></i></button>
                             <button class="btn-dark-admin ${dark?'active':''}" onclick="toggleDarkMode()"><i class="fas ${dark?'fa-sun':'fa-moon'}"></i> ${dark?'Light':'Dark'}</button>
-                            <button class="btn-sync-sheet" onclick="syncGoogleSheet()"><i class="fas fa-sync-alt"></i> Sync Sheet</button>
                             <button class="btn-refresh-admin" onclick="refreshAdminData()"><i class="fas fa-redo"></i> Refresh</button>
                             <button class="btn-close-admin" onclick="closeAdminPanel()"><i class="fas fa-times"></i> Close</button>
                         </div>
@@ -1939,6 +2010,7 @@
                         <div class="admin-stats">
                             <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Content</div><div class="stat-value" id="statContent">${contentCount}</div></div>
                             <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">${adminData.jobs?.length || 0}</div></div>
+                            <div class="stat-item"><div class="stat-icon">📋</div><div class="stat-label">Forms</div><div class="stat-value" id="statForms">${adminData.forms?.length || 0}</div></div>
                             <div class="stat-item"><div class="stat-icon">🔔</div><div class="stat-label">Notifications</div><div class="stat-value" id="statNotifs">${adminData.notifications?.length || 0}</div></div>
                         </div>
                         <div class="admin-quick-actions">
@@ -1949,17 +2021,8 @@
                                 <button onclick="showAdminPage('career'); openContentModal('career')"><i class="fas fa-plus"></i> Add Career</button>
                                 <button onclick="showAdminPage('books'); openContentModal('books')"><i class="fas fa-plus"></i> Add Book</button>
                                 <button onclick="showAdminPage('jobs'); openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
-                                <button onclick="syncGoogleSheet()"><i class="fas fa-sync-alt"></i> Sync Sheet</button>
+                                <button onclick="showAdminPage('forms'); openFormModal()"><i class="fas fa-plus"></i> Add Form</button>
                                 <button onclick="exportAdminData()" style="background:var(--success-green);"><i class="fas fa-download"></i> Export</button>
-                            </div>
-                        </div>
-                        <div class="sheet-config-box">
-                            <div class="config-row">
-                                <input type="text" id="sheetUrlInput" value="${sheetUrl}" placeholder="Google Sheet URL">
-                                <button onclick="updateSheetUrl()"><i class="fas fa-save"></i> Save URL</button>
-                            </div>
-                            <div class="config-status">
-                                <span>📊 Google Sheet: ${sheetUrl ? '✅ Configured' : '❌ Not configured'}</span>
                             </div>
                         </div>
                     </div>
@@ -2008,8 +2071,25 @@
                             </div>
                             <div class="table-wrap">
                                 <table>
-                                    <thead><tr><th>#</th><th>Title</th><th>Department</th><th>Type</th><th>Actions</th></tr></thead>
+                                    <thead><tr><th>#</th><th>Title</th><th>Job Type</th><th>Department</th><th>Post</th><th>Actions</th></tr></thead>
                                     <tbody id="adminJobsTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Forms -->
+                    <div id="adminPage-forms" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>📋 Forms Manager</h4>
+                                <button class="btn-add" onclick="openFormModal()"><i class="fas fa-plus"></i> Add Form</button>
+                                <button class="btn-add" style="background:var(--warning-red);" onclick="clearAllForms()"><i class="fas fa-trash"></i> Clear All</button>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>#</th><th>Title</th><th>Category</th><th>Link</th><th>Actions</th></tr></thead>
+                                    <tbody id="adminFormsTable"></tbody>
                                 </table>
                             </div>
                         </div>
@@ -2050,12 +2130,6 @@
                                     <button class="btn-setting primary" onclick="toggleDarkMode()">${adminData.settings?.darkMode ? 'Switch to Light' : 'Switch to Dark'}</button>
                                 </div>
                                 <div class="setting-group">
-                                    <h5>📊 Google Sheet</h5>
-                                    <input type="text" id="settingsSheetUrl" value="${adminData.settings?.sheetUrl || ''}" placeholder="Google Sheet URL">
-                                    <button class="btn-setting success" onclick="saveSheetUrl()"><i class="fas fa-save"></i> Save</button>
-                                    <button class="btn-setting warning" onclick="syncGoogleSheet()"><i class="fas fa-sync-alt"></i> Sync Now</button>
-                                </div>
-                                <div class="setting-group">
                                     <h5>💾 Backup & Restore</h5>
                                     <button class="btn-setting success" onclick="exportAdminData()"><i class="fas fa-download"></i> Export</button>
                                     <button class="btn-setting warning" onclick="document.getElementById('adminImportFile').click()"><i class="fas fa-upload"></i> Import</button>
@@ -2092,7 +2166,7 @@
             const menuItem = document.querySelector(`#adminPanelOverlay .admin-menu a[data-page="${page}"]`);
             if (menuItem) menuItem.classList.add('active');
 
-            const pages = ['dashboard', 'home', 'study', 'career', 'books', 'rajasthan', 'quiz', 'more', 'jobs', 'notifications', 'settings'];
+            const pages = ['dashboard', 'home', 'study', 'career', 'books', 'rajasthan', 'quiz', 'more', 'jobs', 'forms', 'notifications', 'settings'];
             pages.forEach(p => {
                 const el = document.getElementById(`adminPage-${p}`);
                 if (el) el.classList.toggle('active', p === page);
@@ -2108,6 +2182,7 @@
                 quiz: '🧠 <span>Quiz Manager</span>',
                 more: '⚙️ <span>More Features Manager</span>',
                 jobs: '💼 <span>Jobs Manager</span>',
+                forms: '📋 <span>Forms Manager</span>',
                 notifications: '🔔 <span>Notifications</span>',
                 settings: '⚙️ <span>Settings</span>'
             };
@@ -2117,6 +2192,7 @@
             if (page === 'home') renderAdminHomeEditor();
             if (['study', 'career', 'books', 'rajasthan', 'quiz', 'more'].includes(page)) renderAdminContentTable(page);
             if (page === 'jobs') renderAdminJobsTable();
+            if (page === 'forms') renderAdminFormsTable();
             if (page === 'notifications') renderAdminNotifications();
 
             if (window.innerWidth <= 768) {
@@ -2135,6 +2211,7 @@
             const contentCount = Object.values(adminData.content || {}).reduce((sum, arr) => sum + arr.length, 0);
             document.getElementById('statContent').textContent = contentCount;
             document.getElementById('statJobs').textContent = adminData.jobs?.length || 0;
+            document.getElementById('statForms').textContent = adminData.forms?.length || 0;
             document.getElementById('statNotifs').textContent = adminData.notifications?.length || 0;
         }
 
@@ -2165,8 +2242,26 @@
         }
 
         // ============================================================
-        // CONTENT CRUD - Page Wise
+        // CONTENT CRUD
         // ============================================================
+        const PAGE_NAMES = {
+            study: 'Study',
+            career: 'Career',
+            books: 'Books',
+            rajasthan: 'Rajasthan GK',
+            quiz: 'Quiz',
+            more: 'More Features'
+        };
+
+        const CATEGORIES = {
+            study: ['Notes', 'Practice Sets', 'Previous Papers', 'Revision', 'General'],
+            career: ['After 12th', 'Graduation', 'Competitive Exams', 'Skills', 'General'],
+            books: ['Competitive', 'Rajasthan GK', 'General Knowledge', 'Motivation', 'General'],
+            rajasthan: ['History', 'Geography', 'Culture', 'Districts', 'General'],
+            quiz: ['GK', 'Rajasthan', 'Exam', 'Current Affairs', 'General'],
+            more: ['PDF Tools', 'Motivation', 'Videos', 'Gallery', 'General']
+        };
+
         function renderAdminContentTable(page) {
             const tbody = document.getElementById(`adminContentTable-${page}`);
             if (!tbody) return;
@@ -2199,7 +2294,6 @@
 
             let fields = '';
             
-            // Common fields
             fields += `
                 <input type="hidden" id="contentPage" value="${page}">
                 <input type="hidden" id="contentIndex" value="${isEdit ? adminData.content[page].indexOf(data) : -1}">
@@ -2213,7 +2307,6 @@
                 <div class="form-group"><label>Items (comma separated)</label><input type="text" id="contentItems" value="${isEdit ? data.items : ''}"></div>
             `;
 
-            // Page-specific fields
             if (page === 'books') {
                 fields += `
                     <div class="form-row-3">
@@ -2261,7 +2354,6 @@
                 `;
             }
 
-            // Common fields for all pages
             fields += `
                 <div class="form-group"><label>Tags</label><input type="text" id="contentTags" value="${isEdit ? data.tags : ''}" placeholder="Comma separated"></div>
                 <div class="form-row">
@@ -2317,9 +2409,6 @@
                 icon: getIconForCategory(category)
             };
 
-            // Add page-specific fields
-            const pageData = adminData.content[page] || [];
-            
             if (page === 'books') {
                 item.author = document.getElementById('contentAuthor').value.trim();
                 item.publisher = document.getElementById('contentPublisher').value.trim();
@@ -2345,6 +2434,7 @@
                 item.externalLink = document.getElementById('contentExternalLink').value.trim();
             }
 
+            const pageData = adminData.content[page] || [];
             if (index >= 0 && index < pageData.length) {
                 adminData.content[page][index] = item;
                 showToast('✅ Content updated!', 'success');
@@ -2382,22 +2472,23 @@
         }
 
         // ============================================================
-        // JOBS CRUD
+        // JOBS CRUD - WITH HIERARCHY
         // ============================================================
         function renderAdminJobsTable() {
             const tbody = document.getElementById('adminJobsTable');
             if (!tbody) return;
             const items = adminData.jobs || [];
             if (items.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No jobs added yet</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i> No jobs added yet</td></tr>`;
                 return;
             }
             tbody.innerHTML = items.map((item, i) => `
                 <tr>
                     <td>${i+1}</td>
                     <td><strong>${item.title}</strong></td>
+                    <td><span style="background:${item.jobType === 'central' ? '#1976d2' : item.jobType === 'state' ? '#16a34a' : '#6c757d'};color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;">${item.jobType === 'central' ? '🏛️ Central' : item.jobType === 'state' ? '🏜️ State' : '💼 Private'}</span></td>
                     <td>${item.department || '-'}</td>
-                    <td><span style="background:${item.type === 'central' ? '#1976d2' : '#16a34a'};color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;">${item.type === 'central' ? '🇮🇳 Central' : '🏜️ State'}</span></td>
+                    <td>${item.post || '-'}</td>
                     <td class="actions">
                         <button class="btn-edit" onclick="editJob(${i})"><i class="fas fa-edit"></i></button>
                         <button class="btn-delete" onclick="deleteJob(${i})"><i class="fas fa-trash"></i></button>
@@ -2409,61 +2500,142 @@
         function openJobModal(data = null) {
             const isEdit = data !== null;
             document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Job' : '💼 Add Job';
+            
+            const jobTypeOptions = `
+                <option value="central" ${isEdit && data?.jobType === 'central' ? 'selected' : ''}>🏛️ Central Govt. Job</option>
+                <option value="state" ${isEdit && data?.jobType === 'state' ? 'selected' : ''}>🏜️ Rajasthan Govt. Job</option>
+                <option value="private" ${isEdit && data?.jobType === 'private' ? 'selected' : ''}>💼 Private Job</option>
+            `;
+            
+            const jobCategoryOptions = `
+                <option value="government" ${isEdit && data?.jobCategory === 'government' ? 'selected' : ''}>🏛️ Government</option>
+                <option value="private" ${isEdit && data?.jobCategory === 'private' ? 'selected' : ''}>💼 Private</option>
+                <option value="both" ${isEdit && data?.jobCategory === 'both' ? 'selected' : ''}>🔀 Both</option>
+            `;
+            
+            // Get departments based on selected job type
+            const selectedType = isEdit ? data?.jobType : 'central';
+            const deptOptions = getDepartmentOptions(selectedType, isEdit ? data?.department : '');
+            
+            // Get posts based on selected department
+            const selectedDept = isEdit ? data?.department : '';
+            const postOptions = getPostOptions(selectedType, selectedDept, isEdit ? data?.post : '');
+            
             document.getElementById('adminModalBody').innerHTML = `
                 <input type="hidden" id="jobIndex" value="${isEdit ? adminData.jobs.indexOf(data) : -1}">
                 <div class="form-group"><label>Job Title <span class="required">*</span></label><input type="text" id="jobTitle" value="${isEdit ? data.title : ''}"></div>
                 <div class="form-row">
                     <div class="form-group"><label>Job Type <span class="required">*</span></label>
-                        <select id="jobType">
-                            <option value="central" ${isEdit && data?.type === 'central' ? 'selected' : ''}>🇮🇳 Central Govt. Job</option>
-                            <option value="state" ${isEdit && data?.type === 'state' ? 'selected' : ''}>🏜️ Rajasthan Govt. Job</option>
-                            <option value="private" ${isEdit && data?.type === 'private' ? 'selected' : ''}>💼 Private Job</option>
+                        <select id="jobType" onchange="updateJobDepartments()">
+                            ${jobTypeOptions}
                         </select>
                     </div>
-                    <div class="form-group"><label>Department</label><input type="text" id="jobDepartment" value="${isEdit ? data.department : ''}"></div>
+                    <div class="form-group"><label>Job Category <span class="required">*</span></label>
+                        <select id="jobCategory">
+                            ${jobCategoryOptions}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group"><label>Department <span class="required">*</span></label>
+                    <select id="jobDepartment" onchange="updateJobPosts()">
+                        ${deptOptions}
+                    </select>
+                </div>
+                <div class="form-group"><label>Post <span class="required">*</span></label>
+                    <select id="jobPost">
+                        ${postOptions}
+                    </select>
                 </div>
                 <div class="form-row">
                     <div class="form-group"><label>Eligibility</label><input type="text" id="jobEligibility" value="${isEdit ? data.eligibility : ''}"></div>
                     <div class="form-group"><label>Age Limit</label><input type="text" id="jobAge" value="${isEdit ? data.age : ''}"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label>Last Date</label><input type="text" id="jobLastDate" value="${isEdit ? data.lastDate : ''}"></div>
-                    <div class="form-group"><label>Category</label>
-                        <select id="jobCategory">
-                            <option value="government" ${isEdit && data?.jobCategory === 'government' ? 'selected' : ''}>Government</option>
-                            <option value="private" ${isEdit && data?.jobCategory === 'private' ? 'selected' : ''}>Private</option>
-                            <option value="both" ${isEdit && data?.jobCategory === 'both' ? 'selected' : ''}>Both</option>
-                        </select>
-                    </div>
+                    <div class="form-group"><label>Last Date</label><input type="date" id="jobLastDate" value="${isEdit ? data.lastDate : ''}"></div>
+                    <div class="form-group"><label>Experience</label><input type="text" id="jobExperience" value="${isEdit ? data.experience : ''}" placeholder="e.g., 0-2 years"></div>
                 </div>
                 <div class="form-group"><label>Description</label><textarea id="jobDescription" rows="4">${isEdit ? data.description : ''}</textarea></div>
-                <div class="form-group"><label>Official Website</label><input type="url" id="jobWebsite" value="${isEdit ? data.website : ''}" placeholder="https://..."></div>
-                <div class="form-group"><label>Apply Link</label><input type="url" id="jobApplyLink" value="${isEdit ? data.applyLink : ''}" placeholder="https://..."></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Official Website</label><input type="url" id="jobWebsite" value="${isEdit ? data.website : ''}" placeholder="https://..."></div>
+                    <div class="form-group"><label>Apply Link</label><input type="url" id="jobApplyLink" value="${isEdit ? data.applyLink : ''}" placeholder="https://..."></div>
+                </div>
                 <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
                 <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
             `;
             document.getElementById('adminModalOverlay').classList.add('active');
         }
 
+        function getDepartmentOptions(jobType, selected) {
+            const depts = Object.keys(JOB_DATA[jobType] || {});
+            if (depts.length === 0) return `<option value="">No departments available</option>`;
+            return depts.map(d => `<option value="${d}" ${selected === d ? 'selected' : ''}>${d}</option>`).join('');
+        }
+
+        function getPostOptions(jobType, department, selected) {
+            if (!jobType || !department) return `<option value="">Select department first</option>`;
+            const deptData = JOB_DATA[jobType]?.[department];
+            if (!deptData) return `<option value="">No posts available</option>`;
+            const posts = deptData.posts || [];
+            if (posts.length === 0) return `<option value="">No posts available</option>`;
+            return posts.map(p => `<option value="${p}" ${selected === p ? 'selected' : ''}>${p}</option>`).join('');
+        }
+
+        function updateJobDepartments() {
+            const jobType = document.getElementById('jobType').value;
+            const deptSelect = document.getElementById('jobDepartment');
+            const depts = Object.keys(JOB_DATA[jobType] || {});
+            deptSelect.innerHTML = depts.map(d => `<option value="${d}">${d}</option>`).join('');
+            updateJobPosts();
+        }
+
+        function updateJobPosts() {
+            const jobType = document.getElementById('jobType').value;
+            const department = document.getElementById('jobDepartment').value;
+            const postSelect = document.getElementById('jobPost');
+            const deptData = JOB_DATA[jobType]?.[department];
+            if (!deptData) {
+                postSelect.innerHTML = `<option value="">Select department first</option>`;
+                return;
+            }
+            const posts = deptData.posts || [];
+            postSelect.innerHTML = posts.map(p => `<option value="${p}">${p}</option>`).join('');
+        }
+
         function saveJob() {
             const index = parseInt(document.getElementById('jobIndex').value);
             const title = document.getElementById('jobTitle').value.trim();
-            const type = document.getElementById('jobType').value;
-            const department = document.getElementById('jobDepartment').value.trim();
+            const jobType = document.getElementById('jobType').value;
+            const jobCategory = document.getElementById('jobCategory').value;
+            const department = document.getElementById('jobDepartment').value;
+            const post = document.getElementById('jobPost').value;
             const eligibility = document.getElementById('jobEligibility').value.trim();
             const age = document.getElementById('jobAge').value.trim();
-            const lastDate = document.getElementById('jobLastDate').value.trim();
-            const jobCategory = document.getElementById('jobCategory').value;
+            const lastDate = document.getElementById('jobLastDate').value;
+            const experience = document.getElementById('jobExperience').value.trim();
             const description = document.getElementById('jobDescription').value.trim();
             const website = document.getElementById('jobWebsite').value.trim();
             const applyLink = document.getElementById('jobApplyLink').value.trim();
 
-            if (!title) {
-                showToast('Please enter a job title!', 'error');
+            if (!title || !department || !post) {
+                showToast('Please enter title, department and post!', 'error');
                 return;
             }
 
-            const item = { id: Date.now(), title, type, department, eligibility, age, lastDate, jobCategory, description, website, applyLink };
+            const item = { 
+                id: Date.now(), 
+                title, 
+                jobType, 
+                jobCategory, 
+                department, 
+                post,
+                eligibility, 
+                age, 
+                lastDate, 
+                experience, 
+                description, 
+                website, 
+                applyLink 
+            };
 
             if (index >= 0 && index < adminData.jobs.length) {
                 adminData.jobs[index] = item;
@@ -2494,35 +2666,109 @@
         }
 
         // ============================================================
-        // GOOGLE SHEET SYNC
+        // FORMS CRUD
         // ============================================================
-        async function syncGoogleSheet() {
-            const sheetUrl = adminData.settings?.sheetUrl || DEFAULT_SHEET_URL;
-            if (!sheetUrl) {
-                showToast('⚠️ Please set Google Sheet URL in Settings', 'error');
+        function renderAdminFormsTable() {
+            const tbody = document.getElementById('adminFormsTable');
+            if (!tbody) return;
+            const items = adminData.forms || [];
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No forms added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.title}</strong></td>
+                    <td><span class="category-badge ${(item.category || 'general').toLowerCase()}">${item.category || 'General'}</span></td>
+                    <td><a href="${item.link}" target="_blank" style="color:var(--primary-light);">🔗 Link</a></td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editForm(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteForm(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openFormModal(data = null) {
+            const isEdit = data !== null;
+            document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Form' : '📋 Add Form';
+            
+            const categories = ['Government', 'Jobs', 'Education', 'Banking', 'Insurance', 'Rajasthan Govt', 'Other'];
+            const catOptions = categories.map(c => `<option value="${c}" ${isEdit && data?.category === c ? 'selected' : ''}>${c}</option>`).join('');
+            
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="formIndex" value="${isEdit ? adminData.forms.indexOf(data) : -1}">
+                <div class="form-group"><label>Form Name <span class="required">*</span></label><input type="text" id="formTitle" value="${isEdit ? data.title : ''}"></div>
+                <div class="form-group"><label>Category <span class="required">*</span></label>
+                    <select id="formCategory">${catOptions}</select>
+                </div>
+                <div class="form-group"><label>Form Link <span class="required">*</span></label>
+                    <input type="url" id="formLink" value="${isEdit ? data.link : ''}" placeholder="https://example.com">
+                    <small style="color:var(--text-light);font-size:11px;">Website link or PDF link</small>
+                </div>
+                <div class="form-group"><label>Icon (emoji)</label>
+                    <input type="text" id="formIcon" value="${isEdit ? data.icon : '📋'}" placeholder="📋">
+                </div>
+                <div class="form-group"><label>Description</label>
+                    <textarea id="formDescription" rows="3">${isEdit ? data.description : ''}</textarea>
+                </div>
+                <button class="btn-submit" onclick="saveForm()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        function saveForm() {
+            const index = parseInt(document.getElementById('formIndex').value);
+            const title = document.getElementById('formTitle').value.trim();
+            const category = document.getElementById('formCategory').value;
+            const link = document.getElementById('formLink').value.trim();
+            const icon = document.getElementById('formIcon').value.trim() || '📋';
+            const description = document.getElementById('formDescription').value.trim();
+
+            if (!title || !category || !link) {
+                showToast('Please fill all required fields!', 'error');
                 return;
             }
 
-            showToast('🔄 Syncing with Google Sheet...', 'info');
-            
-            try {
-                const sheetIdMatch = sheetUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
-                if (!sheetIdMatch) {
-                    showToast('❌ Invalid Google Sheet URL', 'error');
-                    return;
-                }
-                const sheetId = sheetIdMatch[1];
-                
-                // This is a placeholder - implement actual API call
-                // For now, we'll simulate sync
-                setTimeout(() => {
-                    showToast('✅ Sync completed! Data imported from Google Sheet', 'success');
-                }, 1000);
-                
-            } catch (error) {
-                console.error('Sync error:', error);
-                showToast('❌ Error syncing: ' + error.message, 'error');
+            const item = { id: Date.now(), title, category, link, icon, description };
+
+            if (index >= 0 && index < adminData.forms.length) {
+                adminData.forms[index] = item;
+                showToast('✅ Form updated!', 'success');
+            } else {
+                adminData.forms.push(item);
+                showToast('✅ Form added!', 'success');
             }
+
+            saveAdminData();
+            closeAdminModal();
+            renderAdminFormsTable();
+            renderAdminDashboard();
+        }
+
+        function editForm(index) {
+            const data = adminData.forms[index];
+            if (data) openFormModal(data);
+        }
+
+        function deleteForm(index) {
+            if (!confirm('Delete this form?')) return;
+            adminData.forms.splice(index, 1);
+            saveAdminData();
+            renderAdminFormsTable();
+            renderAdminDashboard();
+            showToast('🗑️ Form deleted!', 'warning');
+        }
+
+        function clearAllForms() {
+            if (!confirm('Delete ALL forms? This cannot be undone!')) return;
+            adminData.forms = [];
+            saveAdminData();
+            renderAdminFormsTable();
+            renderAdminDashboard();
+            showToast('🗑️ All forms deleted!', 'warning');
         }
 
         // ============================================================
@@ -2605,28 +2851,6 @@
             showToast('✅ Password updated!', 'success');
         }
 
-        function updateSheetUrl() {
-            const url = document.getElementById('sheetUrlInput').value.trim();
-            if (url) {
-                adminData.settings.sheetUrl = url;
-                saveAdminData();
-                showToast('✅ Sheet URL saved!', 'success');
-            } else {
-                showToast('Please enter a valid URL', 'error');
-            }
-        }
-
-        function saveSheetUrl() {
-            const url = document.getElementById('settingsSheetUrl').value.trim();
-            if (url) {
-                adminData.settings.sheetUrl = url;
-                saveAdminData();
-                showToast('✅ Sheet URL saved!', 'success');
-            } else {
-                showToast('Please enter a valid URL', 'error');
-            }
-        }
-
         function exportAdminData() {
             const blob = new Blob([JSON.stringify(adminData, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
@@ -2651,6 +2875,7 @@
                         renderAdminDashboard();
                         ['study', 'career', 'books', 'rajasthan', 'quiz', 'more'].forEach(p => renderAdminContentTable(p));
                         renderAdminJobsTable();
+                        renderAdminFormsTable();
                         renderAdminNotifications();
                         showToast('✅ Data imported!', 'success');
                     } else {
@@ -2670,6 +2895,7 @@
 
             adminData.content = { study: [], career: [], books: [], rajasthan: [], quiz: [], more: [] };
             adminData.jobs = [];
+            adminData.forms = [];
             adminData.notifications = [];
             adminData.homeContent = {
                 heading: '🚀 Dream Josh में आपका स्वागत है',
@@ -2684,6 +2910,7 @@
             renderAdminDashboard();
             ['study', 'career', 'books', 'rajasthan', 'quiz', 'more'].forEach(p => renderAdminContentTable(p));
             renderAdminJobsTable();
+            renderAdminFormsTable();
             renderAdminNotifications();
             showToast('🗑️ All data reset!', 'warning');
         }
@@ -2694,6 +2921,7 @@
             renderAdminDashboard();
             ['study', 'career', 'books', 'rajasthan', 'quiz', 'more'].forEach(p => renderAdminContentTable(p));
             renderAdminJobsTable();
+            renderAdminFormsTable();
             renderAdminNotifications();
             showToast('✅ Data refreshed!', 'success');
         }
@@ -2710,9 +2938,10 @@
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             loadAdminData();
-            console.log('🚀 Dream Josh - Complete Admin Panel v5.0');
+            console.log('🚀 Dream Josh - Complete Admin Panel v8.0');
             console.log('📌 Admin Panel: Click "🔐 Admin" in the header');
             console.log('📌 Default Password: admin123');
+            console.log('📌 Job Hierarchy: Job Type → Department → Post');
         });
 
         // ============================================================
@@ -2732,9 +2961,6 @@
         window.showAdminPage = showAdminPage;
         window.toggleAdminSidebar = toggleAdminSidebar;
         window.closeAdminModal = closeAdminModal;
-        window.syncGoogleSheet = syncGoogleSheet;
-        window.updateSheetUrl = updateSheetUrl;
-        window.saveSheetUrl = saveSheetUrl;
         window.saveHomeContent = saveHomeContent;
         window.openContentModal = openContentModal;
         window.editContent = editContent;
@@ -2744,6 +2970,13 @@
         window.editJob = editJob;
         window.deleteJob = deleteJob;
         window.saveJob = saveJob;
+        window.updateJobDepartments = updateJobDepartments;
+        window.updateJobPosts = updateJobPosts;
+        window.openFormModal = openFormModal;
+        window.editForm = editForm;
+        window.deleteForm = deleteForm;
+        window.saveForm = saveForm;
+        window.clearAllForms = clearAllForms;
         window.sendAdminNotification = sendAdminNotification;
         window.deleteNotification = deleteNotification;
         window.changeAdminPassword = changeAdminPassword;
@@ -2754,6 +2987,7 @@
         window.renderAdminDashboard = renderAdminDashboard;
         window.renderAdminContentTable = renderAdminContentTable;
         window.renderAdminJobsTable = renderAdminJobsTable;
+        window.renderAdminFormsTable = renderAdminFormsTable;
         window.renderAdminNotifications = renderAdminNotifications;
         window.renderAdminHomeEditor = renderAdminHomeEditor;
     </script>
