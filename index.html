@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
-    <title>Dream Josh - Study &amp; Govt. Jobs</title>
+    <title>Dream Josh - Study & Govt. Jobs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ================= CSS VARIABLES ================= */
         :root {
@@ -23,12 +24,15 @@
             --gold: #ffd700;
             --safe-bottom: env(safe-area-inset-bottom, 0px);
             --safe-top: env(safe-area-inset-top, 0px);
+            --admin-sidebar-width: 260px;
+            --text-light: #6c757d;
         }
 
         .dark-mode {
             --bg-color: #0a0e1a;
             --card-bg: #141428;
             --text-color: #e8e8e8;
+            --text-light: #a0a0b8;
             --primary-blue: #1a3a8a;
             --secondary-blue: #2a5ac8;
             --border-color: #2a2a4a;
@@ -397,240 +401,6 @@
         .job-info-box .job-count { font-size: 18px; font-weight: bold; color: var(--primary-blue); }
         .job-info-box .job-detail { font-size: 13px; color: var(--text-color); opacity: 0.7; margin-top: 3px; }
 
-        /* ================= ADMIN PANEL ================= */
-        #adminPanelContainer {
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 3000; background: var(--bg-color); overflow-y: auto;
-        }
-        #adminPanelContainer.active { display: block; }
-
-        #adminPanelContainer .admin-header {
-            background: var(--primary-blue); color: white; padding: 12px 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px var(--shadow-color);
-            flex-wrap: wrap; gap: 8px;
-        }
-        #adminPanelContainer .admin-logo { display: flex; align-items: center; gap: 8px; font-size: 16px; }
-        #adminPanelContainer .admin-badge { background: var(--success-green); padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: bold; }
-        #adminPanelContainer .admin-user { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        #adminPanelContainer .admin-user button {
-            padding: 6px 14px; border-radius: 6px; cursor: pointer;
-            font-weight: bold; border: none; font-size: 12px; transition: 0.3s; min-height: 34px;
-        }
-        #adminPanelContainer .admin-user button:active { transform: scale(0.95); }
-        #adminPanelContainer .logout-btn { background: var(--warning-red); color: white; }
-        #adminPanelContainer .logout-btn:hover { background: #a71d2a; }
-        #adminPanelContainer .dark-toggle-btn { background: #2c3e50; color: white; }
-        #adminPanelContainer .dark-toggle-btn:hover { background: #1a2332; }
-        #adminPanelContainer .dark-toggle-btn.active { background: var(--gold); color: #0a0e1a; }
-        #adminPanelContainer .back-btn-admin { background: #6c757d; color: white; }
-
-        #adminPanelContainer .admin-body { display: flex; min-height: calc(100vh - 60px); }
-        #adminPanelContainer .admin-sidebar {
-            width: 220px; background: var(--card-bg); color: var(--text-color);
-            padding: 15px 0; position: sticky; top: 60px;
-            height: calc(100vh - 60px); overflow-y: auto; flex-shrink: 0;
-            border-right: 1px solid var(--border-color);
-        }
-        #adminPanelContainer .sidebar-menu { display: flex; flex-direction: column; }
-        #adminPanelContainer .sidebar-menu button {
-            background: transparent; border: none; color: var(--text-color);
-            opacity: 0.7; padding: 12px 20px; text-align: left;
-            font-size: 14px; cursor: pointer; transition: 0.3s;
-            border-left: 3px solid transparent; width: 100%;
-        }
-        #adminPanelContainer .sidebar-menu button:hover { background: var(--card-hover); opacity: 1; }
-        #adminPanelContainer .sidebar-menu button.active {
-            background: var(--card-hover); opacity: 1;
-            border-left-color: var(--secondary-blue); color: var(--primary-blue);
-        }
-
-        #adminPanelContainer .admin-content {
-            flex: 1; padding: 20px; overflow-y: auto;
-            background: var(--bg-color); max-height: calc(100vh - 60px);
-        }
-        #adminPanelContainer .admin-section { display: none; }
-        #adminPanelContainer .admin-section.active { display: block; }
-
-        #adminPanelContainer .stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px; margin: 16px 0;
-        }
-        #adminPanelContainer .stat-card {
-            background: var(--card-bg); padding: 20px; border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color); text-align: center;
-            border: 1px solid var(--border-color);
-        }
-        #adminPanelContainer .stat-card h3 { font-size: 13px; color: var(--text-color); opacity: 0.6; margin-bottom: 8px; }
-        #adminPanelContainer .stat-card p { font-size: 28px; font-weight: bold; color: var(--primary-blue); }
-
-        #adminPanelContainer .quick-actions {
-            background: var(--card-bg); padding: 16px; border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color); margin-top: 16px;
-            border: 1px solid var(--border-color);
-        }
-        #adminPanelContainer .quick-actions h3 { margin-bottom: 12px; color: var(--text-color); font-size: 15px; }
-        #adminPanelContainer .quick-actions button {
-            padding: 8px 16px; margin: 4px; background: var(--secondary-blue);
-            color: white; border: none; border-radius: 6px; cursor: pointer;
-            transition: 0.3s; min-height: 36px; font-size: 12px;
-        }
-        #adminPanelContainer .quick-actions button:hover { background: var(--primary-blue); }
-
-        #adminPanelContainer .toolbar {
-            display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0;
-        }
-        #adminPanelContainer .toolbar button {
-            padding: 8px 16px; background: var(--success-green);
-            color: white; border: none; border-radius: 6px; cursor: pointer;
-            transition: 0.3s; min-height: 36px; font-size: 12px;
-        }
-        #adminPanelContainer .toolbar button:hover { background: #15803d; }
-        #adminPanelContainer .toolbar input,
-        #adminPanelContainer .toolbar select {
-            padding: 8px 12px; border: 2px solid var(--border-color);
-            border-radius: 6px; font-size: 13px; flex: 1;
-            min-width: 180px; background: var(--card-bg); color: var(--text-color);
-        }
-
-        #adminPanelContainer .content-list,
-        #adminPanelContainer .job-list-admin,
-        #adminPanelContainer .quiz-list,
-        #adminPanelContainer .user-list,
-        #adminPanelContainer .notification-list {
-            background: var(--card-bg); border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color); overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-        #adminPanelContainer .content-item,
-        #adminPanelContainer .job-item,
-        #adminPanelContainer .quiz-item,
-        #adminPanelContainer .user-item,
-        #adminPanelContainer .notif-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 16px; border-bottom: 1px solid var(--border-color);
-            transition: 0.3s; flex-wrap: wrap; gap: 8px;
-            color: var(--text-color); font-size: 13px;
-        }
-        #adminPanelContainer .content-item:hover,
-        #adminPanelContainer .job-item:hover,
-        #adminPanelContainer .quiz-item:hover { background: var(--card-hover); }
-
-        #adminPanelContainer .btn-edit { background: #ffc107; color: #333; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; min-height: 28px; font-size: 11px; }
-        #adminPanelContainer .btn-delete { background: var(--warning-red); color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; min-height: 28px; font-size: 11px; }
-        #adminPanelContainer .empty-state { padding: 24px; text-align: center; color: var(--text-color); opacity: 0.5; font-size: 13px; }
-
-        #adminPanelContainer .modal {
-            display: none; position: fixed; z-index: 99999;
-            left: 0; top: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); overflow-y: auto;
-        }
-        #adminPanelContainer .modal-content {
-            background: var(--card-bg); margin: 40px auto; padding: 25px;
-            border-radius: 16px; width: 90%; max-width: 650px;
-            position: relative; animation: slideDown 0.3s ease;
-            border: 1px solid var(--border-color); color: var(--text-color);
-        }
-        @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        #adminPanelContainer .modal-content .close { position: absolute; top: 12px; right: 16px; font-size: 24px; cursor: pointer; color: var(--text-color); opacity: 0.5; }
-        #adminPanelContainer .modal-content .close:hover { opacity: 1; }
-        #adminPanelContainer .modal-content input,
-        #adminPanelContainer .modal-content textarea,
-        #adminPanelContainer .modal-content select {
-            width: 100%; padding: 10px; margin: 6px 0;
-            border: 2px solid var(--border-color); border-radius: 6px;
-            font-size: 13px; font-family: inherit;
-            background: var(--bg-color); color: var(--text-color);
-        }
-        #adminPanelContainer .modal-content textarea { min-height: 100px; resize: vertical; }
-        #adminPanelContainer .modal-content button {
-            padding: 10px 20px; background: var(--secondary-blue);
-            color: white; border: none; border-radius: 6px; cursor: pointer;
-            font-size: 14px; font-weight: bold; transition: 0.3s;
-            margin-top: 8px; min-height: 40px;
-        }
-        #adminPanelContainer .modal-content button:hover { background: var(--primary-blue); }
-
-        #adminPanelContainer .notification-form {
-            background: var(--card-bg); padding: 20px; border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color); margin-bottom: 16px;
-            border: 1px solid var(--border-color);
-        }
-        #adminPanelContainer .notification-form input,
-        #adminPanelContainer .notification-form textarea,
-        #adminPanelContainer .notification-form select {
-            width: 100%; padding: 10px; margin: 6px 0;
-            border: 2px solid var(--border-color); border-radius: 6px;
-            font-size: 13px; background: var(--bg-color); color: var(--text-color);
-        }
-        #adminPanelContainer .notification-form button {
-            padding: 10px 20px; background: var(--success-green);
-            color: white; border: none; border-radius: 6px; cursor: pointer;
-            font-size: 14px; font-weight: bold; transition: 0.3s; min-height: 40px;
-        }
-        #adminPanelContainer .notification-form button:hover { background: #15803d; }
-
-        #adminPanelContainer .settings-form {
-            background: var(--card-bg); padding: 20px; border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow-color); border: 1px solid var(--border-color);
-        }
-        #adminPanelContainer .settings-form input {
-            width: 100%; padding: 10px; margin: 6px 0;
-            border: 2px solid var(--border-color); border-radius: 6px;
-            font-size: 13px; background: var(--bg-color); color: var(--text-color);
-        }
-        #adminPanelContainer .settings-form button {
-            padding: 8px 16px; margin: 4px; background: var(--secondary-blue);
-            color: white; border: none; border-radius: 6px; cursor: pointer;
-            transition: 0.3s; min-height: 36px; font-size: 12px;
-        }
-        #adminPanelContainer .settings-form button:hover { background: var(--primary-blue); }
-        #adminPanelContainer .settings-form .btn-danger { background: var(--warning-red); }
-
-        #adminPanelContainer .login-container {
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; background: var(--header-bg); padding: 20px;
-        }
-        #adminPanelContainer .login-box {
-            background: var(--card-bg); padding: 30px; border-radius: 16px;
-            box-shadow: 0 10px 40px var(--shadow-color);
-            width: 100%; max-width: 380px; text-align: center;
-            border: 1px solid var(--border-color);
-        }
-        #adminPanelContainer .login-box h1 { font-size: 24px; color: var(--primary-blue); }
-        #adminPanelContainer .login-box h2 { font-size: 16px; color: var(--text-color); opacity: 0.6; margin-bottom: 16px; }
-        #adminPanelContainer .login-box input {
-            width: 100%; padding: 10px; margin: 8px 0;
-            border: 2px solid var(--border-color); border-radius: 8px;
-            font-size: 14px; background: var(--bg-color); color: var(--text-color);
-        }
-        #adminPanelContainer .login-box button {
-            width: 100%; padding: 10px; background: var(--secondary-blue);
-            color: white; border: none; border-radius: 8px;
-            font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; min-height: 40px;
-        }
-        #adminPanelContainer .login-box button:hover { background: var(--primary-blue); }
-        #adminPanelContainer .login-error { color: var(--warning-red); display: none; margin-top: 8px; font-size: 13px; }
-        #adminPanelContainer .login-note { margin-top: 12px; font-size: 11px; color: var(--text-color); opacity: 0.5; }
-
-        @media (max-width: 768px) {
-            #adminPanelContainer .admin-body { flex-direction: column; }
-            #adminPanelContainer .admin-sidebar {
-                width: 100%; height: auto; position: static;
-                padding: 8px; border-right: none; border-bottom: 1px solid var(--border-color);
-            }
-            #adminPanelContainer .sidebar-menu { flex-direction: row; flex-wrap: wrap; }
-            #adminPanelContainer .sidebar-menu button {
-                padding: 8px 12px; font-size: 12px; border-left: none;
-                border-bottom: 3px solid transparent; flex: 1; min-width: 60px; text-align: center;
-            }
-            #adminPanelContainer .sidebar-menu button.active { border-bottom-color: var(--secondary-blue); border-left: none; }
-            #adminPanelContainer .admin-header { flex-direction: column; gap: 8px; padding: 12px; }
-            #adminPanelContainer .stats-grid { grid-template-columns: 1fr 1fr; }
-            #adminPanelContainer .modal-content { margin: 16px; padding: 16px; }
-        }
-        @media (max-width: 480px) { #adminPanelContainer .stats-grid { grid-template-columns: 1fr; } }
-
         .toast {
             position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
             padding: 12px 24px; border-radius: 12px; color: white;
@@ -640,6 +410,670 @@
         .toast.success { background: #16a34a; }
         .toast.error { background: #dc3545; }
         .toast.info { background: #1976d2; }
+
+        /* ================= ADMIN PANEL STYLES ================= */
+        .admin-panel-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 3000;
+            background: var(--bg-color);
+            overflow-y: auto;
+        }
+        .admin-panel-overlay.active { display: block; }
+
+        /* Admin Sidebar */
+        .admin-panel-overlay .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .admin-panel-overlay .admin-sidebar {
+            width: var(--admin-sidebar-width);
+            background: var(--secondary);
+            color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-logo {
+            padding: 0 20px 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-logo h1 { font-size: 20px; font-weight: 700; color: #fff; }
+        .admin-panel-overlay .admin-sidebar .admin-logo h1 span { color: var(--gold); }
+        .admin-panel-overlay .admin-sidebar .admin-logo .badge {
+            background: var(--success-green);
+            font-size: 9px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .admin-panel-overlay .admin-sidebar .admin-user {
+            padding: 0 20px 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-user .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-user .name { font-size: 13px; font-weight: 600; }
+        .admin-panel-overlay .admin-sidebar .admin-user .role { font-size: 10px; opacity: 0.6; }
+
+        .admin-panel-overlay .admin-sidebar .admin-menu {
+            list-style: none;
+            padding: 0 10px;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-menu li { margin-bottom: 2px; }
+        .admin-panel-overlay .admin-sidebar .admin-menu li a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-menu li a:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-menu li a.active {
+            background: rgba(255,215,0,0.15);
+            color: var(--gold);
+        }
+        .admin-panel-overlay .admin-sidebar .admin-menu li a i { width: 18px; font-size: 14px; }
+        .admin-panel-overlay .admin-sidebar .admin-menu li a .count {
+            margin-left: auto;
+            background: rgba(255,255,255,0.1);
+            padding: 0px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-menu .section-title {
+            padding: 12px 14px 6px 14px;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.4;
+            font-weight: 700;
+        }
+
+        .admin-panel-overlay .admin-sidebar .admin-footer-menu {
+            padding: 12px 10px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            margin-top: 12px;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-footer-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-footer-menu a:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        .admin-panel-overlay .admin-sidebar .admin-footer-menu a i { width: 18px; }
+
+        /* Admin Content */
+        .admin-panel-overlay .admin-content {
+            flex: 1;
+            padding: 24px 30px;
+            background: var(--bg-color);
+            min-height: 100vh;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        .admin-panel-overlay .admin-content .admin-top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .admin-panel-overlay .admin-content .admin-top-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .admin-panel-overlay .admin-content .admin-top-header h2 span { color: var(--primary-blue); }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions button {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+            min-height: 34px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-close-admin {
+            background: #6c757d;
+            color: #fff;
+        }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-close-admin:hover { background: #5a6268; }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-dark-admin {
+            background: var(--secondary);
+            color: #fff;
+        }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-dark-admin:hover { opacity: 0.8; }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-dark-admin.active {
+            background: var(--gold);
+            color: #0a0e1a;
+        }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-refresh-admin {
+            background: var(--success-green);
+            color: #fff;
+        }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-refresh-admin:hover { background: #15803d; }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-logout-admin {
+            background: #dc3545;
+            color: #fff;
+        }
+        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-logout-admin:hover { background: #c82333; }
+
+        /* Admin Stats */
+        .admin-panel-overlay .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .admin-panel-overlay .admin-stats .stat-item {
+            background: var(--card-bg);
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-color);
+            text-align: center;
+            transition: 0.3s;
+        }
+        .admin-panel-overlay .admin-stats .stat-item:hover { transform: translateY(-2px); }
+        .admin-panel-overlay .admin-stats .stat-item .stat-icon { font-size: 22px; }
+        .admin-panel-overlay .admin-stats .stat-item .stat-label {
+            font-size: 11px;
+            color: var(--text-light);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        .admin-panel-overlay .admin-stats .stat-item .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        /* Admin Quick Actions */
+        .admin-panel-overlay .admin-quick-actions {
+            background: var(--card-bg);
+            padding: 16px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-color);
+            margin: 16px 0;
+        }
+        .admin-panel-overlay .admin-quick-actions h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        .admin-panel-overlay .admin-quick-actions .actions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .admin-panel-overlay .admin-quick-actions .actions-grid button {
+            padding: 6px 14px;
+            background: var(--secondary-blue);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            transition: 0.3s;
+            min-height: 32px;
+        }
+        .admin-panel-overlay .admin-quick-actions .actions-grid button:hover {
+            background: var(--primary-blue);
+            transform: scale(1.03);
+        }
+
+        /* Admin Section Cards */
+        .admin-panel-overlay .admin-section {
+            display: none;
+            margin-top: 16px;
+        }
+        .admin-panel-overlay .admin-section.active { display: block; }
+
+        .admin-panel-overlay .admin-section .admin-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-color);
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+        .admin-panel-overlay .admin-section .admin-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .admin-panel-overlay .admin-section .admin-card .card-header h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .admin-panel-overlay .admin-section .admin-card .card-header .btn-add {
+            padding: 6px 14px;
+            background: var(--success-green);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .admin-panel-overlay .admin-section .admin-card .card-header .btn-add:hover { background: #15803d; }
+
+        .admin-panel-overlay .admin-section .admin-card .table-wrap {
+            overflow-x: auto;
+        }
+        .admin-panel-overlay .admin-section .admin-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .admin-panel-overlay .admin-section .admin-card table th {
+            text-align: left;
+            padding: 8px 10px;
+            background: var(--bg-color);
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .admin-panel-overlay .admin-section .admin-card table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        .admin-panel-overlay .admin-section .admin-card table tr:hover td { background: var(--card-hover); }
+
+        .admin-panel-overlay .admin-section .admin-card table .actions {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .admin-panel-overlay .admin-section .admin-card table .actions button {
+            padding: 3px 8px;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .admin-panel-overlay .admin-section .admin-card table .actions .btn-edit {
+            background: #ffc107;
+            color: #333;
+        }
+        .admin-panel-overlay .admin-section .admin-card table .actions .btn-edit:hover { background: #e0a800; }
+        .admin-panel-overlay .admin-section .admin-card table .actions .btn-delete {
+            background: #dc3545;
+            color: #fff;
+        }
+        .admin-panel-overlay .admin-section .admin-card table .actions .btn-delete:hover { background: #a71d2a; }
+        .admin-panel-overlay .admin-section .admin-card table .actions .btn-view {
+            background: #17a2b8;
+            color: #fff;
+        }
+        .admin-panel-overlay .admin-section .admin-card table .actions .btn-view:hover { background: #138496; }
+
+        .admin-panel-overlay .empty-state {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-light);
+            font-size: 13px;
+        }
+        .admin-panel-overlay .empty-state i { font-size: 32px; opacity: 0.2; display: block; margin-bottom: 8px; }
+
+        /* Admin Modal */
+        .admin-panel-overlay .admin-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .admin-panel-overlay .admin-modal-overlay.active { display: flex; }
+
+        .admin-panel-overlay .admin-modal {
+            background: var(--card-bg);
+            border-radius: 12px;
+            max-width: 650px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px 28px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalIn 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.95) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .admin-panel-overlay .admin-modal .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .admin-panel-overlay .admin-modal .modal-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .admin-panel-overlay .admin-modal .modal-header .close-modal {
+            font-size: 22px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.3s;
+            background: none;
+            border: none;
+            color: var(--text-color);
+        }
+        .admin-panel-overlay .admin-modal .modal-header .close-modal:hover { opacity: 1; }
+
+        .admin-panel-overlay .admin-modal .form-group { margin-bottom: 12px; }
+        .admin-panel-overlay .admin-modal .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 3px;
+        }
+        .admin-panel-overlay .admin-modal .form-group input,
+        .admin-panel-overlay .admin-modal .form-group select,
+        .admin-panel-overlay .admin-modal .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .admin-panel-overlay .admin-modal .form-group input:focus,
+        .admin-panel-overlay .admin-modal .form-group select:focus,
+        .admin-panel-overlay .admin-modal .form-group textarea:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+        .admin-panel-overlay .admin-modal .form-group textarea { min-height: 70px; resize: vertical; }
+        .admin-panel-overlay .admin-modal .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 600px) { .admin-panel-overlay .admin-modal .form-row { grid-template-columns: 1fr; } }
+
+        .admin-panel-overlay .admin-modal .btn-submit {
+            padding: 8px 20px;
+            background: var(--success-green);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .admin-panel-overlay .admin-modal .btn-submit:hover { background: #15803d; }
+        .admin-panel-overlay .admin-modal .btn-cancel {
+            padding: 8px 20px;
+            background: #6c757d;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+            margin-left: 8px;
+        }
+        .admin-panel-overlay .admin-modal .btn-cancel:hover { background: #5a6268; }
+
+        .admin-panel-overlay .admin-modal .question-item {
+            background: var(--bg-color);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .admin-panel-overlay .admin-modal .question-item input,
+        .admin-panel-overlay .admin-modal .question-item select {
+            margin-bottom: 4px;
+        }
+        .admin-panel-overlay .admin-modal .btn-add-question {
+            padding: 6px 14px;
+            background: #17a2b8;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+            min-height: 32px;
+            margin-top: 6px;
+        }
+        .admin-panel-overlay .admin-modal .btn-add-question:hover { background: #138496; }
+
+        /* Admin Settings */
+        .admin-panel-overlay .admin-settings .setting-group {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .admin-panel-overlay .admin-settings .setting-group:last-child { border-bottom: none; }
+        .admin-panel-overlay .admin-settings .setting-group h5 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 6px;
+        }
+        .admin-panel-overlay .admin-settings .setting-group p {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 6px;
+        }
+        .admin-panel-overlay .admin-settings .setting-group .btn-setting {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 32px;
+            margin-right: 6px;
+        }
+        .admin-panel-overlay .admin-settings .setting-group .btn-setting.primary { background: var(--secondary-blue); color: #fff; }
+        .admin-panel-overlay .admin-settings .setting-group .btn-setting.primary:hover { background: var(--primary-blue); }
+        .admin-panel-overlay .admin-settings .setting-group .btn-setting.success { background: var(--success-green); color: #fff; }
+        .admin-panel-overlay .admin-settings .setting-group .btn-setting.success:hover { background: #15803d; }
+        .admin-panel-overlay .admin-settings .setting-group .btn-setting.warning { background: #ffc107; color: #333; }
+        .admin-panel-overlay .admin-settings .setting-group .btn-setting.warning:hover { background: #e0a800; }
+        .admin-panel-overlay .admin-settings .setting-group .btn-setting.danger { background: #dc3545; color: #fff; }
+        .admin-panel-overlay .admin-settings .setting-group .btn-setting.danger:hover { background: #a71d2a; }
+        .admin-panel-overlay .admin-settings .setting-group input {
+            padding: 6px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin-right: 6px;
+            width: 200px;
+            max-width: 100%;
+        }
+
+        /* Responsive Admin */
+        @media (max-width: 768px) {
+            .admin-panel-overlay .admin-sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+                z-index: 999;
+                width: 280px;
+            }
+            .admin-panel-overlay .admin-sidebar.open { transform: translateX(0); }
+            .admin-panel-overlay .admin-content {
+                padding: 16px;
+                margin-left: 0;
+                max-height: 100vh;
+            }
+            .admin-panel-overlay .admin-stats { grid-template-columns: 1fr 1fr; }
+            .admin-panel-overlay .admin-modal { padding: 16px; margin: 10px; }
+            .admin-panel-overlay .admin-modal .form-row { grid-template-columns: 1fr; }
+            .admin-panel-overlay .admin-content .admin-top-header .admin-actions button {
+                font-size: 11px;
+                padding: 4px 10px;
+            }
+            .admin-menu-toggle {
+                display: flex !important;
+            }
+        }
+        @media (max-width: 480px) {
+            .admin-panel-overlay .admin-stats { grid-template-columns: 1fr; }
+        }
+
+        .admin-menu-toggle {
+            display: none;
+            background: var(--secondary);
+            color: #fff;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Admin Notification */
+        .admin-panel-overlay .admin-notification-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .admin-panel-overlay .admin-notification-form input,
+        .admin-panel-overlay .admin-notification-form textarea,
+        .admin-panel-overlay .admin-notification-form select {
+            padding: 8px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+        .admin-panel-overlay .admin-notification-form input { flex: 1; min-width: 120px; }
+        .admin-panel-overlay .admin-notification-form textarea { flex: 2; min-width: 150px; min-height: 50px; }
+        .admin-panel-overlay .admin-notification-form select { flex: 0 0 120px; }
+        .admin-panel-overlay .admin-notification-form button {
+            padding: 8px 16px;
+            background: var(--success-green);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .admin-panel-overlay .admin-notification-form button:hover { background: #15803d; }
+
+        /* Category Badge */
+        .admin-panel-overlay .category-badge {
+            display: inline-block;
+            padding: 1px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .admin-panel-overlay .category-badge.study { background: #1976d2; color: #fff; }
+        .admin-panel-overlay .category-badge.career { background: #16a34a; color: #fff; }
+        .admin-panel-overlay .category-badge.books { background: #ffc107; color: #333; }
+        .admin-panel-overlay .category-badge.rajasthan { background: #dc3545; color: #fff; }
+        .admin-panel-overlay .category-badge.quiz { background: #17a2b8; color: #fff; }
+        .admin-panel-overlay .category-badge.more { background: #6c757d; color: #fff; }
+        .admin-panel-overlay .category-badge.government { background: #123c9b; color: #fff; }
+        .admin-panel-overlay .category-badge.general { background: #28a745; color: #fff; }
     </style>
 </head>
 <body>
@@ -878,17 +1312,31 @@
     </div>
 
     <!-- ================= ADMIN PANEL ================= -->
-    <div id="adminPanelContainer"></div>
+    <div class="admin-panel-overlay" id="adminPanelOverlay"></div>
 
     <script>
-        // ================= 🔴 GOOGLE SHEET URL - YOUR URL HERE =================
-        const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxLfe6c7pmykwnEFmU08XJ50TmgO6LpKYnNjJI6supicdNNBDeQTXskTynaeMDY6W0k/exec';
+        // ============================================================
+        // DATA STORE - Shared between website and admin
+        // ============================================================
+        const STORAGE_KEY = 'dreamjosh_admin_data_v4';
 
-        // ================= CONFIGURATION =================
-        const CACHE_KEY = 'dreamjosh_sheet_data';
-        const CACHE_DURATION = 300000;
+        // Default Admin Data
+        let adminData = {
+            content: [],
+            subSections: [],
+            pdfs: [],
+            photos: [],
+            videos: [],
+            jobs: [],
+            quizzes: [],
+            forms: [],
+            notifications: [],
+            settings: { password: 'admin123', darkMode: false }
+        };
 
-        // ================= DEFAULT DATA (Fallback) =================
+        // ============================================================
+        // WEBSITE DATA (Built from admin data + defaults)
+        // ============================================================
         let siteData = {
             centralJobs: {
                 sections: [
@@ -934,55 +1382,127 @@
             }
         };
 
-        // ================= ADMIN DATA =================
-        let adminData = {
-            content: [],
-            jobs: [],
-            quizzes: [],
-            users: [],
-            notifications: [],
-            settings: { password: 'admin123', darkMode: false }
-        };
-
-        // ================= CACHE FUNCTIONS =================
-        function getCachedData() {
+        // ============================================================
+        // LOAD / SAVE DATA
+        // ============================================================
+        function loadAdminData() {
             try {
-                const cached = localStorage.getItem(CACHE_KEY);
-                if (cached) {
-                    const data = JSON.parse(cached);
-                    if (Date.now() - data.timestamp < CACHE_DURATION) return data.data;
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    adminData = { ...adminData, ...parsed };
                 }
-                return null;
-            } catch (e) { return null; }
-        }
-        function setCachedData(data) {
-            try { localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: data })); } catch (e) {}
+            } catch(e) {}
+            applyDarkMode();
         }
 
-        // ================= FETCH FROM GOOGLE SHEET =================
-        async function fetchGoogleSheetData(forceRefresh = false) {
-            if (!forceRefresh) {
-                const cached = getCachedData();
-                if (cached) { console.log('📦 Using cached data'); return cached; }
-            }
-            if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes('YOUR_GOOGLE_SHEET')) return null;
+        function saveAdminData() {
             try {
-                console.log('🔄 Fetching from Google Sheet...');
-                const response = await fetch(GOOGLE_SHEET_URL);
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                const data = await response.json();
-                setCachedData(data);
-                console.log('✅ Google Sheet data loaded!');
-                return data;
-            } catch (error) {
-                console.error('❌ Error fetching:', error);
-                const cached = getCachedData();
-                if (cached) return cached;
-                return null;
-            }
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(adminData));
+            } catch(e) {}
+            updateWebsiteFromAdmin();
         }
 
-        // ================= ICON HELPERS =================
+        // ============================================================
+        // UPDATE WEBSITE FROM ADMIN DATA
+        // ============================================================
+        function updateWebsiteFromAdmin() {
+            // Update Content
+            const contentData = adminData.content || [];
+            // Reset sections but keep default ones
+            const defaultStudy = siteData.study.sections.filter(s => !s.id.toString().startsWith('admin_'));
+            const defaultCareer = siteData.career.sections.filter(s => !s.id.toString().startsWith('admin_'));
+            const defaultBooks = siteData.books.sections.filter(s => !s.id.toString().startsWith('admin_'));
+            const defaultRajasthan = siteData.rajasthan.sections.filter(s => !s.id.toString().startsWith('admin_'));
+            const defaultQuiz = siteData.quiz.sections.filter(s => !s.id.toString().startsWith('admin_'));
+            const defaultMore = siteData.more.sections.filter(s => !s.id.toString().startsWith('admin_'));
+
+            siteData.study.sections = [...defaultStudy];
+            siteData.career.sections = [...defaultCareer];
+            siteData.books.sections = [...defaultBooks];
+            siteData.rajasthan.sections = [...defaultRajasthan];
+            siteData.quiz.sections = [...defaultQuiz];
+            siteData.more.sections = [...defaultMore];
+
+            contentData.forEach(item => {
+                const category = (item.category || '').toLowerCase();
+                const section = {
+                    id: 'admin_' + item.id,
+                    icon: '📚',
+                    title: item.title || 'Untitled',
+                    items: item.body ? item.body.split(',').map(s => s.trim()) : ['No content'],
+                    details: item.tags || 'Content'
+                };
+                if (category.includes('study') || category.includes('notes')) {
+                    siteData.study.sections.push(section);
+                } else if (category.includes('career')) {
+                    section.icon = '🎯';
+                    siteData.career.sections.push(section);
+                } else if (category.includes('books')) {
+                    section.icon = '📖';
+                    siteData.books.sections.push(section);
+                } else if (category.includes('rajasthan') || category.includes('gk')) {
+                    section.icon = '🏜️';
+                    siteData.rajasthan.sections.push(section);
+                } else if (category.includes('quiz')) {
+                    section.icon = '🧠';
+                    siteData.quiz.sections.push(section);
+                } else {
+                    section.icon = '⚙️';
+                    siteData.more.sections.push(section);
+                }
+            });
+
+            // Update Jobs
+            const jobsData = adminData.jobs || [];
+            if (jobsData.length > 0) {
+                const central = jobsData.filter(j => j.category === 'central');
+                const state = jobsData.filter(j => j.category === 'state');
+                if (central.length > 0) {
+                    siteData.centralJobs.sections = central.map(j => ({
+                        id: 'admin_' + j.id,
+                        icon: getJobIcon(j.title || ''),
+                        title: j.title || 'Untitled',
+                        items: [j.description || 'No description'],
+                        details: j.description || '',
+                        examDate: j.lastDate || 'Coming soon',
+                        eligibility: j.eligibility || 'Check notification',
+                        ageLimit: j.age || 'Check notification'
+                    }));
+                }
+                if (state.length > 0) {
+                    siteData.stateJobs.sections = state.map(j => ({
+                        id: 'admin_' + j.id,
+                        icon: getJobIcon(j.title || ''),
+                        title: j.title || 'Untitled',
+                        items: [j.description || 'No description'],
+                        details: j.description || '',
+                        examDate: j.lastDate || 'Coming soon',
+                        eligibility: j.eligibility || 'Check notification',
+                        ageLimit: j.age || 'Check notification'
+                    }));
+                }
+            }
+
+            // Reload slides
+            const slideIds = ['centralJobs', 'stateJobs', 'study', 'career', 'books', 'rajasthan', 'quiz', 'more'];
+            slideIds.forEach(id => {
+                const grid = document.getElementById(id + 'Grid');
+                if (grid) {
+                    grid.dataset.loaded = 'false';
+                    loadSlideContent(id);
+                    grid.dataset.loaded = 'true';
+                }
+            });
+
+            // Update counts
+            document.getElementById('centralJobCount').textContent = siteData.centralJobs.sections.length;
+            document.getElementById('stateJobCount').textContent = siteData.stateJobs.sections.length;
+        }
+
+        // ============================================================
+        // ICON HELPERS
+        // ============================================================
         function getJobIcon(title) {
             const icons = { 'UPSC': '🏛️', 'SSC': '📑', 'Railway': '🚆', 'Banking': '🏦', 'Defence': '🪖', 'Police': '👮', 'Post': '📮', 'Teaching': '👩‍🏫', 'Medical': '🏥', 'PSU': '🏭', 'Technical': '🛠️', 'Court': '⚖️', 'RPSC': '🏛️', 'RSSB': '📋', 'High Court': '⚖️', 'Boards': '🏢' };
             for (const [key, icon] of Object.entries(icons)) {
@@ -990,172 +1510,10 @@
             }
             return '📌';
         }
-        function getStudyIcon(c) { const i = { 'History': '📘', 'Geography': '🌍', 'Polity': '⚖️', 'Science': '🔬' }; return i[c] || '📚'; }
-        function getCareerIcon(c) { const i = { 'After 12th': '🎓', 'College': '🏫', 'Skills': '💡', 'Government': '🏛️' }; return i[c] || '🎯'; }
-        function getRajasthanIcon(c) { const i = { 'History': '🏰', 'Geography': '🗺️', 'Culture': '🎭' }; return i[c] || '🏜️'; }
-        function getQuizIcon(c) { const i = { 'GK': '🌐', 'Rajasthan': '🏜️', 'Exam': '📝' }; return i[c] || '🧠'; }
-        function getMoreIcon(c) { const i = { 'PDF Tools': '🛠️', 'Motivation': '🔥', 'Videos': '▶️' }; return i[c] || '⚙️'; }
 
-        // ================= LOAD DATA FROM GOOGLE SHEET =================
-        async function loadAllDataFromSheet(forceRefresh = false) {
-            const data = await fetchGoogleSheetData(forceRefresh);
-            if (!data) { console.log('📋 Using default data'); return false; }
-
-            try {
-                // Govt Jobs
-                if (data['Govt Jobs'] && data['Govt Jobs'].length > 0) {
-                    const central = data['Govt Jobs'].filter(j => j.category === 'central');
-                    const state = data['Govt Jobs'].filter(j => j.category === 'state');
-                    if (central.length > 0) {
-                        siteData.centralJobs.sections = central.map(j => ({
-                            id: j.id || j.title.toLowerCase().replace(/\s/g, ''),
-                            icon: getJobIcon(j.title),
-                            title: j.title,
-                            items: [j.description || 'No description'],
-                            details: j.description || '',
-                            examDate: j.lastDate || 'Coming soon',
-                            eligibility: j.eligibility || 'Check notification',
-                            ageLimit: j.age || 'Check notification'
-                        }));
-                        document.getElementById('centralJobsGrid').dataset.loaded = 'false';
-                        document.getElementById('centralJobCount').textContent = central.length;
-                    }
-                    if (state.length > 0) {
-                        siteData.stateJobs.sections = state.map(j => ({
-                            id: j.id || j.title.toLowerCase().replace(/\s/g, ''),
-                            icon: getJobIcon(j.title),
-                            title: j.title,
-                            items: [j.description || 'No description'],
-                            details: j.description || '',
-                            examDate: j.lastDate || 'Coming soon',
-                            eligibility: j.eligibility || 'Check notification',
-                            ageLimit: j.age || 'Check notification'
-                        }));
-                        document.getElementById('stateJobsGrid').dataset.loaded = 'false';
-                        document.getElementById('stateJobCount').textContent = state.length;
-                    }
-                }
-
-                // Study
-                if (data['Study'] && data['Study'].length > 0) {
-                    siteData.study.sections = data['Study'].map(item => ({
-                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                        icon: getStudyIcon(item.category),
-                        title: item.title,
-                        items: item.content ? item.content.split(',').map(s => s.trim()) : ['No content'],
-                        details: item.tags || 'Study material'
-                    }));
-                    document.getElementById('studyGrid').dataset.loaded = 'false';
-                }
-
-                // Career
-                if (data['Career'] && data['Career'].length > 0) {
-                    siteData.career.sections = data['Career'].map(item => ({
-                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                        icon: getCareerIcon(item.category),
-                        title: item.title,
-                        items: item.items ? item.items.split(',').map(s => s.trim()) : ['No items'],
-                        details: item.description || 'Career guidance'
-                    }));
-                    document.getElementById('careerGrid').dataset.loaded = 'false';
-                }
-
-                // Books
-                if (data['Books'] && data['Books'].length > 0) {
-                    siteData.books.sections = data['Books'].map(item => ({
-                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                        icon: '📖',
-                        title: item.title,
-                        items: item.description ? item.description.split(',').map(s => s.trim()) : ['No books'],
-                        details: item.links || 'Books'
-                    }));
-                    document.getElementById('booksGrid').dataset.loaded = 'false';
-                }
-
-                // Rajasthan
-                if (data['Rajasthan'] && data['Rajasthan'].length > 0) {
-                    siteData.rajasthan.sections = data['Rajasthan'].map(item => ({
-                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                        icon: getRajasthanIcon(item.category),
-                        title: item.title,
-                        items: item.items ? item.items.split(',').map(s => s.trim()) : ['No content'],
-                        details: item.description || 'Rajasthan GK'
-                    }));
-                    document.getElementById('rajasthanGrid').dataset.loaded = 'false';
-                }
-
-                // Quiz
-                if (data['Quiz'] && data['Quiz'].length > 0) {
-                    siteData.quiz.sections = data['Quiz'].map(item => ({
-                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                        icon: getQuizIcon(item.category),
-                        title: item.title,
-                        items: item.questions ? item.questions.split(',').map(s => s.trim()) : ['No questions'],
-                        details: item.answers || 'Quiz'
-                    }));
-                    document.getElementById('quizGrid').dataset.loaded = 'false';
-                }
-
-                // More
-                if (data['More'] && data['More'].length > 0) {
-                    siteData.more.sections = data['More'].map(item => ({
-                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                        icon: getMoreIcon(item.category),
-                        title: item.title,
-                        items: item.items ? item.items.split(',').map(s => s.trim()) : ['No items'],
-                        details: item.description || 'More features'
-                    }));
-                    document.getElementById('moreGrid').dataset.loaded = 'false';
-                }
-
-                // Reload slides
-                const slideIds = ['centralJobs', 'stateJobs', 'study', 'career', 'books', 'rajasthan', 'quiz', 'more'];
-                slideIds.forEach(id => {
-                    const grid = document.getElementById(id + 'Grid');
-                    if (grid && grid.dataset.loaded === 'false') {
-                        loadSlideContent(id);
-                        grid.dataset.loaded = 'true';
-                    }
-                });
-
-                console.log('✅ All data loaded from Google Sheet!');
-                return true;
-            } catch (e) {
-                console.error('Error loading data:', e);
-                return false;
-            }
-        }
-
-        // ================= REFRESH FUNCTION =================
-        async function refreshFromGoogleSheet() {
-            console.log('🔄 Refreshing...');
-            const btn = document.querySelector('.refresh-btn');
-            if (btn) { btn.textContent = '⏳ Loading...'; btn.disabled = true; }
-            try {
-                localStorage.removeItem(CACHE_KEY);
-                await loadAllDataFromSheet(true);
-                showToast('✅ Data refreshed from Google Sheet!', 'success');
-            } catch (e) {
-                showToast('❌ Error refreshing data!', 'error');
-            } finally {
-                if (btn) { btn.textContent = '🔄 Refresh'; btn.disabled = false; }
-            }
-        }
-
-        // ================= TOAST =================
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // ================= SLIDE FUNCTIONS =================
+        // ============================================================
+        // SLIDE FUNCTIONS
+        // ============================================================
         let currentSlide = 'home';
         let allSlideIds = ['home', 'centralJobs', 'stateJobs', 'study', 'rajasthan', 'quiz', 'career', 'books', 'more'];
 
@@ -1170,8 +1528,6 @@
             slides.forEach(s => { if (s.dataset.slide === slideId) s.scrollTop = 0; });
         }
 
-        function nextSlide() { let i = allSlideIds.indexOf(currentSlide); if (i < allSlideIds.length - 1) goToSlide(allSlideIds[i + 1]); }
-        function prevSlide() { let i = allSlideIds.indexOf(currentSlide); if (i > 0) goToSlide(allSlideIds[i - 1]); }
         function goHome() { goToSlide('home'); }
 
         function loadSlideContent(slideId) {
@@ -1249,60 +1605,102 @@
             if (listView) { listView.classList.remove('active'); listView.innerHTML = ''; }
         }
 
-        // ================= DETAIL OVERLAY =================
-        function openDetail(slideId, sectionId) {
-            const data = siteData[slideId];
-            if (!data) return;
-            const section = data.sections.find(s => s.id === sectionId);
-            if (!section) return;
-            const overlay = document.getElementById('detailOverlay');
-            const body = document.getElementById('detailBody');
-            let itemsHtml = '';
-            if (section.items) {
-                itemsHtml = '<ul class="detail-list">';
-                section.items.forEach(item => { itemsHtml += `<li onclick="alert('📌 ${item}')">${item}</li>`; });
-                itemsHtml += '</ul>';
-            }
-            body.innerHTML = `
-                <div class="detail-icon">${section.icon}</div>
-                <h2>${section.title}</h2>
-                <p>${section.details || 'जानकारी'}</p>
-                ${itemsHtml}
-                <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
-                    <span class="detail-link" onclick="alert('🔗 ${section.title} की जानकारी')">🔗 और जानकारी</span>
-                    <span class="detail-link secondary" onclick="closeDetail()">✕ बंद करें</span>
-                </div>
-            `;
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
         function closeDetail(e) {
             if (e && e.target !== e.currentTarget) return;
             document.getElementById('detailOverlay').classList.remove('active');
             document.body.style.overflow = '';
         }
 
-        // ================= GOVT DROPDOWN =================
+        // ============================================================
+        // GOVT DROPDOWN
+        // ============================================================
         function toggleGovtDropdown() { document.getElementById('govtDropdownContent').classList.toggle('show'); }
         function closeGovtDropdown() { document.getElementById('govtDropdownContent').classList.remove('show'); }
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.govt-dropdown')) closeGovtDropdown();
         });
 
-        // ================= KEYBOARD =================
+        // ============================================================
+        // GOOGLE SHEET (Placeholder)
+        // ============================================================
+        const GOOGLE_SHEET_URL = 'YOUR_GOOGLE_SHEET_URL_HERE';
+        const CACHE_KEY = 'dreamjosh_sheet_data';
+        const CACHE_DURATION = 300000;
+
+        function getCachedData() {
+            try {
+                const cached = localStorage.getItem(CACHE_KEY);
+                if (cached) {
+                    const data = JSON.parse(cached);
+                    if (Date.now() - data.timestamp < CACHE_DURATION) return data.data;
+                }
+                return null;
+            } catch (e) { return null; }
+        }
+
+        async function refreshFromGoogleSheet() {
+            showToast('🔄 Refreshing...', 'info');
+            // Placeholder - implement your Google Sheet fetch logic here
+            setTimeout(() => {
+                showToast('✅ Data refreshed!', 'success');
+            }, 1000);
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ============================================================
+        // DARK MODE
+        // ============================================================
+        function applyDarkMode() {
+            if (adminData.settings?.darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        }
+
+        function toggleDarkMode() {
+            adminData.settings.darkMode = !adminData.settings.darkMode;
+            saveAdminData();
+            applyDarkMode();
+            // Update admin UI if open
+            const btn = document.querySelector('.btn-dark-admin');
+            if (btn) {
+                btn.innerHTML = adminData.settings.darkMode ? '<i class="fas fa-sun"></i> Light' : '<i class="fas fa-moon"></i> Dark';
+                btn.classList.toggle('active', adminData.settings.darkMode);
+            }
+        }
+
+        // ============================================================
+        // KEYBOARD SHORTCUTS
+        // ============================================================
         document.addEventListener('keydown', (e) => {
+            if (document.getElementById('adminPanelOverlay').classList.contains('active')) return;
             if (document.getElementById('detailOverlay').classList.contains('active')) {
                 if (e.key === 'Escape') closeDetail();
                 return;
             }
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextSlide(); }
-            else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goToSlide(allSlideIds[Math.min(allSlideIds.indexOf(currentSlide) + 1, allSlideIds.length - 1)]); }
+            else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goToSlide(allSlideIds[Math.max(allSlideIds.indexOf(currentSlide) - 1, 0)]); }
             else if (e.key === 'Home') { e.preventDefault(); goHome(); }
-            else if (e.key === 'r' || e.key === 'R') { if (!e.ctrlKey) refreshFromGoogleSheet(); }
         });
 
-        // ================= TOUCH SWIPE =================
+        // ============================================================
+        // TOUCH SWIPE
+        // ============================================================
         let touchStartX = 0, touchStartY = 0, isSwiping = false;
         document.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
@@ -1315,554 +1713,1104 @@
             const diffY = e.changedTouches[0].screenY - touchStartY;
             if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
                 e.preventDefault();
-                if (diffX < 0) { nextSlide(); isSwiping = false; }
-                else if (diffX > 0) { prevSlide(); isSwiping = false; }
+                const currentIdx = allSlideIds.indexOf(currentSlide);
+                if (diffX < 0 && currentIdx < allSlideIds.length - 1) { goToSlide(allSlideIds[currentIdx + 1]); isSwiping = false; }
+                else if (diffX > 0 && currentIdx > 0) { goToSlide(allSlideIds[currentIdx - 1]); isSwiping = false; }
             }
         });
         document.addEventListener('touchend', () => { isSwiping = false; });
 
-        // ================= ADMIN PANEL =================
+        // ============================================================
+        // ADMIN PANEL - OPEN / CLOSE
+        // ============================================================
         function openAdminPanel() {
-            const container = document.getElementById('adminPanelContainer');
-            container.innerHTML = getAdminPanelHTML();
-            container.classList.add('active');
-            loadAdminData();
-            document.getElementById('adminLoginPage').style.display = 'flex';
-            document.getElementById('adminDashboardContent').style.display = 'none';
-        }
-
-        function closeAdminPanel() {
-            document.getElementById('adminPanelContainer').classList.remove('active');
-            document.getElementById('adminPanelContainer').innerHTML = '';
-        }
-
-        function getAdminPanelHTML() {
-            const dark = adminData.settings.darkMode || false;
-            return `
-            <div id="adminDashboard">
-                <div id="adminLoginPage" class="login-container">
-                    <div class="login-box">
-                        <h1>🚀 Dream Josh</h1>
-                        <h2>🔐 Admin Panel</h2>
-                        <p>कृपया लॉगिन करें</p>
-                        <input type="password" id="adminPassword" placeholder="Enter Admin Password" onkeydown="if(event.key==='Enter') adminLogin()">
-                        <button onclick="adminLogin()">🔓 Login</button>
-                        <p id="adminLoginError" class="login-error">❌ गलत पासवर्ड!</p>
-                        <p class="login-note">Default Password: <b>admin123</b></p>
-                        <button onclick="closeAdminPanel()" style="margin-top:10px;background:#6c757d;width:100%;padding:12px;border:none;border-radius:8px;color:#fff;font-size:16px;cursor:pointer;">← वापस</button>
-                    </div>
-                </div>
-                <div id="adminDashboardContent" style="display:none;">
-                    <div class="admin-header">
-                        <div class="admin-logo"><h2>🚀 Dream Josh Admin</h2><span class="admin-badge">v3.0</span></div>
-                        <div class="admin-user">
-                            <span>👤 Admin</span>
-                            <button id="darkModeToggle" class="dark-toggle-btn ${dark?'active':''}" onclick="toggleDarkMode()">${dark?'🌙 Dark':'☀️ Light'}</button>
-                            <button onclick="adminLogout()" class="logout-btn">🚪 Logout</button>
-                            <button onclick="closeAdminPanel()" class="back-btn-admin">← वापस</button>
-                        </div>
-                    </div>
-                    <div class="admin-body">
-                        <div class="admin-sidebar">
-                            <div class="sidebar-menu">
-                                <button class="active" data-section="dashboard" onclick="showAdminSection('dashboard')">📊 Dashboard</button>
-                                <button data-section="content" onclick="showAdminSection('content')">📝 Content</button>
-                                <button data-section="jobs" onclick="showAdminSection('jobs')">💼 Jobs</button>
-                                <button data-section="quiz" onclick="showAdminSection('quiz')">🧠 Quiz</button>
-                                <button data-section="users" onclick="showAdminSection('users')">👥 Users</button>
-                                <button data-section="notifications" onclick="showAdminSection('notifications')">🔔 Notifications</button>
-                                <button data-section="settings" onclick="showAdminSection('settings')">⚙️ Settings</button>
-                            </div>
-                        </div>
-                        <div class="admin-content">
-                            <div id="admin-section-dashboard" class="admin-section active">
-                                <h2>📊 Dashboard</h2>
-                                <div class="stats-grid">
-                                    <div class="stat-card"><h3>📚 Content</h3><p id="adminTotalContent">0</p></div>
-                                    <div class="stat-card"><h3>💼 Jobs</h3><p id="adminTotalJobs">0</p></div>
-                                    <div class="stat-card"><h3>🧠 Quizzes</h3><p id="adminTotalQuizzes">0</p></div>
-                                    <div class="stat-card"><h3>👥 Users</h3><p id="adminTotalUsers">0</p></div>
-                                </div>
-                                <div class="quick-actions">
-                                    <h3>⚡ Quick Actions</h3>
-                                    <button onclick="showAdminSection('content')">📝 Add Content</button>
-                                    <button onclick="showAdminSection('jobs')">💼 Add Job</button>
-                                    <button onclick="showAdminSection('quiz')">🧠 Add Quiz</button>
-                                    <button onclick="showAdminSection('notifications')">🔔 Send Notification</button>
-                                    <button onclick="showAdminSection('settings')">⚙️ Settings</button>
-                                    <button onclick="toggleDarkMode()" style="background: #6c757d;">${adminData.settings.darkMode?'🌙 Dark Mode ON':'☀️ Light Mode ON'}</button>
-                                    <button onclick="refreshFromGoogleSheet()" style="background: #16a34a;">🔄 Refresh from Google Sheet</button>
-                                </div>
-                            </div>
-                            <div id="admin-section-content" class="admin-section">
-                                <h2>📝 Content Manager</h2>
-                                <div class="toolbar"><button onclick="openAdminContentForm()">➕ Add New Content</button><input type="text" placeholder="🔍 Search..." oninput="filterAdminContent(this.value)"></div>
-                                <div id="adminContentList" class="content-list"></div>
-                            </div>
-                            <div id="admin-section-jobs" class="admin-section">
-                                <h2>💼 Jobs Manager</h2>
-                                <div class="toolbar"><button onclick="openAdminJobForm()">➕ Add New Job</button><select onchange="filterAdminJobs(this.value)"><option value="all">All Categories</option><option value="central">🇮🇳 Central</option><option value="state">🏜️ Rajasthan</option></select></div>
-                                <div id="adminJobList" class="job-list-admin"></div>
-                            </div>
-                            <div id="admin-section-quiz" class="admin-section">
-                                <h2>🧠 Quiz Manager</h2>
-                                <div class="toolbar"><button onclick="openAdminQuizForm()">➕ Add New Quiz</button></div>
-                                <div id="adminQuizList" class="quiz-list"></div>
-                            </div>
-                            <div id="admin-section-users" class="admin-section">
-                                <h2>👥 Users</h2>
-                                <div class="toolbar"><input type="text" placeholder="🔍 Search..." oninput="filterAdminUsers(this.value)"></div>
-                                <div id="adminUserList" class="user-list"></div>
-                            </div>
-                            <div id="admin-section-notifications" class="admin-section">
-                                <h2>🔔 Notifications</h2>
-                                <div class="notification-form">
-                                    <input type="text" id="adminNotifTitle" placeholder="📌 Title">
-                                    <textarea id="adminNotifMessage" placeholder="📝 Message..."></textarea>
-                                    <select id="adminNotifType"><option value="info">ℹ️ Info</option><option value="warning">⚠️ Warning</option><option value="success">✅ Success</option><option value="danger">🔴 Urgent</option></select>
-                                    <button onclick="sendAdminNotification()">📤 Send</button>
-                                </div>
-                                <div id="adminNotificationList" class="notification-list"></div>
-                            </div>
-                            <div id="admin-section-settings" class="admin-section">
-                                <h2>⚙️ Settings</h2>
-                                <div class="settings-form">
-                                    <h3>🔑 Change Password</h3>
-                                    <input type="password" id="adminNewPass" placeholder="New Password (min 6)">
-                                    <input type="password" id="adminConfirmPass" placeholder="Confirm Password">
-                                    <button onclick="changeAdminPassword()">🔒 Update</button>
-                                    <h3 style="margin-top:20px;">🌓 Dark Mode</h3>
-                                    <button onclick="toggleDarkMode()" style="background: #6c757d; padding: 12px 24px; font-size: 16px;">${adminData.settings.darkMode?'🌙 Switch to Light Mode':'☀️ Switch to Dark Mode'}</button>
-                                    <h3 style="margin-top:20px;">📊 Google Sheet</h3>
-                                    <p style="font-size:13px;color:var(--text-color);opacity:0.7;">URL: <span id="sheetUrlDisplay">${GOOGLE_SHEET_URL.includes('YOUR_GOOGLE_SHEET') ? '🔴 Not configured' : '✅ Configured'}</span></p>
-                                    <button onclick="refreshFromGoogleSheet()" style="background: #16a34a; padding: 12px 24px; font-size: 16px;">🔄 Refresh from Google Sheet</button>
-                                    <button onclick="clearGoogleSheetCache()" style="background: #ffc107; color: #333; padding: 12px 24px; font-size: 16px;">🗑️ Clear Cache</button>
-                                    <h3 style="margin-top:20px;">💾 Backup & Restore</h3>
-                                    <button onclick="exportAdminData()">📥 Export Data</button>
-                                    <input type="file" id="adminImportFile" accept=".json" style="display:none;" onchange="importAdminData(event)">
-                                    <button onclick="document.getElementById('adminImportFile').click()">📤 Import Data</button>
-                                    <h3 style="margin-top:20px;">🔄 Reset</h3>
-                                    <button onclick="resetAdminData()" class="btn-danger">⚠️ Reset All Data</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="adminContentModal" class="modal">
-                    <div class="modal-content"><span class="close" onclick="closeAdminModal('adminContentModal')">&times;</span>
-                        <h2 id="adminContentModalTitle">📝 Add Content</h2>
-                        <input type="hidden" id="adminContentEditId">
-                        <input type="text" id="adminContentTitle" placeholder="Title">
-                        <input type="text" id="adminContentCategory" placeholder="Category (Study/Career/Books etc)">
-                        <textarea id="adminContentBody" placeholder="Content description..."></textarea>
-                        <input type="text" id="adminContentTags" placeholder="Tags (comma separated)">
-                        <button onclick="saveAdminContent()">💾 Save</button>
-                    </div>
-                </div>
-                <div id="adminJobModal" class="modal">
-                    <div class="modal-content"><span class="close" onclick="closeAdminModal('adminJobModal')">&times;</span>
-                        <h2 id="adminJobModalTitle">💼 Add Job</h2>
-                        <input type="hidden" id="adminJobEditId">
-                        <input type="text" id="adminJobTitle" placeholder="Job Title">
-                        <input type="text" id="adminJobDepartment" placeholder="Department (UPSC/SSC/RPSC etc)">
-                        <select id="adminJobCategory"><option value="central">🇮🇳 Central</option><option value="state">🏜️ Rajasthan</option></select>
-                        <input type="text" id="adminJobEligibility" placeholder="Eligibility (Graduation/12th etc)">
-                        <input type="text" id="adminJobAge" placeholder="Age Limit (21-32)">
-                        <input type="text" id="adminJobLastDate" placeholder="Last Date (31 Dec 2026)">
-                        <textarea id="adminJobDescription" placeholder="Job Description..."></textarea>
-                        <button onclick="saveAdminJob()">💾 Save</button>
-                    </div>
-                </div>
-                <div id="adminQuizModal" class="modal">
-                    <div class="modal-content"><span class="close" onclick="closeAdminModal('adminQuizModal')">&times;</span>
-                        <h2 id="adminQuizModalTitle">🧠 Add Quiz</h2>
-                        <input type="hidden" id="adminQuizEditId">
-                        <input type="text" id="adminQuizTitle" placeholder="Quiz Title">
-                        <input type="text" id="adminQuizCategory" placeholder="Category (GK/Rajasthan/Exam)">
-                        <div id="adminQuizQuestions"></div>
-                        <button onclick="addAdminQuestion()">➕ Add Question</button>
-                        <button onclick="saveAdminQuiz()">💾 Save</button>
-                    </div>
-                </div>
-            </div>`;
-        }
-
-        // ================= ADMIN FUNCTIONS =================
-        function loadAdminData() {
-            try {
-                const saved = localStorage.getItem('dreamjosh_admin_data');
-                if (saved) {
-                    adminData = JSON.parse(saved);
-                    if (adminData.settings.darkMode) document.body.classList.add('dark-mode');
-                    else document.body.classList.remove('dark-mode');
-                } else { saveAdminData(); }
-            } catch (e) { console.error('Error loading admin data:', e); }
-        }
-
-        function saveAdminData() {
-            try { localStorage.setItem('dreamjosh_admin_data', JSON.stringify(adminData)); } catch (e) {}
-        }
-
-        function toggleDarkMode() {
-            adminData.settings.darkMode = !adminData.settings.darkMode;
-            if (adminData.settings.darkMode) document.body.classList.add('dark-mode');
-            else document.body.classList.remove('dark-mode');
-            saveAdminData();
-            const btn = document.getElementById('darkModeToggle');
-            if (btn) {
-                btn.textContent = adminData.settings.darkMode ? '🌙 Dark' : '☀️ Light';
-                btn.classList.toggle('active', adminData.settings.darkMode);
-            }
-        }
-
-        function adminLogin() {
-            const pass = document.getElementById('adminPassword').value;
-            if (pass === adminData.settings.password) {
-                document.getElementById('adminLoginPage').style.display = 'none';
-                document.getElementById('adminDashboardContent').style.display = 'block';
-                document.getElementById('adminLoginError').style.display = 'none';
-                renderAdminDashboard();
-            } else {
-                document.getElementById('adminLoginError').style.display = 'block';
-            }
-        }
-
-        function adminLogout() {
-            document.getElementById('adminLoginPage').style.display = 'flex';
-            document.getElementById('adminDashboardContent').style.display = 'none';
-            document.getElementById('adminPassword').value = '';
-        }
-
-        function renderAdminDashboard() {
-            document.getElementById('adminTotalContent').textContent = adminData.content.length;
-            document.getElementById('adminTotalJobs').textContent = adminData.jobs.length;
-            document.getElementById('adminTotalQuizzes').textContent = adminData.quizzes.length;
-            document.getElementById('adminTotalUsers').textContent = adminData.users.length;
+            const overlay = document.getElementById('adminPanelOverlay');
+            overlay.innerHTML = renderAdminPanel();
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            renderAdminDashboard();
             renderAdminContent();
+            renderAdminSubSections();
             renderAdminJobs();
-            renderAdminQuizzes();
-            renderAdminUsers();
+            renderAdminQuiz();
+            renderAdminForms();
             renderAdminNotifications();
         }
 
-        function showAdminSection(section) {
-            document.querySelectorAll('#adminDashboard .admin-section').forEach(el => el.classList.remove('active'));
-            const target = document.getElementById('admin-section-' + section);
-            if (target) target.classList.add('active');
-            document.querySelectorAll('#adminDashboard .sidebar-menu button').forEach(el => el.classList.remove('active'));
-            const btn = document.querySelector(`#adminDashboard .sidebar-menu button[data-section="${section}"]`);
-            if (btn) btn.classList.add('active');
-            if (section === 'dashboard') renderAdminDashboard();
-            if (section === 'content') renderAdminContent();
-            if (section === 'jobs') renderAdminJobs();
-            if (section === 'quiz') renderAdminQuizzes();
-            if (section === 'users') renderAdminUsers();
-            if (section === 'notifications') renderAdminNotifications();
+        function closeAdminPanel() {
+            document.getElementById('adminPanelOverlay').classList.remove('active');
+            document.getElementById('adminPanelOverlay').innerHTML = '';
+            document.body.style.overflow = '';
         }
 
-        // ================= ADMIN CONTENT =================
-        function renderAdminContent(filter = '') {
-            const container = document.getElementById('adminContentList');
-            let items = adminData.content;
-            if (filter) items = items.filter(c => c.title.toLowerCase().includes(filter.toLowerCase()));
-            if (items.length === 0) { container.innerHTML = '<div class="empty-state">📭 No content. Click "Add New Content" to add.</div>'; return; }
-            container.innerHTML = items.map(c => `
-                <div class="content-item">
-                    <div><strong>${c.title}</strong><span style="color:#888;font-size:13px;margin-left:10px;">📂 ${c.category}</span></div>
-                    <div class="actions">
-                        <button class="btn-edit" onclick="editAdminContent(${c.id})">✏️</button>
-                        <button class="btn-delete" onclick="deleteAdminContent(${c.id})">🗑️</button>
+        // ============================================================
+        // RENDER ADMIN PANEL
+        // ============================================================
+        function renderAdminPanel() {
+            const dark = adminData.settings?.darkMode || false;
+            return `
+            <div class="admin-wrapper">
+                <!-- Sidebar -->
+                <div class="admin-sidebar" id="adminSidebar">
+                    <div class="admin-logo">
+                        <h1>🚀 <span>Dream</span>Josh</h1>
+                        <span class="badge">v4.0</span>
+                    </div>
+                    <div class="admin-user">
+                        <div class="avatar">A</div>
+                        <div>
+                            <div class="name">Admin</div>
+                            <div class="role">Super Admin</div>
+                        </div>
+                    </div>
+                    <ul class="admin-menu">
+                        <li class="section-title">Main</li>
+                        <li><a class="active" data-page="dashboard" onclick="showAdminPage('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+                        <li class="section-title">Content</li>
+                        <li><a data-page="content" onclick="showAdminPage('content')"><i class="fas fa-file-alt"></i> Content <span class="count" id="adminContentCount">0</span></a></li>
+                        <li><a data-page="subsections" onclick="showAdminPage('subsections')"><i class="fas fa-sitemap"></i> Sub-Sections <span class="count" id="adminSubSectionCount">0</span></a></li>
+                        <li><a data-page="pdfs" onclick="showAdminPage('pdfs')"><i class="fas fa-file-pdf"></i> PDFs <span class="count" id="adminPdfCount">0</span></a></li>
+                        <li><a data-page="photos" onclick="showAdminPage('photos')"><i class="fas fa-images"></i> Photos <span class="count" id="adminPhotoCount">0</span></a></li>
+                        <li><a data-page="videos" onclick="showAdminPage('videos')"><i class="fas fa-video"></i> Videos <span class="count" id="adminVideoCount">0</span></a></li>
+                        <li class="section-title">Management</li>
+                        <li><a data-page="jobs" onclick="showAdminPage('jobs')"><i class="fas fa-briefcase"></i> Jobs <span class="count" id="adminJobsCount">0</span></a></li>
+                        <li><a data-page="quiz" onclick="showAdminPage('quiz')"><i class="fas fa-brain"></i> Quiz <span class="count" id="adminQuizCount">0</span></a></li>
+                        <li><a data-page="forms" onclick="showAdminPage('forms')"><i class="fas fa-list-check"></i> Forms <span class="count" id="adminFormsCount">0</span></a></li>
+                        <li class="section-title">System</li>
+                        <li><a data-page="notifications" onclick="showAdminPage('notifications')"><i class="fas fa-bell"></i> Notifications</a></li>
+                        <li><a data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                    <div class="admin-footer-menu">
+                        <a onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
+
+                <!-- Content -->
+                <div class="admin-content">
+                    <!-- Top Header -->
+                    <div class="admin-top-header">
+                        <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
+                        <div class="admin-actions">
+                            <button class="admin-menu-toggle" onclick="toggleAdminSidebar()"><i class="fas fa-bars"></i></button>
+                            <button class="btn-dark-admin ${dark?'active':''}" onclick="toggleDarkMode()"><i class="fas ${dark?'fa-sun':'fa-moon'}"></i> ${dark?'Light':'Dark'}</button>
+                            <button class="btn-refresh-admin" onclick="refreshAdminData()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                            <button class="btn-close-admin" onclick="closeAdminPanel()"><i class="fas fa-times"></i> Close</button>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard -->
+                    <div id="adminPage-dashboard" class="admin-section active">
+                        <div class="admin-stats" id="adminStats">
+                            <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Content</div><div class="stat-value" id="statContent">0</div></div>
+                            <div class="stat-item"><div class="stat-icon">📂</div><div class="stat-label">Sub-Sections</div><div class="stat-value" id="statSubSections">0</div></div>
+                            <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">PDFs</div><div class="stat-value" id="statPdfs">0</div></div>
+                            <div class="stat-item"><div class="stat-icon">🖼️</div><div class="stat-label">Photos</div><div class="stat-value" id="statPhotos">0</div></div>
+                            <div class="stat-item"><div class="stat-icon">🎬</div><div class="stat-label">Videos</div><div class="stat-value" id="statVideos">0</div></div>
+                            <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
+                            <div class="stat-item"><div class="stat-icon">🧠</div><div class="stat-label">Quizzes</div><div class="stat-value" id="statQuiz">0</div></div>
+                            <div class="stat-item"><div class="stat-icon">📋</div><div class="stat-label">Forms</div><div class="stat-value" id="statForms">0</div></div>
+                        </div>
+                        <div class="admin-quick-actions">
+                            <h3>⚡ Quick Actions</h3>
+                            <div class="actions-grid">
+                                <button onclick="showAdminPage('content'); openAdminModal('content')"><i class="fas fa-plus"></i> Add Content</button>
+                                <button onclick="showAdminPage('subsections'); openAdminModal('subsection')"><i class="fas fa-plus"></i> Add Sub-Section</button>
+                                <button onclick="showAdminPage('pdfs'); openAdminModal('pdf')"><i class="fas fa-plus"></i> Upload PDF</button>
+                                <button onclick="showAdminPage('photos'); openAdminModal('photo')"><i class="fas fa-plus"></i> Upload Photo</button>
+                                <button onclick="showAdminPage('videos'); openAdminModal('video')"><i class="fas fa-plus"></i> Upload Video</button>
+                                <button onclick="showAdminPage('jobs'); openAdminModal('job')"><i class="fas fa-plus"></i> Add Job</button>
+                                <button onclick="showAdminPage('quiz'); openAdminModal('quiz')"><i class="fas fa-plus"></i> Add Quiz</button>
+                                <button onclick="showAdminPage('forms'); openAdminModal('form')"><i class="fas fa-plus"></i> Add Form</button>
+                                <button onclick="exportAdminData()" style="background:var(--success-green);"><i class="fas fa-download"></i> Export</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Page -->
+                    <div id="adminPage-content" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>📝 Content Manager</h4>
+                                <button class="btn-add" onclick="openAdminModal('content')"><i class="fas fa-plus"></i> Add Content</button>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>#</th><th>Title</th><th>Category</th><th>Tags</th><th>Actions</th></tr></thead>
+                                    <tbody id="adminContentTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-Sections Page -->
+                    <div id="adminPage-subsections" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>📂 Sub-Sections Manager</h4>
+                                <button class="btn-add" onclick="openAdminModal('subsection')"><i class="fas fa-plus"></i> Add Sub-Section</button>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>#</th><th>Name</th><th>Parent Category</th><th>Icon</th><th>Actions</th></tr></thead>
+                                    <tbody id="adminSubSectionTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PDFs Page -->
+                    <div id="adminPage-pdfs" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>📄 PDF Manager</h4>
+                                <button class="btn-add" onclick="openAdminModal('pdf')"><i class="fas fa-plus"></i> Upload PDF</button>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>#</th><th>Name</th><th>Category</th><th>Size</th><th>Actions</th></tr></thead>
+                                    <tbody id="adminPdfTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Photos Page -->
+                    <div id="adminPage-photos" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>🖼️ Photo Gallery</h4>
+                                <button class="btn-add" onclick="openAdminModal('photo')"><i class="fas fa-plus"></i> Upload Photo</button>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>#</th><th>Preview</th><th>Name</th><th>Category</th><th>Actions</th></tr></thead>
+                                    <tbody id="adminPhotoTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Videos Page -->
+                    <div id="adminPage-videos" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>🎬 Video Manager</h4>
+                                <button class="btn-add" onclick="openAdminModal('video')"><i class="fas fa-plus"></i> Upload Video</button>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>#</th><th>Name</th><th>Category</th><th>Actions</th></tr></thead>
+                                    <tbody id="adminVideoTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jobs Page -->
+                    <div id="adminPage-jobs" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>💼 Jobs Manager</h4>
+                                <button class="btn-add" onclick="openAdminModal('job')"><i class="fas fa-plus"></i> Add Job</button>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>#</th><th>Title</th><th>Department</th><th>Category</th><th>Actions</th></tr></thead>
+                                    <tbody id="adminJobsTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Page -->
+                    <div id="adminPage-quiz" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>🧠 Quiz Manager</h4>
+                                <button class="btn-add" onclick="openAdminModal('quiz')"><i class="fas fa-plus"></i> Add Quiz</button>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>#</th><th>Title</th><th>Category</th><th>Questions</th><th>Actions</th></tr></thead>
+                                    <tbody id="adminQuizTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Forms Page -->
+                    <div id="adminPage-forms" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>📋 Forms Manager</h4>
+                                <button class="btn-add" onclick="openAdminModal('form')"><i class="fas fa-plus"></i> Add Form</button>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>#</th><th>Title</th><th>Category</th><th>Link</th><th>Actions</th></tr></thead>
+                                    <tbody id="adminFormsTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Page -->
+                    <div id="adminPage-notifications" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>🔔 Notifications</h4>
+                            </div>
+                            <div class="admin-notification-form">
+                                <input type="text" id="adminNotifTitle" placeholder="Title">
+                                <textarea id="adminNotifMessage" placeholder="Message"></textarea>
+                                <select id="adminNotifType">
+                                    <option value="info">ℹ️ Info</option>
+                                    <option value="warning">⚠️ Warning</option>
+                                    <option value="success">✅ Success</option>
+                                    <option value="danger">🔴 Urgent</option>
+                                </select>
+                                <button onclick="sendAdminNotification()"><i class="fas fa-paper-plane"></i> Send</button>
+                            </div>
+                            <div id="adminNotificationList"></div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Page -->
+                    <div id="adminPage-settings" class="admin-section">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h4>⚙️ Settings</h4>
+                            </div>
+                            <div class="admin-settings">
+                                <div class="setting-group">
+                                    <h5>🔑 Change Password</h5>
+                                    <input type="password" id="adminNewPass" placeholder="New Password (min 6)">
+                                    <input type="password" id="adminConfirmPass" placeholder="Confirm Password">
+                                    <button class="btn-setting primary" onclick="changeAdminPassword()">Update</button>
+                                </div>
+                                <div class="setting-group">
+                                    <h5>🌓 Dark Mode</h5>
+                                    <button class="btn-setting primary" onclick="toggleDarkMode()">${adminData.settings?.darkMode ? 'Switch to Light' : 'Switch to Dark'}</button>
+                                </div>
+                                <div class="setting-group">
+                                    <h5>💾 Backup & Restore</h5>
+                                    <button class="btn-setting success" onclick="exportAdminData()"><i class="fas fa-download"></i> Export</button>
+                                    <button class="btn-setting warning" onclick="document.getElementById('adminImportFile').click()"><i class="fas fa-upload"></i> Import</button>
+                                    <input type="file" id="adminImportFile" accept=".json" style="display:none;" onchange="importAdminData(event)">
+                                </div>
+                                <div class="setting-group">
+                                    <h5>🔄 Reset All Data</h5>
+                                    <button class="btn-setting danger" onclick="resetAdminData()"><i class="fas fa-exclamation-triangle"></i> Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Modal -->
+            <div class="admin-modal-overlay" id="adminModalOverlay" onclick="if(event.target===this) closeAdminModal()">
+                <div class="admin-modal" id="adminModalContent">
+                    <div class="modal-header">
+                        <h3 id="adminModalTitle">Add Item</h3>
+                        <button class="close-modal" onclick="closeAdminModal()">&times;</button>
+                    </div>
+                    <div id="adminModalBody"></div>
+                </div>
+            </div>
+            `;
+        }
+
+        // ============================================================
+        // ADMIN PAGE NAVIGATION
+        // ============================================================
+        function showAdminPage(page) {
+            document.querySelectorAll('#adminPanelOverlay .admin-menu a').forEach(el => el.classList.remove('active'));
+            const menuItem = document.querySelector(`#adminPanelOverlay .admin-menu a[data-page="${page}"]`);
+            if (menuItem) menuItem.classList.add('active');
+
+            const pages = ['dashboard', 'content', 'subsections', 'pdfs', 'photos', 'videos', 'jobs', 'quiz', 'forms', 'notifications', 'settings'];
+            pages.forEach(p => {
+                const el = document.getElementById(`adminPage-${p}`);
+                if (el) el.classList.toggle('active', p === page);
+            });
+
+            const titles = {
+                dashboard: '📊 <span>Dashboard</span>',
+                content: '📝 <span>Content Manager</span>',
+                subsections: '📂 <span>Sub-Sections Manager</span>',
+                pdfs: '📄 <span>PDF Manager</span>',
+                photos: '🖼️ <span>Photo Gallery</span>',
+                videos: '🎬 <span>Video Manager</span>',
+                jobs: '💼 <span>Jobs Manager</span>',
+                quiz: '🧠 <span>Quiz Manager</span>',
+                forms: '📋 <span>Forms Manager</span>',
+                notifications: '🔔 <span>Notifications</span>',
+                settings: '⚙️ <span>Settings</span>'
+            };
+            document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
+
+            if (page === 'dashboard') renderAdminDashboard();
+            if (page === 'content') renderAdminContent();
+            if (page === 'subsections') renderAdminSubSections();
+            if (page === 'pdfs') renderAdminFiles('pdf');
+            if (page === 'photos') renderAdminFiles('photo');
+            if (page === 'videos') renderAdminFiles('video');
+            if (page === 'jobs') renderAdminJobs();
+            if (page === 'quiz') renderAdminQuiz();
+            if (page === 'forms') renderAdminForms();
+            if (page === 'notifications') renderAdminNotifications();
+
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                document.getElementById('adminSidebar').classList.remove('open');
+            }
+        }
+
+        function toggleAdminSidebar() {
+            document.getElementById('adminSidebar').classList.toggle('open');
+        }
+
+        // ============================================================
+        // ADMIN DASHBOARD
+        // ============================================================
+        function renderAdminDashboard() {
+            document.getElementById('statContent').textContent = adminData.content.length;
+            document.getElementById('statSubSections').textContent = adminData.subSections.length;
+            document.getElementById('statPdfs').textContent = adminData.pdfs.length;
+            document.getElementById('statPhotos').textContent = adminData.photos.length;
+            document.getElementById('statVideos').textContent = adminData.videos.length;
+            document.getElementById('statJobs').textContent = adminData.jobs.length;
+            document.getElementById('statQuiz').textContent = adminData.quizzes.length;
+            document.getElementById('statForms').textContent = adminData.forms.length;
+
+            document.getElementById('adminContentCount').textContent = adminData.content.length;
+            document.getElementById('adminSubSectionCount').textContent = adminData.subSections.length;
+            document.getElementById('adminPdfCount').textContent = adminData.pdfs.length;
+            document.getElementById('adminPhotoCount').textContent = adminData.photos.length;
+            document.getElementById('adminVideoCount').textContent = adminData.videos.length;
+            document.getElementById('adminJobsCount').textContent = adminData.jobs.length;
+            document.getElementById('adminQuizCount').textContent = adminData.quizzes.length;
+            document.getElementById('adminFormsCount').textContent = adminData.forms.length;
+        }
+
+        // ============================================================
+        // ADMIN CONTENT CRUD
+        // ============================================================
+        function renderAdminContent() {
+            const tbody = document.getElementById('adminContentTable');
+            if (!tbody) return;
+            const items = adminData.content || [];
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No content added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.title || 'Untitled'}</strong></td>
+                    <td><span class="category-badge ${(item.category || 'general').toLowerCase()}">${item.category || 'General'}</span></td>
+                    <td>${item.tags || '-'}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editAdminContent(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteAdminContent(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
             `).join('');
         }
 
-        function filterAdminContent(input) { renderAdminContent(input.value); }
+        function openAdminModal(type, data = null) {
+            const isEdit = data !== null;
+            const modalTitle = document.getElementById('adminModalTitle');
+            const modalBody = document.getElementById('adminModalBody');
 
-        function openAdminContentForm() {
-            document.getElementById('adminContentModalTitle').textContent = '📝 Add New Content';
-            document.getElementById('adminContentEditId').value = '';
-            document.getElementById('adminContentTitle').value = '';
-            document.getElementById('adminContentCategory').value = '';
-            document.getElementById('adminContentBody').value = '';
-            document.getElementById('adminContentTags').value = '';
-            document.getElementById('adminContentModal').style.display = 'block';
+            const typeNames = {
+                content: 'Content',
+                subsection: 'Sub-Section',
+                pdf: 'PDF',
+                photo: 'Photo',
+                video: 'Video',
+                job: 'Job',
+                quiz: 'Quiz',
+                form: 'Form'
+            };
+
+            modalTitle.textContent = isEdit ? `✏️ Edit ${typeNames[type]}` : `➕ Add ${typeNames[type]}`;
+
+            let html = `<input type="hidden" id="adminEditType" value="${type}"><input type="hidden" id="adminEditIndex" value="${isEdit ? adminData[getStorageKey(type)].indexOf(data) : -1}">`;
+
+            switch(type) {
+                case 'content':
+                    html += contentFormHTML(isEdit, data);
+                    break;
+                case 'subsection':
+                    html += subsectionFormHTML(isEdit, data);
+                    break;
+                case 'pdf':
+                case 'photo':
+                case 'video':
+                    html += fileFormHTML(type, isEdit, data);
+                    break;
+                case 'job':
+                    html += jobFormHTML(isEdit, data);
+                    break;
+                case 'quiz':
+                    html += quizFormHTML(isEdit, data);
+                    break;
+                case 'form':
+                    html += formFormHTML(isEdit, data);
+                    break;
+                default:
+                    html = '<p>Invalid type</p>';
+            }
+
+            modalBody.innerHTML = html;
+            document.getElementById('adminModalOverlay').classList.add('active');
         }
 
-        function editAdminContent(id) {
-            const item = adminData.content.find(c => c.id === id);
-            if (!item) return;
-            document.getElementById('adminContentModalTitle').textContent = '✏️ Edit Content';
-            document.getElementById('adminContentEditId').value = id;
-            document.getElementById('adminContentTitle').value = item.title;
-            document.getElementById('adminContentCategory').value = item.category;
-            document.getElementById('adminContentBody').value = item.body;
-            document.getElementById('adminContentTags').value = item.tags || '';
-            document.getElementById('adminContentModal').style.display = 'block';
+        function getStorageKey(type) {
+            const map = { content: 'content', subsection: 'subSections', pdf: 'pdfs', photo: 'photos', video: 'videos', job: 'jobs', quiz: 'quizzes', form: 'forms' };
+            return map[type] || type + 's';
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModalOverlay').classList.remove('active');
+        }
+
+        // ============================================================
+        // CONTENT FORM
+        // ============================================================
+        function contentFormHTML(isEdit, data) {
+            const categories = ['Study', 'Career', 'Books', 'Rajasthan GK', 'Quiz', 'More Features', 'Government Jobs', 'General'];
+            const catOptions = categories.map(c => `<option value="${c}" ${isEdit && data?.category === c ? 'selected' : ''}>${c}</option>`).join('');
+            return `
+                <div class="form-group"><label>Title <span class="required">*</span></label><input type="text" id="contentTitle" value="${isEdit ? data.title : ''}"></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Category <span class="required">*</span></label><select id="contentCategory">${catOptions}</select></div>
+                    <div class="form-group"><label>Sub-Section</label><input type="text" id="contentSubSection" value="${isEdit ? data.subSection : ''}" placeholder="Optional"></div>
+                </div>
+                <div class="form-group"><label>Description <span class="required">*</span></label><textarea id="contentBody">${isEdit ? data.body : ''}</textarea></div>
+                <div class="form-group"><label>Tags</label><input type="text" id="contentTags" value="${isEdit ? data.tags : ''}" placeholder="Comma separated"></div>
+                <button class="btn-submit" onclick="saveAdminContent()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
         }
 
         function saveAdminContent() {
-            const id = document.getElementById('adminContentEditId').value;
-            const title = document.getElementById('adminContentTitle').value.trim();
-            const category = document.getElementById('adminContentCategory').value.trim();
-            const body = document.getElementById('adminContentBody').value.trim();
-            const tags = document.getElementById('adminContentTags').value.trim();
-            if (!title || !category || !body) { alert('⚠️ Fill all required fields!'); return; }
-            
-            let newItem = { id: Date.now(), title, category, body, tags };
-            
-            if (id) {
-                const item = adminData.content.find(c => c.id === parseInt(id));
-                if (item) { item.title = title; item.category = category; item.body = body; item.tags = tags; }
-            } else {
-                adminData.content.push(newItem);
+            const index = parseInt(document.getElementById('adminEditIndex').value);
+            const title = document.getElementById('contentTitle').value.trim();
+            const category = document.getElementById('contentCategory').value;
+            const subSection = document.getElementById('contentSubSection').value.trim();
+            const body = document.getElementById('contentBody').value.trim();
+            const tags = document.getElementById('contentTags').value.trim();
+
+            if (!title || !category || !body) {
+                showToast('Please fill all required fields!', 'error');
+                return;
             }
+
+            const item = { id: Date.now(), title, category, subSection, body, tags };
+
+            if (index >= 0 && index < adminData.content.length) {
+                adminData.content[index] = item;
+                showToast('✅ Content updated!', 'success');
+            } else {
+                adminData.content.push(item);
+                showToast('✅ Content added!', 'success');
+            }
+
             saveAdminData();
-            closeAdminModal('adminContentModal');
+            closeAdminModal();
             renderAdminContent();
             renderAdminDashboard();
-            
-            // ✅ Update website data with new content
-            updateWebsiteFromAdmin();
-            showToast('✅ Content saved! Refreshing website...', 'success');
         }
 
-        function deleteAdminContent(id) {
+        function editAdminContent(index) {
+            const data = adminData.content[index];
+            if (data) openAdminModal('content', data);
+        }
+
+        function deleteAdminContent(index) {
             if (!confirm('Delete this content?')) return;
-            adminData.content = adminData.content.filter(c => c.id !== id);
+            adminData.content.splice(index, 1);
             saveAdminData();
             renderAdminContent();
             renderAdminDashboard();
-            updateWebsiteFromAdmin();
-            showToast('✅ Content deleted!', 'success');
+            showToast('🗑️ Content deleted!', 'warning');
         }
 
-        // ================= ADMIN JOBS =================
-        function renderAdminJobs(category = 'all') {
-            const container = document.getElementById('adminJobList');
-            let items = adminData.jobs;
-            if (category !== 'all') items = items.filter(j => j.category === category);
-            if (items.length === 0) { container.innerHTML = '<div class="empty-state">💼 No jobs. Click "Add New Job" to add.</div>'; return; }
-            container.innerHTML = items.map(j => `
-                <div class="job-item">
-                    <div><strong>${j.title}</strong><span style="color:#888;font-size:13px;margin-left:10px;">🏛️ ${j.department}</span></div>
-                    <div class="actions">
-                        <button class="btn-edit" onclick="editAdminJob(${j.id})">✏️</button>
-                        <button class="btn-delete" onclick="deleteAdminJob(${j.id})">🗑️</button>
-                    </div>
+        // ============================================================
+        // SUB-SECTION FORM
+        // ============================================================
+        function subsectionFormHTML(isEdit, data) {
+            const categories = ['Study', 'Career', 'Books', 'Rajasthan GK', 'Quiz', 'More Features', 'Government Jobs', 'General'];
+            const catOptions = categories.map(c => `<option value="${c}" ${isEdit && data?.parentCategory === c ? 'selected' : ''}>${c}</option>`).join('');
+            const icons = ['📁', '📚', '🎯', '📖', '🏜️', '🧠', '⚙️', '🏛️', '📝', '💼', '🎓', '📊'];
+            const iconOptions = icons.map(i => `<option value="${i}" ${isEdit && data?.icon === i ? 'selected' : ''}>${i}</option>`).join('');
+            return `
+                <div class="form-group"><label>Sub-Section Name <span class="required">*</span></label><input type="text" id="subSectionName" value="${isEdit ? data.name : ''}"></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Parent Category <span class="required">*</span></label><select id="subSectionParent">${catOptions}</select></div>
+                    <div class="form-group"><label>Icon</label><select id="subSectionIcon">${iconOptions}</select></div>
                 </div>
+                <div class="form-group"><label>Description</label><textarea id="subSectionDescription">${isEdit ? data.description : ''}</textarea></div>
+                <button class="btn-submit" onclick="saveAdminSubSection()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+        }
+
+        function saveAdminSubSection() {
+            const index = parseInt(document.getElementById('adminEditIndex').value);
+            const name = document.getElementById('subSectionName').value.trim();
+            const parentCategory = document.getElementById('subSectionParent').value;
+            const icon = document.getElementById('subSectionIcon').value;
+            const description = document.getElementById('subSectionDescription').value.trim();
+
+            if (!name || !parentCategory) {
+                showToast('Please fill all required fields!', 'error');
+                return;
+            }
+
+            const item = { id: Date.now(), name, parentCategory, icon: icon || '📁', description };
+
+            if (index >= 0 && index < adminData.subSections.length) {
+                adminData.subSections[index] = item;
+                showToast('✅ Sub-Section updated!', 'success');
+            } else {
+                adminData.subSections.push(item);
+                showToast('✅ Sub-Section added!', 'success');
+            }
+
+            saveAdminData();
+            closeAdminModal();
+            renderAdminSubSections();
+            renderAdminDashboard();
+        }
+
+        function renderAdminSubSections() {
+            const tbody = document.getElementById('adminSubSectionTable');
+            if (!tbody) return;
+            const items = adminData.subSections || [];
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No sub-sections added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.name}</strong></td>
+                    <td><span class="category-badge ${(item.parentCategory || 'general').toLowerCase()}">${item.parentCategory || 'General'}</span></td>
+                    <td style="font-size:20px;">${item.icon || '📁'}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editAdminSubSection(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteAdminSubSection(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
             `).join('');
         }
 
-        function filterAdminJobs(value) { renderAdminJobs(value); }
-
-        function openAdminJobForm() {
-            document.getElementById('adminJobModalTitle').textContent = '💼 Add New Job';
-            document.getElementById('adminJobEditId').value = '';
-            document.getElementById('adminJobTitle').value = '';
-            document.getElementById('adminJobDepartment').value = '';
-            document.getElementById('adminJobCategory').value = 'central';
-            document.getElementById('adminJobEligibility').value = '';
-            document.getElementById('adminJobAge').value = '';
-            document.getElementById('adminJobLastDate').value = '';
-            document.getElementById('adminJobDescription').value = '';
-            document.getElementById('adminJobModal').style.display = 'block';
+        function editAdminSubSection(index) {
+            const data = adminData.subSections[index];
+            if (data) openAdminModal('subsection', data);
         }
 
-        function editAdminJob(id) {
-            const item = adminData.jobs.find(j => j.id === id);
-            if (!item) return;
-            document.getElementById('adminJobModalTitle').textContent = '✏️ Edit Job';
-            document.getElementById('adminJobEditId').value = id;
-            document.getElementById('adminJobTitle').value = item.title;
-            document.getElementById('adminJobDepartment').value = item.department;
-            document.getElementById('adminJobCategory').value = item.category;
-            document.getElementById('adminJobEligibility').value = item.eligibility || '';
-            document.getElementById('adminJobAge').value = item.age || '';
-            document.getElementById('adminJobLastDate').value = item.lastDate || '';
-            document.getElementById('adminJobDescription').value = item.description || '';
-            document.getElementById('adminJobModal').style.display = 'block';
+        function deleteAdminSubSection(index) {
+            if (!confirm('Delete this sub-section?')) return;
+            adminData.subSections.splice(index, 1);
+            saveAdminData();
+            renderAdminSubSections();
+            renderAdminDashboard();
+            showToast('🗑️ Sub-Section deleted!', 'warning');
+        }
+
+        // ============================================================
+        // FILE FORMS (PDF, PHOTO, VIDEO)
+        // ============================================================
+        function fileFormHTML(type, isEdit, data) {
+            const typeNames = { pdf: 'PDF', photo: 'Photo', video: 'Video' };
+            const categories = ['Study', 'Career', 'Books', 'Rajasthan GK', 'Quiz', 'More Features', 'Government Jobs', 'General'];
+            const catOptions = categories.map(c => `<option value="${c}" ${isEdit && data?.category === c ? 'selected' : ''}>${c}</option>`).join('');
+
+            let fileHtml = '';
+            if (!isEdit) {
+                const accept = type === 'pdf' ? '.pdf' : type === 'photo' ? 'image/*' : 'video/*';
+                fileHtml = `
+                    <div class="form-group"><label>Choose ${typeNames[type]} File <span class="required">*</span></label>
+                    <input type="file" id="adminFileInput" accept="${accept}" onchange="previewAdminFile(event, '${type}')"></div>
+                    <div id="adminFilePreview"></div>
+                `;
+            }
+
+            return `
+                <input type="hidden" id="adminFileType" value="${type}">
+                <div class="form-group"><label>File Name <span class="required">*</span></label><input type="text" id="adminFileName" value="${isEdit ? data.name : ''}"></div>
+                <div class="form-group"><label>Category <span class="required">*</span></label><select id="adminFileCategory">${catOptions}</select></div>
+                ${fileHtml}
+                <div class="form-group"><label>Description</label><textarea id="adminFileDescription">${isEdit ? data.description : ''}</textarea></div>
+                <button class="btn-submit" onclick="saveAdminFile()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Upload'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+        }
+
+        function previewAdminFile(event, type) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const preview = document.getElementById('adminFilePreview');
+            if (type === 'photo') {
+                const reader = new FileReader();
+                reader.onload = e => { preview.innerHTML = `<div style="margin-top:8px;"><img src="${e.target.result}" style="max-width:150px;max-height:150px;border-radius:6px;border:1px solid var(--border-color);"></div>`; };
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = `<div style="margin-top:8px;font-size:12px;color:var(--text-light);">📎 ${file.name} (${(file.size/1024).toFixed(1)} KB)</div>`;
+            }
+            document.getElementById('adminFileName').value = file.name;
+        }
+
+        function saveAdminFile() {
+            const type = document.getElementById('adminFileType').value;
+            const index = parseInt(document.getElementById('adminEditIndex').value);
+            const name = document.getElementById('adminFileName').value.trim();
+            const category = document.getElementById('adminFileCategory').value;
+            const description = document.getElementById('adminFileDescription').value.trim();
+
+            if (!name || !category) {
+                showToast('Please fill all required fields!', 'error');
+                return;
+            }
+
+            const fileInput = document.getElementById('adminFileInput');
+            let fileData = null;
+            if (fileInput && fileInput.files.length > 0) {
+                fileData = {
+                    name: fileInput.files[0].name,
+                    size: fileInput.files[0].size,
+                    type: fileInput.files[0].type,
+                    data: URL.createObjectURL(fileInput.files[0])
+                };
+            }
+
+            const item = { id: Date.now(), name, category, description, file: fileData, uploaded: new Date().toLocaleDateString('hi-IN') };
+            const storageKey = getStorageKey(type);
+
+            if (index >= 0 && index < adminData[storageKey].length) {
+                adminData[storageKey][index] = item;
+                showToast(`✅ ${type.toUpperCase()} updated!`, 'success');
+            } else {
+                if (!fileData) {
+                    showToast('Please select a file to upload!', 'error');
+                    return;
+                }
+                adminData[storageKey].push(item);
+                showToast(`✅ ${type.toUpperCase()} uploaded!`, 'success');
+            }
+
+            saveAdminData();
+            closeAdminModal();
+            renderAdminFiles(type);
+            renderAdminDashboard();
+        }
+
+        function renderAdminFiles(type) {
+            const storageKey = getStorageKey(type);
+            const tbodyMap = { pdf: 'adminPdfTable', photo: 'adminPhotoTable', video: 'adminVideoTable' };
+            const tbody = document.getElementById(tbodyMap[type]);
+            if (!tbody) return;
+            const items = adminData[storageKey] || [];
+
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No ${type}s uploaded yet</td></tr>`;
+                return;
+            }
+
+            if (type === 'photo') {
+                tbody.innerHTML = items.map((item, i) => `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td><div style="width:40px;height:40px;border-radius:4px;overflow:hidden;border:1px solid var(--border-color);background:var(--bg-color);">
+                            ${item.file?.data ? `<img src="${item.file.data}" style="width:100%;height:100%;object-fit:cover;">` : '📷'}
+                        </div></td>
+                        <td><strong>${item.name}</strong></td>
+                        <td><span class="category-badge ${(item.category || 'general').toLowerCase()}">${item.category || 'General'}</span></td>
+                        <td class="actions">
+                            <button class="btn-view" onclick="viewAdminFile('${type}', ${i})"><i class="fas fa-eye"></i></button>
+                            <button class="btn-edit" onclick="editAdminFile('${type}', ${i})"><i class="fas fa-edit"></i></button>
+                            <button class="btn-delete" onclick="deleteAdminFile('${type}', ${i})"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            } else {
+                const icons = { pdf: '📄', video: '🎬' };
+                tbody.innerHTML = items.map((item, i) => `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td><i class="fas fa-${type === 'pdf' ? 'file-pdf' : 'video'}" style="font-size:20px;color:${type === 'pdf' ? '#dc3545' : '#ffc107'};margin-right:6px;"></i> <strong>${item.name}</strong></td>
+                        <td><span class="category-badge ${(item.category || 'general').toLowerCase()}">${item.category || 'General'}</span></td>
+                        <td>${item.file?.size ? (item.file.size/1024).toFixed(1) + ' KB' : '-'}</td>
+                        <td class="actions">
+                            <button class="btn-view" onclick="viewAdminFile('${type}', ${i})"><i class="fas fa-eye"></i></button>
+                            <button class="btn-edit" onclick="editAdminFile('${type}', ${i})"><i class="fas fa-edit"></i></button>
+                            <button class="btn-delete" onclick="deleteAdminFile('${type}', ${i})"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function viewAdminFile(type, index) {
+            const storageKey = getStorageKey(type);
+            const item = adminData[storageKey][index];
+            if (item?.file?.data) {
+                window.open(item.file.data, '_blank');
+            } else {
+                showToast('File not available', 'warning');
+            }
+        }
+
+        function editAdminFile(type, index) {
+            const storageKey = getStorageKey(type);
+            const data = adminData[storageKey][index];
+            if (data) openAdminModal(type, data);
+        }
+
+        function deleteAdminFile(type, index) {
+            if (!confirm(`Delete this ${type.toUpperCase()}?`)) return;
+            const storageKey = getStorageKey(type);
+            adminData[storageKey].splice(index, 1);
+            saveAdminData();
+            renderAdminFiles(type);
+            renderAdminDashboard();
+            showToast(`🗑️ ${type.toUpperCase()} deleted!`, 'warning');
+        }
+
+        // ============================================================
+        // JOB CRUD
+        // ============================================================
+        function jobFormHTML(isEdit, data) {
+            return `
+                <div class="form-group"><label>Job Title <span class="required">*</span></label><input type="text" id="jobTitle" value="${isEdit ? data.title : ''}"></div>
+                <div class="form-group"><label>Department <span class="required">*</span></label><input type="text" id="jobDepartment" value="${isEdit ? data.department : ''}"></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Category</label><select id="jobCategory"><option value="central" ${isEdit && data?.category === 'central' ? 'selected' : ''}>🇮🇳 Central</option><option value="state" ${isEdit && data?.category === 'state' ? 'selected' : ''}>🏜️ State</option></select></div>
+                    <div class="form-group"><label>Eligibility</label><input type="text" id="jobEligibility" value="${isEdit ? data.eligibility : ''}"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Age Limit</label><input type="text" id="jobAge" value="${isEdit ? data.age : ''}"></div>
+                    <div class="form-group"><label>Last Date</label><input type="text" id="jobLastDate" value="${isEdit ? data.lastDate : ''}"></div>
+                </div>
+                <div class="form-group"><label>Description</label><textarea id="jobDescription">${isEdit ? data.description : ''}</textarea></div>
+                <button class="btn-submit" onclick="saveAdminJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
         }
 
         function saveAdminJob() {
-            const id = document.getElementById('adminJobEditId').value;
-            const title = document.getElementById('adminJobTitle').value.trim();
-            const department = document.getElementById('adminJobDepartment').value.trim();
-            const category = document.getElementById('adminJobCategory').value;
-            const eligibility = document.getElementById('adminJobEligibility').value.trim();
-            const age = document.getElementById('adminJobAge').value.trim();
-            const lastDate = document.getElementById('adminJobLastDate').value.trim();
-            const description = document.getElementById('adminJobDescription').value.trim();
-            if (!title || !department) { alert('⚠️ Fill title and department!'); return; }
-            
-            if (id) {
-                const item = adminData.jobs.find(j => j.id === parseInt(id));
-                if (item) { item.title = title; item.department = department; item.category = category; item.eligibility = eligibility; item.age = age; item.lastDate = lastDate; item.description = description; }
-            } else {
-                adminData.jobs.push({ id: Date.now(), title, department, category, eligibility, age, lastDate, description });
+            const index = parseInt(document.getElementById('adminEditIndex').value);
+            const title = document.getElementById('jobTitle').value.trim();
+            const department = document.getElementById('jobDepartment').value.trim();
+            const category = document.getElementById('jobCategory').value;
+            const eligibility = document.getElementById('jobEligibility').value.trim();
+            const age = document.getElementById('jobAge').value.trim();
+            const lastDate = document.getElementById('jobLastDate').value.trim();
+            const description = document.getElementById('jobDescription').value.trim();
+
+            if (!title || !department) {
+                showToast('Please fill title and department!', 'error');
+                return;
             }
+
+            const item = { id: Date.now(), title, department, category, eligibility, age, lastDate, description };
+
+            if (index >= 0 && index < adminData.jobs.length) {
+                adminData.jobs[index] = item;
+                showToast('✅ Job updated!', 'success');
+            } else {
+                adminData.jobs.push(item);
+                showToast('✅ Job added!', 'success');
+            }
+
             saveAdminData();
-            closeAdminModal('adminJobModal');
+            closeAdminModal();
             renderAdminJobs();
             renderAdminDashboard();
-            updateWebsiteFromAdmin();
-            showToast('✅ Job saved! Refreshing website...', 'success');
         }
 
-        function deleteAdminJob(id) {
-            if (!confirm('Delete this job?')) return;
-            adminData.jobs = adminData.jobs.filter(j => j.id !== id);
-            saveAdminData();
-            renderAdminJobs();
-            renderAdminDashboard();
-            updateWebsiteFromAdmin();
-            showToast('✅ Job deleted!', 'success');
-        }
-
-        // ================= ADMIN QUIZ =================
-        function renderAdminQuizzes() {
-            const container = document.getElementById('adminQuizList');
-            if (adminData.quizzes.length === 0) { container.innerHTML = '<div class="empty-state">🧠 No quizzes. Click "Add New Quiz" to add.</div>'; return; }
-            container.innerHTML = adminData.quizzes.map(q => `
-                <div class="quiz-item">
-                    <div><strong>${q.title}</strong><span style="color:#888;font-size:13px;margin-left:10px;">📂 ${q.category}</span></div>
-                    <div class="actions">
-                        <button class="btn-edit" onclick="editAdminQuiz(${q.id})">✏️</button>
-                        <button class="btn-delete" onclick="deleteAdminQuiz(${q.id})">🗑️</button>
-                    </div>
-                </div>
+        function renderAdminJobs() {
+            const tbody = document.getElementById('adminJobsTable');
+            if (!tbody) return;
+            const items = adminData.jobs || [];
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No jobs added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.title}</strong></td>
+                    <td>${item.department || '-'}</td>
+                    <td><span style="background:${item.category === 'central' ? '#1976d2' : '#16a34a'};color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;">${item.category === 'central' ? '🇮🇳 Central' : '🏜️ State'}</span></td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editAdminJob(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteAdminJob(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
             `).join('');
         }
 
-        function openAdminQuizForm() {
-            document.getElementById('adminQuizModalTitle').textContent = '🧠 Add New Quiz';
-            document.getElementById('adminQuizEditId').value = '';
-            document.getElementById('adminQuizTitle').value = '';
-            document.getElementById('adminQuizCategory').value = '';
-            document.getElementById('adminQuizQuestions').innerHTML = '';
-            addAdminQuestion();
-            document.getElementById('adminQuizModal').style.display = 'block';
+        function editAdminJob(index) {
+            const data = adminData.jobs[index];
+            if (data) openAdminModal('job', data);
         }
 
-        function editAdminQuiz(id) {
-            const item = adminData.quizzes.find(q => q.id === id);
-            if (!item) return;
-            document.getElementById('adminQuizModalTitle').textContent = '✏️ Edit Quiz';
-            document.getElementById('adminQuizEditId').value = id;
-            document.getElementById('adminQuizTitle').value = item.title;
-            document.getElementById('adminQuizCategory').value = item.category;
-            document.getElementById('adminQuizQuestions').innerHTML = '';
-            if (item.questions) {
-                item.questions.forEach(q => {
-                    const div = document.createElement('div');
-                    div.className = 'question-item';
-                    div.innerHTML = `
-                        <input type="text" placeholder="Question" class="q-text" value="${q.question || ''}">
-                        <input type="text" placeholder="A" class="q-opt1" value="${q.options && q.options[0] || ''}">
-                        <input type="text" placeholder="B" class="q-opt2" value="${q.options && q.options[1] || ''}">
-                        <input type="text" placeholder="C" class="q-opt3" value="${q.options && q.options[2] || ''}">
-                        <input type="text" placeholder="D" class="q-opt4" value="${q.options && q.options[3] || ''}">
-                        <select class="q-answer">
-                            <option value="0" ${q.answer === 0 ? 'selected' : ''}>A</option>
-                            <option value="1" ${q.answer === 1 ? 'selected' : ''}>B</option>
-                            <option value="2" ${q.answer === 2 ? 'selected' : ''}>C</option>
-                            <option value="3" ${q.answer === 3 ? 'selected' : ''}>D</option>
-                        </select>
-                    `;
-                    document.getElementById('adminQuizQuestions').appendChild(div);
-                });
-            }
-            document.getElementById('adminQuizModal').style.display = 'block';
+        function deleteAdminJob(index) {
+            if (!confirm('Delete this job?')) return;
+            adminData.jobs.splice(index, 1);
+            saveAdminData();
+            renderAdminJobs();
+            renderAdminDashboard();
+            showToast('🗑️ Job deleted!', 'warning');
+        }
+
+        // ============================================================
+        // QUIZ CRUD
+        // ============================================================
+        function quizFormHTML(isEdit, data) {
+            const questions = data?.questions || [];
+            const qHtml = questions.map((q, qi) => `
+                <div class="question-item">
+                    <input type="text" placeholder="Question" class="q-text" value="${q.question || ''}">
+                    <div class="form-row">
+                        <input type="text" placeholder="A" class="q-opt1" value="${q.options?.[0] || ''}">
+                        <input type="text" placeholder="B" class="q-opt2" value="${q.options?.[1] || ''}">
+                        <input type="text" placeholder="C" class="q-opt3" value="${q.options?.[2] || ''}">
+                        <input type="text" placeholder="D" class="q-opt4" value="${q.options?.[3] || ''}">
+                    </div>
+                    <select class="q-answer"><option value="0" ${q.answer === 0 ? 'selected' : ''}>A</option><option value="1" ${q.answer === 1 ? 'selected' : ''}>B</option><option value="2" ${q.answer === 2 ? 'selected' : ''}>C</option><option value="3" ${q.answer === 3 ? 'selected' : ''}>D</option></select>
+                </div>
+            `).join('') || '<div class="question-item">Add questions below</div>';
+
+            return `
+                <div class="form-group"><label>Quiz Title <span class="required">*</span></label><input type="text" id="quizTitle" value="${isEdit ? data.title : ''}"></div>
+                <div class="form-group"><label>Category <span class="required">*</span></label>
+                    <select id="quizCategory">
+                        <option value="GK" ${isEdit && data?.category === 'GK' ? 'selected' : ''}>🌐 GK</option>
+                        <option value="Rajasthan" ${isEdit && data?.category === 'Rajasthan' ? 'selected' : ''}>🏜️ Rajasthan</option>
+                        <option value="Exam" ${isEdit && data?.category === 'Exam' ? 'selected' : ''}>📝 Exam</option>
+                        <option value="Current Affairs" ${isEdit && data?.category === 'Current Affairs' ? 'selected' : ''}>📰 Current Affairs</option>
+                        <option value="History" ${isEdit && data?.category === 'History' ? 'selected' : ''}>📜 History</option>
+                        <option value="Geography" ${isEdit && data?.category === 'Geography' ? 'selected' : ''}>🗺️ Geography</option>
+                        <option value="Polity" ${isEdit && data?.category === 'Polity' ? 'selected' : ''}>⚖️ Polity</option>
+                        <option value="Science" ${isEdit && data?.category === 'Science' ? 'selected' : ''}>🔬 Science</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Questions</label>
+                    <div id="adminQuizQuestions">${qHtml}</div>
+                    <button class="btn-add-question" onclick="addAdminQuestion()"><i class="fas fa-plus"></i> Add Question</button>
+                </div>
+                <button class="btn-submit" onclick="saveAdminQuiz()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
         }
 
         function addAdminQuestion() {
             const container = document.getElementById('adminQuizQuestions');
+            if (!container) return;
             const div = document.createElement('div');
             div.className = 'question-item';
             div.innerHTML = `
                 <input type="text" placeholder="Question" class="q-text">
-                <input type="text" placeholder="Option A" class="q-opt1">
-                <input type="text" placeholder="Option B" class="q-opt2">
-                <input type="text" placeholder="Option C" class="q-opt3">
-                <input type="text" placeholder="Option D" class="q-opt4">
+                <div class="form-row">
+                    <input type="text" placeholder="A" class="q-opt1">
+                    <input type="text" placeholder="B" class="q-opt2">
+                    <input type="text" placeholder="C" class="q-opt3">
+                    <input type="text" placeholder="D" class="q-opt4">
+                </div>
                 <select class="q-answer"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select>
             `;
             container.appendChild(div);
         }
 
         function saveAdminQuiz() {
-            const id = document.getElementById('adminQuizEditId').value;
-            const title = document.getElementById('adminQuizTitle').value.trim();
-            const category = document.getElementById('adminQuizCategory').value.trim();
-            if (!title || !category) { alert('⚠️ Fill title and category!'); return; }
+            const index = parseInt(document.getElementById('adminEditIndex').value);
+            const title = document.getElementById('quizTitle').value.trim();
+            const category = document.getElementById('quizCategory').value;
+
+            if (!title || !category) {
+                showToast('Please fill title and category!', 'error');
+                return;
+            }
+
             const items = document.querySelectorAll('#adminQuizQuestions .question-item');
             const questions = [];
             items.forEach(item => {
-                const q = item.querySelector('.q-text').value.trim();
-                const opt1 = item.querySelector('.q-opt1').value.trim();
-                const opt2 = item.querySelector('.q-opt2').value.trim();
-                const opt3 = item.querySelector('.q-opt3').value.trim();
-                const opt4 = item.querySelector('.q-opt4').value.trim();
-                const answer = parseInt(item.querySelector('.q-answer').value);
-                if (q && opt1 && opt2 && opt3 && opt4) { questions.push({ question: q, options: [opt1, opt2, opt3, opt4], answer }); }
+                const q = item.querySelector('.q-text')?.value.trim();
+                const opt1 = item.querySelector('.q-opt1')?.value.trim();
+                const opt2 = item.querySelector('.q-opt2')?.value.trim();
+                const opt3 = item.querySelector('.q-opt3')?.value.trim();
+                const opt4 = item.querySelector('.q-opt4')?.value.trim();
+                const answer = parseInt(item.querySelector('.q-answer')?.value || 0);
+                if (q && opt1 && opt2 && opt3 && opt4) {
+                    questions.push({ question: q, options: [opt1, opt2, opt3, opt4], answer });
+                }
             });
-            if (questions.length === 0) { alert('⚠️ Add at least one complete question!'); return; }
-            
-            if (id) {
-                const item = adminData.quizzes.find(q => q.id === parseInt(id));
-                if (item) { item.title = title; item.category = category; item.questions = questions; }
-            } else {
-                adminData.quizzes.push({ id: Date.now(), title, category, questions });
+
+            if (questions.length === 0) {
+                showToast('Please add at least one complete question!', 'error');
+                return;
             }
+
+            const item = { id: Date.now(), title, category, questions };
+
+            if (index >= 0 && index < adminData.quizzes.length) {
+                adminData.quizzes[index] = item;
+                showToast('✅ Quiz updated!', 'success');
+            } else {
+                adminData.quizzes.push(item);
+                showToast('✅ Quiz added!', 'success');
+            }
+
             saveAdminData();
-            closeAdminModal('adminQuizModal');
-            renderAdminQuizzes();
+            closeAdminModal();
+            renderAdminQuiz();
             renderAdminDashboard();
-            updateWebsiteFromAdmin();
-            showToast('✅ Quiz saved! Refreshing website...', 'success');
         }
 
-        function deleteAdminQuiz(id) {
-            if (!confirm('Delete this quiz?')) return;
-            adminData.quizzes = adminData.quizzes.filter(q => q.id !== id);
-            saveAdminData();
-            renderAdminQuizzes();
-            renderAdminDashboard();
-            updateWebsiteFromAdmin();
-            showToast('✅ Quiz deleted!', 'success');
-        }
-
-        // ================= ADMIN USERS =================
-        function renderAdminUsers(filter = '') {
-            const container = document.getElementById('adminUserList');
-            let items = adminData.users;
-            if (filter) items = items.filter(u => u.name.toLowerCase().includes(filter.toLowerCase()));
-            if (items.length === 0) { container.innerHTML = '<div class="empty-state">👥 No users.</div>'; return; }
-            container.innerHTML = items.map(u => `
-                <div class="user-item">
-                    <div><strong>${u.name}</strong><span style="color:#888;font-size:13px;margin-left:10px;">📧 ${u.email}</span></div>
-                    <div class="actions"><button class="btn-delete" onclick="deleteAdminUser(${u.id})">🗑️</button></div>
-                </div>
+        function renderAdminQuiz() {
+            const tbody = document.getElementById('adminQuizTable');
+            if (!tbody) return;
+            const items = adminData.quizzes || [];
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No quizzes added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.title}</strong></td>
+                    <td><span style="background:#17a2b8;color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;">${item.category || 'GK'}</span></td>
+                    <td>${item.questions?.length || 0}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editAdminQuiz(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteAdminQuiz(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
             `).join('');
         }
 
-        function filterAdminUsers(input) { renderAdminUsers(input.value); }
+        function editAdminQuiz(index) {
+            const data = adminData.quizzes[index];
+            if (data) openAdminModal('quiz', data);
+        }
 
-        function deleteAdminUser(id) {
-            if (!confirm('Delete this user?')) return;
-            adminData.users = adminData.users.filter(u => u.id !== id);
+        function deleteAdminQuiz(index) {
+            if (!confirm('Delete this quiz?')) return;
+            adminData.quizzes.splice(index, 1);
             saveAdminData();
-            renderAdminUsers();
+            renderAdminQuiz();
+            renderAdminDashboard();
+            showToast('🗑️ Quiz deleted!', 'warning');
+        }
+
+        // ============================================================
+        // FORMS CRUD
+        // ============================================================
+        function formFormHTML(isEdit, data) {
+            const categories = ['Government', 'Jobs', 'Education', 'Banking', 'Insurance', 'Rajasthan Govt', 'Other'];
+            const catOptions = categories.map(c => `<option value="${c}" ${isEdit && data?.category === c ? 'selected' : ''}>${c}</option>`).join('');
+            return `
+                <div class="form-group"><label>Form Name <span class="required">*</span></label><input type="text" id="formTitle" value="${isEdit ? data.title : ''}"></div>
+                <div class="form-group"><label>Category <span class="required">*</span></label><select id="formCategory">${catOptions}</select></div>
+                <div class="form-group"><label>Link <span class="required">*</span></label><input type="url" id="formLink" value="${isEdit ? data.link : ''}" placeholder="https://example.com"></div>
+                <div class="form-group"><label>Description</label><textarea id="formDescription">${isEdit ? data.description : ''}</textarea></div>
+                <button class="btn-submit" onclick="saveAdminForm()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+        }
+
+        function saveAdminForm() {
+            const index = parseInt(document.getElementById('adminEditIndex').value);
+            const title = document.getElementById('formTitle').value.trim();
+            const category = document.getElementById('formCategory').value;
+            const link = document.getElementById('formLink').value.trim();
+            const description = document.getElementById('formDescription').value.trim();
+
+            if (!title || !category || !link) {
+                showToast('Please fill all required fields!', 'error');
+                return;
+            }
+
+            const item = { id: Date.now(), title, category, link, description };
+
+            if (index >= 0 && index < adminData.forms.length) {
+                adminData.forms[index] = item;
+                showToast('✅ Form updated!', 'success');
+            } else {
+                adminData.forms.push(item);
+                showToast('✅ Form added!', 'success');
+            }
+
+            saveAdminData();
+            closeAdminModal();
+            renderAdminForms();
             renderAdminDashboard();
         }
 
-        // ================= ADMIN NOTIFICATIONS =================
+        function renderAdminForms() {
+            const tbody = document.getElementById('adminFormsTable');
+            if (!tbody) return;
+            const items = adminData.forms || [];
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No forms added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.title}</strong></td>
+                    <td><span style="background:#17a2b8;color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;">${item.category || 'General'}</span></td>
+                    <td><a href="${item.link}" target="_blank" style="color:var(--primary-light);">🔗 Link</a></td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editAdminForm(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteAdminForm(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function editAdminForm(index) {
+            const data = adminData.forms[index];
+            if (data) openAdminModal('form', data);
+        }
+
+        function deleteAdminForm(index) {
+            if (!confirm('Delete this form?')) return;
+            adminData.forms.splice(index, 1);
+            saveAdminData();
+            renderAdminForms();
+            renderAdminDashboard();
+            showToast('🗑️ Form deleted!', 'warning');
+        }
+
+        // ============================================================
+        // ADMIN NOTIFICATIONS
+        // ============================================================
         function sendAdminNotification() {
             const title = document.getElementById('adminNotifTitle').value.trim();
             const message = document.getElementById('adminNotifMessage').value.trim();
             const type = document.getElementById('adminNotifType').value;
-            if (!title || !message) { alert('⚠️ Fill both fields!'); return; }
-            adminData.notifications.unshift({ id: Date.now(), title, message, type, date: new Date().toLocaleDateString('hi-IN') });
+
+            if (!title || !message) {
+                showToast('Please fill both fields!', 'error');
+                return;
+            }
+
+            adminData.notifications.unshift({
+                id: Date.now(),
+                title,
+                message,
+                type,
+                date: new Date().toLocaleDateString('hi-IN')
+            });
+
             saveAdminData();
             document.getElementById('adminNotifTitle').value = '';
             document.getElementById('adminNotifMessage').value = '';
@@ -1872,154 +2820,65 @@
 
         function renderAdminNotifications() {
             const container = document.getElementById('adminNotificationList');
-            if (adminData.notifications.length === 0) { container.innerHTML = '<div class="empty-state">🔔 No notifications.</div>'; return; }
-            container.innerHTML = adminData.notifications.map(n => `
-                <div class="notif-item" style="border-left:4px solid ${n.type === 'info' ? '#17a2b8' : n.type === 'warning' ? '#ffc107' : n.type === 'success' ? '#16a34a' : '#dc3545'};">
-                    <div><strong>${n.title}</strong><span style="color:#888;font-size:13px;margin-left:10px;">${n.message}</span></div>
-                    <div class="actions"><button class="btn-delete" onclick="deleteAdminNotification(${n.id})">🗑️</button></div>
+            if (!container) return;
+            const items = adminData.notifications || [];
+
+            if (items.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i> No notifications</div>';
+                return;
+            }
+
+            container.innerHTML = items.map((n, i) => `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border-color);border-left:3px solid ${n.type === 'info' ? '#17a2b8' : n.type === 'warning' ? '#ffc107' : n.type === 'success' ? '#16a34a' : '#dc3545'};">
+                    <div><strong>${n.title}</strong><br><span style="font-size:12px;color:var(--text-light);">${n.message}</span></div>
+                    <div style="display:flex;gap:6px;align-items:center;">
+                        <span style="font-size:10px;color:var(--text-light);">${n.date || ''}</span>
+                        <button class="btn-delete" onclick="deleteAdminNotification(${i})" style="padding:2px 6px;border:none;border-radius:4px;background:var(--danger);color:#fff;cursor:pointer;font-size:10px;"><i class="fas fa-trash"></i></button>
+                    </div>
                 </div>
             `).join('');
         }
 
-        function deleteAdminNotification(id) {
+        function deleteAdminNotification(index) {
             if (!confirm('Delete this notification?')) return;
-            adminData.notifications = adminData.notifications.filter(n => n.id !== id);
+            adminData.notifications.splice(index, 1);
             saveAdminData();
             renderAdminNotifications();
+            showToast('🗑️ Notification deleted!', 'warning');
         }
 
-        // ================= UPDATE WEBSITE FROM ADMIN =================
-        function updateWebsiteFromAdmin() {
-            // Update Content to website
-            const contentData = adminData.content;
-            if (contentData.length > 0) {
-                // Map content to appropriate sections
-                contentData.forEach(item => {
-                    const category = item.category.toLowerCase();
-                    if (category.includes('study') || category.includes('notes')) {
-                        siteData.study.sections.push({
-                            id: 'admin_' + item.id,
-                            icon: '📚',
-                            title: item.title,
-                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No content'],
-                            details: item.tags || 'Study material'
-                        });
-                    } else if (category.includes('career')) {
-                        siteData.career.sections.push({
-                            id: 'admin_' + item.id,
-                            icon: '🎯',
-                            title: item.title,
-                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No items'],
-                            details: item.tags || 'Career guidance'
-                        });
-                    } else if (category.includes('books')) {
-                        siteData.books.sections.push({
-                            id: 'admin_' + item.id,
-                            icon: '📖',
-                            title: item.title,
-                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No books'],
-                            details: item.tags || 'Books'
-                        });
-                    } else if (category.includes('rajasthan') || category.includes('gk')) {
-                        siteData.rajasthan.sections.push({
-                            id: 'admin_' + item.id,
-                            icon: '🏜️',
-                            title: item.title,
-                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No content'],
-                            details: item.tags || 'Rajasthan GK'
-                        });
-                    } else if (category.includes('quiz')) {
-                        siteData.quiz.sections.push({
-                            id: 'admin_' + item.id,
-                            icon: '🧠',
-                            title: item.title,
-                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No questions'],
-                            details: item.tags || 'Quiz'
-                        });
-                    } else {
-                        siteData.more.sections.push({
-                            id: 'admin_' + item.id,
-                            icon: '⚙️',
-                            title: item.title,
-                            items: item.body ? item.body.split(',').map(s => s.trim()) : ['No items'],
-                            details: item.tags || 'More features'
-                        });
-                    }
-                });
-            }
-
-            // Update Jobs
-            const jobsData = adminData.jobs;
-            if (jobsData.length > 0) {
-                const central = jobsData.filter(j => j.category === 'central');
-                const state = jobsData.filter(j => j.category === 'state');
-                if (central.length > 0) {
-                    siteData.centralJobs.sections = central.map(j => ({
-                        id: 'admin_' + j.id,
-                        icon: getJobIcon(j.title),
-                        title: j.title,
-                        items: [j.description || 'No description'],
-                        details: j.description || '',
-                        examDate: j.lastDate || 'Coming soon',
-                        eligibility: j.eligibility || 'Check notification',
-                        ageLimit: j.age || 'Check notification'
-                    }));
-                }
-                if (state.length > 0) {
-                    siteData.stateJobs.sections = state.map(j => ({
-                        id: 'admin_' + j.id,
-                        icon: getJobIcon(j.title),
-                        title: j.title,
-                        items: [j.description || 'No description'],
-                        details: j.description || '',
-                        examDate: j.lastDate || 'Coming soon',
-                        eligibility: j.eligibility || 'Check notification',
-                        ageLimit: j.age || 'Check notification'
-                    }));
-                }
-            }
-
-            // Reload all slides
-            const slideIds = ['centralJobs', 'stateJobs', 'study', 'career', 'books', 'rajasthan', 'quiz', 'more'];
-            slideIds.forEach(id => {
-                const grid = document.getElementById(id + 'Grid');
-                if (grid) {
-                    grid.dataset.loaded = 'false';
-                    loadSlideContent(id);
-                    grid.dataset.loaded = 'true';
-                }
-            });
-
-            console.log('✅ Website updated from Admin data!');
-        }
-
-        // ================= SETTINGS =================
+        // ============================================================
+        // ADMIN SETTINGS
+        // ============================================================
         function changeAdminPassword() {
             const newPass = document.getElementById('adminNewPass').value;
             const confirmPass = document.getElementById('adminConfirmPass').value;
-            if (!newPass || newPass.length < 6) { alert('⚠️ Password must be at least 6 characters!'); return; }
-            if (newPass !== confirmPass) { alert('⚠️ Passwords do not match!'); return; }
+
+            if (!newPass || newPass.length < 6) {
+                showToast('Password must be at least 6 characters!', 'error');
+                return;
+            }
+            if (newPass !== confirmPass) {
+                showToast('Passwords do not match!', 'error');
+                return;
+            }
+
             adminData.settings.password = newPass;
             saveAdminData();
             document.getElementById('adminNewPass').value = '';
             document.getElementById('adminConfirmPass').value = '';
-            alert('✅ Password updated!');
-        }
-
-        function clearGoogleSheetCache() {
-            localStorage.removeItem(CACHE_KEY);
-            alert('✅ Cache cleared!');
+            showToast('✅ Password updated!', 'success');
         }
 
         function exportAdminData() {
-            const dataStr = JSON.stringify(adminData, null, 2);
-            const blob = new Blob([dataStr], { type: 'application/json' });
+            const blob = new Blob([JSON.stringify(adminData, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = 'dreamjosh_backup_' + new Date().toISOString().slice(0, 10) + '.json';
             a.click();
             URL.revokeObjectURL(url);
+            showToast('📥 Data exported!', 'success');
         }
 
         function importAdminData(event) {
@@ -2029,104 +2888,146 @@
             reader.onload = function(e) {
                 try {
                     const data = JSON.parse(e.target.result);
-                    if (data.content && data.jobs && data.quizzes) {
-                        adminData = data;
+                    if (data.content || data.jobs || data.quizzes) {
+                        adminData = { ...adminData, ...data };
                         saveAdminData();
                         renderAdminDashboard();
-                        updateWebsiteFromAdmin();
-                        alert('✅ Data imported!');
-                    } else { alert('❌ Invalid format!'); }
-                } catch (err) { alert('❌ Error reading file!'); }
+                        renderAdminContent();
+                        renderAdminSubSections();
+                        renderAdminJobs();
+                        renderAdminQuiz();
+                        renderAdminForms();
+                        renderAdminNotifications();
+                        showToast('✅ Data imported!', 'success');
+                    } else {
+                        showToast('❌ Invalid format!', 'error');
+                    }
+                } catch (err) {
+                    showToast('❌ Error reading file!', 'error');
+                }
             };
             reader.readAsText(file);
             event.target.value = '';
         }
 
         function resetAdminData() {
-            if (!confirm('⚠️ Delete ALL data?')) return;
-            if (!confirm('⚠️ REALLY? This cannot be undone!')) return;
+            if (!confirm('⚠️ Delete ALL data? This cannot be undone!')) return;
+            if (!confirm('⚠️ REALLY? Are you sure?')) return;
+
             adminData.content = [];
+            adminData.subSections = [];
+            adminData.pdfs = [];
+            adminData.photos = [];
+            adminData.videos = [];
             adminData.jobs = [];
             adminData.quizzes = [];
-            adminData.users = [];
+            adminData.forms = [];
             adminData.notifications = [];
-            adminData.settings.darkMode = false;
-            document.body.classList.remove('dark-mode');
+
             saveAdminData();
             renderAdminDashboard();
-            updateWebsiteFromAdmin();
-            alert('🗑️ All data reset!');
+            renderAdminContent();
+            renderAdminSubSections();
+            renderAdminJobs();
+            renderAdminQuiz();
+            renderAdminForms();
+            renderAdminNotifications();
+            showToast('🗑️ All data reset!', 'warning');
         }
 
-        function closeAdminModal(id) { document.getElementById(id).style.display = 'none'; }
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal')) { e.target.style.display = 'none'; }
-        });
+        function refreshAdminData() {
+            showToast('🔄 Refreshing...', 'info');
+            loadAdminData();
+            renderAdminDashboard();
+            renderAdminContent();
+            renderAdminSubSections();
+            renderAdminJobs();
+            renderAdminQuiz();
+            renderAdminForms();
+            renderAdminNotifications();
+            showToast('✅ Data refreshed!', 'success');
+        }
 
-        // ================= INIT =================
+        function logoutAdmin() {
+            if (confirm('Are you sure you want to logout?')) {
+                closeAdminPanel();
+            }
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             loadAdminData();
 
-            // Load all slides
+            // Load slides
             ['centralJobs', 'stateJobs', 'study', 'rajasthan', 'quiz', 'career', 'books', 'more'].forEach(id => {
                 loadSlideContent(id);
             });
 
-            // Load from Google Sheet if configured
-            if (GOOGLE_SHEET_URL && !GOOGLE_SHEET_URL.includes('YOUR_GOOGLE_SHEET')) {
-                setTimeout(() => {
-                    loadAllDataFromSheet();
-                }, 500);
-            }
+            // Update counts
+            document.getElementById('centralJobCount').textContent = siteData.centralJobs.sections.length;
+            document.getElementById('stateJobCount').textContent = siteData.stateJobs.sections.length;
 
-            console.log('🚀 Dream Josh - Complete Edition!');
-            console.log('📌 Admin Panel: Password "admin123"');
-            console.log('📌 Admin se Add/Edit karein, website auto-update hogi!');
+            console.log('🚀 Dream Josh - Website with Integrated Admin Panel v4.0');
+            console.log('📌 Admin Panel: Click "🔐 Admin" in the header');
+            console.log('📌 Default Password: admin123');
         });
 
-        // ================= EXPOSE FUNCTIONS =================
-        window.goToSlide = goToSlide;
+        // Expose functions to global scope
         window.goHome = goHome;
-        window.openDetail = openDetail;
-        window.closeDetail = closeDetail;
+        window.goToSlide = goToSlide;
         window.openFullList = openFullList;
         window.closeFullList = closeFullList;
+        window.closeDetail = closeDetail;
         window.toggleGovtDropdown = toggleGovtDropdown;
         window.closeGovtDropdown = closeGovtDropdown;
+        window.refreshFromGoogleSheet = refreshFromGoogleSheet;
+        window.showToast = showToast;
         window.openAdminPanel = openAdminPanel;
         window.closeAdminPanel = closeAdminPanel;
-        window.refreshFromGoogleSheet = refreshFromGoogleSheet;
         window.toggleDarkMode = toggleDarkMode;
-        window.adminLogin = adminLogin;
-        window.adminLogout = adminLogout;
-        window.showAdminSection = showAdminSection;
-        window.filterAdminContent = filterAdminContent;
-        window.filterAdminJobs = filterAdminJobs;
-        window.filterAdminUsers = filterAdminUsers;
-        window.openAdminContentForm = openAdminContentForm;
-        window.editAdminContent = editAdminContent;
-        window.saveAdminContent = saveAdminContent;
-        window.deleteAdminContent = deleteAdminContent;
-        window.openAdminJobForm = openAdminJobForm;
-        window.editAdminJob = editAdminJob;
-        window.saveAdminJob = saveAdminJob;
-        window.deleteAdminJob = deleteAdminJob;
-        window.openAdminQuizForm = openAdminQuizForm;
-        window.editAdminQuiz = editAdminQuiz;
-        window.saveAdminQuiz = saveAdminQuiz;
-        window.deleteAdminQuiz = deleteAdminQuiz;
+        window.showAdminPage = showAdminPage;
+        window.toggleAdminSidebar = toggleAdminSidebar;
+        window.openAdminModal = openAdminModal;
+        window.closeAdminModal = closeAdminModal;
         window.addAdminQuestion = addAdminQuestion;
+        window.previewAdminFile = previewAdminFile;
+        window.saveAdminContent = saveAdminContent;
+        window.editAdminContent = editAdminContent;
+        window.deleteAdminContent = deleteAdminContent;
+        window.saveAdminSubSection = saveAdminSubSection;
+        window.editAdminSubSection = editAdminSubSection;
+        window.deleteAdminSubSection = deleteAdminSubSection;
+        window.saveAdminFile = saveAdminFile;
+        window.editAdminFile = editAdminFile;
+        window.deleteAdminFile = deleteAdminFile;
+        window.viewAdminFile = viewAdminFile;
+        window.saveAdminJob = saveAdminJob;
+        window.editAdminJob = editAdminJob;
+        window.deleteAdminJob = deleteAdminJob;
+        window.saveAdminQuiz = saveAdminQuiz;
+        window.editAdminQuiz = editAdminQuiz;
+        window.deleteAdminQuiz = deleteAdminQuiz;
+        window.saveAdminForm = saveAdminForm;
+        window.editAdminForm = editAdminForm;
+        window.deleteAdminForm = deleteAdminForm;
         window.sendAdminNotification = sendAdminNotification;
         window.deleteAdminNotification = deleteAdminNotification;
         window.changeAdminPassword = changeAdminPassword;
         window.exportAdminData = exportAdminData;
         window.importAdminData = importAdminData;
         window.resetAdminData = resetAdminData;
-        window.clearGoogleSheetCache = clearGoogleSheetCache;
-        window.closeAdminModal = closeAdminModal;
-        window.showToast = showToast;
-        window.updateWebsiteFromAdmin = updateWebsiteFromAdmin;
-        window.loadAllDataFromSheet = loadAllDataFromSheet;
+        window.refreshAdminData = refreshAdminData;
+        window.logoutAdmin = logoutAdmin;
+        window.renderAdminDashboard = renderAdminDashboard;
+        window.renderAdminContent = renderAdminContent;
+        window.renderAdminSubSections = renderAdminSubSections;
+        window.renderAdminFiles = renderAdminFiles;
+        window.renderAdminJobs = renderAdminJobs;
+        window.renderAdminQuiz = renderAdminQuiz;
+        window.renderAdminForms = renderAdminForms;
+        window.renderAdminNotifications = renderAdminNotifications;
     </script>
 </body>
 </html>
