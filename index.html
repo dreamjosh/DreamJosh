@@ -28,7 +28,6 @@
             --safe-top: env(safe-area-inset-top, 0px);
             --professional-gray: #f8f9fa;
             --professional-border: #e9ecef;
-            --professional-dark: #2c3e50;
             --gold: #ffd700;
         }
 
@@ -43,26 +42,12 @@
             --highlight-bg: #1a2a1a;
             --border-color: #2a2a4a;
             --shadow-color: rgba(0,0,0,0.3);
-            --nav-bg: #1a1a2e;
-            --header-bg: linear-gradient(135deg, #0d1b3e, #1a3a8a);
-            --ticker-latest: #8b1a1a;
-            --ticker-update: #0a5a2a;
             --footer-bg: #0d1b3e;
             --card-hover: #1a1a3a;
-            --dropdown-bg: #1a1a2e;
-            --professional-gray: #1a1a2e;
-            --professional-border: #2a2a4a;
-            --professional-dark: #e8e8e8;
             --gold: #ffd700;
         }
 
-        /* ================= RESET & BASE ================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Noto Sans Devanagari", sans-serif;
@@ -73,13 +58,11 @@
             width: 100vw;
             position: fixed;
             transition: background 0.3s ease, color 0.3s ease;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            padding-top: var(--safe-top);
-            padding-bottom: var(--safe-bottom);
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
         }
 
-        /* ================= HEADER (FIXED) ================= */
+        /* ================= HEADER ================= */
         .app-header {
             background: var(--header-bg);
             padding: 10px 16px;
@@ -94,7 +77,7 @@
             height: 60px;
             box-shadow: 0 2px 20px var(--shadow-color);
             transition: background 0.3s ease;
-            padding-top: calc(10px + var(--safe-top));
+            padding-top: calc(10px + env(safe-area-inset-top, 0px));
         }
 
         .app-header .logo {
@@ -105,14 +88,10 @@
             align-items: center;
             gap: 6px;
             color: #fff;
-            -webkit-user-select: none;
             user-select: none;
             white-space: nowrap;
         }
-
-        .app-header .logo span {
-            color: var(--gold);
-        }
+        .app-header .logo span { color: var(--gold); }
 
         .app-header .header-controls {
             display: flex;
@@ -131,54 +110,18 @@
             font-size: 12px;
             font-weight: 600;
             transition: 0.3s;
-            -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
             white-space: nowrap;
         }
+        .app-header .header-controls .nav-btn:hover { background: var(--gold); color: #0a0e1a; border-color: var(--gold); }
+        .app-header .header-controls .nav-btn:active { transform: scale(0.95); }
+        .app-header .header-controls .admin-btn { background: #dc3545; border-color: #dc3545; }
+        .app-header .header-controls .admin-btn:hover { background: #ff4757; color: #fff; border-color: #ff4757; }
+        .app-header .header-controls .refresh-btn { background: var(--success-green); border-color: var(--success-green); }
+        .app-header .header-controls .refresh-btn:hover { background: #15803d; color: #fff; }
 
-        .app-header .header-controls .nav-btn:hover {
-            background: var(--gold);
-            color: #0a0e1a;
-            border-color: var(--gold);
-        }
-
-        .app-header .header-controls .nav-btn:active {
-            transform: scale(0.95);
-        }
-
-        .app-header .header-controls .nav-btn.active-btn {
-            background: var(--gold);
-            color: #0a0e1a;
-            border-color: var(--gold);
-        }
-
-        .app-header .header-controls .admin-btn {
-            background: #dc3545;
-            border-color: #dc3545;
-        }
-
-        .app-header .header-controls .admin-btn:hover {
-            background: #ff4757;
-            color: #fff;
-            border-color: #ff4757;
-        }
-
-        .app-header .header-controls .refresh-btn {
-            background: var(--success-green);
-            border-color: var(--success-green);
-        }
-
-        .app-header .header-controls .refresh-btn:hover {
-            background: #15803d;
-            color: #fff;
-        }
-
-        /* ================= GOVT DROPDOWN (Header) ================= */
-        .govt-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
+        /* ================= GOVT DROPDOWN ================= */
+        .govt-dropdown { position: relative; display: inline-block; }
         .govt-dropdown .govt-btn {
             background: rgba(255,255,255,0.12);
             border: 1px solid rgba(255,255,255,0.15);
@@ -192,17 +135,8 @@
             touch-action: manipulation;
             white-space: nowrap;
         }
-
-        .govt-dropdown .govt-btn:hover {
-            background: var(--gold);
-            color: #0a0e1a;
-            border-color: var(--gold);
-        }
-
-        .govt-dropdown .govt-btn .arrow {
-            font-size: 10px;
-            margin-left: 3px;
-        }
+        .govt-dropdown .govt-btn:hover { background: var(--gold); color: #0a0e1a; border-color: var(--gold); }
+        .govt-dropdown .govt-btn .arrow { font-size: 10px; margin-left: 3px; }
 
         .govt-dropdown .govt-dropdown-content {
             display: none;
@@ -220,11 +154,7 @@
             max-height: 70vh;
             overflow-y: auto;
         }
-
-        .govt-dropdown .govt-dropdown-content.show {
-            display: block;
-            animation: dropdownFade 0.25s ease;
-        }
+        .govt-dropdown .govt-dropdown-content.show { display: block; animation: dropdownFade 0.25s ease; }
 
         @keyframes dropdownFade {
             from { opacity: 0; transform: translateY(-8px); }
@@ -245,21 +175,8 @@
             transition: 0.2s;
             touch-action: manipulation;
         }
-
-        .govt-dropdown .govt-dropdown-content button:hover {
-            background: var(--card-hover);
-        }
-
-        .govt-dropdown .govt-dropdown-content button:active {
-            transform: scale(0.97);
-        }
-
-        .govt-dropdown .govt-dropdown-content .dropdown-divider {
-            height: 1px;
-            background: var(--border-color);
-            margin: 4px 12px;
-        }
-
+        .govt-dropdown .govt-dropdown-content button:hover { background: var(--card-hover); }
+        .govt-dropdown .govt-dropdown-content .dropdown-divider { height: 1px; background: var(--border-color); margin: 4px 12px; }
         .govt-dropdown .govt-dropdown-content .dropdown-label {
             padding: 8px 20px;
             font-size: 11px;
@@ -269,7 +186,6 @@
             font-weight: 700;
             letter-spacing: 0.5px;
         }
-
         .govt-dropdown .govt-dropdown-content .dropdown-job-count {
             padding: 4px 20px 8px 20px;
             font-size: 12px;
@@ -280,7 +196,7 @@
         /* ================= SLIDE CONTAINER ================= */
         .slide-container {
             display: flex;
-            height: calc(100vh - 60px - 55px - var(--safe-top) - var(--safe-bottom));
+            height: calc(100vh - 60px - 55px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
             margin-top: 60px;
             margin-bottom: 55px;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -289,7 +205,6 @@
             will-change: transform;
         }
 
-        /* ================= SLIDE ================= */
         .slide {
             min-width: 100%;
             height: 100%;
@@ -302,21 +217,11 @@
             transition: background 0.3s ease;
             -webkit-overflow-scrolling: touch;
         }
+        .slide::-webkit-scrollbar { width: 4px; }
+        .slide::-webkit-scrollbar-track { background: var(--border-color); }
+        .slide::-webkit-scrollbar-thumb { background: var(--secondary-blue); border-radius: 10px; }
 
-        .slide::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .slide::-webkit-scrollbar-track {
-            background: var(--border-color);
-        }
-
-        .slide::-webkit-scrollbar-thumb {
-            background: var(--secondary-blue);
-            border-radius: 10px;
-        }
-
-        /* ================= FOOTER (FIXED) ================= */
+        /* ================= FOOTER ================= */
         .app-footer {
             position: fixed;
             bottom: 0;
@@ -331,28 +236,13 @@
             height: 55px;
             box-shadow: 0 -2px 15px var(--shadow-color);
             transition: background 0.3s ease;
-            padding-bottom: calc(8px + var(--safe-bottom));
+            padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
             gap: 8px;
             flex-wrap: wrap;
         }
-
-        .app-footer .footer-text {
-            color: rgba(255,255,255,0.7);
-            font-size: 12px;
-            text-align: center;
-        }
-
-        .app-footer .footer-text span {
-            color: var(--gold);
-        }
-
-        .app-footer .footer-nav {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
+        .app-footer .footer-text { color: rgba(255,255,255,0.7); font-size: 12px; text-align: center; }
+        .app-footer .footer-text span { color: var(--gold); }
+        .app-footer .footer-nav { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
         .app-footer .footer-nav .nav-btn {
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.1);
@@ -366,56 +256,24 @@
             touch-action: manipulation;
             white-space: nowrap;
         }
+        .app-footer .footer-nav .nav-btn:hover { background: rgba(255,215,0,0.3); color: #fff; border-color: var(--gold); }
+        .app-footer .footer-nav .nav-btn:active { transform: scale(0.95); }
 
-        .app-footer .footer-nav .nav-btn:hover {
-            background: rgba(255,215,0,0.3);
-            color: #fff;
-            border-color: var(--gold);
-        }
-
-        .app-footer .footer-nav .nav-btn:active {
-            transform: scale(0.95);
-        }
-
-        .app-footer .footer-nav .nav-btn.active-btn {
-            background: var(--gold);
-            color: #0a0e1a;
-            border-color: var(--gold);
-        }
-
-        /* ================= RESPONSIVE HEADER/FOOTER ================= */
+        /* ================= RESPONSIVE ================= */
         @media (max-width: 768px) {
-            .app-header {
-                padding: 8px 12px;
-                height: 55px;
-            }
-            .app-header .logo {
-                font-size: 16px;
-            }
+            .app-header { padding: 8px 12px; height: 55px; }
+            .app-header .logo { font-size: 16px; }
             .app-header .header-controls .nav-btn,
-            .app-header .header-controls .govt-btn {
-                font-size: 10px;
-                padding: 4px 8px;
-            }
-            .app-footer {
-                height: 50px;
-                padding: 6px 10px;
-            }
-            .app-footer .footer-text {
-                font-size: 10px;
-            }
-            .app-footer .footer-nav .nav-btn {
-                font-size: 9px;
-                padding: 3px 8px;
-            }
+            .app-header .header-controls .govt-btn { font-size: 10px; padding: 4px 8px; }
+            .app-footer { height: 50px; padding: 6px 10px; }
+            .app-footer .footer-text { font-size: 10px; }
+            .app-footer .footer-nav .nav-btn { font-size: 9px; padding: 3px 8px; }
             .slide-container {
-                height: calc(100vh - 55px - 50px - var(--safe-top) - var(--safe-bottom));
+                height: calc(100vh - 55px - 50px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
                 margin-top: 55px;
                 margin-bottom: 50px;
             }
-            .slide {
-                padding: 12px 15px;
-            }
+            .slide { padding: 12px 15px; }
             .govt-dropdown .govt-dropdown-content {
                 position: fixed;
                 top: 55px;
@@ -427,30 +285,16 @@
                 min-width: 100%;
             }
         }
-
         @media (max-width: 480px) {
-            .app-header .logo {
-                font-size: 14px;
-            }
+            .app-header .logo { font-size: 14px; }
             .app-header .header-controls .nav-btn,
-            .app-header .header-controls .govt-btn {
-                font-size: 9px;
-                padding: 3px 6px;
-                border-radius: 12px;
-            }
-            .app-footer .footer-nav .nav-btn {
-                font-size: 8px;
-                padding: 2px 6px;
-            }
-            .app-footer .footer-text {
-                font-size: 9px;
-            }
-            .slide {
-                padding: 10px 12px;
-            }
+            .app-header .header-controls .govt-btn { font-size: 9px; padding: 3px 6px; border-radius: 12px; }
+            .app-footer .footer-nav .nav-btn { font-size: 8px; padding: 2px 6px; }
+            .app-footer .footer-text { font-size: 9px; }
+            .slide { padding: 10px 12px; }
         }
 
-        /* ================= ORIGINAL HOME PAGE ================= */
+        /* ================= HOME PAGE ================= */
         .home-original {
             background: var(--bg-color);
             color: var(--text-color);
@@ -460,7 +304,6 @@
             padding: 0;
             transition: background 0.3s ease, color 0.3s ease;
         }
-
         .home-original header {
             background: var(--header-bg);
             color: white;
@@ -469,21 +312,9 @@
             border-radius: 16px 16px 0 0;
             transition: background 0.3s ease;
         }
-
-        .home-original header h1 {
-            margin: 0;
-            font-size: 30px;
-        }
-
-        .home-original header p {
-            margin: 5px 0 0;
-            font-size: 14px;
-        }
-
-        .home-original header small {
-            font-size: 12px;
-            opacity: 0.8;
-        }
+        .home-original header h1 { margin: 0; font-size: 30px; }
+        .home-original header p { margin: 5px 0 0; font-size: 14px; }
+        .home-original header small { font-size: 12px; opacity: 0.8; }
 
         .home-original .ticker {
             margin: 8px auto;
@@ -494,45 +325,22 @@
             overflow: hidden;
             white-space: nowrap;
         }
-
-        .home-original .latest {
-            background: var(--ticker-latest);
-        }
-
-        .home-original .update {
-            background: var(--ticker-update);
-        }
-
+        .home-original .latest { background: var(--ticker-latest); }
+        .home-original .update { background: var(--ticker-update); }
         .home-original .ticker span {
             display: inline-block;
             padding-left: 100%;
             animation: move 18s linear infinite;
         }
-
         @keyframes move {
             from { transform: translateX(0); }
             to { transform: translateX(-100%); }
         }
 
-        .home-original .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 12px;
-        }
-
-        .home-original .home-layout {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        .home-original .left-content {
-            flex: 3;
-        }
-
-        .home-original .right-sidebar {
-            flex: 1;
-        }
+        .home-original .container { max-width: 1100px; margin: auto; padding: 12px; }
+        .home-original .home-layout { display: flex; gap: 20px; align-items: flex-start; }
+        .home-original .left-content { flex: 3; }
+        .home-original .right-sidebar { flex: 1; }
 
         .home-original .sidebar-box {
             background: var(--card-bg);
@@ -542,7 +350,6 @@
             overflow: hidden;
             transition: background 0.3s ease;
         }
-
         .home-original .sidebar-box h3 {
             margin: 0;
             padding: 10px 14px;
@@ -550,23 +357,13 @@
             color: #fff;
             font-size: 14px;
         }
-
-        .home-original .notice {
-            height: 200px;
-            overflow: hidden;
-        }
-
+        .home-original .notice { height: 200px; overflow: hidden; }
         .home-original .notice ul {
             padding: 8px 20px;
             animation: scroll 15s linear infinite;
             list-style: none;
         }
-
-        .home-original .notice ul li {
-            padding: 4px 0;
-            font-size: 13px;
-        }
-
+        .home-original .notice ul li { padding: 4px 0; font-size: 13px; }
         @keyframes scroll {
             0% { transform: translateY(100%); }
             100% { transform: translateY(-100%); }
@@ -581,10 +378,7 @@
             transition: 0.3s;
             font-size: 13px;
         }
-
-        .home-original .imp-links a:hover {
-            background: var(--card-hover);
-        }
+        .home-original .imp-links a:hover { background: var(--card-hover); }
 
         .home-original .card {
             background: var(--card-bg);
@@ -594,33 +388,11 @@
             border-left: 5px solid var(--secondary-blue);
             transition: background 0.3s ease, border 0.3s ease;
         }
-
-        .home-original .card h3 {
-            margin-top: 0;
-            color: var(--primary-blue);
-            font-size: 16px;
-        }
-
-        .home-original .about-home {
-            line-height: 1.7;
-            font-size: 14px;
-        }
-
-        .home-original .about-home h3 {
-            margin-top: 14px;
-            margin-bottom: 6px;
-        }
-
-        .home-original .about-home ul {
-            padding-left: 20px;
-            margin: 6px 0 12px;
-        }
-
-        .home-original .about-home li {
-            margin: 4px 0;
-            font-size: 13px;
-        }
-
+        .home-original .card h3 { margin-top: 0; color: var(--primary-blue); font-size: 16px; }
+        .home-original .about-home { line-height: 1.7; font-size: 14px; }
+        .home-original .about-home h3 { margin-top: 14px; margin-bottom: 6px; }
+        .home-original .about-home ul { padding-left: 20px; margin: 6px 0 12px; }
+        .home-original .about-home li { margin: 4px 0; font-size: 13px; }
         .home-original .about-highlight {
             margin-top: 14px;
             padding: 14px;
@@ -631,152 +403,57 @@
             font-size: 16px;
             transition: background 0.3s ease;
         }
-
         @media(max-width:768px) {
-            .home-original .home-layout {
-                flex-direction: column;
-            }
-            .home-original .left-content,
-            .home-original .right-sidebar {
-                width: 100%;
-            }
-            .home-original header h1 {
-                font-size: 24px;
-            }
-            .home-original .container {
-                padding: 8px;
-            }
-            .home-original .card {
-                padding: 12px;
-            }
-            .home-original .about-home {
-                font-size: 13px;
-            }
+            .home-original .home-layout { flex-direction: column; }
+            .home-original .left-content, .home-original .right-sidebar { width: 100%; }
+            .home-original header h1 { font-size: 24px; }
+            .home-original .container { padding: 8px; }
+            .home-original .card { padding: 12px; }
+            .home-original .about-home { font-size: 13px; }
         }
 
-        /* ================= SECTION CARDS ================= */
-        .section-grid {
+        /* ================= SECTION GRID ================= */
+        .section-grid, .professional-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 16px;
             margin-top: 12px;
         }
-
-        .section-card {
+        .grid-item, .section-card {
             background: var(--card-bg);
-            border-radius: 14px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 14px 16px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
+            transition: 0.3s;
+            cursor: pointer;
+            box-shadow: 0 2px 8px var(--shadow-color);
             position: relative;
             overflow: hidden;
             min-height: 120px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
         }
-
-        .section-card:hover {
-            transform: translateY(-3px);
+        .grid-item:hover, .section-card:hover {
             border-color: var(--secondary-blue);
+            transform: translateY(-3px);
             box-shadow: 0 8px 30px var(--shadow-color);
         }
-
-        .section-card:active {
-            transform: scale(0.97);
-        }
-
-        .section-card .icon {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
-
-        .section-card h3 {
+        .grid-item:active, .section-card:active { transform: scale(0.97); }
+        .grid-item .item-icon, .section-card .icon { font-size: 30px; margin-bottom: 8px; }
+        .grid-item .item-title, .section-card h3 {
             font-size: 16px;
             color: var(--primary-blue);
             margin-bottom: 4px;
             font-weight: 700;
         }
-
-        .section-card p {
+        .grid-item .item-desc, .section-card p {
             font-size: 12px;
             color: var(--text-color);
             opacity: 0.7;
             line-height: 1.4;
         }
-
-        .section-card .badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--secondary-blue);
-            color: #fff;
-            font-size: 10px;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-
-        .section-card .click-hint {
-            position: absolute;
-            bottom: 10px;
-            right: 12px;
-            font-size: 10px;
-            color: var(--text-color);
-            opacity: 0.2;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.5; }
-        }
-
-        /* ================= PROFESSIONAL GRID ================= */
-        .professional-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 14px;
-            margin-top: 10px;
-        }
-
-        .professional-grid .grid-item {
-            background: var(--card-bg);
-            padding: 14px 16px;
-            border-radius: 10px;
-            border: 1px solid var(--professional-border);
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .professional-grid .grid-item:hover {
-            border-color: var(--secondary-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 4px 16px var(--shadow-color);
-        }
-
-        .professional-grid .grid-item .item-icon {
-            font-size: 26px;
-        }
-
-        .professional-grid .grid-item .item-title {
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin: 4px 0 3px;
-            font-size: 14px;
-        }
-
-        .professional-grid .grid-item .item-desc {
-            font-size: 12px;
-            color: var(--text-color);
-            opacity: 0.7;
-        }
-
-        .professional-grid .grid-item .item-badge {
+        .grid-item .item-badge {
             display: inline-block;
             padding: 2px 10px;
             border-radius: 12px;
@@ -785,18 +462,12 @@
             background: var(--success-green);
             color: #fff;
             margin-top: 4px;
+            align-self: flex-start;
         }
 
         /* ================= FULL LIST VIEW ================= */
-        .full-list-view {
-            display: none;
-            padding: 15px 0;
-        }
-
-        .full-list-view.active {
-            display: block;
-        }
-
+        .full-list-view { display: none; padding: 15px 0; }
+        .full-list-view.active { display: block; }
         .full-list-view .list-header {
             display: flex;
             justify-content: space-between;
@@ -807,12 +478,7 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-
-        .full-list-view .list-header h2 {
-            color: var(--primary-blue);
-            font-size: 20px;
-        }
-
+        .full-list-view .list-header h2 { color: var(--primary-blue); font-size: 20px; }
         .full-list-view .list-header .close-list-btn {
             background: var(--warning-red);
             color: #fff;
@@ -826,15 +492,6 @@
             min-height: 40px;
             font-size: 13px;
         }
-
-        .full-list-view .list-header .close-list-btn:hover {
-            background: #a71d2a;
-        }
-
-        .full-list-view .list-header .close-list-btn:active {
-            transform: scale(0.95);
-        }
-
         .full-list-view .list-item {
             background: var(--card-bg);
             padding: 12px 16px;
@@ -849,27 +506,9 @@
             touch-action: manipulation;
             flex-wrap: wrap;
         }
-
-        .full-list-view .list-item:hover {
-            border-color: var(--secondary-blue);
-            transform: translateX(4px);
-            box-shadow: 0 2px 12px var(--shadow-color);
-        }
-
-        .full-list-view .list-item:active {
-            transform: scale(0.98);
-        }
-
-        .full-list-view .list-item .item-icon {
-            font-size: 20px;
-        }
-
-        .full-list-view .list-item .item-text {
-            font-size: 13px;
-            color: var(--text-color);
-            flex: 1;
-        }
-
+        .full-list-view .list-item:hover { border-color: var(--secondary-blue); transform: translateX(4px); }
+        .full-list-view .list-item .item-icon { font-size: 20px; }
+        .full-list-view .list-item .item-text { font-size: 13px; color: var(--text-color); flex: 1; }
         .full-list-view .list-item .item-number {
             background: var(--secondary-blue);
             color: #fff;
@@ -883,7 +522,6 @@
             font-weight: bold;
             flex-shrink: 0;
         }
-
         .full-list-view .back-to-cards {
             background: var(--secondary-blue);
             color: #fff;
@@ -898,14 +536,7 @@
             min-height: 40px;
             font-size: 13px;
         }
-
-        .full-list-view .back-to-cards:hover {
-            background: var(--primary-blue);
-        }
-
-        .full-list-view .back-to-cards:active {
-            transform: scale(0.95);
-        }
+        .full-list-view .back-to-cards:hover { background: var(--primary-blue); }
 
         /* ================= DETAIL OVERLAY ================= */
         .detail-overlay {
@@ -921,13 +552,7 @@
             -webkit-backdrop-filter: blur(8px);
             animation: fadeIn 0.3s ease;
         }
-
-        .detail-overlay.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+        .detail-overlay.active { display: flex; align-items: center; justify-content: center; padding: 20px; }
 
         .detail-content {
             background: var(--card-bg);
@@ -942,15 +567,8 @@
             position: relative;
             color: var(--text-color);
         }
-
-        .detail-content::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .detail-content::-webkit-scrollbar-thumb {
-            background: var(--secondary-blue);
-            border-radius: 10px;
-        }
+        .detail-content::-webkit-scrollbar { width: 4px; }
+        .detail-content::-webkit-scrollbar-thumb { background: var(--secondary-blue); border-radius: 10px; }
 
         .detail-content .close-btn {
             position: sticky;
@@ -971,41 +589,12 @@
             align-items: center;
             justify-content: center;
         }
+        .detail-content .close-btn:hover { background: var(--warning-red); color: #fff; transform: rotate(90deg); }
+        .detail-content .detail-icon { font-size: 48px; margin-bottom: 10px; }
+        .detail-content h2 { color: var(--primary-blue); font-size: 22px; margin-bottom: 10px; }
+        .detail-content p { color: var(--text-color); opacity: 0.7; line-height: 1.7; font-size: 14px; }
 
-        .detail-content .close-btn:hover {
-            background: var(--warning-red);
-            color: #fff;
-            transform: rotate(90deg);
-        }
-
-        .detail-content .close-btn:active {
-            transform: rotate(90deg) scale(0.9);
-        }
-
-        .detail-content .detail-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        .detail-content h2 {
-            color: var(--primary-blue);
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .detail-content p {
-            color: var(--text-color);
-            opacity: 0.7;
-            line-height: 1.7;
-            font-size: 14px;
-        }
-
-        .detail-content .detail-list {
-            list-style: none;
-            padding: 0;
-            margin: 12px 0;
-        }
-
+        .detail-content .detail-list { list-style: none; padding: 0; margin: 12px 0; }
         .detail-content .detail-list li {
             padding: 10px 16px;
             background: var(--card-hover);
@@ -1018,21 +607,7 @@
             font-size: 14px;
             touch-action: manipulation;
         }
-
-        .detail-content .detail-list li:hover {
-            background: var(--secondary-blue);
-            color: #fff;
-            transform: translateX(6px);
-            border-left-color: var(--primary-blue);
-        }
-
-        .detail-content .detail-list li:active {
-            transform: scale(0.97);
-        }
-
-        .detail-content .detail-list li::before {
-            content: '📌 ';
-        }
+        .detail-content .detail-list li:hover { background: var(--secondary-blue); color: #fff; transform: translateX(6px); }
 
         .detail-content .detail-link {
             display: inline-block;
@@ -1050,80 +625,16 @@
             touch-action: manipulation;
             min-height: 40px;
         }
-
-        .detail-content .detail-link:hover {
-            background: var(--primary-blue);
-            transform: scale(1.03);
-            box-shadow: 0 6px 30px var(--shadow-color);
-        }
-
-        .detail-content .detail-link:active {
-            transform: scale(0.95);
-        }
-
-        .detail-content .detail-link.secondary {
-            background: var(--card-hover);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-        }
-
-        .detail-content .detail-link.secondary:hover {
-            background: var(--border-color);
-        }
+        .detail-content .detail-link:hover { background: var(--primary-blue); transform: scale(1.03); }
+        .detail-content .detail-link.secondary { background: var(--card-hover); color: var(--text-color); border: 1px solid var(--border-color); }
 
         /* ================= PAGE TITLE ================= */
-        .page-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: var(--text-color);
-        }
+        .page-title { font-size: 28px; font-weight: 700; margin-bottom: 4px; color: var(--text-color); }
+        .page-title span { color: var(--primary-blue); }
+        .page-subtitle { color: var(--text-color); opacity: 0.5; font-size: 13px; margin-bottom: 16px; }
 
-        .page-title span {
-            color: var(--primary-blue);
-        }
-
-        .page-subtitle {
-            color: var(--text-color);
-            opacity: 0.5;
-            font-size: 13px;
-            margin-bottom: 16px;
-        }
-
-        /* ================= ANIMATIONS ================= */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(40px) scale(0.96); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
-        }
-
-        /* ================= BACK BUTTON ================= */
-        .back-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 6px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: 0.3s;
-            margin-bottom: 12px;
-            touch-action: manipulation;
-            min-height: 36px;
-        }
-
-        .back-btn:hover {
-            background: var(--card-hover);
-            color: var(--primary-blue);
-        }
-
-        .back-btn:active {
-            transform: scale(0.95);
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(40px) scale(0.96); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
 
         .job-info-box {
             background: var(--card-bg);
@@ -1133,63 +644,8 @@
             border-left: 4px solid var(--secondary-blue);
             box-shadow: 0 2px 8px var(--shadow-color);
         }
-
-        .job-info-box .job-count {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
-
-        .job-info-box .job-detail {
-            font-size: 13px;
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-top: 3px;
-        }
-
-        /* ================= LOADING SPINNER ================= */
-        .loading-spinner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            color: var(--primary-blue);
-            font-size: 16px;
-        }
-
-        .loading-spinner::after {
-            content: '';
-            width: 24px;
-            height: 24px;
-            margin-left: 12px;
-            border: 3px solid var(--border-color);
-            border-top-color: var(--primary-blue);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .sheet-status {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 600;
-            margin-left: 6px;
-        }
-
-        .sheet-status.connected {
-            background: var(--success-green);
-            color: #fff;
-        }
-
-        .sheet-status.disconnected {
-            background: var(--warning-red);
-            color: #fff;
-        }
+        .job-info-box .job-count { font-size: 18px; font-weight: bold; color: var(--primary-blue); }
+        .job-info-box .job-detail { font-size: 13px; color: var(--text-color); opacity: 0.7; margin-top: 3px; }
 
         /* ================= ADMIN PANEL ================= */
         #adminPanelContainer {
@@ -1203,10 +659,7 @@
             background: var(--bg-color);
             overflow-y: auto;
         }
-
-        #adminPanelContainer.active {
-            display: block;
-        }
+        #adminPanelContainer.active { display: block; }
 
         #adminPanelContainer .admin-header {
             background: var(--primary-blue);
@@ -1222,29 +675,9 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-
-        #adminPanelContainer .admin-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-        }
-
-        #adminPanelContainer .admin-badge {
-            background: var(--success-green);
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: bold;
-        }
-
-        #adminPanelContainer .admin-user {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
+        #adminPanelContainer .admin-logo { display: flex; align-items: center; gap: 8px; font-size: 16px; }
+        #adminPanelContainer .admin-badge { background: var(--success-green); padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: bold; }
+        #adminPanelContainer .admin-user { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         #adminPanelContainer .admin-user button {
             padding: 6px 14px;
             border-radius: 6px;
@@ -1256,48 +689,15 @@
             touch-action: manipulation;
             min-height: 34px;
         }
+        #adminPanelContainer .admin-user button:active { transform: scale(0.95); }
+        #adminPanelContainer .logout-btn { background: var(--warning-red); color: white; }
+        #adminPanelContainer .logout-btn:hover { background: #a71d2a; }
+        #adminPanelContainer .dark-toggle-btn { background: #2c3e50; color: white; }
+        #adminPanelContainer .dark-toggle-btn:hover { background: #1a2332; }
+        #adminPanelContainer .dark-toggle-btn.active { background: var(--gold); color: #0a0e1a; }
+        #adminPanelContainer .back-btn-admin { background: #6c757d; color: white; }
 
-        #adminPanelContainer .admin-user button:active {
-            transform: scale(0.95);
-        }
-
-        #adminPanelContainer .logout-btn {
-            background: var(--warning-red);
-            color: white;
-        }
-
-        #adminPanelContainer .logout-btn:hover {
-            background: #a71d2a;
-        }
-
-        #adminPanelContainer .dark-toggle-btn {
-            background: #2c3e50;
-            color: white;
-        }
-
-        #adminPanelContainer .dark-toggle-btn:hover {
-            background: #1a2332;
-        }
-
-        #adminPanelContainer .dark-toggle-btn.active {
-            background: var(--gold);
-            color: #0a0e1a;
-        }
-
-        #adminPanelContainer .back-btn-admin {
-            background: #6c757d;
-            color: white;
-        }
-
-        #adminPanelContainer .back-btn-admin:hover {
-            background: #5a6268;
-        }
-
-        #adminPanelContainer .admin-body {
-            display: flex;
-            min-height: calc(100vh - 60px);
-        }
-
+        #adminPanelContainer .admin-body { display: flex; min-height: calc(100vh - 60px); }
         #adminPanelContainer .admin-sidebar {
             width: 220px;
             background: var(--card-bg);
@@ -1310,12 +710,7 @@
             flex-shrink: 0;
             border-right: 1px solid var(--border-color);
         }
-
-        #adminPanelContainer .sidebar-menu {
-            display: flex;
-            flex-direction: column;
-        }
-
+        #adminPanelContainer .sidebar-menu { display: flex; flex-direction: column; }
         #adminPanelContainer .sidebar-menu button {
             background: transparent;
             border: none;
@@ -1330,16 +725,7 @@
             width: 100%;
             touch-action: manipulation;
         }
-
-        #adminPanelContainer .sidebar-menu button:hover {
-            background: var(--card-hover);
-            opacity: 1;
-        }
-
-        #adminPanelContainer .sidebar-menu button:active {
-            transform: scale(0.98);
-        }
-
+        #adminPanelContainer .sidebar-menu button:hover { background: var(--card-hover); opacity: 1; }
         #adminPanelContainer .sidebar-menu button.active {
             background: var(--card-hover);
             opacity: 1;
@@ -1354,14 +740,8 @@
             background: var(--bg-color);
             max-height: calc(100vh - 60px);
         }
-
-        #adminPanelContainer .admin-section {
-            display: none;
-        }
-
-        #adminPanelContainer .admin-section.active {
-            display: block;
-        }
+        #adminPanelContainer .admin-section { display: none; }
+        #adminPanelContainer .admin-section.active { display: block; }
 
         #adminPanelContainer .stats-grid {
             display: grid;
@@ -1369,7 +749,6 @@
             gap: 16px;
             margin: 16px 0;
         }
-
         #adminPanelContainer .stat-card {
             background: var(--card-bg);
             padding: 20px;
@@ -1378,19 +757,8 @@
             text-align: center;
             border: 1px solid var(--border-color);
         }
-
-        #adminPanelContainer .stat-card h3 {
-            font-size: 13px;
-            color: var(--text-color);
-            opacity: 0.6;
-            margin-bottom: 8px;
-        }
-
-        #adminPanelContainer .stat-card p {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
+        #adminPanelContainer .stat-card h3 { font-size: 13px; color: var(--text-color); opacity: 0.6; margin-bottom: 8px; }
+        #adminPanelContainer .stat-card p { font-size: 28px; font-weight: bold; color: var(--primary-blue); }
 
         #adminPanelContainer .quick-actions {
             background: var(--card-bg);
@@ -1400,13 +768,7 @@
             margin-top: 16px;
             border: 1px solid var(--border-color);
         }
-
-        #adminPanelContainer .quick-actions h3 {
-            margin-bottom: 12px;
-            color: var(--text-color);
-            font-size: 15px;
-        }
-
+        #adminPanelContainer .quick-actions h3 { margin-bottom: 12px; color: var(--text-color); font-size: 15px; }
         #adminPanelContainer .quick-actions button {
             padding: 8px 16px;
             margin: 4px;
@@ -1420,14 +782,7 @@
             min-height: 36px;
             font-size: 12px;
         }
-
-        #adminPanelContainer .quick-actions button:hover {
-            background: var(--primary-blue);
-        }
-
-        #adminPanelContainer .quick-actions button:active {
-            transform: scale(0.95);
-        }
+        #adminPanelContainer .quick-actions button:hover { background: var(--primary-blue); }
 
         #adminPanelContainer .toolbar {
             display: flex;
@@ -1435,7 +790,6 @@
             flex-wrap: wrap;
             margin: 12px 0;
         }
-
         #adminPanelContainer .toolbar button {
             padding: 8px 16px;
             background: var(--success-green);
@@ -1448,15 +802,7 @@
             min-height: 36px;
             font-size: 12px;
         }
-
-        #adminPanelContainer .toolbar button:hover {
-            background: #15803d;
-        }
-
-        #adminPanelContainer .toolbar button:active {
-            transform: scale(0.95);
-        }
-
+        #adminPanelContainer .toolbar button:hover { background: #15803d; }
         #adminPanelContainer .toolbar input,
         #adminPanelContainer .toolbar select {
             padding: 8px 12px;
@@ -1480,7 +826,6 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
         }
-
         #adminPanelContainer .content-item,
         #adminPanelContainer .job-item,
         #adminPanelContainer .quiz-item,
@@ -1497,52 +842,13 @@
             color: var(--text-color);
             font-size: 13px;
         }
-
         #adminPanelContainer .content-item:hover,
         #adminPanelContainer .job-item:hover,
-        #adminPanelContainer .quiz-item:hover {
-            background: var(--card-hover);
-        }
+        #adminPanelContainer .quiz-item:hover { background: var(--card-hover); }
 
-        #adminPanelContainer .content-item .actions,
-        #adminPanelContainer .job-item .actions,
-        #adminPanelContainer .quiz-item .actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        #adminPanelContainer .btn-edit {
-            background: #ffc107;
-            color: #333;
-            border: none;
-            padding: 4px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            touch-action: manipulation;
-            min-height: 28px;
-            font-size: 11px;
-        }
-
-        #adminPanelContainer .btn-delete {
-            background: var(--warning-red);
-            color: white;
-            border: none;
-            padding: 4px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            touch-action: manipulation;
-            min-height: 28px;
-            font-size: 11px;
-        }
-
-        #adminPanelContainer .empty-state {
-            padding: 24px;
-            text-align: center;
-            color: var(--text-color);
-            opacity: 0.5;
-            font-size: 13px;
-        }
+        #adminPanelContainer .btn-edit { background: #ffc107; color: #333; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; min-height: 28px; font-size: 11px; }
+        #adminPanelContainer .btn-delete { background: var(--warning-red); color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; min-height: 28px; font-size: 11px; }
+        #adminPanelContainer .empty-state { padding: 24px; text-align: center; color: var(--text-color); opacity: 0.5; font-size: 13px; }
 
         #adminPanelContainer .modal {
             display: none;
@@ -1555,7 +861,6 @@
             background: rgba(0, 0, 0, 0.5);
             overflow-y: auto;
         }
-
         #adminPanelContainer .modal-content {
             background: var(--card-bg);
             margin: 40px auto;
@@ -1568,27 +873,12 @@
             border: 1px solid var(--border-color);
             color: var(--text-color);
         }
-
         @keyframes slideDown {
             from { transform: translateY(-30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-
-        #adminPanelContainer .modal-content .close {
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-color);
-            opacity: 0.5;
-            touch-action: manipulation;
-        }
-
-        #adminPanelContainer .modal-content .close:hover {
-            opacity: 1;
-        }
-
+        #adminPanelContainer .modal-content .close { position: absolute; top: 12px; right: 16px; font-size: 24px; cursor: pointer; color: var(--text-color); opacity: 0.5; }
+        #adminPanelContainer .modal-content .close:hover { opacity: 1; }
         #adminPanelContainer .modal-content input,
         #adminPanelContainer .modal-content textarea,
         #adminPanelContainer .modal-content select {
@@ -1602,12 +892,7 @@
             background: var(--bg-color);
             color: var(--text-color);
         }
-
-        #adminPanelContainer .modal-content textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
+        #adminPanelContainer .modal-content textarea { min-height: 100px; resize: vertical; }
         #adminPanelContainer .modal-content button {
             padding: 10px 20px;
             background: var(--secondary-blue);
@@ -1622,27 +907,7 @@
             touch-action: manipulation;
             min-height: 40px;
         }
-
-        #adminPanelContainer .modal-content button:hover {
-            background: var(--primary-blue);
-        }
-
-        #adminPanelContainer .modal-content button:active {
-            transform: scale(0.95);
-        }
-
-        #adminPanelContainer .question-item {
-            background: var(--card-hover);
-            padding: 12px;
-            border-radius: 8px;
-            margin: 8px 0;
-            border: 1px solid var(--border-color);
-        }
-
-        #adminPanelContainer .question-item input,
-        #adminPanelContainer .question-item select {
-            margin: 4px 0;
-        }
+        #adminPanelContainer .modal-content button:hover { background: var(--primary-blue); }
 
         #adminPanelContainer .notification-form {
             background: var(--card-bg);
@@ -1652,7 +917,6 @@
             margin-bottom: 16px;
             border: 1px solid var(--border-color);
         }
-
         #adminPanelContainer .notification-form input,
         #adminPanelContainer .notification-form textarea,
         #adminPanelContainer .notification-form select {
@@ -1665,7 +929,6 @@
             background: var(--bg-color);
             color: var(--text-color);
         }
-
         #adminPanelContainer .notification-form button {
             padding: 10px 20px;
             background: var(--success-green);
@@ -1679,10 +942,7 @@
             touch-action: manipulation;
             min-height: 40px;
         }
-
-        #adminPanelContainer .notification-form button:hover {
-            background: #15803d;
-        }
+        #adminPanelContainer .notification-form button:hover { background: #15803d; }
 
         #adminPanelContainer .settings-form {
             background: var(--card-bg);
@@ -1691,7 +951,6 @@
             box-shadow: 0 2px 8px var(--shadow-color);
             border: 1px solid var(--border-color);
         }
-
         #adminPanelContainer .settings-form input {
             width: 100%;
             padding: 10px;
@@ -1702,7 +961,6 @@
             background: var(--bg-color);
             color: var(--text-color);
         }
-
         #adminPanelContainer .settings-form button {
             padding: 8px 16px;
             margin: 4px;
@@ -1716,22 +974,8 @@
             min-height: 36px;
             font-size: 12px;
         }
-
-        #adminPanelContainer .settings-form button:hover {
-            background: var(--primary-blue);
-        }
-
-        #adminPanelContainer .settings-form button:active {
-            transform: scale(0.95);
-        }
-
-        #adminPanelContainer .settings-form .btn-danger {
-            background: var(--warning-red);
-        }
-
-        #adminPanelContainer .settings-form .btn-danger:hover {
-            background: #a71d2a;
-        }
+        #adminPanelContainer .settings-form button:hover { background: var(--primary-blue); }
+        #adminPanelContainer .settings-form .btn-danger { background: var(--warning-red); }
 
         #adminPanelContainer .login-container {
             display: flex;
@@ -1741,7 +985,6 @@
             background: var(--header-bg);
             padding: 20px;
         }
-
         #adminPanelContainer .login-box {
             background: var(--card-bg);
             padding: 30px;
@@ -1752,19 +995,8 @@
             text-align: center;
             border: 1px solid var(--border-color);
         }
-
-        #adminPanelContainer .login-box h1 {
-            font-size: 24px;
-            color: var(--primary-blue);
-        }
-
-        #adminPanelContainer .login-box h2 {
-            font-size: 16px;
-            color: var(--text-color);
-            opacity: 0.6;
-            margin-bottom: 16px;
-        }
-
+        #adminPanelContainer .login-box h1 { font-size: 24px; color: var(--primary-blue); }
+        #adminPanelContainer .login-box h2 { font-size: 16px; color: var(--text-color); opacity: 0.6; margin-bottom: 16px; }
         #adminPanelContainer .login-box input {
             width: 100%;
             padding: 10px;
@@ -1775,7 +1007,6 @@
             background: var(--bg-color);
             color: var(--text-color);
         }
-
         #adminPanelContainer .login-box button {
             width: 100%;
             padding: 10px;
@@ -1790,33 +1021,12 @@
             touch-action: manipulation;
             min-height: 40px;
         }
-
-        #adminPanelContainer .login-box button:hover {
-            background: var(--primary-blue);
-        }
-
-        #adminPanelContainer .login-box button:active {
-            transform: scale(0.95);
-        }
-
-        #adminPanelContainer .login-error {
-            color: var(--warning-red);
-            display: none;
-            margin-top: 8px;
-            font-size: 13px;
-        }
-
-        #adminPanelContainer .login-note {
-            margin-top: 12px;
-            font-size: 11px;
-            color: var(--text-color);
-            opacity: 0.5;
-        }
+        #adminPanelContainer .login-box button:hover { background: var(--primary-blue); }
+        #adminPanelContainer .login-error { color: var(--warning-red); display: none; margin-top: 8px; font-size: 13px; }
+        #adminPanelContainer .login-note { margin-top: 12px; font-size: 11px; color: var(--text-color); opacity: 0.5; }
 
         @media (max-width: 768px) {
-            #adminPanelContainer .admin-body {
-                flex-direction: column;
-            }
+            #adminPanelContainer .admin-body { flex-direction: column; }
             #adminPanelContainer .admin-sidebar {
                 width: 100%;
                 height: auto;
@@ -1825,10 +1035,7 @@
                 border-right: none;
                 border-bottom: 1px solid var(--border-color);
             }
-            #adminPanelContainer .sidebar-menu {
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
+            #adminPanelContainer .sidebar-menu { flex-direction: row; flex-wrap: wrap; }
             #adminPanelContainer .sidebar-menu button {
                 padding: 8px 12px;
                 font-size: 12px;
@@ -1838,46 +1045,44 @@
                 min-width: 60px;
                 text-align: center;
             }
-            #adminPanelContainer .sidebar-menu button.active {
-                border-bottom-color: var(--secondary-blue);
-                border-left: none;
-            }
-            #adminPanelContainer .admin-header {
-                flex-direction: column;
-                gap: 8px;
-                padding: 12px;
-            }
-            #adminPanelContainer .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            #adminPanelContainer .modal-content {
-                margin: 16px;
-                padding: 16px;
-            }
+            #adminPanelContainer .sidebar-menu button.active { border-bottom-color: var(--secondary-blue); border-left: none; }
+            #adminPanelContainer .admin-header { flex-direction: column; gap: 8px; padding: 12px; }
+            #adminPanelContainer .stats-grid { grid-template-columns: 1fr 1fr; }
+            #adminPanelContainer .modal-content { margin: 16px; padding: 16px; }
         }
+        @media (max-width: 480px) { #adminPanelContainer .stats-grid { grid-template-columns: 1fr; } }
 
-        @media (max-width: 480px) {
-            #adminPanelContainer .stats-grid {
-                grid-template-columns: 1fr;
-            }
+        /* ================= TOAST ================= */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            max-width: 90%;
+            text-align: center;
+            animation: slideUp 0.4s ease;
         }
+        .toast.success { background: #16a34a; }
+        .toast.error { background: #dc3545; }
+        .toast.info { background: #1976d2; }
     </style>
 </head>
 <body>
 
-    <!-- ================= HEADER (FIXED - ALL PAGES) ================= -->
+    <!-- ================= HEADER ================= -->
     <header class="app-header" id="mainHeader">
-        <div class="logo" onclick="goHome()">
-            🚀 <span>Dream</span>Josh
-        </div>
+        <div class="logo" onclick="goHome()">🚀 <span>Dream</span>Josh</div>
         <div class="header-controls">
             <button class="nav-btn" onclick="goHome()">🏠 Home</button>
-            
-            <!-- GOVT JOBS DROPDOWN -->
             <div class="govt-dropdown" id="govtDropdown">
-                <button class="govt-btn" onclick="toggleGovtDropdown()">
-                    💼 Govt Jobs <span class="arrow">▾</span>
-                </button>
+                <button class="govt-btn" onclick="toggleGovtDropdown()">💼 Govt Jobs <span class="arrow">▾</span></button>
                 <div class="govt-dropdown-content" id="govtDropdownContent">
                     <div class="dropdown-label">🇮🇳 Central Govt. Jobs</div>
                     <button onclick="goToSlide('centralJobs'); closeGovtDropdown();">🏛️ UPSC Jobs</button>
@@ -1892,9 +1097,7 @@
                     <button onclick="goToSlide('centralJobs'); closeGovtDropdown();">🏭 PSU Companies</button>
                     <button onclick="goToSlide('centralJobs'); closeGovtDropdown();">🛠️ Technical Jobs</button>
                     <button onclick="goToSlide('centralJobs'); closeGovtDropdown();">⚖️ Court / Judiciary</button>
-                    
                     <div class="dropdown-divider"></div>
-                    
                     <div class="dropdown-label">🏜️ Rajasthan State Govt. Jobs</div>
                     <button onclick="goToSlide('stateJobs'); closeGovtDropdown();">🏛️ RPSC</button>
                     <button onclick="goToSlide('stateJobs'); closeGovtDropdown();">📋 RSSB / RSMSSB</button>
@@ -1910,7 +1113,6 @@
                     <button onclick="goToSlide('stateJobs'); closeGovtDropdown();">🌳 Forest Department</button>
                 </div>
             </div>
-            
             <button class="nav-btn" onclick="goToSlide('study')">📚 Study</button>
             <button class="nav-btn" onclick="goToSlide('career')">🎯 Career</button>
             <button class="nav-btn" onclick="goToSlide('books')">📖 Books</button>
@@ -1923,7 +1125,7 @@
     <!-- ================= SLIDE CONTAINER ================= -->
     <div class="slide-container" id="slideContainer">
 
-        <!-- ================= SLIDE 0: HOME ================= -->
+        <!-- SLIDE 0: HOME -->
         <div class="slide active" data-slide="home">
             <div class="home-original" id="homeOriginal">
                 <header>
@@ -1931,42 +1133,32 @@
                     <p id="siteTagline">"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"</p>
                     <small id="siteSubtitle">Motivation • Study • Govt. Jobs • Career Guide</small>
                 </header>
-
-                <div class="ticker latest">
-                    <span>🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन</span>
-                </div>
-                <div class="ticker update">
-                    <span>✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी</span>
-                </div>
-
+                <div class="ticker latest"><span>🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन</span></div>
+                <div class="ticker update"><span>✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी</span></div>
                 <div class="container">
                     <div class="home-layout">
                         <div class="left-content">
-                            <h2 id="homeTitle">🚀 Dream Josh में आपका स्वागत है</h2>
-                            <div class="card about-home" id="homeContent">
-                                <div id="homeAboutSection">
-                                    <h3>🌟 Dream Josh के बारे में</h3>
-                                    <p id="homeAboutText"><b>Dream Josh</b> एक educational और career guidance platform है, जिसका उद्देश्य विद्यार्थियों, प्रतियोगी परीक्षा की तैयारी करने वाले अभ्यर्थियों और अपने करियर को बेहतर दिशा देने वाले युवाओं को <b>पढ़ाई, सरकारी नौकरी, करियर और परीक्षा तैयारी</b> से जुड़ी उपयोगी जानकारी एक ही जगह उपलब्ध कराना है।</p>
-                                    <p id="homeAboutText2">हमारा प्रयास है कि विद्यार्थियों को सही जानकारी सरल और समझने योग्य भाषा में मिले, ताकि वे अपनी पढ़ाई और करियर से जुड़े बेहतर निर्णय ले सकें।</p>
-                                </div>
-                                <div id="homeFeaturesSection">
-                                    <h3>📚 Dream Josh पर क्या मिलेगा?</h3>
-                                    <ul id="homeFeaturesList">
-                                        <li>📖 Study Notes और अध्ययन सामग्री</li>
-                                        <li>🏛️ Govt. Jobs से संबंधित जानकारी</li>
-                                        <li>🎯 Career Guide और Career Options</li>
-                                        <li>📝 Exam Preparation की महत्वपूर्ण जानकारी</li>
-                                        <li>🌍 Rajasthan GK और सामान्य ज्ञान</li>
-                                        <li>📄 Study PDFs और उपयोगी Resources</li>
-                                        <li>💡 Skills & Courses की जानकारी</li>
-                                        <li>🔥 Motivation और प्रेरणादायक सामग्री</li>
-                                        <li>▶️ Educational Videos और Learning Resources</li>
-                                        <li>📚 Competitive Exams की Books और Study Resources</li>
-                                    </ul>
-                                </div>
-                                <div class="about-highlight" id="homeHighlight">
-                                    <b id="homeHighlightText">"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br>
-                                    <span id="homeHighlightSub">सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>
+                            <h2>🚀 Dream Josh में आपका स्वागत है</h2>
+                            <div class="card about-home">
+                                <h3>🌟 Dream Josh के बारे में</h3>
+                                <p><b>Dream Josh</b> एक educational और career guidance platform है, जिसका उद्देश्य विद्यार्थियों, प्रतियोगी परीक्षा की तैयारी करने वाले अभ्यर्थियों और अपने करियर को बेहतर दिशा देने वाले युवाओं को <b>पढ़ाई, सरकारी नौकरी, करियर और परीक्षा तैयारी</b> से जुड़ी उपयोगी जानकारी एक ही जगह उपलब्ध कराना है।</p>
+                                <p>हमारा प्रयास है कि विद्यार्थियों को सही जानकारी सरल और समझने योग्य भाषा में मिले, ताकि वे अपनी पढ़ाई और करियर से जुड़े बेहतर निर्णय ले सकें।</p>
+                                <h3>📚 Dream Josh पर क्या मिलेगा?</h3>
+                                <ul>
+                                    <li>📖 Study Notes और अध्ययन सामग्री</li>
+                                    <li>🏛️ Govt. Jobs से संबंधित जानकारी</li>
+                                    <li>🎯 Career Guide और Career Options</li>
+                                    <li>📝 Exam Preparation की महत्वपूर्ण जानकारी</li>
+                                    <li>🌍 Rajasthan GK और सामान्य ज्ञान</li>
+                                    <li>📄 Study PDFs और उपयोगी Resources</li>
+                                    <li>💡 Skills & Courses की जानकारी</li>
+                                    <li>🔥 Motivation और प्रेरणादायक सामग्री</li>
+                                    <li>▶️ Educational Videos और Learning Resources</li>
+                                    <li>📚 Competitive Exams की Books और Study Resources</li>
+                                </ul>
+                                <div class="about-highlight">
+                                    <b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br>
+                                    <span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>
                                 </div>
                             </div>
                         </div>
@@ -2009,35 +1201,31 @@
             </div>
         </div>
 
-        <!-- ================= SLIDE 1: CENTRAL JOBS ================= -->
+        <!-- SLIDE 1: CENTRAL JOBS -->
         <div class="slide" data-slide="centralJobs">
             <div class="page-title">🇮🇳 <span>Central Govt. Jobs</span></div>
             <div class="page-subtitle">भारत सरकार की प्रमुख भर्ती परीक्षाएँ</div>
-            
             <div class="job-info-box">
-                <div class="job-count">📊 कुल भर्ती विभाग: <span id="centralJobCount">12</span></div>
+                <div class="job-count">📊 कुल भर्ती विभाग: <span id="centralJobCount">0</span></div>
                 <div class="job-detail">🇮🇳 UPSC • SSC • Railway • Banking • Defence • Police • Post • Teaching • Medical • PSU • Technical • Court</div>
             </div>
-
             <div id="centralJobsGrid" class="professional-grid"></div>
             <div class="full-list-view" id="centralJobsList"></div>
         </div>
 
-        <!-- ================= SLIDE 2: STATE JOBS ================= -->
+        <!-- SLIDE 2: STATE JOBS -->
         <div class="slide" data-slide="stateJobs">
             <div class="page-title">🏜️ <span>Rajasthan Govt. Jobs</span></div>
             <div class="page-subtitle">राजस्थान सरकार की प्रमुख भर्ती परीक्षाएँ</div>
-            
             <div class="job-info-box">
-                <div class="job-count">📊 कुल भर्ती विभाग: <span id="stateJobCount">12</span></div>
+                <div class="job-count">📊 कुल भर्ती विभाग: <span id="stateJobCount">0</span></div>
                 <div class="job-detail">🏛️ RPSC • RSSB • High Court • Boards • Police • Education • Medical • Agriculture • Engineering • Revenue • Panchayat • Forest</div>
             </div>
-
             <div id="stateJobsGrid" class="professional-grid"></div>
             <div class="full-list-view" id="stateJobsList"></div>
         </div>
 
-        <!-- ================= SLIDE 3: STUDY ================= -->
+        <!-- SLIDE 3: STUDY -->
         <div class="slide" data-slide="study">
             <div class="page-title">📚 <span>Study Notes</span></div>
             <div class="page-subtitle">अध्ययन सामग्री और नोट्स - पूरी जानकारी</div>
@@ -2047,7 +1235,7 @@
             </div>
         </div>
 
-        <!-- ================= SLIDE 4: RAJASTHAN GK ================= -->
+        <!-- SLIDE 4: RAJASTHAN GK -->
         <div class="slide" data-slide="rajasthan">
             <div class="page-title">🏜️ <span>Rajasthan GK</span></div>
             <div class="page-subtitle">राजस्थान सामान्य ज्ञान - पूरी जानकारी</div>
@@ -2057,7 +1245,7 @@
             </div>
         </div>
 
-        <!-- ================= SLIDE 5: QUIZ ================= -->
+        <!-- SLIDE 5: QUIZ -->
         <div class="slide" data-slide="quiz">
             <div class="page-title">🧠 <span>Daily Quiz</span></div>
             <div class="page-subtitle">प्रतिदिन नए प्रश्न और अभ्यास - पूरी जानकारी</div>
@@ -2067,7 +1255,7 @@
             </div>
         </div>
 
-        <!-- ================= SLIDE 6: CAREER ================= -->
+        <!-- SLIDE 6: CAREER -->
         <div class="slide" data-slide="career">
             <div class="page-title">🎯 <span>Career Guide</span></div>
             <div class="page-subtitle">अपने करियर को सही दिशा दें - पूरी जानकारी</div>
@@ -2077,7 +1265,7 @@
             </div>
         </div>
 
-        <!-- ================= SLIDE 7: BOOKS ================= -->
+        <!-- SLIDE 7: BOOKS -->
         <div class="slide" data-slide="books">
             <div class="page-title">📖 <span>Books</span></div>
             <div class="page-subtitle">प्रतियोगी परीक्षाओं और अध्ययन के लिए किताबें - पूरी जानकारी</div>
@@ -2087,7 +1275,7 @@
             </div>
         </div>
 
-        <!-- ================= SLIDE 8: MORE ================= -->
+        <!-- SLIDE 8: MORE -->
         <div class="slide" data-slide="more">
             <div class="page-title">⚙️ <span>More Features</span></div>
             <div class="page-subtitle">PDF Tools • Ads • Forms • Gallery • Motivation • Videos - पूरी जानकारी</div>
@@ -2099,7 +1287,7 @@
 
     </div>
 
-    <!-- ================= FOOTER (FIXED - ALL PAGES) ================= -->
+    <!-- ================= FOOTER ================= -->
     <footer class="app-footer" id="mainFooter">
         <div class="footer-nav">
             <button class="nav-btn" onclick="goHome()">🏠 Home</button>
@@ -2110,9 +1298,7 @@
             <button class="nav-btn refresh-btn" onclick="refreshFromGoogleSheet()">🔄 Refresh</button>
             <button class="nav-btn admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
         </div>
-        <div class="footer-text">
-            © 2026 <span>Dream Josh</span> • Study • Govt. Jobs • Career
-        </div>
+        <div class="footer-text">© 2026 <span>Dream Josh</span> • Study • Govt. Jobs • Career</div>
     </footer>
 
     <!-- ================= DETAIL OVERLAY ================= -->
@@ -2127,150 +1313,79 @@
     <div id="adminPanelContainer"></div>
 
     <script>
-        // ================= CONFIGURATION =================
-        // 🔴 IMPORTANT: अपनी Google Sheet Apps Script URL यहाँ डालें
-        // Google Sheet → Extensions → Apps Script → Deploy → Copy URL
-        const GOOGLE_SHEET_URL = 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE';
-        // Example: 'https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxx/exec'
-        
-        // Cache duration in milliseconds (5 minutes)
-        const CACHE_DURATION = 300000;
-        const CACHE_KEY = 'dreamjosh_sheet_data';
+        // ================= 🔴 GOOGLE SHEET URL - YOUR URL HERE =================
+        const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxLfe6c7pmykwnEFmU08XJ50TmgO6LpKYnNjJI6supicdNNBDeQTXskTynaeMDY6W0k/exec';
 
-        // ================= COMPLETE SITE DATA =================
-        const siteData = {
+        // ================= CONFIGURATION =================
+        const CACHE_KEY = 'dreamjosh_sheet_data';
+        const CACHE_DURATION = 300000; // 5 minutes
+
+        // ================= COMPLETE DEFAULT DATA (फॉलबैक के लिए) =================
+        const defaultData = {
             centralJobs: {
-                title: "Central Govt. Jobs",
-                icon: '🇮🇳',
-                info: 'कुल 12 भर्ती विभाग',
                 sections: [
-                    { id: 'upsc', icon: '🏛️', title: 'UPSC Jobs', items: ['Civil Services (IAS/IPS/IFS) - परीक्षा: जून 2026', 'Indian Forest Service - परीक्षा: जुलाई 2026', 'Engineering Services - परीक्षा: मई 2026', 'CDS - परीक्षा: अप्रैल 2026', 'NDA / NA - परीक्षा: सितंबर 2026', 'CAPF - परीक्षा: अगस्त 2026', 'Combined Medical Services - परीक्षा: जुलाई 2026'], details: 'UPSC भारत की प्रमुख संघ लोक सेवा आयोग है। यह IAS, IPS, IFS जैसी प्रतिष्ठित सेवाओं के लिए परीक्षा आयोजित करता है।', examDate: 'जून-सितंबर 2026', eligibility: 'स्नातक', ageLimit: '21-32 वर्ष' },
-                    { id: 'ssc', icon: '📑', title: 'SSC Jobs', items: ['SSC CGL - परीक्षा: अगस्त 2026', 'SSC CHSL - परीक्षा: नवंबर 2026', 'SSC MTS - परीक्षा: अक्टूबर 2026', 'SSC GD Constable - परीक्षा: फरवरी 2027', 'SSC CPO - परीक्षा: मार्च 2027', 'SSC JE - परीक्षा: मई 2027', 'SSC Stenographer - परीक्षा: जून 2027'], details: 'SSC केंद्र सरकार के विभिन्न मंत्रालयों में Group B और C पदों के लिए भर्ती करता है।', examDate: 'अगस्त 2026 - जून 2027', eligibility: '10वीं से स्नातक', ageLimit: '18-32 वर्ष' },
-                    { id: 'railway', icon: '🚆', title: 'Railway / RRB', items: ['RRB NTPC - परीक्षा: मार्च 2026', 'Railway Group D - परीक्षा: अप्रैल 2026', 'ALP - परीक्षा: मई 2026', 'Technician - परीक्षा: जून 2026', 'Junior Engineer - परीक्षा: जुलाई 2026', 'RPF - परीक्षा: सितंबर 2026'], details: 'RRB भारतीय रेलवे में विभिन्न तकनीकी और गैर-तकनीकी पदों के लिए भर्ती करता है।', examDate: 'मार्च-सितंबर 2026', eligibility: '10वीं से इंजीनियरिंग', ageLimit: '18-33 वर्ष' },
-                    { id: 'banking', icon: '🏦', title: 'Banking & Financial', items: ['IBPS PO - परीक्षा: अक्टूबर 2026', 'IBPS Clerk - परीक्षा: दिसंबर 2026', 'IBPS RRB - परीक्षा: अगस्त 2026', 'SBI PO - परीक्षा: जून 2026', 'SBI Clerk - परीक्षा: अगस्त 2026', 'RBI - परीक्षा: जुलाई 2026', 'NABARD - परीक्षा: सितंबर 2026', 'SEBI - परीक्षा: नवंबर 2026', 'LIC - परीक्षा: मई 2026'], details: 'IBPS, SBI, RBI और अन्य बैंकिंग संस्थानों में अधिकारी और क्लर्क पदों के लिए भर्ती होती है।', examDate: 'मई-दिसंबर 2026', eligibility: 'स्नातक', ageLimit: '20-30 वर्ष' },
-                    { id: 'defence', icon: '🪖', title: 'Defence Jobs', items: ['Indian Army - भर्ती: वर्ष भर', 'Indian Navy - भर्ती: वर्ष भर', 'Indian Air Force - भर्ती: वर्ष भर', 'Indian Coast Guard - भर्ती: वर्ष भर', 'NDA - परीक्षा: अप्रैल 2026, सितंबर 2026', 'CDS - परीक्षा: फरवरी 2026, अगस्त 2026', 'Agniveer - भर्ती: वर्ष भर'], details: 'भारतीय सेना, नौसेना और वायुसेना में विभिन्न अधिकारी और सैनिक पदों के लिए भर्ती होती है।', examDate: 'वर्ष भर', eligibility: '10वीं से स्नातक', ageLimit: '16.5-25 वर्ष' },
-                    { id: 'police', icon: '👮', title: 'Police / CAPF', items: ['BSF - परीक्षा: मई 2026', 'CRPF - परीक्षा: जून 2026', 'CISF - परीक्षा: जुलाई 2026', 'ITBP - परीक्षा: अगस्त 2026', 'SSB - परीक्षा: सितंबर 2026', 'Delhi Police - परीक्षा: नवंबर 2026'], details: 'CAPF में BSF, CRPF, CISF, ITBP, SSB जैसी बलों में भर्ती होती है।', examDate: 'मई-नवंबर 2026', eligibility: '10वीं से स्नातक', ageLimit: '18-25 वर्ष' },
-                    { id: 'post', icon: '📮', title: 'India Post', items: ['GDS - भर्ती: वर्ष भर', 'Postal Assistant - परीक्षा: मार्च 2026', 'Sorting Assistant - परीक्षा: अप्रैल 2026', 'Postman - परीक्षा: मई 2026', 'Mail Guard - परीक्षा: जून 2026', 'MTS - परीक्षा: जुलाई 2026'], details: 'India Post देश की सबसे बड़ी डाक सेवा है जहाँ विभिन्न पदों पर भर्ती होती है।', examDate: 'मार्च-जुलाई 2026', eligibility: '10वीं से स्नातक', ageLimit: '18-30 वर्ष' },
-                    { id: 'teaching', icon: '👩‍🏫', title: 'Teaching Jobs', items: ['KVS - परीक्षा: जनवरी 2026', 'NVS - परीक्षा: फरवरी 2026', 'CTET - परीक्षा: दिसंबर 2025, जून 2026', 'Teacher - भर्ती: वर्ष भर', 'Lecturer - भर्ती: वर्ष भर', 'Assistant Professor - भर्ती: वर्ष भर'], details: 'KVS, NVS और अन्य केंद्रीय शिक्षण संस्थानों में शिक्षक भर्ती होती है।', examDate: 'दिसंबर 2025 - जून 2026', eligibility: 'स्नातक (B.Ed)', ageLimit: '18-40 वर्ष' },
-                    { id: 'medical', icon: '🏥', title: 'Medical Jobs', items: ['AIIMS - भर्ती: वर्ष भर', 'ESIC - परीक्षा: मार्च 2026', 'Nursing Officer - परीक्षा: अप्रैल 2026', 'Pharmacist - परीक्षा: मई 2026', 'Lab Technician - परीक्षा: जून 2026', 'Medical Officer - परीक्षा: जुलाई 2026'], details: 'AIIMS, ESIC और अन्य केंद्रीय स्वास्थ्य संस्थानों में डॉक्टर, नर्स, फार्मासिस्ट आदि पदों पर भर्ती होती है।', examDate: 'मार्च-जुलाई 2026', eligibility: '12वीं से MBBS', ageLimit: '18-35 वर्ष' },
-                    { id: 'psu', icon: '🏭', title: 'PSU Companies', items: ['ONGC - भर्ती: वर्ष भर', 'NTPC - भर्ती: वर्ष भर', 'BHEL - भर्ती: वर्ष भर', 'SAIL - भर्ती: वर्ष भर', 'GAIL - भर्ती: वर्ष भर', 'IOCL - भर्ती: वर्ष भर', 'HAL - भर्ती: वर्ष भर', 'BEL - भर्ती: वर्ष भर', 'Coal India - भर्ती: वर्ष भर'], details: 'PSU कंपनियों में इंजीनियर, प्रबंधक, तकनीशियन आदि पदों पर भर्ती होती है।', examDate: 'वर्ष भर', eligibility: 'डिप्लोमा से स्नातकोत्तर', ageLimit: '18-30 वर्ष' },
-                    { id: 'technical', icon: '🛠️', title: 'Technical Jobs', items: ['Junior Engineer - परीक्षा: मई 2026', 'Assistant Engineer - परीक्षा: जून 2026', 'Technician - परीक्षा: जुलाई 2026', 'Civil Engineering - भर्ती: वर्ष भर', 'Electrical Engineering - भर्ती: वर्ष भर', 'Mechanical Engineering - भर्ती: वर्ष भर', 'Electronics - भर्ती: वर्ष भर', 'IT / Computer - भर्ती: वर्ष भर'], details: 'सरकारी विभागों और PSU में इंजीनियरिंग और तकनीकी पदों पर भर्ती होती है।', examDate: 'मई-जुलाई 2026', eligibility: 'डिप्लोमा / B.Tech', ageLimit: '18-35 वर्ष' },
-                    { id: 'court', icon: '⚖️', title: 'Court / Judiciary', items: ['Supreme Court - भर्ती: वर्ष भर', 'High Courts - भर्ती: वर्ष भर', 'Judicial Services - परीक्षा: वर्ष भर', 'Court Clerk - परीक्षा: मार्च 2026', 'Stenographer - परीक्षा: अप्रैल 2026', 'Assistant - परीक्षा: मई 2026'], details: 'सुप्रीम कोर्ट, हाई कोर्ट और जिला न्यायालयों में विभिन्न पदों पर भर्ती होती है।', examDate: 'मार्च-मई 2026', eligibility: 'स्नातक (LLB)', ageLimit: '21-35 वर्ष' }
+                    { id: 'upsc', icon: '🏛️', title: 'UPSC Jobs', items: ['Civil Services - परीक्षा: जून 2026', 'Indian Forest Service - परीक्षा: जुलाई 2026'], details: 'UPSC भारत की प्रमुख सेवा परीक्षा', examDate: 'जून-सितंबर 2026', eligibility: 'स्नातक', ageLimit: '21-32' },
+                    { id: 'ssc', icon: '📑', title: 'SSC Jobs', items: ['SSC CGL - परीक्षा: अगस्त 2026', 'SSC CHSL - परीक्षा: नवंबर 2026'], details: 'SSC केंद्र सरकार के मंत्रालयों में भर्ती', examDate: 'अगस्त 2026 - जून 2027', eligibility: '10वीं से स्नातक', ageLimit: '18-32' }
                 ]
             },
             stateJobs: {
-                title: "Rajasthan Govt. Jobs",
-                icon: '🏜️',
-                info: 'कुल 12 भर्ती विभाग',
                 sections: [
-                    { id: 'rpsc', icon: '🏛️', title: 'RPSC', items: ['RAS / RTS - परीक्षा: अक्टूबर 2026', 'School Lecturer - परीक्षा: नवंबर 2026', 'Senior Teacher Grade II - परीक्षा: दिसंबर 2026', 'Assistant Professor - परीक्षा: जनवरी 2027', 'Assistant Engineer - परीक्षा: फरवरी 2027', 'Junior Legal Officer - परीक्षा: मार्च 2027', 'Agriculture Officer - परीक्षा: अप्रैल 2027'], details: 'RPSC राजस्थान की प्रमुख सेवाओं के लिए भर्ती करता है।', examDate: 'अक्टूबर 2026 - अप्रैल 2027', eligibility: 'स्नातक से स्नातकोत्तर', ageLimit: '21-40 वर्ष' },
-                    { id: 'rssb', icon: '📋', title: 'RSSB / RSMSSB', items: ['CET Senior Secondary - परीक्षा: मई 2026', 'CET Graduation Level - परीक्षा: जून 2026', 'Patwari - परीक्षा: जुलाई 2026', 'VDO - परीक्षा: अगस्त 2026', 'LDC / Junior Assistant - परीक्षा: सितंबर 2026', 'Junior Accountant - परीक्षा: अक्टूबर 2026', 'Agriculture Supervisor - परीक्षा: नवंबर 2026', 'Junior Engineer - परीक्षा: दिसंबर 2026', 'Forest Guard - परीक्षा: जनवरी 2027', 'Forester - परीक्षा: फरवरी 2027'], details: 'RSSB राजस्थान के अधीनस्थ सेवाओं के लिए भर्ती करता है।', examDate: 'मई 2026 - फरवरी 2027', eligibility: '10वीं से स्नातक', ageLimit: '18-40 वर्ष' },
-                    { id: 'highcourt', icon: '⚖️', title: 'Rajasthan High Court', items: ['Civil Judge - परीक्षा: जून 2026', 'District Judge - परीक्षा: जुलाई 2026', 'Junior Judicial Assistant - परीक्षा: अगस्त 2026', 'Junior Assistant - परीक्षा: सितंबर 2026', 'Clerk - परीक्षा: अक्टूबर 2026', 'Stenographer - परीक्षा: नवंबर 2026'], details: 'राजस्थान उच्च न्यायालय में न्यायिक और प्रशासनिक पदों पर भर्ती होती है।', examDate: 'जून-नवंबर 2026', eligibility: 'स्नातक (LLB)', ageLimit: '21-35 वर्ष' },
-                    { id: 'boards', icon: '🏢', title: 'Boards & Corporations', items: ['RSRTC - भर्ती: वर्ष भर', 'Rajasthan Housing Board - भर्ती: वर्ष भर', 'RIICO - भर्ती: वर्ष भर', 'JVVNL - भर्ती: वर्ष भर', 'AVVNL - भर्ती: वर्ष भर', 'JdVVNL - भर्ती: वर्ष भर', 'RVUNL - भर्ती: वर्ष भर', 'RTDC - भर्ती: वर्ष भर'], details: 'राजस्थान के विभिन्न बोर्ड और निगमों में विभिन्न पदों पर भर्ती होती है।', examDate: 'वर्ष भर', eligibility: '10वीं से स्नातक', ageLimit: '18-40 वर्ष' },
-                    { id: 'police', icon: '👮', title: 'Rajasthan Police', items: ['Constable - परीक्षा: मार्च 2026', 'Driver Constable - परीक्षा: अप्रैल 2026', 'Sub Inspector (SI) - परीक्षा: मई 2026', 'Platoon Commander - परीक्षा: जून 2026', 'Home Guard - भर्ती: वर्ष भर'], details: 'राजस्थान पुलिस में कांस्टेबल, SI और अन्य पदों पर भर्ती होती है।', examDate: 'मार्च-जून 2026', eligibility: '10वीं से स्नातक', ageLimit: '18-26 वर्ष' },
-                    { id: 'education', icon: '👩‍🏫', title: 'Education Recruitment', items: ['REET - परीक्षा: मार्च 2026', 'Teacher Grade III Level 1 - परीक्षा: अप्रैल 2026', 'Teacher Grade III Level 2 - परीक्षा: मई 2026', 'Senior Teacher Grade II - परीक्षा: जून 2026', 'School Lecturer - परीक्षा: जुलाई 2026', 'PTI - परीक्षा: अगस्त 2026', 'Librarian - परीक्षा: सितंबर 2026'], details: 'राजस्थान में REET, Teacher Grade III, Senior Teacher, Lecturer आदि पदों पर भर्ती होती है।', examDate: 'मार्च-सितंबर 2026', eligibility: '12वीं से स्नातकोत्तर (B.Ed)', ageLimit: '18-40 वर्ष' },
-                    { id: 'health', icon: '🏥', title: 'Medical & Health', items: ['Medical Officer - परीक्षा: अप्रैल 2026', 'Nursing Officer - परीक्षा: मई 2026', 'ANM - परीक्षा: जून 2026', 'GNM - परीक्षा: जुलाई 2026', 'CHO - परीक्षा: अगस्त 2026', 'Pharmacist - परीक्षा: सितंबर 2026', 'Lab Technician - परीक्षा: अक्टूबर 2026'], details: 'राजस्थान स्वास्थ्य विभाग में डॉक्टर, नर्स, फार्मासिस्ट, लैब टेक्नीशियन आदि पदों पर भर्ती होती है।', examDate: 'अप्रैल-अक्टूबर 2026', eligibility: '12वीं से MBBS', ageLimit: '18-40 वर्ष' },
-                    { id: 'agriculture', icon: '🌾', title: 'Agriculture & Animal', items: ['Agriculture Officer - परीक्षा: अप्रैल 2026', 'Agriculture Supervisor - परीक्षा: मई 2026', 'Horticulture Officer - परीक्षा: जून 2026', 'Veterinary Officer - परीक्षा: जुलाई 2026', 'Livestock Assistant - परीक्षा: अगस्त 2026'], details: 'राजस्थान कृषि और पशुपालन विभाग में कृषि अधिकारी, पशु चिकित्सा अधिकारी आदि पदों पर भर्ती होती है।', examDate: 'अप्रैल-अगस्त 2026', eligibility: 'स्नातक (Agriculture/Veterinary)', ageLimit: '18-40 वर्ष' },
-                    { id: 'engineering', icon: '🛠️', title: 'Engineering & Technical', items: ['Assistant Engineer Civil - परीक्षा: जून 2026', 'Assistant Engineer Mechanical - परीक्षा: जुलाई 2026', 'Assistant Engineer Electrical - परीक्षा: अगस्त 2026', 'Junior Engineer Civil - परीक्षा: सितंबर 2026', 'Junior Engineer Mechanical - परीक्षा: अक्टूबर 2026', 'Junior Engineer Electrical - परीक्षा: नवंबर 2026', 'Programmer - परीक्षा: दिसंबर 2026'], details: 'राजस्थान के विभिन्न विभागों में सिविल, मैकेनिकल, इलेक्ट्रिकल, आईटी इंजीनियरों की भर्ती होती है।', examDate: 'जून-दिसंबर 2026', eligibility: 'डिप्लोमा / B.Tech', ageLimit: '18-40 वर्ष' },
-                    { id: 'revenue', icon: '📑', title: 'Revenue Department', items: ['Tehsildar - परीक्षा: अगस्त 2026', 'Naib Tehsildar - परीक्षा: सितंबर 2026', 'Revenue Inspector - परीक्षा: अक्टूबर 2026', 'Patwari - परीक्षा: नवंबर 2026'], details: 'राजस्थान राजस्व विभाग में तहसीलदार, नायब तहसीलदार, पटवारी आदि पदों पर भर्ती होती है।', examDate: 'अगस्त-नवंबर 2026', eligibility: 'स्नातक', ageLimit: '18-40 वर्ष' },
-                    { id: 'panchayat', icon: '🏘️', title: 'Panchayati Raj', items: ['VDO - परीक्षा: मई 2026', 'Junior Technical Assistant - परीक्षा: जून 2026', 'Account Assistant - परीक्षा: जुलाई 2026'], details: 'राजस्थान पंचायती राज विभाग में VDO, तकनीकी सहायक, लेखा सहायक आदि पदों पर भर्ती होती है।', examDate: 'मई-जुलाई 2026', eligibility: '10वीं से स्नातक', ageLimit: '18-40 वर्ष' },
-                    { id: 'forest', icon: '🌳', title: 'Forest Department', items: ['Forest Guard - परीक्षा: मार्च 2026', 'Forester - परीक्षा: अप्रैल 2026', 'Forest Ranger - परीक्षा: मई 2026'], details: 'राजस्थान वन विभाग में फॉरेस्ट गार्ड, फॉरेस्टर, रेंजर आदि पदों पर भर्ती होती है।', examDate: 'मार्च-मई 2026', eligibility: '10वीं से स्नातक', ageLimit: '18-40 वर्ष' }
+                    { id: 'rpsc', icon: '🏛️', title: 'RPSC', items: ['RAS - परीक्षा: अक्टूबर 2026', 'School Lecturer - परीक्षा: नवंबर 2026'], details: 'RPSC राजस्थान की प्रमुख सेवा परीक्षा', examDate: 'अक्टूबर 2026 - अप्रैल 2027', eligibility: 'स्नातक से स्नातकोत्तर', ageLimit: '21-40' },
+                    { id: 'rssb', icon: '📋', title: 'RSSB / RSMSSB', items: ['CET Senior Secondary - परीक्षा: मई 2026', 'CET Graduation - परीक्षा: जून 2026'], details: 'RSSB राजस्थान अधीनस्थ सेवाओं के लिए भर्ती', examDate: 'मई 2026 - फरवरी 2027', eligibility: '10वीं से स्नातक', ageLimit: '18-40' }
                 ]
             },
             study: {
-                title: "Study Notes",
-                icon: '📚',
-                info: 'पूरी अध्ययन सामग्री',
                 sections: [
-                    { id: 'material', icon: '📚', title: 'Study Material', items: ['📘 History Notes - प्राचीन, मध्यकालीन, आधुनिक भारत', '🌍 Geography Notes - भौतिक, मानव, आर्थिक भूगोल', '⚖️ Polity Notes - संविधान, राज्यपाल, मंत्रिमंडल', '🔬 Science Notes - भौतिकी, रसायन, जीव विज्ञान', '📰 Current Affairs - राष्ट्रीय, अंतर्राष्ट्रीय, खेल', '📊 Economics Notes - भारतीय अर्थव्यवस्था, बजट'], details: 'यहाँ आपको सभी विषयों के व्यवस्थित नोट्स मिलेंगे।' },
-                    { id: 'questions', icon: '📝', title: 'Important Questions', items: ['❓ History Questions - 500+ महत्वपूर्ण प्रश्न', '❓ Geography Questions - 400+ प्रश्न', '❓ Polity Questions - 300+ प्रश्न', '❓ Science Questions - 450+ प्रश्न', '❓ Current Affairs Questions - 600+ प्रश्न', '❓ Economics Questions - 350+ प्रश्न'], details: 'प्रतियोगी परीक्षाओं में पूछे जाने वाले महत्वपूर्ण प्रश्नों का संग्रह।' },
-                    { id: 'subject', icon: '📘', title: 'Subject-wise Notes', items: ['📖 History - प्राचीन भारत (2500 BC - 1200 AD)', '📖 History - मध्यकालीन भारत (1200 AD - 1750 AD)', '📖 History - आधुनिक भारत (1750 AD - 1947 AD)', '🏔️ Geography - भौतिक भूगोल', '🏔️ Geography - मानव भूगोल', '🏔️ Geography - आर्थिक भूगोल', '⚖️ Polity - भारतीय संविधान', '⚖️ Polity - केंद्र सरकार', '⚖️ Polity - राज्य सरकार', '🔬 Science - भौतिकी', '🔬 Science - रसायन', '🔬 Science - जीव विज्ञान'], details: 'हर विषय को अलग-अलग भागों में बांटा गया है ताकि आप आसानी से पढ़ सकें।' },
-                    { id: 'revision', icon: '🔁', title: 'Revision & Practice', items: ['📅 Revision Schedule - 30 दिन का प्लान', '📝 Previous Year Questions - 2015-2025', '📊 Practice Sets - 50+ सेट्स', '🎯 Mock Tests - 25+ टेस्ट'], details: 'Revision और Practice के लिए विशेष सामग्री।' }
-                ]
-            },
-            rajasthan: {
-                title: "Rajasthan GK",
-                icon: '🏜️',
-                info: 'राजस्थान सामान्य ज्ञान',
-                sections: [
-                    { id: 'history', icon: '🏰', title: 'History', items: ['📜 प्राचीन राजस्थान (3000 BC - 700 AD)', '📜 मध्यकालीन राजस्थान (700 AD - 1700 AD)', '📜 आधुनिक राजस्थान (1700 AD - 1947 AD)', '👑 प्रमुख राजवंश - चौहान, गुहिल, कछवाहा', '⚔️ प्रमुख युद्ध - हल्दीघाटी, खानवा', '👑 प्रमुख शासक - महाराणा प्रताप, राजा मान सिंह'], details: 'राजस्थान का समृद्ध इतिहास - प्राचीन काल से आधुनिक काल तक।' },
-                    { id: 'geography', icon: '🗺️', title: 'Geography', items: ['🗺️ भौगोलिक स्थिति - अक्षांश, देशांतर', '🌊 नदियाँ - चंबल, बनास, लूनी, घग्गर', '🏞️ झीलें - सांभर, पुष्कर, फतेहसागर', '🌤️ जलवायु - शुष्क, अर्ध-शुष्क', '🌳 वन - साल, शीशम, खेजड़ी', '⛏️ खनिज - तांबा, जस्ता, सीसा'], details: 'राजस्थान का भौगोलिक स्वरूप - रेगिस्तान, पहाड़ियाँ, नदियाँ, झीलें।' },
-                    { id: 'culture', icon: '🎭', title: 'Art & Culture', items: ['🎨 लोक कला - मेवाड़, मारवाड़, शेखावाटी', '💃 लोक नृत्य - घूमर, कच्छी घोड़ी, तेरहताली', '🎵 लोक संगीत - मांड, पंहारी, भोपा', '🎪 मेले - पुष्कर, सिरोही, तिलवाड़ा', '🎊 त्योहार - दीपावली, होली, गणगौर', '👗 वेशभूषा - पगड़ी, घाघरा, ओढ़नी'], details: 'राजस्थान की समृद्ध संस्कृति - कला, नृत्य, संगीत, त्योहार, वेशभूषा।' },
-                    { id: 'districts', icon: '📍', title: 'Districts', items: ['📍 जयपुर - गुलाबी नगरी, राजधानी', '📍 जोधपुर - सूर्य नगरी, मेहरानगढ़ किला', '📍 उदयपुर - झीलों की नगरी, सिटी पैलेस', '📍 अजमेर - ख्वाजा मोइनुद्दीन चिश्ती', '📍 बीकानेर - किला, जूनागढ़', '📍 कोटा - चंबल, कोटा बैराज'], details: 'राजस्थान के 33 जिलों की विशेषताएँ - प्रमुख स्थान, पर्यटन, इतिहास।' },
-                    { id: 'facts', icon: '⭐', title: 'Important Facts', items: ['👤 प्रमुख व्यक्तित्व - महाराणा प्रताप, रावत भाटी', '🏛️ प्रमुख स्थान - हवा महल, जग मंदिर, मेहरानगढ़', '🏭 प्रमुख उद्योग - कपड़ा, खनन, पर्यटन', '🌍 प्रमुख पर्यटन स्थल - जैसलमेर, रणथंभौर'], details: 'राजस्थान के महत्वपूर्ण तथ्य - व्यक्तित्व, स्थान, उद्योग, पर्यटन।' }
-                ]
-            },
-            quiz: {
-                title: "Daily Quiz",
-                icon: '🧠',
-                info: 'प्रतिदिन नए प्रश्न',
-                sections: [
-                    { id: 'dailygk', icon: '🌐', title: 'Daily GK', items: ['🇮🇳 भारत की राजधानी क्या है? - नई दिल्ली', '🏜️ राजस्थान का सबसे बड़ा जिला? - जैसलमेर', '📅 संविधान दिवस? - 26 नवंबर', '🌊 गंगा नदी कहाँ से निकलती है? - गंगोत्री', '🐯 भारत का राष्ट्रीय पशु? - बाघ'], details: 'रोजाना सामान्य ज्ञान के प्रश्न - अपनी जानकारी बढ़ाएँ।' },
-                    { id: 'rajasthanquiz', icon: '🏜️', title: 'Rajasthan Quiz', items: ['📏 राजस्थान का क्षेत्रफल? - 3,42,239 वर्ग किमी', '🏛️ राजस्थान की राजधानी? - जयपुर', '🗺️ राजस्थान में कितने जिले? - 33', '🐫 राजस्थान का राज्य पशु? - चिंकारा', '🌊 राजस्थान की प्रमुख नदी? - चंबल'], details: 'राजस्थान से संबंधित प्रश्न - राजस्थान GK को मजबूत करें।' },
-                    { id: 'exampractice', icon: '📝', title: 'Exam Practice', items: ['📝 SSC CGL Full Form? - Staff Selection Commission', '📅 UPSC स्थापना? - 1926', '🏦 RBI मुख्यालय? - मुंबई', '🏏 भारत का राष्ट्रीय खेल? - हॉकी', '📜 संविधान में अनुच्छेद? - 448'], details: 'प्रतियोगी परीक्षाओं के पैटर्न पर आधारित प्रश्न - अभ्यास करें।' },
-                    { id: 'currentaffairs', icon: '📰', title: 'Current Affairs', items: ['💰 2026 का बजट किसने पेश किया? - निर्मला सीतारमण', '🏅 हाल ही में किसे भारत रत्न मिला? - मनमोहन सिंह', '🌍 G20 की अध्यक्षता? - भारत', '🚀 चंद्रयान-4? - 2027 में लॉन्च होगा', '🏆 विश्व कप 2026? - USA, Mexico, Canada'], details: 'साल 2026 के महत्वपूर्ण करेंट अफेयर्स - परीक्षाओं के लिए उपयोगी।' }
+                    { id: 'material', icon: '📚', title: 'Study Material', items: ['📘 History Notes', '🌍 Geography Notes', '⚖️ Polity Notes', '🔬 Science Notes'], details: 'सभी विषयों के व्यवस्थित नोट्स' },
+                    { id: 'questions', icon: '📝', title: 'Important Questions', items: ['❓ History Questions - 500+', '❓ Geography Questions - 400+', '❓ Polity Questions - 300+'], details: 'महत्वपूर्ण प्रश्नों का संग्रह' }
                 ]
             },
             career: {
-                title: "Career Guide",
-                icon: '🎯',
-                info: 'करियर से जुड़ी पूरी जानकारी',
                 sections: [
-                    { id: 'after12', icon: '🎓', title: '12th के बाद Career', items: ['🎨 Arts / Humanities - BA, BSW, B.Lib', '🔬 Science - BSc, B.Tech, MBBS, BDS', '💰 Commerce - BCom, BBA, BBM, CA, CS', '🎯 Any Stream - ग्रेजुलेशन, डिप्लोमा, ITI'], details: '12वीं के बाद आप किस स्ट्रीम में आगे बढ़ सकते हैं।' },
-                    { id: 'college', icon: '🏫', title: 'College & Degree', items: ['🏛️ Arts & Humanities - BA, MA, PhD', '🔬 Science - BSc, MSc, PhD', '💼 Commerce & Management - BCom, MBA', '💻 Computer / IT - BCA, MCA, B.Tech CS', '🎓 Professional - MBBS, LLB, B.Ed, B.Arch'], details: 'कॉलेज और डिग्री कोर्स की पूरी जानकारी।' },
-                    { id: 'skills', icon: '💡', title: 'Skills & Certificate', items: ['💻 Digital Skills - MS Office, Typing', '🧑‍💻 Technology - Web Development, Python', '🗣️ Professional Skills - Communication', '📈 Career Skills - Time Management'], details: 'नई स्किल्स सीखें और अपने करियर को मजबूत करें।' },
-                    { id: 'competitive', icon: '📝', title: 'Competitive Exams', items: ['🇮🇳 Central - UPSC, SSC', '🚆 Railway - RRB NTPC, Group D', '🏦 Banking - IBPS, SBI, RBI', '🏜️ Rajasthan - RPSC, RSSB', '👩‍🏫 Teaching - REET, CTET'], details: 'सभी प्रतियोगी परीक्षाओं की जानकारी।' },
-                    { id: 'govcareer', icon: '🏛️', title: 'Government Career', items: ['📘 After 10th - RPF, Group D, ITI', '🎓 After 12th - SSC CHSL, Defence, Police', '🎯 After Graduation - UPSC, SSC CGL, Banking', '🛠️ Specialised - Engineering, Medical, Law'], details: 'सरकारी नौकरी का पूरा रास्ता।' },
-                    { id: 'defence', icon: '🪖', title: 'Defence Career', items: ['⭐ Officer Entry - NDA, CDS, AFCAT', '🪖 Army - भारतीय सेना', '⚓ Navy - भारतीय नौसेना', '✈️ Air Force - भारतीय वायुसेना', '🚢 Coast Guard - तट रक्षक बल', '🏃 Fitness & Selection'], details: 'भारतीय सेना, नौसेना, वायुसेना में करियर।' },
-                    { id: 'teaching', icon: '👩‍🏫', title: 'Teaching Career', items: ['🏫 School - TGT, PGT, PRT', '📝 Teaching Exams - REET, CTET', '🎓 Higher Education - NET, SET, PhD', '💻 Modern Teaching Skills'], details: 'टीचिंग करियर - स्कूल से लेकर कॉलेज तक।' },
-                    { id: 'medical', icon: '🏥', title: 'Medical & Paramedical', items: ['🩺 Medical - MBBS, BAMS, BHMS', '👩‍⚕️ Nursing - B.Sc Nursing, GNM', '💊 Pharmacy - D.Pharm, B.Pharm', '🧪 Lab - Lab Technician'], details: 'मेडिकल और पैरामेडिकल करियर।' },
-                    { id: 'engineering', icon: '🛠️', title: 'Engineering & Technical', items: ['🏗️ Civil - Construction, Infrastructure', '⚙️ Mechanical - Manufacturing', '⚡ Electrical - Power Systems', '💻 Computer/IT - Software, Web'], details: 'इंजीनियरिंग करियर - सभी ब्रांचेस की जानकारी।' },
-                    { id: 'it', icon: '💻', title: 'IT & Computer', items: ['🌐 Web Development - HTML, CSS, React', '🧑‍💻 Software - Java, Python, C++', '📊 Data Analytics - Excel, SQL, Power BI', '🔐 Cyber Security - Ethical Hacking'], details: 'IT और कंप्यूटर करियर।' },
-                    { id: 'iti', icon: '🔧', title: 'ITI & Polytechnic', items: ['🔩 ITI Trades - Fitter, Welder, Electrician', '🏗️ Polytechnic - Civil, Mechanical, Electrical', '🎯 After ITI - Apprenticeship', '🧰 Essential Skills'], details: 'ITI और पॉलिटेक्निक कोर्स।' },
-                    { id: 'planning', icon: '🧭', title: 'Career Planning', items: ['🧠 Self Assessment - रुचि पहचानें', '🔍 Explore Options - करियर खोजें', '📋 Check Eligibility - योग्यता जांचें', '🛣️ Select Route - रास्ता चुनें', '📈 Build Skills - कौशल विकास', '🚀 Prepare & Apply'], details: 'करियर प्लानिंग - सही करियर चुनने का पूरा रास्ता।' }
+                    { id: 'after12', icon: '🎓', title: '12वीं के बाद Career', items: ['🎨 Arts', '🔬 Science', '💰 Commerce', '🎯 Any Stream'], details: '12वीं के बाद के सभी विकल्प' },
+                    { id: 'college', icon: '🏫', title: 'College & Degree', items: ['🏛️ Arts & Humanities', '🔬 Science', '💼 Commerce & Management', '💻 Computer / IT'], details: 'कॉलेज और डिग्री कोर्स की जानकारी' }
                 ]
             },
             books: {
-                title: "Books",
-                icon: '📖',
-                info: 'प्रतियोगी परीक्षाओं के लिए किताबें',
                 sections: [
-                    { id: 'competitivebooks', icon: '📝', title: 'Competitive Exams', items: ['📘 SSC CGL - Quantitative Aptitude, English', '📘 Railway RRB - Maths, Reasoning', '📘 Banking - Quant, Reasoning, English', '📘 UPSC - NCERT, History, Geography'], details: 'SSC, Railway, Banking, UPSC - सभी प्रतियोगी परीक्षाओं के लिए बेस्ट किताबें।' },
-                    { id: 'rajasthanbooks', icon: '🏜️', title: 'Rajasthan GK', items: ['📗 Rajasthan History - राजस्थान का इतिहास', '📗 Rajasthan Geography - राजस्थान भूगोल', '📗 Rajasthan Culture - राजस्थान संस्कृति', '📗 Rajasthan GK - सामान्य ज्ञान'], details: 'राजस्थान GK की बेस्ट किताबें।' },
-                    { id: 'gkbooks', icon: '🌐', title: 'General Knowledge', items: ['📙 Lucent GK - सामान्य ज्ञान', '📙 Manorama Yearbook - करंट अफेयर्स', '📙 Static GK - स्थिर सामान्य ज्ञान'], details: 'सामान्य ज्ञान की बेस्ट किताबें।' },
-                    { id: 'careerbooks', icon: '🎯', title: 'Study & Career', items: ['📕 Career Planning - सही करियर चुनना', '📕 Skill Development - स्किल डेवलपमेंट', '📕 Motivation - प्रेरणादायक किताबें'], details: 'करियर और स्किल डेवलपमेंट के लिए बेस्ट किताबें।' }
+                    { id: 'competitivebooks', icon: '📝', title: 'Competitive Exams Books', items: ['📘 SSC CGL', '📘 Railway RRB', '📘 Banking', '📘 UPSC'], details: 'प्रतियोगी परीक्षाओं की किताबें' },
+                    { id: 'rajasthanbooks', icon: '🏜️', title: 'Rajasthan GK Books', items: ['📗 Rajasthan History', '📗 Rajasthan Geography', '📗 Rajasthan Culture'], details: 'राजस्थान GK की किताबें' }
+                ]
+            },
+            rajasthan: {
+                sections: [
+                    { id: 'history', icon: '🏰', title: 'History', items: ['📜 प्राचीन राजस्थान', '📜 मध्यकालीन राजस्थान', '📜 आधुनिक राजस्थान'], details: 'राजस्थान का समृद्ध इतिहास' },
+                    { id: 'geography', icon: '🗺️', title: 'Geography', items: ['🗺️ भौगोलिक स्थिति', '🌊 नदियाँ', '🏞️ झीलें'], details: 'राजस्थान का भौगोलिक स्वरूप' }
+                ]
+            },
+            quiz: {
+                sections: [
+                    { id: 'dailygk', icon: '🌐', title: 'Daily GK', items: ['🇮🇳 भारत की राजधानी?', '🏜️ राजस्थान का सबसे बड़ा जिला?', '📅 संविधान दिवस?'], details: 'रोजाना सामान्य ज्ञान' },
+                    { id: 'rajasthanquiz', icon: '🏜️', title: 'Rajasthan Quiz', items: ['📏 राजस्थान का क्षेत्रफल?', '🏛️ राजस्थान की राजधानी?', '🗺️ राजस्थान में कितने जिले?'], details: 'राजस्थान से संबंधित प्रश्न' }
                 ]
             },
             more: {
-                title: "More Features",
-                icon: '⚙️',
-                info: 'अतिरिक्त सुविधाएँ',
                 sections: [
-                    { id: 'pdftools', icon: '🛠️', title: 'PDF Tools', items: ['🔗 Merge PDF - कई PDF को एक में मिलाएं', '✂️ Split PDF - PDF को अलग-अलग करें', '📦 Compress PDF - PDF साइज कम करें', '🔄 Convert PDF - PDF को अन्य फॉर्मेट में बदलें'], details: 'PDF को मर्ज, स्प्लिट, कम्प्रेस और कन्वर्ट करने के टूल्स।' },
-                    { id: 'advertise', icon: '📢', title: 'Advertisement', items: ['🏪 Local Business - स्थानीय व्यवसाय', '🎓 Coaching - कोचिंग संस्थान', '🛎️ Services - सेवाएँ'], details: 'विज्ञापन के लिए संपर्क करें।' },
-                    { id: 'share', icon: '📤', title: 'Share Website', items: ['📱 Share Website - दोस्तों के साथ शेयर करें', '🔗 Copy Link - लिंक कॉपी करें'], details: 'Dream Josh को अपने दोस्तों के साथ शेयर करें।' },
-                    { id: 'forms', icon: '📝', title: 'Important Forms', items: ['🏛️ Government Forms - आधार, पैन, वोटर', '💼 Job Forms - ऑनलाइन आवेदन', '🔗 Application Links - सीधे लिंक'], details: 'सरकारी फॉर्म और जॉब फॉर्म की लिंक्स।' },
-                    { id: 'gallery', icon: '🖼️', title: 'Photo Gallery', items: ['🎉 Events - इवेंट्स की तस्वीरें', '📚 Study - अध्ययन सत्र', '🎯 Career - करियर गाइडेंस'], details: 'Dream Josh की फोटो गैलरी।' },
-                    { id: 'links', icon: '🔗', title: 'Main Links', items: ['💼 Govt. Jobs - सरकारी नौकरी', '📚 Study - अध्ययन', '🎯 Career - करियर', '🌐 Useful Links - उपयोगी लिंक्स'], details: 'महत्वपूर्ण लिंक्स।' },
-                    { id: 'motivation', icon: '🔥', title: 'Motivation', items: ['🔥 Daily Motivation - रोज की प्रेरणा', '📚 Study Motivation - पढ़ाई के लिए प्रेरणा', '🎯 Career Motivation - करियर के लिए प्रेरणा', '🏆 Success Tips - सफलता के टिप्स'], details: 'प्रेरणादायक संदेश।' },
-                    { id: 'videos', icon: '▶️', title: 'Videos', items: ['📚 Study Videos - अध्ययन वीडियो', '💼 Job Updates - नौकरी अपडेट', '🎯 Career Guidance - करियर मार्गदर्शन', '🔥 Motivation - प्रेरणादायक वीडियो'], details: 'Dream Josh के वीडियो।' }
+                    { id: 'pdftools', icon: '🛠️', title: 'PDF Tools', items: ['🔗 Merge PDF', '✂️ Split PDF', '📦 Compress PDF', '🔄 Convert PDF'], details: 'PDF कार्यों के लिए टूल्स' },
+                    { id: 'motivation', icon: '🔥', title: 'Motivation', items: ['🔥 Daily Motivation', '📚 Study Motivation', '🎯 Career Motivation'], details: 'प्रेरणादायक संदेश' }
                 ]
             }
         };
 
         // ================= ADMIN DATA =================
         let adminData = {
-            content: [{ id: 1, title: 'Sample Content', category: 'Study', body: 'This is sample content.', tags: 'sample' }],
-            jobs: [{ id: 1, title: 'IAS/IPS', department: 'UPSC', category: 'central', eligibility: 'Graduation', age: '21-32', lastDate: '31 Dec 2026', description: 'Sample job' }],
-            quizzes: [{ id: 1, title: 'Sample Quiz', category: 'GK', questions: [{ question: 'Sample question?', options: ['A', 'B', 'C', 'D'], answer: 0 }] }],
-            users: [{ id: 1, name: 'Test User', email: 'test@email.com', joined: '2026-01-01' }],
-            notifications: [{ id: 1, title: 'Welcome', message: 'Admin panel ready.', type: 'success', date: '2026-01-01' }],
+            content: [],
+            jobs: [],
+            quizzes: [],
+            users: [],
+            notifications: [],
             settings: { password: 'admin123', darkMode: false }
         };
 
-        // ================= GOOGLE SHEET FUNCTIONS =================
+        // ================= SITE DATA (Dynamic) =================
+        let siteData = JSON.parse(JSON.stringify(defaultData));
 
-        // Get cached data
+        // ================= CACHE FUNCTIONS =================
         function getCachedData() {
             try {
                 const cached = localStorage.getItem(CACHE_KEY);
@@ -2281,372 +1396,212 @@
                     }
                 }
                 return null;
-            } catch (e) {
-                console.error('Cache read error:', e);
-                return null;
-            }
+            } catch (e) { return null; }
         }
 
-        // Set cached data
         function setCachedData(data) {
             try {
-                localStorage.setItem(CACHE_KEY, JSON.stringify({
-                    timestamp: Date.now(),
-                    data: data
-                }));
-            } catch (e) {
-                console.error('Cache write error:', e);
-            }
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: data }));
+            } catch (e) {}
         }
 
-        // Fetch data from Google Sheet
+        // ================= FETCH FROM GOOGLE SHEET =================
         async function fetchGoogleSheetData(forceRefresh = false) {
-            // Check cache first
             if (!forceRefresh) {
                 const cached = getCachedData();
-                if (cached) {
-                    console.log('📦 Using cached data from Google Sheet');
-                    return cached;
-                }
+                if (cached) { console.log('📦 Using cached data'); return cached; }
             }
 
-            // Check if URL is configured
             if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE') {
-                console.warn('⚠️ Google Sheet URL not configured. Using default data.');
+                console.warn('⚠️ Google Sheet URL not configured');
                 return null;
             }
 
             try {
-                console.log('🔄 Fetching data from Google Sheet...');
+                console.log('🔄 Fetching from Google Sheet...');
                 const response = await fetch(GOOGLE_SHEET_URL);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const data = await response.json();
-                
-                // Cache the data
                 setCachedData(data);
-                
-                console.log('✅ Google Sheet data loaded successfully!');
+                console.log('✅ Google Sheet data loaded!');
                 return data;
             } catch (error) {
-                console.error('❌ Error fetching Google Sheet data:', error);
-                // Return cached data if available
+                console.error('❌ Error fetching:', error);
                 const cached = getCachedData();
-                if (cached) {
-                    console.log('📦 Using cached data (fallback)');
-                    return cached;
-                }
+                if (cached) return cached;
                 return null;
             }
         }
 
-        // ================= DATA LOADING FUNCTIONS =================
-
+        // ================= ICON HELPERS =================
         function getJobIcon(title) {
-            const icons = {
-                'UPSC': '🏛️', 'SSC': '📑', 'Railway': '🚆', 'Banking': '🏦',
-                'Defence': '🪖', 'Police': '👮', 'Post': '📮', 'Teaching': '👩‍🏫',
-                'Medical': '🏥', 'PSU': '🏭', 'Technical': '🛠️', 'Court': '⚖️',
-                'RPSC': '🏛️', 'RSSB': '📋', 'High Court': '⚖️', 'Boards': '🏢'
-            };
+            const icons = { 'UPSC': '🏛️', 'SSC': '📑', 'Railway': '🚆', 'Banking': '🏦', 'Defence': '🪖', 'Police': '👮', 'Post': '📮', 'Teaching': '👩‍🏫', 'Medical': '🏥', 'PSU': '🏭', 'Technical': '🛠️', 'Court': '⚖️', 'RPSC': '🏛️', 'RSSB': '📋', 'High Court': '⚖️', 'Boards': '🏢' };
             for (const [key, icon] of Object.entries(icons)) {
                 if (title.toLowerCase().includes(key.toLowerCase())) return icon;
             }
             return '📌';
         }
 
-        function getStudyIcon(category) {
-            const icons = {
-                'History': '📘', 'Geography': '🌍', 'Polity': '⚖️',
-                'Science': '🔬', 'Current Affairs': '📰', 'Economics': '📊'
-            };
-            return icons[category] || '📚';
-        }
+        function getStudyIcon(c) { const i = { 'History': '📘', 'Geography': '🌍', 'Polity': '⚖️', 'Science': '🔬', 'Current Affairs': '📰', 'Economics': '📊' }; return i[c] || '📚'; }
+        function getCareerIcon(c) { const i = { 'After 12th': '🎓', 'College': '🏫', 'Skills': '💡', 'Competitive': '📝', 'Government': '🏛️', 'Defence': '🪖', 'Teaching': '👩‍🏫', 'Medical': '🏥', 'Engineering': '🛠️', 'IT': '💻' }; return i[c] || '🎯'; }
+        function getRajasthanIcon(c) { const i = { 'History': '🏰', 'Geography': '🗺️', 'Culture': '🎭', 'Districts': '📍', 'Facts': '⭐' }; return i[c] || '🏜️'; }
+        function getQuizIcon(c) { const i = { 'GK': '🌐', 'Rajasthan': '🏜️', 'Exam': '📝', 'Current Affairs': '📰' }; return i[c] || '🧠'; }
+        function getMoreIcon(c) { const i = { 'PDF Tools': '🛠️', 'Advertisement': '📢', 'Share': '📤', 'Forms': '📝', 'Gallery': '🖼️', 'Links': '🔗', 'Motivation': '🔥', 'Videos': '▶️' }; return i[c] || '⚙️'; }
 
-        function getCareerIcon(category) {
-            const icons = {
-                'After 12th': '🎓', 'College': '🏫', 'Skills': '💡',
-                'Competitive': '📝', 'Government': '🏛️', 'Defence': '🪖',
-                'Teaching': '👩‍🏫', 'Medical': '🏥', 'Engineering': '🛠️',
-                'IT': '💻'
-            };
-            return icons[category] || '🎯';
-        }
-
-        function getRajasthanIcon(category) {
-            const icons = {
-                'History': '🏰', 'Geography': '🗺️', 'Culture': '🎭',
-                'Districts': '📍', 'Facts': '⭐'
-            };
-            return icons[category] || '🏜️';
-        }
-
-        function getQuizIcon(category) {
-            const icons = {
-                'GK': '🌐', 'Rajasthan': '🏜️', 'Exam': '📝', 'Current Affairs': '📰'
-            };
-            return icons[category] || '🧠';
-        }
-
-        function getMoreIcon(category) {
-            const icons = {
-                'PDF Tools': '🛠️', 'Advertisement': '📢', 'Share': '📤',
-                'Forms': '📝', 'Gallery': '🖼️', 'Links': '🔗',
-                'Motivation': '🔥', 'Videos': '▶️'
-            };
-            return icons[category] || '⚙️';
-        }
-
-        // Load jobs from Google Sheet
-        async function loadJobsFromSheet(forceRefresh = false) {
+        // ================= LOAD DATA FROM GOOGLE SHEET =================
+        async function loadAllDataFromSheet(forceRefresh = false) {
             const data = await fetchGoogleSheetData(forceRefresh);
-            if (!data) return false;
+            if (!data) { console.log('📋 Using default data'); return false; }
 
-            if (data.Jobs && data.Jobs.length > 0) {
-                try {
-                    // Central Jobs
-                    const centralJobs = data.Jobs.filter(job => job.category === 'central');
-                    if (centralJobs.length > 0) {
-                        siteData.centralJobs.sections = centralJobs.map(job => ({
-                            id: job.id || job.title.toLowerCase().replace(/\s/g, ''),
-                            icon: getJobIcon(job.title),
-                            title: job.title,
-                            items: [job.description || 'No description'],
-                            details: job.description || '',
-                            examDate: job.lastDate || 'Coming soon',
-                            eligibility: job.eligibility || 'Check notification',
-                            ageLimit: job.age || 'Check notification'
+            try {
+                // Govt Jobs
+                if (data['Govt Jobs'] && data['Govt Jobs'].length > 0) {
+                    const central = data['Govt Jobs'].filter(j => j.category === 'central');
+                    const state = data['Govt Jobs'].filter(j => j.category === 'state');
+                    
+                    if (central.length > 0) {
+                        siteData.centralJobs.sections = central.map(j => ({
+                            id: j.id || j.title.toLowerCase().replace(/\s/g, ''),
+                            icon: getJobIcon(j.title),
+                            title: j.title,
+                            items: [j.description || 'No description'],
+                            details: j.description || '',
+                            examDate: j.lastDate || 'Coming soon',
+                            eligibility: j.eligibility || 'Check notification',
+                            ageLimit: j.age || 'Check notification'
                         }));
                         document.getElementById('centralJobsGrid').dataset.loaded = 'false';
-                        document.getElementById('centralJobCount').textContent = centralJobs.length;
+                        document.getElementById('centralJobCount').textContent = central.length;
                     }
-
-                    // State Jobs
-                    const stateJobs = data.Jobs.filter(job => job.category === 'state');
-                    if (stateJobs.length > 0) {
-                        siteData.stateJobs.sections = stateJobs.map(job => ({
-                            id: job.id || job.title.toLowerCase().replace(/\s/g, ''),
-                            icon: getJobIcon(job.title),
-                            title: job.title,
-                            items: [job.description || 'No description'],
-                            details: job.description || '',
-                            examDate: job.lastDate || 'Coming soon',
-                            eligibility: job.eligibility || 'Check notification',
-                            ageLimit: job.age || 'Check notification'
+                    if (state.length > 0) {
+                        siteData.stateJobs.sections = state.map(j => ({
+                            id: j.id || j.title.toLowerCase().replace(/\s/g, ''),
+                            icon: getJobIcon(j.title),
+                            title: j.title,
+                            items: [j.description || 'No description'],
+                            details: j.description || '',
+                            examDate: j.lastDate || 'Coming soon',
+                            eligibility: j.eligibility || 'Check notification',
+                            ageLimit: j.age || 'Check notification'
                         }));
                         document.getElementById('stateJobsGrid').dataset.loaded = 'false';
-                        document.getElementById('stateJobCount').textContent = stateJobs.length;
+                        document.getElementById('stateJobCount').textContent = state.length;
                     }
-
-                    return true;
-                } catch (e) {
-                    console.error('Error loading jobs:', e);
-                    return false;
                 }
-            }
-            return false;
-        }
 
-        // Load study from Google Sheet
-        async function loadStudyFromSheet(forceRefresh = false) {
-            const data = await fetchGoogleSheetData(forceRefresh);
-            if (!data || !data.Study || data.Study.length === 0) return false;
+                // Study
+                if (data['Study'] && data['Study'].length > 0) {
+                    siteData.study.sections = data['Study'].map(item => ({
+                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                        icon: getStudyIcon(item.category),
+                        title: item.title,
+                        items: item.content ? item.content.split(',').map(s => s.trim()) : ['No content'],
+                        details: item.tags || 'Study material'
+                    }));
+                    document.getElementById('studyGrid').dataset.loaded = 'false';
+                }
 
-            try {
-                siteData.study.sections = data.Study.map(item => ({
-                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                    icon: getStudyIcon(item.category),
-                    title: item.title,
-                    items: item.content ? item.content.split(',').map(s => s.trim()) : ['No content'],
-                    details: item.tags || 'Study material'
-                }));
-                document.getElementById('studyGrid').dataset.loaded = 'false';
-                return true;
-            } catch (e) {
-                console.error('Error loading study:', e);
-                return false;
-            }
-        }
+                // Career
+                if (data['Career'] && data['Career'].length > 0) {
+                    siteData.career.sections = data['Career'].map(item => ({
+                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                        icon: getCareerIcon(item.category),
+                        title: item.title,
+                        items: item.items ? item.items.split(',').map(s => s.trim()) : ['No items'],
+                        details: item.description || 'Career guidance'
+                    }));
+                    document.getElementById('careerGrid').dataset.loaded = 'false';
+                }
 
-        // Load career from Google Sheet
-        async function loadCareerFromSheet(forceRefresh = false) {
-            const data = await fetchGoogleSheetData(forceRefresh);
-            if (!data || !data.Career || data.Career.length === 0) return false;
+                // Books
+                if (data['Books'] && data['Books'].length > 0) {
+                    siteData.books.sections = data['Books'].map(item => ({
+                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                        icon: '📖',
+                        title: item.title,
+                        items: item.description ? item.description.split(',').map(s => s.trim()) : ['No books'],
+                        details: item.links || 'Books'
+                    }));
+                    document.getElementById('booksGrid').dataset.loaded = 'false';
+                }
 
-            try {
-                siteData.career.sections = data.Career.map(item => ({
-                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                    icon: getCareerIcon(item.category),
-                    title: item.title,
-                    items: item.items ? item.items.split(',').map(s => s.trim()) : ['No items'],
-                    details: item.description || 'Career guidance'
-                }));
-                document.getElementById('careerGrid').dataset.loaded = 'false';
-                return true;
-            } catch (e) {
-                console.error('Error loading career:', e);
-                return false;
-            }
-        }
+                // Rajasthan
+                if (data['Rajasthan'] && data['Rajasthan'].length > 0) {
+                    siteData.rajasthan.sections = data['Rajasthan'].map(item => ({
+                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                        icon: getRajasthanIcon(item.category),
+                        title: item.title,
+                        items: item.items ? item.items.split(',').map(s => s.trim()) : ['No content'],
+                        details: item.description || 'Rajasthan GK'
+                    }));
+                    document.getElementById('rajasthanGrid').dataset.loaded = 'false';
+                }
 
-        // Load books from Google Sheet
-        async function loadBooksFromSheet(forceRefresh = false) {
-            const data = await fetchGoogleSheetData(forceRefresh);
-            if (!data || !data.Books || data.Books.length === 0) return false;
+                // Quiz
+                if (data['Quiz'] && data['Quiz'].length > 0) {
+                    siteData.quiz.sections = data['Quiz'].map(item => ({
+                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                        icon: getQuizIcon(item.category),
+                        title: item.title,
+                        items: item.questions ? item.questions.split(',').map(s => s.trim()) : ['No questions'],
+                        details: item.answers || 'Quiz'
+                    }));
+                    document.getElementById('quizGrid').dataset.loaded = 'false';
+                }
 
-            try {
-                siteData.books.sections = data.Books.map(item => ({
-                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                    icon: '📖',
-                    title: item.title,
-                    items: item.description ? item.description.split(',').map(s => s.trim()) : ['No books'],
-                    details: item.links || 'Books'
-                }));
-                document.getElementById('booksGrid').dataset.loaded = 'false';
-                return true;
-            } catch (e) {
-                console.error('Error loading books:', e);
-                return false;
-            }
-        }
+                // More
+                if (data['More'] && data['More'].length > 0) {
+                    siteData.more.sections = data['More'].map(item => ({
+                        id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                        icon: getMoreIcon(item.category),
+                        title: item.title,
+                        items: item.items ? item.items.split(',').map(s => s.trim()) : ['No items'],
+                        details: item.description || 'More features'
+                    }));
+                    document.getElementById('moreGrid').dataset.loaded = 'false';
+                }
 
-        // Load Rajasthan from Google Sheet
-        async function loadRajasthanFromSheet(forceRefresh = false) {
-            const data = await fetchGoogleSheetData(forceRefresh);
-            if (!data || !data.Rajasthan || data.Rajasthan.length === 0) return false;
-
-            try {
-                siteData.rajasthan.sections = data.Rajasthan.map(item => ({
-                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                    icon: getRajasthanIcon(item.category),
-                    title: item.title,
-                    items: item.items ? item.items.split(',').map(s => s.trim()) : ['No content'],
-                    details: item.description || 'Rajasthan GK'
-                }));
-                document.getElementById('rajasthanGrid').dataset.loaded = 'false';
-                return true;
-            } catch (e) {
-                console.error('Error loading rajasthan:', e);
-                return false;
-            }
-        }
-
-        // Load quiz from Google Sheet
-        async function loadQuizFromSheet(forceRefresh = false) {
-            const data = await fetchGoogleSheetData(forceRefresh);
-            if (!data || !data.Quiz || data.Quiz.length === 0) return false;
-
-            try {
-                siteData.quiz.sections = data.Quiz.map(item => ({
-                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                    icon: getQuizIcon(item.category),
-                    title: item.title,
-                    items: item.questions ? item.questions.split(',').map(s => s.trim()) : ['No questions'],
-                    details: item.answers || 'Quiz'
-                }));
-                document.getElementById('quizGrid').dataset.loaded = 'false';
-                return true;
-            } catch (e) {
-                console.error('Error loading quiz:', e);
-                return false;
-            }
-        }
-
-        // Load more from Google Sheet
-        async function loadMoreFromSheet(forceRefresh = false) {
-            const data = await fetchGoogleSheetData(forceRefresh);
-            if (!data || !data.More || data.More.length === 0) return false;
-
-            try {
-                siteData.more.sections = data.More.map(item => ({
-                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
-                    icon: getMoreIcon(item.category),
-                    title: item.title,
-                    items: item.items ? item.items.split(',').map(s => s.trim()) : ['No items'],
-                    details: item.description || 'More features'
-                }));
-                document.getElementById('moreGrid').dataset.loaded = 'false';
-                return true;
-            } catch (e) {
-                console.error('Error loading more:', e);
-                return false;
-            }
-        }
-
-        // ================= REFRESH ALL DATA =================
-        async function refreshFromGoogleSheet() {
-            console.log('🔄 Refreshing data from Google Sheet...');
-            
-            // Show loading indicator
-            const refreshBtn = document.querySelector('.refresh-btn');
-            const originalText = refreshBtn.textContent;
-            refreshBtn.textContent = '⏳ Loading...';
-            refreshBtn.disabled = true;
-
-            try {
-                // Clear cache
-                localStorage.removeItem(CACHE_KEY);
-                
-                // Load all data
-                await Promise.all([
-                    loadJobsFromSheet(true),
-                    loadStudyFromSheet(true),
-                    loadCareerFromSheet(true),
-                    loadBooksFromSheet(true),
-                    loadRajasthanFromSheet(true),
-                    loadQuizFromSheet(true),
-                    loadMoreFromSheet(true)
-                ]);
-
-                // Reload all slides
+                // Reload slides
                 const slideIds = ['centralJobs', 'stateJobs', 'study', 'career', 'books', 'rajasthan', 'quiz', 'more'];
                 slideIds.forEach(id => {
                     const grid = document.getElementById(id + 'Grid');
-                    if (grid) {
-                        grid.dataset.loaded = 'false';
+                    if (grid && grid.dataset.loaded === 'false') {
                         loadSlideContent(id);
+                        grid.dataset.loaded = 'true';
                     }
                 });
 
-                console.log('✅ All data refreshed from Google Sheet!');
-                
-                // Show success message
-                showToast('✅ Data refreshed from Google Sheet!', 'success');
-            } catch (error) {
-                console.error('❌ Error refreshing data:', error);
-                showToast('❌ Error refreshing data!', 'error');
-            } finally {
-                refreshBtn.textContent = originalText;
-                refreshBtn.disabled = false;
+                console.log('✅ All data loaded from Google Sheet!');
+                return true;
+            } catch (e) {
+                console.error('Error loading data:', e);
+                return false;
             }
         }
 
-        // ================= TOAST NOTIFICATION =================
+        // ================= REFRESH FUNCTION =================
+        async function refreshFromGoogleSheet() {
+            console.log('🔄 Refreshing...');
+            const btn = document.querySelector('.refresh-btn');
+            if (btn) { btn.textContent = '⏳ Loading...'; btn.disabled = true; }
+
+            try {
+                localStorage.removeItem(CACHE_KEY);
+                await loadAllDataFromSheet(true);
+                showToast('✅ Data refreshed from Google Sheet!', 'success');
+            } catch (e) {
+                showToast('❌ Error refreshing data!', 'error');
+            } finally {
+                if (btn) { btn.textContent = '🔄 Refresh'; btn.disabled = false; }
+            }
+        }
+
+        // ================= TOAST =================
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed;
-                bottom: 80px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: ${type === 'success' ? '#16a34a' : type === 'error' ? '#dc3545' : '#1976d2'};
-                color: white;
-                padding: 12px 24px;
-                border-radius: 12px;
-                font-size: 14px;
-                font-weight: 600;
-                z-index: 9999;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-                animation: slideUp 0.4s ease;
-                max-width: 90%;
-                text-align: center;
-            `;
+            toast.className = `toast ${type}`;
             toast.textContent = message;
             document.body.appendChild(toast);
-
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.3s ease';
@@ -2663,105 +1618,71 @@
             const container = document.getElementById('slideContainer');
             const slides = document.querySelectorAll('.slide');
             let index = 0;
-            slides.forEach((s, i) => {
-                if (s.dataset.slide === slideId) index = i;
-            });
+            slides.forEach((s, i) => { if (s.dataset.slide === slideId) index = i; });
             container.style.transform = `translateX(-${index * 100}%)`;
-
-            if (slideId !== 'home') {
-                loadSlideContent(slideId);
-            }
-            
-            document.querySelectorAll('.app-header .nav-btn, .app-footer .nav-btn').forEach(btn => {
-                btn.classList.remove('active-btn');
-            });
-            
+            if (slideId !== 'home') loadSlideContent(slideId);
             slides.forEach(s => { if (s.dataset.slide === slideId) s.scrollTop = 0; });
         }
 
         function nextSlide() {
-            let currentIndex = allSlideIds.indexOf(currentSlide);
-            if (currentIndex < allSlideIds.length - 1) {
-                goToSlide(allSlideIds[currentIndex + 1]);
-            }
+            let i = allSlideIds.indexOf(currentSlide);
+            if (i < allSlideIds.length - 1) goToSlide(allSlideIds[i + 1]);
         }
-
         function prevSlide() {
-            let currentIndex = allSlideIds.indexOf(currentSlide);
-            if (currentIndex > 0) {
-                goToSlide(allSlideIds[currentIndex - 1]);
-            }
+            let i = allSlideIds.indexOf(currentSlide);
+            if (i > 0) goToSlide(allSlideIds[i - 1]);
         }
+        function goHome() { goToSlide('home'); }
 
-        function goHome() {
-            goToSlide('home');
-        }
-
-        // ================= LOAD SLIDE CONTENT =================
         function loadSlideContent(slideId) {
             const gridId = slideId + 'Grid';
             const grid = document.getElementById(gridId);
-            if (!grid) return;
-            if (grid.dataset.loaded === 'true') return;
+            if (!grid || grid.dataset.loaded === 'true') return;
 
             const data = siteData[slideId];
             if (!data) return;
-
-            const container = document.getElementById(slideId + 'Container');
-            if (container) {
-                const listView = container.querySelector('.full-list-view');
-                if (listView) listView.classList.remove('active');
-                const gridView = container.querySelector('.professional-grid') || container.querySelector('.section-grid');
-                if (gridView) gridView.style.display = 'grid';
-            }
 
             grid.innerHTML = '';
             data.sections.forEach((section, index) => {
                 const card = document.createElement('div');
                 card.className = 'grid-item';
-                const previewItems = section.items ? section.items.slice(0, 2).join(', ') + (section.items.length > 2 ? '...' : '') : '';
+                const preview = section.items ? section.items.slice(0, 2).join(', ') + (section.items.length > 2 ? '...' : '') : '';
                 card.innerHTML = `
                     <div class="item-icon">${section.icon}</div>
                     <div class="item-title">${section.title}</div>
                     <div class="item-desc">${section.items ? section.items.length + ' items' : ''}</div>
-                    <div class="item-desc" style="font-size:11px;opacity:0.5;margin-top:4px;">${previewItems}</div>
+                    <div class="item-desc" style="font-size:11px;opacity:0.5;margin-top:4px;">${preview}</div>
                     <span class="item-badge">${section.items ? section.items.length : 0}</span>
                 `;
                 card.addEventListener('click', () => openFullList(slideId, index));
                 grid.appendChild(card);
             });
-
             grid.dataset.loaded = 'true';
         }
 
-        // ================= FULL LIST VIEW =================
         function openFullList(slideId, sectionIndex) {
             const data = siteData[slideId];
             if (!data) return;
-
             const section = data.sections[sectionIndex];
             if (!section || !section.items) return;
 
             const container = document.getElementById(slideId + 'Container');
             if (!container) return;
-
             const gridView = container.querySelector('.professional-grid') || container.querySelector('.section-grid');
             const listView = container.querySelector('.full-list-view');
-
             if (gridView) gridView.style.display = 'none';
             if (listView) {
                 const itemsHtml = section.items.map((item, i) => `
                     <div class="list-item" onclick="alert('📌 ${item}')">
-                        <span class="item-number">${i + 1}</span>
+                        <span class="item-number">${i+1}</span>
                         <span class="item-icon">${section.icon}</span>
                         <span class="item-text">${item}</span>
                     </div>
                 `).join('');
-
-                let extraDetails = '';
-                if (section.examDate) extraDetails += `<span style="margin-right:15px;">📅 ${section.examDate}</span>`;
-                if (section.eligibility) extraDetails += `<span style="margin-right:15px;">🎓 ${section.eligibility}</span>`;
-                if (section.ageLimit) extraDetails += `<span>🔢 ${section.ageLimit}</span>`;
+                let extra = '';
+                if (section.examDate) extra += `<span style="margin-right:15px;">📅 ${section.examDate}</span>`;
+                if (section.eligibility) extra += `<span style="margin-right:15px;">🎓 ${section.eligibility}</span>`;
+                if (section.ageLimit) extra += `<span>🔢 ${section.ageLimit}</span>`;
 
                 listView.innerHTML = `
                     <div class="list-header">
@@ -2769,8 +1690,8 @@
                         <button class="close-list-btn" onclick="closeFullList('${slideId}')">✕ Close</button>
                     </div>
                     <div style="background:var(--card-bg);padding:14px 18px;border-radius:10px;margin-bottom:12px;border:1px solid var(--border-color);">
-                        <p style="color:var(--text-color);opacity:0.7;font-size:13px;line-height:1.6;">${section.details || 'यहाँ पर सभी महत्वपूर्ण जानकारी दी गई है।'}</p>
-                        ${extraDetails ? `<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px;font-size:12px;font-weight:600;color:var(--primary-blue);">${extraDetails}</div>` : ''}
+                        <p style="color:var(--text-color);opacity:0.7;font-size:13px;line-height:1.6;">${section.details || 'जानकारी'}</p>
+                        ${extra ? `<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px;font-size:12px;font-weight:600;color:var(--primary-blue);">${extra}</div>` : ''}
                     </div>
                     ${itemsHtml}
                     <button class="back-to-cards" onclick="closeFullList('${slideId}')">← Back to Cards</button>
@@ -2782,48 +1703,36 @@
         function closeFullList(slideId) {
             const container = document.getElementById(slideId + 'Container');
             if (!container) return;
-
             const gridView = container.querySelector('.professional-grid') || container.querySelector('.section-grid');
             const listView = container.querySelector('.full-list-view');
-
             if (gridView) gridView.style.display = 'grid';
-            if (listView) {
-                listView.classList.remove('active');
-                listView.innerHTML = '';
-            }
+            if (listView) { listView.classList.remove('active'); listView.innerHTML = ''; }
         }
 
         // ================= DETAIL OVERLAY =================
         function openDetail(slideId, sectionId) {
             const data = siteData[slideId];
             if (!data) return;
-
             const section = data.sections.find(s => s.id === sectionId);
             if (!section) return;
-
             const overlay = document.getElementById('detailOverlay');
             const body = document.getElementById('detailBody');
-
             let itemsHtml = '';
             if (section.items) {
                 itemsHtml = '<ul class="detail-list">';
-                section.items.forEach(item => {
-                    itemsHtml += `<li onclick="alert('📌 ${item}')">${item}</li>`;
-                });
+                section.items.forEach(item => { itemsHtml += `<li onclick="alert('📌 ${item}')">${item}</li>`; });
                 itemsHtml += '</ul>';
             }
-
             body.innerHTML = `
                 <div class="detail-icon">${section.icon}</div>
                 <h2>${section.title}</h2>
-                <p>${section.details || 'यहाँ पर सभी महत्वपूर्ण जानकारी दी गई है।'}</p>
+                <p>${section.details || 'जानकारी'}</p>
                 ${itemsHtml}
                 <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
-                    <span class="detail-link" onclick="alert('🔗 ${section.title} की जानकारी खुल रही है...')">🔗 और जानकारी</span>
+                    <span class="detail-link" onclick="alert('🔗 ${section.title} की जानकारी')">🔗 और जानकारी</span>
                     <span class="detail-link secondary" onclick="closeDetail()">✕ बंद करें</span>
                 </div>
             `;
-
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -2836,68 +1745,44 @@
 
         // ================= GOVT DROPDOWN =================
         function toggleGovtDropdown() {
-            const content = document.getElementById('govtDropdownContent');
-            content.classList.toggle('show');
+            document.getElementById('govtDropdownContent').classList.toggle('show');
         }
-
         function closeGovtDropdown() {
             document.getElementById('govtDropdownContent').classList.remove('show');
         }
-
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('.govt-dropdown')) {
-                closeGovtDropdown();
-            }
+            if (!e.target.closest('.govt-dropdown')) closeGovtDropdown();
         });
 
-        // ================= KEYBOARD NAVIGATION =================
+        // ================= KEYBOARD =================
         document.addEventListener('keydown', (e) => {
             if (document.getElementById('detailOverlay').classList.contains('active')) {
                 if (e.key === 'Escape') closeDetail();
                 return;
             }
-
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                e.preventDefault();
-                nextSlide();
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                e.preventDefault();
-                prevSlide();
-            } else if (e.key === 'Home') {
-                e.preventDefault();
-                goToSlide('home');
-            } else if (e.key === 'r' || e.key === 'R') {
-                if (e.ctrlKey) return;
-                refreshFromGoogleSheet();
-            }
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextSlide(); }
+            else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+            else if (e.key === 'Home') { e.preventDefault(); goHome(); }
+            else if (e.key === 'r' || e.key === 'R') { if (!e.ctrlKey) refreshFromGoogleSheet(); }
         });
 
         // ================= TOUCH SWIPE =================
         let touchStartX = 0, touchStartY = 0, isSwiping = false;
-
         document.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
             touchStartY = e.changedTouches[0].screenY;
             isSwiping = true;
         });
-
         document.addEventListener('touchmove', (e) => {
             if (!isSwiping) return;
             const diffX = e.changedTouches[0].screenX - touchStartX;
             const diffY = e.changedTouches[0].screenY - touchStartY;
-
             if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
                 e.preventDefault();
-                if (diffX < 0) {
-                    nextSlide();
-                    isSwiping = false;
-                } else if (diffX > 0) {
-                    prevSlide();
-                    isSwiping = false;
-                }
+                if (diffX < 0) { nextSlide(); isSwiping = false; }
+                else if (diffX > 0) { prevSlide(); isSwiping = false; }
             }
         });
-
         document.addEventListener('touchend', () => { isSwiping = false; });
 
         // ================= ADMIN PANEL =================
@@ -2916,7 +1801,7 @@
         }
 
         function getAdminPanelHTML() {
-            const darkModeStatus = adminData.settings.darkMode || false;
+            const dark = adminData.settings.darkMode || false;
             return `
             <div id="adminDashboard">
                 <div id="adminLoginPage" class="login-container">
@@ -2931,13 +1816,12 @@
                         <button onclick="closeAdminPanel()" style="margin-top:10px;background:#6c757d;width:100%;padding:12px;border:none;border-radius:8px;color:#fff;font-size:16px;cursor:pointer;">← वापस</button>
                     </div>
                 </div>
-
                 <div id="adminDashboardContent" style="display:none;">
                     <div class="admin-header">
                         <div class="admin-logo"><h2>🚀 Dream Josh Admin</h2><span class="admin-badge">v3.0</span></div>
                         <div class="admin-user">
                             <span>👤 Admin</span>
-                            <button id="darkModeToggle" class="dark-toggle-btn ${darkModeStatus ? 'active' : ''}" onclick="toggleDarkMode()">${darkModeStatus ? '🌙 Dark' : '☀️ Light'}</button>
+                            <button id="darkModeToggle" class="dark-toggle-btn ${dark?'active':''}" onclick="toggleDarkMode()">${dark?'🌙 Dark':'☀️ Light'}</button>
                             <button onclick="adminLogout()" class="logout-btn">🚪 Logout</button>
                             <button onclick="closeAdminPanel()" class="back-btn-admin">← वापस</button>
                         </div>
@@ -2970,35 +1854,30 @@
                                     <button onclick="showAdminSection('quiz')">🧠 Add Quiz</button>
                                     <button onclick="showAdminSection('notifications')">🔔 Send Notification</button>
                                     <button onclick="showAdminSection('settings')">⚙️ Settings</button>
-                                    <button onclick="toggleDarkMode()" style="background: #6c757d;">${adminData.settings.darkMode ? '🌙 Dark Mode ON' : '☀️ Light Mode ON'}</button>
+                                    <button onclick="toggleDarkMode()" style="background: #6c757d;">${adminData.settings.darkMode?'🌙 Dark Mode ON':'☀️ Light Mode ON'}</button>
                                     <button onclick="refreshFromGoogleSheet()" style="background: #16a34a;">🔄 Refresh from Google Sheet</button>
                                 </div>
                             </div>
-                            
                             <div id="admin-section-content" class="admin-section">
                                 <h2>📝 Content Manager</h2>
                                 <div class="toolbar"><button onclick="openAdminContentForm()">➕ Add New Content</button><input type="text" placeholder="🔍 Search..." oninput="filterAdminContent(this.value)"></div>
                                 <div id="adminContentList" class="content-list"></div>
                             </div>
-                            
                             <div id="admin-section-jobs" class="admin-section">
                                 <h2>💼 Jobs Manager</h2>
                                 <div class="toolbar"><button onclick="openAdminJobForm()">➕ Add New Job</button><select onchange="filterAdminJobs(this.value)"><option value="all">All Categories</option><option value="central">🇮🇳 Central</option><option value="state">🏜️ Rajasthan</option></select></div>
                                 <div id="adminJobList" class="job-list-admin"></div>
                             </div>
-                            
                             <div id="admin-section-quiz" class="admin-section">
                                 <h2>🧠 Quiz Manager</h2>
                                 <div class="toolbar"><button onclick="openAdminQuizForm()">➕ Add New Quiz</button></div>
                                 <div id="adminQuizList" class="quiz-list"></div>
                             </div>
-                            
                             <div id="admin-section-users" class="admin-section">
                                 <h2>👥 Users</h2>
                                 <div class="toolbar"><input type="text" placeholder="🔍 Search..." oninput="filterAdminUsers(this.value)"></div>
                                 <div id="adminUserList" class="user-list"></div>
                             </div>
-                            
                             <div id="admin-section-notifications" class="admin-section">
                                 <h2>🔔 Notifications</h2>
                                 <div class="notification-form">
@@ -3009,7 +1888,6 @@
                                 </div>
                                 <div id="adminNotificationList" class="notification-list"></div>
                             </div>
-                            
                             <div id="admin-section-settings" class="admin-section">
                                 <h2>⚙️ Settings</h2>
                                 <div class="settings-form">
@@ -3018,7 +1896,7 @@
                                     <input type="password" id="adminConfirmPass" placeholder="Confirm Password">
                                     <button onclick="changeAdminPassword()">🔒 Update</button>
                                     <h3 style="margin-top:20px;">🌓 Dark Mode</h3>
-                                    <button onclick="toggleDarkMode()" style="background: #6c757d; padding: 12px 24px; font-size: 16px;">${adminData.settings.darkMode ? '🌙 Switch to Light Mode' : '☀️ Switch to Dark Mode'}</button>
+                                    <button onclick="toggleDarkMode()" style="background: #6c757d; padding: 12px 24px; font-size: 16px;">${adminData.settings.darkMode?'🌙 Switch to Light Mode':'☀️ Switch to Dark Mode'}</button>
                                     <h3 style="margin-top:20px;">📊 Google Sheet</h3>
                                     <p style="font-size:13px;color:var(--text-color);opacity:0.7;">URL: <span id="sheetUrlDisplay">${GOOGLE_SHEET_URL === 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE' ? '🔴 Not configured' : '✅ Configured'}</span></p>
                                     <button onclick="refreshFromGoogleSheet()" style="background: #16a34a; padding: 12px 24px; font-size: 16px;">🔄 Refresh from Google Sheet</button>
@@ -3034,7 +1912,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="adminContentModal" class="modal">
                     <div class="modal-content"><span class="close" onclick="closeAdminModal('adminContentModal')">&times;</span>
                         <h2 id="adminContentModalTitle">📝 Add Content</h2>
@@ -3046,7 +1923,6 @@
                         <button onclick="saveAdminContent()">💾 Save</button>
                     </div>
                 </div>
-
                 <div id="adminJobModal" class="modal">
                     <div class="modal-content"><span class="close" onclick="closeAdminModal('adminJobModal')">&times;</span>
                         <h2 id="adminJobModalTitle">💼 Add Job</h2>
@@ -3061,7 +1937,6 @@
                         <button onclick="saveAdminJob()">💾 Save</button>
                     </div>
                 </div>
-
                 <div id="adminQuizModal" class="modal">
                     <div class="modal-content"><span class="close" onclick="closeAdminModal('adminQuizModal')">&times;</span>
                         <h2 id="adminQuizModalTitle">🧠 Add Quiz</h2>
@@ -3073,8 +1948,7 @@
                         <button onclick="saveAdminQuiz()">💾 Save</button>
                     </div>
                 </div>
-            </div>
-            `;
+            </div>`;
         }
 
         // ================= ADMIN FUNCTIONS =================
@@ -3083,33 +1957,25 @@
                 const saved = localStorage.getItem('dreamjosh_admin_data');
                 if (saved) {
                     adminData = JSON.parse(saved);
-                    if (adminData.settings.darkMode) {
-                        document.body.classList.add('dark-mode');
-                    } else {
-                        document.body.classList.remove('dark-mode');
-                    }
-                } else {
-                    saveAdminData();
-                }
+                    if (adminData.settings.darkMode) document.body.classList.add('dark-mode');
+                    else document.body.classList.remove('dark-mode');
+                } else { saveAdminData(); }
             } catch (e) { console.error('Error loading admin data:', e); }
         }
 
         function saveAdminData() {
-            try { localStorage.setItem('dreamjosh_admin_data', JSON.stringify(adminData)); } catch (e) { console.error('Error saving admin data:', e); }
+            try { localStorage.setItem('dreamjosh_admin_data', JSON.stringify(adminData)); } catch (e) {}
         }
 
         function toggleDarkMode() {
             adminData.settings.darkMode = !adminData.settings.darkMode;
-            if (adminData.settings.darkMode) {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
+            if (adminData.settings.darkMode) document.body.classList.add('dark-mode');
+            else document.body.classList.remove('dark-mode');
             saveAdminData();
-            const toggleBtn = document.getElementById('darkModeToggle');
-            if (toggleBtn) {
-                toggleBtn.textContent = adminData.settings.darkMode ? '🌙 Dark' : '☀️ Light';
-                toggleBtn.classList.toggle('active', adminData.settings.darkMode);
+            const btn = document.getElementById('darkModeToggle');
+            if (btn) {
+                btn.textContent = adminData.settings.darkMode ? '🌙 Dark' : '☀️ Light';
+                btn.classList.toggle('active', adminData.settings.darkMode);
             }
         }
 
@@ -3158,11 +2024,11 @@
             if (section === 'notifications') renderAdminNotifications();
         }
 
-        // ================= ADMIN CONTENT =================
+        // Content
         function renderAdminContent(filter = '') {
             const container = document.getElementById('adminContentList');
             let items = adminData.content;
-            if (filter) { items = items.filter(c => c.title.toLowerCase().includes(filter.toLowerCase())); }
+            if (filter) items = items.filter(c => c.title.toLowerCase().includes(filter.toLowerCase()));
             if (items.length === 0) { container.innerHTML = '<div class="empty-state">📭 No content.</div>'; return; }
             container.innerHTML = items.map(c => `
                 <div class="content-item">
@@ -3222,11 +2088,11 @@
             renderAdminDashboard();
         }
 
-        // ================= ADMIN JOBS =================
+        // Jobs
         function renderAdminJobs(category = 'all') {
             const container = document.getElementById('adminJobList');
             let items = adminData.jobs;
-            if (category !== 'all') { items = items.filter(j => j.category === category); }
+            if (category !== 'all') items = items.filter(j => j.category === category);
             if (items.length === 0) { container.innerHTML = '<div class="empty-state">💼 No jobs.</div>'; return; }
             container.innerHTML = items.map(j => `
                 <div class="job-item">
@@ -3295,7 +2161,7 @@
             renderAdminDashboard();
         }
 
-        // ================= ADMIN QUIZ =================
+        // Quiz
         function renderAdminQuizzes() {
             const container = document.getElementById('adminQuizList');
             if (adminData.quizzes.length === 0) { container.innerHTML = '<div class="empty-state">🧠 No quizzes.</div>'; return; }
@@ -3399,11 +2265,11 @@
             renderAdminDashboard();
         }
 
-        // ================= ADMIN USERS =================
+        // Users
         function renderAdminUsers(filter = '') {
             const container = document.getElementById('adminUserList');
             let items = adminData.users;
-            if (filter) { items = items.filter(u => u.name.toLowerCase().includes(filter.toLowerCase())); }
+            if (filter) items = items.filter(u => u.name.toLowerCase().includes(filter.toLowerCase()));
             if (items.length === 0) { container.innerHTML = '<div class="empty-state">👥 No users.</div>'; return; }
             container.innerHTML = items.map(u => `
                 <div class="user-item">
@@ -3423,7 +2289,7 @@
             renderAdminDashboard();
         }
 
-        // ================= ADMIN NOTIFICATIONS =================
+        // Notifications
         function sendAdminNotification() {
             const title = document.getElementById('adminNotifTitle').value.trim();
             const message = document.getElementById('adminNotifMessage').value.trim();
@@ -3454,7 +2320,7 @@
             renderAdminNotifications();
         }
 
-        // ================= ADMIN SETTINGS =================
+        // Settings
         function changeAdminPassword() {
             const newPass = document.getElementById('adminNewPass').value;
             const confirmPass = document.getElementById('adminConfirmPass').value;
@@ -3518,43 +2384,34 @@
         }
 
         function closeAdminModal(id) { document.getElementById(id).style.display = 'none'; }
-
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('modal')) { e.target.style.display = 'none'; }
         });
 
-        // ================= INITIALIZATION =================
+        // ================= INIT =================
         document.addEventListener('DOMContentLoaded', function() {
             loadAdminData();
-            
-            // Load all slides with default data
+
+            // Load all slides
             ['centralJobs', 'stateJobs', 'study', 'rajasthan', 'quiz', 'career', 'books', 'more'].forEach(id => {
                 loadSlideContent(id);
             });
 
-            // Try to load from Google Sheet if configured
+            // Load from Google Sheet if configured
             if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE') {
-                console.log('🔄 Google Sheet configured, loading data...');
-                refreshFromGoogleSheet();
-            } else {
-                console.log('ℹ️ Google Sheet not configured. Using default data.');
-                // Show notification
                 setTimeout(() => {
-                    showToast('ℹ️ Google Sheet not configured. Using default data.', 'info');
-                }, 1000);
+                    loadAllDataFromSheet();
+                }, 500);
             }
 
-            console.log('🚀 Dream Josh - Complete Edition with Google Sheets Integration!');
-            console.log('📌 Press "R" key to refresh from Google Sheet');
+            console.log('🚀 Dream Josh - Complete Edition!');
+            console.log('📌 Press "R" to refresh from Google Sheet');
             console.log('🔐 Admin Panel: Password "admin123"');
-            console.log('🌓 Dark Mode: Toggle from Admin');
         });
 
-        // Make functions globally accessible
+        // ================= EXPOSE FUNCTIONS =================
         window.goToSlide = goToSlide;
         window.goHome = goHome;
-        window.nextSlide = nextSlide;
-        window.prevSlide = prevSlide;
         window.openDetail = openDetail;
         window.closeDetail = closeDetail;
         window.openFullList = openFullList;
@@ -3593,6 +2450,7 @@
         window.clearGoogleSheetCache = clearGoogleSheetCache;
         window.closeAdminModal = closeAdminModal;
         window.showToast = showToast;
+        window.loadAllDataFromSheet = loadAllDataFromSheet;
     </script>
 </body>
 </html>
