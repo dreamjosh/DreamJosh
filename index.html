@@ -1157,39 +1157,6 @@
             font-size: 16px;
             cursor: pointer;
         }
-
-        /* Loading spinner */
-        .loading-spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid var(--border-color);
-            border-top: 2px solid var(--primary-blue);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-right: 8px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Export button styles */
-        .btn-export {
-            background: #28a745 !important;
-            color: #fff !important;
-        }
-        .btn-export:hover { background: #218838 !important; }
-        .btn-export-csv {
-            background: #17a2b8 !important;
-            color: #fff !important;
-        }
-        .btn-export-csv:hover { background: #138496 !important; }
-        .btn-export-excel {
-            background: #1e7e34 !important;
-            color: #fff !important;
-        }
-        .btn-export-excel:hover { background: #1a6e2e !important; }
     </style>
 </head>
 <body>
@@ -1406,7 +1373,7 @@
         // ============================================================
         // CONFIGURATION
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_admin_data_v9';
+        const STORAGE_KEY = 'dreamjosh_admin_data_v10';
 
         // ============================================================
         // DATA STORE
@@ -1528,7 +1495,6 @@
         // UPDATE WEBSITE FROM ADMIN DATA
         // ============================================================
         function updateWebsiteFromAdmin() {
-            // Update Home Page
             const hc = adminData.homeContent || {};
             document.getElementById('homeHeading').textContent = hc.heading || '🚀 Dream Josh में आपका स्वागत है';
             document.getElementById('homeAboutTitle').textContent = hc.aboutTitle || '🌟 Dream Josh के बारे में';
@@ -1540,7 +1506,6 @@
             }
             document.getElementById('homeHighlight').innerHTML = hc.highlight || '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>';
 
-            // Update Forms
             const formsList = document.getElementById('formsList');
             if (formsList) {
                 const forms = adminData.forms || [];
@@ -1558,7 +1523,6 @@
                 }
             }
 
-            // Update Jobs
             const jobsData = adminData.jobs || [];
             const centralJobs = jobsData.filter(j => j.jobType === 'central');
             const stateJobs = jobsData.filter(j => j.jobType === 'state');
@@ -1900,7 +1864,7 @@
                 <div class="admin-sidebar" id="adminSidebar">
                     <div class="admin-logo">
                         <h1>🚀 <span>Dream</span>Josh</h1>
-                        <span class="badge">v9.0</span>
+                        <span class="badge">v10.0</span>
                     </div>
                     <div class="admin-user">
                         <div class="avatar">A</div>
@@ -1960,9 +1924,8 @@
                                 <button onclick="showAdminPage('books'); openContentModal('books')"><i class="fas fa-plus"></i> Add Book</button>
                                 <button onclick="showAdminPage('jobs'); openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
                                 <button onclick="showAdminPage('forms'); openFormModal()"><i class="fas fa-plus"></i> Add Form</button>
-                                <button onclick="exportToCSV()" class="btn-export-csv"><i class="fas fa-file-csv"></i> Export CSV</button>
-                                <button onclick="exportToExcel()" class="btn-export-excel"><i class="fas fa-file-excel"></i> Export Excel</button>
-                                <button onclick="exportToGoogleSheets()" class="btn-export"><i class="fas fa-google"></i> Google Sheets</button>
+                                <button onclick="exportToExcelWithTabs()" style="background:#1e7e34;color:white;"><i class="fas fa-file-excel"></i> Excel (All Tabs)</button>
+                                <button onclick="exportToGoogleSheetsFormat()" style="background:#0f9d58;color:white;"><i class="fas fa-google"></i> Google Sheets</button>
                                 <button onclick="exportAdminData()" style="background:var(--success-green);"><i class="fas fa-download"></i> Backup</button>
                             </div>
                         </div>
@@ -2075,9 +2038,9 @@
                                 </div>
                                 <div class="setting-group">
                                     <h5>📊 Export Data</h5>
-                                    <button class="btn-setting success" onclick="exportToCSV()"><i class="fas fa-file-csv"></i> Export as CSV</button>
-                                    <button class="btn-setting success" onclick="exportToExcel()"><i class="fas fa-file-excel"></i> Export as Excel</button>
-                                    <button class="btn-setting primary" onclick="exportToGoogleSheets()"><i class="fas fa-google"></i> Google Sheets Format</button>
+                                    <button class="btn-setting success" onclick="exportToExcelWithTabs()"><i class="fas fa-file-excel"></i> Export as Excel</button>
+                                    <button class="btn-setting primary" onclick="exportToGoogleSheetsFormat()"><i class="fas fa-google"></i> Google Sheets Format</button>
+                                    <button class="btn-setting warning" onclick="exportToCSV()"><i class="fas fa-file-csv"></i> Export as CSV</button>
                                 </div>
                                 <div class="setting-group">
                                     <h5>💾 Backup & Restore</h5>
@@ -2775,7 +2738,7 @@
         }
 
         // ============================================================
-        // EXPORT FUNCTIONS - CSV / Excel / Google Sheets
+        // EXPORT FUNCTIONS - EXCEL WITH TABS
         // ============================================================
         function escapeCSV(str) {
             if (str === null || str === undefined) return '';
@@ -2828,7 +2791,6 @@
                     item.description || ''
                 ].map(escapeCSV);
             }
-            // Content types
             const common = [
                 item.id || '',
                 item.title || '',
@@ -2911,11 +2873,10 @@
         function generateCSV(type, data) {
             const headers = getCSVHeaders(type);
             const rows = data.map(item => getCSVRow(type, item));
-            const csv = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
-            return csv;
+            return [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
         }
 
-        function downloadCSV(csv, filename) {
+        function downloadExcel(csv, filename) {
             const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -2926,89 +2887,102 @@
             URL.revokeObjectURL(link.href);
         }
 
-        function exportToCSV() {
+        function exportToExcelWithTabs() {
             const allData = {
-                Jobs: adminData.jobs || [],
-                Forms: adminData.forms || [],
-                Study: adminData.content.study || [],
-                Career: adminData.content.career || [],
-                Books: adminData.content.books || [],
-                'Rajasthan GK': adminData.content.rajasthan || [],
-                Quiz: adminData.content.quiz || [],
-                'More Features': adminData.content.more || []
+                'Jobs': { data: adminData.jobs || [], type: 'jobs' },
+                'Forms': { data: adminData.forms || [], type: 'forms' },
+                'Study': { data: adminData.content.study || [], type: 'study' },
+                'Career': { data: adminData.content.career || [], type: 'career' },
+                'Books': { data: adminData.content.books || [], type: 'books' },
+                'Rajasthan GK': { data: adminData.content.rajasthan || [], type: 'rajasthan' },
+                'Quiz': { data: adminData.content.quiz || [], type: 'quiz' },
+                'More Features': { data: adminData.content.more || [], type: 'more' }
             };
 
-            let combinedCSV = '';
-            for (const [name, data] of Object.entries(allData)) {
-                if (data.length === 0) continue;
-                const typeMap = {
-                    'Jobs': 'jobs',
-                    'Forms': 'forms',
-                    'Study': 'study',
-                    'Career': 'career',
-                    'Books': 'books',
-                    'Rajasthan GK': 'rajasthan',
-                    'Quiz': 'quiz',
-                    'More Features': 'more'
-                };
-                const type = typeMap[name] || 'study';
-                const headers = getCSVHeaders(type);
-                const rows = data.map(item => getCSVRow(type, item));
-                combinedCSV += `\n\n=== ${name} ===\n`;
-                combinedCSV += [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+            let excelCSV = '';
+            let hasData = false;
+
+            for (const [sheetName, sheetData] of Object.entries(allData)) {
+                if (sheetData.data.length === 0) continue;
+                hasData = true;
+                const headers = getCSVHeaders(sheetData.type);
+                const rows = sheetData.data.map(item => getCSVRow(sheetData.type, item));
+                excelCSV += `Sheet: ${sheetName}\n`;
+                excelCSV += headers.join(',') + '\n';
+                excelCSV += rows.map(row => row.join(',')).join('\n');
+                excelCSV += '\n\n';
             }
 
-            if (combinedCSV) {
-                const fullCSV = '\uFEFF' + combinedCSV;
-                downloadCSV(fullCSV, 'dreamjosh_all_data.csv');
-                showToast('📥 All data exported as CSV!', 'success');
+            if (hasData) {
+                downloadExcel(excelCSV, 'dreamjosh_all_data_excel.xls');
+                showToast('📥 All data exported as Excel with tabs!', 'success');
             } else {
                 showToast('No data to export!', 'warning');
             }
         }
 
-        function exportToExcel() {
-            exportToCSV(); // Excel can open CSV files
-            showToast('📥 Data exported as CSV (Excel compatible)!', 'success');
-        }
-
-        function exportToGoogleSheets() {
+        function exportToGoogleSheetsFormat() {
             const allData = {
-                Jobs: adminData.jobs || [],
-                Forms: adminData.forms || [],
-                Study: adminData.content.study || [],
-                Career: adminData.content.career || [],
-                Books: adminData.content.books || [],
-                'Rajasthan GK': adminData.content.rajasthan || [],
-                Quiz: adminData.content.quiz || [],
-                'More Features': adminData.content.more || []
+                'Jobs': { data: adminData.jobs || [], type: 'jobs' },
+                'Forms': { data: adminData.forms || [], type: 'forms' },
+                'Study': { data: adminData.content.study || [], type: 'study' },
+                'Career': { data: adminData.content.career || [], type: 'career' },
+                'Books': { data: adminData.content.books || [], type: 'books' },
+                'Rajasthan GK': { data: adminData.content.rajasthan || [], type: 'rajasthan' },
+                'Quiz': { data: adminData.content.quiz || [], type: 'quiz' },
+                'More Features': { data: adminData.content.more || [], type: 'more' }
             };
 
             let googleSheetsCSV = '';
-            for (const [name, data] of Object.entries(allData)) {
-                if (data.length === 0) continue;
-                const typeMap = {
-                    'Jobs': 'jobs',
-                    'Forms': 'forms',
-                    'Study': 'study',
-                    'Career': 'career',
-                    'Books': 'books',
-                    'Rajasthan GK': 'rajasthan',
-                    'Quiz': 'quiz',
-                    'More Features': 'more'
-                };
-                const type = typeMap[name] || 'study';
-                const headers = getCSVHeaders(type);
-                const rows = data.map(item => getCSVRow(type, item));
-                googleSheetsCSV += `Sheet: ${name}\n`;
-                googleSheetsCSV += [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+            let hasData = false;
+
+            for (const [sheetName, sheetData] of Object.entries(allData)) {
+                if (sheetData.data.length === 0) continue;
+                hasData = true;
+                const headers = getCSVHeaders(sheetData.type);
+                const rows = sheetData.data.map(item => getCSVRow(sheetData.type, item));
+                googleSheetsCSV += `=== ${sheetName} ===\n`;
+                googleSheetsCSV += headers.join(',') + '\n';
+                googleSheetsCSV += rows.map(row => row.join(',')).join('\n');
                 googleSheetsCSV += '\n\n';
             }
 
-            if (googleSheetsCSV) {
-                const fullCSV = '\uFEFF' + googleSheetsCSV;
-                downloadCSV(fullCSV, 'dreamjosh_google_sheets.csv');
-                showToast('📤 Data exported in Google Sheets compatible format!', 'success');
+            if (hasData) {
+                downloadExcel(googleSheetsCSV, 'dreamjosh_google_sheets.csv');
+                showToast('📤 Data exported in Google Sheets format!', 'success');
+            } else {
+                showToast('No data to export!', 'warning');
+            }
+        }
+
+        function exportToCSV() {
+            const allData = {
+                Jobs: { data: adminData.jobs || [], type: 'jobs' },
+                Forms: { data: adminData.forms || [], type: 'forms' },
+                Study: { data: adminData.content.study || [], type: 'study' },
+                Career: { data: adminData.content.career || [], type: 'career' },
+                Books: { data: adminData.content.books || [], type: 'books' },
+                'Rajasthan GK': { data: adminData.content.rajasthan || [], type: 'rajasthan' },
+                Quiz: { data: adminData.content.quiz || [], type: 'quiz' },
+                'More Features': { data: adminData.content.more || [], type: 'more' }
+            };
+
+            let combinedCSV = '';
+            let hasData = false;
+
+            for (const [name, sheetData] of Object.entries(allData)) {
+                if (sheetData.data.length === 0) continue;
+                hasData = true;
+                const headers = getCSVHeaders(sheetData.type);
+                const rows = sheetData.data.map(item => getCSVRow(sheetData.type, item));
+                combinedCSV += `\n\n=== ${name} ===\n`;
+                combinedCSV += headers.join(',') + '\n';
+                combinedCSV += rows.map(row => row.join(',')).join('\n');
+            }
+
+            if (hasData) {
+                downloadExcel(combinedCSV, 'dreamjosh_all_data.csv');
+                showToast('📥 All data exported as CSV!', 'success');
             } else {
                 showToast('No data to export!', 'warning');
             }
@@ -3021,8 +2995,8 @@
                 return;
             }
             const csv = generateCSV(page, data);
-            downloadCSV('\uFEFF' + csv, `dreamjosh_${page}_data.csv`);
-            showToast(`📥 ${PAGE_NAMES[page]} data exported as CSV!`, 'success');
+            downloadExcel(csv, `dreamjosh_${page}_data.csv`);
+            showToast(`📥 ${PAGE_NAMES[page]} data exported!`, 'success');
         }
 
         function exportJobsToCSV() {
@@ -3032,8 +3006,8 @@
                 return;
             }
             const csv = generateCSV('jobs', data);
-            downloadCSV('\uFEFF' + csv, 'dreamjosh_jobs_data.csv');
-            showToast('📥 Jobs data exported as CSV!', 'success');
+            downloadExcel(csv, 'dreamjosh_jobs_data.csv');
+            showToast('📥 Jobs data exported!', 'success');
         }
 
         function exportFormsToCSV() {
@@ -3043,8 +3017,8 @@
                 return;
             }
             const csv = generateCSV('forms', data);
-            downloadCSV('\uFEFF' + csv, 'dreamjosh_forms_data.csv');
-            showToast('📥 Forms data exported as CSV!', 'success');
+            downloadExcel(csv, 'dreamjosh_forms_data.csv');
+            showToast('📥 Forms data exported!', 'success');
         }
 
         // ============================================================
@@ -3157,10 +3131,10 @@
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             loadAdminData();
-            console.log('🚀 Dream Josh - Admin Panel v9.0 with Export Features');
+            console.log('🚀 Dream Josh - Admin Panel v10.0 with Excel Export');
             console.log('📌 Admin Panel: Click "🔐 Admin" in the header');
             console.log('📌 Default Password: admin123');
-            console.log('📌 Export Options: CSV, Excel, Google Sheets Format');
+            console.log('📌 Export: Excel with tabs for all pages');
         });
 
         // ============================================================
@@ -3203,9 +3177,9 @@
         window.importAdminData = importAdminData;
         window.resetAdminData = resetAdminData;
         window.refreshAdminData = refreshAdminData;
+        window.exportToExcelWithTabs = exportToExcelWithTabs;
+        window.exportToGoogleSheetsFormat = exportToGoogleSheetsFormat;
         window.exportToCSV = exportToCSV;
-        window.exportToExcel = exportToExcel;
-        window.exportToGoogleSheets = exportToGoogleSheets;
         window.exportPageToCSV = exportPageToCSV;
         window.exportJobsToCSV = exportJobsToCSV;
         window.exportFormsToCSV = exportFormsToCSV;
