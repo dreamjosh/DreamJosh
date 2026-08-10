@@ -1,0 +1,2302 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Josh - Professional Admin Panel v4.0</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ================= CSS VARIABLES ================= */
+        :root {
+            --primary: #123c9b;
+            --primary-dark: #0d2d7a;
+            --primary-light: #1976d2;
+            --secondary: #1a2332;
+            --success: #16a34a;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --gold: #ffd700;
+            --bg: #f0f2f5;
+            --card-bg: #ffffff;
+            --text: #172033;
+            --text-light: #6c757d;
+            --border: #e9ecef;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --transition: 0.3s ease;
+        }
+
+        .dark-mode {
+            --bg: #0a0e1a;
+            --card-bg: #141428;
+            --text: #e8e8e8;
+            --text-light: #a0a0b8;
+            --border: #2a2a4a;
+            --shadow: 0 2px 12px rgba(0,0,0,0.4);
+            --secondary: #1a1a2e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 270px;
+            background: var(--secondary);
+            color: #fff;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: transform 0.3s ease, background 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar .logo {
+            padding: 0 20px 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sidebar .logo h1 { font-size: 22px; font-weight: 700; color: #fff; }
+        .sidebar .logo h1 span { color: var(--gold); }
+        .sidebar .logo .badge {
+            background: var(--success);
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .sidebar .user-info {
+            padding: 0 20px 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sidebar .user-info .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .sidebar .user-info .name { font-size: 14px; font-weight: 600; }
+        .sidebar .user-info .role { font-size: 11px; opacity: 0.6; }
+
+        .sidebar .menu {
+            list-style: none;
+            padding: 0 10px;
+        }
+        .sidebar .menu li { margin-bottom: 2px; }
+        .sidebar .menu li a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .sidebar .menu li a:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        .sidebar .menu li a.active {
+            background: rgba(255,215,0,0.15);
+            color: var(--gold);
+        }
+        .sidebar .menu li a i { width: 20px; font-size: 16px; }
+        .sidebar .menu li a .count {
+            margin-left: auto;
+            background: rgba(255,255,255,0.1);
+            padding: 1px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+        }
+        .sidebar .menu .section-title {
+            padding: 12px 14px 6px 14px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.4;
+            font-weight: 700;
+        }
+
+        .sidebar .footer-menu {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 10px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .sidebar .footer-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .sidebar .footer-menu a:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        .sidebar .footer-menu a i { width: 20px; }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            margin-left: 270px;
+            padding: 24px 30px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* ================= TOP HEADER ================= */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .top-header .page-title h2 { font-size: 22px; font-weight: 700; }
+        .top-header .page-title p { font-size: 13px; color: var(--text-light); margin-top: 2px; }
+
+        .top-header .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .top-header .header-actions button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .top-header .header-actions .btn-refresh {
+            background: var(--success);
+            color: #fff;
+        }
+        .top-header .header-actions .btn-refresh:hover { background: #15803d; }
+        .top-header .header-actions .btn-dark {
+            background: var(--secondary);
+            color: #fff;
+        }
+        .top-header .header-actions .btn-dark:hover { opacity: 0.8; }
+        .top-header .header-actions .btn-dark.active {
+            background: var(--gold);
+            color: #0a0e1a;
+        }
+
+        /* ================= STATS CARDS ================= */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            padding: 18px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .stat-card .label { font-size: 12px; color: var(--text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card .value { font-size: 28px; font-weight: 700; color: var(--primary); margin-top: 4px; }
+        .stat-card .icon { font-size: 24px; opacity: 0.3; float: right; }
+
+        /* ================= SECTION CARDS ================= */
+        .section-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            padding: 20px;
+            margin: 16px 0;
+            transition: 0.3s;
+        }
+        .section-card .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .section-card .section-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-card .section-header .btn-add {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .section-card .section-header .btn-add:hover { background: var(--primary-dark); }
+
+        .section-card .table-wrap {
+            overflow-x: auto;
+        }
+        .section-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .section-card table th {
+            text-align: left;
+            padding: 10px 12px;
+            background: var(--bg);
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+        .section-card table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        .section-card table tr:hover td { background: var(--bg); }
+
+        .section-card table .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .section-card table .actions button {
+            padding: 4px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .section-card table .actions .btn-edit {
+            background: var(--warning);
+            color: #333;
+        }
+        .section-card table .actions .btn-edit:hover { background: #e0a800; }
+        .section-card table .actions .btn-delete {
+            background: var(--danger);
+            color: #fff;
+        }
+        .section-card table .actions .btn-delete:hover { background: #a71d2a; }
+        .section-card table .actions .btn-view {
+            background: var(--info);
+            color: #fff;
+        }
+        .section-card table .actions .btn-view:hover { background: #138496; }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        .empty-state i { font-size: 40px; opacity: 0.2; margin-bottom: 10px; display: block; }
+
+        /* ================= TOAST ================= */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toast {
+            padding: 12px 20px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            animation: slideIn 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 280px;
+        }
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--danger); }
+        .toast.info { background: var(--info); }
+        .toast.warning { background: var(--warning); color: #333; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ================= MODAL ================= */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalIn 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.95) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .modal .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .modal .modal-header h2 { font-size: 20px; }
+        .modal .modal-header .close {
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.3s;
+            background: none;
+            border: none;
+            color: var(--text);
+        }
+        .modal .modal-header .close:hover { opacity: 1; }
+
+        .modal .form-group { margin-bottom: 14px; }
+        .modal .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .modal .form-group label .required { color: var(--danger); }
+        .modal .form-group input,
+        .modal .form-group select,
+        .modal .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 13px;
+            background: var(--bg);
+            color: var(--text);
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .modal .form-group input:focus,
+        .modal .form-group select:focus,
+        .modal .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        .modal .form-group textarea { min-height: 80px; resize: vertical; }
+        .modal .form-group .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        .modal .form-group .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .modal .form-group .file-input-wrapper .file-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            background: var(--bg);
+            color: var(--text-light);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .modal .form-group .file-input-wrapper .file-label:hover {
+            border-color: var(--primary);
+            background: var(--card-hover);
+        }
+        .modal .form-group .file-input-wrapper .file-label i { font-size: 20px; }
+
+        .modal .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        @media (max-width: 600px) {
+            .modal .form-row { grid-template-columns: 1fr; }
+        }
+
+        .modal .btn-submit {
+            padding: 10px 24px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .modal .btn-submit:hover { background: var(--primary-dark); }
+
+        .modal .question-item {
+            background: var(--bg);
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+        }
+        .modal .question-item input,
+        .modal .question-item select {
+            margin-bottom: 6px;
+        }
+
+        /* ================= SUB-SECTION MENU ================= */
+        .sub-section-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+        .sub-section-menu button {
+            padding: 6px 14px;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            background: var(--card-bg);
+            color: var(--text);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .sub-section-menu button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .sub-section-menu button.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* ================= PREVIEW ================= */
+        .file-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .file-preview .preview-item {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .file-preview .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .file-preview .preview-item .file-icon {
+            font-size: 30px;
+            color: var(--text-light);
+        }
+        .file-preview .preview-item .remove-file {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: #fff;
+            border: none;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 16px; }
+
+            .menu-toggle {
+                display: flex !important;
+            }
+
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .menu-toggle {
+            display: none;
+            background: var(--secondary);
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .top-header .page-title h2 { font-size: 18px; }
+            .modal { padding: 20px; }
+        }
+
+        /* ================= SCROLLBAR ================= */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 10px; }
+
+        /* ================= CATEGORY BADGES ================= */
+        .category-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .category-badge.study { background: #1976d2; color: #fff; }
+        .category-badge.career { background: #16a34a; color: #fff; }
+        .category-badge.books { background: #ffc107; color: #333; }
+        .category-badge.rajasthan { background: #dc3545; color: #fff; }
+        .category-badge.quiz { background: #17a2b8; color: #fff; }
+        .category-badge.more { background: #6c757d; color: #fff; }
+        .category-badge.government { background: #123c9b; color: #fff; }
+        .category-badge.general { background: #28a745; color: #fff; }
+        .category-badge.pdf { background: #dc3545; color: #fff; }
+        .category-badge.photo { background: #17a2b8; color: #fff; }
+        .category-badge.video { background: #ffc107; color: #333; }
+
+        /* ================= FILE TYPE ICONS ================= */
+        .file-type-icon {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+        .file-type-icon.pdf { color: #dc3545; }
+        .file-type-icon.photo { color: #17a2b8; }
+        .file-type-icon.video { color: #ffc107; }
+        .file-type-icon.document { color: #1976d2; }
+
+        /* ================= UPLOAD PROGRESS ================= */
+        .upload-progress {
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        .upload-progress .progress-bar {
+            height: 100%;
+            background: var(--success);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+    <nav class="sidebar" id="sidebar">
+        <div class="logo">
+            <h1>🚀 <span>Dream</span>Josh</h1>
+            <span class="badge">v4.0</span>
+        </div>
+
+        <div class="user-info">
+            <div class="avatar">A</div>
+            <div>
+                <div class="name">Admin</div>
+                <div class="role">Super Admin</div>
+            </div>
+        </div>
+
+        <ul class="menu">
+            <li class="section-title">Main</li>
+            <li><a class="active" data-page="dashboard" onclick="showPage('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard <span class="count">Live</span></a></li>
+            
+            <li class="section-title">Content Management</li>
+            <li><a data-page="content" onclick="showPage('content')"><i class="fas fa-file-alt"></i> Content <span class="count" id="contentCount">0</span></a></li>
+            <li><a data-page="subsections" onclick="showPage('subsections')"><i class="fas fa-sitemap"></i> Sub-Sections <span class="count" id="subSectionCount">0</span></a></li>
+            
+            <li class="section-title">Media Library</li>
+            <li><a data-page="pdfs" onclick="showPage('pdfs')"><i class="fas fa-file-pdf"></i> PDFs <span class="count" id="pdfCount">0</span></a></li>
+            <li><a data-page="photos" onclick="showPage('photos')"><i class="fas fa-images"></i> Photos <span class="count" id="photoCount">0</span></a></li>
+            <li><a data-page="videos" onclick="showPage('videos')"><i class="fas fa-video"></i> Videos <span class="count" id="videoCount">0</span></a></li>
+            
+            <li class="section-title">Management</li>
+            <li><a data-page="jobs" onclick="showPage('jobs')"><i class="fas fa-briefcase"></i> Jobs <span class="count" id="jobsCount">0</span></a></li>
+            <li><a data-page="quiz" onclick="showPage('quiz')"><i class="fas fa-brain"></i> Quiz <span class="count" id="quizCount">0</span></a></li>
+            <li><a data-page="forms" onclick="showPage('forms')"><i class="fas fa-list-check"></i> Forms <span class="count" id="formsCount">0</span></a></li>
+            
+            <li class="section-title">System</li>
+            <li><a data-page="notifications" onclick="showPage('notifications')"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a data-page="settings" onclick="showPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
+        </ul>
+
+        <div class="footer-menu">
+            <a onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </nav>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <div class="main-content" id="mainContent">
+        
+        <!-- ================= TOP HEADER ================= -->
+        <div class="top-header">
+            <div class="page-title">
+                <h2 id="pageTitle">📊 Dashboard</h2>
+                <p id="pageSubtitle">Overview of your website</p>
+            </div>
+            <div class="header-actions">
+                <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+                <button class="btn-refresh" onclick="refreshData()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                <button class="btn-dark" id="darkToggle" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
+                <button class="btn-refresh" style="background:#6c757d;" onclick="window.location.href='index.html'"><i class="fas fa-external-link-alt"></i> View Site</button>
+            </div>
+        </div>
+
+        <!-- ================= DASHBOARD ================= -->
+        <div id="page-dashboard">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="label">Total Content</div>
+                    <div class="value" id="statContent">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-sitemap"></i></div>
+                    <div class="label">Sub-Sections</div>
+                    <div class="value" id="statSubSections">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="label">PDFs</div>
+                    <div class="value" id="statPdfs">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-images"></i></div>
+                    <div class="label">Photos</div>
+                    <div class="value" id="statPhotos">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-video"></i></div>
+                    <div class="label">Videos</div>
+                    <div class="value" id="statVideos">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="label">Jobs</div>
+                    <div class="value" id="statJobs">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-brain"></i></div>
+                    <div class="label">Quizzes</div>
+                    <div class="value" id="statQuiz">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon"><i class="fas fa-list-check"></i></div>
+                    <div class="label">Forms</div>
+                    <div class="value" id="statForms">0</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-bolt" style="color:var(--gold);"></i> Quick Actions</h3>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                    <button class="btn-add" onclick="showPage('content'); openContentModal();"><i class="fas fa-plus"></i> Add Content</button>
+                    <button class="btn-add" onclick="showPage('subsections'); openSubSectionModal();"><i class="fas fa-plus"></i> Add Sub-Section</button>
+                    <button class="btn-add" onclick="showPage('pdfs'); openFileModal('pdf');"><i class="fas fa-plus"></i> Upload PDF</button>
+                    <button class="btn-add" onclick="showPage('photos'); openFileModal('photo');"><i class="fas fa-plus"></i> Upload Photo</button>
+                    <button class="btn-add" onclick="showPage('videos'); openFileModal('video');"><i class="fas fa-plus"></i> Upload Video</button>
+                    <button class="btn-add" onclick="showPage('jobs'); openJobModal();"><i class="fas fa-plus"></i> Add Job</button>
+                    <button class="btn-add" onclick="showPage('quiz'); openQuizModal();"><i class="fas fa-plus"></i> Add Quiz</button>
+                    <button class="btn-add" onclick="showPage('forms'); openFormModal();"><i class="fas fa-plus"></i> Add Form</button>
+                    <button class="btn-add" style="background:var(--success);" onclick="exportData()"><i class="fas fa-download"></i> Export Backup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CONTENT ================= -->
+        <div id="page-content" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-file-alt"></i> Content Manager</h3>
+                    <button class="btn-add" onclick="openContentModal()"><i class="fas fa-plus"></i> Add Content</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Sub-Section</th>
+                                <th>Tags</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contentTableBody">
+                            <tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i> No content added yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SUB-SECTIONS ================= -->
+        <div id="page-subsections" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-sitemap"></i> Sub-Sections Manager</h3>
+                    <button class="btn-add" onclick="openSubSectionModal()"><i class="fas fa-plus"></i> Add Sub-Section</button>
+                </div>
+                <div class="sub-section-menu" id="subSectionMenu">
+                    <button class="active" data-sub="all" onclick="filterBySubSection('all')">📂 All</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Parent Category</th>
+                                <th>Icon</th>
+                                <th>Items</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subSectionTableBody">
+                            <tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i> No sub-sections added yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PDFs ================= -->
+        <div id="page-pdfs" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-file-pdf" style="color:#dc3545;"></i> PDF Manager</h3>
+                    <button class="btn-add" onclick="openFileModal('pdf')"><i class="fas fa-plus"></i> Upload PDF</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>File Name</th>
+                                <th>Category</th>
+                                <th>Size</th>
+                                <th>Uploaded</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pdfTableBody">
+                            <tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i> No PDFs uploaded yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PHOTOS ================= -->
+        <div id="page-photos" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-images" style="color:#17a2b8;"></i> Photo Gallery</h3>
+                    <button class="btn-add" onclick="openFileModal('photo')"><i class="fas fa-plus"></i> Upload Photo</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Preview</th>
+                                <th>File Name</th>
+                                <th>Category</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="photoTableBody">
+                            <tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No photos uploaded yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIDEOS ================= -->
+        <div id="page-videos" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-video" style="color:#ffc107;"></i> Video Manager</h3>
+                    <button class="btn-add" onclick="openFileModal('video')"><i class="fas fa-plus"></i> Upload Video</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>File Name</th>
+                                <th>Category</th>
+                                <th>Duration</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="videoTableBody">
+                            <tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No videos uploaded yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= JOBS ================= -->
+        <div id="page-jobs" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-briefcase"></i> Jobs Manager</h3>
+                    <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Department</th>
+                                <th>Category</th>
+                                <th>Eligibility</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jobsTableBody">
+                            <tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i> No jobs added yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= QUIZ ================= -->
+        <div id="page-quiz" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-brain"></i> Quiz Manager</h3>
+                    <button class="btn-add" onclick="openQuizModal()"><i class="fas fa-plus"></i> Add Quiz</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Questions</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quizTableBody">
+                            <tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No quizzes added yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= FORMS ================= -->
+        <div id="page-forms" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-list-check"></i> Important Forms Manager</h3>
+                    <button class="btn-add" onclick="openFormModal()"><i class="fas fa-plus"></i> Add Form</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Link</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="formsTableBody">
+                            <tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No forms added yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= NOTIFICATIONS ================= -->
+        <div id="page-notifications" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-bell"></i> Notifications</h3>
+                </div>
+                <div style="margin-bottom:16px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <input type="text" id="notifTitle" placeholder="Title" style="flex:1;padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);">
+                    <textarea id="notifMessage" placeholder="Message" style="flex:2;padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);min-height:60px;"></textarea>
+                    <select id="notifType" style="padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);">
+                        <option value="info">ℹ️ Info</option>
+                        <option value="warning">⚠️ Warning</option>
+                        <option value="success">✅ Success</option>
+                        <option value="danger">🔴 Urgent</option>
+                    </select>
+                    <button class="btn-add" onclick="sendNotification()"><i class="fas fa-paper-plane"></i> Send</button>
+                </div>
+                <div id="notificationList"></div>
+            </div>
+        </div>
+
+        <!-- ================= SETTINGS ================= -->
+        <div id="page-settings" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-cog"></i> Settings</h3>
+                </div>
+                <div style="display:grid;gap:20px;">
+                    <div>
+                        <h4 style="margin-bottom:8px;">🔑 Change Password</h4>
+                        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                            <input type="password" id="newPass" placeholder="New Password (min 6)" style="flex:1;padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);">
+                            <input type="password" id="confirmPass" placeholder="Confirm Password" style="flex:1;padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);">
+                            <button class="btn-add" onclick="changePassword()">Update</button>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom:8px;">🌓 Dark Mode</h4>
+                        <button class="btn-add" onclick="toggleDarkMode()" style="background:#6c757d;">
+                            <i class="fas fa-adjust"></i> Toggle Dark Mode
+                        </button>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom:8px;">💾 Backup & Restore</h4>
+                        <button class="btn-add" onclick="exportData()"><i class="fas fa-download"></i> Export Data</button>
+                        <button class="btn-add" onclick="document.getElementById('importFile').click()"><i class="fas fa-upload"></i> Import Data</button>
+                        <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(event)">
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom:8px;">🔄 Reset</h4>
+                        <button class="btn-add" onclick="resetAll()" style="background:var(--danger);"><i class="fas fa-exclamation-triangle"></i> Reset All Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= MODAL ================= -->
+    <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
+        <div class="modal" id="modalContent">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Item</h2>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody">
+                <!-- Dynamic form rendered by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TOAST CONTAINER ================= -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ============================================================
+        // DATA
+        // ============================================================
+        let adminData = {
+            content: [],
+            subSections: [],
+            pdfs: [],
+            photos: [],
+            videos: [],
+            jobs: [],
+            quizzes: [],
+            forms: [],
+            notifications: [],
+            settings: { password: 'admin123', darkMode: false }
+        };
+
+        // ============================================================
+        // CATEGORIES & SUB-SECTIONS CONFIG
+        // ============================================================
+        const CATEGORIES = [
+            'Study',
+            'Career', 
+            'Books',
+            'Rajasthan GK',
+            'Quiz',
+            'More Features',
+            'Government Jobs',
+            'General'
+        ];
+
+        const SUB_SECTION_CATEGORIES = {
+            'Study': ['Notes', 'Practice Sets', 'Previous Papers', 'Revision'],
+            'Career': ['After 12th', 'Graduation', 'Competitive Exams', 'Skills'],
+            'Books': ['Competitive', 'Rajasthan GK', 'General Knowledge', 'Motivation'],
+            'Rajasthan GK': ['History', 'Geography', 'Culture', 'Districts'],
+            'Quiz': ['GK', 'Rajasthan', 'Exam', 'Current Affairs'],
+            'More Features': ['PDF Tools', 'Motivation', 'Videos', 'Gallery'],
+            'Government Jobs': ['Central Jobs', 'State Jobs', 'PSU', 'Defence'],
+            'General': ['General']
+        };
+
+        // ============================================================
+        // LOAD / SAVE
+        // ============================================================
+        function loadData() {
+            try {
+                const saved = localStorage.getItem('dreamjosh_admin_data_v4');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    adminData = { ...adminData, ...parsed };
+                }
+            } catch(e) {}
+            applyDarkMode();
+            updateUI();
+        }
+
+        function saveData() {
+            try {
+                localStorage.setItem('dreamjosh_admin_data_v4', JSON.stringify(adminData));
+            } catch(e) {}
+            updateUI();
+        }
+
+        // ============================================================
+        // UI UPDATE
+        // ============================================================
+        function updateUI() {
+            document.getElementById('statContent').textContent = adminData.content.length;
+            document.getElementById('statSubSections').textContent = adminData.subSections.length;
+            document.getElementById('statPdfs').textContent = adminData.pdfs.length;
+            document.getElementById('statPhotos').textContent = adminData.photos.length;
+            document.getElementById('statVideos').textContent = adminData.videos.length;
+            document.getElementById('statJobs').textContent = adminData.jobs.length;
+            document.getElementById('statQuiz').textContent = adminData.quizzes.length;
+            document.getElementById('statForms').textContent = adminData.forms.length;
+
+            document.getElementById('contentCount').textContent = adminData.content.length;
+            document.getElementById('subSectionCount').textContent = adminData.subSections.length;
+            document.getElementById('pdfCount').textContent = adminData.pdfs.length;
+            document.getElementById('photoCount').textContent = adminData.photos.length;
+            document.getElementById('videoCount').textContent = adminData.videos.length;
+            document.getElementById('jobsCount').textContent = adminData.jobs.length;
+            document.getElementById('quizCount').textContent = adminData.quizzes.length;
+            document.getElementById('formsCount').textContent = adminData.forms.length;
+
+            renderContentTable();
+            renderSubSectionTable();
+            renderPdfTable();
+            renderPhotoTable();
+            renderVideoTable();
+            renderJobsTable();
+            renderQuizTable();
+            renderFormsTable();
+            renderNotifications();
+            renderSubSectionMenu();
+        }
+
+        // ============================================================
+        // PAGE NAVIGATION
+        // ============================================================
+        function showPage(page) {
+            document.querySelectorAll('.sidebar .menu a').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.sidebar .menu a[data-page="${page}"]`)?.classList.add('active');
+
+            const pages = ['dashboard', 'content', 'subsections', 'pdfs', 'photos', 'videos', 'jobs', 'quiz', 'forms', 'notifications', 'settings'];
+            pages.forEach(p => {
+                document.getElementById(`page-${p}`).style.display = p === page ? 'block' : 'none';
+            });
+
+            const titles = {
+                dashboard: ['📊 Dashboard', 'Overview of your website'],
+                content: ['📝 Content Manager', 'Manage content with categories and sub-sections'],
+                subsections: ['📂 Sub-Sections', 'Manage sub-sections for each category'],
+                pdfs: ['📄 PDF Manager', 'Upload and manage PDF files'],
+                photos: ['🖼️ Photo Gallery', 'Upload and manage photos'],
+                videos: ['🎬 Video Manager', 'Upload and manage videos'],
+                jobs: ['💼 Jobs Manager', 'Manage job listings'],
+                quiz: ['🧠 Quiz Manager', 'Manage quizzes'],
+                forms: ['📋 Forms Manager', 'Manage important forms'],
+                notifications: ['🔔 Notifications', 'Send notifications'],
+                settings: ['⚙️ Settings', 'Configure admin panel']
+            };
+            document.getElementById('pageTitle').textContent = titles[page]?.[0] || page;
+            document.getElementById('pageSubtitle').textContent = titles[page]?.[1] || '';
+
+            if (page === 'dashboard') updateUI();
+
+            document.getElementById('sidebar').classList.remove('open');
+        }
+
+        // ============================================================
+        // SUB-SECTION MENU
+        // ============================================================
+        function renderSubSectionMenu() {
+            const menu = document.getElementById('subSectionMenu');
+            const categories = [...new Set(adminData.subSections.map(s => s.parentCategory))];
+            menu.innerHTML = `<button class="active" data-sub="all" onclick="filterBySubSection('all')">📂 All</button>`;
+            categories.forEach(cat => {
+                menu.innerHTML += `<button data-sub="${cat}" onclick="filterBySubSection('${cat}')">📁 ${cat}</button>`;
+            });
+        }
+
+        function filterBySubSection(category) {
+            document.querySelectorAll('#subSectionMenu button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`#subSectionMenu button[data-sub="${category}"]`)?.classList.add('active');
+            renderSubSectionTable(category);
+        }
+
+        // ============================================================
+        // CONTENT CRUD
+        // ============================================================
+        function renderContentTable() {
+            const tbody = document.getElementById('contentTableBody');
+            if (adminData.content.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i> No content added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = adminData.content.map((item, i) => {
+                const catClass = item.category?.toLowerCase().replace(/\s/g, '') || 'general';
+                return `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.title}</strong></td>
+                    <td><span class="category-badge ${catClass}">${item.category || 'General'}</span></td>
+                    <td>${item.subSection || '-'}</td>
+                    <td>${item.tags || '-'}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editContent(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteContent(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `}).join('');
+        }
+
+        function openContentModal(data = null) {
+            const isEdit = data !== null;
+            document.getElementById('modalTitle').textContent = isEdit ? '✏️ Edit Content' : '📝 Add Content';
+            
+            // Build category options
+            let catOptions = CATEGORIES.map(cat => 
+                `<option value="${cat}" ${isEdit && data.category === cat ? 'selected' : ''}>${cat}</option>`
+            ).join('');
+            
+            // Build sub-section options based on selected category
+            const selectedCat = isEdit ? data.category : 'Study';
+            const subOptions = SUB_SECTION_CATEGORIES[selectedCat] || [];
+            let subOptionsHtml = subOptions.map(sub => 
+                `<option value="${sub}" ${isEdit && data.subSection === sub ? 'selected' : ''}>${sub}</option>`
+            ).join('');
+            
+            document.getElementById('modalBody').innerHTML = `
+                <input type="hidden" id="contentIndex" value="${isEdit ? adminData.content.indexOf(data) : -1}">
+                
+                <div class="form-group">
+                    <label>📝 Title <span class="required">*</span></label>
+                    <input type="text" id="contentTitle" value="${isEdit ? data.title : ''}" placeholder="Enter content title">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>📂 Category <span class="required">*</span></label>
+                        <select id="contentCategory" onchange="updateSubSectionOptions()">
+                            <option value="">-- Select --</option>
+                            ${catOptions}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>📁 Sub-Section</label>
+                        <select id="contentSubSection">
+                            <option value="">-- None --</option>
+                            ${subOptionsHtml}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>📄 Description / Content <span class="required">*</span></label>
+                    <textarea id="contentBody" placeholder="Enter content description...">${isEdit ? data.body : ''}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>🏷️ Tags (comma separated)</label>
+                    <input type="text" id="contentTags" value="${isEdit ? data.tags : ''}" placeholder="e.g. study, notes, exam">
+                </div>
+                
+                <button class="btn-submit" onclick="saveContent()">
+                    <i class="fas fa-save"></i> ${isEdit ? 'Update Content' : 'Add Content'}
+                </button>
+            `;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function updateSubSectionOptions() {
+            const category = document.getElementById('contentCategory').value;
+            const subSelect = document.getElementById('contentSubSection');
+            const options = SUB_SECTION_CATEGORIES[category] || [];
+            subSelect.innerHTML = `<option value="">-- None --</option>`;
+            options.forEach(sub => {
+                subSelect.innerHTML += `<option value="${sub}">${sub}</option>`;
+            });
+        }
+
+        function saveContent() {
+            const index = parseInt(document.getElementById('contentIndex').value);
+            const title = document.getElementById('contentTitle').value.trim();
+            const category = document.getElementById('contentCategory').value;
+            const subSection = document.getElementById('contentSubSection').value;
+            const body = document.getElementById('contentBody').value.trim();
+            const tags = document.getElementById('contentTags').value.trim();
+
+            if (!title || !category || !body) {
+                showToast('Please fill all required fields!', 'error');
+                return;
+            }
+
+            const item = { id: Date.now(), title, category, subSection, body, tags };
+
+            if (index >= 0 && index < adminData.content.length) {
+                adminData.content[index] = item;
+                showToast('✅ Content updated!', 'success');
+            } else {
+                adminData.content.push(item);
+                showToast('✅ Content added!', 'success');
+            }
+
+            saveData();
+            closeModal();
+            renderContentTable();
+            updateUI();
+        }
+
+        function editContent(index) {
+            const data = adminData.content[index];
+            if (data) openContentModal(data);
+        }
+
+        function deleteContent(index) {
+            if (!confirm('Delete this content?')) return;
+            adminData.content.splice(index, 1);
+            saveData();
+            renderContentTable();
+            updateUI();
+            showToast('🗑️ Content deleted!', 'warning');
+        }
+
+        // ============================================================
+        // SUB-SECTION CRUD
+        // ============================================================
+        function renderSubSectionTable(category = 'all') {
+            const tbody = document.getElementById('subSectionTableBody');
+            let items = adminData.subSections;
+            if (category !== 'all') {
+                items = items.filter(s => s.parentCategory === category);
+            }
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i> No sub-sections added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = items.map((item, i) => `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.name}</strong></td>
+                    <td><span class="category-badge ${item.parentCategory?.toLowerCase().replace(/\s/g, '') || 'general'}">${item.parentCategory || 'General'}</span></td>
+                    <td style="font-size:20px;">${item.icon || '📁'}</td>
+                    <td>${item.itemCount || 0}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editSubSection(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteSubSection(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openSubSectionModal(data = null) {
+            const isEdit = data !== null;
+            document.getElementById('modalTitle').textContent = isEdit ? '✏️ Edit Sub-Section' : '📂 Add Sub-Section';
+            
+            let catOptions = CATEGORIES.map(cat => 
+                `<option value="${cat}" ${isEdit && data.parentCategory === cat ? 'selected' : ''}>${cat}</option>`
+            ).join('');
+            
+            const icons = ['📁', '📚', '🎯', '📖', '🏜️', '🧠', '⚙️', '🏛️', '📝', '💼', '🎓', '📊'];
+            let iconOptions = icons.map(icon => 
+                `<option value="${icon}" ${isEdit && data.icon === icon ? 'selected' : ''}>${icon}</option>`
+            ).join('');
+            
+            document.getElementById('modalBody').innerHTML = `
+                <input type="hidden" id="subSectionIndex" value="${isEdit ? adminData.subSections.indexOf(data) : -1}">
+                
+                <div class="form-group">
+                    <label>📂 Sub-Section Name <span class="required">*</span></label>
+                    <input type="text" id="subSectionName" value="${isEdit ? data.name : ''}" placeholder="Enter sub-section name">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>📂 Parent Category <span class="required">*</span></label>
+                        <select id="subSectionParent">
+                            <option value="">-- Select --</option>
+                            ${catOptions}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>🎨 Icon</label>
+                        <select id="subSectionIcon">
+                            ${iconOptions}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>📝 Description</label>
+                    <textarea id="subSectionDescription" placeholder="Describe this sub-section...">${isEdit ? data.description : ''}</textarea>
+                </div>
+                
+                <button class="btn-submit" onclick="saveSubSection()">
+                    <i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'} Sub-Section
+                </button>
+            `;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function saveSubSection() {
+            const index = parseInt(document.getElementById('subSectionIndex').value);
+            const name = document.getElementById('subSectionName').value.trim();
+            const parentCategory = document.getElementById('subSectionParent').value;
+            const icon = document.getElementById('subSectionIcon').value;
+            const description = document.getElementById('subSectionDescription').value.trim();
+
+            if (!name || !parentCategory) {
+                showToast('Please fill all required fields!', 'error');
+                return;
+            }
+
+            const item = { id: Date.now(), name, parentCategory, icon: icon || '📁', description, itemCount: 0 };
+
+            if (index >= 0 && index < adminData.subSections.length) {
+                adminData.subSections[index] = item;
+                showToast('✅ Sub-Section updated!', 'success');
+            } else {
+                adminData.subSections.push(item);
+                showToast('✅ Sub-Section added!', 'success');
+            }
+
+            saveData();
+            closeModal();
+            renderSubSectionTable();
+            renderSubSectionMenu();
+            updateUI();
+        }
+
+        function editSubSection(index) {
+            const data = adminData.subSections[index];
+            if (data) openSubSectionModal(data);
+        }
+
+        function deleteSubSection(index) {
+            if (!confirm('Delete this sub-section?')) return;
+            adminData.subSections.splice(index, 1);
+            saveData();
+            renderSubSectionTable();
+            renderSubSectionMenu();
+            updateUI();
+            showToast('🗑️ Sub-Section deleted!', 'warning');
+        }
+
+        // ============================================================
+        // FILE UPLOAD - PDF, PHOTO, VIDEO
+        // ============================================================
+        function openFileModal(type, data = null) {
+            const isEdit = data !== null;
+            const typeNames = { pdf: 'PDF', photo: 'Photo', video: 'Video' };
+            const typeIcons = { pdf: '📄', photo: '🖼️', video: '🎬' };
+            
+            document.getElementById('modalTitle').textContent = isEdit ? `✏️ Edit ${typeNames[type]}` : `${typeIcons[type]} Upload ${typeNames[type]}`;
+            
+            const catOptions = CATEGORIES.map(cat => 
+                `<option value="${cat}" ${isEdit && data.category === cat ? 'selected' : ''}>${cat}</option>`
+            ).join('');
+            
+            let fileInputHtml = '';
+            if (!isEdit) {
+                fileInputHtml = `
+                    <div class="form-group">
+                        <label>📁 Choose ${typeNames[type]} File <span class="required">*</span></label>
+                        <div class="file-input-wrapper">
+                            <div class="file-label" onclick="document.getElementById('fileInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Click to upload ${typeNames[type]} file</span>
+                            </div>
+                            <input type="file" id="fileInput" accept="${type === 'pdf' ? '.pdf' : type === 'photo' ? 'image/*' : 'video/*'}" onchange="handleFileSelect(event, '${type}')">
+                        </div>
+                        <div id="filePreview"></div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('modalBody').innerHTML = `
+                <input type="hidden" id="fileIndex" value="${isEdit ? adminData[type + 's'].indexOf(data) : -1}">
+                <input type="hidden" id="fileType" value="${type}">
+                
+                <div class="form-group">
+                    <label>📝 File Name <span class="required">*</span></label>
+                    <input type="text" id="fileName" value="${isEdit ? data.name : ''}" placeholder="Enter file name">
+                </div>
+                
+                <div class="form-group">
+                    <label>📂 Category <span class="required">*</span></label>
+                    <select id="fileCategory">
+                        <option value="">-- Select --</option>
+                        ${catOptions}
+                    </select>
+                </div>
+                
+                ${fileInputHtml}
+                
+                <div class="form-group">
+                    <label>📝 Description</label>
+                    <textarea id="fileDescription" placeholder="Enter description...">${isEdit ? data.description : ''}</textarea>
+                </div>
+                
+                <button class="btn-submit" onclick="saveFile()">
+                    <i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Upload'} ${typeNames[type]}
+                </button>
+            `;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function handleFileSelect(event, type) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const preview = document.getElementById('filePreview');
+            const typeNames = { pdf: 'PDF', photo: 'Photo', video: 'Video' };
+            
+            if (type === 'photo') {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<div class="file-preview"><div class="preview-item"><img src="${e.target.result}" alt="Preview"><button class="remove-file" onclick="removeFile()">×</button></div></div>`;
+                };
+                reader.readAsDataURL(file);
+            } else if (type === 'video') {
+                preview.innerHTML = `<div class="file-preview"><div class="preview-item"><video style="width:100%;height:100%;object-fit:cover;" controls><source src="${URL.createObjectURL(file)}"></video><button class="remove-file" onclick="removeFile()">×</button></div></div>`;
+            } else {
+                preview.innerHTML = `<div class="file-preview"><div class="preview-item"><i class="fas fa-file-pdf" style="font-size:40px;color:#dc3545;"></i><span style="font-size:11px;position:absolute;bottom:4px;">${file.name}</span><button class="remove-file" onclick="removeFile()">×</button></div></div>`;
+            }
+            
+            document.getElementById('fileName').value = file.name;
+        }
+
+        function removeFile() {
+            document.getElementById('filePreview').innerHTML = '';
+            document.getElementById('fileInput').value = '';
+        }
+
+        function saveFile() {
+            const type = document.getElementById('fileType').value;
+            const index = parseInt(document.getElementById('fileIndex').value);
+            const name = document.getElementById('fileName').value.trim();
+            const category = document.getElementById('fileCategory').value;
+            const description = document.getElementById('fileDescription').value.trim();
+            
+            if (!name || !category) {
+                showToast('Please fill all required fields!', 'error');
+                return;
+            }
+            
+            const fileInput = document.getElementById('fileInput');
+            let fileData = null;
+            if (fileInput && fileInput.files.length > 0) {
+                fileData = {
+                    name: fileInput.files[0].name,
+                    size: fileInput.files[0].size,
+                    type: fileInput.files[0].type,
+                    data: URL.createObjectURL(fileInput.files[0])
+                };
+            }
+            
+            const item = { 
+                id: Date.now(), 
+                name, 
+                category, 
+                description, 
+                file: fileData,
+                uploaded: new Date().toLocaleDateString('hi-IN')
+            };
+            
+            const storageKey = type + 's';
+            if (index >= 0 && index < adminData[storageKey].length) {
+                adminData[storageKey][index] = item;
+                showToast(`✅ ${type.toUpperCase()} updated!`, 'success');
+            } else {
+                if (!fileData) {
+                    showToast('Please select a file to upload!', 'error');
+                    return;
+                }
+                adminData[storageKey].push(item);
+                showToast(`✅ ${type.toUpperCase()} uploaded!`, 'success');
+            }
+            
+            saveData();
+            closeModal();
+            renderFileTable(type);
+            updateUI();
+        }
+
+        function renderFileTable(type) {
+            const storageKey = type + 's';
+            const tbody = document.getElementById(`${type}TableBody`);
+            const items = adminData[storageKey] || [];
+            
+            if (items.length === 0) {
+                const names = { pdf: 'PDFs', photo: 'photos', video: 'videos' };
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i> No ${names[type]} uploaded yet</td></tr>`;
+                return;
+            }
+            
+            if (type === 'photo') {
+                tbody.innerHTML = items.map((item, i) => `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td><div style="width:50px;height:50px;border-radius:4px;overflow:hidden;border:1px solid var(--border);">
+                            ${item.file?.data ? `<img src="${item.file.data}" style="width:100%;height:100%;object-fit:cover;">` : '📷'}
+                        </div></td>
+                        <td><strong>${item.name}</strong></td>
+                        <td><span class="category-badge ${item.category?.toLowerCase().replace(/\s/g, '') || 'general'}">${item.category || 'General'}</span></td>
+                        <td class="actions">
+                            <button class="btn-view" onclick="viewFile('${type}', ${i})"><i class="fas fa-eye"></i></button>
+                            <button class="btn-edit" onclick="editFile('${type}', ${i})"><i class="fas fa-edit"></i></button>
+                            <button class="btn-delete" onclick="deleteFile('${type}', ${i})"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            } else {
+                const icons = { pdf: '📄', video: '🎬' };
+                tbody.innerHTML = items.map((item, i) => `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td><i class="fas fa-${type === 'pdf' ? 'file-pdf' : 'video'}" style="font-size:24px;color:${type === 'pdf' ? '#dc3545' : '#ffc107'};margin-right:8px;"></i> <strong>${item.name}</strong></td>
+                        <td><span class="category-badge ${item.category?.toLowerCase().replace(/\s/g, '') || 'general'}">${item.category || 'General'}</span></td>
+                        <td>${item.file?.size ? (item.file.size / 1024).toFixed(1) + ' KB' : '-'}</td>
+                        <td>${item.uploaded || '-'}</td>
+                        <td class="actions">
+                            <button class="btn-view" onclick="viewFile('${type}', ${i})"><i class="fas fa-eye"></i></button>
+                            <button class="btn-edit" onclick="editFile('${type}', ${i})"><i class="fas fa-edit"></i></button>
+                            <button class="btn-delete" onclick="deleteFile('${type}', ${i})"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function viewFile(type, index) {
+            const storageKey = type + 's';
+            const item = adminData[storageKey][index];
+            if (!item) return;
+            
+            if (item.file?.data) {
+                window.open(item.file.data, '_blank');
+            } else {
+                showToast('File not available', 'warning');
+            }
+        }
+
+        function editFile(type, index) {
+            const storageKey = type + 's';
+            const data = adminData[storageKey][index];
+            if (data) openFileModal(type, data);
+        }
+
+        function deleteFile(type, index) {
+            if (!confirm(`Delete this ${type.toUpperCase()}?`)) return;
+            const storageKey = type + 's';
+            adminData[storageKey].splice(index, 1);
+            saveData();
+            renderFileTable(type);
+            updateUI();
+            showToast(`🗑️ ${type.toUpperCase()} deleted!`, 'warning');
+        }
+
+        // ============================================================
+        // JOBS CRUD
+        // ============================================================
+        function renderJobsTable() {
+            const tbody = document.getElementById('jobsTableBody');
+            if (adminData.jobs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i> No jobs added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = adminData.jobs.map((item, i) => `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.title}</strong></td>
+                    <td>${item.department || '-'}</td>
+                    <td><span style="background:${item.category === 'central' ? '#1976d2' : '#16a34a'};color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;">${item.category === 'central' ? '🇮🇳 Central' : '🏜️ State'}</span></td>
+                    <td>${item.eligibility || '-'}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editJob(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteJob(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openJobModal(data = null) {
+            const isEdit = data !== null;
+            document.getElementById('modalTitle').textContent = isEdit ? '✏️ Edit Job' : '💼 Add Job';
+            document.getElementById('modalBody').innerHTML = `
+                <input type="hidden" id="jobIndex" value="${isEdit ? adminData.jobs.indexOf(data) : -1}">
+                <div class="form-group"><label>Job Title <span class="required">*</span></label><input type="text" id="jobTitle" value="${isEdit ? data.title : ''}"></div>
+                <div class="form-group"><label>Department <span class="required">*</span></label><input type="text" id="jobDepartment" value="${isEdit ? data.department : ''}" placeholder="UPSC/SSC/RPSC etc"></div>
+                <div class="form-group"><label>Category</label>
+                    <select id="jobCategory">
+                        <option value="central" ${isEdit && data.category === 'central' ? 'selected' : ''}>🇮🇳 Central</option>
+                        <option value="state" ${isEdit && data.category === 'state' ? 'selected' : ''}>🏜️ State</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Eligibility</label><input type="text" id="jobEligibility" value="${isEdit ? data.eligibility : ''}" placeholder="Graduation/12th etc"></div>
+                <div class="form-group"><label>Age Limit</label><input type="text" id="jobAge" value="${isEdit ? data.age : ''}" placeholder="21-32"></div>
+                <div class="form-group"><label>Last Date</label><input type="text" id="jobLastDate" value="${isEdit ? data.lastDate : ''}" placeholder="31 Dec 2026"></div>
+                <div class="form-group"><label>Description</label><textarea id="jobDescription">${isEdit ? data.description : ''}</textarea></div>
+                <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+            `;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function saveJob() {
+            const index = parseInt(document.getElementById('jobIndex').value);
+            const title = document.getElementById('jobTitle').value.trim();
+            const department = document.getElementById('jobDepartment').value.trim();
+            const category = document.getElementById('jobCategory').value;
+            const eligibility = document.getElementById('jobEligibility').value.trim();
+            const age = document.getElementById('jobAge').value.trim();
+            const lastDate = document.getElementById('jobLastDate').value.trim();
+            const description = document.getElementById('jobDescription').value.trim();
+
+            if (!title || !department) {
+                showToast('Please fill title and department!', 'error');
+                return;
+            }
+
+            const item = { id: Date.now(), title, department, category, eligibility, age, lastDate, description };
+
+            if (index >= 0 && index < adminData.jobs.length) {
+                adminData.jobs[index] = item;
+                showToast('✅ Job updated!', 'success');
+            } else {
+                adminData.jobs.push(item);
+                showToast('✅ Job added!', 'success');
+            }
+
+            saveData();
+            closeModal();
+            renderJobsTable();
+            updateUI();
+        }
+
+        function editJob(index) { const data = adminData.jobs[index]; if (data) openJobModal(data); }
+        function deleteJob(index) {
+            if (!confirm('Delete this job?')) return;
+            adminData.jobs.splice(index, 1);
+            saveData();
+            renderJobsTable();
+            updateUI();
+            showToast('🗑️ Job deleted!', 'warning');
+        }
+
+        // ============================================================
+        // QUIZ CRUD
+        // ============================================================
+        function renderQuizTable() {
+            const tbody = document.getElementById('quizTableBody');
+            if (adminData.quizzes.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No quizzes added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = adminData.quizzes.map((item, i) => `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.title}</strong></td>
+                    <td><span style="background:var(--info);color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;">${item.category || 'GK'}</span></td>
+                    <td>${item.questions?.length || 0}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editQuiz(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteQuiz(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openQuizModal(data = null) {
+            const isEdit = data !== null;
+            const questions = data?.questions || [];
+            document.getElementById('modalTitle').textContent = isEdit ? '✏️ Edit Quiz' : '🧠 Add Quiz';
+            document.getElementById('modalBody').innerHTML = `
+                <input type="hidden" id="quizIndex" value="${isEdit ? adminData.quizzes.indexOf(data) : -1}">
+                <div class="form-group"><label>Quiz Title <span class="required">*</span></label><input type="text" id="quizTitle" value="${isEdit ? data.title : ''}"></div>
+                <div class="form-group"><label>Category <span class="required">*</span></label>
+                    <select id="quizCategory">
+                        <option value="GK" ${isEdit && data.category === 'GK' ? 'selected' : ''}>🌐 GK</option>
+                        <option value="Rajasthan" ${isEdit && data.category === 'Rajasthan' ? 'selected' : ''}>🏜️ Rajasthan</option>
+                        <option value="Exam" ${isEdit && data.category === 'Exam' ? 'selected' : ''}>📝 Exam</option>
+                        <option value="Current Affairs" ${isEdit && data.category === 'Current Affairs' ? 'selected' : ''}>📰 Current Affairs</option>
+                        <option value="History" ${isEdit && data.category === 'History' ? 'selected' : ''}>📜 History</option>
+                        <option value="Geography" ${isEdit && data.category === 'Geography' ? 'selected' : ''}>🗺️ Geography</option>
+                        <option value="Polity" ${isEdit && data.category === 'Polity' ? 'selected' : ''}>⚖️ Polity</option>
+                        <option value="Science" ${isEdit && data.category === 'Science' ? 'selected' : ''}>🔬 Science</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Questions</label>
+                    <div id="quizQuestionsContainer">
+                        ${questions.length === 0 ? '<div class="question-item">Add questions below</div>' : questions.map((q, qi) => `
+                            <div class="question-item">
+                                <input type="text" placeholder="Question" class="q-text" value="${q.question || ''}">
+                                <input type="text" placeholder="Option A" class="q-opt1" value="${q.options?.[0] || ''}">
+                                <input type="text" placeholder="Option B" class="q-opt2" value="${q.options?.[1] || ''}">
+                                <input type="text" placeholder="Option C" class="q-opt3" value="${q.options?.[2] || ''}">
+                                <input type="text" placeholder="Option D" class="q-opt4" value="${q.options?.[3] || ''}">
+                                <select class="q-answer">
+                                    <option value="0" ${q.answer === 0 ? 'selected' : ''}>A</option>
+                                    <option value="1" ${q.answer === 1 ? 'selected' : ''}>B</option>
+                                    <option value="2" ${q.answer === 2 ? 'selected' : ''}>C</option>
+                                    <option value="3" ${q.answer === 3 ? 'selected' : ''}>D</option>
+                                </select>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="btn-add" style="margin-top:8px;" onclick="addQuestionField()"><i class="fas fa-plus"></i> Add Question</button>
+                </div>
+                <button class="btn-submit" onclick="saveQuiz()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+            `;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function addQuestionField() {
+            const container = document.getElementById('quizQuestionsContainer');
+            const div = document.createElement('div');
+            div.className = 'question-item';
+            div.innerHTML = `
+                <input type="text" placeholder="Question" class="q-text">
+                <input type="text" placeholder="Option A" class="q-opt1">
+                <input type="text" placeholder="Option B" class="q-opt2">
+                <input type="text" placeholder="Option C" class="q-opt3">
+                <input type="text" placeholder="Option D" class="q-opt4">
+                <select class="q-answer"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select>
+            `;
+            container.appendChild(div);
+        }
+
+        function saveQuiz() {
+            const index = parseInt(document.getElementById('quizIndex').value);
+            const title = document.getElementById('quizTitle').value.trim();
+            const category = document.getElementById('quizCategory').value;
+
+            if (!title || !category) {
+                showToast('Please fill title and category!', 'error');
+                return;
+            }
+
+            const questionItems = document.querySelectorAll('#quizQuestionsContainer .question-item');
+            const questions = [];
+            questionItems.forEach(item => {
+                const q = item.querySelector('.q-text')?.value.trim();
+                const opt1 = item.querySelector('.q-opt1')?.value.trim();
+                const opt2 = item.querySelector('.q-opt2')?.value.trim();
+                const opt3 = item.querySelector('.q-opt3')?.value.trim();
+                const opt4 = item.querySelector('.q-opt4')?.value.trim();
+                const answer = parseInt(item.querySelector('.q-answer')?.value || 0);
+                if (q && opt1 && opt2 && opt3 && opt4) {
+                    questions.push({ question: q, options: [opt1, opt2, opt3, opt4], answer });
+                }
+            });
+
+            if (questions.length === 0) {
+                showToast('Please add at least one complete question!', 'error');
+                return;
+            }
+
+            const item = { id: Date.now(), title, category, questions };
+
+            if (index >= 0 && index < adminData.quizzes.length) {
+                adminData.quizzes[index] = item;
+                showToast('✅ Quiz updated!', 'success');
+            } else {
+                adminData.quizzes.push(item);
+                showToast('✅ Quiz added!', 'success');
+            }
+
+            saveData();
+            closeModal();
+            renderQuizTable();
+            updateUI();
+        }
+
+        function editQuiz(index) { const data = adminData.quizzes[index]; if (data) openQuizModal(data); }
+        function deleteQuiz(index) {
+            if (!confirm('Delete this quiz?')) return;
+            adminData.quizzes.splice(index, 1);
+            saveData();
+            renderQuizTable();
+            updateUI();
+            showToast('🗑️ Quiz deleted!', 'warning');
+        }
+
+        // ============================================================
+        // FORMS CRUD
+        // ============================================================
+        function renderFormsTable() {
+            const tbody = document.getElementById('formsTableBody');
+            if (adminData.forms.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state"><i class="fas fa-inbox"></i> No forms added yet</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = adminData.forms.map((item, i) => `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong>${item.title}</strong></td>
+                    <td><span style="background:var(--info);color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;">${item.category || 'General'}</span></td>
+                    <td><a href="${item.link}" target="_blank" style="color:var(--primary-light);">${item.link ? '🔗 Link' : '-'}</a></td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editForm(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="deleteForm(${i})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openFormModal(data = null) {
+            const isEdit = data !== null;
+            document.getElementById('modalTitle').textContent = isEdit ? '✏️ Edit Form' : '📋 Add Form';
+            const categories = ['Government', 'Jobs', 'Education', 'Banking', 'Insurance', 'Rajasthan Govt', 'Other'];
+            let catOptions = categories.map(cat => 
+                `<option value="${cat}" ${isEdit && data.category === cat ? 'selected' : ''}>${cat}</option>`
+            ).join('');
+            
+            document.getElementById('modalBody').innerHTML = `
+                <input type="hidden" id="formIndex" value="${isEdit ? adminData.forms.indexOf(data) : -1}">
+                <div class="form-group"><label>Form Name <span class="required">*</span></label><input type="text" id="formTitle" value="${isEdit ? data.title : ''}" placeholder="Enter form name"></div>
+                <div class="form-group"><label>Category <span class="required">*</span></label>
+                    <select id="formCategory">
+                        <option value="">-- Select --</option>
+                        ${catOptions}
+                    </select>
+                </div>
+                <div class="form-group"><label>Link <span class="required">*</span></label><input type="url" id="formLink" value="${isEdit ? data.link : ''}" placeholder="https://example.com"></div>
+                <div class="form-group"><label>Description</label><textarea id="formDescription" placeholder="Enter form description...">${isEdit ? data.description : ''}</textarea></div>
+                <button class="btn-submit" onclick="saveForm()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+            `;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function saveForm() {
+            const index = parseInt(document.getElementById('formIndex').value);
+            const title = document.getElementById('formTitle').value.trim();
+            const category = document.getElementById('formCategory').value;
+            const link = document.getElementById('formLink').value.trim();
+            const description = document.getElementById('formDescription').value.trim();
+
+            if (!title || !category || !link) {
+                showToast('Please fill all required fields!', 'error');
+                return;
+            }
+
+            const item = { id: Date.now(), title, category, link, description };
+
+            if (index >= 0 && index < adminData.forms.length) {
+                adminData.forms[index] = item;
+                showToast('✅ Form updated!', 'success');
+            } else {
+                adminData.forms.push(item);
+                showToast('✅ Form added!', 'success');
+            }
+
+            saveData();
+            closeModal();
+            renderFormsTable();
+            updateUI();
+        }
+
+        function editForm(index) { const data = adminData.forms[index]; if (data) openFormModal(data); }
+        function deleteForm(index) {
+            if (!confirm('Delete this form?')) return;
+            adminData.forms.splice(index, 1);
+            saveData();
+            renderFormsTable();
+            updateUI();
+            showToast('🗑️ Form deleted!', 'warning');
+        }
+
+        // ============================================================
+        // NOTIFICATIONS
+        // ============================================================
+        function renderNotifications() {
+            const container = document.getElementById('notificationList');
+            if (adminData.notifications.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i> No notifications</div>';
+                return;
+            }
+            container.innerHTML = adminData.notifications.map(n => `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);border-left:4px solid ${n.type === 'info' ? '#17a2b8' : n.type === 'warning' ? '#ffc107' : n.type === 'success' ? '#16a34a' : '#dc3545'};">
+                    <div><strong>${n.title}</strong><br><span style="font-size:12px;color:var(--text-light);">${n.message}</span></div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <span style="font-size:11px;color:var(--text-light);">${n.date || ''}</span>
+                        <button class="btn-delete" onclick="deleteNotification(${adminData.notifications.indexOf(n)})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function sendNotification() {
+            const title = document.getElementById('notifTitle').value.trim();
+            const message = document.getElementById('notifMessage').value.trim();
+            const type = document.getElementById('notifType').value;
+            if (!title || !message) {
+                showToast('Please fill both fields!', 'error');
+                return;
+            }
+            adminData.notifications.unshift({
+                id: Date.now(),
+                title,
+                message,
+                type,
+                date: new Date().toLocaleDateString('hi-IN')
+            });
+            saveData();
+            document.getElementById('notifTitle').value = '';
+            document.getElementById('notifMessage').value = '';
+            renderNotifications();
+            showToast('✅ Notification sent!', 'success');
+        }
+
+        function deleteNotification(index) {
+            if (!confirm('Delete this notification?')) return;
+            adminData.notifications.splice(index, 1);
+            saveData();
+            renderNotifications();
+        }
+
+        // ============================================================
+        // SETTINGS
+        // ============================================================
+        function changePassword() {
+            const newPass = document.getElementById('newPass').value;
+            const confirmPass = document.getElementById('confirmPass').value;
+            if (!newPass || newPass.length < 6) {
+                showToast('Password must be at least 6 characters!', 'error');
+                return;
+            }
+            if (newPass !== confirmPass) {
+                showToast('Passwords do not match!', 'error');
+                return;
+            }
+            adminData.settings.password = newPass;
+            saveData();
+            document.getElementById('newPass').value = '';
+            document.getElementById('confirmPass').value = '';
+            showToast('✅ Password updated!', 'success');
+        }
+
+        function toggleDarkMode() {
+            adminData.settings.darkMode = !adminData.settings.darkMode;
+            saveData();
+            applyDarkMode();
+            const btn = document.getElementById('darkToggle');
+            btn.innerHTML = adminData.settings.darkMode ? '<i class="fas fa-sun"></i> Light' : '<i class="fas fa-moon"></i> Dark';
+            btn.classList.toggle('active', adminData.settings.darkMode);
+        }
+
+        function applyDarkMode() {
+            if (adminData.settings.darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            const btn = document.getElementById('darkToggle');
+            if (btn) {
+                btn.innerHTML = adminData.settings.darkMode ? '<i class="fas fa-sun"></i> Light' : '<i class="fas fa-moon"></i> Dark';
+                btn.classList.toggle('active', adminData.settings.darkMode);
+            }
+        }
+
+        function exportData() {
+            const blob = new Blob([JSON.stringify(adminData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'dreamjosh_backup_' + new Date().toISOString().slice(0, 10) + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('📥 Data exported!', 'success');
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.content || data.jobs || data.quizzes) {
+                        adminData = { ...adminData, ...data };
+                        saveData();
+                        showToast('✅ Data imported!', 'success');
+                    } else {
+                        showToast('❌ Invalid format!', 'error');
+                    }
+                } catch (err) {
+                    showToast('❌ Error reading file!', 'error');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function resetAll() {
+            if (!confirm('⚠️ Delete ALL data? This cannot be undone!')) return;
+            if (!confirm('⚠️ REALLY? Are you sure?')) return;
+            adminData.content = [];
+            adminData.subSections = [];
+            adminData.pdfs = [];
+            adminData.photos = [];
+            adminData.videos = [];
+            adminData.jobs = [];
+            adminData.quizzes = [];
+            adminData.forms = [];
+            adminData.notifications = [];
+            saveData();
+            updateUI();
+            showToast('🗑️ All data reset!', 'warning');
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+            toast.innerHTML = `${icons[type] || 'ℹ️'} ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                toast.style.transition = '0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ============================================================
+        // MODAL
+        // ============================================================
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        // ============================================================
+        // SIDEBAR TOGGLE
+        // ============================================================
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // ============================================================
+        // REFRESH
+        // ============================================================
+        function refreshData() {
+            showToast('🔄 Refreshing...', 'info');
+            loadData();
+            showToast('✅ Data refreshed!', 'success');
+        }
+
+        // ============================================================
+        // LOGOUT
+        // ============================================================
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            showPage('dashboard');
+
+            // Close sidebar on outside click (mobile)
+            document.addEventListener('click', function(e) {
+                const sidebar = document.getElementById('sidebar');
+                if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+                    if (!sidebar.contains(e.target) && !e.target.closest('.menu-toggle')) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+        });
+
+        // ============================================================
+        // EXPOSE FUNCTIONS
+        // ============================================================
+        window.showPage = showPage;
+        window.openContentModal = openContentModal;
+        window.openSubSectionModal = openSubSectionModal;
+        window.openFileModal = openFileModal;
+        window.openJobModal = openJobModal;
+        window.openQuizModal = openQuizModal;
+        window.openFormModal = openFormModal;
+        window.editContent = editContent;
+        window.deleteContent = deleteContent;
+        window.editSubSection = editSubSection;
+        window.deleteSubSection = deleteSubSection;
+        window.editJob = editJob;
+        window.deleteJob = deleteJob;
+        window.editQuiz = editQuiz;
+        window.deleteQuiz = deleteQuiz;
+        window.editForm = editForm;
+        window.deleteForm = deleteForm;
+        window.editFile = editFile;
+        window.deleteFile = deleteFile;
+        window.viewFile = viewFile;
+        window.deleteNotification = deleteNotification;
+        window.sendNotification = sendNotification;
+        window.saveContent = saveContent;
+        window.saveSubSection = saveSubSection;
+        window.saveFile = saveFile;
+        window.saveJob = saveJob;
+        window.saveQuiz = saveQuiz;
+        window.saveForm = saveForm;
+        window.addQuestionField = addQuestionField;
+        window.updateSubSectionOptions = updateSubSectionOptions;
+        window.filterBySubSection = filterBySubSection;
+        window.handleFileSelect = handleFileSelect;
+        window.removeFile = removeFile;
+        window.toggleDarkMode = toggleDarkMode;
+        window.changePassword = changePassword;
+        window.exportData = exportData;
+        window.importData = importData;
+        window.resetAll = resetAll;
+        window.closeModal = closeModal;
+        window.toggleSidebar = toggleSidebar;
+        window.refreshData = refreshData;
+        window.logout = logout;
+        window.showToast = showToast;
+    </script>
+
+</body>
+</html>
