@@ -29,6 +29,7 @@
             --professional-gray: #f8f9fa;
             --professional-border: #e9ecef;
             --professional-dark: #2c3e50;
+            --gold: #ffd700;
         }
 
         .dark-mode {
@@ -52,6 +53,7 @@
             --professional-gray: #1a1a2e;
             --professional-border: #2a2a4a;
             --professional-dark: #e8e8e8;
+            --gold: #ffd700;
         }
 
         /* ================= RESET & BASE ================= */
@@ -109,7 +111,7 @@
         }
 
         .app-header .logo span {
-            color: #ffd700;
+            color: var(--gold);
         }
 
         .app-header .header-controls {
@@ -135,9 +137,9 @@
         }
 
         .app-header .header-controls .nav-btn:hover {
-            background: #ffd700;
+            background: var(--gold);
             color: #0a0e1a;
-            border-color: #ffd700;
+            border-color: var(--gold);
         }
 
         .app-header .header-controls .nav-btn:active {
@@ -145,9 +147,9 @@
         }
 
         .app-header .header-controls .nav-btn.active-btn {
-            background: #ffd700;
+            background: var(--gold);
             color: #0a0e1a;
-            border-color: #ffd700;
+            border-color: var(--gold);
         }
 
         .app-header .header-controls .admin-btn {
@@ -159,6 +161,16 @@
             background: #ff4757;
             color: #fff;
             border-color: #ff4757;
+        }
+
+        .app-header .header-controls .refresh-btn {
+            background: var(--success-green);
+            border-color: var(--success-green);
+        }
+
+        .app-header .header-controls .refresh-btn:hover {
+            background: #15803d;
+            color: #fff;
         }
 
         /* ================= GOVT DROPDOWN (Header) ================= */
@@ -182,9 +194,9 @@
         }
 
         .govt-dropdown .govt-btn:hover {
-            background: #ffd700;
+            background: var(--gold);
             color: #0a0e1a;
-            border-color: #ffd700;
+            border-color: var(--gold);
         }
 
         .govt-dropdown .govt-btn .arrow {
@@ -331,7 +343,7 @@
         }
 
         .app-footer .footer-text span {
-            color: #ffd700;
+            color: var(--gold);
         }
 
         .app-footer .footer-nav {
@@ -358,7 +370,7 @@
         .app-footer .footer-nav .nav-btn:hover {
             background: rgba(255,215,0,0.3);
             color: #fff;
-            border-color: #ffd700;
+            border-color: var(--gold);
         }
 
         .app-footer .footer-nav .nav-btn:active {
@@ -366,9 +378,9 @@
         }
 
         .app-footer .footer-nav .nav-btn.active-btn {
-            background: #ffd700;
+            background: var(--gold);
             color: #0a0e1a;
-            border-color: #ffd700;
+            border-color: var(--gold);
         }
 
         /* ================= RESPONSIVE HEADER/FOOTER ================= */
@@ -1135,6 +1147,50 @@
             margin-top: 3px;
         }
 
+        /* ================= LOADING SPINNER ================= */
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            color: var(--primary-blue);
+            font-size: 16px;
+        }
+
+        .loading-spinner::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            margin-left: 12px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .sheet-status {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .sheet-status.connected {
+            background: var(--success-green);
+            color: #fff;
+        }
+
+        .sheet-status.disconnected {
+            background: var(--warning-red);
+            color: #fff;
+        }
+
         /* ================= ADMIN PANEL ================= */
         #adminPanelContainer {
             display: none;
@@ -1224,7 +1280,7 @@
         }
 
         #adminPanelContainer .dark-toggle-btn.active {
-            background: #ffd700;
+            background: var(--gold);
             color: #0a0e1a;
         }
 
@@ -1823,8 +1879,7 @@
                     💼 Govt Jobs <span class="arrow">▾</span>
                 </button>
                 <div class="govt-dropdown-content" id="govtDropdownContent">
-                    <div class="dropdown-label">🇮🇳 Central Govt. Jobs (12)</div>
-                    <div class="dropdown-job-count">📋 UPSC • SSC • Railway • Banking • Defence • Police • Post • Teaching • Medical • PSU • Technical • Court</div>
+                    <div class="dropdown-label">🇮🇳 Central Govt. Jobs</div>
                     <button onclick="goToSlide('centralJobs'); closeGovtDropdown();">🏛️ UPSC Jobs</button>
                     <button onclick="goToSlide('centralJobs'); closeGovtDropdown();">📑 SSC Jobs</button>
                     <button onclick="goToSlide('centralJobs'); closeGovtDropdown();">🚆 Railway / RRB</button>
@@ -1840,8 +1895,7 @@
                     
                     <div class="dropdown-divider"></div>
                     
-                    <div class="dropdown-label">🏜️ Rajasthan State Govt. Jobs (12)</div>
-                    <div class="dropdown-job-count">📋 RPSC • RSSB • High Court • Boards • Police • Education • Medical • Agriculture • Engineering • Revenue • Panchayat • Forest</div>
+                    <div class="dropdown-label">🏜️ Rajasthan State Govt. Jobs</div>
                     <button onclick="goToSlide('stateJobs'); closeGovtDropdown();">🏛️ RPSC</button>
                     <button onclick="goToSlide('stateJobs'); closeGovtDropdown();">📋 RSSB / RSMSSB</button>
                     <button onclick="goToSlide('stateJobs'); closeGovtDropdown();">⚖️ Rajasthan High Court</button>
@@ -1861,6 +1915,7 @@
             <button class="nav-btn" onclick="goToSlide('career')">🎯 Career</button>
             <button class="nav-btn" onclick="goToSlide('books')">📖 Books</button>
             <button class="nav-btn" onclick="goToSlide('more')">⚙️ More</button>
+            <button class="nav-btn refresh-btn" onclick="refreshFromGoogleSheet()">🔄 Refresh</button>
             <button class="nav-btn admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
         </div>
     </header>
@@ -1957,28 +2012,28 @@
         <!-- ================= SLIDE 1: CENTRAL JOBS ================= -->
         <div class="slide" data-slide="centralJobs">
             <div class="page-title">🇮🇳 <span>Central Govt. Jobs</span></div>
-            <div class="page-subtitle">भारत सरकार की प्रमुख भर्ती परीक्षाएँ - कुल 12 विभाग</div>
+            <div class="page-subtitle">भारत सरकार की प्रमुख भर्ती परीक्षाएँ</div>
             
             <div class="job-info-box">
-                <div class="job-count">📊 कुल भर्ती विभाग: 12</div>
+                <div class="job-count">📊 कुल भर्ती विभाग: <span id="centralJobCount">12</span></div>
                 <div class="job-detail">🇮🇳 UPSC • SSC • Railway • Banking • Defence • Police • Post • Teaching • Medical • PSU • Technical • Court</div>
             </div>
 
-            <div class="professional-grid" id="centralJobsGrid"></div>
+            <div id="centralJobsGrid" class="professional-grid"></div>
             <div class="full-list-view" id="centralJobsList"></div>
         </div>
 
         <!-- ================= SLIDE 2: STATE JOBS ================= -->
         <div class="slide" data-slide="stateJobs">
             <div class="page-title">🏜️ <span>Rajasthan Govt. Jobs</span></div>
-            <div class="page-subtitle">राजस्थान सरकार की प्रमुख भर्ती परीक्षाएँ - कुल 12 विभाग</div>
+            <div class="page-subtitle">राजस्थान सरकार की प्रमुख भर्ती परीक्षाएँ</div>
             
             <div class="job-info-box">
-                <div class="job-count">📊 कुल भर्ती विभाग: 12</div>
+                <div class="job-count">📊 कुल भर्ती विभाग: <span id="stateJobCount">12</span></div>
                 <div class="job-detail">🏛️ RPSC • RSSB • High Court • Boards • Police • Education • Medical • Agriculture • Engineering • Revenue • Panchayat • Forest</div>
             </div>
 
-            <div class="professional-grid" id="stateJobsGrid"></div>
+            <div id="stateJobsGrid" class="professional-grid"></div>
             <div class="full-list-view" id="stateJobsList"></div>
         </div>
 
@@ -2052,6 +2107,7 @@
             <button class="nav-btn" onclick="goToSlide('career')">🎯 Career</button>
             <button class="nav-btn" onclick="goToSlide('books')">📖 Books</button>
             <button class="nav-btn" onclick="goToSlide('more')">⚙️ More</button>
+            <button class="nav-btn refresh-btn" onclick="refreshFromGoogleSheet()">🔄 Refresh</button>
             <button class="nav-btn admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
         </div>
         <div class="footer-text">
@@ -2071,228 +2127,35 @@
     <div id="adminPanelContainer"></div>
 
     <script>
-        // ================= COMPLETE DATA =================
+        // ================= CONFIGURATION =================
+        // 🔴 IMPORTANT: अपनी Google Sheet Apps Script URL यहाँ डालें
+        // Google Sheet → Extensions → Apps Script → Deploy → Copy URL
+        const GOOGLE_SHEET_URL = 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE';
+        // Example: 'https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxx/exec'
+        
+        // Cache duration in milliseconds (5 minutes)
+        const CACHE_DURATION = 300000;
+        const CACHE_KEY = 'dreamjosh_sheet_data';
+
+        // ================= COMPLETE SITE DATA =================
         const siteData = {
             centralJobs: {
                 title: "Central Govt. Jobs",
                 icon: '🇮🇳',
                 info: 'कुल 12 भर्ती विभाग',
                 sections: [
-                    { 
-                        id: 'upsc', 
-                        icon: '🏛️', 
-                        title: 'UPSC Jobs', 
-                        items: [
-                            'Civil Services (IAS/IPS/IFS) - परीक्षा: जून 2026, नोटिफिकेशन: फरवरी 2026',
-                            'Indian Forest Service - परीक्षा: जुलाई 2026, नोटिफिकेशन: मार्च 2026',
-                            'Engineering Services - परीक्षा: मई 2026, नोटिफिकेशन: जनवरी 2026',
-                            'CDS - परीक्षा: अप्रैल 2026, नोटिफिकेशन: दिसंबर 2025',
-                            'NDA / NA - परीक्षा: सितंबर 2026, नोटिफिकेशन: मई 2026',
-                            'CAPF - परीक्षा: अगस्त 2026, नोटिफिकेशन: अप्रैल 2026',
-                            'Combined Medical Services - परीक्षा: जुलाई 2026, नोटिफिकेशन: मार्च 2026'
-                        ],
-                        details: 'UPSC (Union Public Service Commission) भारत की प्रमुख संघ लोक सेवा आयोग है। यह IAS, IPS, IFS जैसी प्रतिष्ठित सेवाओं के लिए परीक्षा आयोजित करता है।',
-                        examDate: 'जून-सितंबर 2026',
-                        eligibility: 'स्नातक (Graduation)',
-                        ageLimit: '21-32 वर्ष'
-                    },
-                    { 
-                        id: 'ssc', 
-                        icon: '📑', 
-                        title: 'SSC Jobs', 
-                        items: [
-                            'SSC CGL - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026',
-                            'SSC CHSL - परीक्षा: नवंबर 2026, नोटिफिकेशन: जुलाई 2026',
-                            'SSC MTS - परीक्षा: अक्टूबर 2026, नोटिफिकेशन: जून 2026',
-                            'SSC GD Constable - परीक्षा: फरवरी 2027, नोटिफिकेशन: अक्टूबर 2026',
-                            'SSC CPO - परीक्षा: मार्च 2027, नोटिफिकेशन: नवंबर 2026',
-                            'SSC JE - परीक्षा: मई 2027, नोटिफिकेशन: जनवरी 2027',
-                            'SSC Stenographer - परीक्षा: जून 2027, नोटिफिकेशन: फरवरी 2027'
-                        ],
-                        details: 'SSC (Staff Selection Commission) केंद्र सरकार के विभिन्न मंत्रालयों और विभागों में Group B और Group C पदों के लिए भर्ती करता है।',
-                        examDate: 'अगस्त 2026 - जून 2027',
-                        eligibility: '10वीं से स्नातक तक',
-                        ageLimit: '18-32 वर्ष'
-                    },
-                    { 
-                        id: 'railway', 
-                        icon: '🚆', 
-                        title: 'Railway / RRB Jobs', 
-                        items: [
-                            'RRB NTPC - परीक्षा: मार्च 2026, नोटिफिकेशन: अक्टूबर 2025',
-                            'Railway Group D - परीक्षा: अप्रैल 2026, नोटिफिकेशन: नवंबर 2025',
-                            'ALP - परीक्षा: मई 2026, नोटिफिकेशन: दिसंबर 2025',
-                            'Technician - परीक्षा: जून 2026, नोटिफिकेशन: जनवरी 2026',
-                            'Junior Engineer - परीक्षा: जुलाई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'RPF - परीक्षा: सितंबर 2026, नोटिफिकेशन: अप्रैल 2026'
-                        ],
-                        details: 'RRB (Railway Recruitment Board) भारतीय रेलवे में विभिन्न तकनीकी और गैर-तकनीकी पदों के लिए भर्ती करता है।',
-                        examDate: 'मार्च-सितंबर 2026',
-                        eligibility: '10वीं से इंजीनियरिंग तक',
-                        ageLimit: '18-33 वर्ष'
-                    },
-                    { 
-                        id: 'banking', 
-                        icon: '🏦', 
-                        title: 'Banking & Financial Jobs', 
-                        items: [
-                            'IBPS PO - परीक्षा: अक्टूबर 2026, नोटिफिकेशन: जुलाई 2026',
-                            'IBPS Clerk - परीक्षा: दिसंबर 2026, नोटिफिकेशन: सितंबर 2026',
-                            'IBPS RRB - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026',
-                            'SBI PO - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'SBI Clerk - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026',
-                            'RBI - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026',
-                            'NABARD - परीक्षा: सितंबर 2026, नोटिफिकेशन: जून 2026',
-                            'SEBI - परीक्षा: नवंबर 2026, नोटिफिकेशन: अगस्त 2026',
-                            'LIC - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026'
-                        ],
-                        details: 'IBPS, SBI, RBI और अन्य बैंकिंग संस्थानों में विभिन्न अधिकारी और क्लर्क पदों के लिए भर्ती होती है।',
-                        examDate: 'मई-दिसंबर 2026',
-                        eligibility: 'स्नातक (Graduation)',
-                        ageLimit: '20-30 वर्ष'
-                    },
-                    { 
-                        id: 'defence', 
-                        icon: '🪖', 
-                        title: 'Defence Jobs', 
-                        items: [
-                            'Indian Army - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Indian Navy - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Indian Air Force - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Indian Coast Guard - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'NDA - परीक्षा: अप्रैल 2026, सितंबर 2026',
-                            'CDS - परीक्षा: फरवरी 2026, अगस्त 2026',
-                            'Agniveer - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर'
-                        ],
-                        details: 'भारतीय सेना, नौसेना और वायुसेना में विभिन्न अधिकारी और सैनिक पदों के लिए भर्ती होती है।',
-                        examDate: 'वर्ष भर',
-                        eligibility: '10वीं से स्नातक तक',
-                        ageLimit: '16.5-25 वर्ष'
-                    },
-                    { 
-                        id: 'police', 
-                        icon: '👮', 
-                        title: 'Police / CAPF Jobs', 
-                        items: [
-                            'BSF - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'CRPF - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'CISF - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026',
-                            'ITBP - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026',
-                            'SSB - परीक्षा: सितंबर 2026, नोटिफिकेशन: जून 2026',
-                            'Delhi Police - परीक्षा: नवंबर 2026, नोटिफिकेशन: अगस्त 2026'
-                        ],
-                        details: 'CAPF (Central Armed Police Forces) में BSF, CRPF, CISF, ITBP, SSB जैसी बलों में भर्ती होती है।',
-                        examDate: 'मई-नवंबर 2026',
-                        eligibility: '10वीं से स्नातक तक',
-                        ageLimit: '18-25 वर्ष'
-                    },
-                    { 
-                        id: 'post', 
-                        icon: '📮', 
-                        title: 'India Post Jobs', 
-                        items: [
-                            'GDS - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Postal Assistant - परीक्षा: मार्च 2026, नोटिफिकेशन: दिसंबर 2025',
-                            'Sorting Assistant - परीक्षा: अप्रैल 2026, नोटिफिकेशन: जनवरी 2026',
-                            'Postman - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'Mail Guard - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'MTS - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026'
-                        ],
-                        details: 'India Post देश की सबसे बड़ी डाक सेवा है जहाँ विभिन्न पदों पर भर्ती होती है।',
-                        examDate: 'मार्च-जुलाई 2026',
-                        eligibility: '10वीं से स्नातक तक',
-                        ageLimit: '18-30 वर्ष'
-                    },
-                    { 
-                        id: 'teaching', 
-                        icon: '👩‍🏫', 
-                        title: 'Central Teaching Jobs', 
-                        items: [
-                            'KVS - परीक्षा: जनवरी 2026, नोटिफिकेशन: अक्टूबर 2025',
-                            'NVS - परीक्षा: फरवरी 2026, नोटिफिकेशन: नवंबर 2025',
-                            'CTET - परीक्षा: दिसंबर 2025, जून 2026',
-                            'Teacher - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Lecturer - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Assistant Professor - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर'
-                        ],
-                        details: 'केंद्रीय विद्यालय (KVS), नवोदय विद्यालय (NVS) और अन्य केंद्रीय शिक्षण संस्थानों में शिक्षक भर्ती होती है।',
-                        examDate: 'दिसंबर 2025 - जून 2026',
-                        eligibility: 'स्नातक (B.Ed अनिवार्य)',
-                        ageLimit: '18-40 वर्ष'
-                    },
-                    { 
-                        id: 'medical', 
-                        icon: '🏥', 
-                        title: 'Central Health / Medical Jobs', 
-                        items: [
-                            'AIIMS - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'ESIC - परीक्षा: मार्च 2026, नोटिफिकेशन: दिसंबर 2025',
-                            'Nursing Officer - परीक्षा: अप्रैल 2026, नोटिफिकेशन: जनवरी 2026',
-                            'Pharmacist - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'Lab Technician - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'Medical Officer - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026'
-                        ],
-                        details: 'AIIMS, ESIC और अन्य केंद्रीय स्वास्थ्य संस्थानों में डॉक्टर, नर्स, फार्मासिस्ट आदि पदों पर भर्ती होती है।',
-                        examDate: 'मार्च-जुलाई 2026',
-                        eligibility: '12वीं से MBBS तक',
-                        ageLimit: '18-35 वर्ष'
-                    },
-                    { 
-                        id: 'psu', 
-                        icon: '🏭', 
-                        title: 'PSU / Government Companies', 
-                        items: [
-                            'ONGC - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'NTPC - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'BHEL - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'SAIL - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'GAIL - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'IOCL - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'HAL - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'BEL - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Coal India - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर'
-                        ],
-                        details: 'सार्वजनिक क्षेत्र की उद्यम (PSU) कंपनियों में इंजीनियर, प्रबंधक, तकनीशियन आदि पदों पर भर्ती होती है।',
-                        examDate: 'वर्ष भर',
-                        eligibility: 'डिप्लोमा से स्नातकोत्तर तक',
-                        ageLimit: '18-30 वर्ष'
-                    },
-                    { 
-                        id: 'technical', 
-                        icon: '🛠️', 
-                        title: 'Technical / Engineering Jobs', 
-                        items: [
-                            'Junior Engineer - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'Assistant Engineer - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'Technician - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026',
-                            'Civil Engineering - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Electrical Engineering - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Mechanical Engineering - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Electronics - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'IT / Computer - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर'
-                        ],
-                        details: 'सरकारी विभागों और PSU में इंजीनियरिंग और तकनीकी पदों पर भर्ती होती है।',
-                        examDate: 'मई-जुलाई 2026',
-                        eligibility: 'डिप्लोमा / B.Tech',
-                        ageLimit: '18-35 वर्ष'
-                    },
-                    { 
-                        id: 'court', 
-                        icon: '⚖️', 
-                        title: 'Court / Judiciary Jobs', 
-                        items: [
-                            'Supreme Court - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'High Courts - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Judicial Services - परीक्षा: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Court Clerk - परीक्षा: मार्च 2026, नोटिफिकेशन: दिसंबर 2025',
-                            'Stenographer - परीक्षा: अप्रैल 2026, नोटिफिकेशन: जनवरी 2026',
-                            'Assistant - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026'
-                        ],
-                        details: 'सुप्रीम कोर्ट, हाई कोर्ट और जिला न्यायालयों में विभिन्न पदों पर भर्ती होती है।',
-                        examDate: 'मार्च-मई 2026',
-                        eligibility: 'स्नातक (LLB अनिवार्य)',
-                        ageLimit: '21-35 वर्ष'
-                    }
+                    { id: 'upsc', icon: '🏛️', title: 'UPSC Jobs', items: ['Civil Services (IAS/IPS/IFS) - परीक्षा: जून 2026', 'Indian Forest Service - परीक्षा: जुलाई 2026', 'Engineering Services - परीक्षा: मई 2026', 'CDS - परीक्षा: अप्रैल 2026', 'NDA / NA - परीक्षा: सितंबर 2026', 'CAPF - परीक्षा: अगस्त 2026', 'Combined Medical Services - परीक्षा: जुलाई 2026'], details: 'UPSC भारत की प्रमुख संघ लोक सेवा आयोग है। यह IAS, IPS, IFS जैसी प्रतिष्ठित सेवाओं के लिए परीक्षा आयोजित करता है।', examDate: 'जून-सितंबर 2026', eligibility: 'स्नातक', ageLimit: '21-32 वर्ष' },
+                    { id: 'ssc', icon: '📑', title: 'SSC Jobs', items: ['SSC CGL - परीक्षा: अगस्त 2026', 'SSC CHSL - परीक्षा: नवंबर 2026', 'SSC MTS - परीक्षा: अक्टूबर 2026', 'SSC GD Constable - परीक्षा: फरवरी 2027', 'SSC CPO - परीक्षा: मार्च 2027', 'SSC JE - परीक्षा: मई 2027', 'SSC Stenographer - परीक्षा: जून 2027'], details: 'SSC केंद्र सरकार के विभिन्न मंत्रालयों में Group B और C पदों के लिए भर्ती करता है।', examDate: 'अगस्त 2026 - जून 2027', eligibility: '10वीं से स्नातक', ageLimit: '18-32 वर्ष' },
+                    { id: 'railway', icon: '🚆', title: 'Railway / RRB', items: ['RRB NTPC - परीक्षा: मार्च 2026', 'Railway Group D - परीक्षा: अप्रैल 2026', 'ALP - परीक्षा: मई 2026', 'Technician - परीक्षा: जून 2026', 'Junior Engineer - परीक्षा: जुलाई 2026', 'RPF - परीक्षा: सितंबर 2026'], details: 'RRB भारतीय रेलवे में विभिन्न तकनीकी और गैर-तकनीकी पदों के लिए भर्ती करता है।', examDate: 'मार्च-सितंबर 2026', eligibility: '10वीं से इंजीनियरिंग', ageLimit: '18-33 वर्ष' },
+                    { id: 'banking', icon: '🏦', title: 'Banking & Financial', items: ['IBPS PO - परीक्षा: अक्टूबर 2026', 'IBPS Clerk - परीक्षा: दिसंबर 2026', 'IBPS RRB - परीक्षा: अगस्त 2026', 'SBI PO - परीक्षा: जून 2026', 'SBI Clerk - परीक्षा: अगस्त 2026', 'RBI - परीक्षा: जुलाई 2026', 'NABARD - परीक्षा: सितंबर 2026', 'SEBI - परीक्षा: नवंबर 2026', 'LIC - परीक्षा: मई 2026'], details: 'IBPS, SBI, RBI और अन्य बैंकिंग संस्थानों में अधिकारी और क्लर्क पदों के लिए भर्ती होती है।', examDate: 'मई-दिसंबर 2026', eligibility: 'स्नातक', ageLimit: '20-30 वर्ष' },
+                    { id: 'defence', icon: '🪖', title: 'Defence Jobs', items: ['Indian Army - भर्ती: वर्ष भर', 'Indian Navy - भर्ती: वर्ष भर', 'Indian Air Force - भर्ती: वर्ष भर', 'Indian Coast Guard - भर्ती: वर्ष भर', 'NDA - परीक्षा: अप्रैल 2026, सितंबर 2026', 'CDS - परीक्षा: फरवरी 2026, अगस्त 2026', 'Agniveer - भर्ती: वर्ष भर'], details: 'भारतीय सेना, नौसेना और वायुसेना में विभिन्न अधिकारी और सैनिक पदों के लिए भर्ती होती है।', examDate: 'वर्ष भर', eligibility: '10वीं से स्नातक', ageLimit: '16.5-25 वर्ष' },
+                    { id: 'police', icon: '👮', title: 'Police / CAPF', items: ['BSF - परीक्षा: मई 2026', 'CRPF - परीक्षा: जून 2026', 'CISF - परीक्षा: जुलाई 2026', 'ITBP - परीक्षा: अगस्त 2026', 'SSB - परीक्षा: सितंबर 2026', 'Delhi Police - परीक्षा: नवंबर 2026'], details: 'CAPF में BSF, CRPF, CISF, ITBP, SSB जैसी बलों में भर्ती होती है।', examDate: 'मई-नवंबर 2026', eligibility: '10वीं से स्नातक', ageLimit: '18-25 वर्ष' },
+                    { id: 'post', icon: '📮', title: 'India Post', items: ['GDS - भर्ती: वर्ष भर', 'Postal Assistant - परीक्षा: मार्च 2026', 'Sorting Assistant - परीक्षा: अप्रैल 2026', 'Postman - परीक्षा: मई 2026', 'Mail Guard - परीक्षा: जून 2026', 'MTS - परीक्षा: जुलाई 2026'], details: 'India Post देश की सबसे बड़ी डाक सेवा है जहाँ विभिन्न पदों पर भर्ती होती है।', examDate: 'मार्च-जुलाई 2026', eligibility: '10वीं से स्नातक', ageLimit: '18-30 वर्ष' },
+                    { id: 'teaching', icon: '👩‍🏫', title: 'Teaching Jobs', items: ['KVS - परीक्षा: जनवरी 2026', 'NVS - परीक्षा: फरवरी 2026', 'CTET - परीक्षा: दिसंबर 2025, जून 2026', 'Teacher - भर्ती: वर्ष भर', 'Lecturer - भर्ती: वर्ष भर', 'Assistant Professor - भर्ती: वर्ष भर'], details: 'KVS, NVS और अन्य केंद्रीय शिक्षण संस्थानों में शिक्षक भर्ती होती है।', examDate: 'दिसंबर 2025 - जून 2026', eligibility: 'स्नातक (B.Ed)', ageLimit: '18-40 वर्ष' },
+                    { id: 'medical', icon: '🏥', title: 'Medical Jobs', items: ['AIIMS - भर्ती: वर्ष भर', 'ESIC - परीक्षा: मार्च 2026', 'Nursing Officer - परीक्षा: अप्रैल 2026', 'Pharmacist - परीक्षा: मई 2026', 'Lab Technician - परीक्षा: जून 2026', 'Medical Officer - परीक्षा: जुलाई 2026'], details: 'AIIMS, ESIC और अन्य केंद्रीय स्वास्थ्य संस्थानों में डॉक्टर, नर्स, फार्मासिस्ट आदि पदों पर भर्ती होती है।', examDate: 'मार्च-जुलाई 2026', eligibility: '12वीं से MBBS', ageLimit: '18-35 वर्ष' },
+                    { id: 'psu', icon: '🏭', title: 'PSU Companies', items: ['ONGC - भर्ती: वर्ष भर', 'NTPC - भर्ती: वर्ष भर', 'BHEL - भर्ती: वर्ष भर', 'SAIL - भर्ती: वर्ष भर', 'GAIL - भर्ती: वर्ष भर', 'IOCL - भर्ती: वर्ष भर', 'HAL - भर्ती: वर्ष भर', 'BEL - भर्ती: वर्ष भर', 'Coal India - भर्ती: वर्ष भर'], details: 'PSU कंपनियों में इंजीनियर, प्रबंधक, तकनीशियन आदि पदों पर भर्ती होती है।', examDate: 'वर्ष भर', eligibility: 'डिप्लोमा से स्नातकोत्तर', ageLimit: '18-30 वर्ष' },
+                    { id: 'technical', icon: '🛠️', title: 'Technical Jobs', items: ['Junior Engineer - परीक्षा: मई 2026', 'Assistant Engineer - परीक्षा: जून 2026', 'Technician - परीक्षा: जुलाई 2026', 'Civil Engineering - भर्ती: वर्ष भर', 'Electrical Engineering - भर्ती: वर्ष भर', 'Mechanical Engineering - भर्ती: वर्ष भर', 'Electronics - भर्ती: वर्ष भर', 'IT / Computer - भर्ती: वर्ष भर'], details: 'सरकारी विभागों और PSU में इंजीनियरिंग और तकनीकी पदों पर भर्ती होती है।', examDate: 'मई-जुलाई 2026', eligibility: 'डिप्लोमा / B.Tech', ageLimit: '18-35 वर्ष' },
+                    { id: 'court', icon: '⚖️', title: 'Court / Judiciary', items: ['Supreme Court - भर्ती: वर्ष भर', 'High Courts - भर्ती: वर्ष भर', 'Judicial Services - परीक्षा: वर्ष भर', 'Court Clerk - परीक्षा: मार्च 2026', 'Stenographer - परीक्षा: अप्रैल 2026', 'Assistant - परीक्षा: मई 2026'], details: 'सुप्रीम कोर्ट, हाई कोर्ट और जिला न्यायालयों में विभिन्न पदों पर भर्ती होती है।', examDate: 'मार्च-मई 2026', eligibility: 'स्नातक (LLB)', ageLimit: '21-35 वर्ष' }
                 ]
             },
             stateJobs: {
@@ -2300,210 +2163,18 @@
                 icon: '🏜️',
                 info: 'कुल 12 भर्ती विभाग',
                 sections: [
-                    { 
-                        id: 'rpsc', 
-                        icon: '🏛️', 
-                        title: 'RPSC', 
-                        items: [
-                            'RAS / RTS - परीक्षा: अक्टूबर 2026, नोटिफिकेशन: जून 2026',
-                            'School Lecturer - परीक्षा: नवंबर 2026, नोटिफिकेशन: जुलाई 2026',
-                            'Senior Teacher Grade II - परीक्षा: दिसंबर 2026, नोटिफिकेशन: अगस्त 2026',
-                            'Assistant Professor - परीक्षा: जनवरी 2027, नोटिफिकेशन: सितंबर 2026',
-                            'Assistant Engineer - परीक्षा: फरवरी 2027, नोटिफिकेशन: अक्टूबर 2026',
-                            'Junior Legal Officer - परीक्षा: मार्च 2027, नोटिफिकेशन: नवंबर 2026',
-                            'Agriculture Officer - परीक्षा: अप्रैल 2027, नोटिफिकेशन: दिसंबर 2026'
-                        ],
-                        details: 'RPSC (Rajasthan Public Service Commission) राजस्थान की प्रमुख सेवाओं के लिए भर्ती करता है।',
-                        examDate: 'अक्टूबर 2026 - अप्रैल 2027',
-                        eligibility: 'स्नातक से स्नातकोत्तर तक',
-                        ageLimit: '21-40 वर्ष'
-                    },
-                    { 
-                        id: 'rssb', 
-                        icon: '📋', 
-                        title: 'RSSB / RSMSSB', 
-                        items: [
-                            'CET Senior Secondary - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'CET Graduation Level - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'Patwari - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026',
-                            'VDO - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026',
-                            'LDC / Junior Assistant - परीक्षा: सितंबर 2026, नोटिफिकेशन: जून 2026',
-                            'Junior Accountant - परीक्षा: अक्टूबर 2026, नोटिफिकेशन: जुलाई 2026',
-                            'Agriculture Supervisor - परीक्षा: नवंबर 2026, नोटिफिकेशन: अगस्त 2026',
-                            'Junior Engineer - परीक्षा: दिसंबर 2026, नोटिफिकेशन: सितंबर 2026',
-                            'Forest Guard - परीक्षा: जनवरी 2027, नोटिफिकेशन: अक्टूबर 2026',
-                            'Forester - परीक्षा: फरवरी 2027, नोटिफिकेशन: नवंबर 2026'
-                        ],
-                        details: 'RSSB/RSMSSB (Rajasthan Subordinate and Ministerial Services Selection Board) राजस्थान के अधीनस्थ सेवाओं के लिए भर्ती करता है।',
-                        examDate: 'मई 2026 - फरवरी 2027',
-                        eligibility: '10वीं से स्नातक तक',
-                        ageLimit: '18-40 वर्ष'
-                    },
-                    { 
-                        id: 'highcourt', 
-                        icon: '⚖️', 
-                        title: 'Rajasthan High Court', 
-                        items: [
-                            'Civil Judge - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'District Judge - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026',
-                            'Junior Judicial Assistant - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026',
-                            'Junior Assistant - परीक्षा: सितंबर 2026, नोटिफिकेशन: जून 2026',
-                            'Clerk - परीक्षा: अक्टूबर 2026, नोटिफिकेशन: जुलाई 2026',
-                            'Stenographer - परीक्षा: नवंबर 2026, नोटिफिकेशन: अगस्त 2026'
-                        ],
-                        details: 'राजस्थान उच्च न्यायालय में न्यायिक और प्रशासनिक पदों पर भर्ती होती है।',
-                        examDate: 'जून-नवंबर 2026',
-                        eligibility: 'स्नातक (LLB अनिवार्य)',
-                        ageLimit: '21-35 वर्ष'
-                    },
-                    { 
-                        id: 'boards', 
-                        icon: '🏢', 
-                        title: 'Govt Boards & Corporations', 
-                        items: [
-                            'RSRTC - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'Rajasthan Housing Board - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'RIICO - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'JVVNL - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'AVVNL - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'JdVVNL - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'RVUNL - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर',
-                            'RTDC - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर'
-                        ],
-                        details: 'राजस्थान के विभिन्न बोर्ड और निगमों में विभिन्न पदों पर भर्ती होती है।',
-                        examDate: 'वर्ष भर',
-                        eligibility: '10वीं से स्नातक तक',
-                        ageLimit: '18-40 वर्ष'
-                    },
-                    { 
-                        id: 'police', 
-                        icon: '👮', 
-                        title: 'Rajasthan Police', 
-                        items: [
-                            'Constable - परीक्षा: मार्च 2026, नोटिफिकेशन: दिसंबर 2025',
-                            'Driver Constable - परीक्षा: अप्रैल 2026, नोटिफिकेशन: जनवरी 2026',
-                            'Sub Inspector (SI) - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'Platoon Commander - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'Home Guard - भर्ती: वर्ष भर, नोटिफिकेशन: समय-समय पर'
-                        ],
-                        details: 'राजस्थान पुलिस में कांस्टेबल, SI और अन्य पदों पर भर्ती होती है।',
-                        examDate: 'मार्च-जून 2026',
-                        eligibility: '10वीं से स्नातक तक',
-                        ageLimit: '18-26 वर्ष'
-                    },
-                    { 
-                        id: 'education', 
-                        icon: '👩‍🏫', 
-                        title: 'Education Recruitment', 
-                        items: [
-                            'REET - परीक्षा: मार्च 2026, नोटिफिकेशन: दिसंबर 2025',
-                            'Teacher Grade III Level 1 - परीक्षा: अप्रैल 2026, नोटिफिकेशन: जनवरी 2026',
-                            'Teacher Grade III Level 2 - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'Senior Teacher Grade II - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'School Lecturer - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026',
-                            'PTI - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026',
-                            'Librarian - परीक्षा: सितंबर 2026, नोटिफिकेशन: जून 2026'
-                        ],
-                        details: 'राजस्थान में REET, Teacher Grade III, Senior Teacher, Lecturer आदि पदों पर भर्ती होती है।',
-                        examDate: 'मार्च-सितंबर 2026',
-                        eligibility: '12वीं से स्नातकोत्तर तक (B.Ed अनिवार्य)',
-                        ageLimit: '18-40 वर्ष'
-                    },
-                    { 
-                        id: 'health', 
-                        icon: '🏥', 
-                        title: 'Medical & Health', 
-                        items: [
-                            'Medical Officer - परीक्षा: अप्रैल 2026, नोटिफिकेशन: जनवरी 2026',
-                            'Nursing Officer - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'ANM - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'GNM - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026',
-                            'CHO - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026',
-                            'Pharmacist - परीक्षा: सितंबर 2026, नोटिफिकेशन: जून 2026',
-                            'Lab Technician - परीक्षा: अक्टूबर 2026, नोटिफिकेशन: जुलाई 2026'
-                        ],
-                        details: 'राजस्थान स्वास्थ्य विभाग में डॉक्टर, नर्स, फार्मासिस्ट, लैब टेक्नीशियन आदि पदों पर भर्ती होती है।',
-                        examDate: 'अप्रैल-अक्टूबर 2026',
-                        eligibility: '12वीं से MBBS तक',
-                        ageLimit: '18-40 वर्ष'
-                    },
-                    { 
-                        id: 'agriculture', 
-                        icon: '🌾', 
-                        title: 'Agriculture & Animal Husbandry', 
-                        items: [
-                            'Agriculture Officer - परीक्षा: अप्रैल 2026, नोटिफिकेशन: जनवरी 2026',
-                            'Agriculture Supervisor - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'Horticulture Officer - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'Veterinary Officer - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026',
-                            'Livestock Assistant - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026'
-                        ],
-                        details: 'राजस्थान कृषि और पशुपालन विभाग में कृषि अधिकारी, पशु चिकित्सा अधिकारी आदि पदों पर भर्ती होती है।',
-                        examDate: 'अप्रैल-अगस्त 2026',
-                        eligibility: 'स्नातक (Agriculture/Veterinary)',
-                        ageLimit: '18-40 वर्ष'
-                    },
-                    { 
-                        id: 'engineering', 
-                        icon: '🛠️', 
-                        title: 'Engineering & Technical', 
-                        items: [
-                            'Assistant Engineer Civil - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'Assistant Engineer Mechanical - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026',
-                            'Assistant Engineer Electrical - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026',
-                            'Junior Engineer Civil - परीक्षा: सितंबर 2026, नोटिफिकेशन: जून 2026',
-                            'Junior Engineer Mechanical - परीक्षा: अक्टूबर 2026, नोटिफिकेशन: जुलाई 2026',
-                            'Junior Engineer Electrical - परीक्षा: नवंबर 2026, नोटिफिकेशन: अगस्त 2026',
-                            'Programmer - परीक्षा: दिसंबर 2026, नोटिफिकेशन: सितंबर 2026'
-                        ],
-                        details: 'राजस्थान के विभिन्न विभागों में सिविल, मैकेनिकल, इलेक्ट्रिकल, आईटी इंजीनियरों की भर्ती होती है।',
-                        examDate: 'जून-दिसंबर 2026',
-                        eligibility: 'डिप्लोमा / B.Tech',
-                        ageLimit: '18-40 वर्ष'
-                    },
-                    { 
-                        id: 'revenue', 
-                        icon: '📑', 
-                        title: 'Revenue Department', 
-                        items: [
-                            'Tehsildar - परीक्षा: अगस्त 2026, नोटिफिकेशन: मई 2026',
-                            'Naib Tehsildar - परीक्षा: सितंबर 2026, नोटिफिकेशन: जून 2026',
-                            'Revenue Inspector - परीक्षा: अक्टूबर 2026, नोटिफिकेशन: जुलाई 2026',
-                            'Patwari - परीक्षा: नवंबर 2026, नोटिफिकेशन: अगस्त 2026'
-                        ],
-                        details: 'राजस्थान राजस्व विभाग में तहसीलदार, नायब तहसीलदार, पटवारी आदि पदों पर भर्ती होती है।',
-                        examDate: 'अगस्त-नवंबर 2026',
-                        eligibility: 'स्नातक',
-                        ageLimit: '18-40 वर्ष'
-                    },
-                    { 
-                        id: 'panchayat', 
-                        icon: '🏘️', 
-                        title: 'Panchayati Raj', 
-                        items: [
-                            'VDO - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026',
-                            'Junior Technical Assistant - परीक्षा: जून 2026, नोटिफिकेशन: मार्च 2026',
-                            'Account Assistant - परीक्षा: जुलाई 2026, नोटिफिकेशन: अप्रैल 2026'
-                        ],
-                        details: 'राजस्थान पंचायती राज विभाग में VDO, तकनीकी सहायक, लेखा सहायक आदि पदों पर भर्ती होती है।',
-                        examDate: 'मई-जुलाई 2026',
-                        eligibility: '10वीं से स्नातक तक',
-                        ageLimit: '18-40 वर्ष'
-                    },
-                    { 
-                        id: 'forest', 
-                        icon: '🌳', 
-                        title: 'Forest Department', 
-                        items: [
-                            'Forest Guard - परीक्षा: मार्च 2026, नोटिफिकेशन: दिसंबर 2025',
-                            'Forester - परीक्षा: अप्रैल 2026, नोटिफिकेशन: जनवरी 2026',
-                            'Forest Ranger - परीक्षा: मई 2026, नोटिफिकेशन: फरवरी 2026'
-                        ],
-                        details: 'राजस्थान वन विभाग में फॉरेस्ट गार्ड, फॉरेस्टर, रेंजर आदि पदों पर भर्ती होती है।',
-                        examDate: 'मार्च-मई 2026',
-                        eligibility: '10वीं से स्नातक तक',
-                        ageLimit: '18-40 वर्ष'
-                    }
+                    { id: 'rpsc', icon: '🏛️', title: 'RPSC', items: ['RAS / RTS - परीक्षा: अक्टूबर 2026', 'School Lecturer - परीक्षा: नवंबर 2026', 'Senior Teacher Grade II - परीक्षा: दिसंबर 2026', 'Assistant Professor - परीक्षा: जनवरी 2027', 'Assistant Engineer - परीक्षा: फरवरी 2027', 'Junior Legal Officer - परीक्षा: मार्च 2027', 'Agriculture Officer - परीक्षा: अप्रैल 2027'], details: 'RPSC राजस्थान की प्रमुख सेवाओं के लिए भर्ती करता है।', examDate: 'अक्टूबर 2026 - अप्रैल 2027', eligibility: 'स्नातक से स्नातकोत्तर', ageLimit: '21-40 वर्ष' },
+                    { id: 'rssb', icon: '📋', title: 'RSSB / RSMSSB', items: ['CET Senior Secondary - परीक्षा: मई 2026', 'CET Graduation Level - परीक्षा: जून 2026', 'Patwari - परीक्षा: जुलाई 2026', 'VDO - परीक्षा: अगस्त 2026', 'LDC / Junior Assistant - परीक्षा: सितंबर 2026', 'Junior Accountant - परीक्षा: अक्टूबर 2026', 'Agriculture Supervisor - परीक्षा: नवंबर 2026', 'Junior Engineer - परीक्षा: दिसंबर 2026', 'Forest Guard - परीक्षा: जनवरी 2027', 'Forester - परीक्षा: फरवरी 2027'], details: 'RSSB राजस्थान के अधीनस्थ सेवाओं के लिए भर्ती करता है।', examDate: 'मई 2026 - फरवरी 2027', eligibility: '10वीं से स्नातक', ageLimit: '18-40 वर्ष' },
+                    { id: 'highcourt', icon: '⚖️', title: 'Rajasthan High Court', items: ['Civil Judge - परीक्षा: जून 2026', 'District Judge - परीक्षा: जुलाई 2026', 'Junior Judicial Assistant - परीक्षा: अगस्त 2026', 'Junior Assistant - परीक्षा: सितंबर 2026', 'Clerk - परीक्षा: अक्टूबर 2026', 'Stenographer - परीक्षा: नवंबर 2026'], details: 'राजस्थान उच्च न्यायालय में न्यायिक और प्रशासनिक पदों पर भर्ती होती है।', examDate: 'जून-नवंबर 2026', eligibility: 'स्नातक (LLB)', ageLimit: '21-35 वर्ष' },
+                    { id: 'boards', icon: '🏢', title: 'Boards & Corporations', items: ['RSRTC - भर्ती: वर्ष भर', 'Rajasthan Housing Board - भर्ती: वर्ष भर', 'RIICO - भर्ती: वर्ष भर', 'JVVNL - भर्ती: वर्ष भर', 'AVVNL - भर्ती: वर्ष भर', 'JdVVNL - भर्ती: वर्ष भर', 'RVUNL - भर्ती: वर्ष भर', 'RTDC - भर्ती: वर्ष भर'], details: 'राजस्थान के विभिन्न बोर्ड और निगमों में विभिन्न पदों पर भर्ती होती है।', examDate: 'वर्ष भर', eligibility: '10वीं से स्नातक', ageLimit: '18-40 वर्ष' },
+                    { id: 'police', icon: '👮', title: 'Rajasthan Police', items: ['Constable - परीक्षा: मार्च 2026', 'Driver Constable - परीक्षा: अप्रैल 2026', 'Sub Inspector (SI) - परीक्षा: मई 2026', 'Platoon Commander - परीक्षा: जून 2026', 'Home Guard - भर्ती: वर्ष भर'], details: 'राजस्थान पुलिस में कांस्टेबल, SI और अन्य पदों पर भर्ती होती है।', examDate: 'मार्च-जून 2026', eligibility: '10वीं से स्नातक', ageLimit: '18-26 वर्ष' },
+                    { id: 'education', icon: '👩‍🏫', title: 'Education Recruitment', items: ['REET - परीक्षा: मार्च 2026', 'Teacher Grade III Level 1 - परीक्षा: अप्रैल 2026', 'Teacher Grade III Level 2 - परीक्षा: मई 2026', 'Senior Teacher Grade II - परीक्षा: जून 2026', 'School Lecturer - परीक्षा: जुलाई 2026', 'PTI - परीक्षा: अगस्त 2026', 'Librarian - परीक्षा: सितंबर 2026'], details: 'राजस्थान में REET, Teacher Grade III, Senior Teacher, Lecturer आदि पदों पर भर्ती होती है।', examDate: 'मार्च-सितंबर 2026', eligibility: '12वीं से स्नातकोत्तर (B.Ed)', ageLimit: '18-40 वर्ष' },
+                    { id: 'health', icon: '🏥', title: 'Medical & Health', items: ['Medical Officer - परीक्षा: अप्रैल 2026', 'Nursing Officer - परीक्षा: मई 2026', 'ANM - परीक्षा: जून 2026', 'GNM - परीक्षा: जुलाई 2026', 'CHO - परीक्षा: अगस्त 2026', 'Pharmacist - परीक्षा: सितंबर 2026', 'Lab Technician - परीक्षा: अक्टूबर 2026'], details: 'राजस्थान स्वास्थ्य विभाग में डॉक्टर, नर्स, फार्मासिस्ट, लैब टेक्नीशियन आदि पदों पर भर्ती होती है।', examDate: 'अप्रैल-अक्टूबर 2026', eligibility: '12वीं से MBBS', ageLimit: '18-40 वर्ष' },
+                    { id: 'agriculture', icon: '🌾', title: 'Agriculture & Animal', items: ['Agriculture Officer - परीक्षा: अप्रैल 2026', 'Agriculture Supervisor - परीक्षा: मई 2026', 'Horticulture Officer - परीक्षा: जून 2026', 'Veterinary Officer - परीक्षा: जुलाई 2026', 'Livestock Assistant - परीक्षा: अगस्त 2026'], details: 'राजस्थान कृषि और पशुपालन विभाग में कृषि अधिकारी, पशु चिकित्सा अधिकारी आदि पदों पर भर्ती होती है।', examDate: 'अप्रैल-अगस्त 2026', eligibility: 'स्नातक (Agriculture/Veterinary)', ageLimit: '18-40 वर्ष' },
+                    { id: 'engineering', icon: '🛠️', title: 'Engineering & Technical', items: ['Assistant Engineer Civil - परीक्षा: जून 2026', 'Assistant Engineer Mechanical - परीक्षा: जुलाई 2026', 'Assistant Engineer Electrical - परीक्षा: अगस्त 2026', 'Junior Engineer Civil - परीक्षा: सितंबर 2026', 'Junior Engineer Mechanical - परीक्षा: अक्टूबर 2026', 'Junior Engineer Electrical - परीक्षा: नवंबर 2026', 'Programmer - परीक्षा: दिसंबर 2026'], details: 'राजस्थान के विभिन्न विभागों में सिविल, मैकेनिकल, इलेक्ट्रिकल, आईटी इंजीनियरों की भर्ती होती है।', examDate: 'जून-दिसंबर 2026', eligibility: 'डिप्लोमा / B.Tech', ageLimit: '18-40 वर्ष' },
+                    { id: 'revenue', icon: '📑', title: 'Revenue Department', items: ['Tehsildar - परीक्षा: अगस्त 2026', 'Naib Tehsildar - परीक्षा: सितंबर 2026', 'Revenue Inspector - परीक्षा: अक्टूबर 2026', 'Patwari - परीक्षा: नवंबर 2026'], details: 'राजस्थान राजस्व विभाग में तहसीलदार, नायब तहसीलदार, पटवारी आदि पदों पर भर्ती होती है।', examDate: 'अगस्त-नवंबर 2026', eligibility: 'स्नातक', ageLimit: '18-40 वर्ष' },
+                    { id: 'panchayat', icon: '🏘️', title: 'Panchayati Raj', items: ['VDO - परीक्षा: मई 2026', 'Junior Technical Assistant - परीक्षा: जून 2026', 'Account Assistant - परीक्षा: जुलाई 2026'], details: 'राजस्थान पंचायती राज विभाग में VDO, तकनीकी सहायक, लेखा सहायक आदि पदों पर भर्ती होती है।', examDate: 'मई-जुलाई 2026', eligibility: '10वीं से स्नातक', ageLimit: '18-40 वर्ष' },
+                    { id: 'forest', icon: '🌳', title: 'Forest Department', items: ['Forest Guard - परीक्षा: मार्च 2026', 'Forester - परीक्षा: अप्रैल 2026', 'Forest Ranger - परीक्षा: मई 2026'], details: 'राजस्थान वन विभाग में फॉरेस्ट गार्ड, फॉरेस्टर, रेंजर आदि पदों पर भर्ती होती है।', examDate: 'मार्च-मई 2026', eligibility: '10वीं से स्नातक', ageLimit: '18-40 वर्ष' }
                 ]
             },
             study: {
@@ -2511,40 +2182,22 @@
                 icon: '📚',
                 info: 'पूरी अध्ययन सामग्री',
                 sections: [
-                    { id: 'material', icon: '📚', title: 'Study Material', 
-                      items: ['📘 History Notes - प्राचीन, मध्यकालीन, आधुनिक भारत', '🌍 Geography Notes - भौतिक, मानव, आर्थिक भूगोल', '⚖️ Polity Notes - संविधान, राज्यपाल, मंत्रिमंडल', '🔬 Science Notes - भौतिकी, रसायन, जीव विज्ञान', '📰 Current Affairs - राष्ट्रीय, अंतर्राष्ट्रीय, खेल', '📊 Economics Notes - भारतीय अर्थव्यवस्था, बजट, योजनाएं'],
-                      details: 'यहाँ आपको सभी विषयों के व्यवस्थित नोट्स मिलेंगे। हर विषय को topic-wise विभाजित किया गया है।' },
-                    { id: 'questions', icon: '📝', title: 'Important Questions', 
-                      items: ['❓ History Questions - 500+ महत्वपूर्ण प्रश्न', '❓ Geography Questions - 400+ प्रश्न', '❓ Polity Questions - 300+ प्रश्न', '❓ Science Questions - 450+ प्रश्न', '❓ Current Affairs Questions - 600+ प्रश्न', '❓ Economics Questions - 350+ प्रश्न'],
-                      details: 'प्रतियोगी परीक्षाओं में पूछे जाने वाले महत्वपूर्ण प्रश्नों का संग्रह।' },
-                    { id: 'subject', icon: '📘', title: 'Subject-wise Notes', 
-                      items: ['📖 History - प्राचीन भारत (2500 BC - 1200 AD)', '📖 History - मध्यकालीन भारत (1200 AD - 1750 AD)', '📖 History - आधुनिक भारत (1750 AD - 1947 AD)', '🏔️ Geography - भौतिक भूगोल', '🏔️ Geography - मानव भूगोल', '🏔️ Geography - आर्थिक भूगोल', '⚖️ Polity - भारतीय संविधान', '⚖️ Polity - केंद्र सरकार', '⚖️ Polity - राज्य सरकार', '🔬 Science - भौतिकी', '🔬 Science - रसायन', '🔬 Science - जीव विज्ञान'],
-                      details: 'हर विषय को अलग-अलग भागों में बांटा गया है ताकि आप आसानी से पढ़ सकें।' },
-                    { id: 'revision', icon: '🔁', title: 'Revision & Practice', 
-                      items: ['📅 Revision Schedule - 30 दिन का प्लान', '📝 Previous Year Questions - 2015-2025', '📊 Practice Sets - 50+ सेट्स', '🎯 Mock Tests - 25+ टेस्ट'],
-                      details: 'Revision और Practice के लिए विशेष सामग्री। नियमित अभ्यास से आप अपनी तैयारी को मजबूत कर सकते हैं।' }
+                    { id: 'material', icon: '📚', title: 'Study Material', items: ['📘 History Notes - प्राचीन, मध्यकालीन, आधुनिक भारत', '🌍 Geography Notes - भौतिक, मानव, आर्थिक भूगोल', '⚖️ Polity Notes - संविधान, राज्यपाल, मंत्रिमंडल', '🔬 Science Notes - भौतिकी, रसायन, जीव विज्ञान', '📰 Current Affairs - राष्ट्रीय, अंतर्राष्ट्रीय, खेल', '📊 Economics Notes - भारतीय अर्थव्यवस्था, बजट'], details: 'यहाँ आपको सभी विषयों के व्यवस्थित नोट्स मिलेंगे।' },
+                    { id: 'questions', icon: '📝', title: 'Important Questions', items: ['❓ History Questions - 500+ महत्वपूर्ण प्रश्न', '❓ Geography Questions - 400+ प्रश्न', '❓ Polity Questions - 300+ प्रश्न', '❓ Science Questions - 450+ प्रश्न', '❓ Current Affairs Questions - 600+ प्रश्न', '❓ Economics Questions - 350+ प्रश्न'], details: 'प्रतियोगी परीक्षाओं में पूछे जाने वाले महत्वपूर्ण प्रश्नों का संग्रह।' },
+                    { id: 'subject', icon: '📘', title: 'Subject-wise Notes', items: ['📖 History - प्राचीन भारत (2500 BC - 1200 AD)', '📖 History - मध्यकालीन भारत (1200 AD - 1750 AD)', '📖 History - आधुनिक भारत (1750 AD - 1947 AD)', '🏔️ Geography - भौतिक भूगोल', '🏔️ Geography - मानव भूगोल', '🏔️ Geography - आर्थिक भूगोल', '⚖️ Polity - भारतीय संविधान', '⚖️ Polity - केंद्र सरकार', '⚖️ Polity - राज्य सरकार', '🔬 Science - भौतिकी', '🔬 Science - रसायन', '🔬 Science - जीव विज्ञान'], details: 'हर विषय को अलग-अलग भागों में बांटा गया है ताकि आप आसानी से पढ़ सकें।' },
+                    { id: 'revision', icon: '🔁', title: 'Revision & Practice', items: ['📅 Revision Schedule - 30 दिन का प्लान', '📝 Previous Year Questions - 2015-2025', '📊 Practice Sets - 50+ सेट्स', '🎯 Mock Tests - 25+ टेस्ट'], details: 'Revision और Practice के लिए विशेष सामग्री।' }
                 ]
             },
             rajasthan: {
                 title: "Rajasthan GK",
                 icon: '🏜️',
-                info: 'राजस्थान सामान्य ज्ञान - पूरी जानकारी',
+                info: 'राजस्थान सामान्य ज्ञान',
                 sections: [
-                    { id: 'history', icon: '🏰', title: 'History', 
-                      items: ['📜 प्राचीन राजस्थान (3000 BC - 700 AD)', '📜 मध्यकालीन राजस्थान (700 AD - 1700 AD)', '📜 आधुनिक राजस्थान (1700 AD - 1947 AD)', '👑 प्रमुख राजवंश - चौहान, गुहिल, कछवाहा', '⚔️ प्रमुख युद्ध - हल्दीघाटी, खानवा', '👑 प्रमुख शासक - महाराणा प्रताप, राजा मान सिंह'],
-                      details: 'राजस्थान का समृद्ध इतिहास - प्राचीन काल से आधुनिक काल तक।' },
-                    { id: 'geography', icon: '🗺️', title: 'Geography', 
-                      items: ['🗺️ भौगोलिक स्थिति - अक्षांश, देशांतर', '🌊 नदियाँ - चंबल, बनास, लूनी, घग्गर', '🏞️ झीलें - सांभर, पुष्कर, फतेहसागर', '🌤️ जलवायु - शुष्क, अर्ध-शुष्क', '🌳 वन - साल, शीशम, खेजड़ी', '⛏️ खनिज - तांबा, जस्ता, सीसा'],
-                      details: 'राजस्थान का भौगोलिक स्वरूप - रेगिस्तान, पहाड़ियाँ, नदियाँ, झीलें।' },
-                    { id: 'culture', icon: '🎭', title: 'Art & Culture', 
-                      items: ['🎨 लोक कला - मेवाड़, मारवाड़, शेखावाटी', '💃 लोक नृत्य - घूमर, कच्छी घोड़ी, तेरहताली', '🎵 लोक संगीत - मांड, पंहारी, भोपा', '🎪 मेले - पुष्कर, सिरोही, तिलवाड़ा', '🎊 त्योहार - दीपावली, होली, गणगौर', '👗 वेशभूषा - पगड़ी, घाघरा, ओढ़नी'],
-                      details: 'राजस्थान की समृद्ध संस्कृति - कला, नृत्य, संगीत, त्योहार, वेशभूषा।' },
-                    { id: 'districts', icon: '📍', title: 'Districts', 
-                      items: ['📍 जयपुर - गुलाबी नगरी, राजधानी', '📍 जोधपुर - सूर्य नगरी, मेहरानगढ़ किला', '📍 उदयपुर - झीलों की नगरी, सिटी पैलेस', '📍 अजमेर - ख्वाजा मोइनुद्दीन चिश्ती', '📍 बीकानेर - किला, जूनागढ़', '📍 कोटा - चंबल, कोटा बैराज'],
-                      details: 'राजस्थान के 33 जिलों की विशेषताएँ - प्रमुख स्थान, पर्यटन, इतिहास।' },
-                    { id: 'facts', icon: '⭐', title: 'Important Facts', 
-                      items: ['👤 प्रमुख व्यक्तित्व - महाराणा प्रताप, रावत भाटी', '🏛️ प्रमुख स्थान - हवा महल, जग मंदिर, मेहरानगढ़', '🏭 प्रमुख उद्योग - कपड़ा, खनन, पर्यटन', '🌍 प्रमुख पर्यटन स्थल - जैसलमेर, रणथंभौर'],
-                      details: 'राजस्थान के महत्वपूर्ण तथ्य - व्यक्तित्व, स्थान, उद्योग, पर्यटन।' }
+                    { id: 'history', icon: '🏰', title: 'History', items: ['📜 प्राचीन राजस्थान (3000 BC - 700 AD)', '📜 मध्यकालीन राजस्थान (700 AD - 1700 AD)', '📜 आधुनिक राजस्थान (1700 AD - 1947 AD)', '👑 प्रमुख राजवंश - चौहान, गुहिल, कछवाहा', '⚔️ प्रमुख युद्ध - हल्दीघाटी, खानवा', '👑 प्रमुख शासक - महाराणा प्रताप, राजा मान सिंह'], details: 'राजस्थान का समृद्ध इतिहास - प्राचीन काल से आधुनिक काल तक।' },
+                    { id: 'geography', icon: '🗺️', title: 'Geography', items: ['🗺️ भौगोलिक स्थिति - अक्षांश, देशांतर', '🌊 नदियाँ - चंबल, बनास, लूनी, घग्गर', '🏞️ झीलें - सांभर, पुष्कर, फतेहसागर', '🌤️ जलवायु - शुष्क, अर्ध-शुष्क', '🌳 वन - साल, शीशम, खेजड़ी', '⛏️ खनिज - तांबा, जस्ता, सीसा'], details: 'राजस्थान का भौगोलिक स्वरूप - रेगिस्तान, पहाड़ियाँ, नदियाँ, झीलें।' },
+                    { id: 'culture', icon: '🎭', title: 'Art & Culture', items: ['🎨 लोक कला - मेवाड़, मारवाड़, शेखावाटी', '💃 लोक नृत्य - घूमर, कच्छी घोड़ी, तेरहताली', '🎵 लोक संगीत - मांड, पंहारी, भोपा', '🎪 मेले - पुष्कर, सिरोही, तिलवाड़ा', '🎊 त्योहार - दीपावली, होली, गणगौर', '👗 वेशभूषा - पगड़ी, घाघरा, ओढ़नी'], details: 'राजस्थान की समृद्ध संस्कृति - कला, नृत्य, संगीत, त्योहार, वेशभूषा।' },
+                    { id: 'districts', icon: '📍', title: 'Districts', items: ['📍 जयपुर - गुलाबी नगरी, राजधानी', '📍 जोधपुर - सूर्य नगरी, मेहरानगढ़ किला', '📍 उदयपुर - झीलों की नगरी, सिटी पैलेस', '📍 अजमेर - ख्वाजा मोइनुद्दीन चिश्ती', '📍 बीकानेर - किला, जूनागढ़', '📍 कोटा - चंबल, कोटा बैराज'], details: 'राजस्थान के 33 जिलों की विशेषताएँ - प्रमुख स्थान, पर्यटन, इतिहास।' },
+                    { id: 'facts', icon: '⭐', title: 'Important Facts', items: ['👤 प्रमुख व्यक्तित्व - महाराणा प्रताप, रावत भाटी', '🏛️ प्रमुख स्थान - हवा महल, जग मंदिर, मेहरानगढ़', '🏭 प्रमुख उद्योग - कपड़ा, खनन, पर्यटन', '🌍 प्रमुख पर्यटन स्थल - जैसलमेर, रणथंभौर'], details: 'राजस्थान के महत्वपूर्ण तथ्य - व्यक्तित्व, स्थान, उद्योग, पर्यटन।' }
                 ]
             },
             quiz: {
@@ -2552,18 +2205,10 @@
                 icon: '🧠',
                 info: 'प्रतिदिन नए प्रश्न',
                 sections: [
-                    { id: 'dailygk', icon: '🌐', title: 'Daily GK', 
-                      items: ['🇮🇳 भारत की राजधानी क्या है? - नई दिल्ली', '🏜️ राजस्थान का सबसे बड़ा जिला? - जैसलमेर', '📅 संविधान दिवस? - 26 नवंबर', '🌊 गंगा नदी कहाँ से निकलती है? - गंगोत्री', '🐯 भारत का राष्ट्रीय पशु? - बाघ'],
-                      details: 'रोजाना सामान्य ज्ञान के प्रश्न - अपनी जानकारी बढ़ाएँ।' },
-                    { id: 'rajasthanquiz', icon: '🏜️', title: 'Rajasthan Quiz', 
-                      items: ['📏 राजस्थान का क्षेत्रफल? - 3,42,239 वर्ग किमी', '🏛️ राजस्थान की राजधानी? - जयपुर', '🗺️ राजस्थान में कितने जिले? - 33', '🐫 राजस्थान का राज्य पशु? - चिंकारा', '🌊 राजस्थान की प्रमुख नदी? - चंबल'],
-                      details: 'राजस्थान से संबंधित प्रश्न - राजस्थान GK को मजबूत करें।' },
-                    { id: 'exampractice', icon: '📝', title: 'Exam Practice', 
-                      items: ['📝 SSC CGL Full Form? - Staff Selection Commission Combined Graduate Level', '📅 UPSC स्थापना? - 1926', '🏦 RBI मुख्यालय? - मुंबई', '🏏 भारत का राष्ट्रीय खेल? - हॉकी', '📜 संविधान में अनुच्छेद? - 448'],
-                      details: 'प्रतियोगी परीक्षाओं के पैटर्न पर आधारित प्रश्न - अभ्यास करें।' },
-                    { id: 'currentaffairs', icon: '📰', title: 'Current Affairs', 
-                      items: ['💰 2026 का बजट किसने पेश किया? - निर्मला सीतारमण', '🏅 हाल ही में किसे भारत रत्न मिला? - मनमोहन सिंह, नानाजी देशमुख', '🌍 G20 की अध्यक्षता? - भारत', '🚀 चंद्रयान-4? - 2027 में लॉन्च होगा', '🏆 विश्व कप 2026? - संयुक्त राज्य अमेरिका, मैक्सिको, कनाडा'],
-                      details: 'साल 2026 के महत्वपूर्ण करेंट अफेयर्स - परीक्षाओं के लिए उपयोगी।' }
+                    { id: 'dailygk', icon: '🌐', title: 'Daily GK', items: ['🇮🇳 भारत की राजधानी क्या है? - नई दिल्ली', '🏜️ राजस्थान का सबसे बड़ा जिला? - जैसलमेर', '📅 संविधान दिवस? - 26 नवंबर', '🌊 गंगा नदी कहाँ से निकलती है? - गंगोत्री', '🐯 भारत का राष्ट्रीय पशु? - बाघ'], details: 'रोजाना सामान्य ज्ञान के प्रश्न - अपनी जानकारी बढ़ाएँ।' },
+                    { id: 'rajasthanquiz', icon: '🏜️', title: 'Rajasthan Quiz', items: ['📏 राजस्थान का क्षेत्रफल? - 3,42,239 वर्ग किमी', '🏛️ राजस्थान की राजधानी? - जयपुर', '🗺️ राजस्थान में कितने जिले? - 33', '🐫 राजस्थान का राज्य पशु? - चिंकारा', '🌊 राजस्थान की प्रमुख नदी? - चंबल'], details: 'राजस्थान से संबंधित प्रश्न - राजस्थान GK को मजबूत करें।' },
+                    { id: 'exampractice', icon: '📝', title: 'Exam Practice', items: ['📝 SSC CGL Full Form? - Staff Selection Commission', '📅 UPSC स्थापना? - 1926', '🏦 RBI मुख्यालय? - मुंबई', '🏏 भारत का राष्ट्रीय खेल? - हॉकी', '📜 संविधान में अनुच्छेद? - 448'], details: 'प्रतियोगी परीक्षाओं के पैटर्न पर आधारित प्रश्न - अभ्यास करें।' },
+                    { id: 'currentaffairs', icon: '📰', title: 'Current Affairs', items: ['💰 2026 का बजट किसने पेश किया? - निर्मला सीतारमण', '🏅 हाल ही में किसे भारत रत्न मिला? - मनमोहन सिंह', '🌍 G20 की अध्यक्षता? - भारत', '🚀 चंद्रयान-4? - 2027 में लॉन्च होगा', '🏆 विश्व कप 2026? - USA, Mexico, Canada'], details: 'साल 2026 के महत्वपूर्ण करेंट अफेयर्स - परीक्षाओं के लिए उपयोगी।' }
                 ]
             },
             career: {
@@ -2571,42 +2216,18 @@
                 icon: '🎯',
                 info: 'करियर से जुड़ी पूरी जानकारी',
                 sections: [
-                    { id: 'after12', icon: '🎓', title: '12th के बाद Career', 
-                      items: ['🎨 Arts / Humanities - BA, BSW, B.Lib, कला, इतिहास, राजनीति विज्ञान', '🔬 Science - BSc, B.Tech, MBBS, BDS, B.Pharm, B.Sc Nursing', '💰 Commerce - BCom, BBA, BBM, MCom, MBA, CA, CS, CMA', '🎯 Any Stream - ग्रेजुएशन, डिप्लोमा, ITI, स्किल कोर्स'],
-                      details: '12वीं के बाद आप किस स्ट्रीम में आगे बढ़ सकते हैं - पूरी जानकारी।' },
-                    { id: 'college', icon: '🏫', title: 'College & Degree Courses', 
-                      items: ['🏛️ Arts & Humanities - BA, MA, PhD', '🔬 Science - BSc, MSc, PhD', '💼 Commerce & Management - BCom, MBA, PGDM', '💻 Computer / IT - BCA, MCA, B.Tech CS', '🎓 Professional Courses - MBBS, LLB, B.Ed, B.Arch'],
-                      details: 'कॉलेज और डिग्री कोर्स की पूरी जानकारी - कौन सा कोर्स किसके लिए है।' },
-                    { id: 'skills', icon: '💡', title: 'Skills & Certificate Courses', 
-                      items: ['💻 Digital Skills - MS Office, Typing, Internet, Email', '🧑‍💻 Technology - Web Development, Python, Data Analytics', '🗣️ Professional Skills - Communication, Interview, Resume', '📈 Career Skills - Time Management, Leadership, Problem Solving'],
-                      details: 'नई स्किल्स सीखें और अपने करियर को मजबूत करें - सर्टिफिकेट कोर्स।' },
-                    { id: 'competitive', icon: '📝', title: 'Competitive Exams', 
-                      items: ['🇮🇳 Central Government - UPSC, SSC', '🚆 Railway - RRB NTPC, Group D, ALP', '🏦 Banking - IBPS, SBI, RBI', '🏜️ Rajasthan - RPSC, RSSB', '👩‍🏫 Teaching - REET, CTET'],
-                      details: 'सभी प्रतियोगी परीक्षाओं की जानकारी - पैटर्न, सिलेबस, तैयारी के टिप्स।' },
-                    { id: 'govcareer', icon: '🏛️', title: 'Government Job Career', 
-                      items: ['📘 After 10th - RPF Constable, Group D, MTS, ITI', '🎓 After 12th - SSC CHSL, Defence, Police, RRB', '🎯 After Graduation - UPSC, SSC CGL, Banking, RPSC', '🛠️ Specialised - Engineering, Medical, Law, Teaching'],
-                      details: 'सरकारी नौकरी का पूरा रास्ता - 10वीं से लेकर ग्रेजुएशन तक।' },
-                    { id: 'defence', icon: '🪖', title: 'Defence Career', 
-                      items: ['⭐ Officer Entry - NDA, CDS, AFCAT', '🪖 Army - भारतीय सेना में भर्ती', '⚓ Navy - भारतीय नौसेना', '✈️ Air Force - भारतीय वायुसेना', '🚢 Coast Guard - तट रक्षक बल', '🏃 Fitness & Selection - शारीरिक परीक्षण'],
-                      details: 'भारतीय सेना, नौसेना, वायुसेना में करियर - पूरी जानकारी।' },
-                    { id: 'teaching', icon: '👩‍🏫', title: 'Teaching Career', 
-                      items: ['🏫 School Teaching - TGT, PGT, PRT', '📝 Teaching Exams - REET, CTET, UPTET', '🎓 Higher Education - NET, SET, PhD', '💻 Modern Teaching Skills - Digital Classroom, Online Teaching'],
-                      details: 'टीचिंग करियर - स्कूल से लेकर कॉलेज तक, सभी परीक्षाओं की जानकारी।' },
-                    { id: 'medical', icon: '🏥', title: 'Medical & Paramedical', 
-                      items: ['🩺 Medical - MBBS, BAMS, BHMS, BDS', '👩‍⚕️ Nursing - B.Sc Nursing, GNM, ANM', '💊 Pharmacy - D.Pharm, B.Pharm, M.Pharm', '🧪 Lab - Lab Technician, Microbiology', '📌 Recognition - MCI, DCI, INC'],
-                      details: 'मेडिकल और पैरामेडिकल करियर - कोर्स, कॉलेज, रजिस्ट्रेशन।' },
-                    { id: 'engineering', icon: '🛠️', title: 'Engineering & Technical', 
-                      items: ['🏗️ Civil - Construction, Infrastructure, Design', '⚙️ Mechanical - Manufacturing, Production, Maintenance', '⚡ Electrical - Power Systems, Automation, Electronics', '💻 Computer/IT - Software, Web, Data, Cybersecurity'],
-                      details: 'इंजीनियरिंग करियर - सभी ब्रांचेस की जानकारी, जॉब ऑप्शन्स।' },
-                    { id: 'it', icon: '💻', title: 'IT & Computer Career', 
-                      items: ['🌐 Web Development - HTML, CSS, JavaScript, React', '🧑‍💻 Software Development - Java, Python, C++, C#', '📊 Data & Analytics - Excel, SQL, Power BI, Tableau', '🔐 Cyber Security - Ethical Hacking, Network Security'],
-                      details: 'IT और कंप्यूटर करियर - प्रोग्रामिंग से लेकर डाटा एनालिटिक्स तक।' },
-                    { id: 'iti', icon: '🔧', title: 'ITI & Polytechnic', 
-                      items: ['🔩 ITI Trades - Fitter, Welder, Electrician, Plumber', '🏗️ Polytechnic Diploma - Civil, Mechanical, Electrical', '🎯 After ITI - Apprenticeship, Technical Jobs', '🧰 Essential Skills - Safety, Tools, Communication'],
-                      details: 'ITI और पॉलिटेक्निक कोर्स - जॉब ओरिएंटेड स्किल्स।' },
-                    { id: 'planning', icon: '🧭', title: 'Career Planning', 
-                      items: ['🧠 Self Assessment - अपनी रुचि और क्षमता पहचानें', '🔍 Explore Options - करियर विकल्पों की खोज करें', '📋 Check Eligibility - योग्यता जांचें', '🛣️ Select Route - करियर का रास्ता चुनें', '📈 Build Skills - कौशल विकास करें', '🚀 Prepare & Apply - तैयारी करें और आवेदन करें'],
-                      details: 'करियर प्लानिंग - सही करियर चुनने का पूरा रास्ता।' }
+                    { id: 'after12', icon: '🎓', title: '12th के बाद Career', items: ['🎨 Arts / Humanities - BA, BSW, B.Lib', '🔬 Science - BSc, B.Tech, MBBS, BDS', '💰 Commerce - BCom, BBA, BBM, CA, CS', '🎯 Any Stream - ग्रेजुलेशन, डिप्लोमा, ITI'], details: '12वीं के बाद आप किस स्ट्रीम में आगे बढ़ सकते हैं।' },
+                    { id: 'college', icon: '🏫', title: 'College & Degree', items: ['🏛️ Arts & Humanities - BA, MA, PhD', '🔬 Science - BSc, MSc, PhD', '💼 Commerce & Management - BCom, MBA', '💻 Computer / IT - BCA, MCA, B.Tech CS', '🎓 Professional - MBBS, LLB, B.Ed, B.Arch'], details: 'कॉलेज और डिग्री कोर्स की पूरी जानकारी।' },
+                    { id: 'skills', icon: '💡', title: 'Skills & Certificate', items: ['💻 Digital Skills - MS Office, Typing', '🧑‍💻 Technology - Web Development, Python', '🗣️ Professional Skills - Communication', '📈 Career Skills - Time Management'], details: 'नई स्किल्स सीखें और अपने करियर को मजबूत करें।' },
+                    { id: 'competitive', icon: '📝', title: 'Competitive Exams', items: ['🇮🇳 Central - UPSC, SSC', '🚆 Railway - RRB NTPC, Group D', '🏦 Banking - IBPS, SBI, RBI', '🏜️ Rajasthan - RPSC, RSSB', '👩‍🏫 Teaching - REET, CTET'], details: 'सभी प्रतियोगी परीक्षाओं की जानकारी।' },
+                    { id: 'govcareer', icon: '🏛️', title: 'Government Career', items: ['📘 After 10th - RPF, Group D, ITI', '🎓 After 12th - SSC CHSL, Defence, Police', '🎯 After Graduation - UPSC, SSC CGL, Banking', '🛠️ Specialised - Engineering, Medical, Law'], details: 'सरकारी नौकरी का पूरा रास्ता।' },
+                    { id: 'defence', icon: '🪖', title: 'Defence Career', items: ['⭐ Officer Entry - NDA, CDS, AFCAT', '🪖 Army - भारतीय सेना', '⚓ Navy - भारतीय नौसेना', '✈️ Air Force - भारतीय वायुसेना', '🚢 Coast Guard - तट रक्षक बल', '🏃 Fitness & Selection'], details: 'भारतीय सेना, नौसेना, वायुसेना में करियर।' },
+                    { id: 'teaching', icon: '👩‍🏫', title: 'Teaching Career', items: ['🏫 School - TGT, PGT, PRT', '📝 Teaching Exams - REET, CTET', '🎓 Higher Education - NET, SET, PhD', '💻 Modern Teaching Skills'], details: 'टीचिंग करियर - स्कूल से लेकर कॉलेज तक।' },
+                    { id: 'medical', icon: '🏥', title: 'Medical & Paramedical', items: ['🩺 Medical - MBBS, BAMS, BHMS', '👩‍⚕️ Nursing - B.Sc Nursing, GNM', '💊 Pharmacy - D.Pharm, B.Pharm', '🧪 Lab - Lab Technician'], details: 'मेडिकल और पैरामेडिकल करियर।' },
+                    { id: 'engineering', icon: '🛠️', title: 'Engineering & Technical', items: ['🏗️ Civil - Construction, Infrastructure', '⚙️ Mechanical - Manufacturing', '⚡ Electrical - Power Systems', '💻 Computer/IT - Software, Web'], details: 'इंजीनियरिंग करियर - सभी ब्रांचेस की जानकारी।' },
+                    { id: 'it', icon: '💻', title: 'IT & Computer', items: ['🌐 Web Development - HTML, CSS, React', '🧑‍💻 Software - Java, Python, C++', '📊 Data Analytics - Excel, SQL, Power BI', '🔐 Cyber Security - Ethical Hacking'], details: 'IT और कंप्यूटर करियर।' },
+                    { id: 'iti', icon: '🔧', title: 'ITI & Polytechnic', items: ['🔩 ITI Trades - Fitter, Welder, Electrician', '🏗️ Polytechnic - Civil, Mechanical, Electrical', '🎯 After ITI - Apprenticeship', '🧰 Essential Skills'], details: 'ITI और पॉलिटेक्निक कोर्स।' },
+                    { id: 'planning', icon: '🧭', title: 'Career Planning', items: ['🧠 Self Assessment - रुचि पहचानें', '🔍 Explore Options - करियर खोजें', '📋 Check Eligibility - योग्यता जांचें', '🛣️ Select Route - रास्ता चुनें', '📈 Build Skills - कौशल विकास', '🚀 Prepare & Apply'], details: 'करियर प्लानिंग - सही करियर चुनने का पूरा रास्ता।' }
                 ]
             },
             books: {
@@ -2614,18 +2235,10 @@
                 icon: '📖',
                 info: 'प्रतियोगी परीक्षाओं के लिए किताबें',
                 sections: [
-                    { id: 'competitivebooks', icon: '📝', title: 'Competitive Exams', 
-                      items: ['📘 SSC CGL - Quantitative Aptitude, English, Reasoning, GK', '📘 Railway RRB - Maths, Reasoning, General Awareness', '📘 Banking - Quant, Reasoning, English, Banking Awareness', '📘 UPSC - NCERT, History, Geography, Polity, Economy'],
-                      details: 'SSC, Railway, Banking, UPSC - सभी प्रतियोगी परीक्षाओं के लिए बेस्ट किताबें।' },
-                    { id: 'rajasthanbooks', icon: '🏜️', title: 'Rajasthan GK', 
-                      items: ['📗 Rajasthan History - राजस्थान का इतिहास', '📗 Rajasthan Geography - राजस्थान भूगोल', '📗 Rajasthan Culture - राजस्थान संस्कृति', '📗 Rajasthan GK - सामान्य ज्ञान'],
-                      details: 'राजस्थान GK की बेस्ट किताबें - इतिहास, भूगोल, संस्कृति।' },
-                    { id: 'gkbooks', icon: '🌐', title: 'General Knowledge', 
-                      items: ['📙 Lucent GK - सामान्य ज्ञान', '📙 Manorama Yearbook - करंट अफेयर्स', '📙 Static GK - स्थिर सामान्य ज्ञान'],
-                      details: 'सामान्य ज्ञान की बेस्ट किताबें - प्रतियोगी परीक्षाओं के लिए।' },
-                    { id: 'careerbooks', icon: '🎯', title: 'Study & Career', 
-                      items: ['📕 Career Planning - सही करियर चुनना', '📕 Skill Development - स्किल डेवलपमेंट', '📕 Motivation - प्रेरणादायक किताबें'],
-                      details: 'करियर और स्किल डेवलपमेंट के लिए बेस्ट किताबें।' }
+                    { id: 'competitivebooks', icon: '📝', title: 'Competitive Exams', items: ['📘 SSC CGL - Quantitative Aptitude, English', '📘 Railway RRB - Maths, Reasoning', '📘 Banking - Quant, Reasoning, English', '📘 UPSC - NCERT, History, Geography'], details: 'SSC, Railway, Banking, UPSC - सभी प्रतियोगी परीक्षाओं के लिए बेस्ट किताबें।' },
+                    { id: 'rajasthanbooks', icon: '🏜️', title: 'Rajasthan GK', items: ['📗 Rajasthan History - राजस्थान का इतिहास', '📗 Rajasthan Geography - राजस्थान भूगोल', '📗 Rajasthan Culture - राजस्थान संस्कृति', '📗 Rajasthan GK - सामान्य ज्ञान'], details: 'राजस्थान GK की बेस्ट किताबें।' },
+                    { id: 'gkbooks', icon: '🌐', title: 'General Knowledge', items: ['📙 Lucent GK - सामान्य ज्ञान', '📙 Manorama Yearbook - करंट अफेयर्स', '📙 Static GK - स्थिर सामान्य ज्ञान'], details: 'सामान्य ज्ञान की बेस्ट किताबें।' },
+                    { id: 'careerbooks', icon: '🎯', title: 'Study & Career', items: ['📕 Career Planning - सही करियर चुनना', '📕 Skill Development - स्किल डेवलपमेंट', '📕 Motivation - प्रेरणादायक किताबें'], details: 'करियर और स्किल डेवलपमेंट के लिए बेस्ट किताबें।' }
                 ]
             },
             more: {
@@ -2633,30 +2246,14 @@
                 icon: '⚙️',
                 info: 'अतिरिक्त सुविधाएँ',
                 sections: [
-                    { id: 'pdftools', icon: '🛠️', title: 'PDF Tools', 
-                      items: ['🔗 Merge PDF - कई PDF को एक में मिलाएं', '✂️ Split PDF - PDF को अलग-अलग करें', '📦 Compress PDF - PDF साइज कम करें', '🔄 Convert PDF - PDF को अन्य फॉर्मेट में बदलें'],
-                      details: 'PDF को मर्ज, स्प्लिट, कम्प्रेस और कन्वर्ट करने के टूल्स।' },
-                    { id: 'advertise', icon: '📢', title: 'Advertisement', 
-                      items: ['🏪 Local Business - स्थानीय व्यवसाय', '🎓 Coaching - कोचिंग संस्थान', '🛎️ Services - सेवाएँ'],
-                      details: 'विज्ञापन के लिए संपर्क करें - अपने व्यवसाय को बढ़ावा दें।' },
-                    { id: 'share', icon: '📤', title: 'Share Website', 
-                      items: ['📱 Share Website - दोस्तों के साथ शेयर करें', '🔗 Copy Link - लिंक कॉपी करें'],
-                      details: 'Dream Josh को अपने दोस्तों के साथ शेयर करें।' },
-                    { id: 'forms', icon: '📝', title: 'Important Forms', 
-                      items: ['🏛️ Government Forms - आधार, पैन, वोटर', '💼 Job Forms - ऑनलाइन आवेदन', '🔗 Application Links - सीधे लिंक'],
-                      details: 'सरकारी फॉर्म और जॉब फॉर्म की लिंक्स।' },
-                    { id: 'gallery', icon: '🖼️', title: 'Photo Gallery', 
-                      items: ['🎉 Events - इवेंट्स की तस्वीरें', '📚 Study - अध्ययन सत्र', '🎯 Career - करियर गाइडेंस'],
-                      details: 'Dream Josh की फोटो गैलरी - इवेंट्स, स्टडी, करियर।' },
-                    { id: 'links', icon: '🔗', title: 'Main Links', 
-                      items: ['💼 Govt. Jobs - सरकारी नौकरी', '📚 Study - अध्ययन', '🎯 Career - करियर', '🌐 Useful Links - उपयोगी लिंक्स'],
-                      details: 'महत्वपूर्ण लिंक्स - सरकारी नौकरी, अध्ययन, करियर।' },
-                    { id: 'motivation', icon: '🔥', title: 'Motivation', 
-                      items: ['🔥 Daily Motivation - रोज की प्रेरणा', '📚 Study Motivation - पढ़ाई के लिए प्रेरणा', '🎯 Career Motivation - करियर के लिए प्रेरणा', '🏆 Success Tips - सफलता के टिप्स'],
-                      details: 'प्रेरणादायक संदेश - हर दिन आगे बढ़ने के लिए।' },
-                    { id: 'videos', icon: '▶️', title: 'Videos', 
-                      items: ['📚 Study Videos - अध्ययन वीडियो', '💼 Job Updates - नौकरी अपडेट', '🎯 Career Guidance - करियर मार्गदर्शन', '🔥 Motivation - प्रेरणादायक वीडियो'],
-                      details: 'Dream Josh के वीडियो - स्टडी, जॉब, करियर, मोटिवेशन।' }
+                    { id: 'pdftools', icon: '🛠️', title: 'PDF Tools', items: ['🔗 Merge PDF - कई PDF को एक में मिलाएं', '✂️ Split PDF - PDF को अलग-अलग करें', '📦 Compress PDF - PDF साइज कम करें', '🔄 Convert PDF - PDF को अन्य फॉर्मेट में बदलें'], details: 'PDF को मर्ज, स्प्लिट, कम्प्रेस और कन्वर्ट करने के टूल्स।' },
+                    { id: 'advertise', icon: '📢', title: 'Advertisement', items: ['🏪 Local Business - स्थानीय व्यवसाय', '🎓 Coaching - कोचिंग संस्थान', '🛎️ Services - सेवाएँ'], details: 'विज्ञापन के लिए संपर्क करें।' },
+                    { id: 'share', icon: '📤', title: 'Share Website', items: ['📱 Share Website - दोस्तों के साथ शेयर करें', '🔗 Copy Link - लिंक कॉपी करें'], details: 'Dream Josh को अपने दोस्तों के साथ शेयर करें।' },
+                    { id: 'forms', icon: '📝', title: 'Important Forms', items: ['🏛️ Government Forms - आधार, पैन, वोटर', '💼 Job Forms - ऑनलाइन आवेदन', '🔗 Application Links - सीधे लिंक'], details: 'सरकारी फॉर्म और जॉब फॉर्म की लिंक्स।' },
+                    { id: 'gallery', icon: '🖼️', title: 'Photo Gallery', items: ['🎉 Events - इवेंट्स की तस्वीरें', '📚 Study - अध्ययन सत्र', '🎯 Career - करियर गाइडेंस'], details: 'Dream Josh की फोटो गैलरी।' },
+                    { id: 'links', icon: '🔗', title: 'Main Links', items: ['💼 Govt. Jobs - सरकारी नौकरी', '📚 Study - अध्ययन', '🎯 Career - करियर', '🌐 Useful Links - उपयोगी लिंक्स'], details: 'महत्वपूर्ण लिंक्स।' },
+                    { id: 'motivation', icon: '🔥', title: 'Motivation', items: ['🔥 Daily Motivation - रोज की प्रेरणा', '📚 Study Motivation - पढ़ाई के लिए प्रेरणा', '🎯 Career Motivation - करियर के लिए प्रेरणा', '🏆 Success Tips - सफलता के टिप्स'], details: 'प्रेरणादायक संदेश।' },
+                    { id: 'videos', icon: '▶️', title: 'Videos', items: ['📚 Study Videos - अध्ययन वीडियो', '💼 Job Updates - नौकरी अपडेट', '🎯 Career Guidance - करियर मार्गदर्शन', '🔥 Motivation - प्रेरणादायक वीडियो'], details: 'Dream Josh के वीडियो।' }
                 ]
             }
         };
@@ -2671,56 +2268,391 @@
             settings: { password: 'admin123', darkMode: false }
         };
 
-        function loadAdminData() {
+        // ================= GOOGLE SHEET FUNCTIONS =================
+
+        // Get cached data
+        function getCachedData() {
             try {
-                const saved = localStorage.getItem('dreamjosh_admin_data');
-                if (saved) {
-                    adminData = JSON.parse(saved);
-                    if (adminData.settings.darkMode) {
-                        document.body.classList.add('dark-mode');
-                    } else {
-                        document.body.classList.remove('dark-mode');
+                const cached = localStorage.getItem(CACHE_KEY);
+                if (cached) {
+                    const data = JSON.parse(cached);
+                    if (Date.now() - data.timestamp < CACHE_DURATION) {
+                        return data.data;
                     }
-                } else {
-                    saveAdminData();
                 }
-            } catch (e) { console.error('Error loading admin data:', e); }
-        }
-
-        function saveAdminData() {
-            try { localStorage.setItem('dreamjosh_admin_data', JSON.stringify(adminData)); } catch (e) { console.error('Error saving admin data:', e); }
-        }
-
-        function toggleDarkMode() {
-            adminData.settings.darkMode = !adminData.settings.darkMode;
-            if (adminData.settings.darkMode) {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
-            saveAdminData();
-            const toggleBtn = document.getElementById('darkModeToggle');
-            if (toggleBtn) {
-                toggleBtn.textContent = adminData.settings.darkMode ? '🌙 Dark' : '☀️ Light';
-                toggleBtn.classList.toggle('active', adminData.settings.darkMode);
+                return null;
+            } catch (e) {
+                console.error('Cache read error:', e);
+                return null;
             }
         }
 
-        // ================= GOVT DROPDOWN =================
-        function toggleGovtDropdown() {
-            const content = document.getElementById('govtDropdownContent');
-            content.classList.toggle('show');
-        }
-
-        function closeGovtDropdown() {
-            document.getElementById('govtDropdownContent').classList.remove('show');
-        }
-
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.govt-dropdown')) {
-                closeGovtDropdown();
+        // Set cached data
+        function setCachedData(data) {
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify({
+                    timestamp: Date.now(),
+                    data: data
+                }));
+            } catch (e) {
+                console.error('Cache write error:', e);
             }
-        });
+        }
+
+        // Fetch data from Google Sheet
+        async function fetchGoogleSheetData(forceRefresh = false) {
+            // Check cache first
+            if (!forceRefresh) {
+                const cached = getCachedData();
+                if (cached) {
+                    console.log('📦 Using cached data from Google Sheet');
+                    return cached;
+                }
+            }
+
+            // Check if URL is configured
+            if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE') {
+                console.warn('⚠️ Google Sheet URL not configured. Using default data.');
+                return null;
+            }
+
+            try {
+                console.log('🔄 Fetching data from Google Sheet...');
+                const response = await fetch(GOOGLE_SHEET_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Cache the data
+                setCachedData(data);
+                
+                console.log('✅ Google Sheet data loaded successfully!');
+                return data;
+            } catch (error) {
+                console.error('❌ Error fetching Google Sheet data:', error);
+                // Return cached data if available
+                const cached = getCachedData();
+                if (cached) {
+                    console.log('📦 Using cached data (fallback)');
+                    return cached;
+                }
+                return null;
+            }
+        }
+
+        // ================= DATA LOADING FUNCTIONS =================
+
+        function getJobIcon(title) {
+            const icons = {
+                'UPSC': '🏛️', 'SSC': '📑', 'Railway': '🚆', 'Banking': '🏦',
+                'Defence': '🪖', 'Police': '👮', 'Post': '📮', 'Teaching': '👩‍🏫',
+                'Medical': '🏥', 'PSU': '🏭', 'Technical': '🛠️', 'Court': '⚖️',
+                'RPSC': '🏛️', 'RSSB': '📋', 'High Court': '⚖️', 'Boards': '🏢'
+            };
+            for (const [key, icon] of Object.entries(icons)) {
+                if (title.toLowerCase().includes(key.toLowerCase())) return icon;
+            }
+            return '📌';
+        }
+
+        function getStudyIcon(category) {
+            const icons = {
+                'History': '📘', 'Geography': '🌍', 'Polity': '⚖️',
+                'Science': '🔬', 'Current Affairs': '📰', 'Economics': '📊'
+            };
+            return icons[category] || '📚';
+        }
+
+        function getCareerIcon(category) {
+            const icons = {
+                'After 12th': '🎓', 'College': '🏫', 'Skills': '💡',
+                'Competitive': '📝', 'Government': '🏛️', 'Defence': '🪖',
+                'Teaching': '👩‍🏫', 'Medical': '🏥', 'Engineering': '🛠️',
+                'IT': '💻'
+            };
+            return icons[category] || '🎯';
+        }
+
+        function getRajasthanIcon(category) {
+            const icons = {
+                'History': '🏰', 'Geography': '🗺️', 'Culture': '🎭',
+                'Districts': '📍', 'Facts': '⭐'
+            };
+            return icons[category] || '🏜️';
+        }
+
+        function getQuizIcon(category) {
+            const icons = {
+                'GK': '🌐', 'Rajasthan': '🏜️', 'Exam': '📝', 'Current Affairs': '📰'
+            };
+            return icons[category] || '🧠';
+        }
+
+        function getMoreIcon(category) {
+            const icons = {
+                'PDF Tools': '🛠️', 'Advertisement': '📢', 'Share': '📤',
+                'Forms': '📝', 'Gallery': '🖼️', 'Links': '🔗',
+                'Motivation': '🔥', 'Videos': '▶️'
+            };
+            return icons[category] || '⚙️';
+        }
+
+        // Load jobs from Google Sheet
+        async function loadJobsFromSheet(forceRefresh = false) {
+            const data = await fetchGoogleSheetData(forceRefresh);
+            if (!data) return false;
+
+            if (data.Jobs && data.Jobs.length > 0) {
+                try {
+                    // Central Jobs
+                    const centralJobs = data.Jobs.filter(job => job.category === 'central');
+                    if (centralJobs.length > 0) {
+                        siteData.centralJobs.sections = centralJobs.map(job => ({
+                            id: job.id || job.title.toLowerCase().replace(/\s/g, ''),
+                            icon: getJobIcon(job.title),
+                            title: job.title,
+                            items: [job.description || 'No description'],
+                            details: job.description || '',
+                            examDate: job.lastDate || 'Coming soon',
+                            eligibility: job.eligibility || 'Check notification',
+                            ageLimit: job.age || 'Check notification'
+                        }));
+                        document.getElementById('centralJobsGrid').dataset.loaded = 'false';
+                        document.getElementById('centralJobCount').textContent = centralJobs.length;
+                    }
+
+                    // State Jobs
+                    const stateJobs = data.Jobs.filter(job => job.category === 'state');
+                    if (stateJobs.length > 0) {
+                        siteData.stateJobs.sections = stateJobs.map(job => ({
+                            id: job.id || job.title.toLowerCase().replace(/\s/g, ''),
+                            icon: getJobIcon(job.title),
+                            title: job.title,
+                            items: [job.description || 'No description'],
+                            details: job.description || '',
+                            examDate: job.lastDate || 'Coming soon',
+                            eligibility: job.eligibility || 'Check notification',
+                            ageLimit: job.age || 'Check notification'
+                        }));
+                        document.getElementById('stateJobsGrid').dataset.loaded = 'false';
+                        document.getElementById('stateJobCount').textContent = stateJobs.length;
+                    }
+
+                    return true;
+                } catch (e) {
+                    console.error('Error loading jobs:', e);
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        // Load study from Google Sheet
+        async function loadStudyFromSheet(forceRefresh = false) {
+            const data = await fetchGoogleSheetData(forceRefresh);
+            if (!data || !data.Study || data.Study.length === 0) return false;
+
+            try {
+                siteData.study.sections = data.Study.map(item => ({
+                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                    icon: getStudyIcon(item.category),
+                    title: item.title,
+                    items: item.content ? item.content.split(',').map(s => s.trim()) : ['No content'],
+                    details: item.tags || 'Study material'
+                }));
+                document.getElementById('studyGrid').dataset.loaded = 'false';
+                return true;
+            } catch (e) {
+                console.error('Error loading study:', e);
+                return false;
+            }
+        }
+
+        // Load career from Google Sheet
+        async function loadCareerFromSheet(forceRefresh = false) {
+            const data = await fetchGoogleSheetData(forceRefresh);
+            if (!data || !data.Career || data.Career.length === 0) return false;
+
+            try {
+                siteData.career.sections = data.Career.map(item => ({
+                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                    icon: getCareerIcon(item.category),
+                    title: item.title,
+                    items: item.items ? item.items.split(',').map(s => s.trim()) : ['No items'],
+                    details: item.description || 'Career guidance'
+                }));
+                document.getElementById('careerGrid').dataset.loaded = 'false';
+                return true;
+            } catch (e) {
+                console.error('Error loading career:', e);
+                return false;
+            }
+        }
+
+        // Load books from Google Sheet
+        async function loadBooksFromSheet(forceRefresh = false) {
+            const data = await fetchGoogleSheetData(forceRefresh);
+            if (!data || !data.Books || data.Books.length === 0) return false;
+
+            try {
+                siteData.books.sections = data.Books.map(item => ({
+                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                    icon: '📖',
+                    title: item.title,
+                    items: item.description ? item.description.split(',').map(s => s.trim()) : ['No books'],
+                    details: item.links || 'Books'
+                }));
+                document.getElementById('booksGrid').dataset.loaded = 'false';
+                return true;
+            } catch (e) {
+                console.error('Error loading books:', e);
+                return false;
+            }
+        }
+
+        // Load Rajasthan from Google Sheet
+        async function loadRajasthanFromSheet(forceRefresh = false) {
+            const data = await fetchGoogleSheetData(forceRefresh);
+            if (!data || !data.Rajasthan || data.Rajasthan.length === 0) return false;
+
+            try {
+                siteData.rajasthan.sections = data.Rajasthan.map(item => ({
+                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                    icon: getRajasthanIcon(item.category),
+                    title: item.title,
+                    items: item.items ? item.items.split(',').map(s => s.trim()) : ['No content'],
+                    details: item.description || 'Rajasthan GK'
+                }));
+                document.getElementById('rajasthanGrid').dataset.loaded = 'false';
+                return true;
+            } catch (e) {
+                console.error('Error loading rajasthan:', e);
+                return false;
+            }
+        }
+
+        // Load quiz from Google Sheet
+        async function loadQuizFromSheet(forceRefresh = false) {
+            const data = await fetchGoogleSheetData(forceRefresh);
+            if (!data || !data.Quiz || data.Quiz.length === 0) return false;
+
+            try {
+                siteData.quiz.sections = data.Quiz.map(item => ({
+                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                    icon: getQuizIcon(item.category),
+                    title: item.title,
+                    items: item.questions ? item.questions.split(',').map(s => s.trim()) : ['No questions'],
+                    details: item.answers || 'Quiz'
+                }));
+                document.getElementById('quizGrid').dataset.loaded = 'false';
+                return true;
+            } catch (e) {
+                console.error('Error loading quiz:', e);
+                return false;
+            }
+        }
+
+        // Load more from Google Sheet
+        async function loadMoreFromSheet(forceRefresh = false) {
+            const data = await fetchGoogleSheetData(forceRefresh);
+            if (!data || !data.More || data.More.length === 0) return false;
+
+            try {
+                siteData.more.sections = data.More.map(item => ({
+                    id: item.id || item.title.toLowerCase().replace(/\s/g, ''),
+                    icon: getMoreIcon(item.category),
+                    title: item.title,
+                    items: item.items ? item.items.split(',').map(s => s.trim()) : ['No items'],
+                    details: item.description || 'More features'
+                }));
+                document.getElementById('moreGrid').dataset.loaded = 'false';
+                return true;
+            } catch (e) {
+                console.error('Error loading more:', e);
+                return false;
+            }
+        }
+
+        // ================= REFRESH ALL DATA =================
+        async function refreshFromGoogleSheet() {
+            console.log('🔄 Refreshing data from Google Sheet...');
+            
+            // Show loading indicator
+            const refreshBtn = document.querySelector('.refresh-btn');
+            const originalText = refreshBtn.textContent;
+            refreshBtn.textContent = '⏳ Loading...';
+            refreshBtn.disabled = true;
+
+            try {
+                // Clear cache
+                localStorage.removeItem(CACHE_KEY);
+                
+                // Load all data
+                await Promise.all([
+                    loadJobsFromSheet(true),
+                    loadStudyFromSheet(true),
+                    loadCareerFromSheet(true),
+                    loadBooksFromSheet(true),
+                    loadRajasthanFromSheet(true),
+                    loadQuizFromSheet(true),
+                    loadMoreFromSheet(true)
+                ]);
+
+                // Reload all slides
+                const slideIds = ['centralJobs', 'stateJobs', 'study', 'career', 'books', 'rajasthan', 'quiz', 'more'];
+                slideIds.forEach(id => {
+                    const grid = document.getElementById(id + 'Grid');
+                    if (grid) {
+                        grid.dataset.loaded = 'false';
+                        loadSlideContent(id);
+                    }
+                });
+
+                console.log('✅ All data refreshed from Google Sheet!');
+                
+                // Show success message
+                showToast('✅ Data refreshed from Google Sheet!', 'success');
+            } catch (error) {
+                console.error('❌ Error refreshing data:', error);
+                showToast('❌ Error refreshing data!', 'error');
+            } finally {
+                refreshBtn.textContent = originalText;
+                refreshBtn.disabled = false;
+            }
+        }
+
+        // ================= TOAST NOTIFICATION =================
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'success' ? '#16a34a' : type === 'error' ? '#dc3545' : '#1976d2'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 12px;
+                font-size: 14px;
+                font-weight: 600;
+                z-index: 9999;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                animation: slideUp 0.4s ease;
+                max-width: 90%;
+                text-align: center;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
 
         // ================= SLIDE FUNCTIONS =================
         let currentSlide = 'home';
@@ -2740,12 +2672,10 @@
                 loadSlideContent(slideId);
             }
             
-            // Update active states
             document.querySelectorAll('.app-header .nav-btn, .app-footer .nav-btn').forEach(btn => {
                 btn.classList.remove('active-btn');
             });
             
-            // Scroll slide to top
             slides.forEach(s => { if (s.dataset.slide === slideId) s.scrollTop = 0; });
         }
 
@@ -2904,6 +2834,22 @@
             document.body.style.overflow = '';
         }
 
+        // ================= GOVT DROPDOWN =================
+        function toggleGovtDropdown() {
+            const content = document.getElementById('govtDropdownContent');
+            content.classList.toggle('show');
+        }
+
+        function closeGovtDropdown() {
+            document.getElementById('govtDropdownContent').classList.remove('show');
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.govt-dropdown')) {
+                closeGovtDropdown();
+            }
+        });
+
         // ================= KEYBOARD NAVIGATION =================
         document.addEventListener('keydown', (e) => {
             if (document.getElementById('detailOverlay').classList.contains('active')) {
@@ -2920,6 +2866,9 @@
             } else if (e.key === 'Home') {
                 e.preventDefault();
                 goToSlide('home');
+            } else if (e.key === 'r' || e.key === 'R') {
+                if (e.ctrlKey) return;
+                refreshFromGoogleSheet();
             }
         });
 
@@ -3022,6 +2971,7 @@
                                     <button onclick="showAdminSection('notifications')">🔔 Send Notification</button>
                                     <button onclick="showAdminSection('settings')">⚙️ Settings</button>
                                     <button onclick="toggleDarkMode()" style="background: #6c757d;">${adminData.settings.darkMode ? '🌙 Dark Mode ON' : '☀️ Light Mode ON'}</button>
+                                    <button onclick="refreshFromGoogleSheet()" style="background: #16a34a;">🔄 Refresh from Google Sheet</button>
                                 </div>
                             </div>
                             
@@ -3069,6 +3019,10 @@
                                     <button onclick="changeAdminPassword()">🔒 Update</button>
                                     <h3 style="margin-top:20px;">🌓 Dark Mode</h3>
                                     <button onclick="toggleDarkMode()" style="background: #6c757d; padding: 12px 24px; font-size: 16px;">${adminData.settings.darkMode ? '🌙 Switch to Light Mode' : '☀️ Switch to Dark Mode'}</button>
+                                    <h3 style="margin-top:20px;">📊 Google Sheet</h3>
+                                    <p style="font-size:13px;color:var(--text-color);opacity:0.7;">URL: <span id="sheetUrlDisplay">${GOOGLE_SHEET_URL === 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE' ? '🔴 Not configured' : '✅ Configured'}</span></p>
+                                    <button onclick="refreshFromGoogleSheet()" style="background: #16a34a; padding: 12px 24px; font-size: 16px;">🔄 Refresh from Google Sheet</button>
+                                    <button onclick="clearGoogleSheetCache()" style="background: #ffc107; color: #333; padding: 12px 24px; font-size: 16px;">🗑️ Clear Cache</button>
                                     <h3 style="margin-top:20px;">💾 Backup & Restore</h3>
                                     <button onclick="exportAdminData()">📥 Export Data</button>
                                     <input type="file" id="adminImportFile" accept=".json" style="display:none;" onchange="importAdminData(event)">
@@ -3124,6 +3078,41 @@
         }
 
         // ================= ADMIN FUNCTIONS =================
+        function loadAdminData() {
+            try {
+                const saved = localStorage.getItem('dreamjosh_admin_data');
+                if (saved) {
+                    adminData = JSON.parse(saved);
+                    if (adminData.settings.darkMode) {
+                        document.body.classList.add('dark-mode');
+                    } else {
+                        document.body.classList.remove('dark-mode');
+                    }
+                } else {
+                    saveAdminData();
+                }
+            } catch (e) { console.error('Error loading admin data:', e); }
+        }
+
+        function saveAdminData() {
+            try { localStorage.setItem('dreamjosh_admin_data', JSON.stringify(adminData)); } catch (e) { console.error('Error saving admin data:', e); }
+        }
+
+        function toggleDarkMode() {
+            adminData.settings.darkMode = !adminData.settings.darkMode;
+            if (adminData.settings.darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            saveAdminData();
+            const toggleBtn = document.getElementById('darkModeToggle');
+            if (toggleBtn) {
+                toggleBtn.textContent = adminData.settings.darkMode ? '🌙 Dark' : '☀️ Light';
+                toggleBtn.classList.toggle('active', adminData.settings.darkMode);
+            }
+        }
+
         function adminLogin() {
             const pass = document.getElementById('adminPassword').value;
             if (pass === adminData.settings.password) {
@@ -3478,6 +3467,11 @@
             alert('✅ Password updated!');
         }
 
+        function clearGoogleSheetCache() {
+            localStorage.removeItem(CACHE_KEY);
+            alert('✅ Cache cleared!');
+        }
+
         function exportAdminData() {
             const dataStr = JSON.stringify(adminData, null, 2);
             const blob = new Blob([dataStr], { type: 'application/json' });
@@ -3529,20 +3523,76 @@
             if (e.target.classList.contains('modal')) { e.target.style.display = 'none'; }
         });
 
-        // ================= INIT =================
+        // ================= INITIALIZATION =================
         document.addEventListener('DOMContentLoaded', function() {
             loadAdminData();
+            
+            // Load all slides with default data
             ['centralJobs', 'stateJobs', 'study', 'rajasthan', 'quiz', 'career', 'books', 'more'].forEach(id => {
                 loadSlideContent(id);
             });
+
+            // Try to load from Google Sheet if configured
+            if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== 'YOUR_GOOGLE_SHEET_APPS_SCRIPT_URL_HERE') {
+                console.log('🔄 Google Sheet configured, loading data...');
+                refreshFromGoogleSheet();
+            } else {
+                console.log('ℹ️ Google Sheet not configured. Using default data.');
+                // Show notification
+                setTimeout(() => {
+                    showToast('ℹ️ Google Sheet not configured. Using default data.', 'info');
+                }, 1000);
+            }
+
+            console.log('🚀 Dream Josh - Complete Edition with Google Sheets Integration!');
+            console.log('📌 Press "R" key to refresh from Google Sheet');
+            console.log('🔐 Admin Panel: Password "admin123"');
+            console.log('🌓 Dark Mode: Toggle from Admin');
         });
 
-        console.log('🚀 Dream Josh - Complete Edition!');
-        console.log('📌 Header: Home | Govt Jobs | Study | Career | Books | More | Admin');
-        console.log('📌 Footer: Home | Study | Career | Books | More | Admin');
-        console.log('📋 All sections have complete information in Hindi');
-        console.log('🔐 Admin panel: Full control');
-        console.log('🌓 Dark Mode: Toggle from Admin');
+        // Make functions globally accessible
+        window.goToSlide = goToSlide;
+        window.goHome = goHome;
+        window.nextSlide = nextSlide;
+        window.prevSlide = prevSlide;
+        window.openDetail = openDetail;
+        window.closeDetail = closeDetail;
+        window.openFullList = openFullList;
+        window.closeFullList = closeFullList;
+        window.toggleGovtDropdown = toggleGovtDropdown;
+        window.closeGovtDropdown = closeGovtDropdown;
+        window.openAdminPanel = openAdminPanel;
+        window.closeAdminPanel = closeAdminPanel;
+        window.refreshFromGoogleSheet = refreshFromGoogleSheet;
+        window.toggleDarkMode = toggleDarkMode;
+        window.adminLogin = adminLogin;
+        window.adminLogout = adminLogout;
+        window.showAdminSection = showAdminSection;
+        window.filterAdminContent = filterAdminContent;
+        window.filterAdminJobs = filterAdminJobs;
+        window.filterAdminUsers = filterAdminUsers;
+        window.openAdminContentForm = openAdminContentForm;
+        window.editAdminContent = editAdminContent;
+        window.saveAdminContent = saveAdminContent;
+        window.deleteAdminContent = deleteAdminContent;
+        window.openAdminJobForm = openAdminJobForm;
+        window.editAdminJob = editAdminJob;
+        window.saveAdminJob = saveAdminJob;
+        window.deleteAdminJob = deleteAdminJob;
+        window.openAdminQuizForm = openAdminQuizForm;
+        window.editAdminQuiz = editAdminQuiz;
+        window.saveAdminQuiz = saveAdminQuiz;
+        window.deleteAdminQuiz = deleteAdminQuiz;
+        window.addAdminQuestion = addAdminQuestion;
+        window.sendAdminNotification = sendAdminNotification;
+        window.deleteAdminNotification = deleteAdminNotification;
+        window.changeAdminPassword = changeAdminPassword;
+        window.exportAdminData = exportAdminData;
+        window.importAdminData = importAdminData;
+        window.resetAdminData = resetAdminData;
+        window.clearGoogleSheetCache = clearGoogleSheetCache;
+        window.closeAdminModal = closeAdminModal;
+        window.showToast = showToast;
     </script>
 </body>
 </html>
