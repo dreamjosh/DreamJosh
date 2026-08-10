@@ -2773,6 +2773,11 @@
         // DROPDOWN FUNCTIONS (unified)
         // ============================================================
         function toggleDropdown(name) {
+            // Close all other dropdowns first
+            const allDropdowns = ['govt', 'career', 'study', 'books', 'more'];
+            allDropdowns.forEach(d => {
+                if (d !== name) closeDropdown(d);
+            });
             const content = document.getElementById(`${name}DropdownContent`);
             if (content) content.classList.toggle('show');
         }
@@ -2805,6 +2810,8 @@
             slides.forEach((s, i) => { if (s.dataset.slide === slideId) index = i; });
             container.style.transform = `translateX(-${index * 100}%)`;
             slides.forEach(s => { if (s.dataset.slide === slideId) s.scrollTop = 0; });
+            // Close any open dropdowns when slide changes
+            ['govt', 'career', 'study', 'books', 'more'].forEach(name => closeDropdown(name));
         }
 
         function goHome() { goToSlide('home'); }
