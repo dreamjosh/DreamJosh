@@ -24,8 +24,8 @@
             --gold: #ffd700;
             --safe-bottom: env(safe-area-inset-bottom, 0px);
             --safe-top: env(safe-area-inset-top, 0px);
-            --admin-sidebar-width: 260px;
             --text-light: #6c757d;
+            --secondary: #1a2332;
         }
 
         .dark-mode {
@@ -40,6 +40,7 @@
             --footer-bg: #0d1b3e;
             --card-hover: #1a1a3a;
             --gold: #ffd700;
+            --secondary: #1a1a2e;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -422,15 +423,15 @@
         }
         .admin-panel-overlay.active { display: block; }
 
-        /* Admin Sidebar */
         .admin-panel-overlay .admin-wrapper {
             display: flex;
             min-height: 100vh;
         }
 
+        /* Admin Sidebar - Original Colors */
         .admin-panel-overlay .admin-sidebar {
-            width: var(--admin-sidebar-width);
-            background: var(--secondary);
+            width: 260px;
+            background: var(--footer-bg);
             color: #fff;
             padding: 20px 0;
             position: sticky;
@@ -470,7 +471,7 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: var(--primary-light);
+            background: var(--secondary-blue);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -547,7 +548,7 @@
         }
         .admin-panel-overlay .admin-sidebar .admin-footer-menu a i { width: 18px; }
 
-        /* Admin Content */
+        /* Admin Content - Original Colors */
         .admin-panel-overlay .admin-content {
             flex: 1;
             padding: 24px 30px;
@@ -609,13 +610,8 @@
             color: #fff;
         }
         .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-refresh-admin:hover { background: #15803d; }
-        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-logout-admin {
-            background: #dc3545;
-            color: #fff;
-        }
-        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-logout-admin:hover { background: #c82333; }
 
-        /* Admin Stats */
+        /* Admin Stats - Original Colors */
         .admin-panel-overlay .admin-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -627,7 +623,7 @@
             padding: 14px 16px;
             border-radius: 10px;
             border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
             text-align: center;
             transition: 0.3s;
         }
@@ -645,13 +641,13 @@
             color: var(--primary-blue);
         }
 
-        /* Admin Quick Actions */
+        /* Admin Quick Actions - Original Colors */
         .admin-panel-overlay .admin-quick-actions {
             background: var(--card-bg);
             padding: 16px 20px;
             border-radius: 10px;
             border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
             margin: 16px 0;
         }
         .admin-panel-overlay .admin-quick-actions h3 {
@@ -681,7 +677,7 @@
             transform: scale(1.03);
         }
 
-        /* Admin Section Cards */
+        /* Admin Section Cards - Original Colors */
         .admin-panel-overlay .admin-section {
             display: none;
             margin-top: 16px;
@@ -692,7 +688,7 @@
             background: var(--card-bg);
             border-radius: 10px;
             border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
             padding: 16px 20px;
             margin-bottom: 16px;
         }
@@ -772,7 +768,7 @@
         }
         .admin-panel-overlay .admin-section .admin-card table .actions .btn-edit:hover { background: #e0a800; }
         .admin-panel-overlay .admin-section .admin-card table .actions .btn-delete {
-            background: #dc3545;
+            background: var(--warning-red);
             color: #fff;
         }
         .admin-panel-overlay .admin-section .admin-card table .actions .btn-delete:hover { background: #a71d2a; }
@@ -790,7 +786,7 @@
         }
         .admin-panel-overlay .empty-state i { font-size: 32px; opacity: 0.2; display: block; margin-bottom: 8px; }
 
-        /* Admin Modal */
+        /* Admin Modal - Original Colors */
         .admin-panel-overlay .admin-modal-overlay {
             display: none;
             position: fixed;
@@ -933,7 +929,7 @@
         }
         .admin-panel-overlay .admin-modal .btn-add-question:hover { background: #138496; }
 
-        /* Admin Settings */
+        /* Admin Settings - Original Colors */
         .admin-panel-overlay .admin-settings .setting-group {
             padding: 14px 0;
             border-bottom: 1px solid var(--border-color);
@@ -967,7 +963,7 @@
         .admin-panel-overlay .admin-settings .setting-group .btn-setting.success:hover { background: #15803d; }
         .admin-panel-overlay .admin-settings .setting-group .btn-setting.warning { background: #ffc107; color: #333; }
         .admin-panel-overlay .admin-settings .setting-group .btn-setting.warning:hover { background: #e0a800; }
-        .admin-panel-overlay .admin-settings .setting-group .btn-setting.danger { background: #dc3545; color: #fff; }
+        .admin-panel-overlay .admin-settings .setting-group .btn-setting.danger { background: var(--warning-red); color: #fff; }
         .admin-panel-overlay .admin-settings .setting-group .btn-setting.danger:hover { background: #a71d2a; }
         .admin-panel-overlay .admin-settings .setting-group input {
             padding: 6px 12px;
@@ -980,6 +976,57 @@
             width: 200px;
             max-width: 100%;
         }
+
+        /* Admin Notification - Original Colors */
+        .admin-panel-overlay .admin-notification-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .admin-panel-overlay .admin-notification-form input,
+        .admin-panel-overlay .admin-notification-form textarea,
+        .admin-panel-overlay .admin-notification-form select {
+            padding: 8px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+        .admin-panel-overlay .admin-notification-form input { flex: 1; min-width: 120px; }
+        .admin-panel-overlay .admin-notification-form textarea { flex: 2; min-width: 150px; min-height: 50px; }
+        .admin-panel-overlay .admin-notification-form select { flex: 0 0 120px; }
+        .admin-panel-overlay .admin-notification-form button {
+            padding: 8px 16px;
+            background: var(--success-green);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .admin-panel-overlay .admin-notification-form button:hover { background: #15803d; }
+
+        /* Category Badge - Original Colors */
+        .admin-panel-overlay .category-badge {
+            display: inline-block;
+            padding: 1px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .admin-panel-overlay .category-badge.study { background: #1976d2; color: #fff; }
+        .admin-panel-overlay .category-badge.career { background: #16a34a; color: #fff; }
+        .admin-panel-overlay .category-badge.books { background: #ffc107; color: #333; }
+        .admin-panel-overlay .category-badge.rajasthan { background: #dc3545; color: #fff; }
+        .admin-panel-overlay .category-badge.quiz { background: #17a2b8; color: #fff; }
+        .admin-panel-overlay .category-badge.more { background: #6c757d; color: #fff; }
+        .admin-panel-overlay .category-badge.government { background: #123c9b; color: #fff; }
+        .admin-panel-overlay .category-badge.general { background: #28a745; color: #fff; }
 
         /* Responsive Admin */
         @media (max-width: 768px) {
@@ -1023,57 +1070,6 @@
             font-size: 16px;
             cursor: pointer;
         }
-
-        /* Admin Notification */
-        .admin-panel-overlay .admin-notification-form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .admin-panel-overlay .admin-notification-form input,
-        .admin-panel-overlay .admin-notification-form textarea,
-        .admin-panel-overlay .admin-notification-form select {
-            padding: 8px 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 13px;
-            background: var(--bg-color);
-            color: var(--text-color);
-        }
-        .admin-panel-overlay .admin-notification-form input { flex: 1; min-width: 120px; }
-        .admin-panel-overlay .admin-notification-form textarea { flex: 2; min-width: 150px; min-height: 50px; }
-        .admin-panel-overlay .admin-notification-form select { flex: 0 0 120px; }
-        .admin-panel-overlay .admin-notification-form button {
-            padding: 8px 16px;
-            background: var(--success-green);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            transition: 0.3s;
-            min-height: 36px;
-        }
-        .admin-panel-overlay .admin-notification-form button:hover { background: #15803d; }
-
-        /* Category Badge */
-        .admin-panel-overlay .category-badge {
-            display: inline-block;
-            padding: 1px 10px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 600;
-        }
-        .admin-panel-overlay .category-badge.study { background: #1976d2; color: #fff; }
-        .admin-panel-overlay .category-badge.career { background: #16a34a; color: #fff; }
-        .admin-panel-overlay .category-badge.books { background: #ffc107; color: #333; }
-        .admin-panel-overlay .category-badge.rajasthan { background: #dc3545; color: #fff; }
-        .admin-panel-overlay .category-badge.quiz { background: #17a2b8; color: #fff; }
-        .admin-panel-overlay .category-badge.more { background: #6c757d; color: #fff; }
-        .admin-panel-overlay .category-badge.government { background: #123c9b; color: #fff; }
-        .admin-panel-overlay .category-badge.general { background: #28a745; color: #fff; }
     </style>
 </head>
 <body>
@@ -1781,7 +1777,7 @@
                         <li><a data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
                     </ul>
                     <div class="admin-footer-menu">
-                        <a onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a onclick="closeAdminPanel()"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
 
@@ -2439,7 +2435,6 @@
                     </tr>
                 `).join('');
             } else {
-                const icons = { pdf: '📄', video: '🎬' };
                 tbody.innerHTML = items.map((item, i) => `
                     <tr>
                         <td>${i+1}</td>
@@ -2833,7 +2828,7 @@
                     <div><strong>${n.title}</strong><br><span style="font-size:12px;color:var(--text-light);">${n.message}</span></div>
                     <div style="display:flex;gap:6px;align-items:center;">
                         <span style="font-size:10px;color:var(--text-light);">${n.date || ''}</span>
-                        <button class="btn-delete" onclick="deleteAdminNotification(${i})" style="padding:2px 6px;border:none;border-radius:4px;background:var(--danger);color:#fff;cursor:pointer;font-size:10px;"><i class="fas fa-trash"></i></button>
+                        <button class="btn-delete" onclick="deleteAdminNotification(${i})" style="padding:2px 6px;border:none;border-radius:4px;background:var(--warning-red);color:#fff;cursor:pointer;font-size:10px;"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
             `).join('');
@@ -2948,12 +2943,6 @@
             showToast('✅ Data refreshed!', 'success');
         }
 
-        function logoutAdmin() {
-            if (confirm('Are you sure you want to logout?')) {
-                closeAdminPanel();
-            }
-        }
-
         // ============================================================
         // INIT
         // ============================================================
@@ -3019,7 +3008,6 @@
         window.importAdminData = importAdminData;
         window.resetAdminData = resetAdminData;
         window.refreshAdminData = refreshAdminData;
-        window.logoutAdmin = logoutAdmin;
         window.renderAdminDashboard = renderAdminDashboard;
         window.renderAdminContent = renderAdminContent;
         window.renderAdminSubSections = renderAdminSubSections;
