@@ -26,6 +26,9 @@
             --safe-top: env(safe-area-inset-top, 0px);
             --text-light: #6c757d;
             --secondary: #1a2332;
+            --private-color: #6c5ce7;
+            --central-color: #1976d2;
+            --state-color: #16a34a;
         }
 
         .dark-mode {
@@ -41,6 +44,9 @@
             --card-hover: #1a1a3a;
             --gold: #ffd700;
             --secondary: #1a1a2e;
+            --private-color: #8c7cf5;
+            --central-color: #4a8ad4;
+            --state-color: #3aad5a;
         }
 
         * {
@@ -586,99 +592,67 @@
             border-radius: 12px;
             font-size: 10px;
             font-weight: 600;
-            background: var(--success-green);
             color: #fff;
             margin-top: 4px;
             align-self: flex-start;
         }
+        .grid-item .item-badge.central {
+            background: var(--central-color);
+        }
+        .grid-item .item-badge.state {
+            background: var(--state-color);
+        }
+        .grid-item .item-badge.private {
+            background: var(--private-color);
+        }
 
-        /* ================= FULL LIST VIEW ================= */
-        .full-list-view {
-            display: none;
-            padding: 15px 0;
-        }
-        .full-list-view.active {
-            display: block;
-        }
-        .full-list-view .list-header {
+        /* ================= JOB SECTION TABS ================= */
+        .job-tabs {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--border-color);
+            gap: 10px;
+            margin: 12px 0 16px 0;
             flex-wrap: wrap;
-            gap: 8px;
         }
-        .full-list-view .list-header h2 {
-            color: var(--primary-blue);
-            font-size: 20px;
-        }
-        .full-list-view .list-header .close-list-btn {
-            background: var(--warning-red);
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-            min-height: 40px;
-            font-size: 13px;
-        }
-        .full-list-view .list-item {
+        .job-tabs .tab-btn {
+            padding: 8px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
             background: var(--card-bg);
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: 0.3s;
-            cursor: pointer;
-            flex-wrap: wrap;
-        }
-        .full-list-view .list-item:hover {
-            border-color: var(--secondary-blue);
-            transform: translateX(4px);
-        }
-        .full-list-view .list-item .item-icon {
-            font-size: 20px;
-        }
-        .full-list-view .list-item .item-text {
-            font-size: 13px;
             color: var(--text-color);
-            flex: 1;
-        }
-        .full-list-view .list-item .item-number {
-            background: var(--secondary-blue);
-            color: #fff;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: bold;
-            flex-shrink: 0;
+            gap: 6px;
         }
-        .full-list-view .back-to-cards {
-            background: var(--secondary-blue);
-            color: #fff;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-            margin-top: 12px;
-            min-height: 40px;
-            font-size: 13px;
+        .job-tabs .tab-btn:hover {
+            transform: translateY(-2px);
         }
-        .full-list-view .back-to-cards:hover {
+        .job-tabs .tab-btn.active {
+            border-color: var(--primary-blue);
             background: var(--primary-blue);
+            color: #fff;
+        }
+        .job-tabs .tab-btn.active.central-tab {
+            border-color: var(--central-color);
+            background: var(--central-color);
+        }
+        .job-tabs .tab-btn.active.state-tab {
+            border-color: var(--state-color);
+            background: var(--state-color);
+        }
+        .job-tabs .tab-btn.active.private-tab {
+            border-color: var(--private-color);
+            background: var(--private-color);
+        }
+
+        .job-section {
+            display: none;
+        }
+        .job-section.active {
+            display: block;
         }
 
         /* ================= DETAIL OVERLAY ================= */
@@ -1731,41 +1705,52 @@
         <div class="header-controls">
             <button class="nav-btn" onclick="goHome()">🏠 Home</button>
 
-            <!-- GOVERNMENT JOBS DROPDOWN -->
+            <!-- GOVERNMENT JOBS DROPDOWN - Now with 3 clear sections -->
             <div class="dropdown-wrapper" id="govtDropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown('govt')">💼 Govt Jobs <span class="arrow">▾</span></button>
+                <button class="dropdown-btn" onclick="toggleDropdown('govt')">💼 Jobs <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="govtDropdownContent">
                     <div class="dropdown-label">🇮🇳 Central Govt. Jobs</div>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">🏛️ UPSC Jobs</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">📑 SSC Jobs</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">🚆 Railway / RRB</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">🏦 Banking & Financial</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">🪖 Defence Jobs</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">👮 Police / CAPF</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">📮 India Post</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">👩‍🏫 Teaching Jobs</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">🏥 Medical Jobs</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">🏭 PSU Companies</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">🛠️ Technical Jobs</button>
-                    <button onclick="goToSlide('centralJobs'); closeDropdown('govt');">⚖️ Court / Judiciary</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">🏛️ UPSC Jobs</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">📑 SSC Jobs</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">🚆 Railway / RRB</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">🏦 Banking & Financial</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">🪖 Defence Jobs</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">👮 Police / CAPF</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">📮 India Post</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">👩‍🏫 Teaching Jobs</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">🏥 Medical Jobs</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">🏭 PSU Companies</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">🛠️ Technical Jobs</button>
+                    <button onclick="goToJobTab('central'); closeDropdown('govt');">⚖️ Court / Judiciary</button>
                     <div class="dropdown-divider"></div>
                     <div class="dropdown-label">🏜️ Rajasthan State Govt. Jobs</div>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">🏛️ RPSC</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">📋 RSSB / RSMSSB</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">⚖️ Rajasthan High Court</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">🏢 Boards & Corporations</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">👮 Rajasthan Police</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">👩‍🏫 Education Recruitment</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">🏥 Medical & Health</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">🌾 Agriculture & Animal</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">🛠️ Engineering & Technical</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">📑 Revenue Department</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">🏘️ Panchayati Raj</button>
-                    <button onclick="goToSlide('stateJobs'); closeDropdown('govt');">🌳 Forest Department</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">🏛️ RPSC</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">📋 RSSB / RSMSSB</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">⚖️ Rajasthan High Court</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">🏢 Boards & Corporations</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">👮 Rajasthan Police</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">👩‍🏫 Education Recruitment</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">🏥 Medical & Health</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">🌾 Agriculture & Animal</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">🛠️ Engineering & Technical</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">📑 Revenue Department</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">🏘️ Panchayati Raj</button>
+                    <button onclick="goToJobTab('state'); closeDropdown('govt');">🌳 Forest Department</button>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-label">💼 Private Jobs</div>
+                    <button onclick="goToJobTab('private'); closeDropdown('govt');">💻 IT / Software</button>
+                    <button onclick="goToJobTab('private'); closeDropdown('govt');">🏦 Finance / Banking</button>
+                    <button onclick="goToJobTab('private'); closeDropdown('govt');">📈 Marketing / Sales</button>
+                    <button onclick="goToJobTab('private'); closeDropdown('govt');">👔 Human Resources</button>
+                    <button onclick="goToJobTab('private'); closeDropdown('govt');">🏭 Manufacturing</button>
+                    <button onclick="goToJobTab('private'); closeDropdown('govt');">🏥 Healthcare</button>
+                    <button onclick="goToJobTab('private'); closeDropdown('govt');">📚 Education</button>
+                    <button onclick="goToJobTab('private'); closeDropdown('govt');">🏨 Hospitality</button>
+                    <button onclick="goToJobTab('private'); closeDropdown('govt');">🚚 Logistics</button>
                 </div>
             </div>
 
-            <!-- CAREER DROPDOWN (all categories in English) -->
+            <!-- CAREER DROPDOWN -->
             <div class="dropdown-wrapper" id="careerDropdown">
                 <button class="dropdown-btn" onclick="toggleDropdown('career')">🎯 Career <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="careerDropdownContent">
@@ -1887,31 +1872,43 @@
             </div>
         </div>
 
-        <!-- SLIDE 1: CENTRAL JOBS -->
-        <div class="slide" data-slide="centralJobs">
-            <div class="page-title">🇮🇳 <span>Central Govt. Jobs</span></div>
-            <div class="page-subtitle">भारत सरकार की प्रमुख भर्ती परीक्षाएँ</div>
-            <div class="job-info-box">
-                <div class="job-count">📊 कुल भर्ती विभाग: <span id="centralJobCount">0</span></div>
-                <div class="job-detail">🇮🇳 UPSC • SSC • Railway • Banking • Defence • Police • Post • Teaching • Medical • PSU • Technical • Court</div>
+        <!-- SLIDE 1: JOBS (Unified with 3 tabs) -->
+        <div class="slide" data-slide="jobs">
+            <div class="page-title">💼 <span>Jobs</span></div>
+            <div class="page-subtitle">सभी सरकारी और प्राइवेट नौकरियों की जानकारी</div>
+            
+            <div class="job-tabs">
+                <button class="tab-btn central-tab active" data-tab="central" onclick="switchJobTab('central')">🏛️ Central Govt.</button>
+                <button class="tab-btn state-tab" data-tab="state" onclick="switchJobTab('state')">🏜️ State Govt.</button>
+                <button class="tab-btn private-tab" data-tab="private" onclick="switchJobTab('private')">💼 Private</button>
             </div>
-            <div id="centralJobsGrid" class="professional-grid"></div>
-            <div class="full-list-view" id="centralJobsList"></div>
+
+            <div id="centralJobsSection" class="job-section active">
+                <div class="job-info-box" style="border-left-color:var(--central-color);">
+                    <div class="job-count">🇮🇳 Central Govt. Jobs: <span id="centralJobCount">0</span></div>
+                    <div class="job-detail">UPSC • SSC • Railway • Banking • Defence • Police • Post • Teaching • Medical • PSU • Technical • Court</div>
+                </div>
+                <div id="centralJobsGrid" class="professional-grid"></div>
+            </div>
+
+            <div id="stateJobsSection" class="job-section">
+                <div class="job-info-box" style="border-left-color:var(--state-color);">
+                    <div class="job-count">🏜️ Rajasthan Govt. Jobs: <span id="stateJobCount">0</span></div>
+                    <div class="job-detail">RPSC • RSSB • High Court • Boards • Police • Education • Medical • Agriculture • Engineering • Revenue • Panchayat • Forest</div>
+                </div>
+                <div id="stateJobsGrid" class="professional-grid"></div>
+            </div>
+
+            <div id="privateJobsSection" class="job-section">
+                <div class="job-info-box" style="border-left-color:var(--private-color);">
+                    <div class="job-count">💼 Private Jobs: <span id="privateJobCount">0</span></div>
+                    <div class="job-detail">IT • Finance • Marketing • HR • Manufacturing • Healthcare • Education • Hospitality • Logistics</div>
+                </div>
+                <div id="privateJobsGrid" class="professional-grid"></div>
+            </div>
         </div>
 
-        <!-- SLIDE 2: STATE JOBS -->
-        <div class="slide" data-slide="stateJobs">
-            <div class="page-title">🏜️ <span>Rajasthan Govt. Jobs</span></div>
-            <div class="page-subtitle">राजस्थान सरकार की प्रमुख भर्ती परीक्षाएँ</div>
-            <div class="job-info-box">
-                <div class="job-count">📊 कुल भर्ती विभाग: <span id="stateJobCount">0</span></div>
-                <div class="job-detail">🏛️ RPSC • RSSB • High Court • Boards • Police • Education • Medical • Agriculture • Engineering • Revenue • Panchayat • Forest</div>
-            </div>
-            <div id="stateJobsGrid" class="professional-grid"></div>
-            <div class="full-list-view" id="stateJobsList"></div>
-        </div>
-
-        <!-- SLIDE 3: STUDY -->
+        <!-- SLIDE 2: STUDY -->
         <div class="slide" data-slide="study">
             <div class="page-title">📚 <span>Study Notes</span></div>
             <div class="page-subtitle">अध्ययन सामग्री और नोट्स</div>
@@ -1921,7 +1918,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 4: RAJASTHAN GK -->
+        <!-- SLIDE 3: RAJASTHAN GK -->
         <div class="slide" data-slide="rajasthan">
             <div class="page-title">🏜️ <span>Rajasthan GK</span></div>
             <div class="page-subtitle">राजस्थान सामान्य ज्ञान</div>
@@ -1931,7 +1928,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 5: QUIZ -->
+        <!-- SLIDE 4: QUIZ -->
         <div class="slide" data-slide="quiz">
             <div class="page-title">🧠 <span>Daily Quiz</span></div>
             <div class="page-subtitle">प्रतिदिन नए प्रश्न और अभ्यास</div>
@@ -1941,7 +1938,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 6: CAREER -->
+        <!-- SLIDE 5: CAREER -->
         <div class="slide" data-slide="career">
             <div class="page-title">🎯 <span>Career Guide</span></div>
             <div class="page-subtitle" id="careerSubtitle">All Career Options & Exams</div>
@@ -1951,7 +1948,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 7: BOOKS -->
+        <!-- SLIDE 6: BOOKS -->
         <div class="slide" data-slide="books">
             <div class="page-title">📖 <span>Books</span></div>
             <div class="page-subtitle">Books for Competitive Exams</div>
@@ -1961,7 +1958,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 8: MORE -->
+        <!-- SLIDE 7: MORE -->
         <div class="slide" data-slide="more">
             <div class="page-title">⚙️ <span>More Features</span></div>
             <div class="page-subtitle">PDF Tools • Ads • Forms • Gallery • Motivation • Videos</div>
@@ -1971,7 +1968,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 9: BLOG (optional) -->
+        <!-- SLIDE 8: BLOG -->
         <div class="slide" data-slide="blog">
             <div class="page-title">📝 <span>Blog</span></div>
             <div class="page-subtitle" id="blogSubtitle">All Blog Posts</div>
@@ -1986,6 +1983,7 @@
     <footer class="app-footer">
         <div class="footer-nav">
             <button class="nav-btn" onclick="goHome()">🏠 Home</button>
+            <button class="nav-btn" onclick="goToSlide('jobs')">💼 Jobs</button>
             <button class="nav-btn" onclick="goToSlide('study')">📚 Study</button>
             <button class="nav-btn" onclick="goToSlide('career')">🎯 Career</button>
             <button class="nav-btn" onclick="goToSlide('books')">📖 Books</button>
@@ -2010,7 +2008,7 @@
         // ============================================================
         // CONFIGURATION
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_admin_data_v10';
+        const STORAGE_KEY = 'dreamjosh_admin_data_v11';
 
         // ============================================================
         // CAREER DATA (English)
@@ -2294,6 +2292,7 @@
 
         let isAdminLoggedIn = false;
         let currentCareerFilter = 'all';
+        let currentJobTab = 'central';
 
         // ============================================================
         // JOB HIERARCHY DATA
@@ -2485,63 +2484,24 @@
                 }
             }
 
+            // Update Job Sections
             const jobsData = adminData.jobs || [];
             const centralJobs = jobsData.filter(j => j.jobType === 'central');
             const stateJobs = jobsData.filter(j => j.jobType === 'state');
-
-            const centralGrid = document.getElementById('centralJobsGrid');
-            if (centralGrid) {
-                centralGrid.innerHTML = '';
-                if (centralJobs.length === 0) {
-                    centralGrid.innerHTML =
-                        '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-light);">No central jobs added yet</div>';
-                } else {
-                    centralJobs.forEach((job, index) => {
-                        const card = document.createElement('div');
-                        card.className = 'grid-item';
-                        card.innerHTML = `
-                                <div class="item-icon">🏛️</div>
-                                <div class="item-title">${job.title || 'Untitled'}</div>
-                                <div class="item-desc">${job.department || ''} | ${job.post || ''}</div>
-                                <div class="item-desc" style="font-size:11px;opacity:0.5;margin-top:4px;">${job.eligibility || ''}</div>
-                                <span class="item-badge">${job.lastDate || ''}</span>
-                            `;
-                        card.addEventListener('click', () => openJobDetail('central', index));
-                        centralGrid.appendChild(card);
-                    });
-                }
-            }
-
-            const stateGrid = document.getElementById('stateJobsGrid');
-            if (stateGrid) {
-                stateGrid.innerHTML = '';
-                if (stateJobs.length === 0) {
-                    stateGrid.innerHTML =
-                        '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-light);">No state jobs added yet</div>';
-                } else {
-                    stateJobs.forEach((job, index) => {
-                        const card = document.createElement('div');
-                        card.className = 'grid-item';
-                        card.innerHTML = `
-                                <div class="item-icon">🏜️</div>
-                                <div class="item-title">${job.title || 'Untitled'}</div>
-                                <div class="item-desc">${job.department || ''} | ${job.post || ''}</div>
-                                <div class="item-desc" style="font-size:11px;opacity:0.5;margin-top:4px;">${job.eligibility || ''}</div>
-                                <span class="item-badge">${job.lastDate || ''}</span>
-                            `;
-                        card.addEventListener('click', () => openJobDetail('state', index));
-                        stateGrid.appendChild(card);
-                    });
-                }
-            }
+            const privateJobs = jobsData.filter(j => j.jobType === 'private');
 
             document.getElementById('centralJobCount').textContent = centralJobs.length;
             document.getElementById('stateJobCount').textContent = stateJobs.length;
+            document.getElementById('privateJobCount').textContent = privateJobs.length;
+
+            renderJobGrid('centralJobsGrid', centralJobs, 'central');
+            renderJobGrid('stateJobsGrid', stateJobs, 'state');
+            renderJobGrid('privateJobsGrid', privateJobs, 'private');
 
             // Render Career Grid with current filter
             renderCareerGrid(currentCareerFilter);
 
-            // Render all other grids (study, books, etc.)
+            // Render all other grids
             renderContentGrid('study', 'studyGrid');
             renderContentGrid('books', 'booksGrid');
             renderContentGrid('rajasthan', 'rajasthanGrid');
@@ -2551,7 +2511,63 @@
         }
 
         // ============================================================
-        // RENDER CONTENT GRID (for study, books, rajasthan, quiz, more, blog)
+        // RENDER JOB GRID
+        // ============================================================
+        function renderJobGrid(gridId, jobs, type) {
+            const grid = document.getElementById(gridId);
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            if (jobs.length === 0) {
+                grid.innerHTML =
+                    `<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-light);">No ${type} jobs added yet</div>`;
+                return;
+            }
+
+            const badgeClass = type === 'central' ? 'central' : type === 'state' ? 'state' : 'private';
+            const iconMap = {
+                central: '🏛️',
+                state: '🏜️',
+                private: '💼'
+            };
+
+            jobs.forEach((job, index) => {
+                const card = document.createElement('div');
+                card.className = 'grid-item';
+                card.innerHTML = `
+                        <div class="item-icon">${iconMap[type] || '📌'}</div>
+                        <div class="item-title">${job.title || 'Untitled'}</div>
+                        <div class="item-desc">${job.department || ''} | ${job.post || ''}</div>
+                        <div class="item-desc" style="font-size:11px;opacity:0.5;margin-top:4px;">${job.eligibility || ''}</div>
+                        <span class="item-badge ${badgeClass}">${job.lastDate || 'Open'}</span>
+                    `;
+                const realIndex = adminData.jobs.indexOf(job);
+                card.addEventListener('click', () => openJobDetail(realIndex));
+                grid.appendChild(card);
+            });
+        }
+
+        // ============================================================
+        // JOB TAB SWITCHING
+        // ============================================================
+        function switchJobTab(tab) {
+            currentJobTab = tab;
+            document.querySelectorAll('.job-tabs .tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tab) btn.classList.add('active');
+            });
+            document.querySelectorAll('.job-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(tab + 'JobsSection').classList.add('active');
+            closeDropdown('govt');
+        }
+
+        function goToJobTab(tab) {
+            goToSlide('jobs');
+            switchJobTab(tab);
+        }
+
+        // ============================================================
+        // RENDER CONTENT GRID
         // ============================================================
         function renderContentGrid(page, gridId) {
             const grid = document.getElementById(gridId);
@@ -2676,7 +2692,7 @@
         }
 
         // ============================================================
-        // DETAIL MODALS (for other pages)
+        // DETAIL MODALS
         // ============================================================
         function openDetailModal(page, index) {
             const items = adminData.content[page] || [];
@@ -2727,9 +2743,8 @@
             document.body.style.overflow = 'hidden';
         }
 
-        function openJobDetail(type, index) {
-            const jobs = adminData.jobs.filter(j => j.jobType === type);
-            const job = jobs[index];
+        function openJobDetail(index) {
+            const job = adminData.jobs[index];
             if (!job) return;
 
             const overlay = document.getElementById('detailOverlay');
@@ -2741,13 +2756,19 @@
                 private: '💼 Private'
             };
 
+            const iconMap = {
+                central: '🏛️',
+                state: '🏜️',
+                private: '💼'
+            };
+
             body.innerHTML = `
-                    <div class="detail-icon">${type === 'central' ? '🏛️' : type === 'state' ? '🏜️' : '💼'}</div>
+                    <div class="detail-icon">${iconMap[job.jobType] || '💼'}</div>
                     <h2>${job.title || 'Untitled'}</h2>
-                    <p><strong>Job Type:</strong> ${typeLabels[type] || type}</p>
+                    <p><strong>Job Type:</strong> ${typeLabels[job.jobType] || job.jobType}</p>
                     <p><strong>Department:</strong> ${job.department || '-'}</p>
                     <p><strong>Post:</strong> ${job.post || '-'}</p>
-                    <p><strong>Job Category:</strong> ${job.jobCategory || 'Government'}</p>
+                    <p><strong>Job Category:</strong> ${job.jobCategory || 'General'}</p>
                     <p><strong>Eligibility:</strong> ${job.eligibility || '-'}</p>
                     <p><strong>Age Limit:</strong> ${job.age || '-'}</p>
                     <p><strong>Last Date:</strong> ${job.lastDate || '-'}</p>
@@ -2770,10 +2791,9 @@
         }
 
         // ============================================================
-        // DROPDOWN FUNCTIONS (unified)
+        // DROPDOWN FUNCTIONS
         // ============================================================
         function toggleDropdown(name) {
-            // Close all other dropdowns first
             const allDropdowns = ['govt', 'career', 'study', 'books', 'more'];
             allDropdowns.forEach(d => {
                 if (d !== name) closeDropdown(d);
@@ -2787,7 +2807,6 @@
             if (content) content.classList.remove('show');
         }
 
-        // Close dropdowns on outside click
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.dropdown-wrapper')) {
                 ['govt', 'career', 'study', 'books', 'more'].forEach(name => closeDropdown(name));
@@ -2798,9 +2817,7 @@
         // SLIDE FUNCTIONS
         // ============================================================
         let currentSlide = 'home';
-        let allSlideIds = ['home', 'centralJobs', 'stateJobs', 'study', 'rajasthan', 'quiz', 'career', 'books', 'more',
-            'blog'
-        ];
+        let allSlideIds = ['home', 'jobs', 'study', 'rajasthan', 'quiz', 'career', 'books', 'more', 'blog'];
 
         function goToSlide(slideId) {
             currentSlide = slideId;
@@ -2810,7 +2827,6 @@
             slides.forEach((s, i) => { if (s.dataset.slide === slideId) index = i; });
             container.style.transform = `translateX(-${index * 100}%)`;
             slides.forEach(s => { if (s.dataset.slide === slideId) s.scrollTop = 0; });
-            // Close any open dropdowns when slide changes
             ['govt', 'career', 'study', 'books', 'more'].forEach(name => closeDropdown(name));
         }
 
@@ -2901,7 +2917,7 @@
         document.addEventListener('touchend', () => { isSwiping = false; });
 
         // ============================================================
-        // ADMIN PANEL - OPEN / CLOSE
+        // ADMIN PANEL (condensed - kept functional)
         // ============================================================
         function openAdminPanel() {
             const overlay = document.getElementById('adminPanelOverlay');
@@ -2921,9 +2937,6 @@
             isAdminLoggedIn = false;
         }
 
-        // ============================================================
-        // ADMIN LOGIN
-        // ============================================================
         function renderAdminLogin() {
             return `
                     <div class="admin-wrapper">
@@ -2974,7 +2987,7 @@
         }
 
         // ============================================================
-        // RENDER ADMIN PANEL (condensed version - kept functional)
+        // RENDER ADMIN PANEL
         // ============================================================
         function renderAdminPanel() {
             const dark = adminData.settings?.darkMode || false;
@@ -2985,7 +2998,7 @@
                     <div class="admin-sidebar" id="adminSidebar">
                         <div class="admin-logo">
                             <h1>🚀 <span>Dream</span>Josh</h1>
-                            <span class="badge">v10.0</span>
+                            <span class="badge">v11.0</span>
                         </div>
                         <div class="admin-user">
                             <div class="avatar">A</div>
@@ -3024,7 +3037,6 @@
                                 <button class="btn-close-admin" onclick="closeAdminPanel()"><i class="fas fa-times"></i> Close</button>
                             </div>
                         </div>
-                        <!-- Dashboard -->
                         <div id="adminPage-dashboard" class="admin-section active">
                             <div class="admin-stats">
                                 <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Content</div><div class="stat-value" id="statContent">${contentCount}</div></div>
@@ -3047,7 +3059,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Home Page -->
                         <div id="adminPage-home" class="admin-section">
                             <div class="admin-card">
                                 <div class="card-header"><h4>🏠 Home Page Editor</h4><button class="btn-add" onclick="saveHomeContent()"><i class="fas fa-save"></i> Save</button></div>
@@ -3076,7 +3087,6 @@
                                 </div>
                             </div>
                         `).join('')}
-                        <!-- Jobs -->
                         <div id="adminPage-jobs" class="admin-section">
                             <div class="admin-card">
                                 <div class="card-header"><h4>💼 Jobs Manager</h4><button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button></div>
@@ -3085,7 +3095,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Forms -->
                         <div id="adminPage-forms" class="admin-section">
                             <div class="admin-card">
                                 <div class="card-header"><h4>📋 Forms Manager</h4><button class="btn-add" onclick="openFormModal()"><i class="fas fa-plus"></i> Add Form</button></div>
@@ -3094,7 +3103,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Notifications -->
                         <div id="adminPage-notifications" class="admin-section">
                             <div class="admin-card">
                                 <div class="card-header"><h4>🔔 Notifications</h4></div>
@@ -3107,7 +3115,6 @@
                                 <div id="adminNotificationList"></div>
                             </div>
                         </div>
-                        <!-- Settings -->
                         <div id="adminPage-settings" class="admin-section">
                             <div class="admin-card">
                                 <div class="card-header"><h4>⚙️ Settings</h4></div>
@@ -3491,7 +3498,7 @@
                     <tr>
                         <td>${i+1}</td>
                         <td><strong>${item.title}</strong></td>
-                        <td><span style="background:${item.jobType === 'central' ? '#1976d2' : item.jobType === 'state' ? '#16a34a' : '#6c757d'};color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;">${item.jobType === 'central' ? '🏛️ Central' : item.jobType === 'state' ? '🏜️ State' : '💼 Private'}</span></td>
+                        <td><span style="background:${item.jobType === 'central' ? '#1976d2' : item.jobType === 'state' ? '#16a34a' : '#6c5ce7'};color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;">${item.jobType === 'central' ? '🏛️ Central' : item.jobType === 'state' ? '🏜️ State' : '💼 Private'}</span></td>
                         <td>${item.department || '-'}</td>
                         <td>${item.post || '-'}</td>
                         <td class="actions">
@@ -3508,7 +3515,7 @@
 
             const jobTypeOptions = `
                     <option value="central" ${isEdit && data?.jobType === 'central' ? 'selected' : ''}>🏛️ Central Govt. Job</option>
-                    <option value="state" ${isEdit && data?.jobType === 'state' ? 'selected' : ''}>🏜️ Rajasthan Govt. Job</option>
+                    <option value="state" ${isEdit && data?.jobType === 'state' ? 'selected' : ''}>🏜️ State Govt. Job</option>
                     <option value="private" ${isEdit && data?.jobType === 'private' ? 'selected' : ''}>💼 Private Job</option>
                 `;
 
@@ -3629,6 +3636,7 @@
             closeAdminModal();
             renderAdminJobsTable();
             renderAdminDashboard();
+            updateWebsiteFromAdmin();
         }
 
         function editJob(index) {
@@ -3642,6 +3650,7 @@
             saveAdminData();
             renderAdminJobsTable();
             renderAdminDashboard();
+            updateWebsiteFromAdmin();
             showToast('🗑️ Job deleted!', 'warning');
         }
 
@@ -3727,6 +3736,7 @@
             closeAdminModal();
             renderAdminFormsTable();
             renderAdminDashboard();
+            updateWebsiteFromAdmin();
         }
 
         function editForm(index) {
@@ -3740,6 +3750,7 @@
             saveAdminData();
             renderAdminFormsTable();
             renderAdminDashboard();
+            updateWebsiteFromAdmin();
             showToast('🗑️ Form deleted!', 'warning');
         }
 
@@ -3801,7 +3812,7 @@
         }
 
         // ============================================================
-        // EXPORT FUNCTIONS (simplified)
+        // EXPORT FUNCTIONS
         // ============================================================
         function escapeCSV(str) {
             if (str === null || str === undefined) return '';
@@ -4058,7 +4069,9 @@
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             loadAdminData();
-            console.log('🚀 Dream Josh - v10.0 with dropdowns for Study, Books, More & Career');
+            // Set default tab
+            switchJobTab('central');
+            console.log('🚀 Dream Josh - v11.0 with 3 Job Sections (Central, State, Private)');
             console.log('📌 Admin Panel: Click "🔐 Admin" in the header');
             console.log('📌 Default Password: admin123');
         });
@@ -4068,6 +4081,8 @@
         // ============================================================
         window.goHome = goHome;
         window.goToSlide = goToSlide;
+        window.goToJobTab = goToJobTab;
+        window.switchJobTab = switchJobTab;
         window.closeDetail = closeDetail;
         window.toggleDropdown = toggleDropdown;
         window.closeDropdown = closeDropdown;
