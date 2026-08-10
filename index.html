@@ -1158,7 +1158,7 @@
             cursor: pointer;
         }
 
-        /* Loading animation for dropdown */
+        /* Loading spinner */
         .loading-spinner {
             display: inline-block;
             width: 16px;
@@ -1173,6 +1173,23 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Export button styles */
+        .btn-export {
+            background: #28a745 !important;
+            color: #fff !important;
+        }
+        .btn-export:hover { background: #218838 !important; }
+        .btn-export-csv {
+            background: #17a2b8 !important;
+            color: #fff !important;
+        }
+        .btn-export-csv:hover { background: #138496 !important; }
+        .btn-export-excel {
+            background: #1e7e34 !important;
+            color: #fff !important;
+        }
+        .btn-export-excel:hover { background: #1a6e2e !important; }
     </style>
 </head>
 <body>
@@ -1389,7 +1406,7 @@
         // ============================================================
         // CONFIGURATION
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_admin_data_v8';
+        const STORAGE_KEY = 'dreamjosh_admin_data_v9';
 
         // ============================================================
         // DATA STORE
@@ -1424,124 +1441,48 @@
         // ============================================================
         const JOB_DATA = {
             central: {
-                'UPSC': {
-                    posts: ['IAS', 'IPS', 'IFS', 'IRS', 'IES', 'IRTS', 'IRPS', 'IRAS', 'IDES', 'IAAS', 'ICAS', 'ICOAS']
-                },
-                'SSC': {
-                    posts: ['CGL', 'CHSL', 'MTS', 'CPO', 'GD Constable', 'Stenographer', 'Selection Post']
-                },
-                'Railway / RRB': {
-                    posts: ['NTPC', 'Group D', 'ALP', 'Technician', 'JE', 'SSE', 'RPSF', 'RPF Constable', 'RPF SI']
-                },
-                'Banking': {
-                    posts: ['SBI PO', 'SBI Clerk', 'IBPS PO', 'IBPS Clerk', 'RBI Grade B', 'RBI Assistant', 'NABARD Grade A', 'SBI SO']
-                },
-                'Defence': {
-                    posts: ['NDA', 'CDS', 'AFCAT', 'SSB', 'Indian Army Soldier', 'Indian Navy SSR', 'Indian Air Force Airmen']
-                },
-                'Police / CAPF': {
-                    posts: ['IPS', 'BSF', 'CRPF', 'CISF', 'ITBP', 'SSB', 'CPO']
-                },
-                'India Post': {
-                    posts: ['Postal Assistant', 'Postman', 'Mail Guard', 'GDS', 'MTS']
-                },
-                'Teaching': {
-                    posts: ['KVS TGT', 'KVS PGT', 'NVS TGT', 'NVS PGT', 'DSSSB Teacher', 'CTET', 'UGC NET']
-                },
-                'Medical': {
-                    posts: ['MBBS', 'BDS', 'BAMS', 'BHMS', 'Nursing Officer', 'Lab Technician', 'Pharmacist']
-                },
-                'PSU Companies': {
-                    posts: ['Management Trainee', 'Engineer', 'Finance Officer', 'HR Officer', 'IT Officer']
-                },
-                'Technical': {
-                    posts: ['JE', 'AEE', 'AE', 'SDO', 'DGM', 'AGM']
-                },
-                'Court / Judiciary': {
-                    posts: ['Civil Judge', 'Judicial Magistrate', 'Public Prosecutor', 'Law Clerk', 'Court Manager']
-                }
+                'UPSC': { posts: ['IAS', 'IPS', 'IFS', 'IRS', 'IES', 'IRTS', 'IRPS', 'IRAS', 'IDES', 'IAAS', 'ICAS', 'ICOAS'] },
+                'SSC': { posts: ['CGL', 'CHSL', 'MTS', 'CPO', 'GD Constable', 'Stenographer', 'Selection Post'] },
+                'Railway / RRB': { posts: ['NTPC', 'Group D', 'ALP', 'Technician', 'JE', 'SSE', 'RPSF', 'RPF Constable', 'RPF SI'] },
+                'Banking': { posts: ['SBI PO', 'SBI Clerk', 'IBPS PO', 'IBPS Clerk', 'RBI Grade B', 'RBI Assistant', 'NABARD Grade A', 'SBI SO'] },
+                'Defence': { posts: ['NDA', 'CDS', 'AFCAT', 'SSB', 'Indian Army Soldier', 'Indian Navy SSR', 'Indian Air Force Airmen'] },
+                'Police / CAPF': { posts: ['IPS', 'BSF', 'CRPF', 'CISF', 'ITBP', 'SSB', 'CPO'] },
+                'India Post': { posts: ['Postal Assistant', 'Postman', 'Mail Guard', 'GDS', 'MTS'] },
+                'Teaching': { posts: ['KVS TGT', 'KVS PGT', 'NVS TGT', 'NVS PGT', 'DSSSB Teacher', 'CTET', 'UGC NET'] },
+                'Medical': { posts: ['MBBS', 'BDS', 'BAMS', 'BHMS', 'Nursing Officer', 'Lab Technician', 'Pharmacist'] },
+                'PSU Companies': { posts: ['Management Trainee', 'Engineer', 'Finance Officer', 'HR Officer', 'IT Officer'] },
+                'Technical': { posts: ['JE', 'AEE', 'AE', 'SDO', 'DGM', 'AGM'] },
+                'Court / Judiciary': { posts: ['Civil Judge', 'Judicial Magistrate', 'Public Prosecutor', 'Law Clerk', 'Court Manager'] }
             },
             state: {
-                'RPSC': {
-                    posts: ['RAS', 'Revenue Officer', 'Tehsildar', 'BDO', 'SDM', 'Deputy SP', 'Rajasthan Judicial Services']
-                },
-                'RSSB / RSMSSB': {
-                    posts: ['LDC', 'UDC', 'Patwari', 'Grameen Vikas Adhikari', 'Junior Accountant', 'Rajasthan Police Constable', 'SI']
-                },
-                'Rajasthan High Court': {
-                    posts: ['Civil Judge', 'Judicial Magistrate', 'Law Clerk', 'Assistant Registrar', 'Stenographer']
-                },
-                'Boards & Corporations': {
-                    posts: ['Junior Engineer', 'Assistant Manager', 'Accountant', 'Clerk', 'Junior Accountant']
-                },
-                'Rajasthan Police': {
-                    posts: ['Constable', 'SI', 'ASI', 'Head Constable', 'SP', 'DSP', 'ACP']
-                },
-                'Education Recruitment': {
-                    posts: ['REET', 'School Lecturer', 'PTI', 'Art Teacher', 'Music Teacher', 'Computer Teacher']
-                },
-                'Medical & Health': {
-                    posts: ['Medical Officer', 'Staff Nurse', 'Lab Technician', 'Pharmacist', 'Community Health Officer']
-                },
-                'Agriculture & Animal': {
-                    posts: ['Agriculture Supervisor', 'Animal Attendant', 'Veterinary Officer', 'Farm Manager']
-                },
-                'Engineering & Technical': {
-                    posts: ['Junior Engineer', 'Assistant Engineer', 'Sub-Divisional Officer', 'Technical Assistant']
-                },
-                'Revenue Department': {
-                    posts: ['Patwari', 'Tehsildar', 'Revenue Officer', 'Kanungo', 'LDC']
-                },
-                'Panchayati Raj': {
-                    posts: ['BDO', 'Panchayat Secretary', 'Junior Engineer', 'Accountant']
-                },
-                'Forest Department': {
-                    posts: ['Forest Guard', 'Forester', 'Range Forest Officer', 'Wildlife Guard']
-                }
+                'RPSC': { posts: ['RAS', 'Revenue Officer', 'Tehsildar', 'BDO', 'SDM', 'Deputy SP', 'Rajasthan Judicial Services'] },
+                'RSSB / RSMSSB': { posts: ['LDC', 'UDC', 'Patwari', 'Grameen Vikas Adhikari', 'Junior Accountant', 'Rajasthan Police Constable', 'SI'] },
+                'Rajasthan High Court': { posts: ['Civil Judge', 'Judicial Magistrate', 'Law Clerk', 'Assistant Registrar', 'Stenographer'] },
+                'Boards & Corporations': { posts: ['Junior Engineer', 'Assistant Manager', 'Accountant', 'Clerk', 'Junior Accountant'] },
+                'Rajasthan Police': { posts: ['Constable', 'SI', 'ASI', 'Head Constable', 'SP', 'DSP', 'ACP'] },
+                'Education Recruitment': { posts: ['REET', 'School Lecturer', 'PTI', 'Art Teacher', 'Music Teacher', 'Computer Teacher'] },
+                'Medical & Health': { posts: ['Medical Officer', 'Staff Nurse', 'Lab Technician', 'Pharmacist', 'Community Health Officer'] },
+                'Agriculture & Animal': { posts: ['Agriculture Supervisor', 'Animal Attendant', 'Veterinary Officer', 'Farm Manager'] },
+                'Engineering & Technical': { posts: ['Junior Engineer', 'Assistant Engineer', 'Sub-Divisional Officer', 'Technical Assistant'] },
+                'Revenue Department': { posts: ['Patwari', 'Tehsildar', 'Revenue Officer', 'Kanungo', 'LDC'] },
+                'Panchayati Raj': { posts: ['BDO', 'Panchayat Secretary', 'Junior Engineer', 'Accountant'] },
+                'Forest Department': { posts: ['Forest Guard', 'Forester', 'Range Forest Officer', 'Wildlife Guard'] }
             },
             private: {
-                'IT / Software': {
-                    posts: ['Software Engineer', 'Senior Developer', 'Team Lead', 'Project Manager', 'QA Engineer', 'DevOps Engineer', 'Data Scientist']
-                },
-                'Finance / Banking': {
-                    posts: ['Accounts Executive', 'Finance Manager', 'CA', 'CFA', 'Internal Auditor', 'Risk Analyst']
-                },
-                'Marketing / Sales': {
-                    posts: ['Marketing Executive', 'Sales Manager', 'Brand Manager', 'Digital Marketing Specialist', 'SEO Expert']
-                },
-                'Human Resources': {
-                    posts: ['HR Executive', 'HR Manager', 'Recruiter', 'Training & Development', 'Payroll Specialist']
-                },
-                'Operations': {
-                    posts: ['Operations Executive', 'Operations Manager', 'Supply Chain Manager', 'Logistics Coordinator']
-                },
-                'Healthcare': {
-                    posts: ['Doctor', 'Nurse', 'Physiotherapist', 'Lab Technician', 'Radiologist', 'Pharmacist']
-                },
-                'Education': {
-                    posts: ['Teacher', 'Professor', 'Principal', 'Academic Coordinator', 'Curriculum Developer']
-                },
-                'Manufacturing': {
-                    posts: ['Production Engineer', 'Quality Inspector', 'Plant Manager', 'Maintenance Engineer']
-                },
-                'Retail': {
-                    posts: ['Store Manager', 'Sales Associate', 'Visual Merchandiser', 'Inventory Manager']
-                },
-                'Consulting': {
-                    posts: ['Management Consultant', 'Strategy Consultant', 'IT Consultant', 'HR Consultant']
-                },
-                'Media / Entertainment': {
-                    posts: ['Journalist', 'Content Writer', 'Video Editor', 'Graphic Designer', 'Social Media Manager']
-                },
-                'Real Estate': {
-                    posts: ['Real Estate Agent', 'Property Manager', 'Site Engineer', 'Sales Executive']
-                },
-                'Hospitality': {
-                    posts: ['Hotel Manager', 'Chef', 'Restaurant Manager', 'Event Manager', 'Front Desk Executive']
-                },
-                'Logistics': {
-                    posts: ['Logistics Manager', 'Supply Chain Analyst', 'Warehouse Supervisor', 'Transport Coordinator']
-                }
+                'IT / Software': { posts: ['Software Engineer', 'Senior Developer', 'Team Lead', 'Project Manager', 'QA Engineer', 'DevOps Engineer', 'Data Scientist'] },
+                'Finance / Banking': { posts: ['Accounts Executive', 'Finance Manager', 'CA', 'CFA', 'Internal Auditor', 'Risk Analyst'] },
+                'Marketing / Sales': { posts: ['Marketing Executive', 'Sales Manager', 'Brand Manager', 'Digital Marketing Specialist', 'SEO Expert'] },
+                'Human Resources': { posts: ['HR Executive', 'HR Manager', 'Recruiter', 'Training & Development', 'Payroll Specialist'] },
+                'Operations': { posts: ['Operations Executive', 'Operations Manager', 'Supply Chain Manager', 'Logistics Coordinator'] },
+                'Healthcare': { posts: ['Doctor', 'Nurse', 'Physiotherapist', 'Lab Technician', 'Radiologist', 'Pharmacist'] },
+                'Education': { posts: ['Teacher', 'Professor', 'Principal', 'Academic Coordinator', 'Curriculum Developer'] },
+                'Manufacturing': { posts: ['Production Engineer', 'Quality Inspector', 'Plant Manager', 'Maintenance Engineer'] },
+                'Retail': { posts: ['Store Manager', 'Sales Associate', 'Visual Merchandiser', 'Inventory Manager'] },
+                'Consulting': { posts: ['Management Consultant', 'Strategy Consultant', 'IT Consultant', 'HR Consultant'] },
+                'Media / Entertainment': { posts: ['Journalist', 'Content Writer', 'Video Editor', 'Graphic Designer', 'Social Media Manager'] },
+                'Real Estate': { posts: ['Real Estate Agent', 'Property Manager', 'Site Engineer', 'Sales Executive'] },
+                'Hospitality': { posts: ['Hotel Manager', 'Chef', 'Restaurant Manager', 'Event Manager', 'Front Desk Executive'] },
+                'Logistics': { posts: ['Logistics Manager', 'Supply Chain Analyst', 'Warehouse Supervisor', 'Transport Coordinator'] }
             }
         };
 
@@ -1617,11 +1558,11 @@
                 }
             }
 
-            // Update Jobs - Filter by type
+            // Update Jobs
             const jobsData = adminData.jobs || [];
-            
-            // Central Jobs
             const centralJobs = jobsData.filter(j => j.jobType === 'central');
+            const stateJobs = jobsData.filter(j => j.jobType === 'state');
+            
             const centralGrid = document.getElementById('centralJobsGrid');
             if (centralGrid) {
                 centralGrid.innerHTML = '';
@@ -1644,8 +1585,6 @@
                 }
             }
 
-            // State Jobs
-            const stateJobs = jobsData.filter(j => j.jobType === 'state');
             const stateGrid = document.getElementById('stateJobsGrid');
             if (stateGrid) {
                 stateGrid.innerHTML = '';
@@ -1692,7 +1631,6 @@
                 ${item.fullDescription ? `<p>${item.fullDescription}</p>` : ''}
             `;
             
-            // Page-specific fields
             if (page === 'books') {
                 html += `
                     ${item.author ? `<p><strong>Author:</strong> ${item.author}</p>` : ''}
@@ -1962,7 +1900,7 @@
                 <div class="admin-sidebar" id="adminSidebar">
                     <div class="admin-logo">
                         <h1>🚀 <span>Dream</span>Josh</h1>
-                        <span class="badge">v8.0</span>
+                        <span class="badge">v9.0</span>
                     </div>
                     <div class="admin-user">
                         <div class="avatar">A</div>
@@ -2022,7 +1960,10 @@
                                 <button onclick="showAdminPage('books'); openContentModal('books')"><i class="fas fa-plus"></i> Add Book</button>
                                 <button onclick="showAdminPage('jobs'); openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
                                 <button onclick="showAdminPage('forms'); openFormModal()"><i class="fas fa-plus"></i> Add Form</button>
-                                <button onclick="exportAdminData()" style="background:var(--success-green);"><i class="fas fa-download"></i> Export</button>
+                                <button onclick="exportToCSV()" class="btn-export-csv"><i class="fas fa-file-csv"></i> Export CSV</button>
+                                <button onclick="exportToExcel()" class="btn-export-excel"><i class="fas fa-file-excel"></i> Export Excel</button>
+                                <button onclick="exportToGoogleSheets()" class="btn-export"><i class="fas fa-google"></i> Google Sheets</button>
+                                <button onclick="exportAdminData()" style="background:var(--success-green);"><i class="fas fa-download"></i> Backup</button>
                             </div>
                         </div>
                     </div>
@@ -2051,6 +1992,7 @@
                                 <div class="card-header">
                                     <h4>${page === 'study' ? '📚' : page === 'career' ? '🎯' : page === 'books' ? '📖' : page === 'rajasthan' ? '🏜️' : page === 'quiz' ? '🧠' : '⚙️'} ${PAGE_NAMES[page]} Manager</h4>
                                     <button class="btn-add" onclick="openContentModal('${page}')"><i class="fas fa-plus"></i> Add ${PAGE_NAMES[page]}</button>
+                                    <button class="btn-add" onclick="exportPageToCSV('${page}')" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                 </div>
                                 <div class="table-wrap">
                                     <table>
@@ -2068,6 +2010,7 @@
                             <div class="card-header">
                                 <h4>💼 Jobs Manager</h4>
                                 <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+                                <button class="btn-add" onclick="exportJobsToCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                             </div>
                             <div class="table-wrap">
                                 <table>
@@ -2084,6 +2027,7 @@
                             <div class="card-header">
                                 <h4>📋 Forms Manager</h4>
                                 <button class="btn-add" onclick="openFormModal()"><i class="fas fa-plus"></i> Add Form</button>
+                                <button class="btn-add" onclick="exportFormsToCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                 <button class="btn-add" style="background:var(--warning-red);" onclick="clearAllForms()"><i class="fas fa-trash"></i> Clear All</button>
                             </div>
                             <div class="table-wrap">
@@ -2130,9 +2074,15 @@
                                     <button class="btn-setting primary" onclick="toggleDarkMode()">${adminData.settings?.darkMode ? 'Switch to Light' : 'Switch to Dark'}</button>
                                 </div>
                                 <div class="setting-group">
+                                    <h5>📊 Export Data</h5>
+                                    <button class="btn-setting success" onclick="exportToCSV()"><i class="fas fa-file-csv"></i> Export as CSV</button>
+                                    <button class="btn-setting success" onclick="exportToExcel()"><i class="fas fa-file-excel"></i> Export as Excel</button>
+                                    <button class="btn-setting primary" onclick="exportToGoogleSheets()"><i class="fas fa-google"></i> Google Sheets Format</button>
+                                </div>
+                                <div class="setting-group">
                                     <h5>💾 Backup & Restore</h5>
-                                    <button class="btn-setting success" onclick="exportAdminData()"><i class="fas fa-download"></i> Export</button>
-                                    <button class="btn-setting warning" onclick="document.getElementById('adminImportFile').click()"><i class="fas fa-upload"></i> Import</button>
+                                    <button class="btn-setting success" onclick="exportAdminData()"><i class="fas fa-download"></i> Export Backup</button>
+                                    <button class="btn-setting warning" onclick="document.getElementById('adminImportFile').click()"><i class="fas fa-upload"></i> Import Backup</button>
                                     <input type="file" id="adminImportFile" accept=".json" style="display:none;" onchange="importAdminData(event)">
                                 </div>
                                 <div class="setting-group">
@@ -2218,6 +2168,24 @@
         // ============================================================
         // ADMIN HOME EDITOR
         // ============================================================
+        const PAGE_NAMES = {
+            study: 'Study',
+            career: 'Career',
+            books: 'Books',
+            rajasthan: 'Rajasthan GK',
+            quiz: 'Quiz',
+            more: 'More Features'
+        };
+
+        const CATEGORIES = {
+            study: ['Notes', 'Practice Sets', 'Previous Papers', 'Revision', 'General'],
+            career: ['After 12th', 'Graduation', 'Competitive Exams', 'Skills', 'General'],
+            books: ['Competitive', 'Rajasthan GK', 'General Knowledge', 'Motivation', 'General'],
+            rajasthan: ['History', 'Geography', 'Culture', 'Districts', 'General'],
+            quiz: ['GK', 'Rajasthan', 'Exam', 'Current Affairs', 'General'],
+            more: ['PDF Tools', 'Motivation', 'Videos', 'Gallery', 'General']
+        };
+
         function renderAdminHomeEditor() {
             const hc = adminData.homeContent || {};
             document.getElementById('homeHeadingInput').value = hc.heading || '';
@@ -2244,24 +2212,6 @@
         // ============================================================
         // CONTENT CRUD
         // ============================================================
-        const PAGE_NAMES = {
-            study: 'Study',
-            career: 'Career',
-            books: 'Books',
-            rajasthan: 'Rajasthan GK',
-            quiz: 'Quiz',
-            more: 'More Features'
-        };
-
-        const CATEGORIES = {
-            study: ['Notes', 'Practice Sets', 'Previous Papers', 'Revision', 'General'],
-            career: ['After 12th', 'Graduation', 'Competitive Exams', 'Skills', 'General'],
-            books: ['Competitive', 'Rajasthan GK', 'General Knowledge', 'Motivation', 'General'],
-            rajasthan: ['History', 'Geography', 'Culture', 'Districts', 'General'],
-            quiz: ['GK', 'Rajasthan', 'Exam', 'Current Affairs', 'General'],
-            more: ['PDF Tools', 'Motivation', 'Videos', 'Gallery', 'General']
-        };
-
         function renderAdminContentTable(page) {
             const tbody = document.getElementById(`adminContentTable-${page}`);
             if (!tbody) return;
@@ -2472,7 +2422,7 @@
         }
 
         // ============================================================
-        // JOBS CRUD - WITH HIERARCHY
+        // JOBS CRUD
         // ============================================================
         function renderAdminJobsTable() {
             const tbody = document.getElementById('adminJobsTable');
@@ -2513,11 +2463,8 @@
                 <option value="both" ${isEdit && data?.jobCategory === 'both' ? 'selected' : ''}>🔀 Both</option>
             `;
             
-            // Get departments based on selected job type
             const selectedType = isEdit ? data?.jobType : 'central';
             const deptOptions = getDepartmentOptions(selectedType, isEdit ? data?.department : '');
-            
-            // Get posts based on selected department
             const selectedDept = isEdit ? data?.department : '';
             const postOptions = getPostOptions(selectedType, selectedDept, isEdit ? data?.post : '');
             
@@ -2705,7 +2652,6 @@
                 </div>
                 <div class="form-group"><label>Form Link <span class="required">*</span></label>
                     <input type="url" id="formLink" value="${isEdit ? data.link : ''}" placeholder="https://example.com">
-                    <small style="color:var(--text-light);font-size:11px;">Website link or PDF link</small>
                 </div>
                 <div class="form-group"><label>Icon (emoji)</label>
                     <input type="text" id="formIcon" value="${isEdit ? data.icon : '📋'}" placeholder="📋">
@@ -2829,6 +2775,279 @@
         }
 
         // ============================================================
+        // EXPORT FUNCTIONS - CSV / Excel / Google Sheets
+        // ============================================================
+        function escapeCSV(str) {
+            if (str === null || str === undefined) return '';
+            str = String(str);
+            if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+                return '"' + str.replace(/"/g, '""') + '"';
+            }
+            return str;
+        }
+
+        function getCSVHeaders(type) {
+            const headers = {
+                jobs: ['ID', 'Title', 'Job Type', 'Job Category', 'Department', 'Post', 'Eligibility', 'Age Limit', 'Last Date', 'Experience', 'Description', 'Website', 'Apply Link'],
+                forms: ['ID', 'Title', 'Category', 'Link', 'Icon', 'Description'],
+                study: ['ID', 'Title', 'Category', 'Sub-Category', 'Short Description', 'Full Description', 'Items', 'Tags', 'Status', 'Publish Date', 'Notes'],
+                career: ['ID', 'Title', 'Category', 'Sub-Category', 'Short Description', 'Full Description', 'Items', 'Eligibility', 'Qualification', 'Skills Required', 'Salary', 'Official Website', 'Apply Link', 'PDF Link', 'Tags', 'Status', 'Publish Date', 'Notes'],
+                books: ['ID', 'Title', 'Category', 'Sub-Category', 'Short Description', 'Full Description', 'Author', 'Publisher', 'Subject', 'Exam', 'Price', 'Language', 'PDF Link', 'Purchase Link', 'Tags', 'Status', 'Publish Date', 'Notes'],
+                rajasthan: ['ID', 'Title', 'Category', 'Sub-Category', 'Short Description', 'Full Description', 'Items', 'Tags', 'Status', 'Publish Date', 'Notes'],
+                quiz: ['ID', 'Title', 'Category', 'Sub-Category', 'Short Description', 'Full Description', 'Items', 'Tags', 'Status', 'Publish Date', 'Notes'],
+                more: ['ID', 'Title', 'Category', 'Sub-Category', 'Short Description', 'Full Description', 'Typing Data', 'PDF Link', 'Image Link', 'Video Link', 'External Link', 'Tags', 'Status', 'Publish Date', 'Notes']
+            };
+            return headers[type] || headers.study;
+        }
+
+        function getCSVRow(type, item) {
+            if (type === 'jobs') {
+                return [
+                    item.id || '',
+                    item.title || '',
+                    item.jobType || '',
+                    item.jobCategory || '',
+                    item.department || '',
+                    item.post || '',
+                    item.eligibility || '',
+                    item.age || '',
+                    item.lastDate || '',
+                    item.experience || '',
+                    item.description || '',
+                    item.website || '',
+                    item.applyLink || ''
+                ].map(escapeCSV);
+            }
+            if (type === 'forms') {
+                return [
+                    item.id || '',
+                    item.title || '',
+                    item.category || '',
+                    item.link || '',
+                    item.icon || '',
+                    item.description || ''
+                ].map(escapeCSV);
+            }
+            // Content types
+            const common = [
+                item.id || '',
+                item.title || '',
+                item.category || '',
+                item.subCategory || '',
+                item.shortDescription || '',
+                item.fullDescription || '',
+                item.items || '',
+                item.tags || '',
+                item.status || '',
+                item.publishDate || '',
+                item.notes || ''
+            ];
+            if (type === 'books') {
+                return [
+                    item.id || '',
+                    item.title || '',
+                    item.category || '',
+                    item.subCategory || '',
+                    item.shortDescription || '',
+                    item.fullDescription || '',
+                    item.author || '',
+                    item.publisher || '',
+                    item.subject || '',
+                    item.exam || '',
+                    item.price || '',
+                    item.language || '',
+                    item.pdfLink || '',
+                    item.purchaseLink || '',
+                    item.tags || '',
+                    item.status || '',
+                    item.publishDate || '',
+                    item.notes || ''
+                ].map(escapeCSV);
+            }
+            if (type === 'career') {
+                return [
+                    item.id || '',
+                    item.title || '',
+                    item.category || '',
+                    item.subCategory || '',
+                    item.shortDescription || '',
+                    item.fullDescription || '',
+                    item.items || '',
+                    item.eligibility || '',
+                    item.qualification || '',
+                    item.skills || '',
+                    item.salary || '',
+                    item.officialWebsite || '',
+                    item.applyLink || '',
+                    item.pdfLink || '',
+                    item.tags || '',
+                    item.status || '',
+                    item.publishDate || '',
+                    item.notes || ''
+                ].map(escapeCSV);
+            }
+            if (type === 'more') {
+                return [
+                    item.id || '',
+                    item.title || '',
+                    item.category || '',
+                    item.subCategory || '',
+                    item.shortDescription || '',
+                    item.fullDescription || '',
+                    item.typingData || '',
+                    item.pdfLink || '',
+                    item.imageLink || '',
+                    item.videoLink || '',
+                    item.externalLink || '',
+                    item.tags || '',
+                    item.status || '',
+                    item.publishDate || '',
+                    item.notes || ''
+                ].map(escapeCSV);
+            }
+            return common.map(escapeCSV);
+        }
+
+        function generateCSV(type, data) {
+            const headers = getCSVHeaders(type);
+            const rows = data.map(item => getCSVRow(type, item));
+            const csv = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+            return csv;
+        }
+
+        function downloadCSV(csv, filename) {
+            const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        }
+
+        function exportToCSV() {
+            const allData = {
+                Jobs: adminData.jobs || [],
+                Forms: adminData.forms || [],
+                Study: adminData.content.study || [],
+                Career: adminData.content.career || [],
+                Books: adminData.content.books || [],
+                'Rajasthan GK': adminData.content.rajasthan || [],
+                Quiz: adminData.content.quiz || [],
+                'More Features': adminData.content.more || []
+            };
+
+            let combinedCSV = '';
+            for (const [name, data] of Object.entries(allData)) {
+                if (data.length === 0) continue;
+                const typeMap = {
+                    'Jobs': 'jobs',
+                    'Forms': 'forms',
+                    'Study': 'study',
+                    'Career': 'career',
+                    'Books': 'books',
+                    'Rajasthan GK': 'rajasthan',
+                    'Quiz': 'quiz',
+                    'More Features': 'more'
+                };
+                const type = typeMap[name] || 'study';
+                const headers = getCSVHeaders(type);
+                const rows = data.map(item => getCSVRow(type, item));
+                combinedCSV += `\n\n=== ${name} ===\n`;
+                combinedCSV += [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+            }
+
+            if (combinedCSV) {
+                const fullCSV = '\uFEFF' + combinedCSV;
+                downloadCSV(fullCSV, 'dreamjosh_all_data.csv');
+                showToast('📥 All data exported as CSV!', 'success');
+            } else {
+                showToast('No data to export!', 'warning');
+            }
+        }
+
+        function exportToExcel() {
+            exportToCSV(); // Excel can open CSV files
+            showToast('📥 Data exported as CSV (Excel compatible)!', 'success');
+        }
+
+        function exportToGoogleSheets() {
+            const allData = {
+                Jobs: adminData.jobs || [],
+                Forms: adminData.forms || [],
+                Study: adminData.content.study || [],
+                Career: adminData.content.career || [],
+                Books: adminData.content.books || [],
+                'Rajasthan GK': adminData.content.rajasthan || [],
+                Quiz: adminData.content.quiz || [],
+                'More Features': adminData.content.more || []
+            };
+
+            let googleSheetsCSV = '';
+            for (const [name, data] of Object.entries(allData)) {
+                if (data.length === 0) continue;
+                const typeMap = {
+                    'Jobs': 'jobs',
+                    'Forms': 'forms',
+                    'Study': 'study',
+                    'Career': 'career',
+                    'Books': 'books',
+                    'Rajasthan GK': 'rajasthan',
+                    'Quiz': 'quiz',
+                    'More Features': 'more'
+                };
+                const type = typeMap[name] || 'study';
+                const headers = getCSVHeaders(type);
+                const rows = data.map(item => getCSVRow(type, item));
+                googleSheetsCSV += `Sheet: ${name}\n`;
+                googleSheetsCSV += [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+                googleSheetsCSV += '\n\n';
+            }
+
+            if (googleSheetsCSV) {
+                const fullCSV = '\uFEFF' + googleSheetsCSV;
+                downloadCSV(fullCSV, 'dreamjosh_google_sheets.csv');
+                showToast('📤 Data exported in Google Sheets compatible format!', 'success');
+            } else {
+                showToast('No data to export!', 'warning');
+            }
+        }
+
+        function exportPageToCSV(page) {
+            const data = adminData.content[page] || [];
+            if (data.length === 0) {
+                showToast('No data to export!', 'warning');
+                return;
+            }
+            const csv = generateCSV(page, data);
+            downloadCSV('\uFEFF' + csv, `dreamjosh_${page}_data.csv`);
+            showToast(`📥 ${PAGE_NAMES[page]} data exported as CSV!`, 'success');
+        }
+
+        function exportJobsToCSV() {
+            const data = adminData.jobs || [];
+            if (data.length === 0) {
+                showToast('No jobs to export!', 'warning');
+                return;
+            }
+            const csv = generateCSV('jobs', data);
+            downloadCSV('\uFEFF' + csv, 'dreamjosh_jobs_data.csv');
+            showToast('📥 Jobs data exported as CSV!', 'success');
+        }
+
+        function exportFormsToCSV() {
+            const data = adminData.forms || [];
+            if (data.length === 0) {
+                showToast('No forms to export!', 'warning');
+                return;
+            }
+            const csv = generateCSV('forms', data);
+            downloadCSV('\uFEFF' + csv, 'dreamjosh_forms_data.csv');
+            showToast('📥 Forms data exported as CSV!', 'success');
+        }
+
+        // ============================================================
         // SETTINGS
         // ============================================================
         function changeAdminPassword() {
@@ -2938,10 +3157,10 @@
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             loadAdminData();
-            console.log('🚀 Dream Josh - Complete Admin Panel v8.0');
+            console.log('🚀 Dream Josh - Admin Panel v9.0 with Export Features');
             console.log('📌 Admin Panel: Click "🔐 Admin" in the header');
             console.log('📌 Default Password: admin123');
-            console.log('📌 Job Hierarchy: Job Type → Department → Post');
+            console.log('📌 Export Options: CSV, Excel, Google Sheets Format');
         });
 
         // ============================================================
@@ -2984,6 +3203,12 @@
         window.importAdminData = importAdminData;
         window.resetAdminData = resetAdminData;
         window.refreshAdminData = refreshAdminData;
+        window.exportToCSV = exportToCSV;
+        window.exportToExcel = exportToExcel;
+        window.exportToGoogleSheets = exportToGoogleSheets;
+        window.exportPageToCSV = exportPageToCSV;
+        window.exportJobsToCSV = exportJobsToCSV;
+        window.exportFormsToCSV = exportFormsToCSV;
         window.renderAdminDashboard = renderAdminDashboard;
         window.renderAdminContentTable = renderAdminContentTable;
         window.renderAdminJobsTable = renderAdminJobsTable;
