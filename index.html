@@ -59,13 +59,10 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background: var(--bg-color);
             color: var(--text-color);
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-            position: fixed;
+            min-height: 100vh;
             transition: background 0.3s ease, color 0.3s ease;
-            padding-top: var(--safe-top);
-            padding-bottom: var(--safe-bottom);
+            padding-top: 70px;
+            padding-bottom: 70px;
         }
 
         /* ================= HEADER ================= */
@@ -111,8 +108,13 @@
             font-weight: 600;
             transition: 0.3s;
             white-space: nowrap;
+            text-decoration: none;
         }
         .app-header .header-controls .nav-btn:hover {
+            background: var(--gold);
+            color: #0a0e1a;
+        }
+        .app-header .header-controls .nav-btn.active {
             background: var(--gold);
             color: #0a0e1a;
         }
@@ -125,7 +127,7 @@
             color: #fff;
         }
 
-        /* ================= DROPDOWN - HOVER TRIGGER ================= */
+        /* ================= DROPDOWN ================= */
         .dropdown-wrapper {
             position: relative;
             display: inline-block;
@@ -151,7 +153,6 @@
             margin-left: 3px;
         }
 
-        /* Show dropdown on hover */
         .dropdown-wrapper:hover .dropdown-content,
         .dropdown-wrapper .dropdown-content.show {
             display: block;
@@ -216,36 +217,6 @@
             margin-right: 8px;
         }
 
-        /* ================= SLIDE CONTAINER ================= */
-        .slide-container {
-            display: flex;
-            height: calc(100vh - 60px - 55px - var(--safe-top) - var(--safe-bottom));
-            margin-top: 60px;
-            margin-bottom: 55px;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 100%;
-            position: relative;
-        }
-        .slide {
-            min-width: 100%;
-            height: 100%;
-            overflow-y: auto;
-            padding: 15px 20px;
-            background: var(--bg-color);
-            transition: background 0.3s ease;
-            -webkit-overflow-scrolling: touch;
-        }
-        .slide::-webkit-scrollbar {
-            width: 4px;
-        }
-        .slide::-webkit-scrollbar-track {
-            background: var(--border-color);
-        }
-        .slide::-webkit-scrollbar-thumb {
-            background: var(--secondary-blue);
-            border-radius: 10px;
-        }
-
         /* ================= FOOTER ================= */
         .app-footer {
             position: fixed;
@@ -289,11 +260,16 @@
             font-weight: 500;
             transition: 0.3s;
             white-space: nowrap;
+            text-decoration: none;
         }
         .app-footer .footer-nav .nav-btn:hover {
             background: rgba(255, 215, 0, 0.3);
             color: #fff;
             border-color: var(--gold);
+        }
+        .app-footer .footer-nav .nav-btn.active {
+            background: var(--gold);
+            color: #0a0e1a;
         }
 
         /* ================= RESPONSIVE ================= */
@@ -321,13 +297,9 @@
                 font-size: 9px;
                 padding: 3px 8px;
             }
-            .slide-container {
-                height: calc(100vh - 55px - 50px - var(--safe-top) - var(--safe-bottom));
-                margin-top: 55px;
-                margin-bottom: 50px;
-            }
-            .slide {
-                padding: 12px 15px;
+            body {
+                padding-top: 60px;
+                padding-bottom: 55px;
             }
             .dropdown-wrapper .dropdown-content {
                 position: fixed;
@@ -338,7 +310,6 @@
                 max-height: 60vh;
                 min-width: 100%;
             }
-            /* Mobile - click to open, not hover */
             .dropdown-wrapper:hover .dropdown-content {
                 display: none;
             }
@@ -360,16 +331,60 @@
                 font-size: 8px;
                 padding: 2px 6px;
             }
-            .slide {
-                padding: 10px 12px;
+        }
+
+        /* ================= SECTION CONTAINER ================= */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 24px;
+        }
+
+        .section {
+            display: none;
+            padding: 20px 0 30px 0;
+            animation: fadeInSection 0.4s ease;
+        }
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeInSection {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .section .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .section .section-header h2 span {
+            color: var(--primary-blue);
+        }
+        .section .section-header .section-subtitle {
+            font-size: 14px;
+            color: var(--text-light);
         }
 
         /* ================= HOME PAGE ================= */
         .home-original {
             background: var(--bg-color);
             color: var(--text-color);
-            min-height: 100%;
             border-radius: 16px;
             overflow: hidden;
             transition: background 0.3s ease, color 0.3s ease;
@@ -378,19 +393,19 @@
             background: var(--header-bg);
             color: white;
             text-align: center;
-            padding: 20px 10px;
+            padding: 30px 20px;
             border-radius: 16px 16px 0 0;
         }
         .home-original header h1 {
             margin: 0;
-            font-size: 30px;
+            font-size: 36px;
         }
         .home-original header p {
             margin: 5px 0 0;
-            font-size: 14px;
+            font-size: 16px;
         }
         .home-original header small {
-            font-size: 12px;
+            font-size: 13px;
             opacity: 0.8;
         }
 
@@ -426,11 +441,11 @@
         .home-original .container {
             max-width: 1100px;
             margin: auto;
-            padding: 12px;
+            padding: 16px 12px;
         }
         .home-original .home-layout {
             display: flex;
-            gap: 20px;
+            gap: 24px;
             align-items: flex-start;
         }
         .home-original .left-content {
@@ -456,30 +471,20 @@
             font-size: 14px;
         }
         .home-original .notice {
-            height: 200px;
-            overflow: hidden;
+            max-height: 220px;
+            overflow-y: auto;
         }
         .home-original .notice ul {
             padding: 8px 20px;
             list-style: none;
         }
         .home-original .notice ul li {
-            padding: 4px 0;
+            padding: 6px 0;
             font-size: 13px;
-            animation: scrollUpdates 20s linear infinite;
+            border-bottom: 1px solid var(--border-color);
         }
-        .home-original .notice ul li:nth-child(1) { animation-delay: 0s; }
-        .home-original .notice ul li:nth-child(2) { animation-delay: -5s; }
-        .home-original .notice ul li:nth-child(3) { animation-delay: -10s; }
-        .home-original .notice ul li:nth-child(4) { animation-delay: -15s; }
-        .home-original .notice ul li:nth-child(5) { animation-delay: -18s; }
-
-        @keyframes scrollUpdates {
-            0%, 100% { opacity: 1; transform: translateY(0); }
-            20% { opacity: 1; transform: translateY(0); }
-            25% { opacity: 0; transform: translateY(-10px); }
-            30% { opacity: 0; transform: translateY(10px); }
-            35% { opacity: 1; transform: translateY(0); }
+        .home-original .notice ul li:last-child {
+            border-bottom: none;
         }
 
         .home-original .imp-links a {
@@ -498,7 +503,7 @@
 
         .home-original .card {
             background: var(--card-bg);
-            padding: 16px;
+            padding: 20px;
             margin: 10px 0;
             border-radius: 10px;
             border-left: 5px solid var(--secondary-blue);
@@ -507,11 +512,11 @@
         .home-original .card h3 {
             margin-top: 0;
             color: var(--primary-blue);
-            font-size: 16px;
+            font-size: 18px;
         }
         .home-original .about-home {
-            line-height: 1.7;
-            font-size: 14px;
+            line-height: 1.8;
+            font-size: 15px;
         }
         .home-original .about-home h3 {
             margin-top: 14px;
@@ -523,16 +528,16 @@
         }
         .home-original .about-home li {
             margin: 4px 0;
-            font-size: 13px;
+            font-size: 14px;
         }
         .home-original .about-highlight {
             margin-top: 14px;
-            padding: 14px;
+            padding: 16px;
             border-left: 4px solid var(--success-green);
             background: var(--highlight-bg);
             border-radius: 8px;
             text-align: center;
-            font-size: 16px;
+            font-size: 17px;
         }
 
         @media (max-width: 768px) {
@@ -544,16 +549,22 @@
                 width: 100%;
             }
             .home-original header h1 {
-                font-size: 24px;
+                font-size: 26px;
             }
             .home-original .container {
-                padding: 8px;
+                padding: 10px 8px;
             }
             .home-original .card {
-                padding: 12px;
+                padding: 14px;
             }
             .home-original .about-home {
-                font-size: 13px;
+                font-size: 14px;
+            }
+            .section .section-header h2 {
+                font-size: 22px;
+            }
+            .section-container {
+                padding: 12px 14px;
             }
         }
 
@@ -673,6 +684,26 @@
             display: block;
         }
 
+        .job-info-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin: 8px 0;
+            border-left: 4px solid var(--secondary-blue);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        .job-info-box .job-count {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        .job-info-box .job-detail {
+            font-size: 13px;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-top: 3px;
+        }
+
         /* ================= DETAIL OVERLAY ================= */
         .detail-overlay {
             display: none;
@@ -786,42 +817,7 @@
             border: 1px solid var(--border-color);
         }
 
-        .page-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: var(--text-color);
-        }
-        .page-title span {
-            color: var(--primary-blue);
-        }
-        .page-subtitle {
-            color: var(--text-color);
-            opacity: 0.5;
-            font-size: 13px;
-            margin-bottom: 16px;
-        }
-
-        .job-info-box {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin: 8px 0;
-            border-left: 4px solid var(--secondary-blue);
-            box-shadow: 0 2px 8px var(--shadow-color);
-        }
-        .job-info-box .job-count {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
-        .job-info-box .job-detail {
-            font-size: 13px;
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-top: 3px;
-        }
-
+        /* ================= TOAST ================= */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -847,7 +843,7 @@
             background: #1976d2;
         }
 
-        /* ================= ADMIN PANEL STYLES ================= */
+        /* ================= ADMIN PANEL ================= */
         .admin-panel-overlay {
             display: none;
             position: fixed;
@@ -1737,52 +1733,52 @@
 
     <!-- ================= HEADER ================= -->
     <header class="app-header" id="mainHeader">
-        <div class="logo" onclick="goHome()">🚀 <span>Dream</span>Josh</div>
+        <div class="logo" onclick="showSection('home')">🚀 <span>Dream</span>Josh</div>
         <div class="header-controls">
-            <button class="nav-btn" onclick="goHome()">🏠 Home</button>
+            <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
 
-            <!-- GOVERNMENT JOBS DROPDOWN -->
+            <!-- JOBS DROPDOWN -->
             <div class="dropdown-wrapper" id="govtDropdown">
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('govt')">💼 Jobs <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="govtDropdownContent">
                     <div class="dropdown-label">🇮🇳 Central Govt. Jobs</div>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">🏛️ UPSC Jobs</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">📑 SSC Jobs</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">🚆 Railway / RRB</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">🏦 Banking & Financial</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">🪖 Defence Jobs</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">👮 Police / CAPF</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">📮 India Post</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">👩‍🏫 Teaching Jobs</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">🏥 Medical Jobs</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">🏭 PSU Companies</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">🛠️ Technical Jobs</button>
-                    <button onclick="goToJobTab('central'); closeDropdownMobile('govt');">⚖️ Court / Judiciary</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">🏛️ UPSC Jobs</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">📑 SSC Jobs</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">🚆 Railway</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">🏦 Banking</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">🪖 Defence</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">👮 Police</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">📮 India Post</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">👩‍🏫 Teaching</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">🏥 Medical</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">🏭 PSU</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">🛠️ Technical</button>
+                    <button onclick="showSection('jobs'); switchJobTab('central'); closeDropdownMobile('govt');">⚖️ Court</button>
                     <div class="dropdown-divider"></div>
-                    <div class="dropdown-label">🏜️ Rajasthan State Govt. Jobs</div>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">🏛️ RPSC</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">📋 RSSB / RSMSSB</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">⚖️ Rajasthan High Court</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">🏢 Boards & Corporations</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">👮 Rajasthan Police</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">👩‍🏫 Education Recruitment</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">🏥 Medical & Health</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">🌾 Agriculture & Animal</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">🛠️ Engineering & Technical</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">📑 Revenue Department</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">🏘️ Panchayati Raj</button>
-                    <button onclick="goToJobTab('state'); closeDropdownMobile('govt');">🌳 Forest Department</button>
+                    <div class="dropdown-label">🏜️ Rajasthan State Govt.</div>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">🏛️ RPSC</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">📋 RSSB</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">⚖️ High Court</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">🏢 Boards</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">👮 Police</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">👩‍🏫 Education</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">🏥 Medical</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">🌾 Agriculture</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">🛠️ Engineering</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">📑 Revenue</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">🏘️ Panchayat</button>
+                    <button onclick="showSection('jobs'); switchJobTab('state'); closeDropdownMobile('govt');">🌳 Forest</button>
                     <div class="dropdown-divider"></div>
                     <div class="dropdown-label">💼 Private Jobs</div>
-                    <button onclick="goToJobTab('private'); closeDropdownMobile('govt');">💻 IT / Software</button>
-                    <button onclick="goToJobTab('private'); closeDropdownMobile('govt');">🏦 Finance / Banking</button>
-                    <button onclick="goToJobTab('private'); closeDropdownMobile('govt');">📈 Marketing / Sales</button>
-                    <button onclick="goToJobTab('private'); closeDropdownMobile('govt');">👔 Human Resources</button>
-                    <button onclick="goToJobTab('private'); closeDropdownMobile('govt');">🏭 Manufacturing</button>
-                    <button onclick="goToJobTab('private'); closeDropdownMobile('govt');">🏥 Healthcare</button>
-                    <button onclick="goToJobTab('private'); closeDropdownMobile('govt');">📚 Education</button>
-                    <button onclick="goToJobTab('private'); closeDropdownMobile('govt');">🏨 Hospitality</button>
-                    <button onclick="goToJobTab('private'); closeDropdownMobile('govt');">🚚 Logistics</button>
+                    <button onclick="showSection('jobs'); switchJobTab('private'); closeDropdownMobile('govt');">💻 IT</button>
+                    <button onclick="showSection('jobs'); switchJobTab('private'); closeDropdownMobile('govt');">🏦 Finance</button>
+                    <button onclick="showSection('jobs'); switchJobTab('private'); closeDropdownMobile('govt');">📈 Marketing</button>
+                    <button onclick="showSection('jobs'); switchJobTab('private'); closeDropdownMobile('govt');">👔 HR</button>
+                    <button onclick="showSection('jobs'); switchJobTab('private'); closeDropdownMobile('govt');">🏭 Manufacturing</button>
+                    <button onclick="showSection('jobs'); switchJobTab('private'); closeDropdownMobile('govt');">🏥 Healthcare</button>
+                    <button onclick="showSection('jobs'); switchJobTab('private'); closeDropdownMobile('govt');">📚 Education</button>
+                    <button onclick="showSection('jobs'); switchJobTab('private'); closeDropdownMobile('govt');">🏨 Hospitality</button>
+                    <button onclick="showSection('jobs'); switchJobTab('private'); closeDropdownMobile('govt');">🚚 Logistics</button>
                 </div>
             </div>
 
@@ -1790,26 +1786,23 @@
             <div class="dropdown-wrapper" id="careerDropdown">
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('career')">🎯 Career <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="careerDropdownContent">
-                    <div class="dropdown-label">🎯 All Career Options</div>
-                    <button onclick="goToCareerCategory('all'); closeDropdownMobile('career');"><i class="fas fa-th-list dropdown-item-icon"></i> All Careers</button>
-                    <div class="dropdown-divider"></div>
-                    <button onclick="goToCareerCategory('government'); closeDropdownMobile('career');"><i class="fas fa-landmark dropdown-item-icon"></i> Government Jobs Prep</button>
-                    <button onclick="goToCareerCategory('banking'); closeDropdownMobile('career');"><i class="fas fa-university dropdown-item-icon"></i> Banking Exams</button>
-                    <button onclick="goToCareerCategory('ssc'); closeDropdownMobile('career');"><i class="fas fa-file-alt dropdown-item-icon"></i> SSC Exams</button>
-                    <button onclick="goToCareerCategory('railway'); closeDropdownMobile('career');"><i class="fas fa-train dropdown-item-icon"></i> Railway Exams</button>
-                    <button onclick="goToCareerCategory('defence'); closeDropdownMobile('career');"><i class="fas fa-shield-alt dropdown-item-icon"></i> Defence Exams</button>
-                    <button onclick="goToCareerCategory('police'); closeDropdownMobile('career');"><i class="fas fa-user-shield dropdown-item-icon"></i> Police Exams</button>
-                    <button onclick="goToCareerCategory('teaching'); closeDropdownMobile('career');"><i class="fas fa-chalkboard-teacher dropdown-item-icon"></i> Teaching Exams</button>
-                    <button onclick="goToCareerCategory('engineering'); closeDropdownMobile('career');"><i class="fas fa-cogs dropdown-item-icon"></i> Engineering Exams</button>
-                    <button onclick="goToCareerCategory('medical'); closeDropdownMobile('career');"><i class="fas fa-heartbeat dropdown-item-icon"></i> Medical Exams</button>
-                    <button onclick="goToCareerCategory('management'); closeDropdownMobile('career');"><i class="fas fa-chart-pie dropdown-item-icon"></i> Management Exams</button>
-                    <button onclick="goToCareerCategory('law'); closeDropdownMobile('career');"><i class="fas fa-gavel dropdown-item-icon"></i> Law Exams</button>
-                    <button onclick="goToCareerCategory('it'); closeDropdownMobile('career');"><i class="fas fa-code dropdown-item-icon"></i> IT / Software</button>
-                    <button onclick="goToCareerCategory('upsc'); closeDropdownMobile('career');"><i class="fas fa-flag dropdown-item-icon"></i> UPSC Exams</button>
-                    <button onclick="goToCareerCategory('state'); closeDropdownMobile('career');"><i class="fas fa-building dropdown-item-icon"></i> State Govt Exams</button>
-                    <button onclick="goToCareerCategory('private'); closeDropdownMobile('career');"><i class="fas fa-briefcase dropdown-item-icon"></i> Private Job Prep</button>
-                    <div class="dropdown-divider"></div>
-                    <button onclick="goToSlide('career'); closeDropdownMobile('career');"><i class="fas fa-arrow-right dropdown-item-icon"></i> Go to Career Page</button>
+                    <div class="dropdown-label">🎯 Career Options</div>
+                    <button onclick="showSection('career'); goToCareerCategory('all'); closeDropdownMobile('career');"><i class="fas fa-th-list dropdown-item-icon"></i> All Careers</button>
+                    <button onclick="showSection('career'); goToCareerCategory('government'); closeDropdownMobile('career');"><i class="fas fa-landmark dropdown-item-icon"></i> Government Jobs</button>
+                    <button onclick="showSection('career'); goToCareerCategory('banking'); closeDropdownMobile('career');"><i class="fas fa-university dropdown-item-icon"></i> Banking</button>
+                    <button onclick="showSection('career'); goToCareerCategory('ssc'); closeDropdownMobile('career');"><i class="fas fa-file-alt dropdown-item-icon"></i> SSC</button>
+                    <button onclick="showSection('career'); goToCareerCategory('railway'); closeDropdownMobile('career');"><i class="fas fa-train dropdown-item-icon"></i> Railway</button>
+                    <button onclick="showSection('career'); goToCareerCategory('defence'); closeDropdownMobile('career');"><i class="fas fa-shield-alt dropdown-item-icon"></i> Defence</button>
+                    <button onclick="showSection('career'); goToCareerCategory('police'); closeDropdownMobile('career');"><i class="fas fa-user-shield dropdown-item-icon"></i> Police</button>
+                    <button onclick="showSection('career'); goToCareerCategory('teaching'); closeDropdownMobile('career');"><i class="fas fa-chalkboard-teacher dropdown-item-icon"></i> Teaching</button>
+                    <button onclick="showSection('career'); goToCareerCategory('engineering'); closeDropdownMobile('career');"><i class="fas fa-cogs dropdown-item-icon"></i> Engineering</button>
+                    <button onclick="showSection('career'); goToCareerCategory('medical'); closeDropdownMobile('career');"><i class="fas fa-heartbeat dropdown-item-icon"></i> Medical</button>
+                    <button onclick="showSection('career'); goToCareerCategory('management'); closeDropdownMobile('career');"><i class="fas fa-chart-pie dropdown-item-icon"></i> Management</button>
+                    <button onclick="showSection('career'); goToCareerCategory('law'); closeDropdownMobile('career');"><i class="fas fa-gavel dropdown-item-icon"></i> Law</button>
+                    <button onclick="showSection('career'); goToCareerCategory('it'); closeDropdownMobile('career');"><i class="fas fa-code dropdown-item-icon"></i> IT</button>
+                    <button onclick="showSection('career'); goToCareerCategory('upsc'); closeDropdownMobile('career');"><i class="fas fa-flag dropdown-item-icon"></i> UPSC</button>
+                    <button onclick="showSection('career'); goToCareerCategory('state'); closeDropdownMobile('career');"><i class="fas fa-building dropdown-item-icon"></i> State Govt</button>
+                    <button onclick="showSection('career'); goToCareerCategory('private'); closeDropdownMobile('career');"><i class="fas fa-briefcase dropdown-item-icon"></i> Private Jobs</button>
                 </div>
             </div>
 
@@ -1818,11 +1811,11 @@
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('study')">📚 Study <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="studyDropdownContent">
                     <div class="dropdown-label">📖 Study Materials</div>
-                    <button onclick="goToSlide('study'); closeDropdownMobile('study');">📝 All Study Notes</button>
-                    <button onclick="goToSlide('study'); closeDropdownMobile('study');">📚 Subject Wise</button>
-                    <button onclick="goToSlide('study'); closeDropdownMobile('study');">📄 Practice Sets</button>
-                    <button onclick="goToSlide('study'); closeDropdownMobile('study');">📑 Previous Papers</button>
-                    <button onclick="goToSlide('study'); closeDropdownMobile('study');">🔁 Revision Notes</button>
+                    <button onclick="showSection('study'); closeDropdownMobile('study');">📝 All Study Notes</button>
+                    <button onclick="showSection('study'); closeDropdownMobile('study');">📚 Subject Wise</button>
+                    <button onclick="showSection('study'); closeDropdownMobile('study');">📄 Practice Sets</button>
+                    <button onclick="showSection('study'); closeDropdownMobile('study');">📑 Previous Papers</button>
+                    <button onclick="showSection('study'); closeDropdownMobile('study');">🔁 Revision Notes</button>
                 </div>
             </div>
 
@@ -1831,11 +1824,11 @@
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('books')">📖 Books <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="booksDropdownContent">
                     <div class="dropdown-label">📚 Book Categories</div>
-                    <button onclick="goToSlide('books'); closeDropdownMobile('books');">📚 All Books</button>
-                    <button onclick="goToSlide('books'); closeDropdownMobile('books');">🏛️ Competitive Exams</button>
-                    <button onclick="goToSlide('books'); closeDropdownMobile('books');">🏜️ Rajasthan GK</button>
-                    <button onclick="goToSlide('books'); closeDropdownMobile('books');">🧠 General Knowledge</button>
-                    <button onclick="goToSlide('books'); closeDropdownMobile('books');">🔥 Motivation</button>
+                    <button onclick="showSection('books'); closeDropdownMobile('books');">📚 All Books</button>
+                    <button onclick="showSection('books'); closeDropdownMobile('books');">🏛️ Competitive Exams</button>
+                    <button onclick="showSection('books'); closeDropdownMobile('books');">🏜️ Rajasthan GK</button>
+                    <button onclick="showSection('books'); closeDropdownMobile('books');">🧠 General Knowledge</button>
+                    <button onclick="showSection('books'); closeDropdownMobile('books');">🔥 Motivation</button>
                 </div>
             </div>
 
@@ -1844,11 +1837,11 @@
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('more')">⚙️ More <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="moreDropdownContent">
                     <div class="dropdown-label">⚡ More Features</div>
-                    <button onclick="goToSlide('more'); closeDropdownMobile('more');">📄 PDF Tools</button>
-                    <button onclick="goToSlide('more'); closeDropdownMobile('more');">🎨 Gallery</button>
-                    <button onclick="goToSlide('more'); closeDropdownMobile('more');">🎥 Videos</button>
-                    <button onclick="goToSlide('more'); closeDropdownMobile('more');">💪 Motivation</button>
-                    <button onclick="goToSlide('more'); closeDropdownMobile('more');">📋 All Features</button>
+                    <button onclick="showSection('more'); closeDropdownMobile('more');">📄 PDF Tools</button>
+                    <button onclick="showSection('more'); closeDropdownMobile('more');">🎨 Gallery</button>
+                    <button onclick="showSection('more'); closeDropdownMobile('more');">🎥 Videos</button>
+                    <button onclick="showSection('more'); closeDropdownMobile('more');">💪 Motivation</button>
+                    <button onclick="showSection('more'); closeDropdownMobile('more');">📋 All Features</button>
                 </div>
             </div>
 
@@ -1857,16 +1850,16 @@
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('blog')">📝 Blog <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="blogDropdownContent">
                     <div class="dropdown-label">📝 Blog Posts</div>
-                    <button onclick="goToSlide('blog'); closeDropdownMobile('blog');">📚 All Blog Posts</button>
+                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">📚 All Blog Posts</button>
                     <div class="dropdown-divider"></div>
-                    <button onclick="goToSlide('blog'); closeDropdownMobile('blog');">💻 Technology</button>
-                    <button onclick="goToSlide('blog'); closeDropdownMobile('blog');">📊 Business</button>
-                    <button onclick="goToSlide('blog'); closeDropdownMobile('blog');">🎨 Design</button>
-                    <button onclick="goToSlide('blog'); closeDropdownMobile('blog');">❤️ Lifestyle</button>
-                    <button onclick="goToSlide('blog'); closeDropdownMobile('blog');">📚 Education</button>
-                    <button onclick="goToSlide('blog'); closeDropdownMobile('blog');">📰 News</button>
-                    <button onclick="goToSlide('blog'); closeDropdownMobile('blog');">💼 Portfolio</button>
-                    <button onclick="goToSlide('blog'); closeDropdownMobile('blog');">👥 Guest</button>
+                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">💻 Technology</button>
+                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">📊 Business</button>
+                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">🎨 Design</button>
+                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">❤️ Lifestyle</button>
+                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">📚 Education</button>
+                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">📰 News</button>
+                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">💼 Portfolio</button>
+                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">👥 Guest</button>
                 </div>
             </div>
 
@@ -1874,10 +1867,11 @@
         </div>
     </header>
 
-    <!-- ================= SLIDE CONTAINER ================= -->
-    <div class="slide-container" id="slideContainer">
-        <!-- SLIDE 0: HOME -->
-        <div class="slide active" data-slide="home">
+    <!-- ================= MAIN CONTENT ================= -->
+    <div class="section-container">
+
+        <!-- ================= SECTION: HOME ================= -->
+        <section class="section active" id="home">
             <div class="home-original">
                 <header>
                     <h1>🚀 DREAM JOSH</h1>
@@ -1922,12 +1916,14 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- SLIDE 1: JOBS -->
-        <div class="slide" data-slide="jobs">
-            <div class="page-title">💼 <span>Jobs</span></div>
-            <div class="page-subtitle">सभी सरकारी और प्राइवेट नौकरियों की जानकारी</div>
+        <!-- ================= SECTION: JOBS ================= -->
+        <section class="section" id="jobs">
+            <div class="section-header">
+                <h2>💼 <span>Jobs</span></h2>
+                <span class="section-subtitle">सभी सरकारी और प्राइवेट नौकरियों की जानकारी</span>
+            </div>
             
             <div class="job-tabs">
                 <button class="tab-btn central-tab active" data-tab="central" onclick="switchJobTab('central')">🏛️ Central Govt.</button>
@@ -1958,82 +1954,97 @@
                 </div>
                 <div id="privateJobsGrid" class="professional-grid"></div>
             </div>
-        </div>
+        </section>
 
-        <!-- SLIDE 2: STUDY -->
-        <div class="slide" data-slide="study">
-            <div class="page-title">📚 <span>Study Notes</span></div>
-            <div class="page-subtitle">अध्ययन सामग्री और नोट्स</div>
+        <!-- ================= SECTION: STUDY ================= -->
+        <section class="section" id="study">
+            <div class="section-header">
+                <h2>📚 <span>Study Notes</span></h2>
+                <span class="section-subtitle">अध्ययन सामग्री और नोट्स</span>
+            </div>
             <div id="studyContainer">
                 <div class="section-grid" id="studyGrid"></div>
             </div>
-        </div>
+        </section>
 
-        <!-- SLIDE 3: RAJASTHAN GK -->
-        <div class="slide" data-slide="rajasthan">
-            <div class="page-title">🏜️ <span>Rajasthan GK</span></div>
-            <div class="page-subtitle">राजस्थान सामान्य ज्ञान</div>
+        <!-- ================= SECTION: RAJASTHAN GK ================= -->
+        <section class="section" id="rajasthan">
+            <div class="section-header">
+                <h2>🏜️ <span>Rajasthan GK</span></h2>
+                <span class="section-subtitle">राजस्थान सामान्य ज्ञान</span>
+            </div>
             <div id="rajasthanContainer">
                 <div class="section-grid" id="rajasthanGrid"></div>
             </div>
-        </div>
+        </section>
 
-        <!-- SLIDE 4: QUIZ -->
-        <div class="slide" data-slide="quiz">
-            <div class="page-title">🧠 <span>Daily Quiz</span></div>
-            <div class="page-subtitle">प्रतिदिन नए प्रश्न और अभ्यास</div>
+        <!-- ================= SECTION: QUIZ ================= -->
+        <section class="section" id="quiz">
+            <div class="section-header">
+                <h2>🧠 <span>Daily Quiz</span></h2>
+                <span class="section-subtitle">प्रतिदिन नए प्रश्न और अभ्यास</span>
+            </div>
             <div id="quizContainer">
                 <div class="section-grid" id="quizGrid"></div>
             </div>
-        </div>
+        </section>
 
-        <!-- SLIDE 5: CAREER -->
-        <div class="slide" data-slide="career">
-            <div class="page-title">🎯 <span>Career Guide</span></div>
-            <div class="page-subtitle" id="careerSubtitle">All Career Options & Exams</div>
+        <!-- ================= SECTION: CAREER ================= -->
+        <section class="section" id="career">
+            <div class="section-header">
+                <h2>🎯 <span>Career Guide</span></h2>
+                <span class="section-subtitle" id="careerSubtitle">All Career Options & Exams</span>
+            </div>
             <div id="careerContainer">
                 <div class="section-grid" id="careerGrid"></div>
             </div>
-        </div>
+        </section>
 
-        <!-- SLIDE 6: BOOKS -->
-        <div class="slide" data-slide="books">
-            <div class="page-title">📖 <span>Books</span></div>
-            <div class="page-subtitle">Books for Competitive Exams</div>
+        <!-- ================= SECTION: BOOKS ================= -->
+        <section class="section" id="books">
+            <div class="section-header">
+                <h2>📖 <span>Books</span></h2>
+                <span class="section-subtitle">Books for Competitive Exams</span>
+            </div>
             <div id="booksContainer">
                 <div class="section-grid" id="booksGrid"></div>
             </div>
-        </div>
+        </section>
 
-        <!-- SLIDE 7: MORE -->
-        <div class="slide" data-slide="more">
-            <div class="page-title">⚙️ <span>More Features</span></div>
-            <div class="page-subtitle">PDF Tools • Ads • Forms • Gallery • Motivation • Videos</div>
+        <!-- ================= SECTION: MORE ================= -->
+        <section class="section" id="more">
+            <div class="section-header">
+                <h2>⚙️ <span>More Features</span></h2>
+                <span class="section-subtitle">PDF Tools • Ads • Forms • Gallery • Motivation • Videos</span>
+            </div>
             <div id="moreContainer">
                 <div class="section-grid" id="moreGrid"></div>
             </div>
-        </div>
+        </section>
 
-        <!-- SLIDE 8: BLOG -->
-        <div class="slide" data-slide="blog">
-            <div class="page-title">📝 <span>Blog</span></div>
-            <div class="page-subtitle" id="blogSubtitle">All Blog Posts</div>
+        <!-- ================= SECTION: BLOG ================= -->
+        <section class="section" id="blog">
+            <div class="section-header">
+                <h2>📝 <span>Blog</span></h2>
+                <span class="section-subtitle" id="blogSubtitle">All Blog Posts</span>
+            </div>
             <div id="blogContainer">
                 <div class="section-grid" id="blogGrid"></div>
             </div>
-        </div>
+        </section>
+
     </div>
 
     <!-- ================= FOOTER ================= -->
     <footer class="app-footer">
         <div class="footer-nav">
-            <button class="nav-btn" onclick="goHome()">🏠 Home</button>
-            <button class="nav-btn" onclick="goToSlide('jobs')">💼 Jobs</button>
-            <button class="nav-btn" onclick="goToSlide('study')">📚 Study</button>
-            <button class="nav-btn" onclick="goToSlide('career')">🎯 Career</button>
-            <button class="nav-btn" onclick="goToSlide('books')">📖 Books</button>
-            <button class="nav-btn" onclick="goToSlide('more')">⚙️ More</button>
-            <button class="nav-btn" onclick="goToSlide('blog')">📝 Blog</button>
+            <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
+            <button class="nav-btn" onclick="showSection('jobs')" data-section="jobs">💼 Jobs</button>
+            <button class="nav-btn" onclick="showSection('study')" data-section="study">📚 Study</button>
+            <button class="nav-btn" onclick="showSection('career')" data-section="career">🎯 Career</button>
+            <button class="nav-btn" onclick="showSection('books')" data-section="books">📖 Books</button>
+            <button class="nav-btn" onclick="showSection('more')" data-section="more">⚙️ More</button>
+            <button class="nav-btn" onclick="showSection('blog')" data-section="blog">📝 Blog</button>
             <button class="nav-btn admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
         </div>
         <div class="footer-text">© 2026 <span>Dream Josh</span> • Study • Govt. Jobs • Career</div>
@@ -2054,10 +2065,10 @@
         // ============================================================
         // CONFIGURATION
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_admin_data_v12';
+        const STORAGE_KEY = 'dreamjosh_admin_data_v14';
 
         // ============================================================
-        // CAREER DATA (English)
+        // CAREER DATA
         // ============================================================
         const CAREER_DATA = {
             government: {
@@ -2204,44 +2215,6 @@
         };
 
         // ============================================================
-        // DATA STORE
-        // ============================================================
-        let adminData = {
-            content: {
-                study: [],
-                career: [],
-                books: [],
-                rajasthan: [],
-                quiz: [],
-                more: [],
-                blog: []
-            },
-            jobs: [],
-            forms: [],
-            notifications: [],
-            updates: [
-                '🔴 SSC CGL 2026 Notification जल्दी आ रही है',
-                '🟢 RPSC RAS 2026 की तैयारी शुरू करें',
-                '🔵 REET 2026 के लिए आवेदन प्रक्रिया शुरू'
-            ],
-            homeContent: {
-                heading: '🚀 Dream Josh में आपका स्वागत है',
-                aboutTitle: '🌟 Dream Josh के बारे में',
-                aboutText: '<b>Dream Josh</b> एक educational और career guidance platform है...',
-                featuresTitle: '📚 Dream Josh पर क्या मिलेगा?',
-                features: ['📖 Study Notes और अध्ययन सामग्री', '🏛️ Govt. Jobs से संबंधित जानकारी',
-                    '🎯 Career Guide और Career Options'
-                ],
-                highlight: '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>'
-            },
-            settings: { password: 'admin123', darkMode: false }
-        };
-
-        let isAdminLoggedIn = false;
-        let currentCareerFilter = 'all';
-        let currentJobTab = 'central';
-
-        // ============================================================
         // JOB HIERARCHY DATA
         // ============================================================
         const JOB_DATA = {
@@ -2336,6 +2309,77 @@
         };
 
         // ============================================================
+        // DATA STORE
+        // ============================================================
+        let adminData = {
+            content: {
+                study: [],
+                career: [],
+                books: [],
+                rajasthan: [],
+                quiz: [],
+                more: [],
+                blog: []
+            },
+            jobs: [],
+            forms: [],
+            notifications: [],
+            updates: [
+                '🔴 SSC CGL 2026 Notification जल्दी आ रही है',
+                '🟢 RPSC RAS 2026 की तैयारी शुरू करें',
+                '🔵 REET 2026 के लिए आवेदन प्रक्रिया शुरू'
+            ],
+            homeContent: {
+                heading: '🚀 Dream Josh में आपका स्वागत है',
+                aboutTitle: '🌟 Dream Josh के बारे में',
+                aboutText: '<b>Dream Josh</b> एक educational और career guidance platform है...',
+                featuresTitle: '📚 Dream Josh पर क्या मिलेगा?',
+                features: ['📖 Study Notes और अध्ययन सामग्री', '🏛️ Govt. Jobs से संबंधित जानकारी',
+                    '🎯 Career Guide और Career Options'
+                ],
+                highlight: '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>'
+            },
+            settings: { password: 'admin123', darkMode: false }
+        };
+
+        let isAdminLoggedIn = false;
+        let currentCareerFilter = 'all';
+        let currentJobTab = 'central';
+        let currentSection = 'home';
+
+        // ============================================================
+        // SECTION SHOW/HIDE
+        // ============================================================
+        function showSection(sectionId) {
+            currentSection = sectionId;
+            
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            
+            // Show selected section
+            const section = document.getElementById(sectionId);
+            if (section) section.classList.add('active');
+            
+            // Update header buttons
+            document.querySelectorAll('.app-header .nav-btn[data-section]').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.section === sectionId);
+            });
+            
+            // Update footer buttons
+            document.querySelectorAll('.app-footer .nav-btn[data-section]').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.section === sectionId);
+            });
+            
+            // Close mobile dropdowns
+            if (window.innerWidth <= 768) {
+                ['govt', 'career', 'study', 'books', 'more', 'blog'].forEach(name => closeDropdownMobile(name));
+            }
+            
+            // Scroll to top of page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================================
         // LOAD / SAVE DATA
         // ============================================================
         function loadAdminData() {
@@ -2373,7 +2417,6 @@
                     ];
                 }
 
-                // Initialize career data from CAREER_DATA if empty
                 if (adminData.content.career.length === 0) {
                     adminData.content.career = [];
                     for (const [key, value] of Object.entries(CAREER_DATA)) {
@@ -2420,7 +2463,6 @@
             document.getElementById('homeHighlight').innerHTML = hc.highlight ||
                 '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>';
 
-            // Update Latest Updates
             const updatesList = document.getElementById('updatesList');
             if (updatesList) {
                 const updates = adminData.updates || [];
@@ -2431,7 +2473,6 @@
                 }
             }
 
-            // Update Forms
             const formsList = document.getElementById('formsList');
             if (formsList) {
                 const forms = adminData.forms || [];
@@ -2450,7 +2491,6 @@
                 }
             }
 
-            // Update Job Sections
             const jobsData = adminData.jobs || [];
             const centralJobs = jobsData.filter(j => j.jobType === 'central');
             const stateJobs = jobsData.filter(j => j.jobType === 'state');
@@ -2464,7 +2504,6 @@
             renderJobGrid('stateJobsGrid', stateJobs, 'state');
             renderJobGrid('privateJobsGrid', privateJobs, 'private');
 
-            // Render all grids
             renderCareerGrid(currentCareerFilter);
             renderContentGrid('study', 'studyGrid');
             renderContentGrid('books', 'booksGrid');
@@ -2475,7 +2514,7 @@
         }
 
         // ============================================================
-        // RENDER JOB GRID
+        // RENDER FUNCTIONS
         // ============================================================
         function renderJobGrid(gridId, jobs, type) {
             const grid = document.getElementById(gridId);
@@ -2489,13 +2528,9 @@
             }
 
             const badgeClass = type === 'central' ? 'central' : type === 'state' ? 'state' : 'private';
-            const iconMap = {
-                central: '🏛️',
-                state: '🏜️',
-                private: '💼'
-            };
+            const iconMap = { central: '🏛️', state: '🏜️', private: '💼' };
 
-            jobs.forEach((job, index) => {
+            jobs.forEach((job) => {
                 const card = document.createElement('div');
                 card.className = 'grid-item';
                 card.innerHTML = `
@@ -2511,27 +2546,6 @@
             });
         }
 
-        // ============================================================
-        // JOB TAB SWITCHING
-        // ============================================================
-        function switchJobTab(tab) {
-            currentJobTab = tab;
-            document.querySelectorAll('.job-tabs .tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.tab === tab) btn.classList.add('active');
-            });
-            document.querySelectorAll('.job-section').forEach(section => section.classList.remove('active'));
-            document.getElementById(tab + 'JobsSection').classList.add('active');
-        }
-
-        function goToJobTab(tab) {
-            goToSlide('jobs');
-            switchJobTab(tab);
-        }
-
-        // ============================================================
-        // RENDER CONTENT GRID
-        // ============================================================
         function renderContentGrid(page, gridId) {
             const grid = document.getElementById(gridId);
             if (!grid) return;
@@ -2544,7 +2558,7 @@
                 return;
             }
 
-            items.forEach((item, index) => {
+            items.forEach((item) => {
                 const card = document.createElement('div');
                 card.className = 'grid-item';
                 const icon = item.icon || '📌';
@@ -2561,9 +2575,6 @@
             });
         }
 
-        // ============================================================
-        // RENDER CAREER GRID
-        // ============================================================
         function renderCareerGrid(filter) {
             const grid = document.getElementById('careerGrid');
             const items = adminData.content.career || [];
@@ -2590,7 +2601,7 @@
             const filterName = filter && filter !== 'all' ? CAREER_DATA[filter]?.title || filter : 'All Career Options';
             if (subtitle) subtitle.textContent = filter && filter !== 'all' ? filterName : 'All Career Options & Exams';
 
-            filteredItems.forEach((item, index) => {
+            filteredItems.forEach((item) => {
                 const card = document.createElement('div');
                 card.className = 'grid-item';
                 const icon = item.icon || '🎯';
@@ -2611,7 +2622,7 @@
         }
 
         // ============================================================
-        // CAREER DETAIL
+        // DETAIL FUNCTIONS
         // ============================================================
         function openCareerDetail(index) {
             const items = adminData.content.career || [];
@@ -2644,18 +2655,6 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // ============================================================
-        // GO TO CAREER CATEGORY
-        // ============================================================
-        function goToCareerCategory(category) {
-            currentCareerFilter = category;
-            goToSlide('career');
-            renderCareerGrid(category);
-        }
-
-        // ============================================================
-        // DETAIL MODALS
-        // ============================================================
         function openDetailModal(page, index) {
             const items = adminData.content[page] || [];
             const item = items[index];
@@ -2718,11 +2717,7 @@
                 private: '💼 Private'
             };
 
-            const iconMap = {
-                central: '🏛️',
-                state: '🏜️',
-                private: '💼'
-            };
+            const iconMap = { central: '🏛️', state: '🏜️', private: '💼' };
 
             body.innerHTML = `
                     <div class="detail-icon">${iconMap[job.jobType] || '💼'}</div>
@@ -2753,7 +2748,25 @@
         }
 
         // ============================================================
-        // DROPDOWN FUNCTIONS (Mobile click toggle)
+        // JOB TAB SWITCHING
+        // ============================================================
+        function switchJobTab(tab) {
+            currentJobTab = tab;
+            document.querySelectorAll('.job-tabs .tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tab) btn.classList.add('active');
+            });
+            document.querySelectorAll('.job-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(tab + 'JobsSection').classList.add('active');
+        }
+
+        function goToCareerCategory(category) {
+            currentCareerFilter = category;
+            renderCareerGrid(category);
+        }
+
+        // ============================================================
+        // DROPDOWN FUNCTIONS
         // ============================================================
         function toggleDropdownMobile(name) {
             if (window.innerWidth <= 768) {
@@ -2771,7 +2784,6 @@
             if (content) content.classList.remove('show');
         }
 
-        // Close dropdowns on outside click (mobile)
         document.addEventListener('click', function(e) {
             if (window.innerWidth <= 768) {
                 if (!e.target.closest('.dropdown-wrapper')) {
@@ -2779,28 +2791,6 @@
                 }
             }
         });
-
-        // ============================================================
-        // SLIDE FUNCTIONS
-        // ============================================================
-        let currentSlide = 'home';
-        let allSlideIds = ['home', 'jobs', 'study', 'rajasthan', 'quiz', 'career', 'books', 'more', 'blog'];
-
-        function goToSlide(slideId) {
-            currentSlide = slideId;
-            const container = document.getElementById('slideContainer');
-            const slides = document.querySelectorAll('.slide');
-            let index = 0;
-            slides.forEach((s, i) => { if (s.dataset.slide === slideId) index = i; });
-            container.style.transform = `translateX(-${index * 100}%)`;
-            slides.forEach(s => { if (s.dataset.slide === slideId) s.scrollTop = 0; });
-            // Close mobile dropdowns
-            if (window.innerWidth <= 768) {
-                ['govt', 'career', 'study', 'books', 'more', 'blog'].forEach(name => closeDropdownMobile(name));
-            }
-        }
-
-        function goHome() { goToSlide('home'); }
 
         // ============================================================
         // TOAST
@@ -2841,53 +2831,7 @@
         }
 
         // ============================================================
-        // KEYBOARD SHORTCUTS
-        // ============================================================
-        document.addEventListener('keydown', (e) => {
-            if (document.getElementById('adminPanelOverlay').classList.contains('active')) return;
-            if (document.getElementById('detailOverlay').classList.contains('active')) {
-                if (e.key === 'Escape') closeDetail();
-                return;
-            }
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                e.preventDefault();
-                const idx = allSlideIds.indexOf(currentSlide);
-                if (idx < allSlideIds.length - 1) goToSlide(allSlideIds[idx + 1]);
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                e.preventDefault();
-                const idx = allSlideIds.indexOf(currentSlide);
-                if (idx > 0) goToSlide(allSlideIds[idx - 1]);
-            } else if (e.key === 'Home') { e.preventDefault();
-                goHome(); }
-        });
-
-        // ============================================================
-        // TOUCH SWIPE
-        // ============================================================
-        let touchStartX = 0,
-            touchStartY = 0,
-            isSwiping = false;
-        document.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-            isSwiping = true;
-        });
-        document.addEventListener('touchmove', (e) => {
-            if (!isSwiping) return;
-            const diffX = e.changedTouches[0].screenX - touchStartX;
-            const diffY = e.changedTouches[0].screenY - touchStartY;
-            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-                e.preventDefault();
-                const idx = allSlideIds.indexOf(currentSlide);
-                if (diffX < 0 && idx < allSlideIds.length - 1) { goToSlide(allSlideIds[idx + 1]);
-                    isSwiping = false; } else if (diffX > 0 && idx > 0) { goToSlide(allSlideIds[idx - 1]);
-                    isSwiping = false; }
-            }
-        });
-        document.addEventListener('touchend', () => { isSwiping = false; });
-
-        // ============================================================
-        // ADMIN PANEL FUNCTIONS
+        // ADMIN PANEL FUNCTIONS (Condensed - same as before)
         // ============================================================
         function openAdminPanel() {
             const overlay = document.getElementById('adminPanelOverlay');
@@ -2991,7 +2935,7 @@
                     <div class="admin-sidebar" id="adminSidebar">
                         <div class="admin-logo">
                             <h1>🚀 <span>Dream</span>Josh</h1>
-                            <span class="badge">v12.0</span>
+                            <span class="badge">v14.0</span>
                         </div>
                         <div class="admin-user">
                             <div class="avatar">A</div>
@@ -3200,7 +3144,7 @@
         }
 
         // ============================================================
-        // ADMIN DASHBOARD
+        // ADMIN RENDER FUNCTIONS (Condensed)
         // ============================================================
         function renderAdminDashboard() {
             const contentCount = Object.values(adminData.content || {}).reduce((sum, arr) => sum + arr.length, 0);
@@ -3211,9 +3155,6 @@
             document.getElementById('statUpdates').textContent = adminData.updates?.length || 0;
         }
 
-        // ============================================================
-        // ADMIN HOME EDITOR
-        // ============================================================
         function renderAdminHomeEditor() {
             const hc = adminData.homeContent || {};
             document.getElementById('homeHeadingInput').value = hc.heading || '';
@@ -3291,7 +3232,7 @@
         }
 
         // ============================================================
-        // CONTENT CRUD
+        // CONTENT CRUD (Condensed - keeping functionality)
         // ============================================================
         function renderAdminContentTable(page) {
             const tbody = document.getElementById(`adminContentTable-${page}`);
@@ -3518,7 +3459,7 @@
         }
 
         // ============================================================
-        // JOBS CRUD
+        // JOBS CRUD (Condensed)
         // ============================================================
         function renderAdminJobsTable() {
             const tbody = document.getElementById('adminJobsTable');
@@ -3695,7 +3636,7 @@
         }
 
         // ============================================================
-        // FORMS CRUD
+        // FORMS CRUD (Condensed)
         // ============================================================
         function renderAdminFormsTable() {
             const tbody = document.getElementById('adminFormsTable');
@@ -3795,7 +3736,7 @@
         }
 
         // ============================================================
-        // NOTIFICATIONS
+        // NOTIFICATIONS (Condensed)
         // ============================================================
         function sendAdminNotification() {
             const title = document.getElementById('adminNotifTitle').value.trim();
@@ -3852,7 +3793,7 @@
         }
 
         // ============================================================
-        // EXPORT FUNCTIONS - Page Wise
+        // EXPORT FUNCTIONS
         // ============================================================
         function escapeCSV(str) {
             if (str === null || str === undefined) return '';
@@ -3965,7 +3906,6 @@
             URL.revokeObjectURL(link.href);
         }
 
-        // Page-wise export functions
         function exportPageData(page) {
             const data = adminData.content[page] || [];
             if (data.length === 0) {
@@ -4000,7 +3940,6 @@
         }
 
         function exportToExcelWithTabs() {
-            // Combined export for all pages (maintained for compatibility)
             const allData = {
                 'Jobs': { data: adminData.jobs || [], type: 'jobs' },
                 'Forms': { data: adminData.forms || [], type: 'forms' },
@@ -4159,23 +4098,22 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadAdminData();
             switchJobTab('central');
-            console.log('🚀 Dream Josh - v12.0 with Page-wise Export & Hover Dropdowns');
+            showSection('home');
+            console.log('🚀 Dream Josh - v14.0 (Single Page View)');
+            console.log('📌 Only clicked section is visible at a time');
             console.log('📌 Admin Panel: Click "🔐 Admin" in the header');
             console.log('📌 Default Password: admin123');
-            console.log('📌 Features: Hover dropdowns, Page-wise export, Updates manager');
         });
 
         // ============================================================
         // EXPOSE FUNCTIONS
         // ============================================================
-        window.goHome = goHome;
-        window.goToSlide = goToSlide;
-        window.goToJobTab = goToJobTab;
+        window.showSection = showSection;
         window.switchJobTab = switchJobTab;
+        window.goToCareerCategory = goToCareerCategory;
         window.closeDetail = closeDetail;
         window.toggleDropdownMobile = toggleDropdownMobile;
         window.closeDropdownMobile = closeDropdownMobile;
-        window.goToCareerCategory = goToCareerCategory;
         window.showToast = showToast;
         window.openAdminPanel = openAdminPanel;
         window.closeAdminPanel = closeAdminPanel;
