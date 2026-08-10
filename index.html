@@ -428,6 +428,123 @@
             min-height: 100vh;
         }
 
+        /* Admin Login Screen */
+        .admin-panel-overlay .admin-login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            background: var(--header-bg);
+            padding: 20px;
+        }
+        .admin-panel-overlay .admin-login-box {
+            background: var(--card-bg);
+            padding: 40px 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .admin-panel-overlay .admin-login-box .login-logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 4px;
+        }
+        .admin-panel-overlay .admin-login-box .login-logo span {
+            color: var(--gold);
+        }
+        .admin-panel-overlay .admin-login-box .login-subtitle {
+            font-size: 14px;
+            color: var(--text-color);
+            opacity: 0.6;
+            margin-bottom: 20px;
+        }
+        .admin-panel-overlay .admin-login-box .login-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .admin-panel-overlay .admin-login-box input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: 0.3s;
+        }
+        .admin-panel-overlay .admin-login-box input:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+        .admin-panel-overlay .admin-login-box .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: var(--secondary-blue);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 44px;
+            margin-top: 8px;
+        }
+        .admin-panel-overlay .admin-login-box .btn-login:hover {
+            background: var(--primary-blue);
+        }
+        .admin-panel-overlay .admin-login-box .btn-login:active {
+            transform: scale(0.97);
+        }
+        .admin-panel-overlay .admin-login-box .login-error {
+            color: var(--warning-red);
+            display: none;
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .admin-panel-overlay .admin-login-box .login-error.show {
+            display: block;
+            animation: shake 0.5s ease;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        .admin-panel-overlay .admin-login-box .login-note {
+            margin-top: 14px;
+            font-size: 11px;
+            color: var(--text-color);
+            opacity: 0.4;
+        }
+        .admin-panel-overlay .admin-login-box .login-note strong {
+            color: var(--gold);
+            opacity: 1;
+        }
+        .admin-panel-overlay .admin-login-box .btn-back-site {
+            margin-top: 10px;
+            padding: 10px;
+            background: #6c757d;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+        .admin-panel-overlay .admin-login-box .btn-back-site:hover {
+            background: #5a6268;
+        }
+
         /* Admin Sidebar - Original Colors */
         .admin-panel-overlay .admin-sidebar {
             width: 260px;
@@ -1055,6 +1172,10 @@
             .admin-menu-toggle {
                 display: flex !important;
             }
+            .admin-panel-overlay .admin-login-box {
+                padding: 30px 20px;
+                margin: 10px;
+            }
         }
         @media (max-width: 480px) {
             .admin-panel-overlay .admin-stats { grid-template-columns: 1fr; }
@@ -1329,6 +1450,9 @@
             notifications: [],
             settings: { password: 'admin123', darkMode: false }
         };
+
+        // Admin Login State
+        let isAdminLoggedIn = false;
 
         // ============================================================
         // WEBSITE DATA (Built from admin data + defaults)
@@ -1721,26 +1845,81 @@
         // ============================================================
         function openAdminPanel() {
             const overlay = document.getElementById('adminPanelOverlay');
-            overlay.innerHTML = renderAdminPanel();
+            overlay.innerHTML = renderAdminLogin();
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
-            renderAdminDashboard();
-            renderAdminContent();
-            renderAdminSubSections();
-            renderAdminJobs();
-            renderAdminQuiz();
-            renderAdminForms();
-            renderAdminNotifications();
+            // Focus on password input
+            setTimeout(() => {
+                const input = document.getElementById('adminPasswordInput');
+                if (input) input.focus();
+            }, 100);
         }
 
         function closeAdminPanel() {
             document.getElementById('adminPanelOverlay').classList.remove('active');
             document.getElementById('adminPanelOverlay').innerHTML = '';
             document.body.style.overflow = '';
+            isAdminLoggedIn = false;
         }
 
         // ============================================================
-        // RENDER ADMIN PANEL
+        // ADMIN LOGIN
+        // ============================================================
+        function renderAdminLogin() {
+            return `
+                <div class="admin-wrapper">
+                    <div class="admin-login-screen">
+                        <div class="admin-login-box">
+                            <div class="login-icon">🔐</div>
+                            <div class="login-logo">🚀 <span>Dream</span>Josh</div>
+                            <div class="login-subtitle">Admin Panel - Secure Login</div>
+                            <p style="font-size:13px;color:var(--text-color);opacity:0.6;margin-bottom:16px;">कृपया पासवर्ड दर्ज करें</p>
+                            <input type="password" id="adminPasswordInput" placeholder="Enter Admin Password" onkeydown="if(event.key==='Enter') adminLogin()">
+                            <button class="btn-login" onclick="adminLogin()"><i class="fas fa-unlock-alt"></i> Login</button>
+                            <div class="login-error" id="adminLoginError">❌ गलत पासवर्ड! कृपया पुनः प्रयास करें</div>
+                            <div class="login-note">Default Password: <strong>admin123</strong></div>
+                            <button class="btn-back-site" onclick="closeAdminPanel()"><i class="fas fa-arrow-left"></i> वापस वेबसाइट पर</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function adminLogin() {
+            const password = document.getElementById('adminPasswordInput').value;
+            const errorEl = document.getElementById('adminLoginError');
+            
+            if (password === adminData.settings.password) {
+                errorEl.classList.remove('show');
+                isAdminLoggedIn = true;
+                // Load admin panel
+                const overlay = document.getElementById('adminPanelOverlay');
+                overlay.innerHTML = renderAdminPanel();
+                renderAdminDashboard();
+                renderAdminContent();
+                renderAdminSubSections();
+                renderAdminJobs();
+                renderAdminQuiz();
+                renderAdminForms();
+                renderAdminNotifications();
+                showToast('✅ Welcome Admin!', 'success');
+            } else {
+                errorEl.classList.add('show');
+                document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('adminPasswordInput').focus();
+                // Shake animation handled by CSS
+            }
+        }
+
+        function adminLogout() {
+            if (confirm('Are you sure you want to logout from admin panel?')) {
+                closeAdminPanel();
+                showToast('👋 Logged out successfully', 'info');
+            }
+        }
+
+        // ============================================================
+        // RENDER ADMIN PANEL (Dashboard)
         // ============================================================
         function renderAdminPanel() {
             const dark = adminData.settings?.darkMode || false;
@@ -1777,7 +1956,7 @@
                         <li><a data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
                     </ul>
                     <div class="admin-footer-menu">
-                        <a onclick="closeAdminPanel()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
 
@@ -2975,6 +3154,8 @@
         window.showToast = showToast;
         window.openAdminPanel = openAdminPanel;
         window.closeAdminPanel = closeAdminPanel;
+        window.adminLogin = adminLogin;
+        window.adminLogout = adminLogout;
         window.toggleDarkMode = toggleDarkMode;
         window.showAdminPage = showAdminPage;
         window.toggleAdminSidebar = toggleAdminSidebar;
