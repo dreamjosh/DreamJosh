@@ -29,6 +29,8 @@
             --private-color: #6c5ce7;
             --central-color: #1976d2;
             --state-color: #16a34a;
+            --public-badge: #16a34a;
+            --private-badge: #6c5ce7;
         }
 
         .dark-mode {
@@ -49,11 +51,7 @@
             --state-color: #3aad5a;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -88,9 +86,7 @@
             color: #fff;
             user-select: none;
         }
-        .app-header .logo span {
-            color: var(--gold);
-        }
+        .app-header .logo span { color: var(--gold); }
         .app-header .header-controls {
             display: flex;
             align-items: center;
@@ -152,13 +148,11 @@
             font-size: 10px;
             margin-left: 3px;
         }
-
         .dropdown-wrapper:hover .dropdown-content,
         .dropdown-wrapper .dropdown-content.show {
             display: block;
             animation: dropdownFade 0.25s ease;
         }
-
         .dropdown-wrapper .dropdown-content {
             display: none;
             position: absolute;
@@ -175,14 +169,8 @@
             overflow-y: auto;
         }
         @keyframes dropdownFade {
-            from {
-                opacity: 0;
-                transform: translateY(-8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .dropdown-wrapper .dropdown-content button {
             display: block;
@@ -240,9 +228,7 @@
             font-size: 12px;
             text-align: center;
         }
-        .app-footer .footer-text span {
-            color: var(--gold);
-        }
+        .app-footer .footer-text span { color: var(--gold); }
         .app-footer .footer-nav {
             display: flex;
             gap: 6px;
@@ -274,33 +260,14 @@
 
         /* ================= RESPONSIVE ================= */
         @media (max-width: 768px) {
-            .app-header {
-                padding: 8px 12px;
-                height: 55px;
-            }
-            .app-header .logo {
-                font-size: 16px;
-            }
+            .app-header { padding: 8px 12px; height: 55px; }
+            .app-header .logo { font-size: 16px; }
             .app-header .header-controls .nav-btn,
-            .app-header .header-controls .dropdown-btn {
-                font-size: 10px;
-                padding: 4px 8px;
-            }
-            .app-footer {
-                height: 50px;
-                padding: 6px 10px;
-            }
-            .app-footer .footer-text {
-                font-size: 10px;
-            }
-            .app-footer .footer-nav .nav-btn {
-                font-size: 9px;
-                padding: 3px 8px;
-            }
-            body {
-                padding-top: 60px;
-                padding-bottom: 55px;
-            }
+            .app-header .header-controls .dropdown-btn { font-size: 10px; padding: 4px 8px; }
+            .app-footer { height: 50px; padding: 6px 10px; }
+            .app-footer .footer-text { font-size: 10px; }
+            .app-footer .footer-nav .nav-btn { font-size: 9px; padding: 3px 8px; }
+            body { padding-top: 60px; padding-bottom: 55px; }
             .dropdown-wrapper .dropdown-content {
                 position: fixed;
                 top: 55px;
@@ -310,27 +277,14 @@
                 max-height: 60vh;
                 min-width: 100%;
             }
-            .dropdown-wrapper:hover .dropdown-content {
-                display: none;
-            }
-            .dropdown-wrapper .dropdown-content.show {
-                display: block !important;
-            }
+            .dropdown-wrapper:hover .dropdown-content { display: none; }
+            .dropdown-wrapper .dropdown-content.show { display: block !important; }
         }
         @media (max-width: 480px) {
-            .app-header .logo {
-                font-size: 14px;
-            }
+            .app-header .logo { font-size: 14px; }
             .app-header .header-controls .nav-btn,
-            .app-header .header-controls .dropdown-btn {
-                font-size: 9px;
-                padding: 3px 6px;
-                border-radius: 12px;
-            }
-            .app-footer .footer-nav .nav-btn {
-                font-size: 8px;
-                padding: 2px 6px;
-            }
+            .app-header .header-controls .dropdown-btn { font-size: 9px; padding: 3px 6px; border-radius: 12px; }
+            .app-footer .footer-nav .nav-btn { font-size: 8px; padding: 2px 6px; }
         }
 
         /* ================= SECTION CONTAINER ================= */
@@ -339,27 +293,16 @@
             margin: 0 auto;
             padding: 20px 24px;
         }
-
         .section {
             display: none;
             padding: 20px 0 30px 0;
             animation: fadeInSection 0.4s ease;
         }
-        .section.active {
-            display: block;
-        }
-
+        .section.active { display: block; }
         @keyframes fadeInSection {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         .section .section-header {
             display: flex;
             justify-content: space-between;
@@ -373,9 +316,7 @@
             font-weight: 700;
             color: var(--text-color);
         }
-        .section .section-header h2 span {
-            color: var(--primary-blue);
-        }
+        .section .section-header h2 span { color: var(--primary-blue); }
         .section .section-header .section-subtitle {
             font-size: 14px;
             color: var(--text-light);
@@ -396,19 +337,9 @@
             padding: 30px 20px;
             border-radius: 16px 16px 0 0;
         }
-        .home-original header h1 {
-            margin: 0;
-            font-size: 36px;
-        }
-        .home-original header p {
-            margin: 5px 0 0;
-            font-size: 16px;
-        }
-        .home-original header small {
-            font-size: 13px;
-            opacity: 0.8;
-        }
-
+        .home-original header h1 { margin: 0; font-size: 36px; }
+        .home-original header p { margin: 5px 0 0; font-size: 16px; }
+        .home-original header small { font-size: 13px; opacity: 0.8; }
         .home-original .ticker {
             margin: 8px auto;
             max-width: 1100px;
@@ -418,26 +349,17 @@
             overflow: hidden;
             white-space: nowrap;
         }
-        .home-original .latest {
-            background: #d62839;
-        }
-        .home-original .update {
-            background: #079455;
-        }
+        .home-original .latest { background: #d62839; }
+        .home-original .update { background: #079455; }
         .home-original .ticker span {
             display: inline-block;
             padding-left: 100%;
             animation: move 18s linear infinite;
         }
         @keyframes move {
-            from {
-                transform: translateX(0);
-            }
-            to {
-                transform: translateX(-100%);
-            }
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
         }
-
         .home-original .container {
             max-width: 1100px;
             margin: auto;
@@ -448,13 +370,8 @@
             gap: 24px;
             align-items: flex-start;
         }
-        .home-original .left-content {
-            flex: 3;
-        }
-        .home-original .right-sidebar {
-            flex: 1;
-        }
-
+        .home-original .left-content { flex: 3; }
+        .home-original .right-sidebar { flex: 1; }
         .home-original .sidebar-box {
             background: var(--card-bg);
             border-radius: 10px;
@@ -483,10 +400,7 @@
             font-size: 13px;
             border-bottom: 1px solid var(--border-color);
         }
-        .home-original .notice ul li:last-child {
-            border-bottom: none;
-        }
-
+        .home-original .notice ul li:last-child { border-bottom: none; }
         .home-original .imp-links a {
             display: block;
             padding: 8px 14px;
@@ -497,10 +411,7 @@
             font-size: 13px;
             cursor: pointer;
         }
-        .home-original .imp-links a:hover {
-            background: var(--card-hover);
-        }
-
+        .home-original .imp-links a:hover { background: var(--card-hover); }
         .home-original .card {
             background: var(--card-bg);
             padding: 20px;
@@ -518,10 +429,7 @@
             line-height: 1.8;
             font-size: 15px;
         }
-        .home-original .about-home h3 {
-            margin-top: 14px;
-            margin-bottom: 6px;
-        }
+        .home-original .about-home h3 { margin-top: 14px; margin-bottom: 6px; }
         .home-original .about-home ul {
             padding-left: 20px;
             margin: 6px 0 12px;
@@ -539,100 +447,16 @@
             text-align: center;
             font-size: 17px;
         }
-
         @media (max-width: 768px) {
-            .home-original .home-layout {
-                flex-direction: column;
-            }
+            .home-original .home-layout { flex-direction: column; }
             .home-original .left-content,
-            .home-original .right-sidebar {
-                width: 100%;
-            }
-            .home-original header h1 {
-                font-size: 26px;
-            }
-            .home-original .container {
-                padding: 10px 8px;
-            }
-            .home-original .card {
-                padding: 14px;
-            }
-            .home-original .about-home {
-                font-size: 14px;
-            }
-            .section .section-header h2 {
-                font-size: 22px;
-            }
-            .section-container {
-                padding: 12px 14px;
-            }
-        }
-
-        /* ================= GRID ================= */
-        .section-grid,
-        .professional-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 16px;
-            margin-top: 12px;
-        }
-        .grid-item,
-        .section-card {
-            background: var(--card-bg);
-            padding: 14px 16px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
-            cursor: pointer;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .grid-item:hover,
-        .section-card:hover {
-            border-color: var(--secondary-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px var(--shadow-color);
-        }
-        .grid-item .item-icon,
-        .section-card .icon {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
-        .grid-item .item-title,
-        .section-card h3 {
-            font-size: 16px;
-            color: var(--primary-blue);
-            margin-bottom: 4px;
-            font-weight: 700;
-        }
-        .grid-item .item-desc,
-        .section-card p {
-            font-size: 12px;
-            color: var(--text-color);
-            opacity: 0.7;
-            line-height: 1.4;
-        }
-        .grid-item .item-badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 600;
-            color: #fff;
-            margin-top: 4px;
-            align-self: flex-start;
-        }
-        .grid-item .item-badge.central {
-            background: var(--central-color);
-        }
-        .grid-item .item-badge.state {
-            background: var(--state-color);
-        }
-        .grid-item .item-badge.private {
-            background: var(--private-color);
+            .home-original .right-sidebar { width: 100%; }
+            .home-original header h1 { font-size: 26px; }
+            .home-original .container { padding: 10px 8px; }
+            .home-original .card { padding: 14px; }
+            .home-original .about-home { font-size: 14px; }
+            .section .section-header h2 { font-size: 22px; }
+            .section-container { padding: 12px 14px; }
         }
 
         /* ================= JOB SECTION ================= */
@@ -657,9 +481,7 @@
             font-size: 20px;
             color: var(--primary-blue);
         }
-        .job-grid-wrapper .jobs-header h3 span {
-            color: var(--gold);
-        }
+        .job-grid-wrapper .jobs-header h3 span { color: var(--gold); }
         .job-grid-wrapper .jobs-header .total-badge {
             background: var(--secondary-blue);
             color: #fff;
@@ -668,7 +490,6 @@
             font-size: 12px;
             font-weight: 600;
         }
-
         .job-info-box {
             background: var(--bg-color);
             border-radius: 10px;
@@ -687,7 +508,6 @@
             opacity: 0.7;
             margin-top: 3px;
         }
-
         .job-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -728,8 +548,6 @@
         .job-card .job-badge.central { background: var(--central-color); }
         .job-card .job-badge.state { background: var(--state-color); }
         .job-card .job-badge.private { background: var(--private-color); }
-
-        /* ================= SUB-CATEGORY FILTER ================= */
         .sub-cat-filter {
             display: flex;
             flex-wrap: wrap;
@@ -807,10 +625,7 @@
             color: #fff;
             transform: rotate(90deg);
         }
-        .detail-content .detail-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
+        .detail-content .detail-icon { font-size: 48px; margin-bottom: 10px; }
         .detail-content h2 {
             color: var(--primary-blue);
             font-size: 22px;
@@ -832,9 +647,7 @@
             margin: 4px 0;
             font-size: 13px;
         }
-        .detail-content .detail-grid p strong {
-            color: var(--primary-blue);
-        }
+        .detail-content .detail-grid p strong { color: var(--primary-blue); }
         .detail-content .detail-desc {
             background: var(--highlight-bg);
             border-left: 4px solid var(--secondary-blue);
@@ -893,6 +706,87 @@
         .toast.error { background: #dc3545; }
         .toast.info { background: #1976d2; }
 
+        /* ================= PAGE DATA DISPLAY ================= */
+        .page-data-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            margin-top: 16px;
+        }
+        .page-data-container .data-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .page-data-container .data-item:last-child { border-bottom: none; }
+        .page-data-container .data-item .item-content {
+            flex: 1;
+            min-width: 150px;
+        }
+        .page-data-container .data-item .item-content .title {
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 14px;
+        }
+        .page-data-container .data-item .item-content .desc {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+        .page-data-container .data-item .item-actions {
+            display: flex;
+            gap: 6px;
+        }
+        .page-data-container .data-item .item-actions button {
+            padding: 4px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .page-data-container .data-item .item-actions .edit-btn {
+            background: #ffc107;
+            color: #333;
+        }
+        .page-data-container .data-item .item-actions .edit-btn:hover {
+            background: #e0a800;
+        }
+        .page-data-container .data-item .item-actions .delete-btn {
+            background: var(--warning-red);
+            color: #fff;
+        }
+        .page-data-container .data-item .item-actions .delete-btn:hover {
+            background: #a71d2a;
+        }
+        .page-data-container .data-item .item-actions .toggle-btn {
+            background: var(--secondary-blue);
+            color: #fff;
+        }
+        .page-data-container .data-item .item-actions .toggle-btn:hover {
+            background: var(--primary-blue);
+        }
+        .page-data-container .data-item .visibility-badge {
+            font-size: 10px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .page-data-container .data-item .visibility-badge.public {
+            background: var(--public-badge);
+            color: #fff;
+        }
+        .page-data-container .data-item .visibility-badge.private {
+            background: var(--private-badge);
+            color: #fff;
+        }
+
         /* ================= ADMIN PANEL ================= */
         .admin-panel-overlay {
             display: none;
@@ -935,9 +829,7 @@
             color: var(--primary-blue);
             margin-bottom: 4px;
         }
-        .admin-panel-overlay .admin-login-box .login-logo span {
-            color: var(--gold);
-        }
+        .admin-panel-overlay .admin-login-box .login-logo span { color: var(--gold); }
         .admin-panel-overlay .admin-login-box .login-subtitle {
             font-size: 14px;
             color: var(--text-color);
@@ -1037,9 +929,7 @@
             font-weight: 700;
             color: #fff;
         }
-        .admin-panel-overlay .admin-sidebar .admin-logo h1 span {
-            color: var(--gold);
-        }
+        .admin-panel-overlay .admin-sidebar .admin-logo h1 span { color: var(--gold); }
         .admin-panel-overlay .admin-sidebar .admin-logo .badge {
             background: var(--success-green);
             font-size: 9px;
@@ -1078,9 +968,7 @@
             list-style: none;
             padding: 0 10px;
         }
-        .admin-panel-overlay .admin-sidebar .admin-menu li {
-            margin-bottom: 2px;
-        }
+        .admin-panel-overlay .admin-sidebar .admin-menu li { margin-bottom: 2px; }
         .admin-panel-overlay .admin-sidebar .admin-menu li a {
             display: flex;
             align-items: center;
@@ -1143,9 +1031,7 @@
             background: rgba(255, 255, 255, 0.08);
             color: #fff;
         }
-        .admin-panel-overlay .admin-sidebar .admin-footer-menu a i {
-            width: 18px;
-        }
+        .admin-panel-overlay .admin-sidebar .admin-footer-menu a i { width: 18px; }
         .admin-panel-overlay .admin-content {
             flex: 1;
             padding: 24px 30px;
@@ -1168,9 +1054,7 @@
             font-weight: 700;
             color: var(--text-color);
         }
-        .admin-panel-overlay .admin-content .admin-top-header h2 span {
-            color: var(--primary-blue);
-        }
+        .admin-panel-overlay .admin-content .admin-top-header h2 span { color: var(--primary-blue); }
         .admin-panel-overlay .admin-content .admin-top-header .admin-actions {
             display: flex;
             gap: 8px;
@@ -1207,13 +1091,6 @@
             background: var(--gold);
             color: #0a0e1a;
         }
-        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-refresh-admin {
-            background: var(--success-green);
-            color: #fff;
-        }
-        .admin-panel-overlay .admin-content .admin-top-header .admin-actions .btn-refresh-admin:hover {
-            background: #15803d;
-        }
         .admin-panel-overlay .admin-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -1229,9 +1106,7 @@
             text-align: center;
             transition: 0.3s;
         }
-        .admin-panel-overlay .admin-stats .stat-item .stat-icon {
-            font-size: 22px;
-        }
+        .admin-panel-overlay .admin-stats .stat-item .stat-icon { font-size: 22px; }
         .admin-panel-overlay .admin-stats .stat-item .stat-label {
             font-size: 11px;
             color: var(--text-light);
@@ -1281,9 +1156,7 @@
             display: none;
             margin-top: 16px;
         }
-        .admin-panel-overlay .admin-section.active {
-            display: block;
-        }
+        .admin-panel-overlay .admin-section.active { display: block; }
         .admin-panel-overlay .admin-section .admin-card {
             background: var(--card-bg);
             border-radius: 10px;
@@ -1341,80 +1214,6 @@
         .admin-panel-overlay .admin-section .admin-card .card-header .btn-export-page:hover {
             background: #138496;
         }
-        .admin-panel-overlay .admin-section .admin-card .table-wrap {
-            overflow-x: auto;
-        }
-        .admin-panel-overlay .admin-section .admin-card table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-        .admin-panel-overlay .admin-section .admin-card table th {
-            text-align: left;
-            padding: 8px 10px;
-            background: var(--bg-color);
-            color: var(--text-light);
-            font-weight: 600;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid var(--border-color);
-        }
-        .admin-panel-overlay .admin-section .admin-card table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-color);
-        }
-        .admin-panel-overlay .admin-section .admin-card table tr:hover td {
-            background: var(--card-hover);
-        }
-        .admin-panel-overlay .admin-section .admin-card table .actions {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
-        .admin-panel-overlay .admin-section .admin-card table .actions button {
-            padding: 3px 8px;
-            border: none;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .admin-panel-overlay .admin-section .admin-card table .actions .btn-edit {
-            background: #ffc107;
-            color: #333;
-        }
-        .admin-panel-overlay .admin-section .admin-card table .actions .btn-edit:hover {
-            background: #e0a800;
-        }
-        .admin-panel-overlay .admin-section .admin-card table .actions .btn-delete {
-            background: var(--warning-red);
-            color: #fff;
-        }
-        .admin-panel-overlay .admin-section .admin-card table .actions .btn-delete:hover {
-            background: #a71d2a;
-        }
-        .admin-panel-overlay .admin-section .admin-card table .actions .btn-view {
-            background: #17a2b8;
-            color: #fff;
-        }
-        .admin-panel-overlay .admin-section .admin-card table .actions .btn-view:hover {
-            background: #138496;
-        }
-        .admin-panel-overlay .empty-state {
-            text-align: center;
-            padding: 24px;
-            color: var(--text-light);
-            font-size: 13px;
-        }
-        .admin-panel-overlay .empty-state i {
-            font-size: 32px;
-            opacity: 0.2;
-            display: block;
-            margin-bottom: 8px;
-        }
         .admin-panel-overlay .admin-modal-overlay {
             display: none;
             position: fixed;
@@ -1429,9 +1228,7 @@
             justify-content: center;
             padding: 20px;
         }
-        .admin-panel-overlay .admin-modal-overlay.active {
-            display: flex;
-        }
+        .admin-panel-overlay .admin-modal-overlay.active { display: flex; }
         .admin-panel-overlay .admin-modal {
             background: var(--card-bg);
             border-radius: 12px;
@@ -1470,12 +1267,8 @@
             border: none;
             color: var(--text-color);
         }
-        .admin-panel-overlay .admin-modal .modal-header .close-modal:hover {
-            opacity: 1;
-        }
-        .admin-panel-overlay .admin-modal .form-group {
-            margin-bottom: 12px;
-        }
+        .admin-panel-overlay .admin-modal .modal-header .close-modal:hover { opacity: 1; }
+        .admin-panel-overlay .admin-modal .form-group { margin-bottom: 12px; }
         .admin-panel-overlay .admin-modal .form-group label {
             display: block;
             font-size: 12px;
@@ -1518,9 +1311,7 @@
         }
         @media (max-width: 600px) {
             .admin-panel-overlay .admin-modal .form-row,
-            .admin-panel-overlay .admin-modal .form-row-3 {
-                grid-template-columns: 1fr;
-            }
+            .admin-panel-overlay .admin-modal .form-row-3 { grid-template-columns: 1fr; }
         }
         .admin-panel-overlay .admin-modal .btn-submit {
             padding: 8px 20px;
@@ -1534,9 +1325,7 @@
             transition: 0.3s;
             min-height: 36px;
         }
-        .admin-panel-overlay .admin-modal .btn-submit:hover {
-            background: #15803d;
-        }
+        .admin-panel-overlay .admin-modal .btn-submit:hover { background: #15803d; }
         .admin-panel-overlay .admin-modal .btn-cancel {
             padding: 8px 20px;
             background: #6c757d;
@@ -1550,59 +1339,29 @@
             min-height: 36px;
             margin-left: 8px;
         }
-        .admin-panel-overlay .admin-modal .btn-cancel:hover {
-            background: #5a6268;
-        }
-        .admin-panel-overlay .category-badge {
+        .admin-panel-overlay .admin-modal .btn-cancel:hover { background: #5a6268; }
+
+        .visibility-badge {
             display: inline-block;
             padding: 1px 10px;
             border-radius: 12px;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 600;
         }
-        .admin-panel-overlay .category-badge.study {
-            background: #1976d2;
+        .visibility-badge.public {
+            background: var(--public-badge);
             color: #fff;
         }
-        .admin-panel-overlay .category-badge.career {
-            background: #16a34a;
+        .visibility-badge.private {
+            background: var(--private-badge);
             color: #fff;
         }
-        .admin-panel-overlay .category-badge.books {
-            background: #ffc107;
-            color: #333;
-        }
-        .admin-panel-overlay .category-badge.rajasthan {
-            background: #dc3545;
-            color: #fff;
-        }
-        .admin-panel-overlay .category-badge.quiz {
-            background: #17a2b8;
-            color: #fff;
-        }
-        .admin-panel-overlay .category-badge.more {
-            background: #6c757d;
-            color: #fff;
-        }
-        .admin-panel-overlay .category-badge.government {
-            background: #123c9b;
-            color: #fff;
-        }
-        .admin-panel-overlay .category-badge.general {
-            background: #28a745;
-            color: #fff;
-        }
-        .admin-panel-overlay .category-badge.blog {
-            background: #6C63FF;
-            color: #fff;
-        }
+
         .admin-panel-overlay .admin-settings .setting-group {
             padding: 14px 0;
             border-bottom: 1px solid var(--border-color);
         }
-        .admin-panel-overlay .admin-settings .setting-group:last-child {
-            border-bottom: none;
-        }
+        .admin-panel-overlay .admin-settings .setting-group:last-child { border-bottom: none; }
         .admin-panel-overlay .admin-settings .setting-group h5 {
             font-size: 13px;
             font-weight: 600;
@@ -1634,13 +1393,6 @@
         .admin-panel-overlay .admin-settings .setting-group .btn-setting.success:hover {
             background: #15803d;
         }
-        .admin-panel-overlay .admin-settings .setting-group .btn-setting.warning {
-            background: #ffc107;
-            color: #333;
-        }
-        .admin-panel-overlay .admin-settings .setting-group .btn-setting.warning:hover {
-            background: #e0a800;
-        }
         .admin-panel-overlay .admin-settings .setting-group .btn-setting.danger {
             background: var(--warning-red);
             color: #fff;
@@ -1659,49 +1411,7 @@
             width: 200px;
             max-width: 100%;
         }
-        .admin-panel-overlay .admin-notification-form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .admin-panel-overlay .admin-notification-form input,
-        .admin-panel-overlay .admin-notification-form textarea,
-        .admin-panel-overlay .admin-notification-form select {
-            padding: 8px 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 13px;
-            background: var(--bg-color);
-            color: var(--text-color);
-        }
-        .admin-panel-overlay .admin-notification-form input {
-            flex: 1;
-            min-width: 120px;
-        }
-        .admin-panel-overlay .admin-notification-form textarea {
-            flex: 2;
-            min-width: 150px;
-            min-height: 50px;
-        }
-        .admin-panel-overlay .admin-notification-form select {
-            flex: 0 0 120px;
-        }
-        .admin-panel-overlay .admin-notification-form button {
-            padding: 8px 16px;
-            background: var(--success-green);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            transition: 0.3s;
-            min-height: 36px;
-        }
-        .admin-panel-overlay .admin-notification-form button:hover {
-            background: #15803d;
-        }
+
         @media (max-width: 768px) {
             .admin-panel-overlay .admin-sidebar {
                 position: fixed;
@@ -1712,41 +1422,25 @@
                 z-index: 999;
                 width: 280px;
             }
-            .admin-panel-overlay .admin-sidebar.open {
-                transform: translateX(0);
-            }
+            .admin-panel-overlay .admin-sidebar.open { transform: translateX(0); }
             .admin-panel-overlay .admin-content {
                 padding: 16px;
                 margin-left: 0;
                 max-height: 100vh;
             }
-            .admin-panel-overlay .admin-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            .admin-panel-overlay .admin-modal {
-                padding: 16px;
-                margin: 10px;
-            }
+            .admin-panel-overlay .admin-stats { grid-template-columns: 1fr 1fr; }
+            .admin-panel-overlay .admin-modal { padding: 16px; margin: 10px; }
             .admin-panel-overlay .admin-modal .form-row,
-            .admin-panel-overlay .admin-modal .form-row-3 {
-                grid-template-columns: 1fr;
-            }
+            .admin-panel-overlay .admin-modal .form-row-3 { grid-template-columns: 1fr; }
             .admin-panel-overlay .admin-content .admin-top-header .admin-actions button {
                 font-size: 11px;
                 padding: 4px 10px;
             }
-            .admin-menu-toggle {
-                display: flex !important;
-            }
-            .admin-panel-overlay .admin-login-box {
-                padding: 30px 20px;
-                margin: 10px;
-            }
+            .admin-menu-toggle { display: flex !important; }
+            .admin-panel-overlay .admin-login-box { padding: 30px 20px; margin: 10px; }
         }
         @media (max-width: 480px) {
-            .admin-panel-overlay .admin-stats {
-                grid-template-columns: 1fr;
-            }
+            .admin-panel-overlay .admin-stats { grid-template-columns: 1fr; }
         }
         .admin-menu-toggle {
             display: none;
@@ -1768,19 +1462,19 @@
         <div class="header-controls">
             <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
 
-            <!-- JOBS DROPDOWN (New) -->
+            <!-- JOBS DROPDOWN -->
             <div class="dropdown-wrapper" id="govtDropdown">
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('govt')">💼 Jobs <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="govtDropdownContent">
                     <div class="dropdown-label">📂 Select Category</div>
                     <button onclick="showSection('home'); selectCategory('central'); closeDropdownMobile('govt');">
-                        🏛️ Central Govt. <span style="background:var(--central-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;">54 Jobs</span>
+                        🏛️ Central Govt. <span style="background:var(--central-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="centralCount">0</span>
                     </button>
                     <button onclick="showSection('home'); selectCategory('state'); closeDropdownMobile('govt');">
-                        🏜️ Rajasthan Govt. <span style="background:var(--state-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;">43 Jobs</span>
+                        🏜️ Rajasthan Govt. <span style="background:var(--state-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="stateCount">0</span>
                     </button>
                     <button onclick="showSection('home'); selectCategory('private'); closeDropdownMobile('govt');">
-                        💼 Private <span style="background:var(--private-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;">55 Jobs</span>
+                        💼 Private <span style="background:var(--private-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="privateCount">0</span>
                     </button>
                 </div>
             </div>
@@ -1790,22 +1484,22 @@
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('career')">🎯 Career <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="careerDropdownContent">
                     <div class="dropdown-label">🎯 Career Options</div>
-                    <button onclick="showSection('career'); goToCareerCategory('all'); closeDropdownMobile('career');"><i class="fas fa-th-list dropdown-item-icon"></i> All Careers</button>
-                    <button onclick="showSection('career'); goToCareerCategory('government'); closeDropdownMobile('career');"><i class="fas fa-landmark dropdown-item-icon"></i> Government Jobs</button>
-                    <button onclick="showSection('career'); goToCareerCategory('banking'); closeDropdownMobile('career');"><i class="fas fa-university dropdown-item-icon"></i> Banking</button>
-                    <button onclick="showSection('career'); goToCareerCategory('ssc'); closeDropdownMobile('career');"><i class="fas fa-file-alt dropdown-item-icon"></i> SSC</button>
-                    <button onclick="showSection('career'); goToCareerCategory('railway'); closeDropdownMobile('career');"><i class="fas fa-train dropdown-item-icon"></i> Railway</button>
-                    <button onclick="showSection('career'); goToCareerCategory('defence'); closeDropdownMobile('career');"><i class="fas fa-shield-alt dropdown-item-icon"></i> Defence</button>
-                    <button onclick="showSection('career'); goToCareerCategory('police'); closeDropdownMobile('career');"><i class="fas fa-user-shield dropdown-item-icon"></i> Police</button>
-                    <button onclick="showSection('career'); goToCareerCategory('teaching'); closeDropdownMobile('career');"><i class="fas fa-chalkboard-teacher dropdown-item-icon"></i> Teaching</button>
-                    <button onclick="showSection('career'); goToCareerCategory('engineering'); closeDropdownMobile('career');"><i class="fas fa-cogs dropdown-item-icon"></i> Engineering</button>
-                    <button onclick="showSection('career'); goToCareerCategory('medical'); closeDropdownMobile('career');"><i class="fas fa-heartbeat dropdown-item-icon"></i> Medical</button>
-                    <button onclick="showSection('career'); goToCareerCategory('management'); closeDropdownMobile('career');"><i class="fas fa-chart-pie dropdown-item-icon"></i> Management</button>
-                    <button onclick="showSection('career'); goToCareerCategory('law'); closeDropdownMobile('career');"><i class="fas fa-gavel dropdown-item-icon"></i> Law</button>
-                    <button onclick="showSection('career'); goToCareerCategory('it'); closeDropdownMobile('career');"><i class="fas fa-code dropdown-item-icon"></i> IT</button>
-                    <button onclick="showSection('career'); goToCareerCategory('upsc'); closeDropdownMobile('career');"><i class="fas fa-flag dropdown-item-icon"></i> UPSC</button>
-                    <button onclick="showSection('career'); goToCareerCategory('state'); closeDropdownMobile('career');"><i class="fas fa-building dropdown-item-icon"></i> State Govt</button>
-                    <button onclick="showSection('career'); goToCareerCategory('private'); closeDropdownMobile('career');"><i class="fas fa-briefcase dropdown-item-icon"></i> Private Jobs</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-th-list dropdown-item-icon"></i> All Careers</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-landmark dropdown-item-icon"></i> Government Jobs</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-university dropdown-item-icon"></i> Banking</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-file-alt dropdown-item-icon"></i> SSC</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-train dropdown-item-icon"></i> Railway</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-shield-alt dropdown-item-icon"></i> Defence</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-user-shield dropdown-item-icon"></i> Police</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-chalkboard-teacher dropdown-item-icon"></i> Teaching</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-cogs dropdown-item-icon"></i> Engineering</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-heartbeat dropdown-item-icon"></i> Medical</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-chart-pie dropdown-item-icon"></i> Management</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-gavel dropdown-item-icon"></i> Law</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-code dropdown-item-icon"></i> IT</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-flag dropdown-item-icon"></i> UPSC</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-building dropdown-item-icon"></i> State Govt</button>
+                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-briefcase dropdown-item-icon"></i> Private Jobs</button>
                 </div>
             </div>
 
@@ -1877,12 +1571,12 @@
         <section class="section active" id="home">
             <div class="home-original">
                 <header>
-                    <h1>🚀 DREAM JOSH</h1>
-                    <p>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"</p>
-                    <small>Motivation • Study • Govt. Jobs • Career Guide</small>
+                    <h1 id="homeTitle">🚀 DREAM JOSH</h1>
+                    <p id="homeSubtitle">"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"</p>
+                    <small id="homeTagline">Motivation • Study • Govt. Jobs • Career Guide</small>
                 </header>
-                <div class="ticker latest"><span>🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन</span></div>
-                <div class="ticker update"><span>✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी</span></div>
+                <div class="ticker latest"><span id="tickerText1">🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन</span></div>
+                <div class="ticker update"><span id="tickerText2">✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी</span></div>
                 <div class="container">
                     <div class="home-layout">
                         <div class="left-content">
@@ -1903,7 +1597,7 @@
                                 </div>
                             </div>
 
-                            <!-- ================= NEW JOBS SECTION (Replaces old) ================= -->
+                            <!-- JOBS SECTION -->
                             <div class="job-grid-wrapper" id="jobsSectionWrapper">
                                 <div class="jobs-header">
                                     <h3>💼 <span>Jobs</span></h3>
@@ -1912,12 +1606,9 @@
                                         <span style="font-size:12px;color:var(--text-light);" id="selectedCategoryLabel">🏛️ Central Govt.</span>
                                     </div>
                                 </div>
-
-                                <!-- Sub-Category Filter -->
                                 <div class="sub-cat-filter" id="subCategoryFilter">
                                     <button class="sub-btn active" data-sub="all" onclick="filterSubCategory('all')">📌 All</button>
                                 </div>
-
                                 <div class="job-info-box" id="jobInfoBox">
                                     <div class="job-count" id="jobCountDisplay">🇮🇳 Central Govt. Jobs: <span id="jobCount">0</span></div>
                                     <div class="job-detail" id="jobDetailDisplay">UPSC • SSC • Railway • Banking • Defence • Police • Post • Teaching • Medical • PSU • Technical • Court</div>
@@ -1960,12 +1651,55 @@
             </div>
         </section>
 
-        <!-- ================= OTHER SECTIONS (Placeholders) ================= -->
-        <section class="section" id="study"><div class="section-header"><h2>📚 <span>Study Notes</span></h2></div><p style="color:var(--text-light);">Study content will appear here.</p></section>
-        <section class="section" id="career"><div class="section-header"><h2>🎯 <span>Career Guide</span></h2></div><p style="color:var(--text-light);">Career guidance content.</p></section>
-        <section class="section" id="books"><div class="section-header"><h2>📖 <span>Books</span></h2></div><p style="color:var(--text-light);">Book recommendations.</p></section>
-        <section class="section" id="more"><div class="section-header"><h2>⚙️ <span>More Features</span></h2></div><p style="color:var(--text-light);">More features coming soon.</p></section>
-        <section class="section" id="blog"><div class="section-header"><h2>📝 <span>Blog</span></h2></div><p style="color:var(--text-light);">Blog posts will appear here.</p></section>
+        <!-- ================= SECTION: STUDY ================= -->
+        <section class="section" id="study">
+            <div class="section-header"><h2>📚 <span>Study Notes</span></h2></div>
+            <div class="page-data-container" id="studyContainer">
+                <div id="studyContent">
+                    <p style="color:var(--text-light);">Study content will appear here.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: CAREER ================= -->
+        <section class="section" id="career">
+            <div class="section-header"><h2>🎯 <span>Career Guide</span></h2></div>
+            <div class="page-data-container" id="careerContainer">
+                <div id="careerContent">
+                    <p style="color:var(--text-light);">Career guidance content.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: BOOKS ================= -->
+        <section class="section" id="books">
+            <div class="section-header"><h2>📖 <span>Books</span></h2></div>
+            <div class="page-data-container" id="booksContainer">
+                <div id="booksContent">
+                    <p style="color:var(--text-light);">Book recommendations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: MORE ================= -->
+        <section class="section" id="more">
+            <div class="section-header"><h2>⚙️ <span>More Features</span></h2></div>
+            <div class="page-data-container" id="moreContainer">
+                <div id="moreContent">
+                    <p style="color:var(--text-light);">More features coming soon.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: BLOG ================= -->
+        <section class="section" id="blog">
+            <div class="section-header"><h2>📝 <span>Blog</span></h2></div>
+            <div class="page-data-container" id="blogContainer">
+                <div id="blogContent">
+                    <p style="color:var(--text-light);">Blog posts will appear here.</p>
+                </div>
+            </div>
+        </section>
     </div>
 
     <!-- ================= FOOTER ================= -->
@@ -1995,26 +1729,80 @@
 
     <script>
         // ============================================================
-        // COMPLETE JOBS DATA - 150+ JOBS WITH FULL DETAILS
+        // COMPLETE DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_jobs_all_data_v3';
+        const STORAGE_KEY = 'dreamjosh_all_data_v4';
+
+        // Default Page Data
+        const DEFAULT_DATA = {
+            home: {
+                title: '🚀 DREAM JOSH',
+                subtitle: '"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"',
+                tagline: 'Motivation • Study • Govt. Jobs • Career Guide',
+                ticker1: '🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन',
+                ticker2: '✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी',
+                heading: '🚀 Dream Josh में आपका स्वागत है',
+                aboutTitle: '🌟 Dream Josh के बारे में',
+                aboutText: '<b>Dream Josh</b> एक educational और career guidance platform है। यहाँ आपको <b>Central Govt., Rajasthan Govt. और Private</b> सेक्टर की <b>150+ नौकरियों</b> की पूरी जानकारी मिलेगी।',
+                featuresTitle: '📚 Dream Josh पर क्या मिलेगा?',
+                features: ['📖 Study Notes और अध्ययन सामग्री', '🏛️ Govt. Jobs से संबंधित जानकारी', '🎯 Career Guide और Career Options', '📋 हर नौकरी की पूरी डिटेल'],
+                highlight: '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>'
+            },
+            study: {
+                items: [
+                    { id: 's1', title: '📝 Study Notes - Subject Wise', description: 'Complete study notes for all competitive exams', visibility: 'public' },
+                    { id: 's2', title: '📄 Practice Sets', description: 'Practice sets for UPSC, SSC, Banking, Railway', visibility: 'public' },
+                    { id: 's3', title: '📑 Previous Year Papers', description: 'Previous year papers with solutions', visibility: 'public' }
+                ]
+            },
+            career: {
+                items: [
+                    { id: 'c1', title: '🏛️ Government Jobs', description: 'UPSC, SSC, Banking, Railway, Defence, Police', visibility: 'public' },
+                    { id: 'c2', title: '💼 Private Jobs', description: 'IT, Finance, Marketing, HR, Healthcare', visibility: 'public' },
+                    { id: 'c3', title: '📚 Teaching & Education', description: 'CTET, REET, B.Ed, M.Ed career paths', visibility: 'public' }
+                ]
+            },
+            books: {
+                items: [
+                    { id: 'b1', title: '📚 Competitive Exam Books', description: 'Best books for UPSC, SSC, Banking, Railway', visibility: 'public' },
+                    { id: 'b2', title: '🏜️ Rajasthan GK', description: 'Rajasthan General Knowledge books', visibility: 'public' },
+                    { id: 'b3', title: '🧠 General Knowledge', description: 'GK books for all competitive exams', visibility: 'public' }
+                ]
+            },
+            more: {
+                items: [
+                    { id: 'm1', title: '📄 PDF Tools', description: 'Convert, merge, split PDFs online', visibility: 'public' },
+                    { id: 'm2', title: '🎨 Gallery', description: 'Educational and motivational images', visibility: 'public' },
+                    { id: 'm3', title: '💪 Motivation', description: 'Daily motivational quotes and stories', visibility: 'public' }
+                ]
+            },
+            blog: {
+                items: [
+                    { id: 'bl1', title: '💻 Technology', description: 'Latest tech news and updates', visibility: 'public' },
+                    { id: 'bl2', title: '📊 Business', description: 'Business and finance articles', visibility: 'public' },
+                    { id: 'bl3', title: '❤️ Lifestyle', description: 'Lifestyle and wellness tips', visibility: 'public' }
+                ]
+            }
+        };
+
+        // Jobs Data
+        const DEFAULT_JOBS = [
+            { id: 1, title: 'IAS (Indian Administrative Service)', jobType: 'central', subCat: 'Administrative', department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate (Any Discipline)', age: '21-32 Years', lastDate: '2026-06-01', experience: 'Freshers can apply', description: 'IAS is the premier civil service of India.', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', visibility: 'public' },
+            { id: 2, title: 'IPS (Indian Police Service)', jobType: 'central', subCat: 'Administrative', department: 'UPSC', post: 'IPS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', experience: 'Freshers', description: 'IPS maintains law and order.', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', visibility: 'public' },
+            { id: 3, title: 'RBI Grade B Officer', jobType: 'central', subCat: 'Banking', department: 'RBI', post: 'Grade B Officer', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-10', experience: 'Freshers', description: 'RBI Grade B is the most prestigious banking exam.', website: 'https://rbi.org.in', applyLink: 'https://rbi.org.in/apply', visibility: 'public' },
+            { id: 4, title: 'SBI PO (Probationary Officer)', jobType: 'central', subCat: 'Banking', department: 'SBI', post: 'PO', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-15', experience: 'Freshers', description: 'SBI PO is the top banking job in India.', website: 'https://sbi.co.in', applyLink: 'https://sbi.co.in/apply', visibility: 'public' },
+            { id: 5, title: 'RRB NTPC (Non-Technical)', jobType: 'central', subCat: 'Railway', department: 'RRB', post: 'Various NTPC Posts', eligibility: '12th/Graduate', age: '18-33 Years', lastDate: '2026-05-30', experience: 'Freshers', description: 'RRB NTPC covers posts like Station Master, Goods Guard, Clerk.', website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply', visibility: 'public' },
+            { id: 6, title: 'RAS (Rajasthan Administrative Service)', jobType: 'state', subCat: 'Administrative', department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-07-20', experience: 'Freshers', description: 'RAS is the state civil service of Rajasthan.', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', visibility: 'public' },
+            { id: 7, title: 'Rajasthan Police Constable', jobType: 'state', subCat: 'Police', department: 'Rajasthan Police', post: 'Constable', eligibility: '10+2', age: '18-28 Years', lastDate: '2026-09-01', experience: 'Freshers', description: 'Rajasthan Police Constable entry-level post.', website: 'https://police.rajasthan.gov.in', applyLink: 'https://police.rajasthan.gov.in/apply', visibility: 'public' },
+            { id: 8, title: 'Software Engineer – Google India', jobType: 'private', subCat: 'IT/Software', department: 'IT/Software', post: 'Software Engineer', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-04-15', experience: '2-5 Years', description: 'Google India hiring SDEs for Bangalore and Hyderabad.', website: 'https://careers.google.com', applyLink: 'https://careers.google.com/apply', visibility: 'public' },
+            { id: 9, title: 'Finance Manager – HSBC India', jobType: 'private', subCat: 'Finance', department: 'Finance/Banking', post: 'Finance Manager', eligibility: 'CA/CFA/MBA', age: '25-40 Years', lastDate: '2026-05-10', experience: '3-7 Years', description: 'HSBC India hiring Finance Managers for corporate banking.', website: 'https://www.hsbc.com/careers', applyLink: 'https://www.hsbc.com/careers/apply', visibility: 'public' },
+            { id: 10, title: 'Marketing Executive – Amazon India', jobType: 'private', subCat: 'Marketing', department: 'Marketing/Sales', post: 'Marketing Executive', eligibility: 'MBA/BBA', age: '22-30 Years', lastDate: '2026-06-01', experience: '1-3 Years', description: 'Amazon India hiring Marketing Executives.', website: 'https://amazon.jobs', applyLink: 'https://amazon.jobs/apply', visibility: 'public' }
+        ];
 
         const CATEGORY_INFO = {
-            central: {
-                label: '🏛️ Central Govt.',
-                icon: '🇮🇳',
-                detail: 'UPSC • SSC • Railway • Banking • Defence • Police • Post • Teaching • Medical • PSU • Technical • Court • Revenue • Customs • Income Tax'
-            },
-            state: {
-                label: '🏜️ Rajasthan Govt.',
-                icon: '🏜️',
-                detail: 'RPSC • RSMSSB • Police • Revenue • Education • Forest • Health • Technical • Judicial • Agriculture • Cooperative • Excise • Jail'
-            },
-            private: {
-                label: '💼 Private',
-                icon: '💼',
-                detail: 'IT • Finance • Marketing • HR • Manufacturing • Healthcare • Education • Hospitality • Logistics • E-commerce • Consulting • Telecom'
-            }
+            central: { label: '🏛️ Central Govt.', icon: '🇮🇳', detail: 'UPSC • SSC • Railway • Banking • Defence • Police • Post • Teaching • Medical • PSU • Technical • Court' },
+            state: { label: '🏜️ Rajasthan Govt.', icon: '🏜️', detail: 'RPSC • RSMSSB • Police • Revenue • Education • Forest • Health • Technical • Judicial • Agriculture' },
+            private: { label: '💼 Private', icon: '💼', detail: 'IT • Finance • Marketing • HR • Manufacturing • Healthcare • Education • Hospitality • Logistics' }
         };
 
         const SUB_CATEGORIES = {
@@ -2023,100 +1811,100 @@
             private: ['All', 'IT/Software', 'Finance', 'Marketing', 'HR', 'Manufacturing', 'Healthcare', 'Education', 'Hospitality', 'Other']
         };
 
-        const DEFAULT_JOBS = [
-            { id: 1, title: 'IAS (Indian Administrative Service)', jobType: 'central', subCat: 'Administrative', department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate (Any Discipline)', age: '21-32 Years', lastDate: '2026-06-01', experience: 'Freshers can apply', description: 'IAS is the premier civil service of India.', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply' },
-            { id: 2, title: 'IPS (Indian Police Service)', jobType: 'central', subCat: 'Administrative', department: 'UPSC', post: 'IPS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', experience: 'Freshers', description: 'IPS maintains law and order.', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply' },
-            { id: 3, title: 'RBI Grade B Officer', jobType: 'central', subCat: 'Banking', department: 'RBI', post: 'Grade B Officer', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-10', experience: 'Freshers', description: 'RBI Grade B is the most prestigious banking exam.', website: 'https://rbi.org.in', applyLink: 'https://rbi.org.in/apply' },
-            { id: 4, title: 'SBI PO (Probationary Officer)', jobType: 'central', subCat: 'Banking', department: 'SBI', post: 'PO', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-15', experience: 'Freshers', description: 'SBI PO is the top banking job in India.', website: 'https://sbi.co.in', applyLink: 'https://sbi.co.in/apply' },
-            { id: 5, title: 'RRB NTPC (Non-Technical)', jobType: 'central', subCat: 'Railway', department: 'RRB', post: 'Various NTPC Posts', eligibility: '12th/Graduate', age: '18-33 Years', lastDate: '2026-05-30', experience: 'Freshers', description: 'RRB NTPC covers posts like Station Master, Goods Guard, Clerk.', website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply' },
-            { id: 6, title: 'NDA (National Defence Academy)', jobType: 'central', subCat: 'Defence', department: 'UPSC', post: 'Cadet', eligibility: '10+2', age: '16.5-19.5 Years', lastDate: '2026-04-10', experience: 'Freshers', description: 'NDA is the premier defence training academy.', website: 'https://nda.nic.in', applyLink: 'https://nda.nic.in/apply' },
-            { id: 7, title: 'CTET (Central Teacher Eligibility Test)', jobType: 'central', subCat: 'Teaching', department: 'CBSE', post: 'Teacher', eligibility: 'Graduate + B.Ed', age: '18-35 Years', lastDate: '2026-04-25', experience: 'Freshers', description: 'CTET is mandatory for teaching in central government schools.', website: 'https://ctet.nic.in', applyLink: 'https://ctet.nic.in/apply' },
-            { id: 8, title: 'AIIMS Doctor (MBBS/MD/MS)', jobType: 'central', subCat: 'Medical', department: 'AIIMS', post: 'Senior/Junior Resident', eligibility: 'MBBS/PG Medical', age: '22-40 Years', lastDate: '2026-05-20', experience: '1-3 Years', description: 'AIIMS recruitment for doctors.', website: 'https://aiims.edu', applyLink: 'https://aiims.edu/apply' },
-            { id: 9, title: 'BHEL Engineer', jobType: 'central', subCat: 'PSU', department: 'BHEL', post: 'Engineer', eligibility: 'B.Tech/BE', age: '21-30 Years', lastDate: '2026-07-20', experience: 'Freshers', description: 'BHEL is India\'s largest power equipment manufacturer.', website: 'https://bhel.com', applyLink: 'https://bhel.com/careers' },
-            { id: 10, title: 'BSF (Border Security Force)', jobType: 'central', subCat: 'Police', department: 'BSF', post: 'Constable/SI', eligibility: '10+2/Graduate', age: '18-25 Years', lastDate: '2026-05-30', experience: 'Freshers', description: 'BSF is India\'s primary border guarding force.', website: 'https://bsf.gov.in', applyLink: 'https://bsf.gov.in/apply' },
-            // Add more as needed (full list from original)
-            { id: 11, title: 'RAS (Rajasthan Administrative Service)', jobType: 'state', subCat: 'Administrative', department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-07-20', experience: 'Freshers', description: 'RAS is the state civil service of Rajasthan.', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply' },
-            { id: 12, title: 'Rajasthan Police Constable', jobType: 'state', subCat: 'Police', department: 'Rajasthan Police', post: 'Constable', eligibility: '10+2', age: '18-28 Years', lastDate: '2026-09-01', experience: 'Freshers', description: 'Rajasthan Police Constable entry-level post.', website: 'https://police.rajasthan.gov.in', applyLink: 'https://police.rajasthan.gov.in/apply' },
-            { id: 13, title: 'Rajasthan Patwari', jobType: 'state', subCat: 'Revenue', department: 'RSMSSB', post: 'Patwari', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-08-15', experience: 'Freshers', description: 'Patwari maintains land records.', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply' },
-            { id: 14, title: 'REET (Rajasthan Teacher)', jobType: 'state', subCat: 'Teaching', department: 'Rajasthan Education Board', post: 'Teacher', eligibility: 'Graduate + B.Ed', age: '18-40 Years', lastDate: '2026-05-15', experience: 'Freshers', description: 'REET eligibility test for teaching in Rajasthan.', website: 'https://reet.rajasthan.gov.in', applyLink: 'https://reet.rajasthan.gov.in/apply' },
-            { id: 15, title: 'Rajasthan Forest Guard', jobType: 'state', subCat: 'Forest', department: 'Rajasthan Forest Dept', post: 'Forest Guard', eligibility: '10+2', age: '18-40 Years', lastDate: '2026-08-20', experience: 'Freshers', description: 'Forest Guards protect forests and wildlife.', website: 'https://forest.rajasthan.gov.in', applyLink: 'https://forest.rajasthan.gov.in/apply' },
-            { id: 16, title: 'Software Engineer – Google India', jobType: 'private', subCat: 'IT/Software', department: 'IT/Software', post: 'Software Engineer', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-04-15', experience: '2-5 Years', description: 'Google India hiring SDEs for Bangalore and Hyderabad.', website: 'https://careers.google.com', applyLink: 'https://careers.google.com/apply' },
-            { id: 17, title: 'Finance Manager – HSBC India', jobType: 'private', subCat: 'Finance', department: 'Finance/Banking', post: 'Finance Manager', eligibility: 'CA/CFA/MBA', age: '25-40 Years', lastDate: '2026-05-10', experience: '3-7 Years', description: 'HSBC India hiring Finance Managers for corporate banking.', website: 'https://www.hsbc.com/careers', applyLink: 'https://www.hsbc.com/careers/apply' },
-            { id: 18, title: 'Marketing Executive – Amazon India', jobType: 'private', subCat: 'Marketing', department: 'Marketing/Sales', post: 'Marketing Executive', eligibility: 'MBA/BBA', age: '22-30 Years', lastDate: '2026-06-01', experience: '1-3 Years', description: 'Amazon India hiring Marketing Executives.', website: 'https://amazon.jobs', applyLink: 'https://amazon.jobs/apply' },
-            { id: 19, title: 'HR Manager – TCS', jobType: 'private', subCat: 'HR', department: 'Human Resources', post: 'HR Manager', eligibility: 'MBA/BBA', age: '25-40 Years', lastDate: '2026-07-20', experience: '3-6 Years', description: 'TCS hiring HR Managers.', website: 'https://www.tcs.com/careers', applyLink: 'https://www.tcs.com/careers/apply' },
-            { id: 20, title: 'Production Engineer – Tata Motors', jobType: 'private', subCat: 'Manufacturing', department: 'Manufacturing', post: 'Production Engineer', eligibility: 'B.Tech Mechanical', age: '22-35 Years', lastDate: '2026-06-15', experience: '2-5 Years', description: 'Tata Motors hiring Production Engineers.', website: 'https://www.tatamotors.com/careers', applyLink: 'https://www.tatamotors.com/careers/apply' }
-        ];
-
+        // ============================================================
+        // DATA MANAGEMENT
+        // ============================================================
+        let appData = {};
         let jobsData = [];
         let currentCategory = 'central';
         let currentSubCategory = 'all';
 
-        // ============================================================
-        // LOAD / SAVE
-        // ============================================================
         function loadData() {
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
                 if (saved) {
                     const parsed = JSON.parse(saved);
-                    if (parsed.jobs) jobsData = parsed.jobs;
+                    appData = parsed.appData || {};
+                    jobsData = (parsed.jobs || []).map(j => ({ ...j, visibility: j.visibility || 'public' }));
                 }
             } catch (e) { console.error('Load error:', e); }
+            
+            // Ensure all pages have data
+            ['home', 'study', 'career', 'books', 'more', 'blog'].forEach(page => {
+                if (!appData[page]) {
+                    appData[page] = JSON.parse(JSON.stringify(DEFAULT_DATA[page]));
+                }
+            });
+            
             if (!jobsData || jobsData.length === 0) {
                 jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
-                saveData();
             }
+            saveData();
         }
 
         function saveData() {
             try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify({ jobs: jobsData }));
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData, jobs: jobsData }));
             } catch (e) { console.error('Save error:', e); }
         }
 
-        // ============================================================
-        // ORIGINAL FUNCTIONS (showSection, toggleDropdownMobile, etc.)
-        // ============================================================
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            const section = document.getElementById(sectionId);
-            if (section) section.classList.add('active');
-            document.querySelectorAll('.app-header .nav-btn[data-section]').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.section === sectionId);
-            });
-            document.querySelectorAll('.app-footer .nav-btn[data-section]').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.section === sectionId);
-            });
-            if (window.innerWidth <= 768) {
-                ['govt', 'career', 'study', 'books', 'more', 'blog'].forEach(name => closeDropdownMobile(name));
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function getPublicJobs() {
+            return jobsData.filter(j => j.visibility !== 'private');
         }
 
-        function toggleDropdownMobile(name) {
-            if (window.innerWidth <= 768) {
-                const allDropdowns = ['govt', 'career', 'study', 'books', 'more', 'blog'];
-                allDropdowns.forEach(d => { if (d !== name) closeDropdownMobile(d); });
-                const content = document.getElementById(`${name}DropdownContent`);
-                if (content) content.classList.toggle('show');
-            }
+        function getPageItems(page) {
+            return appData[page]?.items || [];
         }
 
-        function closeDropdownMobile(name) {
-            const content = document.getElementById(`${name}DropdownContent`);
-            if (content) content.classList.remove('show');
+        function getHomeData() {
+            return appData.home || DEFAULT_DATA.home;
         }
-
-        document.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                if (!e.target.closest('.dropdown-wrapper')) {
-                    ['govt', 'career', 'study', 'books', 'more', 'blog'].forEach(name => closeDropdownMobile(name));
-                }
-            }
-        });
 
         // ============================================================
-        // JOBS SECTION FUNCTIONS
+        // RENDER FUNCTIONS
+        // ============================================================
+        function renderHomePage() {
+            const data = getHomeData();
+            document.getElementById('homeTitle').textContent = data.title || '🚀 DREAM JOSH';
+            document.getElementById('homeSubtitle').textContent = data.subtitle || '"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"';
+            document.getElementById('homeTagline').textContent = data.tagline || 'Motivation • Study • Govt. Jobs • Career Guide';
+            document.getElementById('tickerText1').textContent = data.ticker1 || '🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी';
+            document.getElementById('tickerText2').textContent = data.ticker2 || '✨ सपने बड़े रखें • मेहनत करते रहें';
+            document.getElementById('homeHeading').textContent = data.heading || '🚀 Dream Josh में आपका स्वागत है';
+            document.getElementById('homeAboutTitle').textContent = data.aboutTitle || '🌟 Dream Josh के बारे में';
+            document.getElementById('homeAboutText').innerHTML = data.aboutText || '<b>Dream Josh</b> एक educational platform है।';
+            document.getElementById('homeFeaturesTitle').textContent = data.featuresTitle || '📚 Dream Josh पर क्या मिलेगा?';
+            
+            const list = document.getElementById('homeFeaturesList');
+            list.innerHTML = (data.features || ['📖 Study Notes', '🏛️ Govt. Jobs', '🎯 Career Guide']).map(f => `<li>${f}</li>`).join('');
+            document.getElementById('homeHighlight').innerHTML = data.highlight || '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b>';
+        }
+
+        function renderPageItems(page) {
+            const container = document.getElementById(`${page}Content`);
+            const items = getPageItems(page);
+            if (!items || items.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-light);">No data available. Add from admin panel.</p>`;
+                return;
+            }
+            const publicItems = items.filter(i => i.visibility !== 'private');
+            container.innerHTML = publicItems.map((item, idx) => `
+                <div class="data-item">
+                    <div class="item-content">
+                        <div class="title">${item.title || 'Untitled'}</div>
+                        <div class="desc">${item.description || ''}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAllPages() {
+            renderHomePage();
+            ['study', 'career', 'books', 'more', 'blog'].forEach(page => renderPageItems(page));
+        }
+
+        // ============================================================
+        // JOBS FUNCTIONS
         // ============================================================
         function updateSubCategoryButtons() {
             const container = document.getElementById('subCategoryFilter');
@@ -2135,7 +1923,8 @@
         }
 
         function updateJobsUI() {
-            let filtered = jobsData.filter(j => j.jobType === currentCategory);
+            const publicJobs = getPublicJobs();
+            let filtered = publicJobs.filter(j => j.jobType === currentCategory);
             if (currentSubCategory !== 'all') {
                 const subs = SUB_CATEGORIES[currentCategory] || ['All'];
                 const subDisplay = subs.find(s => s.toLowerCase() === currentSubCategory);
@@ -2144,13 +1933,18 @@
                 }
             }
             const info = CATEGORY_INFO[currentCategory];
-            const totalJobs = jobsData.filter(j => j.jobType === currentCategory).length;
+            const totalJobs = publicJobs.filter(j => j.jobType === currentCategory).length;
+            
+            document.getElementById('centralCount').textContent = publicJobs.filter(j => j.jobType === 'central').length;
+            document.getElementById('stateCount').textContent = publicJobs.filter(j => j.jobType === 'state').length;
+            document.getElementById('privateCount').textContent = publicJobs.filter(j => j.jobType === 'private').length;
+            
             document.getElementById('selectedCategoryLabel').textContent = info.label;
             document.getElementById('jobCount').textContent = filtered.length;
             document.getElementById('totalJobsBadge').textContent = `Total: ${totalJobs}`;
             document.getElementById('jobCountDisplay').innerHTML = info.icon + ' ' + info.label + ' Jobs: <span id="jobCount">' + filtered.length + '</span>';
             document.getElementById('jobDetailDisplay').textContent = info.detail;
-            document.getElementById('totalJobsSidebar').textContent = jobsData.length;
+            document.getElementById('totalJobsSidebar').textContent = publicJobs.length;
             renderJobs(filtered);
         }
 
@@ -2201,7 +1995,7 @@
         }
 
         // ============================================================
-        // DETAIL - FULL JOB INFO
+        // DETAIL OVERLAY
         // ============================================================
         function openDetail(index) {
             const job = jobsData[index];
@@ -2255,6 +2049,47 @@
         }
 
         // ============================================================
+        // NAVIGATION
+        // ============================================================
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            const section = document.getElementById(sectionId);
+            if (section) section.classList.add('active');
+            document.querySelectorAll('.app-header .nav-btn[data-section]').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.section === sectionId);
+            });
+            document.querySelectorAll('.app-footer .nav-btn[data-section]').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.section === sectionId);
+            });
+            if (window.innerWidth <= 768) {
+                ['govt', 'career', 'study', 'books', 'more', 'blog'].forEach(name => closeDropdownMobile(name));
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleDropdownMobile(name) {
+            if (window.innerWidth <= 768) {
+                const allDropdowns = ['govt', 'career', 'study', 'books', 'more', 'blog'];
+                allDropdowns.forEach(d => { if (d !== name) closeDropdownMobile(d); });
+                const content = document.getElementById(`${name}DropdownContent`);
+                if (content) content.classList.toggle('show');
+            }
+        }
+
+        function closeDropdownMobile(name) {
+            const content = document.getElementById(`${name}DropdownContent`);
+            if (content) content.classList.remove('show');
+        }
+
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                if (!e.target.closest('.dropdown-wrapper')) {
+                    ['govt', 'career', 'study', 'books', 'more', 'blog'].forEach(name => closeDropdownMobile(name));
+                }
+            }
+        });
+
+        // ============================================================
         // TOAST
         // ============================================================
         function showToast(msg, type = 'info') {
@@ -2266,7 +2101,7 @@
         }
 
         // ============================================================
-        // ADMIN PANEL (Condensed - keeps full functionality)
+        // ADMIN PANEL - COMPLETE
         // ============================================================
         function openAdminPanel() {
             const overlay = document.getElementById('adminPanelOverlay');
@@ -2290,7 +2125,7 @@
                         <div class="admin-login-box">
                             <div class="login-icon">🔐</div>
                             <div class="login-logo">🚀 <span>Dream</span>Josh</div>
-                            <div class="login-subtitle">Admin – Job Manager</div>
+                            <div class="login-subtitle">Admin – Full Control Panel</div>
                             <input type="password" id="adminPass" placeholder="Enter Password" onkeydown="if(event.key==='Enter') adminLogin()">
                             <button class="btn-login" onclick="adminLogin()"><i class="fas fa-unlock-alt"></i> Login</button>
                             <div class="login-error" id="loginError">❌ Wrong Password</div>
@@ -2308,7 +2143,7 @@
             if (pass === 'admin123') {
                 err.classList.remove('show');
                 document.getElementById('adminPanelOverlay').innerHTML = renderAdminPanel();
-                renderAdminTable();
+                renderAdminTables();
                 showToast('✅ Welcome Admin!', 'success');
             } else {
                 err.classList.add('show');
@@ -2324,9 +2159,17 @@
                         <div class="admin-logo"><h1>🚀 <span>Dream</span>Josh</h1><span class="badge">Admin</span></div>
                         <div class="admin-user"><div class="avatar">A</div><div><div class="name">Admin</div><div class="role">Super Admin</div></div></div>
                         <ul class="admin-menu">
-                            <li class="section-title">Management</li>
+                            <li class="section-title">Dashboard</li>
                             <li><a class="active" data-page="dashboard" onclick="showAdminPage('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
-                            <li><a data-page="jobs" onclick="showAdminPage('jobs')"><i class="fas fa-briefcase"></i> Jobs <span class="count">${jobsData.length}</span></a></li>
+                            <li class="section-title">Content Management</li>
+                            <li><a data-page="home" onclick="showAdminPage('home')"><i class="fas fa-home"></i> Home Page</a></li>
+                            <li><a data-page="study" onclick="showAdminPage('study')"><i class="fas fa-book"></i> Study <span class="count">${getPageItems('study').length}</span></a></li>
+                            <li><a data-page="career" onclick="showAdminPage('career')"><i class="fas fa-briefcase"></i> Career <span class="count">${getPageItems('career').length}</span></a></li>
+                            <li><a data-page="books" onclick="showAdminPage('books')"><i class="fas fa-book-open"></i> Books <span class="count">${getPageItems('books').length}</span></a></li>
+                            <li><a data-page="more" onclick="showAdminPage('more')"><i class="fas fa-plus-circle"></i> More <span class="count">${getPageItems('more').length}</span></a></li>
+                            <li><a data-page="blog" onclick="showAdminPage('blog')"><i class="fas fa-blog"></i> Blog <span class="count">${getPageItems('blog').length}</span></a></li>
+                            <li class="section-title">Jobs</li>
+                            <li><a data-page="jobs" onclick="showAdminPage('jobs')"><i class="fas fa-briefcase"></i> All Jobs <span class="count">${jobsData.length}</span></a></li>
                             <li class="section-title">System</li>
                             <li><a data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
                         </ul>
@@ -2342,22 +2185,45 @@
                         </div>
                         <div id="adminPage-dashboard" class="admin-section active">
                             <div class="admin-stats">
-                                <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">${jobsData.length}</div></div>
+                                <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Total Jobs</div><div class="stat-value" id="statJobs">${jobsData.length}</div></div>
+                                <div class="stat-item"><div class="stat-icon">🌐</div><div class="stat-label">Public Jobs</div><div class="stat-value" id="statPublic">${jobsData.filter(j => j.visibility !== 'private').length}</div></div>
+                                <div class="stat-item"><div class="stat-icon">🔒</div><div class="stat-label">Private Jobs</div><div class="stat-value" id="statPrivate">${jobsData.filter(j => j.visibility === 'private').length}</div></div>
+                                <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value">6</div></div>
                             </div>
                             <div class="admin-quick-actions">
                                 <h3>⚡ Quick Actions</h3>
                                 <div class="actions-grid">
+                                    <button onclick="showAdminPage('home')"><i class="fas fa-home"></i> Edit Home</button>
                                     <button onclick="showAdminPage('jobs'); openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
                                     <button onclick="exportCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
-                                    <button onclick="exportExcel()" style="background:#1e7e34;"><i class="fas fa-file-excel"></i> Excel</button>
+                                    <button onclick="exportAdminData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
                                 </div>
                             </div>
                         </div>
+                        ${['home', 'study', 'career', 'books', 'more', 'blog'].map(page => `
+                            <div id="adminPage-${page}" class="admin-section">
+                                <div class="admin-card">
+                                    <div class="card-header">
+                                        <h4>${page.charAt(0).toUpperCase() + page.slice(1)} Page</h4>
+                                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                                            ${page === 'home' ? `
+                                                <button class="btn-add" onclick="openHomeModal()"><i class="fas fa-edit"></i> Edit Content</button>
+                                            ` : `
+                                                <button class="btn-add" onclick="openPageItemModal('${page}')"><i class="fas fa-plus"></i> Add Item</button>
+                                            `}
+                                        </div>
+                                    </div>
+                                    <div id="adminPageContent-${page}">
+                                        ${page === 'home' ? renderAdminHomeContent() : renderAdminPageItems(page)}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
                         <div id="adminPage-jobs" class="admin-section">
                             <div class="admin-card">
-                                <div class="card-header"><h4>💼 Jobs Manager</h4><div style="display:flex;gap:6px;flex-wrap:wrap;"><button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add</button></div></div>
+                                <div class="card-header"><h4>💼 Jobs Manager</h4><button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button></div>
                                 <div class="table-wrap">
-                                    <table><thead><tr><th>#</th><th>Title</th><th>Type</th><th>Dept</th><th>Post</th><th>Actions</th></tr></thead><tbody id="adminJobsTable"></tbody></table>
+                                    <table><thead><tr><th>#</th><th>Title</th><th>Type</th><th>Visibility</th><th>Dept</th><th>Post</th><th>Actions</th></tr></thead><tbody id="adminJobsTable"></tbody></table>
                                 </div>
                             </div>
                         </div>
@@ -2366,7 +2232,8 @@
                                 <div class="card-header"><h4>⚙️ Settings</h4></div>
                                 <div class="admin-settings">
                                     <div class="setting-group"><h5>🔑 Change Password</h5><input type="password" id="adminNewPass" placeholder="New Password"><input type="password" id="adminConfirmPass" placeholder="Confirm"><button class="btn-setting primary" onclick="changeAdminPassword()">Update</button></div>
-                                    <div class="setting-group"><h5>💾 Backup</h5><button class="btn-setting success" onclick="exportAdminData()"><i class="fas fa-download"></i> Backup</button></div>
+                                    <div class="setting-group"><h5>💾 Backup All Data</h5><button class="btn-setting success" onclick="exportAdminData()"><i class="fas fa-download"></i> Download Backup</button></div>
+                                    <div class="setting-group"><h5>🔄 Reset All Data (Warning!)</h5><button class="btn-setting danger" onclick="resetAllData()"><i class="fas fa-exclamation-triangle"></i> Reset to Default</button></div>
                                 </div>
                             </div>
                         </div>
@@ -2374,43 +2241,67 @@
                 </div>
                 <div class="admin-modal-overlay" id="adminModalOverlay" onclick="if(event.target===this) closeAdminModal()">
                     <div class="admin-modal" id="adminModalContent">
-                        <div class="modal-header"><h3 id="adminModalTitle">Add Job</h3><button class="close-modal" onclick="closeAdminModal()">&times;</button></div>
+                        <div class="modal-header"><h3 id="adminModalTitle">Add Item</h3><button class="close-modal" onclick="closeAdminModal()">&times;</button></div>
                         <div id="adminModalBody"></div>
                     </div>
                 </div>
             `;
         }
 
-        function showAdminPage(page) {
-            document.querySelectorAll('#adminPanelOverlay .admin-menu a').forEach(el => el.classList.remove('active'));
-            const menuItem = document.querySelector(`#adminPanelOverlay .admin-menu a[data-page="${page}"]`);
-            if (menuItem) menuItem.classList.add('active');
-            ['dashboard', 'jobs', 'settings'].forEach(p => {
-                const el = document.getElementById(`adminPage-${p}`);
-                if (el) el.classList.toggle('active', p === page);
-            });
-            const titles = { dashboard: '📊 <span>Dashboard</span>', jobs: '💼 <span>Jobs Manager</span>', settings: '⚙️ <span>Settings</span>' };
-            document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
-            if (page === 'dashboard') { document.getElementById('statJobs').textContent = jobsData.length; }
-            if (page === 'jobs') renderAdminTable();
-            if (window.innerWidth <= 768) document.getElementById('adminSidebar').classList.remove('open');
+        function renderAdminHomeContent() {
+            const data = getHomeData();
+            return `
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;">
+                    <div><strong>Title:</strong> ${data.title || '-'}</div>
+                    <div><strong>Subtitle:</strong> ${data.subtitle || '-'}</div>
+                    <div><strong>Tagline:</strong> ${data.tagline || '-'}</div>
+                    <div><strong>Heading:</strong> ${data.heading || '-'}</div>
+                    <div style="grid-column:1/-1;"><strong>About:</strong> ${data.aboutText || '-'}</div>
+                    <div style="grid-column:1/-1;"><strong>Features:</strong> ${(data.features || []).join(', ')}</div>
+                </div>
+            `;
         }
 
-        function toggleAdminSidebar() {
-            document.getElementById('adminSidebar').classList.toggle('open');
+        function renderAdminPageItems(page) {
+            const items = getPageItems(page);
+            if (items.length === 0) {
+                return `<div class="empty-state"><i class="fas fa-inbox"></i> No items yet</div>`;
+            }
+            return `
+                <div class="page-data-container">
+                    ${items.map((item, idx) => `
+                        <div class="data-item">
+                            <div class="item-content">
+                                <div class="title">${item.title || 'Untitled'}</div>
+                                <div class="desc">${item.description || ''}</div>
+                                <span class="visibility-badge ${item.visibility === 'private' ? 'private' : 'public'}">${item.visibility === 'private' ? '🔒 Private' : '🌐 Public'}</span>
+                            </div>
+                            <div class="item-actions">
+                                <button class="edit-btn" onclick="openPageItemModal('${page}', ${idx})"><i class="fas fa-edit"></i></button>
+                                <button class="delete-btn" onclick="deletePageItem('${page}', ${idx})"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderAdminTables() {
+            renderAdminTable();
         }
 
         function renderAdminTable() {
             const tbody = document.getElementById('adminJobsTable');
             if (!tbody) return;
             if (jobsData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><i class="fas fa-inbox"></i> No jobs</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="empty-state"><i class="fas fa-inbox"></i> No jobs</td></tr>`;
                 return;
             }
             const typeColors = { central: '#1976d2', state: '#16a34a', private: '#6c5ce7' };
             tbody.innerHTML = jobsData.map((j, i) => `
                 <tr><td>${i+1}</td><td><strong>${j.title}</strong></td>
                 <td><span style="background:${typeColors[j.jobType]||'#636e72'};color:#fff;padding:1px 8px;border-radius:10px;font-size:8px;">${j.jobType}</span></td>
+                <td><span class="visibility-badge ${j.visibility === 'private' ? 'private' : 'public'}">${j.visibility === 'private' ? '🔒 Private' : '🌐 Public'}</span></td>
                 <td>${j.department||'-'}</td><td>${j.post||'-'}</td>
                 <td class="actions">
                     <button class="btn-edit" onclick="editJob(${i})"><i class="fas fa-edit"></i></button>
@@ -2420,6 +2311,162 @@
             `).join('');
         }
 
+        function showAdminPage(page) {
+            document.querySelectorAll('#adminPanelOverlay .admin-menu a').forEach(el => el.classList.remove('active'));
+            const menuItem = document.querySelector(`#adminPanelOverlay .admin-menu a[data-page="${page}"]`);
+            if (menuItem) menuItem.classList.add('active');
+            
+            ['dashboard', 'home', 'study', 'career', 'books', 'more', 'blog', 'jobs', 'settings'].forEach(p => {
+                const el = document.getElementById(`adminPage-${p}`);
+                if (el) el.classList.toggle('active', p === page);
+            });
+            
+            const titles = {
+                dashboard: '📊 <span>Dashboard</span>',
+                home: '🏠 <span>Home Page</span>',
+                study: '📚 <span>Study Notes</span>',
+                career: '🎯 <span>Career Guide</span>',
+                books: '📖 <span>Books</span>',
+                more: '⚙️ <span>More Features</span>',
+                blog: '📝 <span>Blog</span>',
+                jobs: '💼 <span>Jobs Manager</span>',
+                settings: '⚙️ <span>Settings</span>'
+            };
+            document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
+            
+            if (page === 'dashboard') {
+                document.getElementById('statJobs').textContent = jobsData.length;
+                document.getElementById('statPublic').textContent = jobsData.filter(j => j.visibility !== 'private').length;
+                document.getElementById('statPrivate').textContent = jobsData.filter(j => j.visibility === 'private').length;
+            }
+            if (page === 'jobs') renderAdminTable();
+            if (['study', 'career', 'books', 'more', 'blog'].includes(page)) {
+                const container = document.getElementById(`adminPageContent-${page}`);
+                if (container) container.innerHTML = renderAdminPageItems(page);
+            }
+            if (page === 'home') {
+                const container = document.getElementById('adminPageContent-home');
+                if (container) container.innerHTML = renderAdminHomeContent();
+            }
+            if (window.innerWidth <= 768) document.getElementById('adminSidebar').classList.remove('open');
+        }
+
+        function toggleAdminSidebar() {
+            document.getElementById('adminSidebar').classList.toggle('open');
+        }
+
+        // ============================================================
+        // PAGE ITEM MODALS
+        // ============================================================
+        function openHomeModal() {
+            const data = getHomeData();
+            document.getElementById('adminModalTitle').textContent = '✏️ Edit Home Page';
+            document.getElementById('adminModalBody').innerHTML = `
+                <div class="form-group"><label>Title *</label><input type="text" id="hmTitle" value="${data.title || ''}"></div>
+                <div class="form-group"><label>Subtitle</label><input type="text" id="hmSubtitle" value="${data.subtitle || ''}"></div>
+                <div class="form-group"><label>Tagline</label><input type="text" id="hmTagline" value="${data.tagline || ''}"></div>
+                <div class="form-group"><label>Ticker 1</label><input type="text" id="hmTicker1" value="${data.ticker1 || ''}"></div>
+                <div class="form-group"><label>Ticker 2</label><input type="text" id="hmTicker2" value="${data.ticker2 || ''}"></div>
+                <div class="form-group"><label>Heading</label><input type="text" id="hmHeading" value="${data.heading || ''}"></div>
+                <div class="form-group"><label>About Title</label><input type="text" id="hmAboutTitle" value="${data.aboutTitle || ''}"></div>
+                <div class="form-group"><label>About Text (HTML allowed)</label><textarea id="hmAboutText" rows="3">${data.aboutText || ''}</textarea></div>
+                <div class="form-group"><label>Features Title</label><input type="text" id="hmFeaturesTitle" value="${data.featuresTitle || ''}"></div>
+                <div class="form-group"><label>Features (comma separated)</label><input type="text" id="hmFeatures" value="${(data.features || []).join(', ')}"></div>
+                <div class="form-group"><label>Highlight (HTML allowed)</label><textarea id="hmHighlight" rows="2">${data.highlight || ''}</textarea></div>
+                <button class="btn-submit" onclick="saveHomeData()"><i class="fas fa-save"></i> Save</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        function saveHomeData() {
+            const data = {
+                title: document.getElementById('hmTitle').value.trim(),
+                subtitle: document.getElementById('hmSubtitle').value.trim(),
+                tagline: document.getElementById('hmTagline').value.trim(),
+                ticker1: document.getElementById('hmTicker1').value.trim(),
+                ticker2: document.getElementById('hmTicker2').value.trim(),
+                heading: document.getElementById('hmHeading').value.trim(),
+                aboutTitle: document.getElementById('hmAboutTitle').value.trim(),
+                aboutText: document.getElementById('hmAboutText').value.trim(),
+                featuresTitle: document.getElementById('hmFeaturesTitle').value.trim(),
+                features: document.getElementById('hmFeatures').value.split(',').map(s => s.trim()).filter(s => s),
+                highlight: document.getElementById('hmHighlight').value.trim()
+            };
+            appData.home = data;
+            saveData();
+            renderHomePage();
+            closeAdminModal();
+            showToast('✅ Home page updated!', 'success');
+            showAdminPage('home');
+        }
+
+        function openPageItemModal(page, index = null) {
+            const isEdit = index !== null;
+            const items = getPageItems(page);
+            const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public' };
+            
+            document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit ${page} Item` : `➕ Add ${page} Item`;
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="piPage" value="${page}">
+                <input type="hidden" id="piIndex" value="${isEdit ? index : -1}">
+                <div class="form-group"><label>Title *</label><input type="text" id="piTitle" value="${item.title || ''}"></div>
+                <div class="form-group"><label>Description</label><textarea id="piDesc" rows="3">${item.description || ''}</textarea></div>
+                <div class="form-group">
+                    <label>Visibility</label>
+                    <select id="piVisibility">
+                        <option value="public" ${item.visibility === 'public' ? 'selected' : ''}>🌐 Public</option>
+                        <option value="private" ${item.visibility === 'private' ? 'selected' : ''}>🔒 Private</option>
+                    </select>
+                </div>
+                <button class="btn-submit" onclick="savePageItem()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        function savePageItem() {
+            const page = document.getElementById('piPage').value;
+            const index = parseInt(document.getElementById('piIndex').value);
+            const title = document.getElementById('piTitle').value.trim();
+            const description = document.getElementById('piDesc').value.trim();
+            const visibility = document.getElementById('piVisibility').value;
+            
+            if (!title) { showToast('Title is required!', 'error'); return; }
+            
+            if (!appData[page]) appData[page] = { items: [] };
+            if (!appData[page].items) appData[page].items = [];
+            
+            const item = { id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5), title, description, visibility };
+            
+            if (index >= 0 && index < appData[page].items.length) {
+                appData[page].items[index] = { ...appData[page].items[index], ...item };
+                showToast('✅ Item updated!', 'success');
+            } else {
+                appData[page].items.push(item);
+                showToast('✅ Item added!', 'success');
+            }
+            
+            saveData();
+            renderPageItems(page);
+            closeAdminModal();
+            showAdminPage(page);
+        }
+
+        function deletePageItem(page, index) {
+            if (!confirm(`Delete this item?`)) return;
+            if (appData[page] && appData[page].items) {
+                appData[page].items.splice(index, 1);
+                saveData();
+                renderPageItems(page);
+                showAdminPage(page);
+                showToast('🗑️ Item deleted!', 'warning');
+            }
+        }
+
+        // ============================================================
+        // JOB MODALS
+        // ============================================================
         function openJobModal(data = null) {
             const isEdit = data !== null;
             document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Job' : '💼 Add Job';
@@ -2430,6 +2477,10 @@
             `;
             const subCatOptions = ['Administrative','Banking','Railway','Defence','Teaching','Medical','PSU','Police','Revenue','Forest','Technical','Judicial','IT/Software','Finance','Marketing','HR','Manufacturing','Healthcare','Education','Hospitality','Other']
                 .map(s => `<option value="${s}" ${isEdit && data?.subCat === s ? 'selected' : ''}>${s}</option>`).join('');
+            const visibilityOptions = `
+                <option value="public" ${isEdit && data?.visibility === 'public' ? 'selected' : ''}>🌐 Public</option>
+                <option value="private" ${isEdit && data?.visibility === 'private' ? 'selected' : ''}>🔒 Private</option>
+            `;
             document.getElementById('adminModalBody').innerHTML = `
                 <input type="hidden" id="jobIndex" value="${isEdit ? jobsData.indexOf(data) : -1}">
                 <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${isEdit ? data.title : ''}"></div>
@@ -2454,6 +2505,11 @@
                     <div class="form-group"><label>Website</label><input type="url" id="jWeb" value="${isEdit ? data.website : ''}"></div>
                     <div class="form-group"><label>Apply Link</label><input type="url" id="jApply" value="${isEdit ? data.applyLink : ''}"></div>
                 </div>
+                <div class="form-group">
+                    <label>Visibility</label>
+                    <select id="jVisibility">${visibilityOptions}</select>
+                    <span style="font-size:11px;color:var(--text-light);display:block;margin-top:4px;">🔒 Private jobs are hidden from the website.</span>
+                </div>
                 <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
                 <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
             `;
@@ -2474,13 +2530,15 @@
             const description = document.getElementById('jDesc').value.trim();
             const website = document.getElementById('jWeb').value.trim();
             const applyLink = document.getElementById('jApply').value.trim();
+            const visibility = document.getElementById('jVisibility').value || 'public';
+            
             if (!title || !department || !post) { showToast('Please fill required fields!', 'error'); return; }
-            const job = { id: Date.now(), title, jobType, subCat, department, post, eligibility, age, lastDate, experience, description, website, applyLink };
+            const job = { id: Date.now(), title, jobType, subCat, department, post, eligibility, age, lastDate, experience, description, website, applyLink, visibility };
             if (idx >= 0 && idx < jobsData.length) { jobsData[idx] = job; showToast('✅ Job updated!', 'success'); }
             else { jobsData.push(job); showToast('✅ Job added!', 'success'); }
             saveData(); closeAdminModal(); renderAdminTable(); updateJobsUI();
-            document.getElementById('totalJobsSidebar').textContent = jobsData.length;
-            document.getElementById('totalJobsBadge').textContent = `Total: ${jobsData.filter(j => j.jobType === currentCategory).length}`;
+            document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
+            document.getElementById('totalJobsBadge').textContent = `Total: ${getPublicJobs().filter(j => j.jobType === currentCategory).length}`;
         }
 
         function editJob(idx) {
@@ -2492,7 +2550,7 @@
             if (!confirm('Delete this job?')) return;
             jobsData.splice(idx, 1);
             saveData(); renderAdminTable(); updateJobsUI();
-            document.getElementById('totalJobsSidebar').textContent = jobsData.length;
+            document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
             showToast('🗑️ Deleted!', 'warning');
         }
 
@@ -2505,25 +2563,52 @@
         }
 
         // ============================================================
-        // EXPORT
+        // EXPORT / IMPORT / RESET
         // ============================================================
         function escapeCSV(str) { if (!str) return ''; str=String(str); if(str.includes(',')||str.includes('"')||str.includes('\n')) return '"'+str.replace(/"/g,'""')+'"'; return str; }
+        
         function exportCSV() {
             if (!jobsData.length) { showToast('No data!', 'warning'); return; }
-            const headers = ['ID','Title','Job Type','Sub Category','Department','Post','Eligibility','Age','Last Date','Experience','Description','Website','Apply Link'];
-            const rows = jobsData.map(j => [j.id||'',j.title||'',j.jobType||'',j.subCat||'',j.department||'',j.post||'',j.eligibility||'',j.age||'',j.lastDate||'',j.experience||'',j.description||'',j.website||'',j.applyLink||''].map(escapeCSV));
+            const headers = ['ID','Title','Job Type','Sub Category','Department','Post','Eligibility','Age','Last Date','Experience','Description','Website','Apply Link','Visibility'];
+            const rows = jobsData.map(j => [j.id||'',j.title||'',j.jobType||'',j.subCat||'',j.department||'',j.post||'',j.eligibility||'',j.age||'',j.lastDate||'',j.experience||'',j.description||'',j.website||'',j.applyLink||'',j.visibility||'public'].map(escapeCSV));
             const csv = [headers.join(','), ...rows.map(r=>r.join(','))].join('\n');
             download(csv, 'dreamjosh_jobs.csv', 'text/csv');
             showToast('📥 CSV exported!', 'success');
         }
-        function exportExcel() {
-            if (!jobsData.length) { showToast('No data!', 'warning'); return; }
-            const headers = ['ID','Title','Job Type','Sub Category','Department','Post','Eligibility','Age','Last Date','Experience','Description','Website','Apply Link'];
-            const rows = jobsData.map(j => [j.id||'',j.title||'',j.jobType||'',j.subCat||'',j.department||'',j.post||'',j.eligibility||'',j.age||'',j.lastDate||'',j.experience||'',j.description||'',j.website||'',j.applyLink||''].map(escapeCSV));
-            let csv = 'Sheet: Jobs\n' + headers.join(',') + '\n' + rows.map(r=>r.join(',')).join('\n');
-            download(csv, 'dreamjosh_jobs.xls', 'text/csv');
-            showToast('📥 Excel exported!', 'success');
+
+        function exportAdminData() {
+            const fullData = { appData, jobs: jobsData };
+            const blob = new Blob([JSON.stringify(fullData, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'dreamjosh_backup_' + new Date().toISOString().slice(0,10) + '.json';
+            a.click(); showToast('📥 Backup downloaded!', 'success');
         }
+
+        function resetAllData() {
+            if (!confirm('⚠️ This will reset ALL data to default! Are you sure?')) return;
+            if (!confirm('⚠️ LAST WARNING: All your custom data will be lost!')) return;
+            appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+            jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
+            saveData();
+            renderAllPages();
+            updateJobsUI();
+            showToast('🔄 All data reset to default!', 'warning');
+            closeAdminPanel();
+        }
+
+        function changeAdminPassword() {
+            const newPass = document.getElementById('adminNewPass').value;
+            const confirmPass = document.getElementById('adminConfirmPass').value;
+            if (!newPass || newPass.length < 6) { showToast('Min 6 characters!', 'error'); return; }
+            if (newPass !== confirmPass) { showToast('Passwords do not match!', 'error'); return; }
+            // In this version, we store it in localStorage
+            localStorage.setItem('dreamjosh_admin_pass', newPass);
+            showToast('✅ Password updated!', 'success');
+            document.getElementById('adminNewPass').value = '';
+            document.getElementById('adminConfirmPass').value = '';
+        }
+
         function download(content, filename, mime) {
             const blob = new Blob(['\uFEFF'+content], { type: mime+';charset=utf-8;' });
             const a = document.createElement('a');
@@ -2532,50 +2617,17 @@
             document.body.appendChild(a); a.click(); document.body.removeChild(a);
             URL.revokeObjectURL(a.href);
         }
-        function exportAdminData() {
-            const blob = new Blob([JSON.stringify({ jobs: jobsData }, null, 2)], { type: 'application/json' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'dreamjosh_backup_' + new Date().toISOString().slice(0,10) + '.json';
-            a.click(); showToast('📥 Backup downloaded!', 'success');
-        }
-        function changeAdminPassword() {
-            const newPass = document.getElementById('adminNewPass').value;
-            const confirmPass = document.getElementById('adminConfirmPass').value;
-            if (!newPass || newPass.length < 6) { showToast('Min 6 characters!', 'error'); return; }
-            if (newPass !== confirmPass) { showToast('Passwords do not match!', 'error'); return; }
-            // In this simplified version, we just show a message
-            showToast('✅ Password updated! (demo)', 'success');
-            document.getElementById('adminNewPass').value = '';
-            document.getElementById('adminConfirmPass').value = '';
-        }
-
-        // ============================================================
-        // CAREER functions (for dropdown)
-        // ============================================================
-        function goToCareerCategory(category) {
-            showSection('career');
-            // Simple placeholder
-            document.getElementById('career').innerHTML = `
-                <div class="section-header"><h2>🎯 <span>Career Guide</span></h2></div>
-                <p style="color:var(--text-light);">Showing: ${category || 'All'} Career Options</p>
-                <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
-                    ${['UPSC','SSC','Banking','Railway','Defence','Teaching','Medical','Engineering','IT','Management','Law','State Govt','Private Jobs'].map(c => 
-                        `<div style="background:var(--card-bg);padding:16px;border-radius:10px;border:1px solid var(--border-color);text-align:center;font-weight:600;color:var(--primary-blue);">${c}</div>`
-                    ).join('')}
-                </div>
-            `;
-        }
 
         // ============================================================
         // INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             loadData();
+            renderAllPages();
             updateSubCategoryButtons();
             selectCategory('central');
-            document.getElementById('totalJobsSidebar').textContent = jobsData.length;
-            console.log('🚀 Dream Josh – New Jobs Section Loaded: ' + jobsData.length + ' jobs');
+            document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
+            console.log('🚀 Dream Josh – Full Data Loaded: ' + jobsData.length + ' jobs, 6 pages');
         });
 
         // Expose functions
@@ -2598,12 +2650,17 @@
         window.saveJob = saveJob;
         window.viewJob = viewJob;
         window.exportCSV = exportCSV;
-        window.exportExcel = exportExcel;
         window.exportAdminData = exportAdminData;
         window.changeAdminPassword = changeAdminPassword;
-        window.goToCareerCategory = goToCareerCategory;
         window.openDetail = openDetail;
         window.renderAdminTable = renderAdminTable;
+        window.getPublicJobs = getPublicJobs;
+        window.openHomeModal = openHomeModal;
+        window.saveHomeData = saveHomeData;
+        window.openPageItemModal = openPageItemModal;
+        window.savePageItem = savePageItem;
+        window.deletePageItem = deletePageItem;
+        window.resetAllData = resetAllData;
     </script>
 </body>
 </html>
