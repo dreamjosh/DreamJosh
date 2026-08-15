@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Josh - DevLys 010 → Mangal Unicode Converter</title>
+<style>
+:root{--primary:#123c9b;--dark:#0d2d7a;--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#64748b;--border:#dbe2ea;--green:#16a34a;--shadow:0 8px 30px rgba(15,35,70,.10)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans Devanagari",sans-serif}.top{background:linear-gradient(135deg,var(--primary),var(--dark));color:#fff;padding:22px 18px}.top .wrap{max-width:1200px;margin:auto}.top h1{margin:0 0 6px;font-size:26px}.top p{margin:0;opacity:.9}.wrap{max-width:1200px;margin:auto;padding:22px 16px}.toolbar,.card{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow)}.toolbar{padding:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}.toolbar select,.toolbar button{height:42px;border:1px solid var(--border);border-radius:9px;padding:0 14px;background:#fff;font-weight:600}.toolbar button{cursor:pointer}.toolbar .primary{background:var(--primary);color:#fff;border-color:var(--primary)}.toolbar .success{background:var(--green);color:#fff;border-color:var(--green)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{padding:16px}.card h2{font-size:18px;margin:0 0 12px}.label{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;color:var(--muted);font-size:13px;font-weight:700}.count{font-weight:400}.editor{width:100%;min-height:390px;resize:vertical;border:1px solid var(--border);border-radius:10px;padding:15px;font-size:18px;line-height:1.7;outline:none;font-family:"Noto Sans Devanagari",Arial,sans-serif}.editor:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(18,60,155,.10)}.hint{margin-top:10px;color:var(--muted);font-size:13px;line-height:1.5}.footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}.status{margin:12px 0 0;padding:10px;border-radius:9px;background:#f0fdf4;color:#166534;display:none}.notice{margin:18px 0;padding:14px;border-left:4px solid var(--primary);background:#eef4ff;border-radius:8px;line-height:1.55;font-size:14px}@media(max-width:800px){.grid{grid-template-columns:1fr}.editor{min-height:300px}.top h1{font-size:22px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><h1>🔤 DevLys 010 → Mangal Converter</h1><p>Dream Josh Language & Font Conversion Tool</p></div></header>
+<main class="wrap">
+<div class="toolbar">
+<select id="direction" aria-label="Conversion direction"><option value="devlys-mangal">DevLys 010 → Mangal (Unicode)</option><option value="mangal-devlys">Mangal (Unicode) → DevLys 010</option></select>
+<button class="primary" id="convert">🔄 Convert</button><button id="copy">📋 Copy Output</button><button id="swap">⇄ Swap</button><button id="clear">🗑 Clear</button><button class="success" id="download">⬇ Download TXT</button>
+</div>
+<div class="grid">
+<section class="card"><div class="label"><span>INPUT TEXT</span><span class="count" id="inCount">0 characters</span></div><textarea id="input" class="editor" placeholder="यहाँ DevLys 010 का text paste करें..."></textarea><div class="hint">DevLys 010/legacy Hindi text यहाँ paste करें। Conversion केवल encoding/font mapping के लिए है; automatic translation या spelling correction नहीं किया जाता।</div></section>
+<section class="card"><div class="label"><span>OUTPUT TEXT</span><span class="count" id="outCount">0 characters</span></div><textarea id="output" class="editor" placeholder="Converted Mangal / Unicode text यहाँ दिखाई देगा..." readonly></textarea><div class="status" id="status">Conversion complete.</div></section>
+</div>
+<div class="notice"><b>महत्वपूर्ण:</b> DevLys/Kruti Dev जैसे legacy fonts में encoding अलग-अलग font variants के कारण बदल सकती है। यह page common DevLys 010/KrutiDev-style mappings के लिए बनाया गया है। बहुत पुराने/custom font layouts में 100% सही conversion के लिए source font की पुष्टि जरूरी हो सकती है।</div>
+<div class="footer">Dream Josh • Language Tools • DevLys 010 ↔ Mangal Unicode</div>
+</main>
+<script>
+const input=document.getElementById('input'),output=document.getElementById('output'),direction=document.getElementById('direction');
+const inCount=document.getElementById('inCount'),outCount=document.getElementById('outCount'),status=document.getElementById('status');
+function updateCounts(){inCount.textContent=input.value.length+' characters';outCount.textContent=output.value.length+' characters'}
+function replaceAll(s,map){for(const [a,b] of map)s=s.split(a).join(b);return s}
+// Common DevLys 010 / KrutiDev-style legacy-to-Unicode mappings.
+const pairs=[
+['‚','ं'],['¢','ः'],['·','।'],['¸','॥'],['¹','?'],['º','०'],['»','१'],['¼','२'],['½','३'],['¾','४'],['¿','५'],
+['À','६'],['Á','७'],['Â','८'],['Ã','९'],['Ä','०'],['Å','१'],['Æ','२'],['Ç','३'],['È','४'],['É','५'],
+['Ê','६'],['Ë','७'],['Ì','८'],['Í','९'],['Î','०'],['Ï','१'],['Ð','२'],['Ñ','३'],['Ò','४'],['Ó','५'],
+['Ô','६'],['Õ','७'],['Ö','८'],['×','९'],['Ø','०'],['Ù','१'],['Ú','२'],['Û','३'],['Ü','४'],['Ý','५'],
+['Þ','६'],['ß','७'],['à','८'],['á','९'],['â','०'],['ã','१'],['ä','२'],['å','३'],['æ','४'],['ç','५'],
+['è','६'],['é','७'],['ê','८'],['ë','९'],['ì','०'],['í','१'],['î','२'],['ï','३'],['ð','४'],['ñ','५'],
+['ò','६'],['ó','७'],['ô','८'],['õ','९'],['ö','०'],['÷','१'],['ø','२'],['ù','३'],['ú','४'],['û','५'],
+['ü','६'],['ý','७'],['þ','८'],['ÿ','९'],
+['d','क'],['[k','ख'],['x','ग'],['?k','घ'],['M','ङ'],['p','च'],['N','छ'],['t','ज'],['>','झ'],['¥','ञ'],
+['V','ट'],['B','ठ'],['M','ड'],['<','ढ'],['.','ण'],['r','त'],['F','थ'],['n','द'],['/','ध'],['u','न'],
+['i','प'],['Q','फ'],['c','ब'],['H','भ'],['e','म'],[';','य'],['j','र'],['y','ल'],['o','व'],['l','श'],['J','ष'],['"','स'],['g','ह'],
+['K','ळ'],['G','क्ष'],['_','त्र'],['z','ज्ञ'],
+['k','ा'],['s','े'],['S','ै'],['q','ु'],['w','ू'],['`','ृ'],['a','ं'],['%','ः'],
+['~','ँ'],['A','ं'],['E','ी'],['I','ि'],['O','ो'],['P','ौ'],['U','ू'],
+[' ',' ']
+];
+// Safer conversion: apply longer tokens first and then fix common vowel-marker ordering.
+function devlysToUnicode(text){
+ let s=text;
+ const ordered=[...pairs].sort((a,b)=>b[0].length-a[0].length);
+ s=replaceAll(s,ordered);
+ // Common legacy reph/ि placement corrections.
+ s=s.replace(/ि([क-हक़-य़])/g,'$1ि');
+ s=s.replace(/([क-हक़-य़])ि/g,'ि$1').replace(/ि([क-हक़-य़])/g,'$1ि');
+ return s;
+}
+function unicodeToDevlys(text){
+ // Reverse only unambiguous/common mappings; Unicode output is the preferred storage format.
+ const reverse=[['क्ष','G'],['त्र','_'],['ज्ञ','z'],['क','d'],['ख','[k'],['ग','x'],['घ','?k'],['ङ','M'],['च','p'],['छ','N'],['ज','t'],['झ','>'],['ञ','¥'],['ट','V'],['ठ','B'],['ड','M'],['ढ','<'],['ण','.'],['त','r'],['थ','F'],['द','n'],['ध','/'],['न','u'],['प','i'],['फ','Q'],['ब','c'],['भ','H'],['म','e'],['य',';'],['र','j'],['ल','y'],['व','o'],['श','l'],['ष','J'],['स','"'],['ह','g'],['ा','k'],['े','s'],['ै','S'],['ु','q'],['ू','w'],['ृ','`'],['ं','a'],['ः','%'],['ँ','~'],['ी','E'],['ि','I'],['ो','O'],['ौ','P']];
+ return replaceAll(text,reverse);
+}
+function convert(){
+ const text=input.value;
+ output.value=direction.value==='devlys-mangal'?devlysToUnicode(text):unicodeToDevlys(text);
+ status.style.display='block';status.textContent='Conversion complete. Text/meaning was not intentionally translated.';updateCounts();
+}
+input.addEventListener('input',updateCounts);document.getElementById('convert').onclick=convert;
+document.getElementById('copy').onclick=async()=>{if(!output.value)convert();await navigator.clipboard.writeText(output.value);status.style.display='block';status.textContent='Output copied.'};
+document.getElementById('clear').onclick=()=>{input.value='';output.value='';status.style.display='none';updateCounts()};
+document.getElementById('swap').onclick=()=>{const a=input.value;input.value=output.value;output.value=a;direction.value=direction.value==='devlys-mangal'?'mangal-devlys':'devlys-mangal';updateCounts()};
+document.getElementById('download').onclick=()=>{const blob=new Blob([output.value||input.value],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='dream-josh-converted.txt';a.click();URL.revokeObjectURL(a.href)};
+updateCounts();
+</script>
+</body>
+</html>
