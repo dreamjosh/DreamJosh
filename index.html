@@ -323,10 +323,6 @@
             color: var(--text-color);
         }
         .section .section-header h2 span { color: var(--primary-blue); }
-        .section .section-header .section-subtitle {
-            font-size: 14px;
-            color: var(--text-light);
-        }
 
         /* ================= HOME PAGE ================= */
         .home-original {
@@ -786,6 +782,50 @@
             color: #fff;
         }
 
+        /* ================= PAGE CONTENT DISPLAY ================= */
+        .page-content-display {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            margin-top: 16px;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        .page-content-display h2 { color: var(--primary-blue); margin-bottom: 12px; }
+        .page-content-display img { max-width: 100%; height: auto; }
+        .page-content-display table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .page-content-display table td,
+        .page-content-display table th {
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+        }
+        .page-content-display table th {
+            background: var(--editor-toolbar-bg);
+            font-weight: 600;
+        }
+        .page-content-display ul, .page-content-display ol {
+            padding-left: 24px;
+        }
+        .page-content-display blockquote {
+            border-left: 4px solid var(--secondary-blue);
+            padding: 8px 16px;
+            margin: 10px 0;
+            background: var(--editor-toolbar-bg);
+            border-radius: 0 4px 4px 0;
+        }
+        .page-content-display pre {
+            background: var(--editor-toolbar-bg);
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+
         /* ================= ADMIN PANEL ================= */
         .admin-panel-overlay {
             display: none;
@@ -1195,24 +1235,6 @@
         .admin-panel-overlay .admin-section .admin-card .card-header .btn-add:hover {
             background: #15803d;
         }
-        .admin-panel-overlay .admin-section .admin-card .card-header .btn-export-page {
-            padding: 6px 14px;
-            background: #17a2b8;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: 0.3s;
-            min-height: 32px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .admin-panel-overlay .admin-section .admin-card .card-header .btn-export-page:hover {
-            background: #138496;
-        }
         .admin-panel-overlay .admin-modal-overlay {
             display: none;
             position: fixed;
@@ -1507,72 +1529,6 @@
             cursor: pointer;
             min-height: 28px;
         }
-        .editor-toolbar .separator {
-            width: 1px;
-            background: var(--editor-border);
-            margin: 2px 4px;
-        }
-        .editor-content {
-            border: 1px solid var(--editor-border);
-            border-radius: 0 0 6px 6px;
-            padding: 16px;
-            min-height: 200px;
-            background: var(--bg-color);
-            color: var(--text-color);
-            outline: none;
-            font-size: 14px;
-            line-height: 1.8;
-            overflow-y: auto;
-            max-height: 60vh;
-        }
-        .editor-content:focus {
-            border-color: var(--primary-blue);
-        }
-        .editor-content img {
-            max-width: 100%;
-            height: auto;
-        }
-        .editor-content table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 10px 0;
-        }
-        .editor-content table td,
-        .editor-content table th {
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-        }
-        .editor-content table th {
-            background: var(--editor-toolbar-bg);
-            font-weight: 600;
-        }
-        .editor-content ul, .editor-content ol {
-            padding-left: 24px;
-        }
-        .editor-content blockquote {
-            border-left: 4px solid var(--secondary-blue);
-            padding: 8px 16px;
-            margin: 10px 0;
-            background: var(--editor-toolbar-bg);
-            border-radius: 0 4px 4px 0;
-        }
-        .editor-content pre {
-            background: var(--editor-toolbar-bg);
-            padding: 12px;
-            border-radius: 4px;
-            overflow-x: auto;
-            border: 1px solid var(--editor-border);
-        }
-        .editor-content code {
-            background: var(--editor-toolbar-bg);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 0.9em;
-        }
-        .editor-content .editor-placeholder {
-            color: var(--text-light);
-            opacity: 0.6;
-        }
         .editor-toolbar .color-picker-wrapper {
             position: relative;
             display: inline-block;
@@ -1604,7 +1560,52 @@
             border-radius: 3px;
             border: 1px solid var(--editor-border);
         }
-
+        .editor-content {
+            border: 1px solid var(--editor-border);
+            border-radius: 0 0 6px 6px;
+            padding: 16px;
+            min-height: 200px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
+            font-size: 14px;
+            line-height: 1.8;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+        .editor-content:focus {
+            border-color: var(--primary-blue);
+        }
+        .editor-content img { max-width: 100%; height: auto; }
+        .editor-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .editor-content table td,
+        .editor-content table th {
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+        }
+        .editor-content table th {
+            background: var(--editor-toolbar-bg);
+            font-weight: 600;
+        }
+        .editor-content ul, .editor-content ol { padding-left: 24px; }
+        .editor-content blockquote {
+            border-left: 4px solid var(--secondary-blue);
+            padding: 8px 16px;
+            margin: 10px 0;
+            background: var(--editor-toolbar-bg);
+            border-radius: 0 4px 4px 0;
+        }
+        .editor-content pre {
+            background: var(--editor-toolbar-bg);
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+            border: 1px solid var(--editor-border);
+        }
         .page-editor-area .editor-controls {
             display: flex;
             gap: 8px;
@@ -1663,7 +1664,6 @@
             .editor-content { min-height: 120px; padding: 10px; font-size: 12px; }
         }
 
-        /* Admin table styles */
         .table-wrap { overflow-x: auto; }
         .table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
         .table-wrap table th { padding: 8px 10px; text-align: left; background: var(--editor-toolbar-bg); border-bottom: 2px solid var(--border-color); }
@@ -1864,51 +1864,31 @@
         <!-- ================= SECTION: STUDY ================= -->
         <section class="section" id="study">
             <div class="section-header"><h2>📚 <span>Study Notes</span></h2></div>
-            <div class="page-data-container" id="studyContainer">
-                <div id="studyContent">
-                    <p style="color:var(--text-light);">Study content will appear here.</p>
-                </div>
-            </div>
+            <div id="studyContent" class="page-content-display"></div>
         </section>
 
         <!-- ================= SECTION: CAREER ================= -->
         <section class="section" id="career">
             <div class="section-header"><h2>🎯 <span>Career Guide</span></h2></div>
-            <div class="page-data-container" id="careerContainer">
-                <div id="careerContent">
-                    <p style="color:var(--text-light);">Career guidance content.</p>
-                </div>
-            </div>
+            <div id="careerContent" class="page-content-display"></div>
         </section>
 
         <!-- ================= SECTION: BOOKS ================= -->
         <section class="section" id="books">
             <div class="section-header"><h2>📖 <span>Books</span></h2></div>
-            <div class="page-data-container" id="booksContainer">
-                <div id="booksContent">
-                    <p style="color:var(--text-light);">Book recommendations.</p>
-                </div>
-            </div>
+            <div id="booksContent" class="page-content-display"></div>
         </section>
 
         <!-- ================= SECTION: MORE ================= -->
         <section class="section" id="more">
             <div class="section-header"><h2>⚙️ <span>More Features</span></h2></div>
-            <div class="page-data-container" id="moreContainer">
-                <div id="moreContent">
-                    <p style="color:var(--text-light);">More features coming soon.</p>
-                </div>
-            </div>
+            <div id="moreContent" class="page-content-display"></div>
         </section>
 
         <!-- ================= SECTION: BLOG ================= -->
         <section class="section" id="blog">
             <div class="section-header"><h2>📝 <span>Blog</span></h2></div>
-            <div class="page-data-container" id="blogContainer">
-                <div id="blogContent">
-                    <p style="color:var(--text-light);">Blog posts will appear here.</p>
-                </div>
-            </div>
+            <div id="blogContent" class="page-content-display"></div>
         </section>
     </div>
 
@@ -1941,7 +1921,7 @@
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v6';
+        const STORAGE_KEY = 'dreamjosh_all_data_v7';
 
         const DEFAULT_DATA = {
             home: {
@@ -1958,44 +1938,19 @@
                 highlight: '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>'
             },
             study: {
-                items: [
-                    { id: 's1', title: '📝 Study Notes - Subject Wise', description: 'Complete study notes for all competitive exams', visibility: 'public' },
-                    { id: 's2', title: '📄 Practice Sets', description: 'Practice sets for UPSC, SSC, Banking, Railway', visibility: 'public' },
-                    { id: 's3', title: '📑 Previous Year Papers', description: 'Previous year papers with solutions', visibility: 'public' }
-                ],
-                content: '<h2>📚 Study Materials</h2><p>Welcome to the study section of Dream Josh.</p>'
+                content: '<h2>📚 Study Materials</h2><p>Welcome to the study section of Dream Josh. Here you will find comprehensive study materials for all competitive exams.</p><ul><li>📝 <strong>Subject-wise notes</strong> for UPSC, SSC, Banking, Railway</li><li>📄 <strong>Practice sets</strong> with answer keys</li><li>📑 <strong>Previous year papers</strong> with detailed solutions</li><li>🔁 <strong>Revision notes</strong> for quick review</li></ul><blockquote><p>🔹 <strong>Quote:</strong> "Success is the sum of small efforts, repeated day in and day out."</p></blockquote>'
             },
             career: {
-                items: [
-                    { id: 'c1', title: '🏛️ Government Jobs', description: 'UPSC, SSC, Banking, Railway, Defence, Police', visibility: 'public' },
-                    { id: 'c2', title: '💼 Private Jobs', description: 'IT, Finance, Marketing, HR, Healthcare', visibility: 'public' },
-                    { id: 'c3', title: '📚 Teaching & Education', description: 'CTET, REET, B.Ed, M.Ed career paths', visibility: 'public' }
-                ],
-                content: '<h2>🎯 Career Guidance</h2><p>Explore various career options.</p>'
+                content: '<h2>🎯 Career Guidance</h2><p>Explore various career options and find the right path for your future.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;"><div style="background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);"><h4>🏛️ Government Jobs</h4><p>UPSC, SSC, Banking, Railway, Defence, Police</p></div><div style="background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);"><h4>💼 Private Jobs</h4><p>IT, Finance, Marketing, HR, Healthcare</p></div></div><p><strong>🔹 Get expert guidance:</strong> Our career counselors help you choose the right career path.</p>'
             },
             books: {
-                items: [
-                    { id: 'b1', title: '📚 Competitive Exam Books', description: 'Best books for UPSC, SSC, Banking, Railway', visibility: 'public' },
-                    { id: 'b2', title: '🏜️ Rajasthan GK', description: 'Rajasthan General Knowledge books', visibility: 'public' },
-                    { id: 'b3', title: '🧠 General Knowledge', description: 'GK books for all competitive exams', visibility: 'public' }
-                ],
-                content: '<h2>📖 Recommended Books</h2><p>Find the best books for your exam preparation.</p>'
+                content: '<h2>📖 Recommended Books</h2><p>Find the best books for your exam preparation.</p><ul><li>📚 <strong>Competitive Exam Books</strong> - UPSC, SSC, Banking, Railway</li><li>🏜️ <strong>Rajasthan GK</strong> - Complete Rajasthan General Knowledge</li><li>🧠 <strong>General Knowledge</strong> - GK for all competitive exams</li><li>🔥 <strong>Motivation Books</strong> - Inspirational books for success</li></ul><blockquote><p>📖 "A reader lives a thousand lives before he dies."</p></blockquote>'
             },
             more: {
-                items: [
-                    { id: 'm1', title: '📄 PDF Tools', description: 'Convert, merge, split PDFs online', visibility: 'public' },
-                    { id: 'm2', title: '🎨 Gallery', description: 'Educational and motivational images', visibility: 'public' },
-                    { id: 'm3', title: '💪 Motivation', description: 'Daily motivational quotes and stories', visibility: 'public' }
-                ],
-                content: '<h2>⚙️ More Features</h2><p>Explore additional tools.</p>'
+                content: '<h2>⚙️ More Features</h2><p>Explore additional tools and features to enhance your learning experience.</p><ul><li>📄 <strong>PDF Tools</strong> - Convert, merge, split PDFs online</li><li>🎨 <strong>Gallery</strong> - Educational and motivational images</li><li>💪 <strong>Motivation</strong> - Daily motivational quotes and stories</li><li>🎥 <strong>Videos</strong> - Educational video content</li></ul>'
             },
             blog: {
-                items: [
-                    { id: 'bl1', title: '💻 Technology', description: 'Latest tech news and updates', visibility: 'public' },
-                    { id: 'bl2', title: '📊 Business', description: 'Business and finance articles', visibility: 'public' },
-                    { id: 'bl3', title: '❤️ Lifestyle', description: 'Lifestyle and wellness tips', visibility: 'public' }
-                ],
-                content: '<h2>📝 Blog</h2><p>Read our latest blog posts.</p>'
+                content: '<h2>📝 Blog</h2><p>Read our latest blog posts on various topics.</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:12px 0;"><div style="background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);"><h4>💻 Technology</h4><p>Latest tech news and updates</p></div><div style="background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);"><h4>📊 Business</h4><p>Business and finance articles</p></div><div style="background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);"><h4>❤️ Lifestyle</h4><p>Lifestyle and wellness tips</p></div></div>'
             }
         };
 
@@ -2065,10 +2020,6 @@
 
         function getPublicJobs() {
             return jobsData.filter(j => j.visibility !== 'private');
-        }
-
-        function getPageItems(page) {
-            return appData[page]?.items || [];
         }
 
         function getPageContent(page) {
@@ -2317,259 +2268,91 @@
         function createEditorToolbar(editorId, options = {}) {
             const toolbar = document.createElement('div');
             toolbar.className = 'editor-toolbar';
-            toolbar.id = `toolbar-${editorId}`;
             
-            // Font family
             const fontGroup = document.createElement('div');
             fontGroup.className = 'toolbar-group';
             const fontSelect = document.createElement('select');
-            fontSelect.innerHTML = `
-                <option value="default">Font</option>
-                <option value="Arial">Arial</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="Verdana">Verdana</option>
-                <option value="Courier New">Courier New</option>
-                <option value="Impact">Impact</option>
-                <option value="Tahoma">Tahoma</option>
-            `;
-            fontSelect.onchange = function() {
-                document.execCommand('fontName', false, this.value);
-                document.getElementById(editorId).focus();
-            };
+            fontSelect.innerHTML = `<option value="default">Font</option><option value="Arial">Arial</option><option value="Georgia">Georgia</option><option value="Times New Roman">Times New Roman</option><option value="Verdana">Verdana</option><option value="Courier New">Courier New</option><option value="Impact">Impact</option><option value="Tahoma">Tahoma</option>`;
+            fontSelect.onchange = function() { document.execCommand('fontName', false, this.value); document.getElementById(editorId).focus(); };
             fontGroup.appendChild(fontSelect);
             
-            // Font size
             const sizeSelect = document.createElement('select');
-            sizeSelect.innerHTML = `
-                <option value="1">Size 1</option>
-                <option value="2">Size 2</option>
-                <option value="3" selected>Size 3</option>
-                <option value="4">Size 4</option>
-                <option value="5">Size 5</option>
-                <option value="6">Size 6</option>
-                <option value="7">Size 7</option>
-            `;
-            sizeSelect.onchange = function() {
-                document.execCommand('fontSize', false, this.value);
-                document.getElementById(editorId).focus();
-            };
+            sizeSelect.innerHTML = `<option value="1">Size 1</option><option value="2">Size 2</option><option value="3" selected>Size 3</option><option value="4">Size 4</option><option value="5">Size 5</option><option value="6">Size 6</option><option value="7">Size 7</option>`;
+            sizeSelect.onchange = function() { document.execCommand('fontSize', false, this.value); document.getElementById(editorId).focus(); };
             fontGroup.appendChild(sizeSelect);
             toolbar.appendChild(fontGroup);
 
-            // Text formatting
             const formatGroup = document.createElement('div');
             formatGroup.className = 'toolbar-group';
-            const formatButtons = [
-                { cmd: 'bold', icon: 'fa-bold', title: 'Bold' },
-                { cmd: 'italic', icon: 'fa-italic', title: 'Italic' },
-                { cmd: 'underline', icon: 'fa-underline', title: 'Underline' },
-                { cmd: 'strikeThrough', icon: 'fa-strikethrough', title: 'Strike' },
-                { cmd: 'subscript', icon: 'fa-subscript', title: 'Subscript' },
-                { cmd: 'superscript', icon: 'fa-superscript', title: 'Superscript' },
-            ];
-            formatButtons.forEach(({cmd, icon, title}) => {
+            ['bold','italic','underline','strikeThrough'].forEach(cmd => {
                 const btn = document.createElement('button');
-                btn.innerHTML = `<i class="fas ${icon}"></i>`;
-                btn.title = title;
-                btn.onmousedown = function(e) {
-                    e.preventDefault();
-                    document.execCommand(cmd, false, null);
-                    document.getElementById(editorId).focus();
-                };
+                const icons = {bold:'fa-bold',italic:'fa-italic',underline:'fa-underline',strikeThrough:'fa-strikethrough'};
+                btn.innerHTML = `<i class="fas ${icons[cmd]}"></i>`;
+                btn.onmousedown = function(e) { e.preventDefault(); document.execCommand(cmd, false, null); document.getElementById(editorId).focus(); };
                 formatGroup.appendChild(btn);
             });
             toolbar.appendChild(formatGroup);
 
-            // Text alignment
             const alignGroup = document.createElement('div');
             alignGroup.className = 'toolbar-group';
-            const alignButtons = [
-                { cmd: 'justifyLeft', icon: 'fa-align-left', title: 'Left' },
-                { cmd: 'justifyCenter', icon: 'fa-align-center', title: 'Center' },
-                { cmd: 'justifyRight', icon: 'fa-align-right', title: 'Right' },
-                { cmd: 'justifyFull', icon: 'fa-align-justify', title: 'Justify' },
-            ];
-            alignButtons.forEach(({cmd, icon, title}) => {
+            ['justifyLeft','justifyCenter','justifyRight','justifyFull'].forEach(cmd => {
                 const btn = document.createElement('button');
-                btn.innerHTML = `<i class="fas ${icon}"></i>`;
-                btn.title = title;
-                btn.onmousedown = function(e) {
-                    e.preventDefault();
-                    document.execCommand(cmd, false, null);
-                    document.getElementById(editorId).focus();
-                };
+                const icons = {justifyLeft:'fa-align-left',justifyCenter:'fa-align-center',justifyRight:'fa-align-right',justifyFull:'fa-align-justify'};
+                btn.innerHTML = `<i class="fas ${icons[cmd]}"></i>`;
+                btn.onmousedown = function(e) { e.preventDefault(); document.execCommand(cmd, false, null); document.getElementById(editorId).focus(); };
                 alignGroup.appendChild(btn);
             });
             toolbar.appendChild(alignGroup);
 
-            // Lists
             const listGroup = document.createElement('div');
             listGroup.className = 'toolbar-group';
-            const listButtons = [
-                { cmd: 'insertUnorderedList', icon: 'fa-list-ul', title: 'Bullet List' },
-                { cmd: 'insertOrderedList', icon: 'fa-list-ol', title: 'Numbered List' },
-            ];
-            listButtons.forEach(({cmd, icon, title}) => {
+            ['insertUnorderedList','insertOrderedList'].forEach(cmd => {
                 const btn = document.createElement('button');
-                btn.innerHTML = `<i class="fas ${icon}"></i>`;
-                btn.title = title;
-                btn.onmousedown = function(e) {
-                    e.preventDefault();
-                    document.execCommand(cmd, false, null);
-                    document.getElementById(editorId).focus();
-                };
+                const icons = {insertUnorderedList:'fa-list-ul',insertOrderedList:'fa-list-ol'};
+                btn.innerHTML = `<i class="fas ${icons[cmd]}"></i>`;
+                btn.onmousedown = function(e) { e.preventDefault(); document.execCommand(cmd, false, null); document.getElementById(editorId).focus(); };
                 listGroup.appendChild(btn);
             });
             toolbar.appendChild(listGroup);
 
-            // Indent
-            const indentGroup = document.createElement('div');
-            indentGroup.className = 'toolbar-group';
-            const indentButtons = [
-                { cmd: 'indent', icon: 'fa-indent', title: 'Indent' },
-                { cmd: 'outdent', icon: 'fa-outdent', title: 'Outdent' },
-            ];
-            indentButtons.forEach(({cmd, icon, title}) => {
-                const btn = document.createElement('button');
-                btn.innerHTML = `<i class="fas ${icon}"></i>`;
-                btn.title = title;
-                btn.onmousedown = function(e) {
-                    e.preventDefault();
-                    document.execCommand(cmd, false, null);
-                    document.getElementById(editorId).focus();
-                };
-                indentGroup.appendChild(btn);
-            });
-            toolbar.appendChild(indentGroup);
-
-            // Colors
-            const colorGroup = document.createElement('div');
-            colorGroup.className = 'toolbar-group';
-            
-            const colorWrapper = document.createElement('div');
-            colorWrapper.className = 'color-picker-wrapper';
-            const colorBtn = document.createElement('button');
-            colorBtn.className = 'color-btn';
-            colorBtn.innerHTML = '<i class="fas fa-font"></i><span class="color-preview" style="background:#000;"></span>';
-            colorBtn.title = 'Text Color';
-            const colorInput = document.createElement('input');
-            colorInput.type = 'color';
-            colorInput.value = '#000000';
-            colorInput.onchange = function() {
-                document.execCommand('foreColor', false, this.value);
-                colorBtn.querySelector('.color-preview').style.background = this.value;
-                document.getElementById(editorId).focus();
-            };
-            colorWrapper.appendChild(colorBtn);
-            colorWrapper.appendChild(colorInput);
-            colorGroup.appendChild(colorWrapper);
-
-            const bgWrapper = document.createElement('div');
-            bgWrapper.className = 'color-picker-wrapper';
-            const bgBtn = document.createElement('button');
-            bgBtn.className = 'color-btn';
-            bgBtn.innerHTML = '<i class="fas fa-highlighter"></i><span class="color-preview" style="background:#ffff00;"></span>';
-            bgBtn.title = 'Background Color';
-            const bgInput = document.createElement('input');
-            bgInput.type = 'color';
-            bgInput.value = '#ffff00';
-            bgInput.onchange = function() {
-                document.execCommand('hiliteColor', false, this.value);
-                bgBtn.querySelector('.color-preview').style.background = this.value;
-                document.getElementById(editorId).focus();
-            };
-            bgWrapper.appendChild(bgBtn);
-            bgWrapper.appendChild(bgInput);
-            colorGroup.appendChild(bgWrapper);
-            toolbar.appendChild(colorGroup);
-
-            // Insert elements
             const insertGroup = document.createElement('div');
             insertGroup.className = 'toolbar-group';
-            const insertButtons = [
-                { cmd: 'createLink', icon: 'fa-link', title: 'Insert Link', action: function() {
-                    const url = prompt('Enter URL:', 'https://');
-                    if (url) { document.execCommand('createLink', false, url); document.getElementById(editorId).focus(); }
-                }},
-                { cmd: 'unlink', icon: 'fa-unlink', title: 'Remove Link', action: function() {
-                    document.execCommand('unlink', false, null);
-                    document.getElementById(editorId).focus();
-                }},
-                { cmd: 'insertImage', icon: 'fa-image', title: 'Insert Image', action: function() {
-                    const url = prompt('Enter Image URL:', 'https://');
-                    if (url) { document.execCommand('insertImage', false, url); document.getElementById(editorId).focus(); }
-                }},
-                { cmd: 'insertTable', icon: 'fa-table', title: 'Insert Table', action: function() {
-                    const rows = prompt('Number of rows:', '3');
-                    const cols = prompt('Number of columns:', '3');
-                    if (rows && cols) {
-                        let table = '<table><tbody>';
-                        for (let i = 0; i < parseInt(rows); i++) {
-                            table += '<tr>';
-                            for (let j = 0; j < parseInt(cols); j++) {
-                                table += '<td>&nbsp;</td>';
-                            }
-                            table += '</tr>';
-                        }
-                        table += '</tbody></table>';
-                        document.execCommand('insertHTML', false, table);
-                        document.getElementById(editorId).focus();
-                    }
-                }},
-                { cmd: 'insertHorizontalRule', icon: 'fa-minus', title: 'Horizontal Line', action: function() {
-                    document.execCommand('insertHorizontalRule', false, null);
-                    document.getElementById(editorId).focus();
-                }},
+            const insertData = [
+                { icon:'fa-link', title:'Link', action: function() { const url=prompt('URL:','https://'); if(url) { document.execCommand('createLink',false,url); document.getElementById(editorId).focus(); } } },
+                { icon:'fa-unlink', title:'Unlink', action: function() { document.execCommand('unlink',false,null); document.getElementById(editorId).focus(); } },
+                { icon:'fa-image', title:'Image', action: function() { const url=prompt('Image URL:','https://'); if(url) { document.execCommand('insertImage',false,url); document.getElementById(editorId).focus(); } } },
+                { icon:'fa-table', title:'Table', action: function() { const r=prompt('Rows:','3'), c=prompt('Cols:','3'); if(r&&c){ let t='<table><tbody>'; for(let i=0;i<parseInt(r);i++){ t+='<tr>'; for(let j=0;j<parseInt(c);j++){ t+='<td>&nbsp;</td>'; } t+='</tr>'; } t+='</tbody></table>'; document.execCommand('insertHTML',false,t); document.getElementById(editorId).focus(); } } },
+                { icon:'fa-minus', title:'Line', action: function() { document.execCommand('insertHorizontalRule',false,null); document.getElementById(editorId).focus(); } }
             ];
-            insertButtons.forEach(({cmd, icon, title, action}) => {
+            insertData.forEach(({icon, title, action}) => {
                 const btn = document.createElement('button');
                 btn.innerHTML = `<i class="fas ${icon}"></i>`;
                 btn.title = title;
-                btn.onmousedown = function(e) {
-                    e.preventDefault();
-                    if (action) action();
-                    else { document.execCommand(cmd, false, null); document.getElementById(editorId).focus(); }
-                };
+                btn.onmousedown = function(e) { e.preventDefault(); action(); };
                 insertGroup.appendChild(btn);
             });
             toolbar.appendChild(insertGroup);
 
-            // Undo/Redo
             const undoGroup = document.createElement('div');
             undoGroup.className = 'toolbar-group';
-            const undoButtons = [
-                { cmd: 'undo', icon: 'fa-undo', title: 'Undo' },
-                { cmd: 'redo', icon: 'fa-redo', title: 'Redo' },
-            ];
-            undoButtons.forEach(({cmd, icon, title}) => {
+            ['undo','redo'].forEach(cmd => {
                 const btn = document.createElement('button');
-                btn.innerHTML = `<i class="fas ${icon}"></i>`;
-                btn.title = title;
-                btn.onmousedown = function(e) {
-                    e.preventDefault();
-                    document.execCommand(cmd, false, null);
-                    document.getElementById(editorId).focus();
-                };
+                const icons = {undo:'fa-undo',redo:'fa-redo'};
+                btn.innerHTML = `<i class="fas ${icons[cmd]}"></i>`;
+                btn.onmousedown = function(e) { e.preventDefault(); document.execCommand(cmd, false, null); document.getElementById(editorId).focus(); };
                 undoGroup.appendChild(btn);
             });
             toolbar.appendChild(undoGroup);
 
-            // Clear formatting
             const clearGroup = document.createElement('div');
             clearGroup.className = 'toolbar-group';
             const clearBtn = document.createElement('button');
             clearBtn.innerHTML = '<i class="fas fa-eraser"></i>';
             clearBtn.title = 'Clear Formatting';
-            clearBtn.onmousedown = function(e) {
-                e.preventDefault();
-                document.execCommand('removeFormat', false, null);
-                document.getElementById(editorId).focus();
-            };
+            clearBtn.onmousedown = function(e) { e.preventDefault(); document.execCommand('removeFormat',false,null); document.getElementById(editorId).focus(); };
             clearGroup.appendChild(clearBtn);
             toolbar.appendChild(clearGroup);
 
-            // Source code toggle
             if (options.showSource !== false) {
                 const sourceGroup = document.createElement('div');
                 sourceGroup.className = 'toolbar-group';
@@ -2708,17 +2491,10 @@
                                         <h4>${page.charAt(0).toUpperCase() + page.slice(1)} Page Editor</h4>
                                         <div style="display:flex;gap:6px;flex-wrap:wrap;">
                                             <button class="btn-add" onclick="openPageEditor('${page}')"><i class="fas fa-edit"></i> Edit Content</button>
-                                            ${page !== 'home' ? `<button class="btn-add" onclick="openPageItemModal('${page}')" style="background:#17a2b8;"><i class="fas fa-plus"></i> Add Item</button>` : ''}
                                         </div>
                                     </div>
                                     <div id="adminPageContent-${page}">
-                                        ${page === 'home' ? renderAdminHomeContent() : renderAdminPageItems(page)}
-                                    </div>
-                                    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-color);">
-                                        <strong style="font-size:13px;">📄 Page Content Preview:</strong>
-                                        <div id="adminPreview-${page}" style="margin-top:8px;padding:12px;background:var(--bg-color);border-radius:6px;max-height:200px;overflow-y:auto;font-size:13px;">
-                                            ${page === 'home' ? getHomeData().aboutText : getPageContent(page) || 'No content'}
-                                        </div>
+                                        ${page === 'home' ? renderAdminHomeContent() : renderAdminPageContent(page)}
                                     </div>
                                 </div>
                             </div>
@@ -2769,28 +2545,12 @@
             `;
         }
 
-        function renderAdminPageItems(page) {
-            const items = getPageItems(page);
-            if (items.length === 0) {
-                return `<div style="padding:20px;text-align:center;color:var(--text-light);"><i class="fas fa-inbox"></i> No items yet</div>`;
+        function renderAdminPageContent(page) {
+            const content = getPageContent(page);
+            if (!content || content.trim() === '') {
+                return `<div style="padding:20px;text-align:center;color:var(--text-light);"><i class="fas fa-inbox"></i> No content yet</div>`;
             }
-            return `
-                <div class="page-data-container">
-                    ${items.map((item, idx) => `
-                        <div class="data-item">
-                            <div class="item-content">
-                                <div class="title">${item.title || 'Untitled'}</div>
-                                <div class="desc">${item.description || ''}</div>
-                                <span class="visibility-badge ${item.visibility === 'private' ? 'private' : 'public'}">${item.visibility === 'private' ? '🔒 Private' : '🌐 Public'}</span>
-                            </div>
-                            <div class="item-actions">
-                                <button class="edit-btn" onclick="openPageItemModal('${page}', ${idx})"><i class="fas fa-edit"></i></button>
-                                <button class="delete-btn" onclick="deletePageItem('${page}', ${idx})"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+            return `<div style="padding:12px;background:var(--bg-color);border-radius:6px;max-height:200px;overflow-y:auto;font-size:13px;">${content}</div>`;
         }
 
         function renderAdminTables() {
@@ -2853,15 +2613,11 @@
             if (['study-editor', 'career-editor', 'books-editor', 'more-editor', 'blog-editor'].includes(page)) {
                 const pageName = page.replace('-editor', '');
                 const container = document.getElementById(`adminPageContent-${pageName}`);
-                if (container) container.innerHTML = renderAdminPageItems(pageName);
-                const preview = document.getElementById(`adminPreview-${pageName}`);
-                if (preview) preview.innerHTML = getPageContent(pageName) || 'No content';
+                if (container) container.innerHTML = renderAdminPageContent(pageName);
             }
             if (page === 'home-editor') {
                 const container = document.getElementById('adminPageContent-home');
                 if (container) container.innerHTML = renderAdminHomeContent();
-                const preview = document.getElementById('adminPreview-home');
-                if (preview) preview.innerHTML = getHomeData().aboutText || 'No content';
             }
             if (window.innerWidth <= 768) document.getElementById('adminSidebar').classList.remove('open');
         }
@@ -2871,7 +2627,7 @@
         }
 
         // ============================================================
-        // PAGE EDITOR (MS Word Style)
+        // PAGE EDITOR
         // ============================================================
         function openPageEditor(page) {
             const content = page === 'home' ? getHomeData().aboutText : getPageContent(page);
@@ -2880,7 +2636,7 @@
             document.getElementById('adminModalTitle').textContent = `✏️ Edit ${title}`;
             document.getElementById('adminModalBody').innerHTML = `
                 <div style="margin-bottom:12px;">
-                    <p style="font-size:13px;color:var(--text-light);">Use the toolbar below to format your content. All formatting will be preserved.</p>
+                    <p style="font-size:13px;color:var(--text-light);">Use the toolbar below to format your content.</p>
                 </div>
                 <div id="editorContainer">
                     <div id="editorToolbar"></div>
@@ -2917,7 +2673,7 @@
                 if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
                 appData.home.aboutText = content;
             } else {
-                if (!appData[page]) appData[page] = { items: [], content: '' };
+                if (!appData[page]) appData[page] = { content: '' };
                 appData[page].content = content;
             }
             saveData();
@@ -2925,15 +2681,11 @@
             closeAdminModal();
             showToast('✅ Page content saved!', 'success');
             if (page === 'home') {
-                const preview = document.getElementById('adminPreview-home');
-                if (preview) preview.innerHTML = content;
                 const container = document.getElementById('adminPageContent-home');
                 if (container) container.innerHTML = renderAdminHomeContent();
             } else {
-                const preview = document.getElementById(`adminPreview-${page}`);
-                if (preview) preview.innerHTML = content;
                 const container = document.getElementById(`adminPageContent-${page}`);
-                if (container) container.innerHTML = renderAdminPageItems(page);
+                if (container) container.innerHTML = renderAdminPageContent(page);
             }
         }
 
@@ -2978,86 +2730,6 @@
                     btn.classList.toggle('fa-expand');
                     btn.classList.toggle('fa-compress');
                 }
-            }
-        }
-
-        // ============================================================
-        // PAGE ITEM MODALS (WITH EDITOR FOR DESCRIPTION)
-        // ============================================================
-        function openPageItemModal(page, index = null) {
-            const isEdit = index !== null;
-            const items = getPageItems(page);
-            const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public' };
-            
-            document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit ${page} Item` : `➕ Add ${page} Item`;
-            document.getElementById('adminModalBody').innerHTML = `
-                <input type="hidden" id="piPage" value="${page}">
-                <input type="hidden" id="piIndex" value="${isEdit ? index : -1}">
-                <div class="form-group"><label>Title *</label><input type="text" id="piTitle" value="${item.title || ''}"></div>
-                <div class="form-group">
-                    <label>Description (Rich Text)</label>
-                    <div id="piEditorContainer">
-                        <div id="piEditorToolbar"></div>
-                        <div class="editor-content" id="piDescription" contenteditable="true" style="min-height:120px;">${item.description || ''}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Visibility</label>
-                    <select id="piVisibility">
-                        <option value="public" ${item.visibility === 'public' ? 'selected' : ''}>🌐 Public</option>
-                        <option value="private" ${item.visibility === 'private' ? 'selected' : ''}>🔒 Private</option>
-                    </select>
-                </div>
-                <button class="btn-submit" onclick="savePageItem()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
-                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-            `;
-            document.getElementById('adminModalOverlay').classList.add('active');
-            
-            // Create toolbar for description editor
-            setTimeout(() => {
-                const toolbarContainer = document.getElementById('piEditorToolbar');
-                const toolbar = createEditorToolbar('piDescription', { showSource: false });
-                toolbarContainer.appendChild(toolbar);
-            }, 50);
-        }
-
-        function savePageItem() {
-            const page = document.getElementById('piPage').value;
-            const index = parseInt(document.getElementById('piIndex').value);
-            const title = document.getElementById('piTitle').value.trim();
-            const editor = document.getElementById('piDescription');
-            const description = editor ? editor.innerHTML : '';
-            const visibility = document.getElementById('piVisibility').value;
-            
-            if (!title) { showToast('Title is required!', 'error'); return; }
-            
-            if (!appData[page]) appData[page] = { items: [] };
-            if (!appData[page].items) appData[page].items = [];
-            
-            const item = { id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5), title, description, visibility };
-            
-            if (index >= 0 && index < appData[page].items.length) {
-                appData[page].items[index] = { ...appData[page].items[index], ...item };
-                showToast('✅ Item updated!', 'success');
-            } else {
-                appData[page].items.push(item);
-                showToast('✅ Item added!', 'success');
-            }
-            
-            saveData();
-            renderPageContent(page);
-            closeAdminModal();
-            showAdminPage(`${page}-editor`);
-        }
-
-        function deletePageItem(page, index) {
-            if (!confirm(`Delete this item?`)) return;
-            if (appData[page] && appData[page].items) {
-                appData[page].items.splice(index, 1);
-                saveData();
-                renderPageContent(page);
-                showAdminPage(`${page}-editor`);
-                showToast('🗑️ Item deleted!', 'warning');
             }
         }
 
@@ -3269,7 +2941,7 @@
             updateSubCategoryButtons();
             selectCategory('central');
             document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
-            console.log('🚀 Dream Josh – Full Data Loaded with MS Word Editor for Data Items!');
+            console.log('🚀 Dream Josh – Single Home Page with Content Pages!');
         });
 
         // Expose functions
@@ -3299,9 +2971,6 @@
         window.getPublicJobs = getPublicJobs;
         window.openHomeModal = openHomeModal;
         window.saveHomeData = saveHomeData;
-        window.openPageItemModal = openPageItemModal;
-        window.savePageItem = savePageItem;
-        window.deletePageItem = deletePageItem;
         window.resetAllData = resetAllData;
         window.openPageEditor = openPageEditor;
         window.savePageEditor = savePageEditor;
