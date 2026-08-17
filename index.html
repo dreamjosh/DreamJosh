@@ -1700,22 +1700,22 @@
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('career')">🎯 Career <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="careerDropdownContent">
                     <div class="dropdown-label">🎯 Career Options</div>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-th-list dropdown-item-icon"></i> All Careers</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-landmark dropdown-item-icon"></i> Government Jobs</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-university dropdown-item-icon"></i> Banking</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-file-alt dropdown-item-icon"></i> SSC</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-train dropdown-item-icon"></i> Railway</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-shield-alt dropdown-item-icon"></i> Defence</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-user-shield dropdown-item-icon"></i> Police</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-chalkboard-teacher dropdown-item-icon"></i> Teaching</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-cogs dropdown-item-icon"></i> Engineering</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-heartbeat dropdown-item-icon"></i> Medical</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-chart-pie dropdown-item-icon"></i> Management</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-gavel dropdown-item-icon"></i> Law</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-code dropdown-item-icon"></i> IT</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-flag dropdown-item-icon"></i> UPSC</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-building dropdown-item-icon"></i> State Govt</button>
-                    <button onclick="showSection('career'); closeDropdownMobile('career');"><i class="fas fa-briefcase dropdown-item-icon"></i> Private Jobs</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'all'); closeDropdownMobile('career');"><i class="fas fa-th-list dropdown-item-icon"></i> All Careers</button>
+                    <div class="dropdown-divider"></div>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Government Jobs'); closeDropdownMobile('career');"><i class="fas fa-landmark dropdown-item-icon"></i> Government Jobs</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Banking'); closeDropdownMobile('career');"><i class="fas fa-university dropdown-item-icon"></i> Banking</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'SSC'); closeDropdownMobile('career');"><i class="fas fa-file-alt dropdown-item-icon"></i> SSC</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Railway'); closeDropdownMobile('career');"><i class="fas fa-train dropdown-item-icon"></i> Railway</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Defence'); closeDropdownMobile('career');"><i class="fas fa-shield-alt dropdown-item-icon"></i> Defence</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Police'); closeDropdownMobile('career');"><i class="fas fa-user-shield dropdown-item-icon"></i> Police</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Teaching'); closeDropdownMobile('career');"><i class="fas fa-chalkboard-teacher dropdown-item-icon"></i> Teaching</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Engineering'); closeDropdownMobile('career');"><i class="fas fa-cogs dropdown-item-icon"></i> Engineering</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Medical'); closeDropdownMobile('career');"><i class="fas fa-heartbeat dropdown-item-icon"></i> Medical</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Management'); closeDropdownMobile('career');"><i class="fas fa-chart-pie dropdown-item-icon"></i> Management</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Law'); closeDropdownMobile('career');"><i class="fas fa-gavel dropdown-item-icon"></i> Law</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'IT'); closeDropdownMobile('career');"><i class="fas fa-code dropdown-item-icon"></i> IT</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'UPSC'); closeDropdownMobile('career');"><i class="fas fa-flag dropdown-item-icon"></i> UPSC</button>
+                    <button onclick="showSection('career'); filterGenericCategory('career', 'Private Jobs'); closeDropdownMobile('career');"><i class="fas fa-briefcase dropdown-item-icon"></i> Private Jobs</button>
                 </div>
             </div>
 
@@ -1723,11 +1723,12 @@
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('study')">📚 Study <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="studyDropdownContent">
                     <div class="dropdown-label">📖 Study Materials</div>
-                    <button onclick="showSection('study'); closeDropdownMobile('study');">📝 All Study Notes</button>
-                    <button onclick="showSection('study'); closeDropdownMobile('study');">📚 Subject Wise</button>
-                    <button onclick="showSection('study'); closeDropdownMobile('study');">📄 Practice Sets</button>
-                    <button onclick="showSection('study'); closeDropdownMobile('study');">📑 Previous Papers</button>
-                    <button onclick="showSection('study'); closeDropdownMobile('study');">🔁 Revision Notes</button>
+                    <button onclick="showSection('study'); filterGenericCategory('study', 'all'); closeDropdownMobile('study');">📝 All Study Notes</button>
+                    <div class="dropdown-divider"></div>
+                    <button onclick="showSection('study'); filterGenericCategory('study', 'Subject-wise notes'); closeDropdownMobile('study');">📚 Subject-wise notes</button>
+                    <button onclick="showSection('study'); filterGenericCategory('study', 'Practice sets with answer keys'); closeDropdownMobile('study');">📄 Practice sets</button>
+                    <button onclick="showSection('study'); filterGenericCategory('study', 'Previous year papers with detailed solutions'); closeDropdownMobile('study');">📑 Previous Year Papers</button>
+                    <button onclick="showSection('study'); filterGenericCategory('study', 'Revision notes for quick review'); closeDropdownMobile('study');">🔁 Revision notes</button>
                 </div>
             </div>
 
@@ -1735,11 +1736,12 @@
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('books')">📖 Books <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="booksDropdownContent">
                     <div class="dropdown-label">📚 Book Categories</div>
-                    <button onclick="showSection('books'); closeDropdownMobile('books');">📚 All Books</button>
-                    <button onclick="showSection('books'); closeDropdownMobile('books');">🏛️ Competitive Exams</button>
-                    <button onclick="showSection('books'); closeDropdownMobile('books');">🏜️ Rajasthan GK</button>
-                    <button onclick="showSection('books'); closeDropdownMobile('books');">🧠 General Knowledge</button>
-                    <button onclick="showSection('books'); closeDropdownMobile('books');">🔥 Motivation</button>
+                    <button onclick="showSection('books'); filterGenericCategory('books', 'all'); closeDropdownMobile('books');">📚 All Books</button>
+                    <div class="dropdown-divider"></div>
+                    <button onclick="showSection('books'); filterGenericCategory('books', 'Competitive Exams'); closeDropdownMobile('books');">🏛️ Competitive Exams</button>
+                    <button onclick="showSection('books'); filterGenericCategory('books', 'Rajasthan GK'); closeDropdownMobile('books');">🏜️ Rajasthan GK</button>
+                    <button onclick="showSection('books'); filterGenericCategory('books', 'General Knowledge'); closeDropdownMobile('books');">🧠 General Knowledge</button>
+                    <button onclick="showSection('books'); filterGenericCategory('books', 'Motivation'); closeDropdownMobile('books');">🔥 Motivation</button>
                 </div>
             </div>
 
@@ -1759,16 +1761,15 @@
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('blog')">📝 Blog <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="blogDropdownContent">
                     <div class="dropdown-label">📝 Blog Posts</div>
-                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">📚 All Blog Posts</button>
+                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'all'); closeDropdownMobile('blog');">📚 All Blog Posts</button>
                     <div class="dropdown-divider"></div>
-                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">💻 Technology</button>
-                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">📊 Business</button>
-                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">🎨 Design</button>
-                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">❤️ Lifestyle</button>
-                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">📚 Education</button>
-                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">📰 News</button>
-                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">💼 Portfolio</button>
-                    <button onclick="showSection('blog'); closeDropdownMobile('blog');">👥 Guest</button>
+                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Technology'); closeDropdownMobile('blog');">💻 Technology</button>
+                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Business'); closeDropdownMobile('blog');">📊 Business</button>
+                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Design'); closeDropdownMobile('blog');">🎨 Design</button>
+                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Lifestyle'); closeDropdownMobile('blog');">❤️ Lifestyle</button>
+                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Education'); closeDropdownMobile('blog');">📚 Education</button>
+                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'News'); closeDropdownMobile('blog');">📰 News</button>
+                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Portfolio'); closeDropdownMobile('blog');">💼 Portfolio</button>
                 </div>
             </div>
 
@@ -1864,7 +1865,12 @@
 
         <!-- ================= SECTION: STUDY ================= -->
         <section class="section" id="study">
-            <div class="section-header"><h2>📚 <span>Study Notes</span></h2></div>
+            <div class="section-header">
+                <h2>📚 <span>Study Notes</span></h2>
+                <div id="studySubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
+                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('study', 'all')">📌 All</button>
+                </div>
+            </div>
             <div id="studyContent" class="page-content-display"></div>
             <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
                 <i class="fas fa-info-circle"></i> Study Items are managed from Admin Panel → Study Items
@@ -1873,7 +1879,12 @@
 
         <!-- ================= SECTION: CAREER ================= -->
         <section class="section" id="career">
-            <div class="section-header"><h2>🎯 <span>Career Guide</span></h2></div>
+            <div class="section-header">
+                <h2>🎯 <span>Career Guide</span></h2>
+                <div id="careerSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
+                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('career', 'all')">📌 All</button>
+                </div>
+            </div>
             <div id="careerContent" class="page-content-display"></div>
             <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
                 <i class="fas fa-info-circle"></i> Career Items are managed from Admin Panel → Career Items
@@ -1882,7 +1893,12 @@
 
         <!-- ================= SECTION: BOOKS ================= -->
         <section class="section" id="books">
-            <div class="section-header"><h2>📖 <span>Books</span></h2></div>
+            <div class="section-header">
+                <h2>📖 <span>Books</span></h2>
+                <div id="booksSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
+                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('books', 'all')">📌 All</button>
+                </div>
+            </div>
             <div id="booksContent" class="page-content-display"></div>
             <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
                 <i class="fas fa-info-circle"></i> Books Items are managed from Admin Panel → Books Items
@@ -1900,7 +1916,12 @@
 
         <!-- ================= SECTION: BLOG ================= -->
         <section class="section" id="blog">
-            <div class="section-header"><h2>📝 <span>Blog</span></h2></div>
+            <div class="section-header">
+                <h2>📝 <span>Blog</span></h2>
+                <div id="blogSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
+                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('blog', 'all')">📌 All</button>
+                </div>
+            </div>
             <div id="blogContent" class="page-content-display"></div>
             <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
                 <i class="fas fa-info-circle"></i> Blog Items are managed from Admin Panel → Blog Items
@@ -1937,7 +1958,7 @@
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v10';
+        const STORAGE_KEY = 'dreamjosh_all_data_v12';
 
         const DEFAULT_DATA = {
             home: {
@@ -1954,27 +1975,28 @@
                 highlight: '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>'
             },
             study: {
-                content: '<h2>📚 Study Materials</h2><p>Welcome to the study section of Dream Josh. Here you will find comprehensive study materials for all competitive exams.</p><ul><li>📝 <strong>Subject-wise notes</strong> for UPSC, SSC, Banking, Railway</li><li>📄 <strong>Practice sets</strong> with answer keys</li><li>📑 <strong>Previous year papers</strong> with detailed solutions</li><li>🔁 <strong>Revision notes</strong> for quick review</li></ul><blockquote><p>🔹 <strong>Quote:</strong> "Success is the sum of small efforts, repeated day in and day out."</p></blockquote>',
+                content: '<h2>📚 Study Materials</h2><p>Welcome to the study section of Dream Josh. Here you will find comprehensive study materials for all competitive exams.</p><blockquote><p>🔹 <strong>Quote:</strong> "Success is the sum of small efforts, repeated day in and day out."</p></blockquote>',
                 items: [
-                    { id: 's1', title: '📝 Study Notes - Subject Wise', description: 'Complete study notes for all competitive exams', visibility: 'public' },
-                    { id: 's2', title: '📄 Practice Sets', description: 'Practice sets for UPSC, SSC, Banking, Railway', visibility: 'public' },
-                    { id: 's3', title: '📑 Previous Year Papers', description: 'Previous year papers with solutions', visibility: 'public' }
+                    { id: 's1', title: '📝 Complete UPSC Notes', description: 'Detailed Subject-wise notes for UPSC Prelims and Mains.', visibility: 'public', category: 'Subject-wise notes' },
+                    { id: 's2', title: '📄 SSC CGL Practice Set', description: '20 Practice sets with answer keys and explanations for SSC CGL.', visibility: 'public', category: 'Practice sets with answer keys' },
+                    { id: 's3', title: '📑 RBI Grade B Previous Papers', description: 'Previous year papers with detailed solutions for RBI Grade B.', visibility: 'public', category: 'Previous year papers with detailed solutions' },
+                    { id: 's4', title: '🔁 Quick Revision Notes: Maths', description: 'Short revision notes for formula and concepts.', visibility: 'public', category: 'Revision notes for quick review' }
                 ]
             },
             career: {
-                content: '<h2>🎯 Career Guidance</h2><p>Explore various career options and find the right path for your future.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;"><div style="background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);"><h4>🏛️ Government Jobs</h4><p>UPSC, SSC, Banking, Railway, Defence, Police</p></div><div style="background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);"><h4>💼 Private Jobs</h4><p>IT, Finance, Marketing, HR, Healthcare</p></div></div><p><strong>🔹 Get expert guidance:</strong> Our career counselors help you choose the right career path.</p>',
+                content: '<h2>🎯 Career Guidance</h2><p>Explore various career options and find the right path for your future.</p><p><strong>🔹 Get expert guidance:</strong> Our career counselors help you choose the right career path.</p>',
                 items: [
-                    { id: 'c1', title: '🏛️ Government Jobs', description: 'UPSC, SSC, Banking, Railway, Defence, Police', visibility: 'public' },
-                    { id: 'c2', title: '💼 Private Jobs', description: 'IT, Finance, Marketing, HR, Healthcare', visibility: 'public' },
-                    { id: 'c3', title: '📚 Teaching & Education', description: 'CTET, REET, B.Ed, M.Ed career paths', visibility: 'public' }
+                    { id: 'c1', title: '🏛️ Government Jobs', description: 'UPSC, SSC, Banking, Railway, Defence, Police', visibility: 'public', category: 'Government Jobs' },
+                    { id: 'c2', title: '💼 Private Jobs', description: 'IT, Finance, Marketing, HR, Healthcare', visibility: 'public', category: 'Private Jobs' },
+                    { id: 'c3', title: '📚 Teaching & Education', description: 'CTET, REET, B.Ed, M.Ed career paths', visibility: 'public', category: 'Teaching' }
                 ]
             },
             books: {
-                content: '<h2>📖 Recommended Books</h2><p>Find the best books for your exam preparation.</p><ul><li>📚 <strong>Competitive Exam Books</strong> - UPSC, SSC, Banking, Railway</li><li>🏜️ <strong>Rajasthan GK</strong> - Complete Rajasthan General Knowledge</li><li>🧠 <strong>General Knowledge</strong> - GK for all competitive exams</li><li>🔥 <strong>Motivation Books</strong> - Inspirational books for success</li></ul><blockquote><p>📖 "A reader lives a thousand lives before he dies."</p></blockquote>',
+                content: '<h2>📖 Recommended Books</h2><p>Find the best books for your exam preparation.</p><blockquote><p>📖 "A reader lives a thousand lives before he dies."</p></blockquote>',
                 items: [
-                    { id: 'b1', title: '📚 Competitive Exam Books', description: 'Best books for UPSC, SSC, Banking, Railway', visibility: 'public' },
-                    { id: 'b2', title: '🏜️ Rajasthan GK', description: 'Rajasthan General Knowledge books', visibility: 'public' },
-                    { id: 'b3', title: '🧠 General Knowledge', description: 'GK books for all competitive exams', visibility: 'public' }
+                    { id: 'b1', title: '📚 Competitive Exam Books', description: 'Best books for UPSC, SSC, Banking, Railway', visibility: 'public', category: 'Competitive Exams' },
+                    { id: 'b2', title: '🏜️ Rajasthan GK', description: 'Rajasthan General Knowledge books', visibility: 'public', category: 'Rajasthan GK' },
+                    { id: 'b3', title: '🧠 General Knowledge', description: 'GK books for all competitive exams', visibility: 'public', category: 'General Knowledge' }
                 ]
             },
             more: {
@@ -1986,11 +2008,11 @@
                 ]
             },
             blog: {
-                content: '<h2>📝 Blog</h2><p>Read our latest blog posts on various topics.</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:12px 0;"><div style="background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);"><h4>💻 Technology</h4><p>Latest tech news and updates</p></div><div style="background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);"><h4>📊 Business</h4><p>Business and finance articles</p></div><div style="background:var(--bg-color);padding:12px;border-radius:8px;border:1px solid var(--border-color);"><h4>❤️ Lifestyle</h4><p>Lifestyle and wellness tips</p></div></div>',
+                content: '<h2>📝 Blog</h2><p>Read our latest blog posts on various topics.</p>',
                 items: [
-                    { id: 'bl1', title: '💻 Technology', description: 'Latest tech news and updates', visibility: 'public' },
-                    { id: 'bl2', title: '📊 Business', description: 'Business and finance articles', visibility: 'public' },
-                    { id: 'bl3', title: '❤️ Lifestyle', description: 'Lifestyle and wellness tips', visibility: 'public' }
+                    { id: 'bl1', title: '💻 Technology', description: 'Latest tech news and updates', visibility: 'public', category: 'Technology' },
+                    { id: 'bl2', title: '📊 Business', description: 'Business and finance articles', visibility: 'public', category: 'Business' },
+                    { id: 'bl3', title: '❤️ Lifestyle', description: 'Lifestyle and wellness tips', visibility: 'public', category: 'Lifestyle' }
                 ]
             }
         };
@@ -2027,6 +2049,14 @@
         let jobsData = [];
         let currentCategory = 'central';
         let currentSubCategory = 'all';
+
+        // Global Filter Variables for study, career, books, blog
+        const genericFilters = {
+            study: 'all',
+            career: 'all',
+            books: 'all',
+            blog: 'all'
+        };
 
         function loadData() {
             try {
@@ -2110,21 +2140,6 @@
                 html += content;
             }
             
-            // Show items as a list on the page
-            if (items && items.length > 0) {
-                const publicItems = items.filter(i => i.visibility !== 'private');
-                if (publicItems.length > 0) {
-                    html += `<div style="margin-top:20px;border-top:2px solid var(--border-color);padding-top:16px;"><h3 style="color:var(--primary-blue);margin-bottom:10px;">📋 Items List</h3><ul style="list-style:none;padding:0;">`;
-                    publicItems.forEach(item => {
-                        html += `<li style="padding:8px 12px;background:var(--bg-color);border-radius:6px;margin-bottom:6px;border-left:3px solid var(--secondary-blue);">
-                            <strong>${item.title || 'Untitled'}</strong>
-                            ${item.description ? `<div style="font-size:13px;color:var(--text-light);margin-top:2px;">${item.description}</div>` : ''}
-                        </li>`;
-                    });
-                    html += `</ul></div>`;
-                }
-            }
-            
             if (!html || html.trim() === '') {
                 container.innerHTML = `<p style="color:var(--text-light);">No content available. Click "Edit Content" in Admin Panel to add rich text.</p>`;
                 return;
@@ -2134,7 +2149,70 @@
 
         function renderAllPages() {
             renderHomePage();
-            ['study', 'career', 'books', 'more', 'blog'].forEach(page => renderPageContent(page));
+            ['study', 'career', 'books', 'more', 'blog'].forEach(page => {
+                if(page !== 'more') {
+                    renderGenericPage(page);
+                } else {
+                    renderPageContent(page);
+                }
+            });
+        }
+
+        // ============================================================
+        // GENERIC PAGE RENDERER (Study, Career, Books, Blog)
+        // ============================================================
+        function renderGenericPage(page) {
+            const container = document.getElementById(`${page}Content`);
+            const items = getPageItems(page);
+            const publicItems = items.filter(i => i.visibility !== 'private');
+            
+            // Update Header Sub-category Filter Buttons
+            updateGenericSubFilter(page, publicItems);
+
+            // Filter items based on current selection
+            let filtered = publicItems;
+            const currentCat = genericFilters[page];
+            if (currentCat !== 'all') {
+                filtered = publicItems.filter(i => i.category === currentCat);
+            }
+
+            let html = getPageContent(page);
+            if (filtered.length > 0) {
+                html += `<div style="margin-top:20px;border-top:2px solid var(--border-color);padding-top:16px;"><h3 style="color:var(--primary-blue);margin-bottom:10px;">📂 Category: ${currentCat === 'all' ? 'All' : currentCat}</h3><ul style="list-style:none;padding:0;">`;
+                filtered.forEach(item => {
+                    html += `<li style="padding:8px 12px;background:var(--bg-color);border-radius:6px;margin-bottom:6px;border-left:3px solid var(--secondary-blue);">
+                        <strong>${item.title || 'Untitled'}</strong>
+                        ${item.description ? `<div style="font-size:13px;color:var(--text-light);margin-top:2px;">${item.description}</div>` : ''}
+                    </li>`;
+                });
+                html += `</ul></div>`;
+            } else {
+                html += `<p style="color:var(--text-light);margin-top:16px;">No items available in this category yet.</p>`;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function updateGenericSubFilter(page, items) {
+            const container = document.getElementById(`${page}SubFilter`);
+            if(!container) return;
+            
+            let categories = ['all'];
+            items.forEach(i => {
+                if(i.category && !categories.includes(i.category)) {
+                    categories.push(i.category);
+                }
+            });
+
+            container.innerHTML = categories.map(cat => 
+                `<button class="sub-btn ${cat === genericFilters[page] ? 'active' : ''}" data-sub="${cat}" onclick="filterGenericCategory('${page}', '${cat}')">${cat === 'all' ? '📌 All' : cat}</button>`
+            ).join('');
+        }
+
+        function filterGenericCategory(page, category) {
+            genericFilters[page] = category;
+            renderGenericPage(page);
+            document.getElementById(page).scrollIntoView({ behavior: 'smooth' });
         }
 
         // ============================================================
@@ -2665,6 +2743,7 @@
                             <div class="item-info">
                                 <div class="item-title">${item.title || 'Untitled'}</div>
                                 <div class="item-desc-preview">${item.description || ''}</div>
+                                ${page !== 'more' ? `<span style="font-size:10px;background:var(--secondary-blue);color:#fff;padding:1px 8px;border-radius:10px;">${item.category || 'Uncategorized'}</span>` : ''}
                                 <span class="visibility-badge ${item.visibility === 'private' ? 'private' : 'public'}">${item.visibility === 'private' ? '🔒 Private' : '🌐 Public'}</span>
                             </div>
                             <div class="item-actions">
@@ -2929,13 +3008,40 @@
         function openItemEditor(page, index = null) {
             const isEdit = index !== null;
             const items = getPageItems(page);
-            const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public' };
+            const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public', category: '' };
             
             document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit ${page} Item` : `➕ Add ${page} Item`;
+            
+            // Category Dropdown options only for pages except 'more'
+            let categoryHtml = '';
+            if (page !== 'more') {
+                let catOptions = [];
+                if(page === 'study') {
+                    catOptions = ['Subject-wise notes', 'Practice sets with answer keys', 'Previous year papers with detailed solutions', 'Revision notes for quick review'];
+                } else if (page === 'career') {
+                    catOptions = ['Government Jobs', 'Banking', 'SSC', 'Railway', 'Defence', 'Police', 'Teaching', 'Engineering', 'Medical', 'Management', 'Law', 'IT', 'UPSC', 'Private Jobs'];
+                } else if (page === 'books') {
+                    catOptions = ['Competitive Exams', 'Rajasthan GK', 'General Knowledge', 'Motivation'];
+                } else if (page === 'blog') {
+                    catOptions = ['Technology', 'Business', 'Design', 'Lifestyle', 'Education', 'News', 'Portfolio'];
+                }
+
+                categoryHtml = `
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="itemCategory">
+                            <option value="">Select Category</option>
+                            ${catOptions.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+            }
+
             document.getElementById('adminModalBody').innerHTML = `
                 <input type="hidden" id="itemPage" value="${page}">
                 <input type="hidden" id="itemIndex" value="${isEdit ? index : -1}">
                 <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${item.title || ''}"></div>
+                ${categoryHtml}
                 <div class="form-group">
                     <label>Description (Rich Text - Bold, Italic, Lists, Links, Images, Tables)</label>
                     <div id="itemDescContainer">
@@ -2973,12 +3079,19 @@
             const description = editor ? editor.innerHTML : '';
             const visibility = document.getElementById('itemVisibility').value;
             
+            let category = '';
+            if (page !== 'more') {
+                category = document.getElementById('itemCategory').value;
+                if (!category) { showToast('Please select a Category!', 'error'); return; }
+            }
+
             if (!title) { showToast('Title is required!', 'error'); return; }
             
             if (!appData[page]) appData[page] = { content: '', items: [] };
             if (!appData[page].items) appData[page].items = [];
             
             const item = { id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5), title, description, visibility };
+            if (page !== 'more') item.category = category;
             
             if (index >= 0 && index < appData[page].items.length) {
                 appData[page].items[index] = { ...appData[page].items[index], ...item };
@@ -3185,7 +3298,7 @@
             updateSubCategoryButtons();
             selectCategory('central');
             document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
-            console.log('🚀 Dream Josh – All Pages with Add Data + MS Word Editor!');
+            console.log('🚀 Dream Josh – All Pages with Categories + MS Word Editor!');
         });
 
         // Expose functions
@@ -3226,6 +3339,7 @@
         window.deleteItem = deleteItem;
         window.renderAdminItems = renderAdminItems;
         window.getPageItems = getPageItems;
+        window.filterGenericCategory = filterGenericCategory;
     </script>
 </body>
 </html>
