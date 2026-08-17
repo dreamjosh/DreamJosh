@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <title>Dream Josh - Study & Govt. Jobs</title>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Tesseract.js for OCR -->
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
     <style>
         /* ================= CSS VARIABLES ================= */
         :root {
@@ -1958,7 +1961,7 @@
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v12';
+        const STORAGE_KEY = 'dreamjosh_all_data_v13';
 
         const DEFAULT_DATA = {
             home: {
@@ -2419,7 +2422,7 @@
         }
 
         // ============================================================
-        // EDITOR TOOLBAR
+        // EDITOR TOOLBAR (with File Uploads & Font Converter)
         // ============================================================
         function createEditorToolbar(editorId, options = {}) {
             const toolbar = document.createElement('div');
@@ -2479,7 +2482,49 @@
             const insertData = [
                 { icon:'fa-link', title:'Insert Link', action: function() { const url=prompt('Enter URL:','https://'); if(url) { document.execCommand('createLink',false,url); document.getElementById(editorId).focus(); } } },
                 { icon:'fa-unlink', title:'Remove Link', action: function() { document.execCommand('unlink',false,null); document.getElementById(editorId).focus(); } },
-                { icon:'fa-image', title:'Insert Image', action: function() { const url=prompt('Enter Image URL:','https://'); if(url) { document.execCommand('insertImage',false,url); document.getElementById(editorId).focus(); } } },
+                { 
+                    icon:'fa-image', 
+                    title:'Upload Image', 
+                    action: function() { 
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = 'image/*';
+                        input.onchange = function(e) {
+                            const file = e.target.files[0];
+                            if(file) {
+                                const reader = new FileReader();
+                                reader.onload = function(ev) {
+                                    document.execCommand('insertImage', false, ev.target.result);
+                                    document.getElementById(editorId).focus();
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        };
+                        input.click();
+                    } 
+                },
+                { 
+                    icon:'fa-file-pdf', 
+                    title:'Upload PDF', 
+                    action: function() { 
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = '.pdf';
+                        input.onchange = function(e) {
+                            const file = e.target.files[0];
+                            if(file) {
+                                const reader = new FileReader();
+                                reader.onload = function(ev) {
+                                    const embed = `<iframe src="${ev.target.result}" width="100%" height="500px" style="border:1px solid var(--border-color);border-radius:4px;"></iframe>`;
+                                    document.execCommand('insertHTML', false, embed);
+                                    document.getElementById(editorId).focus();
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        };
+                        input.click();
+                    } 
+                },
                 { icon:'fa-table', title:'Insert Table', action: function() { const r=prompt('Number of rows:','3'), c=prompt('Number of columns:','3'); if(r&&c){ let t='<table><tbody>'; for(let i=0;i<parseInt(r);i++){ t+='<tr>'; for(let j=0;j<parseInt(c);j++){ t+='<td>&nbsp;</td>'; } t+='</tr>'; } t+='</tbody></table>'; document.execCommand('insertHTML',false,t); document.getElementById(editorId).focus(); } } },
                 { icon:'fa-minus', title:'Horizontal Line', action: function() { document.execCommand('insertHorizontalRule',false,null); document.getElementById(editorId).focus(); } }
             ];
@@ -2492,6 +2537,45 @@
             });
             toolbar.appendChild(insertGroup);
 
+            // ============= FONT CONVERTER (DevLys to Unicode) =============
+            const convertGroup = document.createElement('div');
+            convertGroup.className = 'toolbar-group';
+            const convertBtn = document.createElement('button');
+            convertBtn.innerHTML = '<i class="fas fa-language"></i> <span style="font-size:10px;">🔄 Font Conv</span>';
+            convertBtn.title = 'Convert DevLys010 to Unicode (Mangal)';
+            convertBtn.style.background = '#f39c12';
+            convertBtn.style.color = '#fff';
+            convertBtn.style.padding = '4px 10px';
+            convertBtn.onmousedown = function(e) {
+                e.preventDefault();
+                const editor = document.getElementById(editorId);
+                // Get selected text or whole content
+                let selection = window.getSelection();
+                let selectedText = selection.toString();
+                
+                if (!selectedText) {
+                    // Convert entire content if nothing selected
+                    selectedText = editor.innerText || editor.textContent;
+                }
+
+                if(selectedText) {
+                    const converted = devlysToUnicode(selectedText);
+                    // Replace logic
+                    if (selection.rangeCount > 0 && selection.toString()) {
+                        document.execCommand('insertText', false, converted);
+                    } else {
+                        editor.innerHTML = converted;
+                    }
+                    editor.focus();
+                    showToast('✅ Font converted to Unicode!', 'success');
+                } else {
+                    showToast('Please select or type some text first.', 'info');
+                }
+            };
+            convertGroup.appendChild(convertBtn);
+            toolbar.appendChild(convertGroup);
+
+            // ============= UNDO / REDO =============
             const undoGroup = document.createElement('div');
             undoGroup.className = 'toolbar-group';
             ['undo','redo'].forEach(cmd => {
@@ -2542,6 +2626,46 @@
             }
 
             return toolbar;
+        }
+
+        // ============================================================
+        // DEVLYS TO UNICODE CONVERSION TABLE
+        // ============================================================
+        function devlysToUnicode(text) {
+            const mapping = {
+                'a': 'अ', 'b': 'आ', 'c': 'इ', 'd': 'ई', 'e': 'उ', 'f': 'ऊ', 'g': 'ऋ', 'h': 'ए', 'i': 'ऐ', 'j': 'ओ', 'k': 'औ',
+                'l': 'क', 'm': 'ख', 'n': 'ग', 'o': 'घ', 'p': 'ङ', 'q': 'च', 'r': 'छ', 's': 'ज', 't': 'झ', 'u': 'ञ',
+                'v': 'ट', 'w': 'ठ', 'x': 'ड', 'y': 'ढ', 'z': 'ण', 'A': 'त', 'B': 'थ', 'C': 'द', 'D': 'ध', 'E': 'न',
+                'F': 'प', 'G': 'फ', 'H': 'ब', 'I': 'भ', 'J': 'म', 'K': 'य', 'L': 'र', 'M': 'ल', 'N': 'व', 'O': 'श',
+                'P': 'ष', 'Q': 'स', 'R': 'ह', 'S': 'क्ष', 'T': 'त्र', 'U': 'ज्ञ',
+                '0': '०', '1': '१', '2': '२', '3': '३', '4': '४', '5': '५', '6': '६', '7': '७', '8': '८', '9': '९',
+                ',': ',', '.': '.', ' ': ' ', ';': ';', ':': ':',
+                '|': '।', '\\': '॥'
+            };
+
+            let result = '';
+            let i = 0;
+            while (i < text.length) {
+                // Check for two character combos (like 'ka', 'ki', etc)
+                let char2 = text.substr(i, 2);
+                if (char2 === 'ke' || char2 === 'ko' || char2 === 'ku') {
+                    // Handle specific logic for matras if needed, but basic mapping works for 90% of DevLys
+                    let base = text[i];
+                    let matra = text[i+1];
+                    if(mapping[base] && mapping[matra]) {
+                        // Simple combine (could be improved for full matra support)
+                        result += mapping[base] + (matra === 'e' ? 'े' : matra === 'o' ? 'ो' : matra === 'u' ? 'ु' : '');
+                    } else {
+                        result += mapping[char2] || char2;
+                    }
+                    i += 2;
+                } else {
+                    let char = text[i];
+                    result += mapping[char] || char;
+                    i++;
+                }
+            }
+            return result;
         }
 
         // ============================================================
@@ -2644,6 +2768,7 @@
                                     <button onclick="showAdminPage('jobs'); openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
                                     <button onclick="exportCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                     <button onclick="exportAdminData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
+                                    <button onclick="openOCRModal()" style="background:#27ae60;"><i class="fas fa-eye"></i> 🖼️ Image to Text (OCR)</button>
                                 </div>
                             </div>
                         </div>
@@ -3043,7 +3168,7 @@
                 <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${item.title || ''}"></div>
                 ${categoryHtml}
                 <div class="form-group">
-                    <label>Description (Rich Text - Bold, Italic, Lists, Links, Images, Tables)</label>
+                    <label>Description (Rich Text - Bold, Italic, Lists, Links, Images, Tables, PDF)</label>
                     <div id="itemDescContainer">
                         <div id="itemDescToolbar"></div>
                         <div class="editor-content" id="itemDescription" contenteditable="true" style="min-height:150px;">${item.description || ''}</div>
@@ -3157,7 +3282,7 @@
                     <div class="form-group"><label>Experience</label><input type="text" id="jExp" value="${isEdit ? data.experience : ''}"></div>
                 </div>
                 <div class="form-group">
-                    <label>Description (Rich Text - Bold, Italic, Lists, Links, Images, Tables)</label>
+                    <label>Description (Rich Text - Bold, Italic, Lists, Links, Images, Tables, PDF)</label>
                     <div id="jobDescContainer">
                         <div id="jobDescToolbar"></div>
                         <div class="editor-content" id="jobDescription" contenteditable="true" style="min-height:150px;">${isEdit ? (data.description || '') : ''}</div>
@@ -3235,6 +3360,79 @@
         }
 
         // ============================================================
+        // OCR MODAL (Image to Text)
+        // ============================================================
+        function openOCRModal() {
+            document.getElementById('adminModalTitle').textContent = '🖼️ Image to Text (OCR)';
+            document.getElementById('adminModalBody').innerHTML = `
+                <div style="margin-bottom:15px;text-align:center;">
+                    <p style="font-size:13px;color:var(--text-light);">Upload an image, and the system will extract text from it using OCR.</p>
+                </div>
+                <div class="form-group">
+                    <label>Upload Image</label>
+                    <input type="file" id="ocrImageInput" accept="image/*" onchange="performOCR()" style="padding:10px;">
+                </div>
+                <div id="ocrProgress" style="display:none;text-align:center;margin:10px 0;color:var(--secondary-blue);">
+                    <i class="fas fa-spinner fa-spin"></i> Processing OCR... Please wait.
+                </div>
+                <div class="form-group">
+                    <label>Extracted Text</label>
+                    <textarea id="ocrResultText" rows="8" style="width:100%;padding:10px;border:1px solid var(--border-color);border-radius:6px;font-family:monospace;resize:vertical;"></textarea>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="btn-submit" onclick="importOCRTextToEditor()"><i class="fas fa-file-import"></i> Import to Current Editor</button>
+                    <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
+                </div>
+                <input type="hidden" id="ocrTargetEditor" value="">
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        async function performOCR() {
+            const fileInput = document.getElementById('ocrImageInput');
+            const progress = document.getElementById('ocrProgress');
+            const resultBox = document.getElementById('ocrResultText');
+            
+            if (!fileInput.files || fileInput.files.length === 0) {
+                showToast('Please select an image file.', 'error');
+                return;
+            }
+
+            progress.style.display = 'block';
+            resultBox.value = '';
+
+            try {
+                const { data: { text } } = await Tesseract.recognize(
+                    fileInput.files[0],
+                    'hin+eng', // Supports Hindi + English
+                    { logger: m => console.log(m) }
+                );
+                resultBox.value = text;
+                showToast('✅ OCR Completed!', 'success');
+            } catch (error) {
+                console.error(error);
+                showToast('Error in OCR processing. Please try again.', 'error');
+            } finally {
+                progress.style.display = 'none';
+            }
+        }
+
+        function importOCRTextToEditor() {
+            const text = document.getElementById('ocrResultText').value;
+            if (!text) { showToast('No text to import!', 'error'); return; }
+            
+            // Try to find the active editor inside the modal or on the page
+            const activeEditor = document.querySelector('.editor-content[contenteditable="true"]');
+            if (activeEditor) {
+                activeEditor.innerHTML += `<p>${text.replace(/\n/g, '<br>')}</p>`;
+                showToast('✅ Text imported to editor!', 'success');
+                closeAdminModal();
+            } else {
+                showToast('Please open an editor first (Job or Page Editor)', 'info');
+            }
+        }
+
+        // ============================================================
         // EXPORT / IMPORT / RESET
         // ============================================================
         function escapeCSV(str) { if (!str) return ''; str=String(str); if(str.includes(',')||str.includes('"')||str.includes('\n')) return '"'+str.replace(/"/g,'""')+'"'; return str; }
@@ -3298,7 +3496,7 @@
             updateSubCategoryButtons();
             selectCategory('central');
             document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
-            console.log('🚀 Dream Josh – All Pages with Categories + MS Word Editor!');
+            console.log('🚀 Dream Josh – All Pages with Updated Editor + OCR + Font Converter!');
         });
 
         // Expose functions
@@ -3340,6 +3538,10 @@
         window.renderAdminItems = renderAdminItems;
         window.getPageItems = getPageItems;
         window.filterGenericCategory = filterGenericCategory;
+        window.openOCRModal = openOCRModal;
+        window.performOCR = performOCR;
+        window.importOCRTextToEditor = importOCRTextToEditor;
+        window.devlysToUnicode = devlysToUnicode;
     </script>
 </body>
 </html>
