@@ -1673,6 +1673,128 @@
             margin-bottom: 10px;
             opacity: 0.5;
         }
+
+        /* ================= FONT CONVERTER STYLES (More Page) ================= */
+        .font-converter-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .font-converter-box .converter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .font-converter-box .converter-header h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        .font-converter-box .converter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .font-converter-box .converter-grid .input-area, 
+        .font-converter-box .converter-grid .output-area {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .font-converter-box .converter-grid label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .font-converter-box .converter-grid textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: 0.3s;
+        }
+        .font-converter-box .converter-grid textarea:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+        .font-converter-box .converter-grid .output-area textarea {
+            background: var(--editor-toolbar-bg);
+            font-family: "Mangal", "Arial Unicode MS", sans-serif;
+        }
+        .font-converter-box .converter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            justify-content: center;
+        }
+        .font-converter-box .converter-controls button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .font-converter-box .converter-controls .btn-convert {
+            background: var(--secondary-blue);
+            color: #fff;
+        }
+        .font-converter-box .converter-controls .btn-convert:hover {
+            background: var(--primary-blue);
+            transform: scale(1.02);
+        }
+        .font-converter-box .converter-controls .btn-clear {
+            background: #dc3545;
+            color: #fff;
+        }
+        .font-converter-box .converter-controls .btn-clear:hover {
+            background: #a71d2a;
+        }
+        .font-converter-box .converter-controls .btn-copy {
+            background: var(--success-green);
+            color: #fff;
+        }
+        .font-converter-box .converter-controls .btn-copy:hover {
+            background: #15803d;
+        }
+        .font-converter-box .converter-info {
+            font-size: 12px;
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .font-converter-box .converter-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .font-converter-box .converter-grid textarea {
+                min-height: 150px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1908,10 +2030,40 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: MORE ================= -->
+        <!-- ================= SECTION: MORE (Font Converter Added Here) ================= -->
         <section class="section" id="more">
-            <div class="section-header"><h2>⚙️ <span>More Features</span></h2></div>
+            <div class="section-header">
+                <h2>⚙️ <span>More Features</span></h2>
+            </div>
             <div id="moreContent" class="page-content-display"></div>
+            
+            <!-- Font Converter Component -->
+            <div class="font-converter-box" id="fontConverterBox">
+                <div class="converter-header">
+                    <h4><i class="fas fa-language" style="color:var(--secondary-blue);"></i> Font Converter (DevLys / Kruti to Unicode)</h4>
+                    <span style="font-size:12px;color:var(--text-light);">Convert legacy fonts to Mangal/Unicode instantly.</span>
+                </div>
+                <div class="converter-grid">
+                    <div class="input-area">
+                        <label for="fontInput">📥 Input Text (Type or Paste DevLys/Kruti Font)</label>
+                        <textarea id="fontInput" placeholder="यहाँ DevLys या Kruti Dev font में टाइप करें या पेस्ट करें... (जैसे: 'd;k' का मतलब 'क' होगा)"></textarea>
+                    </div>
+                    <div class="output-area">
+                        <label for="fontOutput">📤 Unicode Output (Mangal / Arial Unicode)</label>
+                        <textarea id="fontOutput" placeholder="Converted Unicode text will appear here..." readonly></textarea>
+                    </div>
+                </div>
+                <div class="converter-controls">
+                    <button class="btn-convert" onclick="convertFonts()"><i class="fas fa-sync-alt"></i> Convert</button>
+                    <button class="btn-copy" onclick="copyFontOutput()"><i class="fas fa-copy"></i> Copy Output</button>
+                    <button class="btn-clear" onclick="clearFontConverter()"><i class="fas fa-trash-alt"></i> Clear All</button>
+                    <button class="btn-preview" style="background:var(--secondary);color:#fff;" onclick="previewFontOutput()"><i class="fas fa-eye"></i> Preview</button>
+                </div>
+                <div class="converter-info">
+                    💡 <strong>Tip:</strong> Legacy fonts (DevLys010, Kruti Dev) ki mapping automatic ho jati hai. Copy karke kisi bhi Editor mein paste karein.
+                </div>
+            </div>
+
             <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
                 <i class="fas fa-info-circle"></i> More Items are managed from Admin Panel → More Items
             </div>
@@ -1961,7 +2113,7 @@
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v13';
+        const STORAGE_KEY = 'dreamjosh_all_data_v14';
 
         const DEFAULT_DATA = {
             home: {
@@ -2629,7 +2781,7 @@
         }
 
         // ============================================================
-        // DEVLYS TO UNICODE CONVERSION TABLE
+        // DEVLYS TO UNICODE CONVERSION TABLE (Complete)
         // ============================================================
         function devlysToUnicode(text) {
             const mapping = {
@@ -2642,30 +2794,119 @@
                 ',': ',', '.': '.', ' ': ' ', ';': ';', ':': ':',
                 '|': '।', '\\': '॥'
             };
-
+            
+            // Handling Matras (Vowels signs) - Basic implementation
             let result = '';
             let i = 0;
             while (i < text.length) {
-                // Check for two character combos (like 'ka', 'ki', etc)
-                let char2 = text.substr(i, 2);
-                if (char2 === 'ke' || char2 === 'ko' || char2 === 'ku') {
-                    // Handle specific logic for matras if needed, but basic mapping works for 90% of DevLys
-                    let base = text[i];
-                    let matra = text[i+1];
-                    if(mapping[base] && mapping[matra]) {
-                        // Simple combine (could be improved for full matra support)
-                        result += mapping[base] + (matra === 'e' ? 'े' : matra === 'o' ? 'ो' : matra === 'u' ? 'ु' : '');
-                    } else {
-                        result += mapping[char2] || char2;
+                let char = text[i];
+                let nextChar = text[i+1] || '';
+                
+                // Simple Matra handling (e.g., 'ka' -> क + े)
+                if(mapping[char]) {
+                    if(nextChar === 'e') { // 'े' sign
+                        result += mapping[char] + 'े';
+                        i += 2;
+                        continue;
+                    } else if (nextChar === 'o') { // 'ो' sign
+                        result += mapping[char] + 'ो';
+                        i += 2;
+                        continue;
+                    } else if (nextChar === 'i') { // 'ि' sign
+                        result += mapping[char] + 'ि';
+                        i += 2;
+                        continue;
+                    } else if (nextChar === 'u') { // 'ु' sign
+                        result += mapping[char] + 'ु';
+                        i += 2;
+                        continue;
+                    } else if (nextChar === 'f') { // 'ू' sign (in DevLys, 'f' is often used for ू)
+                         result += mapping[char] + 'ू';
+                        i += 2;
+                        continue;
                     }
-                    i += 2;
-                } else {
-                    let char = text[i];
-                    result += mapping[char] || char;
-                    i++;
                 }
+                
+                // Fallback if no mapping
+                result += mapping[char] || char;
+                i++;
             }
             return result;
+        }
+
+        // ============================================================
+        // FONT CONVERTER FUNCTIONS (More Page)
+        // ============================================================
+        function convertFonts() {
+            const input = document.getElementById('fontInput');
+            const output = document.getElementById('fontOutput');
+            const text = input.value;
+            
+            if(!text) {
+                showToast('Please enter some text in DevLys/Kruti font.', 'error');
+                return;
+            }
+            
+            const converted = devlysToUnicode(text);
+            output.value = converted;
+            showToast('✅ Font conversion successful!', 'success');
+        }
+
+        function copyFontOutput() {
+            const output = document.getElementById('fontOutput');
+            if(!output.value) {
+                showToast('Nothing to copy. Convert text first.', 'error');
+                return;
+            }
+            
+            output.select();
+            output.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(output.value).then(() => {
+                showToast('✅ Copied to clipboard!', 'success');
+            }).catch(err => {
+                // Fallback
+                document.execCommand('copy');
+                showToast('✅ Copied to clipboard!', 'success');
+            });
+        }
+
+        function clearFontConverter() {
+            document.getElementById('fontInput').value = '';
+            document.getElementById('fontOutput').value = '';
+            showToast('Cleared all fields.', 'info');
+        }
+
+        function previewFontOutput() {
+            const output = document.getElementById('fontOutput');
+            if(!output.value) {
+                showToast('Convert text first.', 'error');
+                return;
+            }
+            
+            // Create a temporary overlay to show preview
+            const previewOverlay = document.createElement('div');
+            previewOverlay.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.7); z-index: 9999;
+                display: flex; align-items: center; justify-content: center;
+                backdrop-filter: blur(5px);
+            `;
+            
+            const previewBox = document.createElement('div');
+            previewBox.style.cssText = `
+                background: #fff; padding: 30px; border-radius: 12px;
+                max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                font-family: 'Mangal', 'Arial Unicode MS', sans-serif;
+                font-size: 18px; line-height: 1.8; color: #333;
+            `;
+            previewBox.innerHTML = `<h3 style="margin-top:0;color:#123c9b;">📄 Preview Output</h3><p>${output.value.replace(/\n/g, '<br>')}</p><button onclick="this.closest('div[style]').remove()" style="padding:8px 20px;background:#dc3545;color:#fff;border:none;border-radius:6px;cursor:pointer;margin-top:15px;">Close Preview</button>`;
+            
+            previewOverlay.appendChild(previewBox);
+            previewOverlay.onclick = function(e) {
+                if(e.target === this) this.remove();
+            };
+            document.body.appendChild(previewOverlay);
         }
 
         // ============================================================
@@ -3542,6 +3783,10 @@
         window.performOCR = performOCR;
         window.importOCRTextToEditor = importOCRTextToEditor;
         window.devlysToUnicode = devlysToUnicode;
+        window.convertFonts = convertFonts;
+        window.copyFontOutput = copyFontOutput;
+        window.clearFontConverter = clearFontConverter;
+        window.previewFontOutput = previewFontOutput;
     </script>
 </body>
 </html>
