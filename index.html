@@ -102,6 +102,14 @@
             cursor: pointer;
             color: #fff;
             user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .app-header .logo img {
+            height: 32px;
+            width: auto;
+            border-radius: 4px;
         }
         .app-header .logo span { color: var(--gold); }
         .app-header .header-controls {
@@ -306,6 +314,27 @@
         }
         .section .section-header h2 span { color: var(--primary-blue); }
 
+        /* ================= PAGE TAGLINE TICKER ================= */
+        .page-ticker {
+            margin: 8px auto 16px auto;
+            max-width: 1100px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            color: white;
+            overflow: hidden;
+            white-space: nowrap;
+            background: var(--secondary-blue);
+        }
+        .page-ticker span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: move 18s linear infinite;
+        }
+        @keyframes move {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+
         /* ================= HOME PAGE ================= */
         .home-original {
             background: var(--bg-color);
@@ -339,10 +368,6 @@
             display: inline-block;
             padding-left: 100%;
             animation: move 18s linear infinite;
-        }
-        @keyframes move {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
         }
         .home-original .container {
             max-width: 1100px;
@@ -431,6 +456,32 @@
             text-align: center;
             font-size: 17px;
         }
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            padding: 16px 0 20px 0;
+            background: var(--card-bg);
+            border-radius: 0 0 16px 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 22px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .social-links a.instagram { background: #E4405F; color: #fff; }
+        .social-links a.youtube { background: #FF0000; color: #fff; }
+        .social-links a.facebook { background: #1877F2; color: #fff; }
+        .social-links a:hover { transform: scale(1.15); }
+
         @media (max-width: 768px) {
             .home-original .home-layout { flex-direction: column; }
             .home-original .left-content,
@@ -1925,6 +1976,190 @@
             animation: spin 1s linear infinite;
         }
 
+        /* Items Grid for Admin */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+        }
+        .items-grid .item-card {
+            background: var(--bg-color);
+            border-radius: 8px;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .items-grid .item-card:hover {
+            border-color: var(--secondary-blue);
+        }
+        .items-grid .item-card .item-info {
+            flex: 1;
+        }
+        .items-grid .item-card .item-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-color);
+        }
+        .items-grid .item-card .item-desc-preview {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 2px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .items-grid .item-card .item-actions {
+            display: flex;
+            gap: 4px;
+            margin-left: 8px;
+        }
+        .items-grid .item-card .item-actions button {
+            background: transparent;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .items-grid .item-card .item-actions .btn-edit { color: var(--secondary-blue); }
+        .items-grid .item-card .item-actions .btn-edit:hover { background: rgba(25, 118, 210, 0.15); }
+        .items-grid .item-card .item-actions .btn-delete { color: var(--warning-red); }
+        .items-grid .item-card .item-actions .btn-delete:hover { background: rgba(214, 40, 57, 0.15); }
+
+        .empty-state {
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-light);
+        }
+        .empty-state i { font-size: 36px; margin-bottom: 8px; opacity: 0.4; }
+
+        .page-editor-area {
+            margin-top: 12px;
+        }
+        .editor-content {
+            min-height: 200px;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
+            transition: 0.3s;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+        .editor-content:focus {
+            border-color: var(--primary-blue);
+        }
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 6px 10px;
+            background: var(--editor-toolbar-bg);
+            border: 2px solid var(--border-color);
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+        .editor-toolbar .toolbar-group {
+            display: flex;
+            gap: 2px;
+            padding: 0 6px;
+            border-right: 1px solid var(--border-color);
+        }
+        .editor-toolbar .toolbar-group:last-child { border-right: none; }
+        .editor-toolbar button {
+            padding: 4px 8px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background: transparent;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 13px;
+            min-width: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .editor-toolbar button:hover {
+            background: var(--card-hover);
+            border-color: var(--border-color);
+        }
+        .editor-toolbar select {
+            padding: 2px 6px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 12px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+        .editor-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+        .editor-controls .btn-save-editor {
+            padding: 8px 20px;
+            background: var(--success-green);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .editor-controls .btn-save-editor:hover { background: #15803d; }
+        .editor-controls .btn-cancel-editor {
+            padding: 8px 20px;
+            background: #6c757d;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .editor-controls .btn-cancel-editor:hover { background: #5a6268; }
+        .editor-controls .btn-preview {
+            padding: 8px 20px;
+            background: var(--secondary-blue);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .editor-controls .btn-preview:hover { background: var(--primary-blue); }
+        .editor-controls .btn-fullscreen {
+            padding: 8px 20px;
+            background: var(--secondary);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .editor-controls .btn-fullscreen:hover { opacity: 0.8; }
+
         @media (max-width: 768px) {
             .font-converter-box .converter-grid {
                 grid-template-columns: 1fr;
@@ -1942,6 +2177,9 @@
                 font-size: 12px;
                 padding: 6px 12px;
             }
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
         }
         @media (max-width: 480px) {
             .tools-list .tool-btn {
@@ -1955,7 +2193,10 @@
 
     <!-- ================= HEADER ================= -->
     <header class="app-header" id="mainHeader">
-        <div class="logo" onclick="showSection('home')">🚀 <span>Dream</span>Josh</div>
+        <div class="logo" onclick="showSection('home')">
+            <img id="headerLogoImg" src="" alt="Logo" style="display:none;">
+            <span id="headerLogoText">🚀 <span>Dream</span>Josh</span>
+        </div>
         <div class="header-controls">
             <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
 
@@ -1963,13 +2204,13 @@
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('govt')">💼 Jobs <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="govtDropdownContent">
                     <div class="dropdown-label">📂 Select Category</div>
-                    <button onclick="showSection('home'); selectCategory('central'); closeDropdownMobile('govt');">
+                    <button onclick="showJobsCategory('central')">
                         🏛️ Central Govt. <span style="background:var(--central-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="centralCount">0</span>
                     </button>
-                    <button onclick="showSection('home'); selectCategory('state'); closeDropdownMobile('govt');">
+                    <button onclick="showJobsCategory('state')">
                         🏜️ Rajasthan Govt. <span style="background:var(--state-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="stateCount">0</span>
                     </button>
-                    <button onclick="showSection('home'); selectCategory('private'); closeDropdownMobile('govt');">
+                    <button onclick="showJobsCategory('private')">
                         💼 Private <span style="background:var(--private-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="privateCount">0</span>
                     </button>
                 </div>
@@ -2150,6 +2391,7 @@
 
         <!-- ================= SECTION: STUDY ================= -->
         <section class="section" id="study">
+            <div class="page-ticker" id="studyTicker"><span id="studyTickerText">📚 Study Materials • Complete Notes • Practice Sets • Previous Papers • Revision Notes</span></div>
             <div class="section-header">
                 <h2>📚 <span>Study Notes</span></h2>
                 <div id="studySubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
@@ -2164,6 +2406,7 @@
 
         <!-- ================= SECTION: CAREER ================= -->
         <section class="section" id="career">
+            <div class="page-ticker" id="careerTicker"><span id="careerTickerText">🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs</span></div>
             <div class="section-header">
                 <h2>🎯 <span>Career Guide</span></h2>
                 <div id="careerSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
@@ -2178,6 +2421,7 @@
 
         <!-- ================= SECTION: BOOKS ================= -->
         <section class="section" id="books">
+            <div class="page-ticker" id="booksTicker"><span id="booksTickerText">📖 Recommended Books • Competitive Exams • Rajasthan GK • General Knowledge • Motivation</span></div>
             <div class="section-header">
                 <h2>📖 <span>Books</span></h2>
                 <div id="booksSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
@@ -2192,6 +2436,7 @@
 
         <!-- ================= SECTION: MORE ================= -->
         <section class="section" id="more">
+            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">⚙️ More Features • PDF Merge • PDF to Excel • PDF to Word • Font Converter • OCR Tools</span></div>
             <div class="section-header">
                 <h2>⚙️ <span>More Features</span></h2>
             </div>
@@ -2390,6 +2635,7 @@
 
         <!-- ================= SECTION: BLOG ================= -->
         <section class="section" id="blog">
+            <div class="page-ticker" id="blogTicker"><span id="blogTickerText">📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio</span></div>
             <div class="section-header">
                 <h2>📝 <span>Blog</span></h2>
                 <div id="blogSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
@@ -2450,7 +2696,7 @@
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v16';
+        const STORAGE_KEY = 'dreamjosh_all_data_v17';
 
         const DEFAULT_DATA = {
             home: {
@@ -2464,7 +2710,15 @@
                 aboutText: '<b>Dream Josh</b> एक educational और career guidance platform है। यहाँ आपको <b>Central Govt., Rajasthan Govt. और Private</b> सेक्टर की <b>150+ नौकरियों</b> की पूरी जानकारी मिलेगी।',
                 featuresTitle: '📚 Dream Josh पर क्या मिलेगा?',
                 features: ['📖 Study Notes और अध्ययन सामग्री', '🏛️ Govt. Jobs से संबंधित जानकारी', '🎯 Career Guide और Career Options', '📋 हर नौकरी की पूरी डिटेल'],
-                highlight: '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>'
+                highlight: '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>',
+                logo: '',
+                pageTaglines: {
+                    study: '📚 Study Materials • Complete Notes • Practice Sets • Previous Papers • Revision Notes',
+                    career: '🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs',
+                    books: '📖 Recommended Books • Competitive Exams • Rajasthan GK • General Knowledge • Motivation',
+                    more: '⚙️ More Features • PDF Merge • PDF to Excel • PDF to Word • Font Converter • OCR Tools',
+                    blog: '📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio'
+                }
             },
             study: {
                 content: '<h2>📚 Study Materials</h2><p>Welcome to the study section of Dream Josh. Here you will find comprehensive study materials for all competitive exams.</p><blockquote><p>🔹 <strong>Quote:</strong> "Success is the sum of small efforts, repeated day in and day out."</p></blockquote>',
@@ -2642,6 +2896,8 @@
                 renderAllPages();
                 updateJobsUI();
                 renderSocialLinks();
+                updatePageTaglines();
+                updateLogo();
                 showToast('✅ Data loaded from Google Sheets!', 'success');
                 return true;
             } catch (error) {
@@ -2651,6 +2907,8 @@
                 renderAllPages();
                 updateJobsUI();
                 renderSocialLinks();
+                updatePageTaglines();
+                updateLogo();
                 return false;
             }
         }
@@ -2716,6 +2974,11 @@
                         appData[key].items = DEFAULT_DATA[key]?.items || [];
                     }
                 }
+                if (key === 'home') {
+                    if (!appData[key].pageTaglines) {
+                        appData[key].pageTaglines = DEFAULT_DATA.home.pageTaglines || {};
+                    }
+                }
             });
             
             if (!jobsData || jobsData.length === 0) {
@@ -2727,6 +2990,33 @@
         // ============================================================
         // RENDER FUNCTIONS
         // ============================================================
+        function updateLogo() {
+            const logoImg = document.getElementById('headerLogoImg');
+            const logoText = document.getElementById('headerLogoText');
+            const logoData = appData.home?.logo || '';
+            
+            if (logoData && logoData.startsWith('data:image') || logoData.startsWith('http')) {
+                logoImg.src = logoData;
+                logoImg.style.display = 'inline-block';
+                logoText.style.display = 'none';
+            } else {
+                logoImg.style.display = 'none';
+                logoText.style.display = 'inline-block';
+                logoText.innerHTML = '🚀 <span>Dream</span>Josh';
+            }
+        }
+
+        function updatePageTaglines() {
+            const pages = ['study', 'career', 'books', 'more', 'blog'];
+            const taglines = appData.home?.pageTaglines || DEFAULT_DATA.home.pageTaglines;
+            pages.forEach(page => {
+                const ticker = document.getElementById(`${page}TickerText`);
+                if (ticker) {
+                    ticker.textContent = taglines[page] || DEFAULT_DATA.home.pageTaglines[page] || '';
+                }
+            });
+        }
+
         function renderHomePage() {
             const data = appData.home || DEFAULT_DATA.home;
             document.getElementById('homeTitle').textContent = data.title || '🚀 DREAM JOSH';
@@ -2742,6 +3032,8 @@
             const list = document.getElementById('homeFeaturesList');
             list.innerHTML = (data.features || ['📖 Study Notes', '🏛️ Govt. Jobs', '🎯 Career Guide']).map(f => `<li>${f}</li>`).join('');
             document.getElementById('homeHighlight').innerHTML = data.highlight || '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b>';
+            
+            updateLogo();
         }
 
         function renderSocialLinks() {
@@ -2764,6 +3056,7 @@
         function renderAllPages() {
             renderHomePage();
             renderSocialLinks();
+            updatePageTaglines();
             ['study', 'career', 'books', 'more', 'blog'].forEach(page => {
                 if(page !== 'more') {
                     renderGenericPage(page);
@@ -2830,6 +3123,19 @@
         // ============================================================
         // JOBS FUNCTIONS
         // ============================================================
+        function showJobsCategory(category) {
+            // First show the home section (which contains jobs)
+            showSection('home');
+            // Then select the category
+            selectCategory(category);
+            // Close dropdown
+            closeDropdownMobile('govt');
+            // Scroll to jobs section
+            setTimeout(() => {
+                document.getElementById('jobsSectionWrapper').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+
         function updateSubCategoryButtons() {
             const container = document.getElementById('subCategoryFilter');
             const subs = SUB_CATEGORIES[currentCategory] || ['All'];
@@ -2921,7 +3227,6 @@
             currentSubCategory = 'all';
             updateSubCategoryButtons();
             updateJobsUI();
-            document.getElementById('jobsSectionWrapper').scrollIntoView({ behavior: 'smooth' });
         }
 
         // ============================================================
@@ -3320,11 +3625,9 @@
         // TOOLS SWITCH FUNCTION
         // ============================================================
         function switchTool(toolId) {
-            // Update active button
             document.querySelectorAll('.tools-list .tool-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.tool === toolId);
             });
-            // Show active tool content
             document.querySelectorAll('.tool-content').forEach(content => {
                 content.classList.toggle('active', content.id === 'tool-' + toolId);
             });
@@ -3827,7 +4130,7 @@
         }
 
         // ============================================================
-        // ADMIN PANEL (Simplified for brevity - keep existing)
+        // ADMIN PANEL
         // ============================================================
         function openAdminPanel() {
             const overlay = document.getElementById('adminPanelOverlay');
@@ -4010,6 +4313,20 @@
                                     <div class="setting-group"><h5>🔑 Change Admin Password</h5><input type="password" id="adminNewPass" placeholder="New Password"><input type="password" id="adminConfirmPass" placeholder="Confirm"><button class="btn-setting primary" onclick="changeAdminPassword()">Update</button></div>
                                     <div class="setting-group"><h5>💾 Backup All Data</h5><button class="btn-setting success" onclick="exportAdminData()"><i class="fas fa-download"></i> Download Backup</button></div>
                                     <div class="setting-group"><h5>🔄 Reset All Data (Warning!)</h5><button class="btn-setting danger" onclick="resetAllData()"><i class="fas fa-exclamation-triangle"></i> Reset to Default</button></div>
+                                    <div class="setting-group"><h5>🖼️ Logo Upload</h5>
+                                        <input type="file" id="logoFileInput" accept="image/*" onchange="handleLogoUpload(event)">
+                                        <button class="btn-setting primary" onclick="uploadLogo()"><i class="fas fa-upload"></i> Upload Logo</button>
+                                        <button class="btn-setting danger" onclick="removeLogo()"><i class="fas fa-trash"></i> Remove Logo</button>
+                                        <div id="logoPreview" style="margin-top:8px;"></div>
+                                    </div>
+                                    <div class="setting-group"><h5>📢 Page Taglines</h5>
+                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Study:</label> <input type="text" id="taglineStudy" value="${appData.home?.pageTaglines?.study || ''}" style="width:100%;max-width:400px;"></div>
+                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Career:</label> <input type="text" id="taglineCareer" value="${appData.home?.pageTaglines?.career || ''}" style="width:100%;max-width:400px;"></div>
+                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Books:</label> <input type="text" id="taglineBooks" value="${appData.home?.pageTaglines?.books || ''}" style="width:100%;max-width:400px;"></div>
+                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">More:</label> <input type="text" id="taglineMore" value="${appData.home?.pageTaglines?.more || ''}" style="width:100%;max-width:400px;"></div>
+                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Blog:</label> <input type="text" id="taglineBlog" value="${appData.home?.pageTaglines?.blog || ''}" style="width:100%;max-width:400px;"></div>
+                                        <button class="btn-setting success" onclick="saveTaglines()"><i class="fas fa-save"></i> Save Taglines</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -4059,7 +4376,73 @@
             `;
         }
 
-        // Keep existing admin helper functions (renderAdminHomeContent, renderAdminPageContent, renderAdminItems, etc.)
+        // ============================================================
+        // ADMIN: LOGO FUNCTIONS
+        // ============================================================
+        let logoFileData = null;
+
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    logoFileData = e.target.result;
+                    const preview = document.getElementById('logoPreview');
+                    preview.innerHTML = `<img src="${logoFileData}" style="max-height:80px;border-radius:4px;border:1px solid var(--border-color);">`;
+                    showToast('Logo loaded. Click "Upload Logo" to save.', 'info');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function uploadLogo() {
+            if (!logoFileData) {
+                showToast('Please select a logo image first.', 'error');
+                return;
+            }
+            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
+            appData.home.logo = logoFileData;
+            saveToLocalStorage();
+            updateLogo();
+            showToast('✅ Logo updated successfully!', 'success');
+            showAdminPage('settings');
+        }
+
+        function removeLogo() {
+            if (!confirm('Remove logo?')) return;
+            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
+            appData.home.logo = '';
+            logoFileData = null;
+            document.getElementById('logoPreview').innerHTML = '';
+            document.getElementById('logoFileInput').value = '';
+            saveToLocalStorage();
+            updateLogo();
+            showToast('🗑️ Logo removed.', 'warning');
+            showAdminPage('settings');
+        }
+
+        // ============================================================
+        // ADMIN: TAGLINE FUNCTIONS
+        // ============================================================
+        function saveTaglines() {
+            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
+            if (!appData.home.pageTaglines) appData.home.pageTaglines = { ...DEFAULT_DATA.home.pageTaglines };
+            
+            appData.home.pageTaglines.study = document.getElementById('taglineStudy').value.trim();
+            appData.home.pageTaglines.career = document.getElementById('taglineCareer').value.trim();
+            appData.home.pageTaglines.books = document.getElementById('taglineBooks').value.trim();
+            appData.home.pageTaglines.more = document.getElementById('taglineMore').value.trim();
+            appData.home.pageTaglines.blog = document.getElementById('taglineBlog').value.trim();
+            
+            saveToLocalStorage();
+            updatePageTaglines();
+            showToast('✅ Taglines updated!', 'success');
+            showAdminPage('settings');
+        }
+
+        // ============================================================
+        // ADMIN HELPER FUNCTIONS
+        // ============================================================
         function renderAdminHomeContent() {
             const data = appData.home || DEFAULT_DATA.home;
             return `
@@ -4070,6 +4453,7 @@
                     <div><strong>Heading:</strong> ${data.heading || '-'}</div>
                     <div style="grid-column:1/-1;"><strong>About:</strong> ${data.aboutText || '-'}</div>
                     <div style="grid-column:1/-1;"><strong>Features:</strong> ${(data.features || []).join(', ')}</div>
+                    <div style="grid-column:1/-1;"><strong>Logo:</strong> ${data.logo ? '✅ Uploaded' : '❌ Not set'}</div>
                 </div>
             `;
         }
@@ -4249,7 +4633,7 @@
         }
 
         // ============================================================
-        // ADMIN: JOB MODAL, PAGE EDITOR, ITEM EDITOR (Existing)
+        // ADMIN: JOB MODAL
         // ============================================================
         function openJobModal(data = null) {
             if (adminAccessLevel === 'employee') {
@@ -4373,7 +4757,7 @@
         }
 
         // ============================================================
-        // PAGE EDITOR (Existing)
+        // PAGE EDITOR
         // ============================================================
         function openPageEditor(page) {
             const content = page === 'home' ? (appData.home?.aboutText || '') : (appData[page]?.content || '');
@@ -4475,7 +4859,7 @@
         }
 
         // ============================================================
-        // ITEM EDITOR (Existing)
+        // ITEM EDITOR
         // ============================================================
         function openItemEditor(page, index = null) {
             const isEdit = index !== null;
@@ -4589,7 +4973,7 @@
         }
 
         // ============================================================
-        // OTHER ADMIN FUNCTIONS (Existing)
+        // OTHER ADMIN FUNCTIONS
         // ============================================================
         function openEmployeeModal(index = null) {
             const isEdit = index !== null;
@@ -4652,7 +5036,7 @@
         }
 
         // ============================================================
-        // SYNC, EXPORT, RESET (Existing)
+        // SYNC, EXPORT, RESET
         // ============================================================
         async function syncWithGoogleSheets() {
             showToast('🔄 Syncing data to Google Sheets...', 'info');
@@ -4689,6 +5073,25 @@
                     empData.push([emp.id || '', emp.name || '', emp.email || '', (emp.access || []).join(',')]);
                 });
                 await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets.employees, empData);
+
+                // Also save home page data including logo and taglines
+                const homeData = [
+                    ['key', 'value'],
+                    ['title', appData.home?.title || ''],
+                    ['subtitle', appData.home?.subtitle || ''],
+                    ['tagline', appData.home?.tagline || ''],
+                    ['ticker1', appData.home?.ticker1 || ''],
+                    ['ticker2', appData.home?.ticker2 || ''],
+                    ['heading', appData.home?.heading || ''],
+                    ['aboutTitle', appData.home?.aboutTitle || ''],
+                    ['aboutText', appData.home?.aboutText || ''],
+                    ['featuresTitle', appData.home?.featuresTitle || ''],
+                    ['features', (appData.home?.features || []).join('|')],
+                    ['highlight', appData.home?.highlight || ''],
+                    ['logo', appData.home?.logo || ''],
+                    ['pageTaglines', JSON.stringify(appData.home?.pageTaglines || {})]
+                ];
+                await saveToGoogleSheets('Home', homeData);
 
                 showToast('✅ Data synced to Google Sheets successfully!', 'success');
             } catch (error) {
@@ -4774,10 +5177,11 @@
                     renderAllPages();
                     updateJobsUI();
                     renderSocialLinks();
+                    updatePageTaglines();
+                    updateLogo();
                 }
                 document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private').length;
                 console.log('🚀 Dream Josh – All Features with Tools Section');
-                // Set default tool to PDF Merge
                 switchTool('pdf-merge');
             });
         });
@@ -4787,6 +5191,7 @@
         window.toggleDropdownMobile = toggleDropdownMobile;
         window.closeDropdownMobile = closeDropdownMobile;
         window.selectCategory = selectCategory;
+        window.showJobsCategory = showJobsCategory;
         window.filterSubCategory = filterSubCategory;
         window.closeDetail = closeDetail;
         window.showToast = showToast;
@@ -4846,6 +5251,10 @@
         window.clearWordFile = clearWordFile;
         window.convertPDFtoWord = convertPDFtoWord;
         window.switchTool = switchTool;
+        window.handleLogoUpload = handleLogoUpload;
+        window.uploadLogo = uploadLogo;
+        window.removeLogo = removeLogo;
+        window.saveTaglines = saveTaglines;
 
         // Set PDF.js worker
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
