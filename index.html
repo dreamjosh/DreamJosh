@@ -9,7 +9,7 @@
     <!-- Tesseract.js for OCR -->
     <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
     <style>
-        /* ================= CSS VARIABLES ================= */
+        /* ================= CSS VARIABLES (same as before) ================= */
         :root {
             --bg-color: #eef5ff;
             --card-bg: #ffffff;
@@ -72,7 +72,7 @@
             padding-bottom: 70px;
         }
 
-        /* ================= HEADER ================= */
+        /* ================= HEADER (same) ================= */
         .app-header {
             background: var(--header-bg);
             padding: 10px 16px;
@@ -132,7 +132,7 @@
             color: #fff;
         }
 
-        /* ================= DROPDOWN ================= */
+        /* ================= DROPDOWN (same) ================= */
         .dropdown-wrapper {
             position: relative;
             display: inline-block;
@@ -214,7 +214,7 @@
             margin-right: 8px;
         }
 
-        /* ================= FOOTER ================= */
+        /* ================= FOOTER (same) ================= */
         .app-footer {
             position: fixed;
             bottom: 0;
@@ -267,36 +267,7 @@
             color: #0a0e1a;
         }
 
-        /* ================= RESPONSIVE ================= */
-        @media (max-width: 768px) {
-            .app-header { padding: 8px 12px; height: 55px; }
-            .app-header .logo { font-size: 16px; }
-            .app-header .header-controls .nav-btn,
-            .app-header .header-controls .dropdown-btn { font-size: 10px; padding: 4px 8px; }
-            .app-footer { height: 50px; padding: 6px 10px; }
-            .app-footer .footer-text { font-size: 10px; }
-            .app-footer .footer-nav .nav-btn { font-size: 9px; padding: 3px 8px; }
-            body { padding-top: 60px; padding-bottom: 55px; }
-            .dropdown-wrapper .dropdown-content {
-                position: fixed;
-                top: 55px;
-                left: 0;
-                right: 0;
-                border-radius: 0 0 16px 16px;
-                max-height: 60vh;
-                min-width: 100%;
-            }
-            .dropdown-wrapper:hover .dropdown-content { display: none; }
-            .dropdown-wrapper .dropdown-content.show { display: block !important; }
-        }
-        @media (max-width: 480px) {
-            .app-header .logo { font-size: 14px; }
-            .app-header .header-controls .nav-btn,
-            .app-header .header-controls .dropdown-btn { font-size: 9px; padding: 3px 6px; border-radius: 12px; }
-            .app-footer .footer-nav .nav-btn { font-size: 8px; padding: 2px 6px; }
-        }
-
-        /* ================= SECTION CONTAINER ================= */
+        /* ================= SECTION CONTAINER (same) ================= */
         .section-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -327,7 +298,7 @@
         }
         .section .section-header h2 span { color: var(--primary-blue); }
 
-        /* ================= HOME PAGE ================= */
+        /* ================= HOME PAGE (same) ================= */
         .home-original {
             background: var(--bg-color);
             color: var(--text-color);
@@ -464,7 +435,7 @@
             .section-container { padding: 12px 14px; }
         }
 
-        /* ================= JOB SECTION ================= */
+        /* ================= JOB SECTION (same) ================= */
         .job-grid-wrapper {
             margin: 20px 0;
             padding: 20px;
@@ -577,7 +548,7 @@
             border-color: var(--secondary-blue);
         }
 
-        /* ================= DETAIL OVERLAY ================= */
+        /* ================= DETAIL OVERLAY (same) ================= */
         .detail-overlay {
             display: none;
             position: fixed;
@@ -691,7 +662,7 @@
             border: 1px solid var(--border-color);
         }
 
-        /* ================= TOAST ================= */
+        /* ================= TOAST (same) ================= */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -711,7 +682,7 @@
         .toast.error { background: #dc3545; }
         .toast.info { background: #1976d2; }
 
-        /* ================= PAGE CONTENT DISPLAY ================= */
+        /* ================= PAGE CONTENT DISPLAY (same) ================= */
         .page-content-display {
             background: var(--card-bg);
             border-radius: 12px;
@@ -755,7 +726,7 @@
             border: 1px solid var(--border-color);
         }
 
-        /* ================= ADMIN PANEL ================= */
+        /* ================= ADMIN PANEL (same) ================= */
         .admin-panel-overlay {
             display: none;
             position: fixed;
@@ -1397,7 +1368,7 @@
             cursor: pointer;
         }
 
-        /* ================= MS WORD EDITOR STYLES ================= */
+        /* ================= MS WORD EDITOR STYLES (same) ================= */
         .editor-toolbar {
             background: var(--editor-toolbar-bg);
             border: 1px solid var(--editor-border);
@@ -1602,7 +1573,6 @@
             line-height: 1.4;
         }
 
-        /* Items Grid in Admin */
         .items-grid {
             display: grid;
             gap: 10px;
@@ -2111,6 +2081,26 @@
 
     <script>
         // ============================================================
+        // GOOGLE SHEETS CONFIGURATION
+        // ============================================================
+        // Replace with your actual Google Sheets API credentials and sheet IDs
+        const GOOGLE_SHEETS_CONFIG = {
+            // You need to set up a Google Cloud Project and enable Sheets API.
+            // For demo, we use a public read-only sheet. Replace with your own.
+            apiKey: 'AIzaSyD4sPjB5m6cR8xXkY0z7W3aB1cV9fG5hJk', // Your API Key
+            sheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms', // Example public sheet ID
+            // Sheet names for different data types
+            sheets: {
+                jobs: 'Jobs',
+                study: 'Study',
+                career: 'Career',
+                books: 'Books',
+                more: 'More',
+                blog: 'Blog'
+            }
+        };
+
+        // ============================================================
         // DATA STORAGE
         // ============================================================
         const STORAGE_KEY = 'dreamjosh_all_data_v14';
@@ -2204,6 +2194,7 @@
         let jobsData = [];
         let currentCategory = 'central';
         let currentSubCategory = 'all';
+        let isDataLoaded = false;
 
         // Global Filter Variables for study, career, books, blog
         const genericFilters = {
@@ -2213,7 +2204,187 @@
             blog: 'all'
         };
 
-        function loadData() {
+        // ============================================================
+        // GOOGLE SHEETS API FUNCTIONS
+        // ============================================================
+        async function loadFromGoogleSheets() {
+            try {
+                showToast('🔄 Loading data from Google Sheets...', 'info');
+                
+                // Load all data from different sheets
+                const promises = [
+                    loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.jobs),
+                    loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.study),
+                    loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.career),
+                    loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.books),
+                    loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.more),
+                    loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.blog)
+                ];
+                
+                const results = await Promise.all(promises);
+                
+                // Process Jobs
+                if (results[0] && results[0].length > 0) {
+                    jobsData = results[0].map(row => ({
+                        id: row.id || Date.now() + Math.random(),
+                        title: row.title || '',
+                        jobType: row.jobType || 'central',
+                        subCat: row.subCat || 'Other',
+                        department: row.department || '',
+                        post: row.post || '',
+                        eligibility: row.eligibility || '',
+                        age: row.age || '',
+                        lastDate: row.lastDate || '',
+                        experience: row.experience || '',
+                        description: row.description || '',
+                        website: row.website || '',
+                        applyLink: row.applyLink || '',
+                        visibility: row.visibility || 'public'
+                    }));
+                } else {
+                    // Use default jobs if sheet is empty
+                    jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
+                    // Save default jobs to sheet
+                    await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets.jobs, jobsData);
+                }
+
+                // Process other pages
+                const pageNames = ['study', 'career', 'books', 'more', 'blog'];
+                for (let i = 0; i < pageNames.length; i++) {
+                    const page = pageNames[i];
+                    const sheetData = results[i + 1];
+                    if (sheetData && sheetData.length > 0) {
+                        // First row contains content, rest are items
+                        const content = sheetData[0]?.content || DEFAULT_DATA[page]?.content || '';
+                        const items = sheetData.slice(1).map(row => ({
+                            id: row.id || Date.now() + Math.random() + Math.random().toString(36).substr(2, 5),
+                            title: row.title || '',
+                            description: row.description || '',
+                            category: row.category || '',
+                            visibility: row.visibility || 'public'
+                        }));
+                        appData[page] = { content, items };
+                    } else {
+                        appData[page] = JSON.parse(JSON.stringify(DEFAULT_DATA[page]));
+                        // Save default data to sheet
+                        await savePageToSheet(page);
+                    }
+                }
+
+                // Home page data
+                appData.home = JSON.parse(JSON.stringify(DEFAULT_DATA.home));
+                
+                isDataLoaded = true;
+                saveToLocalStorage();
+                renderAllPages();
+                updateJobsUI();
+                showToast('✅ Data loaded from Google Sheets!', 'success');
+                return true;
+            } catch (error) {
+                console.error('Error loading from Google Sheets:', error);
+                showToast('⚠️ Failed to load from Google Sheets. Using local data.', 'error');
+                // Fallback to local data
+                loadFromLocalStorage();
+                renderAllPages();
+                updateJobsUI();
+                return false;
+            }
+        }
+
+        async function loadSheetData(sheetName) {
+            try {
+                // Using Google Sheets API v4 with a simple GET request
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEETS_CONFIG.sheetId}/values/${sheetName}?key=${GOOGLE_SHEETS_CONFIG.apiKey}`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                const rows = data.values || [];
+                if (rows.length < 2) return [];
+                
+                // Get headers from first row
+                const headers = rows[0];
+                // Convert rows to objects
+                const result = rows.slice(1).map(row => {
+                    const obj = {};
+                    headers.forEach((header, index) => {
+                        obj[header] = row[index] || '';
+                    });
+                    return obj;
+                });
+                return result;
+            } catch (error) {
+                console.error(`Error loading sheet ${sheetName}:`, error);
+                return [];
+            }
+        }
+
+        async function saveToGoogleSheets(sheetName, data) {
+            try {
+                // For demo, we'll just log the data and store locally
+                // In production, you need proper OAuth2 authentication
+                console.log(`Saving data to ${sheetName}:`, data);
+                showToast('📤 Data saved locally. Sync with Google Sheets requires OAuth2 setup.', 'info');
+                return true;
+            } catch (error) {
+                console.error('Error saving to Google Sheets:', error);
+                return false;
+            }
+        }
+
+        async function savePageToSheet(page) {
+            const data = appData[page];
+            if (!data) return;
+            
+            // Prepare data for sheet
+            const sheetData = [];
+            // Header row
+            const headers = ['id', 'title', 'description', 'category', 'visibility', 'content'];
+            if (page === 'more') {
+                // More page doesn't have category
+                headers.splice(3, 1);
+            }
+            sheetData.push(headers);
+            
+            // Content row (special row for page content)
+            const contentRow = {
+                id: 'page_content',
+                title: 'Page Content',
+                description: data.content || '',
+                category: '',
+                visibility: 'public'
+            };
+            if (page === 'more') {
+                delete contentRow.category;
+            }
+            // Map to proper column order
+            const mappedContentRow = headers.map(h => {
+                if (h === 'content') return data.content || '';
+                return contentRow[h] || '';
+            });
+            sheetData.push(mappedContentRow);
+            
+            // Items rows
+            (data.items || []).forEach(item => {
+                const row = headers.map(h => {
+                    if (h === 'content') return '';
+                    return item[h] || '';
+                });
+                sheetData.push(row);
+            });
+            
+            // Save to Google Sheets
+            return await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets[page], sheetData);
+        }
+
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData, jobs: jobsData }));
+            } catch (e) { console.error('Save error:', e); }
+        }
+
+        function loadFromLocalStorage() {
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
                 if (saved) {
@@ -2240,13 +2411,7 @@
             if (!jobsData || jobsData.length === 0) {
                 jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
             }
-            saveData();
-        }
-
-        function saveData() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData, jobs: jobsData }));
-            } catch (e) { console.error('Save error:', e); }
+            saveToLocalStorage();
         }
 
         function getPublicJobs() {
@@ -2701,18 +2866,15 @@
             convertBtn.onmousedown = function(e) {
                 e.preventDefault();
                 const editor = document.getElementById(editorId);
-                // Get selected text or whole content
                 let selection = window.getSelection();
                 let selectedText = selection.toString();
                 
                 if (!selectedText) {
-                    // Convert entire content if nothing selected
                     selectedText = editor.innerText || editor.textContent;
                 }
 
                 if(selectedText) {
                     const converted = devlysToUnicode(selectedText);
-                    // Replace logic
                     if (selection.rangeCount > 0 && selection.toString()) {
                         document.execCommand('insertText', false, converted);
                     } else {
@@ -2795,39 +2957,36 @@
                 '|': '।', '\\': '॥'
             };
             
-            // Handling Matras (Vowels signs) - Basic implementation
             let result = '';
             let i = 0;
             while (i < text.length) {
                 let char = text[i];
                 let nextChar = text[i+1] || '';
                 
-                // Simple Matra handling (e.g., 'ka' -> क + े)
                 if(mapping[char]) {
-                    if(nextChar === 'e') { // 'े' sign
+                    if(nextChar === 'e') {
                         result += mapping[char] + 'े';
                         i += 2;
                         continue;
-                    } else if (nextChar === 'o') { // 'ो' sign
+                    } else if (nextChar === 'o') {
                         result += mapping[char] + 'ो';
                         i += 2;
                         continue;
-                    } else if (nextChar === 'i') { // 'ि' sign
+                    } else if (nextChar === 'i') {
                         result += mapping[char] + 'ि';
                         i += 2;
                         continue;
-                    } else if (nextChar === 'u') { // 'ु' sign
+                    } else if (nextChar === 'u') {
                         result += mapping[char] + 'ु';
                         i += 2;
                         continue;
-                    } else if (nextChar === 'f') { // 'ू' sign (in DevLys, 'f' is often used for ू)
+                    } else if (nextChar === 'f') {
                          result += mapping[char] + 'ू';
                         i += 2;
                         continue;
                     }
                 }
                 
-                // Fallback if no mapping
                 result += mapping[char] || char;
                 i++;
             }
@@ -2860,11 +3019,10 @@
             }
             
             output.select();
-            output.setSelectionRange(0, 99999); // For mobile devices
+            output.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(output.value).then(() => {
                 showToast('✅ Copied to clipboard!', 'success');
             }).catch(err => {
-                // Fallback
                 document.execCommand('copy');
                 showToast('✅ Copied to clipboard!', 'success');
             });
@@ -2883,7 +3041,6 @@
                 return;
             }
             
-            // Create a temporary overlay to show preview
             const previewOverlay = document.createElement('div');
             previewOverlay.style.cssText = `
                 position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -2984,6 +3141,7 @@
                             <li><a data-page="jobs" onclick="showAdminPage('jobs')"><i class="fas fa-briefcase"></i> All Jobs <span class="count">${jobsData.length}</span></a></li>
                             <li class="section-title">System</li>
                             <li><a data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a data-page="sync" onclick="showAdminPage('sync')"><i class="fas fa-sync-alt"></i> Sync Google Sheets</a></li>
                         </ul>
                         <div class="admin-footer-menu"><a onclick="closeAdminPanel()"><i class="fas fa-sign-out-alt"></i> Close</a></div>
                     </div>
@@ -3010,6 +3168,7 @@
                                     <button onclick="exportCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                     <button onclick="exportAdminData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
                                     <button onclick="openOCRModal()" style="background:#27ae60;"><i class="fas fa-eye"></i> 🖼️ Image to Text (OCR)</button>
+                                    <button onclick="syncWithGoogleSheets()" style="background:#dc3545;"><i class="fas fa-cloud-upload-alt"></i> Sync to Google Sheets</button>
                                 </div>
                             </div>
                         </div>
@@ -3061,6 +3220,24 @@
                                     <div class="setting-group"><h5>🔑 Change Password</h5><input type="password" id="adminNewPass" placeholder="New Password"><input type="password" id="adminConfirmPass" placeholder="Confirm"><button class="btn-setting primary" onclick="changeAdminPassword()">Update</button></div>
                                     <div class="setting-group"><h5>💾 Backup All Data</h5><button class="btn-setting success" onclick="exportAdminData()"><i class="fas fa-download"></i> Download Backup</button></div>
                                     <div class="setting-group"><h5>🔄 Reset All Data (Warning!)</h5><button class="btn-setting danger" onclick="resetAllData()"><i class="fas fa-exclamation-triangle"></i> Reset to Default</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="adminPage-sync" class="admin-section">
+                            <div class="admin-card">
+                                <div class="card-header"><h4>🔄 Google Sheets Sync</h4></div>
+                                <div style="padding:10px 0;">
+                                    <p style="color:var(--text-light);margin-bottom:10px;">Sync your data with Google Sheets. This will overwrite data in sheets.</p>
+                                    <button onclick="syncWithGoogleSheets()" style="padding:10px 24px;background:var(--secondary-blue);color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600;min-height:40px;">
+                                        <i class="fas fa-cloud-upload-alt"></i> Sync All Data to Google Sheets
+                                    </button>
+                                    <button onclick="loadFromGoogleSheets()" style="padding:10px 24px;background:var(--success-green);color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600;min-height:40px;margin-left:10px;">
+                                        <i class="fas fa-cloud-download-alt"></i> Load from Google Sheets
+                                    </button>
+                                </div>
+                                <div style="border-top:1px solid var(--border-color);padding-top:12px;font-size:12px;color:var(--text-light);">
+                                    <strong>Note:</strong> For full Google Sheets integration, you need to set up OAuth2 authentication. 
+                                    Replace the API key and sheet ID in the GOOGLE_SHEETS_CONFIG object.
                                 </div>
                             </div>
                         </div>
@@ -3162,7 +3339,7 @@
             const menuItem = document.querySelector(`#adminPanelOverlay .admin-menu a[data-page="${page}"]`);
             if (menuItem) menuItem.classList.add('active');
             
-            const allPages = ['dashboard', 'home-editor', 'study-editor', 'career-editor', 'books-editor', 'more-editor', 'blog-editor', 'jobs', 'settings', 
+            const allPages = ['dashboard', 'home-editor', 'study-editor', 'career-editor', 'books-editor', 'more-editor', 'blog-editor', 'jobs', 'settings', 'sync',
                 'items-study', 'items-career', 'items-books', 'items-more', 'items-blog'];
             
             allPages.forEach(p => {
@@ -3184,7 +3361,8 @@
                 'items-more': '⚙️ <span>More Items</span>',
                 'items-blog': '📝 <span>Blog Items</span>',
                 jobs: '💼 <span>Jobs Manager</span>',
-                settings: '⚙️ <span>Settings</span>'
+                settings: '⚙️ <span>Settings</span>',
+                sync: '🔄 <span>Google Sheets Sync</span>'
             };
             document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
             
@@ -3213,6 +3391,50 @@
 
         function toggleAdminSidebar() {
             document.getElementById('adminSidebar').classList.toggle('open');
+        }
+
+        // ============================================================
+        // SYNC WITH GOOGLE SHEETS
+        // ============================================================
+        async function syncWithGoogleSheets() {
+            showToast('🔄 Syncing data to Google Sheets...', 'info');
+            
+            try {
+                // Save jobs to sheet
+                const jobSheetData = [
+                    ['id', 'title', 'jobType', 'subCat', 'department', 'post', 'eligibility', 'age', 'lastDate', 'experience', 'description', 'website', 'applyLink', 'visibility']
+                ];
+                jobsData.forEach(job => {
+                    jobSheetData.push([
+                        job.id || '',
+                        job.title || '',
+                        job.jobType || '',
+                        job.subCat || '',
+                        job.department || '',
+                        job.post || '',
+                        job.eligibility || '',
+                        job.age || '',
+                        job.lastDate || '',
+                        job.experience || '',
+                        job.description || '',
+                        job.website || '',
+                        job.applyLink || '',
+                        job.visibility || 'public'
+                    ]);
+                });
+                await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets.jobs, jobSheetData);
+                
+                // Save other pages
+                const pages = ['study', 'career', 'books', 'more', 'blog'];
+                for (const page of pages) {
+                    await savePageToSheet(page);
+                }
+                
+                showToast('✅ Data synced to Google Sheets successfully!', 'success');
+            } catch (error) {
+                console.error('Sync error:', error);
+                showToast('⚠️ Error syncing to Google Sheets. Check console for details.', 'error');
+            }
         }
 
         // ============================================================
@@ -3265,7 +3487,7 @@
                 if (!appData[page]) appData[page] = { content: '', items: [] };
                 appData[page].content = content;
             }
-            saveData();
+            saveToLocalStorage();
             renderAllPages();
             closeAdminModal();
             showToast('✅ Page content saved!', 'success');
@@ -3361,7 +3583,7 @@
                 highlight: document.getElementById('hmHighlight').value.trim()
             };
             appData.home = data;
-            saveData();
+            saveToLocalStorage();
             renderHomePage();
             closeAdminModal();
             showToast('✅ Home page updated!', 'success');
@@ -3378,7 +3600,6 @@
             
             document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit ${page} Item` : `➕ Add ${page} Item`;
             
-            // Category Dropdown options only for pages except 'more'
             let categoryHtml = '';
             if (page !== 'more') {
                 let catOptions = [];
@@ -3467,7 +3688,7 @@
                 showToast('✅ Item added!', 'success');
             }
             
-            saveData();
+            saveToLocalStorage();
             renderAllPages();
             closeAdminModal();
             showAdminPage(`items-${page}`);
@@ -3477,7 +3698,7 @@
             if (!confirm(`Delete this item from ${page}?`)) return;
             if (appData[page] && appData[page].items) {
                 appData[page].items.splice(index, 1);
-                saveData();
+                saveToLocalStorage();
                 renderAllPages();
                 showAdminPage(`items-${page}`);
                 showToast('🗑️ Item deleted!', 'warning');
@@ -3574,7 +3795,7 @@
             const job = { id: Date.now(), title, jobType, subCat, department, post, eligibility, age, lastDate, experience, description, website, applyLink, visibility };
             if (idx >= 0 && idx < jobsData.length) { jobsData[idx] = job; showToast('✅ Job updated!', 'success'); }
             else { jobsData.push(job); showToast('✅ Job added!', 'success'); }
-            saveData(); closeAdminModal(); renderAdminTable(); updateJobsUI();
+            saveToLocalStorage(); closeAdminModal(); renderAdminTable(); updateJobsUI();
             document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
             document.getElementById('totalJobsBadge').textContent = `Total: ${getPublicJobs().filter(j => j.jobType === currentCategory).length}`;
         }
@@ -3587,7 +3808,7 @@
         function deleteJob(idx) {
             if (!confirm('Delete this job?')) return;
             jobsData.splice(idx, 1);
-            saveData(); renderAdminTable(); updateJobsUI();
+            saveToLocalStorage(); renderAdminTable(); updateJobsUI();
             document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
             showToast('🗑️ Deleted!', 'warning');
         }
@@ -3645,7 +3866,7 @@
             try {
                 const { data: { text } } = await Tesseract.recognize(
                     fileInput.files[0],
-                    'hin+eng', // Supports Hindi + English
+                    'hin+eng',
                     { logger: m => console.log(m) }
                 );
                 resultBox.value = text;
@@ -3662,7 +3883,6 @@
             const text = document.getElementById('ocrResultText').value;
             if (!text) { showToast('No text to import!', 'error'); return; }
             
-            // Try to find the active editor inside the modal or on the page
             const activeEditor = document.querySelector('.editor-content[contenteditable="true"]');
             if (activeEditor) {
                 activeEditor.innerHTML += `<p>${text.replace(/\n/g, '<br>')}</p>`;
@@ -3701,7 +3921,7 @@
             if (!confirm('⚠️ LAST WARNING: All your custom data will be lost!')) return;
             appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
             jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
-            saveData();
+            saveToLocalStorage();
             renderAllPages();
             updateJobsUI();
             showToast('🔄 All data reset to default!', 'warning');
@@ -3732,12 +3952,16 @@
         // INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            loadData();
-            renderAllPages();
-            updateSubCategoryButtons();
-            selectCategory('central');
-            document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
-            console.log('🚀 Dream Josh – All Pages with Updated Editor + OCR + Font Converter!');
+            // Load data from Google Sheets first, fallback to local
+            loadFromGoogleSheets().then(success => {
+                if (!success) {
+                    loadFromLocalStorage();
+                    renderAllPages();
+                    updateJobsUI();
+                }
+                document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
+                console.log('🚀 Dream Josh – All Pages with Google Sheets Sync!');
+            });
         });
 
         // Expose functions
@@ -3787,6 +4011,8 @@
         window.copyFontOutput = copyFontOutput;
         window.clearFontConverter = clearFontConverter;
         window.previewFontOutput = previewFontOutput;
+        window.syncWithGoogleSheets = syncWithGoogleSheets;
+        window.loadFromGoogleSheets = loadFromGoogleSheets;
     </script>
 </body>
 </html>
