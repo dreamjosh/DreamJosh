@@ -9,7 +9,7 @@
     <!-- Tesseract.js for OCR -->
     <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
     <style>
-        /* ================= CSS VARIABLES (same as before) ================= */
+        /* ================= CSS VARIABLES ================= */
         :root {
             --bg-color: #eef5ff;
             --card-bg: #ffffff;
@@ -1765,6 +1765,38 @@
                 min-height: 150px;
             }
         }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .social-links a {
+            color: var(--text-color);
+            font-size: 28px;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+        .social-links a:hover {
+            transform: scale(1.15);
+        }
+        .social-links a.instagram:hover { color: #E4405F; border-color: #E4405F; }
+        .social-links a.youtube:hover { color: #FF0000; border-color: #FF0000; }
+        .social-links a.facebook:hover { color: #1877F2; border-color: #1877F2; }
     </style>
 </head>
 <body>
@@ -1955,6 +1987,12 @@
                         </div>
                     </div>
                 </div>
+                <!-- Social Links -->
+                <div class="social-links" id="socialLinksContainer">
+                    <a href="#" class="instagram" id="socialInstagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="youtube" id="socialYoutube" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="facebook" id="socialFacebook" target="_blank"><i class="fab fa-facebook"></i></a>
+                </div>
             </div>
         </section>
 
@@ -2083,27 +2121,25 @@
         // ============================================================
         // GOOGLE SHEETS CONFIGURATION
         // ============================================================
-        // Replace with your actual Google Sheets API credentials and sheet IDs
         const GOOGLE_SHEETS_CONFIG = {
-            // You need to set up a Google Cloud Project and enable Sheets API.
-            // For demo, we use a public read-only sheet. Replace with your own.
-            apiKey: 'AIzaSyD4sPjB5m6cR8xXkY0z7W3aB1cV9fG5hJk', // Your API Key
-            sheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms', // Example public sheet ID
-            // Sheet names for different data types
+            apiKey: 'AIzaSyD4sPjB5m6cR8xXkY0z7W3aB1cV9fG5hJk',
+            sheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
             sheets: {
                 jobs: 'Jobs',
                 study: 'Study',
                 career: 'Career',
                 books: 'Books',
                 more: 'More',
-                blog: 'Blog'
+                blog: 'Blog',
+                social: 'SocialLinks',
+                employees: 'Employees'
             }
         };
 
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v14';
+        const STORAGE_KEY = 'dreamjosh_all_data_v15';
 
         const DEFAULT_DATA = {
             home: {
@@ -2159,7 +2195,16 @@
                     { id: 'bl2', title: '📊 Business', description: 'Business and finance articles', visibility: 'public', category: 'Business' },
                     { id: 'bl3', title: '❤️ Lifestyle', description: 'Lifestyle and wellness tips', visibility: 'public', category: 'Lifestyle' }
                 ]
-            }
+            },
+            social: {
+                instagram: 'https://instagram.com/dreamjosh',
+                youtube: 'https://youtube.com/dreamjosh',
+                facebook: 'https://facebook.com/dreamjosh'
+            },
+            employees: [
+                { id: 'emp1', name: 'Employee 1', email: 'emp1@dreamjosh.com', access: ['study', 'career'] },
+                { id: 'emp2', name: 'Employee 2', email: 'emp2@dreamjosh.com', access: ['books', 'blog'] }
+            ]
         };
 
         const DEFAULT_JOBS = [
@@ -2195,8 +2240,9 @@
         let currentCategory = 'central';
         let currentSubCategory = 'all';
         let isDataLoaded = false;
+        let currentUser = null; // For employee access control
 
-        // Global Filter Variables for study, career, books, blog
+        // Generic filters
         const genericFilters = {
             study: 'all',
             career: 'all',
@@ -2210,20 +2256,19 @@
         async function loadFromGoogleSheets() {
             try {
                 showToast('🔄 Loading data from Google Sheets...', 'info');
-                
-                // Load all data from different sheets
                 const promises = [
                     loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.jobs),
                     loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.study),
                     loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.career),
                     loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.books),
                     loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.more),
-                    loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.blog)
+                    loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.blog),
+                    loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.social),
+                    loadSheetData(GOOGLE_SHEETS_CONFIG.sheets.employees)
                 ];
-                
                 const results = await Promise.all(promises);
                 
-                // Process Jobs
+                // Jobs
                 if (results[0] && results[0].length > 0) {
                     jobsData = results[0].map(row => ({
                         id: row.id || Date.now() + Math.random(),
@@ -2242,19 +2287,15 @@
                         visibility: row.visibility || 'public'
                     }));
                 } else {
-                    // Use default jobs if sheet is empty
                     jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
-                    // Save default jobs to sheet
-                    await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets.jobs, jobsData);
                 }
 
-                // Process other pages
+                // Pages
                 const pageNames = ['study', 'career', 'books', 'more', 'blog'];
                 for (let i = 0; i < pageNames.length; i++) {
                     const page = pageNames[i];
                     const sheetData = results[i + 1];
                     if (sheetData && sheetData.length > 0) {
-                        // First row contains content, rest are items
                         const content = sheetData[0]?.content || DEFAULT_DATA[page]?.content || '';
                         const items = sheetData.slice(1).map(row => ({
                             id: row.id || Date.now() + Math.random() + Math.random().toString(36).substr(2, 5),
@@ -2266,54 +2307,60 @@
                         appData[page] = { content, items };
                     } else {
                         appData[page] = JSON.parse(JSON.stringify(DEFAULT_DATA[page]));
-                        // Save default data to sheet
-                        await savePageToSheet(page);
                     }
                 }
 
-                // Home page data
+                // Social Links
+                if (results[6] && results[6].length > 0) {
+                    appData.social = results[6][0];
+                } else {
+                    appData.social = JSON.parse(JSON.stringify(DEFAULT_DATA.social));
+                }
+
+                // Employees
+                if (results[7] && results[7].length > 0) {
+                    appData.employees = results[7];
+                } else {
+                    appData.employees = JSON.parse(JSON.stringify(DEFAULT_DATA.employees));
+                }
+
+                // Home
                 appData.home = JSON.parse(JSON.stringify(DEFAULT_DATA.home));
-                
+
                 isDataLoaded = true;
                 saveToLocalStorage();
                 renderAllPages();
                 updateJobsUI();
+                renderSocialLinks();
                 showToast('✅ Data loaded from Google Sheets!', 'success');
                 return true;
             } catch (error) {
                 console.error('Error loading from Google Sheets:', error);
                 showToast('⚠️ Failed to load from Google Sheets. Using local data.', 'error');
-                // Fallback to local data
                 loadFromLocalStorage();
                 renderAllPages();
                 updateJobsUI();
+                renderSocialLinks();
                 return false;
             }
         }
 
         async function loadSheetData(sheetName) {
             try {
-                // Using Google Sheets API v4 with a simple GET request
                 const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEETS_CONFIG.sheetId}/values/${sheetName}?key=${GOOGLE_SHEETS_CONFIG.apiKey}`;
                 const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const data = await response.json();
                 const rows = data.values || [];
                 if (rows.length < 2) return [];
-                
-                // Get headers from first row
                 const headers = rows[0];
-                // Convert rows to objects
-                const result = rows.slice(1).map(row => {
+                return rows.slice(1).map(row => {
                     const obj = {};
                     headers.forEach((header, index) => {
                         obj[header] = row[index] || '';
                     });
                     return obj;
                 });
-                return result;
             } catch (error) {
                 console.error(`Error loading sheet ${sheetName}:`, error);
                 return [];
@@ -2322,8 +2369,6 @@
 
         async function saveToGoogleSheets(sheetName, data) {
             try {
-                // For demo, we'll just log the data and store locally
-                // In production, you need proper OAuth2 authentication
                 console.log(`Saving data to ${sheetName}:`, data);
                 showToast('📤 Data saved locally. Sync with Google Sheets requires OAuth2 setup.', 'info');
                 return true;
@@ -2331,51 +2376,6 @@
                 console.error('Error saving to Google Sheets:', error);
                 return false;
             }
-        }
-
-        async function savePageToSheet(page) {
-            const data = appData[page];
-            if (!data) return;
-            
-            // Prepare data for sheet
-            const sheetData = [];
-            // Header row
-            const headers = ['id', 'title', 'description', 'category', 'visibility', 'content'];
-            if (page === 'more') {
-                // More page doesn't have category
-                headers.splice(3, 1);
-            }
-            sheetData.push(headers);
-            
-            // Content row (special row for page content)
-            const contentRow = {
-                id: 'page_content',
-                title: 'Page Content',
-                description: data.content || '',
-                category: '',
-                visibility: 'public'
-            };
-            if (page === 'more') {
-                delete contentRow.category;
-            }
-            // Map to proper column order
-            const mappedContentRow = headers.map(h => {
-                if (h === 'content') return data.content || '';
-                return contentRow[h] || '';
-            });
-            sheetData.push(mappedContentRow);
-            
-            // Items rows
-            (data.items || []).forEach(item => {
-                const row = headers.map(h => {
-                    if (h === 'content') return '';
-                    return item[h] || '';
-                });
-                sheetData.push(row);
-            });
-            
-            // Save to Google Sheets
-            return await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets[page], sheetData);
         }
 
         function saveToLocalStorage() {
@@ -2394,16 +2394,16 @@
                 }
             } catch (e) { console.error('Load error:', e); }
             
-            ['home', 'study', 'career', 'books', 'more', 'blog'].forEach(page => {
-                if (!appData[page]) {
-                    appData[page] = JSON.parse(JSON.stringify(DEFAULT_DATA[page]));
+            ['home', 'study', 'career', 'books', 'more', 'blog', 'social', 'employees'].forEach(key => {
+                if (!appData[key]) {
+                    appData[key] = JSON.parse(JSON.stringify(DEFAULT_DATA[key] || {}));
                 }
-                if (page !== 'home') {
-                    if (!appData[page].content) {
-                        appData[page].content = DEFAULT_DATA[page].content || '';
+                if (key !== 'home' && key !== 'social' && key !== 'employees') {
+                    if (!appData[key].content) {
+                        appData[key].content = DEFAULT_DATA[key]?.content || '';
                     }
-                    if (!appData[page].items) {
-                        appData[page].items = DEFAULT_DATA[page].items || [];
+                    if (!appData[key].items) {
+                        appData[key].items = DEFAULT_DATA[key]?.items || [];
                     }
                 }
             });
@@ -2414,27 +2414,11 @@
             saveToLocalStorage();
         }
 
-        function getPublicJobs() {
-            return jobsData.filter(j => j.visibility !== 'private');
-        }
-
-        function getPageContent(page) {
-            return appData[page]?.content || '';
-        }
-
-        function getPageItems(page) {
-            return appData[page]?.items || [];
-        }
-
-        function getHomeData() {
-            return appData.home || DEFAULT_DATA.home;
-        }
-
         // ============================================================
         // RENDER FUNCTIONS
         // ============================================================
         function renderHomePage() {
-            const data = getHomeData();
+            const data = appData.home || DEFAULT_DATA.home;
             document.getElementById('homeTitle').textContent = data.title || '🚀 DREAM JOSH';
             document.getElementById('homeSubtitle').textContent = data.subtitle || '"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"';
             document.getElementById('homeTagline').textContent = data.tagline || 'Motivation • Study • Govt. Jobs • Career Guide';
@@ -2450,10 +2434,17 @@
             document.getElementById('homeHighlight').innerHTML = data.highlight || '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b>';
         }
 
+        function renderSocialLinks() {
+            const social = appData.social || DEFAULT_DATA.social;
+            document.getElementById('socialInstagram').href = social.instagram || '#';
+            document.getElementById('socialYoutube').href = social.youtube || '#';
+            document.getElementById('socialFacebook').href = social.facebook || '#';
+        }
+
         function renderPageContent(page) {
             const container = document.getElementById(`${page}Content`);
-            const content = getPageContent(page);
-            const items = getPageItems(page);
+            const content = appData[page]?.content || '';
+            const items = appData[page]?.items || [];
             
             let html = '';
             if (content && content.trim() !== '') {
@@ -2469,6 +2460,7 @@
 
         function renderAllPages() {
             renderHomePage();
+            renderSocialLinks();
             ['study', 'career', 'books', 'more', 'blog'].forEach(page => {
                 if(page !== 'more') {
                     renderGenericPage(page);
@@ -2479,24 +2471,21 @@
         }
 
         // ============================================================
-        // GENERIC PAGE RENDERER (Study, Career, Books, Blog)
+        // GENERIC PAGE RENDERER
         // ============================================================
         function renderGenericPage(page) {
             const container = document.getElementById(`${page}Content`);
-            const items = getPageItems(page);
-            const publicItems = items.filter(i => i.visibility !== 'private');
+            const items = (appData[page]?.items || []).filter(i => i.visibility !== 'private');
             
-            // Update Header Sub-category Filter Buttons
-            updateGenericSubFilter(page, publicItems);
+            updateGenericSubFilter(page, items);
 
-            // Filter items based on current selection
-            let filtered = publicItems;
+            let filtered = items;
             const currentCat = genericFilters[page];
             if (currentCat !== 'all') {
-                filtered = publicItems.filter(i => i.category === currentCat);
+                filtered = items.filter(i => i.category === currentCat);
             }
 
-            let html = getPageContent(page);
+            let html = appData[page]?.content || '';
             if (filtered.length > 0) {
                 html += `<div style="margin-top:20px;border-top:2px solid var(--border-color);padding-top:16px;"><h3 style="color:var(--primary-blue);margin-bottom:10px;">📂 Category: ${currentCat === 'all' ? 'All' : currentCat}</h3><ul style="list-style:none;padding:0;">`;
                 filtered.forEach(item => {
@@ -2555,7 +2544,7 @@
         }
 
         function updateJobsUI() {
-            const publicJobs = getPublicJobs();
+            const publicJobs = jobsData.filter(j => j.visibility !== 'private');
             let filtered = publicJobs.filter(j => j.jobType === currentCategory);
             if (currentSubCategory !== 'all') {
                 const subs = SUB_CATEGORIES[currentCategory] || ['All'];
@@ -2854,7 +2843,7 @@
             });
             toolbar.appendChild(insertGroup);
 
-            // ============= FONT CONVERTER (DevLys to Unicode) =============
+            // Font Converter
             const convertGroup = document.createElement('div');
             convertGroup.className = 'toolbar-group';
             const convertBtn = document.createElement('button');
@@ -2868,11 +2857,7 @@
                 const editor = document.getElementById(editorId);
                 let selection = window.getSelection();
                 let selectedText = selection.toString();
-                
-                if (!selectedText) {
-                    selectedText = editor.innerText || editor.textContent;
-                }
-
+                if (!selectedText) selectedText = editor.innerText || editor.textContent;
                 if(selectedText) {
                     const converted = devlysToUnicode(selectedText);
                     if (selection.rangeCount > 0 && selection.toString()) {
@@ -2889,7 +2874,7 @@
             convertGroup.appendChild(convertBtn);
             toolbar.appendChild(convertGroup);
 
-            // ============= UNDO / REDO =============
+            // Undo/Redo
             const undoGroup = document.createElement('div');
             undoGroup.className = 'toolbar-group';
             ['undo','redo'].forEach(cmd => {
@@ -2943,7 +2928,7 @@
         }
 
         // ============================================================
-        // DEVLYS TO UNICODE CONVERSION TABLE (Complete)
+        // DEVLYS TO UNICODE CONVERSION
         // ============================================================
         function devlysToUnicode(text) {
             const mapping = {
@@ -2956,37 +2941,18 @@
                 ',': ',', '.': '.', ' ': ' ', ';': ';', ':': ':',
                 '|': '।', '\\': '॥'
             };
-            
             let result = '';
             let i = 0;
             while (i < text.length) {
                 let char = text[i];
                 let nextChar = text[i+1] || '';
-                
                 if(mapping[char]) {
-                    if(nextChar === 'e') {
-                        result += mapping[char] + 'े';
-                        i += 2;
-                        continue;
-                    } else if (nextChar === 'o') {
-                        result += mapping[char] + 'ो';
-                        i += 2;
-                        continue;
-                    } else if (nextChar === 'i') {
-                        result += mapping[char] + 'ि';
-                        i += 2;
-                        continue;
-                    } else if (nextChar === 'u') {
-                        result += mapping[char] + 'ु';
-                        i += 2;
-                        continue;
-                    } else if (nextChar === 'f') {
-                         result += mapping[char] + 'ू';
-                        i += 2;
-                        continue;
-                    }
+                    if(nextChar === 'e') { result += mapping[char] + 'े'; i += 2; continue; }
+                    else if (nextChar === 'o') { result += mapping[char] + 'ो'; i += 2; continue; }
+                    else if (nextChar === 'i') { result += mapping[char] + 'ि'; i += 2; continue; }
+                    else if (nextChar === 'u') { result += mapping[char] + 'ु'; i += 2; continue; }
+                    else if (nextChar === 'f') { result += mapping[char] + 'ू'; i += 2; continue; }
                 }
-                
                 result += mapping[char] || char;
                 i++;
             }
@@ -2994,35 +2960,24 @@
         }
 
         // ============================================================
-        // FONT CONVERTER FUNCTIONS (More Page)
+        // FONT CONVERTER FUNCTIONS
         // ============================================================
         function convertFonts() {
             const input = document.getElementById('fontInput');
             const output = document.getElementById('fontOutput');
             const text = input.value;
-            
-            if(!text) {
-                showToast('Please enter some text in DevLys/Kruti font.', 'error');
-                return;
-            }
-            
-            const converted = devlysToUnicode(text);
-            output.value = converted;
+            if(!text) { showToast('Please enter some text in DevLys/Kruti font.', 'error'); return; }
+            output.value = devlysToUnicode(text);
             showToast('✅ Font conversion successful!', 'success');
         }
 
         function copyFontOutput() {
             const output = document.getElementById('fontOutput');
-            if(!output.value) {
-                showToast('Nothing to copy. Convert text first.', 'error');
-                return;
-            }
-            
+            if(!output.value) { showToast('Nothing to copy. Convert text first.', 'error'); return; }
             output.select();
-            output.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(output.value).then(() => {
                 showToast('✅ Copied to clipboard!', 'success');
-            }).catch(err => {
+            }).catch(() => {
                 document.execCommand('copy');
                 showToast('✅ Copied to clipboard!', 'success');
             });
@@ -3036,11 +2991,7 @@
 
         function previewFontOutput() {
             const output = document.getElementById('fontOutput');
-            if(!output.value) {
-                showToast('Convert text first.', 'error');
-                return;
-            }
-            
+            if(!output.value) { showToast('Convert text first.', 'error'); return; }
             const previewOverlay = document.createElement('div');
             previewOverlay.style.cssText = `
                 position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -3048,7 +2999,6 @@
                 display: flex; align-items: center; justify-content: center;
                 backdrop-filter: blur(5px);
             `;
-            
             const previewBox = document.createElement('div');
             previewBox.style.cssText = `
                 background: #fff; padding: 30px; border-radius: 12px;
@@ -3058,17 +3008,17 @@
                 font-size: 18px; line-height: 1.8; color: #333;
             `;
             previewBox.innerHTML = `<h3 style="margin-top:0;color:#123c9b;">📄 Preview Output</h3><p>${output.value.replace(/\n/g, '<br>')}</p><button onclick="this.closest('div[style]').remove()" style="padding:8px 20px;background:#dc3545;color:#fff;border:none;border-radius:6px;cursor:pointer;margin-top:15px;">Close Preview</button>`;
-            
             previewOverlay.appendChild(previewBox);
-            previewOverlay.onclick = function(e) {
-                if(e.target === this) this.remove();
-            };
+            previewOverlay.onclick = function(e) { if(e.target === this) this.remove(); };
             document.body.appendChild(previewOverlay);
         }
 
         // ============================================================
         // ADMIN PANEL
         // ============================================================
+        let adminAccessLevel = 'full'; // 'full' or 'employee'
+        let employeeAccessPages = [];
+
         function openAdminPanel() {
             const overlay = document.getElementById('adminPanelOverlay');
             overlay.innerHTML = renderAdminLogin();
@@ -3082,6 +3032,9 @@
             overlay.classList.remove('active');
             overlay.innerHTML = '';
             document.body.style.overflow = '';
+            adminAccessLevel = 'full';
+            employeeAccessPages = [];
+            currentUser = null;
         }
 
         function renderAdminLogin() {
@@ -3091,11 +3044,11 @@
                         <div class="admin-login-box">
                             <div class="login-icon">🔐</div>
                             <div class="login-logo">🚀 <span>Dream</span>Josh</div>
-                            <div class="login-subtitle">Admin – Full Control Panel</div>
-                            <input type="password" id="adminPass" placeholder="Enter Password" onkeydown="if(event.key==='Enter') adminLogin()">
+                            <div class="login-subtitle">Admin / Employee Login</div>
+                            <input type="password" id="adminPass" placeholder="Enter Password or Employee Code" onkeydown="if(event.key==='Enter') adminLogin()">
                             <button class="btn-login" onclick="adminLogin()"><i class="fas fa-unlock-alt"></i> Login</button>
-                            <div class="login-error" id="loginError">❌ Wrong Password</div>
-                            <div style="margin-top:10px;font-size:12px;color:var(--text-light);">Default: <strong>admin123</strong></div>
+                            <div class="login-error" id="loginError">❌ Invalid Credentials</div>
+                            <div style="margin-top:10px;font-size:12px;color:var(--text-light);">Admin: <strong>admin123</strong> | Employee: Enter your code</div>
                             <button class="btn-back-site" onclick="closeAdminPanel()"><i class="fas fa-arrow-left"></i> Back</button>
                         </div>
                     </div>
@@ -3106,42 +3059,72 @@
         function adminLogin() {
             const pass = document.getElementById('adminPass').value;
             const err = document.getElementById('loginError');
+
+            // Check for admin
             if (pass === 'admin123') {
                 err.classList.remove('show');
+                adminAccessLevel = 'full';
+                employeeAccessPages = [];
+                currentUser = null;
                 document.getElementById('adminPanelOverlay').innerHTML = renderAdminPanel();
                 renderAdminTables();
                 showToast('✅ Welcome Admin!', 'success');
-            } else {
-                err.classList.add('show');
-                document.getElementById('adminPass').value = '';
-                document.getElementById('adminPass').focus();
+                return;
             }
+
+            // Check for employees
+            const employees = appData.employees || [];
+            const found = employees.find(emp => emp.id === pass || emp.email === pass);
+            if (found) {
+                err.classList.remove('show');
+                adminAccessLevel = 'employee';
+                employeeAccessPages = found.access || [];
+                currentUser = found;
+                document.getElementById('adminPanelOverlay').innerHTML = renderAdminPanel();
+                renderAdminTables();
+                showToast(`✅ Welcome ${found.name}!`, 'success');
+                return;
+            }
+
+            err.classList.add('show');
+            document.getElementById('adminPass').value = '';
+            document.getElementById('adminPass').focus();
         }
 
         function renderAdminPanel() {
             const pages = ['study', 'career', 'books', 'more', 'blog'];
+            const isEmployee = adminAccessLevel === 'employee';
+            const accessPages = employeeAccessPages;
+
+            // Filter pages based on employee access
+            const allowedPages = isEmployee ? pages.filter(p => accessPages.includes(p)) : pages;
+
             return `
                 <div class="admin-wrapper">
                     <div class="admin-sidebar" id="adminSidebar">
-                        <div class="admin-logo"><h1>🚀 <span>Dream</span>Josh</h1><span class="badge">Admin</span></div>
-                        <div class="admin-user"><div class="avatar">A</div><div><div class="name">Admin</div><div class="role">Super Admin</div></div></div>
+                        <div class="admin-logo"><h1>🚀 <span>Dream</span>Josh</h1><span class="badge">${isEmployee ? 'Employee' : 'Admin'}</span></div>
+                        <div class="admin-user"><div class="avatar">${isEmployee ? 'E' : 'A'}</div><div><div class="name">${isEmployee ? (currentUser?.name || 'Employee') : 'Admin'}</div><div class="role">${isEmployee ? 'Limited Access' : 'Super Admin'}</div></div></div>
                         <ul class="admin-menu">
                             <li class="section-title">Dashboard</li>
                             <li><a class="active" data-page="dashboard" onclick="showAdminPage('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
                             <li class="section-title">Page Editor</li>
                             <li><a data-page="home-editor" onclick="showAdminPage('home-editor')"><i class="fas fa-home"></i> Home Page</a></li>
-                            ${pages.map(p => `
+                            ${allowedPages.map(p => `
                                 <li><a data-page="${p}-editor" onclick="showAdminPage('${p}-editor')"><i class="fas ${p === 'study' ? 'fa-book' : p === 'career' ? 'fa-briefcase' : p === 'books' ? 'fa-book-open' : p === 'more' ? 'fa-plus-circle' : 'fa-blog'}"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Page <span class="count">✎</span></a></li>
                             `).join('')}
                             <li class="section-title">Data Items</li>
-                            ${pages.map(p => `
-                                <li><a data-page="items-${p}" onclick="showAdminPage('items-${p}')"><i class="fas fa-list"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Items <span class="count">${getPageItems(p).length}</span></a></li>
+                            ${allowedPages.map(p => `
+                                <li><a data-page="items-${p}" onclick="showAdminPage('items-${p}')"><i class="fas fa-list"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Items <span class="count">${(appData[p]?.items || []).length}</span></a></li>
                             `).join('')}
+                            ${!isEmployee ? `
                             <li class="section-title">Jobs</li>
                             <li><a data-page="jobs" onclick="showAdminPage('jobs')"><i class="fas fa-briefcase"></i> All Jobs <span class="count">${jobsData.length}</span></a></li>
                             <li class="section-title">System</li>
                             <li><a data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
                             <li><a data-page="sync" onclick="showAdminPage('sync')"><i class="fas fa-sync-alt"></i> Sync Google Sheets</a></li>
+                            <li><a data-page="employees" onclick="showAdminPage('employees')"><i class="fas fa-users"></i> Employees <span class="count">${(appData.employees || []).length}</span></a></li>
+                            <li><a data-page="social" onclick="showAdminPage('social')"><i class="fas fa-share-alt"></i> Social Links</a></li>
+                            ` : ''}
                         </ul>
                         <div class="admin-footer-menu"><a onclick="closeAdminPanel()"><i class="fas fa-sign-out-alt"></i> Close</a></div>
                     </div>
@@ -3164,15 +3147,15 @@
                                 <h3>⚡ Quick Actions</h3>
                                 <div class="actions-grid">
                                     <button onclick="showAdminPage('home-editor')"><i class="fas fa-home"></i> Edit Home</button>
-                                    <button onclick="showAdminPage('jobs'); openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+                                    ${!isEmployee ? `<button onclick="showAdminPage('jobs'); openJobModal()"><i class="fas fa-plus"></i> Add Job</button>` : ''}
                                     <button onclick="exportCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                     <button onclick="exportAdminData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
                                     <button onclick="openOCRModal()" style="background:#27ae60;"><i class="fas fa-eye"></i> 🖼️ Image to Text (OCR)</button>
-                                    <button onclick="syncWithGoogleSheets()" style="background:#dc3545;"><i class="fas fa-cloud-upload-alt"></i> Sync to Google Sheets</button>
+                                    ${!isEmployee ? `<button onclick="syncWithGoogleSheets()" style="background:#dc3545;"><i class="fas fa-cloud-upload-alt"></i> Sync to Google Sheets</button>` : ''}
                                 </div>
                             </div>
                         </div>
-                        ${['home', ...pages].map(page => `
+                        ${['home', ...allowedPages].map(page => `
                             <div id="adminPage-${page}-editor" class="admin-section">
                                 <div class="admin-card">
                                     <div class="card-header">
@@ -3187,6 +3170,7 @@
                                 </div>
                             </div>
                         `).join('')}
+                        ${!isEmployee ? `
                         <div id="adminPage-jobs" class="admin-section">
                             <div class="admin-card">
                                 <div class="card-header"><h4>💼 Jobs Manager</h4><button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button></div>
@@ -3198,7 +3182,8 @@
                                 </div>
                             </div>
                         </div>
-                        ${pages.map(page => `
+                        ` : ''}
+                        ${allowedPages.map(page => `
                             <div id="adminPage-items-${page}" class="admin-section">
                                 <div class="admin-card">
                                     <div class="card-header">
@@ -3213,11 +3198,12 @@
                                 </div>
                             </div>
                         `).join('')}
+                        ${!isEmployee ? `
                         <div id="adminPage-settings" class="admin-section">
                             <div class="admin-card">
                                 <div class="card-header"><h4>⚙️ Settings</h4></div>
                                 <div class="admin-settings">
-                                    <div class="setting-group"><h5>🔑 Change Password</h5><input type="password" id="adminNewPass" placeholder="New Password"><input type="password" id="adminConfirmPass" placeholder="Confirm"><button class="btn-setting primary" onclick="changeAdminPassword()">Update</button></div>
+                                    <div class="setting-group"><h5>🔑 Change Admin Password</h5><input type="password" id="adminNewPass" placeholder="New Password"><input type="password" id="adminConfirmPass" placeholder="Confirm"><button class="btn-setting primary" onclick="changeAdminPassword()">Update</button></div>
                                     <div class="setting-group"><h5>💾 Backup All Data</h5><button class="btn-setting success" onclick="exportAdminData()"><i class="fas fa-download"></i> Download Backup</button></div>
                                     <div class="setting-group"><h5>🔄 Reset All Data (Warning!)</h5><button class="btn-setting danger" onclick="resetAllData()"><i class="fas fa-exclamation-triangle"></i> Reset to Default</button></div>
                                 </div>
@@ -3241,6 +3227,23 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="adminPage-employees" class="admin-section">
+                            <div class="admin-card">
+                                <div class="card-header"><h4>👥 Employee Management</h4><button class="btn-add" onclick="openEmployeeModal()"><i class="fas fa-user-plus"></i> Add Employee</button></div>
+                                <div id="employeeListContainer">
+                                    ${renderEmployeeList()}
+                                </div>
+                            </div>
+                        </div>
+                        <div id="adminPage-social" class="admin-section">
+                            <div class="admin-card">
+                                <div class="card-header"><h4>🔗 Social Links</h4></div>
+                                <div id="socialLinksForm">
+                                    ${renderSocialLinksForm()}
+                                </div>
+                            </div>
+                        </div>
+                        ` : ''}
                     </div>
                 </div>
                 <div class="admin-modal-overlay" id="adminModalOverlay" onclick="if(event.target===this) closeAdminModal()">
@@ -3253,7 +3256,7 @@
         }
 
         function renderAdminHomeContent() {
-            const data = getHomeData();
+            const data = appData.home || DEFAULT_DATA.home;
             return `
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;">
                     <div><strong>Title:</strong> ${data.title || '-'}</div>
@@ -3267,7 +3270,7 @@
         }
 
         function renderAdminPageContent(page) {
-            const content = getPageContent(page);
+            const content = appData[page]?.content || '';
             if (!content || content.trim() === '') {
                 return `<div class="empty-state"><i class="fas fa-inbox"></i> No content yet</div>`;
             }
@@ -3275,7 +3278,7 @@
         }
 
         function renderAdminItems(page) {
-            const items = getPageItems(page);
+            const items = appData[page]?.items || [];
             if (!items || items.length === 0) {
                 return `<div class="empty-state"><i class="fas fa-inbox"></i> No items yet. Click "Add Item" to create one.</div>`;
             }
@@ -3299,11 +3302,115 @@
             `;
         }
 
-        function renderAdminTables() {
-            renderAdminTable();
+        function renderEmployeeList() {
+            const employees = appData.employees || [];
+            if (!employees.length) {
+                return `<div class="empty-state"><i class="fas fa-users"></i> No employees added yet.</div>`;
+            }
+            return `
+                <div class="items-grid">
+                    ${employees.map((emp, idx) => `
+                        <div class="item-card">
+                            <div class="item-info">
+                                <div class="item-title">${emp.name || 'Unnamed'}</div>
+                                <div style="font-size:12px;color:var(--text-light);">${emp.email || ''}</div>
+                                <div style="font-size:11px;color:var(--text-light);">Access: ${(emp.access || []).join(', ') || 'None'}</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-edit" onclick="openEmployeeModal(${idx})" title="Edit Employee"><i class="fas fa-edit"></i></button>
+                                <button class="btn-delete" onclick="deleteEmployee(${idx})" title="Delete Employee"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
         }
 
-        function renderAdminTable() {
+        function renderSocialLinksForm() {
+            const social = appData.social || DEFAULT_DATA.social;
+            return `
+                <div style="padding:10px 0;">
+                    <div class="form-group"><label>Instagram URL</label><input type="text" id="socialInstagramInput" value="${social.instagram || ''}" placeholder="https://instagram.com/..."></div>
+                    <div class="form-group"><label>YouTube URL</label><input type="text" id="socialYoutubeInput" value="${social.youtube || ''}" placeholder="https://youtube.com/..."></div>
+                    <div class="form-group"><label>Facebook URL</label><input type="text" id="socialFacebookInput" value="${social.facebook || ''}" placeholder="https://facebook.com/..."></div>
+                    <button class="btn-submit" onclick="saveSocialLinks()"><i class="fas fa-save"></i> Save Social Links</button>
+                </div>
+            `;
+        }
+
+        function saveSocialLinks() {
+            appData.social = {
+                instagram: document.getElementById('socialInstagramInput').value.trim(),
+                youtube: document.getElementById('socialYoutubeInput').value.trim(),
+                facebook: document.getElementById('socialFacebookInput').value.trim()
+            };
+            saveToLocalStorage();
+            renderSocialLinks();
+            showToast('✅ Social links updated!', 'success');
+            showAdminPage('social');
+        }
+
+        function openEmployeeModal(index = null) {
+            const isEdit = index !== null;
+            const employees = appData.employees || [];
+            const emp = isEdit ? employees[index] : { name: '', email: '', access: [] };
+            const allPages = ['study', 'career', 'books', 'more', 'blog'];
+
+            document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Employee' : '👤 Add Employee';
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="empIndex" value="${isEdit ? index : -1}">
+                <div class="form-group"><label>Employee Name *</label><input type="text" id="empName" value="${emp.name || ''}"></div>
+                <div class="form-group"><label>Employee Code / Email *</label><input type="text" id="empCode" value="${emp.email || ''}" placeholder="Unique code for login"></div>
+                <div class="form-group"><label>Access Pages (Select multiple)</label>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;padding:8px 0;">
+                        ${allPages.map(p => `
+                            <label style="display:flex;align-items:center;gap:4px;font-size:13px;cursor:pointer;">
+                                <input type="checkbox" ${(emp.access || []).includes(p) ? 'checked' : ''} value="${p}" class="empAccessCheck"> ${p.charAt(0).toUpperCase() + p.slice(1)}
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="saveEmployee()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        function saveEmployee() {
+            const index = parseInt(document.getElementById('empIndex').value);
+            const name = document.getElementById('empName').value.trim();
+            const email = document.getElementById('empCode').value.trim();
+            const access = [];
+            document.querySelectorAll('.empAccessCheck:checked').forEach(cb => access.push(cb.value));
+
+            if (!name || !email) { showToast('Name and Code are required!', 'error'); return; }
+            if (access.length === 0) { showToast('Select at least one page access!', 'error'); return; }
+
+            const emp = { id: email, name, email, access };
+            if (!appData.employees) appData.employees = [];
+            if (index >= 0 && index < appData.employees.length) {
+                appData.employees[index] = emp;
+                showToast('✅ Employee updated!', 'success');
+            } else {
+                appData.employees.push(emp);
+                showToast('✅ Employee added!', 'success');
+            }
+            saveToLocalStorage();
+            closeAdminModal();
+            showAdminPage('employees');
+        }
+
+        function deleteEmployee(index) {
+            if (!confirm('Delete this employee?')) return;
+            if (appData.employees) {
+                appData.employees.splice(index, 1);
+                saveToLocalStorage();
+                showAdminPage('employees');
+                showToast('🗑️ Employee deleted!', 'warning');
+            }
+        }
+
+        function renderAdminTables() {
             const tbody = document.getElementById('adminJobsTable');
             if (!tbody) return;
             if (jobsData.length === 0) {
@@ -3316,7 +3423,6 @@
                 tempDiv.innerHTML = j.description || '';
                 const plainDesc = tempDiv.textContent || tempDiv.innerText || '';
                 const shortDesc = plainDesc.length > 30 ? plainDesc.substring(0, 30) + '...' : plainDesc;
-                
                 return `
                     <tr>
                         <td>${i+1}</td>
@@ -3339,7 +3445,7 @@
             const menuItem = document.querySelector(`#adminPanelOverlay .admin-menu a[data-page="${page}"]`);
             if (menuItem) menuItem.classList.add('active');
             
-            const allPages = ['dashboard', 'home-editor', 'study-editor', 'career-editor', 'books-editor', 'more-editor', 'blog-editor', 'jobs', 'settings', 'sync',
+            const allPages = ['dashboard', 'home-editor', 'study-editor', 'career-editor', 'books-editor', 'more-editor', 'blog-editor', 'jobs', 'settings', 'sync', 'employees', 'social',
                 'items-study', 'items-career', 'items-books', 'items-more', 'items-blog'];
             
             allPages.forEach(p => {
@@ -3362,7 +3468,9 @@
                 'items-blog': '📝 <span>Blog Items</span>',
                 jobs: '💼 <span>Jobs Manager</span>',
                 settings: '⚙️ <span>Settings</span>',
-                sync: '🔄 <span>Google Sheets Sync</span>'
+                sync: '🔄 <span>Google Sheets Sync</span>',
+                employees: '👥 <span>Employees</span>',
+                social: '🔗 <span>Social Links</span>'
             };
             document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
             
@@ -3372,6 +3480,14 @@
                 document.getElementById('statPrivate').textContent = jobsData.filter(j => j.visibility === 'private').length;
             }
             if (page === 'jobs') renderAdminTable();
+            if (page === 'employees') {
+                const container = document.getElementById('employeeListContainer');
+                if (container) container.innerHTML = renderEmployeeList();
+            }
+            if (page === 'social') {
+                const container = document.getElementById('socialLinksForm');
+                if (container) container.innerHTML = renderSocialLinksForm();
+            }
             if (page.startsWith('items-')) {
                 const pageName = page.replace('items-', '');
                 const container = document.getElementById(`adminItemsContainer-${pageName}`);
@@ -3398,38 +3514,42 @@
         // ============================================================
         async function syncWithGoogleSheets() {
             showToast('🔄 Syncing data to Google Sheets...', 'info');
-            
             try {
-                // Save jobs to sheet
                 const jobSheetData = [
                     ['id', 'title', 'jobType', 'subCat', 'department', 'post', 'eligibility', 'age', 'lastDate', 'experience', 'description', 'website', 'applyLink', 'visibility']
                 ];
                 jobsData.forEach(job => {
                     jobSheetData.push([
-                        job.id || '',
-                        job.title || '',
-                        job.jobType || '',
-                        job.subCat || '',
-                        job.department || '',
-                        job.post || '',
-                        job.eligibility || '',
-                        job.age || '',
-                        job.lastDate || '',
-                        job.experience || '',
-                        job.description || '',
-                        job.website || '',
-                        job.applyLink || '',
-                        job.visibility || 'public'
+                        job.id || '', job.title || '', job.jobType || '', job.subCat || '',
+                        job.department || '', job.post || '', job.eligibility || '', job.age || '',
+                        job.lastDate || '', job.experience || '', job.description || '',
+                        job.website || '', job.applyLink || '', job.visibility || 'public'
                     ]);
                 });
                 await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets.jobs, jobSheetData);
                 
-                // Save other pages
                 const pages = ['study', 'career', 'books', 'more', 'blog'];
                 for (const page of pages) {
                     await savePageToSheet(page);
                 }
-                
+
+                // Social
+                const social = appData.social || DEFAULT_DATA.social;
+                await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets.social, [
+                    ['instagram', 'youtube', 'facebook'],
+                    [social.instagram || '', social.youtube || '', social.facebook || '']
+                ]);
+
+                // Employees
+                const employees = appData.employees || [];
+                const empData = [
+                    ['id', 'name', 'email', 'access']
+                ];
+                employees.forEach(emp => {
+                    empData.push([emp.id || '', emp.name || '', emp.email || '', (emp.access || []).join(',')]);
+                });
+                await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets.employees, empData);
+
                 showToast('✅ Data synced to Google Sheets successfully!', 'success');
             } catch (error) {
                 console.error('Sync error:', error);
@@ -3437,11 +3557,27 @@
             }
         }
 
+        async function savePageToSheet(page) {
+            const data = appData[page];
+            if (!data) return;
+            const headers = ['id', 'title', 'description', 'category', 'visibility', 'content'];
+            const sheetData = [headers];
+            const contentRow = { id: 'page_content', title: 'Page Content', description: data.content || '', category: '', visibility: 'public' };
+            if (page === 'more') delete contentRow.category;
+            const mappedContentRow = headers.map(h => h === 'content' ? data.content || '' : contentRow[h] || '');
+            sheetData.push(mappedContentRow);
+            (data.items || []).forEach(item => {
+                const row = headers.map(h => h === 'content' ? '' : item[h] || '');
+                sheetData.push(row);
+            });
+            return await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets[page], sheetData);
+        }
+
         // ============================================================
         // PAGE EDITOR
         // ============================================================
         function openPageEditor(page) {
-            const content = page === 'home' ? getHomeData().aboutText : getPageContent(page);
+            const content = page === 'home' ? (appData.home?.aboutText || '') : (appData[page]?.content || '');
             const title = page === 'home' ? 'Home Page' : page.charAt(0).toUpperCase() + page.slice(1) + ' Page';
             
             document.getElementById('adminModalTitle').textContent = `✏️ Edit ${title}`;
@@ -3465,15 +3601,10 @@
             `;
             
             document.getElementById('adminModalOverlay').classList.add('active');
-            
             const toolbarContainer = document.getElementById('editorToolbar');
             const toolbar = createEditorToolbar('pageEditor', { showSource: true });
             toolbarContainer.appendChild(toolbar);
-            
-            setTimeout(() => {
-                const editor = document.getElementById('pageEditor');
-                if (editor) editor.focus();
-            }, 100);
+            setTimeout(() => { const editor = document.getElementById('pageEditor'); if (editor) editor.focus(); }, 100);
         }
 
         function savePageEditor(page) {
@@ -3545,57 +3676,11 @@
         }
 
         // ============================================================
-        // HOME MODAL
-        // ============================================================
-        function openHomeModal() {
-            const data = getHomeData();
-            document.getElementById('adminModalTitle').textContent = '✏️ Edit Home Page';
-            document.getElementById('adminModalBody').innerHTML = `
-                <div class="form-group"><label>Title *</label><input type="text" id="hmTitle" value="${data.title || ''}"></div>
-                <div class="form-group"><label>Subtitle</label><input type="text" id="hmSubtitle" value="${data.subtitle || ''}"></div>
-                <div class="form-group"><label>Tagline</label><input type="text" id="hmTagline" value="${data.tagline || ''}"></div>
-                <div class="form-group"><label>Ticker 1</label><input type="text" id="hmTicker1" value="${data.ticker1 || ''}"></div>
-                <div class="form-group"><label>Ticker 2</label><input type="text" id="hmTicker2" value="${data.ticker2 || ''}"></div>
-                <div class="form-group"><label>Heading</label><input type="text" id="hmHeading" value="${data.heading || ''}"></div>
-                <div class="form-group"><label>About Title</label><input type="text" id="hmAboutTitle" value="${data.aboutTitle || ''}"></div>
-                <div class="form-group"><label>About Text (HTML allowed)</label><textarea id="hmAboutText" rows="3">${data.aboutText || ''}</textarea></div>
-                <div class="form-group"><label>Features Title</label><input type="text" id="hmFeaturesTitle" value="${data.featuresTitle || ''}"></div>
-                <div class="form-group"><label>Features (comma separated)</label><input type="text" id="hmFeatures" value="${(data.features || []).join(', ')}"></div>
-                <div class="form-group"><label>Highlight (HTML allowed)</label><textarea id="hmHighlight" rows="2">${data.highlight || ''}</textarea></div>
-                <button class="btn-submit" onclick="saveHomeData()"><i class="fas fa-save"></i> Save</button>
-                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-            `;
-            document.getElementById('adminModalOverlay').classList.add('active');
-        }
-
-        function saveHomeData() {
-            const data = {
-                title: document.getElementById('hmTitle').value.trim(),
-                subtitle: document.getElementById('hmSubtitle').value.trim(),
-                tagline: document.getElementById('hmTagline').value.trim(),
-                ticker1: document.getElementById('hmTicker1').value.trim(),
-                ticker2: document.getElementById('hmTicker2').value.trim(),
-                heading: document.getElementById('hmHeading').value.trim(),
-                aboutTitle: document.getElementById('hmAboutTitle').value.trim(),
-                aboutText: document.getElementById('hmAboutText').value.trim(),
-                featuresTitle: document.getElementById('hmFeaturesTitle').value.trim(),
-                features: document.getElementById('hmFeatures').value.split(',').map(s => s.trim()).filter(s => s),
-                highlight: document.getElementById('hmHighlight').value.trim()
-            };
-            appData.home = data;
-            saveToLocalStorage();
-            renderHomePage();
-            closeAdminModal();
-            showToast('✅ Home page updated!', 'success');
-            showAdminPage('home-editor');
-        }
-
-        // ============================================================
-        // ITEM EDITOR (WITH MS WORD EDITOR)
+        // ITEM EDITOR
         // ============================================================
         function openItemEditor(page, index = null) {
             const isEdit = index !== null;
-            const items = getPageItems(page);
+            const items = appData[page]?.items || [];
             const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public', category: '' };
             
             document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit ${page} Item` : `➕ Add ${page} Item`;
@@ -3630,7 +3715,7 @@
                 <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${item.title || ''}"></div>
                 ${categoryHtml}
                 <div class="form-group">
-                    <label>Description (Rich Text - Bold, Italic, Lists, Links, Images, Tables, PDF)</label>
+                    <label>Description (Rich Text)</label>
                     <div id="itemDescContainer">
                         <div id="itemDescToolbar"></div>
                         <div class="editor-content" id="itemDescription" contenteditable="true" style="min-height:150px;">${item.description || ''}</div>
@@ -3648,7 +3733,6 @@
             `;
             
             document.getElementById('adminModalOverlay').classList.add('active');
-            
             setTimeout(() => {
                 const toolbarContainer = document.getElementById('itemDescToolbar');
                 const toolbar = createEditorToolbar('itemDescription', { showSource: true });
@@ -3706,9 +3790,13 @@
         }
 
         // ============================================================
-        // JOB MODAL WITH MS WORD EDITOR
+        // JOB MODAL
         // ============================================================
         function openJobModal(data = null) {
+            if (adminAccessLevel === 'employee') {
+                showToast('You do not have permission to manage jobs.', 'error');
+                return;
+            }
             const isEdit = data !== null;
             document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Job' : '💼 Add Job';
             
@@ -3744,7 +3832,7 @@
                     <div class="form-group"><label>Experience</label><input type="text" id="jExp" value="${isEdit ? data.experience : ''}"></div>
                 </div>
                 <div class="form-group">
-                    <label>Description (Rich Text - Bold, Italic, Lists, Links, Images, Tables, PDF)</label>
+                    <label>Description (Rich Text)</label>
                     <div id="jobDescContainer">
                         <div id="jobDescToolbar"></div>
                         <div class="editor-content" id="jobDescription" contenteditable="true" style="min-height:150px;">${isEdit ? (data.description || '') : ''}</div>
@@ -3757,14 +3845,12 @@
                 <div class="form-group">
                     <label>Visibility</label>
                     <select id="jVisibility">${visibilityOptions}</select>
-                    <span style="font-size:11px;color:var(--text-light);display:block;margin-top:4px;">🔒 Private jobs are hidden from the website.</span>
                 </div>
                 <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
                 <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
             `;
             
             document.getElementById('adminModalOverlay').classList.add('active');
-            
             setTimeout(() => {
                 const toolbarContainer = document.getElementById('jobDescToolbar');
                 const toolbar = createEditorToolbar('jobDescription', { showSource: true });
@@ -3775,6 +3861,10 @@
         }
 
         function saveJob() {
+            if (adminAccessLevel === 'employee') {
+                showToast('You do not have permission to manage jobs.', 'error');
+                return;
+            }
             const idx = parseInt(document.getElementById('jobIndex').value);
             const title = document.getElementById('jTitle').value.trim();
             const jobType = document.getElementById('jType').value;
@@ -3796,20 +3886,22 @@
             if (idx >= 0 && idx < jobsData.length) { jobsData[idx] = job; showToast('✅ Job updated!', 'success'); }
             else { jobsData.push(job); showToast('✅ Job added!', 'success'); }
             saveToLocalStorage(); closeAdminModal(); renderAdminTable(); updateJobsUI();
-            document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
-            document.getElementById('totalJobsBadge').textContent = `Total: ${getPublicJobs().filter(j => j.jobType === currentCategory).length}`;
+            document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private').length;
+            document.getElementById('totalJobsBadge').textContent = `Total: ${jobsData.filter(j => j.jobType === currentCategory && j.visibility !== 'private').length}`;
         }
 
         function editJob(idx) {
+            if (adminAccessLevel === 'employee') { showToast('Permission denied.', 'error'); return; }
             const j = jobsData[idx];
             if (j) openJobModal(j);
         }
 
         function deleteJob(idx) {
+            if (adminAccessLevel === 'employee') { showToast('Permission denied.', 'error'); return; }
             if (!confirm('Delete this job?')) return;
             jobsData.splice(idx, 1);
             saveToLocalStorage(); renderAdminTable(); updateJobsUI();
-            document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
+            document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private').length;
             showToast('🗑️ Deleted!', 'warning');
         }
 
@@ -3822,7 +3914,7 @@
         }
 
         // ============================================================
-        // OCR MODAL (Image to Text)
+        // OCR MODAL
         // ============================================================
         function openOCRModal() {
             document.getElementById('adminModalTitle').textContent = '🖼️ Image to Text (OCR)';
@@ -3845,7 +3937,6 @@
                     <button class="btn-submit" onclick="importOCRTextToEditor()"><i class="fas fa-file-import"></i> Import to Current Editor</button>
                     <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
                 </div>
-                <input type="hidden" id="ocrTargetEditor" value="">
             `;
             document.getElementById('adminModalOverlay').classList.add('active');
         }
@@ -3854,15 +3945,12 @@
             const fileInput = document.getElementById('ocrImageInput');
             const progress = document.getElementById('ocrProgress');
             const resultBox = document.getElementById('ocrResultText');
-            
             if (!fileInput.files || fileInput.files.length === 0) {
                 showToast('Please select an image file.', 'error');
                 return;
             }
-
             progress.style.display = 'block';
             resultBox.value = '';
-
             try {
                 const { data: { text } } = await Tesseract.recognize(
                     fileInput.files[0],
@@ -3882,7 +3970,6 @@
         function importOCRTextToEditor() {
             const text = document.getElementById('ocrResultText').value;
             if (!text) { showToast('No text to import!', 'error'); return; }
-            
             const activeEditor = document.querySelector('.editor-content[contenteditable="true"]');
             if (activeEditor) {
                 activeEditor.innerHTML += `<p>${text.replace(/\n/g, '<br>')}</p>`;
@@ -3952,15 +4039,21 @@
         // INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            // Load data from Google Sheets first, fallback to local
             loadFromGoogleSheets().then(success => {
                 if (!success) {
                     loadFromLocalStorage();
                     renderAllPages();
                     updateJobsUI();
+                    renderSocialLinks();
                 }
-                document.getElementById('totalJobsSidebar').textContent = getPublicJobs().length;
-                console.log('🚀 Dream Josh – All Pages with Google Sheets Sync!');
+                document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private').length;
+                console.log('🚀 Dream Josh – All Pages with Employee Management, Social Links, Google Sheets Sync!');
+                // Remove default password display
+                const loginBox = document.querySelector('.admin-login-box');
+                if (loginBox) {
+                    const defaultPwd = loginBox.querySelector('div:last-child');
+                    if (defaultPwd) defaultPwd.style.display = 'none';
+                }
             });
         });
 
@@ -3988,7 +4081,6 @@
         window.changeAdminPassword = changeAdminPassword;
         window.openDetail = openDetail;
         window.renderAdminTable = renderAdminTable;
-        window.getPublicJobs = getPublicJobs;
         window.openHomeModal = openHomeModal;
         window.saveHomeData = saveHomeData;
         window.resetAllData = resetAllData;
@@ -4001,7 +4093,6 @@
         window.saveItem = saveItem;
         window.deleteItem = deleteItem;
         window.renderAdminItems = renderAdminItems;
-        window.getPageItems = getPageItems;
         window.filterGenericCategory = filterGenericCategory;
         window.openOCRModal = openOCRModal;
         window.performOCR = performOCR;
@@ -4013,6 +4104,11 @@
         window.previewFontOutput = previewFontOutput;
         window.syncWithGoogleSheets = syncWithGoogleSheets;
         window.loadFromGoogleSheets = loadFromGoogleSheets;
+        window.saveSocialLinks = saveSocialLinks;
+        window.openEmployeeModal = openEmployeeModal;
+        window.saveEmployee = saveEmployee;
+        window.deleteEmployee = deleteEmployee;
+        window.renderEmployeeList = renderEmployeeList;
     </script>
 </body>
 </html>
