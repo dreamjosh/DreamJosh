@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- Tesseract.js for OCR -->
     <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+    <!-- PDF.js for PDF OCR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <style>
         /* ================= CSS VARIABLES ================= */
         :root {
@@ -72,7 +74,7 @@
             padding-bottom: 70px;
         }
 
-        /* ================= HEADER (same) ================= */
+        /* ================= HEADER ================= */
         .app-header {
             background: var(--header-bg);
             padding: 10px 16px;
@@ -132,7 +134,7 @@
             color: #fff;
         }
 
-        /* ================= DROPDOWN (same) ================= */
+        /* ================= DROPDOWN ================= */
         .dropdown-wrapper {
             position: relative;
             display: inline-block;
@@ -214,7 +216,7 @@
             margin-right: 8px;
         }
 
-        /* ================= FOOTER (same) ================= */
+        /* ================= FOOTER ================= */
         .app-footer {
             position: fixed;
             bottom: 0;
@@ -267,7 +269,7 @@
             color: #0a0e1a;
         }
 
-        /* ================= SECTION CONTAINER (same) ================= */
+        /* ================= SECTION CONTAINER ================= */
         .section-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -298,7 +300,7 @@
         }
         .section .section-header h2 span { color: var(--primary-blue); }
 
-        /* ================= HOME PAGE (same) ================= */
+        /* ================= HOME PAGE ================= */
         .home-original {
             background: var(--bg-color);
             color: var(--text-color);
@@ -435,7 +437,7 @@
             .section-container { padding: 12px 14px; }
         }
 
-        /* ================= JOB SECTION (same) ================= */
+        /* ================= JOB SECTION ================= */
         .job-grid-wrapper {
             margin: 20px 0;
             padding: 20px;
@@ -548,7 +550,7 @@
             border-color: var(--secondary-blue);
         }
 
-        /* ================= DETAIL OVERLAY (same) ================= */
+        /* ================= DETAIL OVERLAY ================= */
         .detail-overlay {
             display: none;
             position: fixed;
@@ -662,7 +664,7 @@
             border: 1px solid var(--border-color);
         }
 
-        /* ================= TOAST (same) ================= */
+        /* ================= TOAST ================= */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -682,7 +684,7 @@
         .toast.error { background: #dc3545; }
         .toast.info { background: #1976d2; }
 
-        /* ================= PAGE CONTENT DISPLAY (same) ================= */
+        /* ================= PAGE CONTENT DISPLAY ================= */
         .page-content-display {
             background: var(--card-bg);
             border-radius: 12px;
@@ -726,7 +728,7 @@
             border: 1px solid var(--border-color);
         }
 
-        /* ================= ADMIN PANEL (same) ================= */
+        /* ================= ADMIN PANEL ================= */
         .admin-panel-overlay {
             display: none;
             position: fixed;
@@ -1368,7 +1370,7 @@
             cursor: pointer;
         }
 
-        /* ================= MS WORD EDITOR STYLES (same) ================= */
+        /* ================= MS WORD EDITOR STYLES ================= */
         .editor-toolbar {
             background: var(--editor-toolbar-bg);
             border: 1px solid var(--editor-border);
@@ -1644,7 +1646,7 @@
             opacity: 0.5;
         }
 
-        /* ================= FONT CONVERTER STYLES (More Page) ================= */
+        /* ================= FONT CONVERTER STYLES ================= */
         .font-converter-box {
             background: var(--card-bg);
             border-radius: 12px;
@@ -1756,6 +1758,185 @@
             margin-top: 10px;
         }
 
+        /* ================= OCR PAGE STYLES ================= */
+        .ocr-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            padding: 24px;
+            margin-top: 20px;
+        }
+        .ocr-section .ocr-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+        .ocr-section .ocr-header h3 {
+            font-size: 20px;
+            color: var(--primary-blue);
+        }
+        .ocr-section .ocr-header h3 i { color: var(--secondary-blue); }
+        .ocr-section .ocr-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .ocr-section .ocr-tabs button {
+            padding: 8px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .ocr-section .ocr-tabs button.active {
+            background: var(--secondary-blue);
+            color: #fff;
+            border-color: var(--secondary-blue);
+        }
+        .ocr-section .ocr-tabs button:hover:not(.active) {
+            background: var(--card-hover);
+        }
+        .ocr-section .ocr-panel {
+            display: none;
+            padding: 16px 0;
+        }
+        .ocr-section .ocr-panel.active { display: block; }
+        .ocr-section .ocr-panel .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: var(--bg-color);
+        }
+        .ocr-section .ocr-panel .upload-area:hover {
+            border-color: var(--secondary-blue);
+            background: var(--card-hover);
+        }
+        .ocr-section .ocr-panel .upload-area i {
+            font-size: 48px;
+            color: var(--secondary-blue);
+            margin-bottom: 10px;
+        }
+        .ocr-section .ocr-panel .upload-area p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        .ocr-section .ocr-panel .upload-area .file-name {
+            margin-top: 8px;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        .ocr-section .ocr-panel .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            margin: 16px 0;
+            overflow: hidden;
+            display: none;
+        }
+        .ocr-section .ocr-panel .progress-bar .progress-fill {
+            height: 100%;
+            background: var(--secondary-blue);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+        .ocr-section .ocr-panel .result-area {
+            margin-top: 16px;
+            display: none;
+        }
+        .ocr-section .ocr-panel .result-area textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .ocr-section .ocr-panel .result-area textarea:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+        .ocr-section .ocr-panel .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .ocr-section .ocr-panel .action-buttons button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-primary {
+            background: var(--secondary-blue);
+            color: #fff;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-primary:hover {
+            background: var(--primary-blue);
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-success {
+            background: var(--success-green);
+            color: #fff;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-success:hover {
+            background: #15803d;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-danger {
+            background: #dc3545;
+            color: #fff;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-danger:hover {
+            background: #a71d2a;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-secondary {
+            background: #6c757d;
+            color: #fff;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-secondary:hover {
+            background: #5a6268;
+        }
+        .ocr-section .ocr-panel .status-text {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 10px;
+            display: none;
+        }
+        .ocr-section .ocr-panel .status-text.show { display: block; }
+        .ocr-section .ocr-panel .status-text .spinner {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             .font-converter-box .converter-grid {
                 grid-template-columns: 1fr;
@@ -1763,6 +1944,10 @@
             }
             .font-converter-box .converter-grid textarea {
                 min-height: 150px;
+            }
+            .ocr-section .ocr-tabs button {
+                font-size: 12px;
+                padding: 6px 12px;
             }
         }
 
@@ -2038,7 +2223,7 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: MORE (Font Converter Added Here) ================= -->
+        <!-- ================= SECTION: MORE (Font Converter + OCR Page) ================= -->
         <section class="section" id="more">
             <div class="section-header">
                 <h2>⚙️ <span>More Features</span></h2>
@@ -2069,6 +2254,57 @@
                 </div>
                 <div class="converter-info">
                     💡 <strong>Tip:</strong> Legacy fonts (DevLys010, Kruti Dev) ki mapping automatic ho jati hai. Copy karke kisi bhi Editor mein paste karein.
+                </div>
+            </div>
+
+            <!-- ================= OCR PAGE (PDF to Text & Image to Text) ================= -->
+            <div class="ocr-section" id="ocrSection">
+                <div class="ocr-header">
+                    <h3><i class="fas fa-eye"></i> Text OCR – PDF & Image to Text</h3>
+                    <div class="ocr-tabs">
+                        <button class="active" data-tab="image-tab" onclick="switchOCRtab('image-tab')"><i class="fas fa-image"></i> Image to Text</button>
+                        <button data-tab="pdf-tab" onclick="switchOCRtab('pdf-tab')"><i class="fas fa-file-pdf"></i> PDF to Text</button>
+                    </div>
+                </div>
+
+                <!-- Image OCR Panel -->
+                <div class="ocr-panel active" id="image-tab">
+                    <div class="upload-area" id="imageUploadArea" onclick="document.getElementById('imageFileInput').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click to upload an image (JPG, PNG, WEBP)</p>
+                        <div class="file-name" id="imageFileName">No file selected</div>
+                        <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageOCR(event)">
+                    </div>
+                    <div class="progress-bar" id="imageProgressBar"><div class="progress-fill" id="imageProgressFill"></div></div>
+                    <div class="status-text" id="imageStatusText"><i class="fas fa-spinner spinner"></i> Processing OCR... Please wait.</div>
+                    <div class="result-area" id="imageResultArea">
+                        <textarea id="imageResultText" placeholder="Extracted text will appear here..."></textarea>
+                        <div class="action-buttons">
+                            <button class="btn-success" onclick="copyOCRResult('imageResultText')"><i class="fas fa-copy"></i> Copy Text</button>
+                            <button class="btn-primary" onclick="downloadOCRResult('imageResultText', 'ocr_image_text')"><i class="fas fa-download"></i> Download .txt</button>
+                            <button class="btn-danger" onclick="clearOCRResult('image-tab')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF OCR Panel -->
+                <div class="ocr-panel" id="pdf-tab">
+                    <div class="upload-area" id="pdfUploadArea" onclick="document.getElementById('pdfFileInput').click()">
+                        <i class="fas fa-file-pdf"></i>
+                        <p>Click to upload a PDF file</p>
+                        <div class="file-name" id="pdfFileName">No file selected</div>
+                        <input type="file" id="pdfFileInput" accept=".pdf" style="display:none" onchange="handlePDFOCR(event)">
+                    </div>
+                    <div class="progress-bar" id="pdfProgressBar"><div class="progress-fill" id="pdfProgressFill"></div></div>
+                    <div class="status-text" id="pdfStatusText"><i class="fas fa-spinner spinner"></i> Processing PDF OCR... Please wait.</div>
+                    <div class="result-area" id="pdfResultArea">
+                        <textarea id="pdfResultText" placeholder="Extracted text from PDF will appear here..."></textarea>
+                        <div class="action-buttons">
+                            <button class="btn-success" onclick="copyOCRResult('pdfResultText')"><i class="fas fa-copy"></i> Copy Text</button>
+                            <button class="btn-primary" onclick="downloadOCRResult('pdfResultText', 'ocr_pdf_text')"><i class="fas fa-download"></i> Download .txt</button>
+                            <button class="btn-danger" onclick="clearOCRResult('pdf-tab')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2139,7 +2375,7 @@
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v15';
+        const STORAGE_KEY = 'dreamjosh_all_data_v16';
 
         const DEFAULT_DATA = {
             home: {
@@ -2240,7 +2476,9 @@
         let currentCategory = 'central';
         let currentSubCategory = 'all';
         let isDataLoaded = false;
-        let currentUser = null; // For employee access control
+        let currentUser = null;
+        let adminAccessLevel = 'full';
+        let employeeAccessPages = [];
 
         // Generic filters
         const genericFilters = {
@@ -2268,7 +2506,6 @@
                 ];
                 const results = await Promise.all(promises);
                 
-                // Jobs
                 if (results[0] && results[0].length > 0) {
                     jobsData = results[0].map(row => ({
                         id: row.id || Date.now() + Math.random(),
@@ -2290,7 +2527,6 @@
                     jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
                 }
 
-                // Pages
                 const pageNames = ['study', 'career', 'books', 'more', 'blog'];
                 for (let i = 0; i < pageNames.length; i++) {
                     const page = pageNames[i];
@@ -2310,21 +2546,18 @@
                     }
                 }
 
-                // Social Links
                 if (results[6] && results[6].length > 0) {
                     appData.social = results[6][0];
                 } else {
                     appData.social = JSON.parse(JSON.stringify(DEFAULT_DATA.social));
                 }
 
-                // Employees
                 if (results[7] && results[7].length > 0) {
                     appData.employees = results[7];
                 } else {
                     appData.employees = JSON.parse(JSON.stringify(DEFAULT_DATA.employees));
                 }
 
-                // Home
                 appData.home = JSON.parse(JSON.stringify(DEFAULT_DATA.home));
 
                 isDataLoaded = true;
@@ -2444,18 +2677,11 @@
         function renderPageContent(page) {
             const container = document.getElementById(`${page}Content`);
             const content = appData[page]?.content || '';
-            const items = appData[page]?.items || [];
-            
-            let html = '';
-            if (content && content.trim() !== '') {
-                html += content;
-            }
-            
-            if (!html || html.trim() === '') {
+            if (!content || content.trim() === '') {
                 container.innerHTML = `<p style="color:var(--text-light);">No content available. Click "Edit Content" in Admin Panel to add rich text.</p>`;
                 return;
             }
-            container.innerHTML = html;
+            container.innerHTML = content;
         }
 
         function renderAllPages() {
@@ -2728,7 +2954,7 @@
         }
 
         // ============================================================
-        // EDITOR TOOLBAR (with File Uploads & Font Converter)
+        // EDITOR TOOLBAR
         // ============================================================
         function createEditorToolbar(editorId, options = {}) {
             const toolbar = document.createElement('div');
@@ -3014,11 +3240,178 @@
         }
 
         // ============================================================
+        // OCR FUNCTIONS
+        // ============================================================
+        function switchOCRtab(tabId) {
+            document.querySelectorAll('.ocr-tabs button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.ocr-tabs button[data-tab="${tabId}"]`).classList.add('active');
+            document.querySelectorAll('.ocr-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Image OCR
+        function handleImageOCR(event) {
+            const file = event.target.files[0];
+            const fileName = document.getElementById('imageFileName');
+            const progressBar = document.getElementById('imageProgressBar');
+            const progressFill = document.getElementById('imageProgressFill');
+            const statusText = document.getElementById('imageStatusText');
+            const resultArea = document.getElementById('imageResultArea');
+            const resultText = document.getElementById('imageResultText');
+
+            if (!file) return;
+            fileName.textContent = file.name;
+            resultArea.style.display = 'none';
+            resultText.value = '';
+            progressBar.style.display = 'block';
+            progressFill.style.width = '0%';
+            statusText.classList.add('show');
+            statusText.innerHTML = '<i class="fas fa-spinner spinner"></i> Processing OCR... Please wait.';
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    const imageData = e.target.result;
+                    const { data: { text } } = await Tesseract.recognize(imageData, 'hin+eng', {
+                        logger: m => {
+                            if (m.status === 'recognizing text') {
+                                const pct = Math.round(m.progress * 100);
+                                progressFill.style.width = pct + '%';
+                            }
+                        }
+                    });
+                    resultText.value = text;
+                    progressFill.style.width = '100%';
+                    setTimeout(() => {
+                        progressBar.style.display = 'none';
+                        statusText.classList.remove('show');
+                        resultArea.style.display = 'block';
+                        showToast('✅ OCR completed successfully!', 'success');
+                    }, 500);
+                } catch (error) {
+                    console.error(error);
+                    statusText.innerHTML = '❌ Error processing image. Please try again.';
+                    statusText.style.color = 'var(--warning-red)';
+                    setTimeout(() => {
+                        statusText.classList.remove('show');
+                        progressBar.style.display = 'none';
+                    }, 3000);
+                    showToast('Error processing image.', 'error');
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // PDF OCR using pdf.js + Tesseract
+        async function handlePDFOCR(event) {
+            const file = event.target.files[0];
+            const fileName = document.getElementById('pdfFileName');
+            const progressBar = document.getElementById('pdfProgressBar');
+            const progressFill = document.getElementById('pdfProgressFill');
+            const statusText = document.getElementById('pdfStatusText');
+            const resultArea = document.getElementById('pdfResultArea');
+            const resultText = document.getElementById('pdfResultText');
+
+            if (!file) return;
+            fileName.textContent = file.name;
+            resultArea.style.display = 'none';
+            resultText.value = '';
+            progressBar.style.display = 'block';
+            progressFill.style.width = '0%';
+            statusText.classList.add('show');
+            statusText.innerHTML = '<i class="fas fa-spinner spinner"></i> Processing PDF OCR... Please wait.';
+
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const totalPages = pdf.numPages;
+                let fullText = '';
+
+                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                    const page = await pdf.getPage(pageNum);
+                    const viewport = page.getViewport({ scale: 2.0 });
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    await page.render({ canvasContext: context, viewport: viewport }).promise;
+                    
+                    const imageData = canvas.toDataURL('image/png');
+                    const { data: { text } } = await Tesseract.recognize(imageData, 'hin+eng');
+                    fullText += `\n--- Page ${pageNum} ---\n${text}\n`;
+                    
+                    const pct = Math.round((pageNum / totalPages) * 100);
+                    progressFill.style.width = pct + '%';
+                    statusText.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing page ${pageNum} of ${totalPages}...`;
+                }
+
+                resultText.value = fullText.trim();
+                progressFill.style.width = '100%';
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    statusText.classList.remove('show');
+                    resultArea.style.display = 'block';
+                    showToast('✅ PDF OCR completed successfully!', 'success');
+                }, 500);
+            } catch (error) {
+                console.error(error);
+                statusText.innerHTML = '❌ Error processing PDF. Please try again.';
+                statusText.style.color = 'var(--warning-red)';
+                setTimeout(() => {
+                    statusText.classList.remove('show');
+                    progressBar.style.display = 'none';
+                }, 3000);
+                showToast('Error processing PDF.', 'error');
+            }
+        }
+
+        function copyOCRResult(textareaId) {
+            const textarea = document.getElementById(textareaId);
+            if (!textarea.value) { showToast('Nothing to copy!', 'error'); return; }
+            textarea.select();
+            navigator.clipboard.writeText(textarea.value).then(() => {
+                showToast('✅ Copied to clipboard!', 'success');
+            }).catch(() => {
+                document.execCommand('copy');
+                showToast('✅ Copied to clipboard!', 'success');
+            });
+        }
+
+        function downloadOCRResult(textareaId, filename) {
+            const textarea = document.getElementById(textareaId);
+            if (!textarea.value) { showToast('No text to download!', 'error'); return; }
+            const blob = new Blob([textarea.value], { type: 'text/plain;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `${filename}.txt`;
+            a.click();
+            URL.revokeObjectURL(a.href);
+            showToast('📥 Download started!', 'success');
+        }
+
+        function clearOCRResult(tabId) {
+            const panel = document.getElementById(tabId);
+            const textarea = panel.querySelector('textarea');
+            if (textarea) textarea.value = '';
+            const resultArea = panel.querySelector('.result-area');
+            if (resultArea) resultArea.style.display = 'none';
+            const fileInput = panel.querySelector('input[type="file"]');
+            if (fileInput) fileInput.value = '';
+            const fileName = panel.querySelector('.file-name');
+            if (fileName) fileName.textContent = 'No file selected';
+            const progressBar = panel.querySelector('.progress-bar');
+            if (progressBar) progressBar.style.display = 'none';
+            const statusText = panel.querySelector('.status-text');
+            if (statusText) {
+                statusText.classList.remove('show');
+                statusText.style.color = '';
+            }
+            showToast('Cleared.', 'info');
+        }
+
+        // ============================================================
         // ADMIN PANEL
         // ============================================================
-        let adminAccessLevel = 'full'; // 'full' or 'employee'
-        let employeeAccessPages = [];
-
         function openAdminPanel() {
             const overlay = document.getElementById('adminPanelOverlay');
             overlay.innerHTML = renderAdminLogin();
@@ -3048,7 +3441,6 @@
                             <input type="password" id="adminPass" placeholder="Enter Password or Employee Code" onkeydown="if(event.key==='Enter') adminLogin()">
                             <button class="btn-login" onclick="adminLogin()"><i class="fas fa-unlock-alt"></i> Login</button>
                             <div class="login-error" id="loginError">❌ Invalid Credentials</div>
-                            <div style="margin-top:10px;font-size:12px;color:var(--text-light);">Admin: <strong>admin123</strong> | Employee: Enter your code</div>
                             <button class="btn-back-site" onclick="closeAdminPanel()"><i class="fas fa-arrow-left"></i> Back</button>
                         </div>
                     </div>
@@ -3060,7 +3452,6 @@
             const pass = document.getElementById('adminPass').value;
             const err = document.getElementById('loginError');
 
-            // Check for admin
             if (pass === 'admin123') {
                 err.classList.remove('show');
                 adminAccessLevel = 'full';
@@ -3072,7 +3463,6 @@
                 return;
             }
 
-            // Check for employees
             const employees = appData.employees || [];
             const found = employees.find(emp => emp.id === pass || emp.email === pass);
             if (found) {
@@ -3095,8 +3485,6 @@
             const pages = ['study', 'career', 'books', 'more', 'blog'];
             const isEmployee = adminAccessLevel === 'employee';
             const accessPages = employeeAccessPages;
-
-            // Filter pages based on employee access
             const allowedPages = isEmployee ? pages.filter(p => accessPages.includes(p)) : pages;
 
             return `
@@ -3150,7 +3538,6 @@
                                     ${!isEmployee ? `<button onclick="showAdminPage('jobs'); openJobModal()"><i class="fas fa-plus"></i> Add Job</button>` : ''}
                                     <button onclick="exportCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                     <button onclick="exportAdminData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
-                                    <button onclick="openOCRModal()" style="background:#27ae60;"><i class="fas fa-eye"></i> 🖼️ Image to Text (OCR)</button>
                                     ${!isEmployee ? `<button onclick="syncWithGoogleSheets()" style="background:#dc3545;"><i class="fas fa-cloud-upload-alt"></i> Sync to Google Sheets</button>` : ''}
                                 </div>
                             </div>
@@ -3533,14 +3920,12 @@
                     await savePageToSheet(page);
                 }
 
-                // Social
                 const social = appData.social || DEFAULT_DATA.social;
                 await saveToGoogleSheets(GOOGLE_SHEETS_CONFIG.sheets.social, [
                     ['instagram', 'youtube', 'facebook'],
                     [social.instagram || '', social.youtube || '', social.facebook || '']
                 ]);
 
-                // Employees
                 const employees = appData.employees || [];
                 const empData = [
                     ['id', 'name', 'email', 'access']
@@ -3914,73 +4299,6 @@
         }
 
         // ============================================================
-        // OCR MODAL
-        // ============================================================
-        function openOCRModal() {
-            document.getElementById('adminModalTitle').textContent = '🖼️ Image to Text (OCR)';
-            document.getElementById('adminModalBody').innerHTML = `
-                <div style="margin-bottom:15px;text-align:center;">
-                    <p style="font-size:13px;color:var(--text-light);">Upload an image, and the system will extract text from it using OCR.</p>
-                </div>
-                <div class="form-group">
-                    <label>Upload Image</label>
-                    <input type="file" id="ocrImageInput" accept="image/*" onchange="performOCR()" style="padding:10px;">
-                </div>
-                <div id="ocrProgress" style="display:none;text-align:center;margin:10px 0;color:var(--secondary-blue);">
-                    <i class="fas fa-spinner fa-spin"></i> Processing OCR... Please wait.
-                </div>
-                <div class="form-group">
-                    <label>Extracted Text</label>
-                    <textarea id="ocrResultText" rows="8" style="width:100%;padding:10px;border:1px solid var(--border-color);border-radius:6px;font-family:monospace;resize:vertical;"></textarea>
-                </div>
-                <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                    <button class="btn-submit" onclick="importOCRTextToEditor()"><i class="fas fa-file-import"></i> Import to Current Editor</button>
-                    <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
-                </div>
-            `;
-            document.getElementById('adminModalOverlay').classList.add('active');
-        }
-
-        async function performOCR() {
-            const fileInput = document.getElementById('ocrImageInput');
-            const progress = document.getElementById('ocrProgress');
-            const resultBox = document.getElementById('ocrResultText');
-            if (!fileInput.files || fileInput.files.length === 0) {
-                showToast('Please select an image file.', 'error');
-                return;
-            }
-            progress.style.display = 'block';
-            resultBox.value = '';
-            try {
-                const { data: { text } } = await Tesseract.recognize(
-                    fileInput.files[0],
-                    'hin+eng',
-                    { logger: m => console.log(m) }
-                );
-                resultBox.value = text;
-                showToast('✅ OCR Completed!', 'success');
-            } catch (error) {
-                console.error(error);
-                showToast('Error in OCR processing. Please try again.', 'error');
-            } finally {
-                progress.style.display = 'none';
-            }
-        }
-
-        function importOCRTextToEditor() {
-            const text = document.getElementById('ocrResultText').value;
-            if (!text) { showToast('No text to import!', 'error'); return; }
-            const activeEditor = document.querySelector('.editor-content[contenteditable="true"]');
-            if (activeEditor) {
-                activeEditor.innerHTML += `<p>${text.replace(/\n/g, '<br>')}</p>`;
-                showToast('✅ Text imported to editor!', 'success');
-                closeAdminModal();
-            } else {
-                showToast('Please open an editor first (Job or Page Editor)', 'info');
-            }
-        }
-
-        // ============================================================
         // EXPORT / IMPORT / RESET
         // ============================================================
         function escapeCSV(str) { if (!str) return ''; str=String(str); if(str.includes(',')||str.includes('"')||str.includes('\n')) return '"'+str.replace(/"/g,'""')+'"'; return str; }
@@ -4047,13 +4365,7 @@
                     renderSocialLinks();
                 }
                 document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private').length;
-                console.log('🚀 Dream Josh – All Pages with Employee Management, Social Links, Google Sheets Sync!');
-                // Remove default password display
-                const loginBox = document.querySelector('.admin-login-box');
-                if (loginBox) {
-                    const defaultPwd = loginBox.querySelector('div:last-child');
-                    if (defaultPwd) defaultPwd.style.display = 'none';
-                }
+                console.log('🚀 Dream Josh – All Features with OCR (PDF & Image to Text)');
             });
         });
 
@@ -4094,9 +4406,6 @@
         window.deleteItem = deleteItem;
         window.renderAdminItems = renderAdminItems;
         window.filterGenericCategory = filterGenericCategory;
-        window.openOCRModal = openOCRModal;
-        window.performOCR = performOCR;
-        window.importOCRTextToEditor = importOCRTextToEditor;
         window.devlysToUnicode = devlysToUnicode;
         window.convertFonts = convertFonts;
         window.copyFontOutput = copyFontOutput;
@@ -4109,6 +4418,15 @@
         window.saveEmployee = saveEmployee;
         window.deleteEmployee = deleteEmployee;
         window.renderEmployeeList = renderEmployeeList;
+        window.switchOCRtab = switchOCRtab;
+        window.handleImageOCR = handleImageOCR;
+        window.handlePDFOCR = handlePDFOCR;
+        window.copyOCRResult = copyOCRResult;
+        window.downloadOCRResult = downloadOCRResult;
+        window.clearOCRResult = clearOCRResult;
+
+        // Set PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     </script>
 </body>
 </html>
