@@ -2749,19 +2749,34 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: MORE ================= -->
+        <!-- ================= SECTION: MORE (UPDATED WITH ALL TOOLS) ================= -->
         <section class="section" id="more">
-            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">⚙️ More Features • PDF Merge • PDF to Excel • PDF to Word • Font Converter • OCR Tools</span></div>
+            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">⚙️ PDF & Image Tools • JPG to PDF • PDF to JPG • PNG to PDF • PNG to JPG • Delete PDF Page • Merge PDF • PDF to Excel • PDF to Word • OCR • Font Converter</span></div>
             <div class="section-header">
-                <h2>⚙️ <span>More Features</span></h2>
+                <h2>⚙️ <span>PDF & Image Tools</span></h2>
             </div>
 
             <!-- TOOLS SECTION -->
             <div class="tools-container">
                 <!-- Tools List -->
                 <div class="tools-list">
-                    <button class="tool-btn active" data-tool="pdf-merge" onclick="switchTool('pdf-merge')">
-                        <i class="fas fa-object-group"></i> PDF Merge
+                    <button class="tool-btn active" data-tool="jpg-pdf" onclick="switchTool('jpg-pdf')">
+                        <i class="fas fa-file-image"></i> JPG to PDF
+                    </button>
+                    <button class="tool-btn" data-tool="pdf-jpg" onclick="switchTool('pdf-jpg')">
+                        <i class="fas fa-file-pdf"></i> PDF to JPG
+                    </button>
+                    <button class="tool-btn" data-tool="png-pdf" onclick="switchTool('png-pdf')">
+                        <i class="fas fa-file-image"></i> PNG to PDF
+                    </button>
+                    <button class="tool-btn" data-tool="png-jpg" onclick="switchTool('png-jpg')">
+                        <i class="fas fa-file-image"></i> PNG to JPG
+                    </button>
+                    <button class="tool-btn" data-tool="delete-pdf" onclick="switchTool('delete-pdf')">
+                        <i class="fas fa-trash-alt"></i> Delete PDF Page
+                    </button>
+                    <button class="tool-btn" data-tool="pdf-merge" onclick="switchTool('pdf-merge')">
+                        <i class="fas fa-object-group"></i> Merge PDF
                     </button>
                     <button class="tool-btn" data-tool="pdf-excel" onclick="switchTool('pdf-excel')">
                         <i class="fas fa-file-excel"></i> PDF to Excel
@@ -2770,15 +2785,157 @@
                         <i class="fas fa-file-word"></i> PDF to Word
                     </button>
                     <button class="tool-btn" data-tool="ocr" onclick="switchTool('ocr')">
-                        <i class="fas fa-eye"></i> Text OCR
+                        <i class="fas fa-eye"></i> PDF/Image to Text (OCR)
                     </button>
                     <button class="tool-btn" data-tool="font-converter" onclick="switchTool('font-converter')">
                         <i class="fas fa-language"></i> Font Converter
                     </button>
                 </div>
 
+                <!-- Tool: JPG to PDF -->
+                <div class="tool-content active" id="tool-jpg-pdf">
+                    <div class="pdf-tool-card">
+                        <div class="tool-header">
+                            <i class="fas fa-file-image"></i>
+                            <h4>JPG to PDF Converter</h4>
+                            <span class="badge-tool">Free</span>
+                        </div>
+                        <div class="upload-area" onclick="document.getElementById('jpgPdfInput').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to select JPG images to convert</p>
+                            <div class="file-name" id="jpgPdfFileName">No files selected</div>
+                            <input type="file" id="jpgPdfInput" accept="image/*" multiple style="display:none" onchange="handleJpgToPdf(event)">
+                        </div>
+                        <div class="file-list" id="jpgPdfFileList"></div>
+                        <div class="action-buttons">
+                            <button class="btn-primary" onclick="convertJpgToPdf()"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
+                            <button class="btn-danger" onclick="clearJpgPdf()"><i class="fas fa-trash"></i> Clear All</button>
+                        </div>
+                        <div class="progress-bar" id="jpgPdfProgressBar"><div class="progress-fill" id="jpgPdfProgressFill"></div></div>
+                        <div class="status-text" id="jpgPdfStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                        <div class="result-area" id="jpgPdfResult">
+                            <a href="#" class="download-link" id="jpgPdfDownloadLink" download="converted.pdf"><i class="fas fa-download"></i> Download PDF</a>
+                            <div class="file-size" id="jpgPdfFileSize"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool: PDF to JPG -->
+                <div class="tool-content" id="tool-pdf-jpg">
+                    <div class="pdf-tool-card">
+                        <div class="tool-header">
+                            <i class="fas fa-file-pdf"></i>
+                            <h4>PDF to JPG Converter</h4>
+                            <span class="badge-tool">Free</span>
+                        </div>
+                        <div class="upload-area" onclick="document.getElementById('pdfJpgInput').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload a PDF file</p>
+                            <div class="file-name" id="pdfJpgFileName">No file selected</div>
+                            <input type="file" id="pdfJpgInput" accept=".pdf" style="display:none" onchange="handlePdfToJpg(event)">
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn-primary" onclick="convertPdfToJpg()"><i class="fas fa-file-image"></i> Convert to JPG</button>
+                            <button class="btn-danger" onclick="clearPdfJpg()"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="progress-bar" id="pdfJpgProgressBar"><div class="progress-fill" id="pdfJpgProgressFill"></div></div>
+                        <div class="status-text" id="pdfJpgStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                        <div class="result-area" id="pdfJpgResult">
+                            <a href="#" class="download-link" id="pdfJpgDownloadLink" download="images.zip"><i class="fas fa-download"></i> Download JPG (ZIP)</a>
+                            <div class="file-size" id="pdfJpgFileSize"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool: PNG to PDF -->
+                <div class="tool-content" id="tool-png-pdf">
+                    <div class="pdf-tool-card">
+                        <div class="tool-header">
+                            <i class="fas fa-file-image"></i>
+                            <h4>PNG to PDF Converter</h4>
+                            <span class="badge-tool">Free</span>
+                        </div>
+                        <div class="upload-area" onclick="document.getElementById('pngPdfInput').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to select PNG images to convert</p>
+                            <div class="file-name" id="pngPdfFileName">No files selected</div>
+                            <input type="file" id="pngPdfInput" accept="image/png" multiple style="display:none" onchange="handlePngToPdf(event)">
+                        </div>
+                        <div class="file-list" id="pngPdfFileList"></div>
+                        <div class="action-buttons">
+                            <button class="btn-primary" onclick="convertPngToPdf()"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
+                            <button class="btn-danger" onclick="clearPngPdf()"><i class="fas fa-trash"></i> Clear All</button>
+                        </div>
+                        <div class="progress-bar" id="pngPdfProgressBar"><div class="progress-fill" id="pngPdfProgressFill"></div></div>
+                        <div class="status-text" id="pngPdfStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                        <div class="result-area" id="pngPdfResult">
+                            <a href="#" class="download-link" id="pngPdfDownloadLink" download="converted.pdf"><i class="fas fa-download"></i> Download PDF</a>
+                            <div class="file-size" id="pngPdfFileSize"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool: PNG to JPG -->
+                <div class="tool-content" id="tool-png-jpg">
+                    <div class="pdf-tool-card">
+                        <div class="tool-header">
+                            <i class="fas fa-file-image"></i>
+                            <h4>PNG to JPG Converter</h4>
+                            <span class="badge-tool">Free</span>
+                        </div>
+                        <div class="upload-area" onclick="document.getElementById('pngJpgInput').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to select PNG images to convert</p>
+                            <div class="file-name" id="pngJpgFileName">No files selected</div>
+                            <input type="file" id="pngJpgInput" accept="image/png" multiple style="display:none" onchange="handlePngToJpg(event)">
+                        </div>
+                        <div class="file-list" id="pngJpgFileList"></div>
+                        <div class="action-buttons">
+                            <button class="btn-primary" onclick="convertPngToJpg()"><i class="fas fa-file-image"></i> Convert to JPG</button>
+                            <button class="btn-danger" onclick="clearPngJpg()"><i class="fas fa-trash"></i> Clear All</button>
+                        </div>
+                        <div class="progress-bar" id="pngJpgProgressBar"><div class="progress-fill" id="pngJpgProgressFill"></div></div>
+                        <div class="status-text" id="pngJpgStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                        <div class="result-area" id="pngJpgResult">
+                            <a href="#" class="download-link" id="pngJpgDownloadLink" download="images.zip"><i class="fas fa-download"></i> Download JPG (ZIP)</a>
+                            <div class="file-size" id="pngJpgFileSize"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool: Delete PDF Page -->
+                <div class="tool-content" id="tool-delete-pdf">
+                    <div class="pdf-tool-card">
+                        <div class="tool-header">
+                            <i class="fas fa-trash-alt"></i>
+                            <h4>Delete PDF Page</h4>
+                            <span class="badge-tool">Free</span>
+                        </div>
+                        <div class="upload-area" onclick="document.getElementById('deletePdfInput').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload a PDF file</p>
+                            <div class="file-name" id="deletePdfFileName">No file selected</div>
+                            <input type="file" id="deletePdfInput" accept=".pdf" style="display:none" onchange="handleDeletePdf(event)">
+                        </div>
+                        <div class="form-group" style="margin:12px 0;">
+                            <label>Page Number to Delete (1-based):</label>
+                            <input type="number" id="deletePageNumber" min="1" value="1" style="width:100px;padding:6px;border:2px solid var(--border-color);border-radius:6px;">
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn-danger" onclick="deletePdfPage()"><i class="fas fa-trash-alt"></i> Delete Page</button>
+                            <button class="btn-secondary" onclick="clearDeletePdf()"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="progress-bar" id="deletePdfProgressBar"><div class="progress-fill" id="deletePdfProgressFill"></div></div>
+                        <div class="status-text" id="deletePdfStatus"><i class="fas fa-spinner spinner"></i> Processing... Please wait.</div>
+                        <div class="result-area" id="deletePdfResult">
+                            <a href="#" class="download-link" id="deletePdfDownloadLink" download="deleted.pdf"><i class="fas fa-download"></i> Download PDF</a>
+                            <div class="file-size" id="deletePdfFileSize"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Tool: PDF Merge -->
-                <div class="tool-content active" id="tool-pdf-merge">
+                <div class="tool-content" id="tool-pdf-merge">
                     <div class="pdf-tool-card">
                         <div class="tool-header">
                             <i class="fas fa-object-group"></i>
@@ -2864,7 +3021,7 @@
                 <div class="tool-content" id="tool-ocr">
                     <div class="ocr-section">
                         <div class="ocr-header">
-                            <h3><i class="fas fa-eye"></i> Text OCR – PDF & Image to Text</h3>
+                            <h3><i class="fas fa-eye"></i> PDF & Image to Text (OCR)</h3>
                             <div class="ocr-tabs">
                                 <button class="active" data-tab="image-tab" onclick="switchOCRtab('image-tab')"><i class="fas fa-image"></i> Image to Text</button>
                                 <button data-tab="pdf-tab" onclick="switchOCRtab('pdf-tab')"><i class="fas fa-file-pdf"></i> PDF to Text</button>
@@ -2948,125 +3105,19 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: SERVICES (NEW) ================= -->
+        <!-- ================= SECTION: SERVICES (NO TOOLS, ONLY SERVICES) ================= -->
         <section class="section" id="services">
-            <div class="page-ticker" style="background:linear-gradient(135deg,#6c5ce7,#1976d2);"><span>✨ Services • Card Printing • PDF Tools • Portal Services • Creative Studio • Govt. Services</span></div>
+            <div class="page-ticker" style="background:linear-gradient(135deg,#6c5ce7,#1976d2);"><span>✨ Services • Card Printing • Portal Services • Creative Studio • Govt. Services</span></div>
             <div class="section-header">
                 <h2>✨ <span>Services</span></h2>
                 <span style="font-size:14px;color:var(--text-light);">Explore all our premium services</span>
             </div>
 
-            <div class="services-container">
-
-                <!-- Essential & Services -->
-                <div class="services-category">
-                    <div class="cat-title"><i class="fas fa-crown"></i> Essential &amp; Services</div>
-                    <div class="services-grid">
-                        <div class="service-item"><i class="fas fa-briefcase"></i><span>Latest Jobs</span></div>
-                        <div class="service-item"><i class="fas fa-pencil-alt"></i><span>Mock Test</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>ID Card Print</span></div>
-                        <div class="service-item"><i class="fas fa-crop-alt"></i><span>PVC Auto Crop</span></div>
-                        <div class="service-item"><i class="fas fa-print"></i><span>Auto Print</span></div>
-                        <div class="service-item"><i class="fas fa-passport"></i><span>Passport Photo</span></div>
-                        <div class="service-item"><i class="fas fa-crop"></i><span>Photo Crop And Resize</span></div>
-                        <div class="service-item"><i class="fas fa-file-alt"></i><span>Resume/CV</span></div>
-                        <div class="service-item"><i class="fas fa-plus-circle"></i><span>New Service Post</span></div>
-                        <div class="service-item"><i class="fas fa-images"></i><span>Document Album</span></div>
-                        <div class="service-item"><i class="fas fa-qrcode"></i><span>NSDL PAAM ID</span></div>
-                        <div class="service-item"><i class="fas fa-lock"></i><span>Payment Locked QR</span></div>
-                    </div>
-                </div>
-
-                <!-- Creative Design Studio -->
-                <div class="services-category">
-                    <div class="cat-title"><i class="fas fa-paint-brush"></i> Creative Design Studio</div>
-                    <div class="services-grid">
-                        <div class="service-item"><i class="fas fa-file-pdf"></i><span>Pro Resume Maker</span></div>
-                        <div class="service-item"><i class="fas fa-heart"></i><span>Marriage Biodata</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>Pro ID Maker</span></div>
-                        <div class="service-item"><i class="fas fa-poster"></i><span>Pro Poster Maker</span></div>
-                        <div class="service-item"><i class="fas fa-file-signature"></i><span>Application Maker</span></div>
-                        <div class="service-item"><i class="fas fa-store"></i><span>Shop Promotion Maker</span></div>
-                    </div>
-                </div>
-
-                <!-- Smart PDF & Image Tools -->
-                <div class="services-category">
-                    <div class="cat-title"><i class="fas fa-file-pdf"></i> Smart PDF &amp; Image Tools</div>
-                    <div class="services-grid">
-                        <div class="service-item"><i class="fas fa-file-image"></i><span>JPG to PDF</span></div>
-                        <div class="service-item"><i class="fas fa-file-pdf"></i><span>PDF to JPG</span></div>
-                        <div class="service-item"><i class="fas fa-file-image"></i><span>PNG to PDF</span></div>
-                        <div class="service-item"><i class="fas fa-file-image"></i><span>PNG to JPG</span></div>
-                        <div class="service-item"><i class="fas fa-trash-alt"></i><span>Delete PDF Page</span></div>
-                        <div class="service-item"><i class="fas fa-object-group"></i><span>Merge PDF</span></div>
-                    </div>
-                </div>
-
-                <!-- Card Printing Services -->
-                <div class="services-category">
-                    <div class="cat-title"><i class="fas fa-credit-card"></i> Card Printing Services</div>
-                    <div class="services-grid">
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>Unique ID Card Print</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>Election Card Print</span></div>
-                        <div class="service-item"><i class="fas fa-heartbeat"></i><span>Health Plan Card Print</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>Tax Id Card Print</span></div>
-                        <div class="service-item"><i class="fas fa-car"></i><span>Driving Permit Print</span></div>
-                        <div class="service-item"><i class="fas fa-school"></i><span>School/College ID</span></div>
-                        <div class="service-item"><i class="fas fa-utensils"></i><span>Food Subsidy Card Print</span></div>
-                    </div>
-                </div>
-
-                <!-- Portal Service (combined from Portal.jpg) -->
-                <div class="services-category">
-                    <div class="cat-title"><i class="fas fa-portal"></i> Portal Service</div>
-                    <div class="services-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));">
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>Aadhar Beta Service</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>Aadhaar Information</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>PAN Card Service</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>Voter ID Correction &amp; Status</span></div>
-                        <div class="service-item"><i class="fas fa-hospital"></i><span>Ayushman Bharat</span></div>
-                        <div class="service-item"><i class="fas fa-car"></i><span>Driving Licence Service</span></div>
-                        <div class="service-item"><i class="fas fa-car"></i><span>RC Service (Registration...)</span></div>
-                        <div class="service-item"><i class="fas fa-car"></i><span>Vehicle Service</span></div>
-                        <div class="service-item"><i class="fas fa-birthday-cake"></i><span>Birth &amp; Death Certificate</span></div>
-                        <div class="service-item"><i class="fas fa-gavel"></i><span>E-Challan</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>E-Shram Card</span></div>
-                        <div class="service-item"><i class="fas fa-umbrella"></i><span>EPFO</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>APAAR ID Card</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>ABHA Card</span></div>
-                        <div class="service-item"><i class="fas fa-leaf"></i><span>PM Fasal Bima Yojana</span></div>
-                        <div class="service-item"><i class="fas fa-home"></i><span>PMAY-Gramin</span></div>
-                        <div class="service-item"><i class="fas fa-home"></i><span>PMAY-Ubhan/Sehri</span></div>
-                        <div class="service-item"><i class="fas fa-shield-alt"></i><span>LIC Service</span></div>
-                        <div class="service-item"><i class="fas fa-seedling"></i><span>E-NAM</span></div>
-                        <div class="service-item"><i class="fas fa-hand-holding-usd"></i><span>PM SVANidhi Yojana</span></div>
-                        <div class="service-item"><i class="fas fa-leaf"></i><span>Soil Health Card</span></div>
-                        <div class="service-item"><i class="fas fa-edit"></i><span>Mikisan Portal</span></div>
-                        <div class="service-item"><i class="fas fa-sun"></i><span>PM Surya Ghar Yojana</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>Udyam Aadhaar Service</span></div>
-                        <div class="service-item"><i class="fas fa-graduation-cap"></i><span>National Scholarship Portal</span></div>
-                        <div class="service-item"><i class="fas fa-mobile-alt"></i><span>Lost/Found Mobile &amp; Internet</span></div>
-                        <div class="service-item"><i class="fas fa-train"></i><span>Railway Service</span></div>
-                        <div class="service-item"><i class="fas fa-passport"></i><span>Passport Seva Service</span></div>
-                        <div class="service-item"><i class="fas fa-check-circle"></i><span>GST Verification</span></div>
-                        <div class="service-item"><i class="fas fa-road"></i><span>Checkpost Tax/Road Tax</span></div>
-                        <div class="service-item"><i class="fas fa-car"></i><span>Vahan Green Sewa</span></div>
-                        <div class="service-item"><i class="fas fa-leaf"></i><span>PUC Service</span></div>
-                        <div class="service-item"><i class="fas fa-university"></i><span>National Payments Corporation</span></div>
-                        <div class="service-item"><i class="fas fa-phone-alt"></i><span>National Consumer Helpline</span></div>
-                        <div class="service-item"><i class="fas fa-briefcase"></i><span>National Career Service</span></div>
-                        <div class="service-item"><i class="fas fa-chart-line"></i><span>Check Free CIBIL Score</span></div>
-                        <div class="service-item"><i class="fas fa-fire"></i><span>INDANE GAS</span></div>
-                        <div class="service-item"><i class="fas fa-fire"></i><span>HP GAS</span></div>
-                        <div class="service-item"><i class="fas fa-fire"></i><span>BHARAT GAS</span></div>
-                        <div class="service-item"><i class="fas fa-id-card"></i><span>Unique Disability ID Card</span></div>
-                    </div>
-                </div>
-
+            <div class="services-container" id="servicesContainer">
+                <!-- Rendered by JavaScript -->
             </div>
             <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
-                <i class="fas fa-info-circle"></i> Services are curated from Dream Josh &amp; Portal references.
+                <i class="fas fa-info-circle"></i> Services are managed from Admin Panel → Services Items
             </div>
         </section>
 
@@ -3114,7 +3165,7 @@
 
     <script>
         // ============================================================
-        // GOOGLE SHEETS CONFIGURATION (same as original)
+        // GOOGLE SHEETS CONFIGURATION
         // ============================================================
         const GOOGLE_SHEETS_CONFIG = {
             apiKey: 'AIzaSyD4sPjB5m6cR8xXkY0z7W3aB1cV9fG5hJk',
@@ -3127,14 +3178,15 @@
                 more: 'More',
                 blog: 'Blog',
                 social: 'SocialLinks',
-                employees: 'Employees'
+                employees: 'Employees',
+                services: 'Services'
             }
         };
 
         // ============================================================
-        // DATA STORAGE (same as original)
+        // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v17';
+        const STORAGE_KEY = 'dreamjosh_all_data_v19';
 
         const DEFAULT_DATA = {
             home: {
@@ -3156,8 +3208,9 @@
                     study: '📚 Study Materials • Complete Notes • Practice Sets • Previous Papers • Revision Notes',
                     career: '🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs',
                     books: '📖 Recommended Books • Competitive Exams • Rajasthan GK • General Knowledge • Motivation',
-                    more: '⚙️ More Features • PDF Merge • PDF to Excel • PDF to Word • Font Converter • OCR Tools',
-                    blog: '📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio'
+                    more: '⚙️ PDF & Image Tools • JPG to PDF • PDF to JPG • PNG to PDF • PNG to JPG • Delete PDF Page • Merge PDF • PDF to Excel • PDF to Word • OCR • Font Converter',
+                    blog: '📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio',
+                    services: '✨ Services • Card Printing • Portal Services • Creative Studio • Govt. Services'
                 }
             },
             study: {
@@ -3198,17 +3251,19 @@
                 ]
             },
             more: {
-                content: '<h2>⚙️ More Features</h2><p>Explore additional tools and features to enhance your learning experience.</p><ul><li>📄 <strong>PDF Merge</strong> - Combine multiple PDFs into one</li><li>📊 <strong>PDF to Excel</strong> - Convert PDF tables to Excel</li><li>📝 <strong>PDF to Word</strong> - Convert PDF to editable Word document</li><li>🔠 <strong>Font Converter</strong> - DevLys to Unicode</li><li>👁️ <strong>OCR</strong> - Extract text from images and PDFs</li></ul>',
+                content: '<h2>⚙️ PDF & Image Tools</h2><p>Complete suite of PDF and image conversion tools:</p><ul><li>🖼️ <strong>JPG to PDF</strong> - Convert JPG images to PDF</li><li>📄 <strong>PDF to JPG</strong> - Convert PDF to JPG images</li><li>🖼️ <strong>PNG to PDF</strong> - Convert PNG images to PDF</li><li>🖼️ <strong>PNG to JPG</strong> - Convert PNG to JPG</li><li>🗑️ <strong>Delete PDF Page</strong> - Remove pages from PDF</li><li>📑 <strong>Merge PDF</strong> - Combine multiple PDFs</li><li>📊 <strong>PDF to Excel</strong> - Extract data to Excel</li><li>📝 <strong>PDF to Word</strong> - Convert to editable Word</li><li>👁️ <strong>OCR</strong> - Extract text from images/PDFs</li><li>🔤 <strong>Font Converter</strong> - DevLys to Unicode</li></ul>',
                 items: [
-                    { id: 'm1', title: '📄 PDF Merge', description: 'Combine multiple PDF files into one document',
+                    { id: 'm1', title: '🖼️ JPG to PDF', description: 'Convert JPG images to PDF', visibility: 'public' },
+                    { id: 'm2', title: '📄 PDF to JPG', description: 'Convert PDF to JPG images', visibility: 'public' },
+                    { id: 'm3', title: '🖼️ PNG to PDF', description: 'Convert PNG images to PDF', visibility: 'public' },
+                    { id: 'm4', title: '🖼️ PNG to JPG', description: 'Convert PNG to JPG', visibility: 'public' },
+                    { id: 'm5', title: '🗑️ Delete PDF Page', description: 'Remove pages from PDF', visibility: 'public' },
+                    { id: 'm6', title: '📑 Merge PDF', description: 'Combine multiple PDFs', visibility: 'public' },
+                    { id: 'm7', title: '📊 PDF to Excel', description: 'Extract data to Excel', visibility: 'public' },
+                    { id: 'm8', title: '📝 PDF to Word', description: 'Convert to editable Word', visibility: 'public' },
+                    { id: 'm9', title: '👁️ OCR (Image/PDF to Text)', description: 'Extract text from images/PDFs',
                         visibility: 'public' },
-                    { id: 'm2', title: '📊 PDF to Excel', description: 'Extract tables and data from PDF to Excel',
-                        visibility: 'public' },
-                    { id: 'm3', title: '📝 PDF to Word', description: 'Convert PDF to editable Word document',
-                        visibility: 'public' },
-                    { id: 'm4', title: '🔠 Font Converter', description: 'DevLys010/Kruti Dev to Unicode (Mangal)',
-                        visibility: 'public' },
-                    { id: 'm5', title: '👁️ OCR Tools', description: 'Extract text from images and PDFs', visibility: 'public' }
+                    { id: 'm10', title: '🔤 Font Converter', description: 'DevLys to Unicode', visibility: 'public' }
                 ]
             },
             blog: {
@@ -3220,6 +3275,89 @@
                         category: 'Business' },
                     { id: 'bl3', title: '❤️ Lifestyle', description: 'Lifestyle and wellness tips', visibility: 'public',
                         category: 'Lifestyle' }
+                ]
+            },
+            services: {
+                content: '<h2>✨ Services</h2><p>Explore all our premium services including card printing, portal services, creative studio and government services.</p>',
+                items: [
+                    // Essential & Services
+                    { id: 'ser1', title: 'Latest Jobs', category: 'Essential & Services', icon: 'fa-briefcase' },
+                    { id: 'ser2', title: 'Mock Test', category: 'Essential & Services', icon: 'fa-pencil-alt' },
+                    { id: 'ser3', title: 'ID Card Print', category: 'Essential & Services', icon: 'fa-id-card' },
+                    { id: 'ser4', title: 'PVC Auto Crop', category: 'Essential & Services', icon: 'fa-crop-alt' },
+                    { id: 'ser5', title: 'Auto Print', category: 'Essential & Services', icon: 'fa-print' },
+                    { id: 'ser6', title: 'Passport Photo', category: 'Essential & Services', icon: 'fa-passport' },
+                    { id: 'ser7', title: 'Photo Crop And Resize', category: 'Essential & Services', icon: 'fa-crop' },
+                    { id: 'ser8', title: 'Resume/CV', category: 'Essential & Services', icon: 'fa-file-alt' },
+                    { id: 'ser9', title: 'New Service Post', category: 'Essential & Services', icon: 'fa-plus-circle' },
+                    { id: 'ser10', title: 'Document Album', category: 'Essential & Services', icon: 'fa-images' },
+                    { id: 'ser11', title: 'NSDL PAAM ID', category: 'Essential & Services', icon: 'fa-qrcode' },
+                    { id: 'ser12', title: 'Payment Locked QR', category: 'Essential & Services', icon: 'fa-lock' },
+                    // Creative Design Studio
+                    { id: 'ser13', title: 'Pro Resume Maker', category: 'Creative Design Studio', icon: 'fa-file-pdf' },
+                    { id: 'ser14', title: 'Marriage Biodata', category: 'Creative Design Studio', icon: 'fa-heart' },
+                    { id: 'ser15', title: 'Pro ID Maker', category: 'Creative Design Studio', icon: 'fa-id-card' },
+                    { id: 'ser16', title: 'Pro Poster Maker', category: 'Creative Design Studio', icon: 'fa-poster' },
+                    { id: 'ser17', title: 'Application Maker', category: 'Creative Design Studio',
+                    icon: 'fa-file-signature' },
+                    { id: 'ser18', title: 'Shop Promotion Maker', category: 'Creative Design Studio', icon: 'fa-store' },
+                    // Portal Service
+                    { id: 'ser19', title: 'Aadhar Beta Service', category: 'Portal Service', icon: 'fa-id-card' },
+                    { id: 'ser20', title: 'Aadhaar Information', category: 'Portal Service', icon: 'fa-id-card' },
+                    { id: 'ser21', title: 'PAN Card Service', category: 'Portal Service', icon: 'fa-id-card' },
+                    { id: 'ser22', title: 'Voter ID Correction & Status', category: 'Portal Service',
+                    icon: 'fa-id-card' },
+                    { id: 'ser23', title: 'Ayushman Bharat', category: 'Portal Service', icon: 'fa-hospital' },
+                    { id: 'ser24', title: 'Driving Licence Service', category: 'Portal Service', icon: 'fa-car' },
+                    { id: 'ser25', title: 'RC Service (Registration...)', category: 'Portal Service', icon: 'fa-car' },
+                    { id: 'ser26', title: 'Vehicle Service', category: 'Portal Service', icon: 'fa-car' },
+                    { id: 'ser27', title: 'Birth & Death Certificate', category: 'Portal Service',
+                    icon: 'fa-birthday-cake' },
+                    { id: 'ser28', title: 'E-Challan', category: 'Portal Service', icon: 'fa-gavel' },
+                    { id: 'ser29', title: 'E-Shram Card', category: 'Portal Service', icon: 'fa-id-card' },
+                    { id: 'ser30', title: 'EPFO', category: 'Portal Service', icon: 'fa-umbrella' },
+                    { id: 'ser31', title: 'APAAR ID Card', category: 'Portal Service', icon: 'fa-id-card' },
+                    { id: 'ser32', title: 'ABHA Card', category: 'Portal Service', icon: 'fa-id-card' },
+                    { id: 'ser33', title: 'PM Fasal Bima Yojana', category: 'Portal Service', icon: 'fa-leaf' },
+                    { id: 'ser34', title: 'PMAY-Gramin', category: 'Portal Service', icon: 'fa-home' },
+                    { id: 'ser35', title: 'PMAY-Ubhan/Sehri', category: 'Portal Service', icon: 'fa-home' },
+                    { id: 'ser36', title: 'LIC Service', category: 'Portal Service', icon: 'fa-shield-alt' },
+                    { id: 'ser37', title: 'E-NAM', category: 'Portal Service', icon: 'fa-seedling' },
+                    { id: 'ser38', title: 'PM SVANidhi Yojana', category: 'Portal Service', icon: 'fa-hand-holding-usd' },
+                    { id: 'ser39', title: 'Soil Health Card', category: 'Portal Service', icon: 'fa-leaf' },
+                    { id: 'ser40', title: 'Mikisan Portal', category: 'Portal Service', icon: 'fa-edit' },
+                    { id: 'ser41', title: 'PM Surya Ghar Yojana', category: 'Portal Service', icon: 'fa-sun' },
+                    { id: 'ser42', title: 'Udyam Aadhaar Service', category: 'Portal Service', icon: 'fa-id-card' },
+                    { id: 'ser43', title: 'National Scholarship Portal', category: 'Portal Service',
+                    icon: 'fa-graduation-cap' },
+                    { id: 'ser44', title: 'Lost/Found Mobile & Internet', category: 'Portal Service',
+                    icon: 'fa-mobile-alt' },
+                    { id: 'ser45', title: 'Railway Service', category: 'Portal Service', icon: 'fa-train' },
+                    { id: 'ser46', title: 'Passport Seva Service', category: 'Portal Service', icon: 'fa-passport' },
+                    { id: 'ser47', title: 'GST Verification', category: 'Portal Service', icon: 'fa-check-circle' },
+                    { id: 'ser48', title: 'Checkpost Tax/Road Tax', category: 'Portal Service', icon: 'fa-road' },
+                    { id: 'ser49', title: 'Vahan Green Sewa', category: 'Portal Service', icon: 'fa-car' },
+                    { id: 'ser50', title: 'PUC Service', category: 'Portal Service', icon: 'fa-leaf' },
+                    { id: 'ser51', title: 'National Payments Corporation', category: 'Portal Service',
+                    icon: 'fa-university' },
+                    { id: 'ser52', title: 'National Consumer Helpline', category: 'Portal Service',
+                    icon: 'fa-phone-alt' },
+                    { id: 'ser53', title: 'National Career Service', category: 'Portal Service', icon: 'fa-briefcase' },
+                    { id: 'ser54', title: 'Check Free CIBIL Score', category: 'Portal Service', icon: 'fa-chart-line' },
+                    { id: 'ser55', title: 'INDANE GAS', category: 'Portal Service', icon: 'fa-fire' },
+                    { id: 'ser56', title: 'HP GAS', category: 'Portal Service', icon: 'fa-fire' },
+                    { id: 'ser57', title: 'BHARAT GAS', category: 'Portal Service', icon: 'fa-fire' },
+                    { id: 'ser58', title: 'Unique Disability ID Card', category: 'Portal Service', icon: 'fa-id-card' },
+                    // Card Printing Services
+                    { id: 'ser59', title: 'Unique ID Card Print', category: 'Card Printing Services', icon: 'fa-id-card' },
+                    { id: 'ser60', title: 'Election Card Print', category: 'Card Printing Services', icon: 'fa-id-card' },
+                    { id: 'ser61', title: 'Health Plan Card Print', category: 'Card Printing Services',
+                    icon: 'fa-heartbeat' },
+                    { id: 'ser62', title: 'Tax Id Card Print', category: 'Card Printing Services', icon: 'fa-id-card' },
+                    { id: 'ser63', title: 'Driving Permit Print', category: 'Card Printing Services', icon: 'fa-car' },
+                    { id: 'ser64', title: 'School/College ID', category: 'Card Printing Services', icon: 'fa-school' },
+                    { id: 'ser65', title: 'Food Subsidy Card Print', category: 'Card Printing Services',
+                    icon: 'fa-utensils' }
                 ]
             },
             social: {
@@ -3310,7 +3448,7 @@
         };
 
         // ============================================================
-        // DATA MANAGEMENT (same as original - shortened for space)
+        // DATA MANAGEMENT
         // ============================================================
         let appData = {};
         let jobsData = [];
@@ -3320,73 +3458,11 @@
         let currentUser = null;
         let adminAccessLevel = 'full';
         let employeeAccessPages = [];
-        const genericFilters = { study: 'all', career: 'all', books: 'all', blog: 'all' };
+        const genericFilters = { study: 'all', career: 'all', books: 'all', blog: 'all', services: 'all' };
 
-        // Reuse all functions from original (loadFromGoogleSheets, saveToLocalStorage, etc.)
-        // For brevity in this demo we keep the core but we need to define them or they will be missing.
-        // Since it's a full HTML, we will include them in the script below.
-
-        // --- Include all original functions (they are already in the final script) ---
-        // For the sake of this demo we will rely on the existing script block.
-        // We will add the SERVICES section show function and update the dropdown.
-
-        // Override showSection to include services
-        const originalShowSection = window.showSection;
-        window.showSection = function(sectionId) {
-            if (sectionId === 'services') {
-                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                document.getElementById('services').classList.add('active');
-                document.querySelectorAll('.app-header .nav-btn[data-section]').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.section === sectionId);
-                });
-                document.querySelectorAll('.app-footer .nav-btn[data-section]').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.section === sectionId);
-                });
-                if (window.innerWidth <= 768) {
-                    ['govt', 'career', 'study', 'books', 'more', 'blog'].forEach(name => closeDropdownMobile(name));
-                }
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                return;
-            }
-            originalShowSection(sectionId);
-        };
-
-        // Update the More dropdown to include Services
-        document.addEventListener('DOMContentLoaded', function() {
-            // Ensure services section exists
-            const servicesSection = document.getElementById('services');
-            if (servicesSection) {
-                // It's already in the HTML
-            }
-            // Ensure footer button for services is active
-            const footerBtn = document.querySelector('.app-footer .nav-btn[data-section="services"]');
-            if (footerBtn) {
-                footerBtn.addEventListener('click', function() { showSection('services'); });
-            }
-        });
-
-        // --- All other original functions remain unchanged ---
-        // (loadFromGoogleSheets, saveToLocalStorage, renderAllPages, etc.)
-        // They are included in the full script below.
-
-        // For the final HTML we include the full script from original, plus the new services section.
-        // This is a demonstration of the complete page.
-    </script>
-
-    <script>
         // ============================================================
-        // FULL ORIGINAL SCRIPT (condensed but functional)
+        // LOAD/SAVE FUNCTIONS
         // ============================================================
-        // This is a placeholder for the full script from the original file.
-        // In production, all functions (loadFromGoogleSheets, renderHomePage, etc.)
-        // would be included here. For this response, we include a minimal working
-        // version that supports all features shown in the UI.
-
-        // Since the full script is very long, we include it from the original.
-        // But to keep this response valid, we include a compact version that
-        // covers all essential functions.
-
-        // --- Load data ---
         function loadFromLocalStorage() {
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
@@ -3397,7 +3473,7 @@
                 }
             } catch (e) { console.error('Load error:', e); }
 
-            ['home', 'study', 'career', 'books', 'more', 'blog', 'social', 'employees'].forEach(key => {
+            ['home', 'study', 'career', 'books', 'more', 'blog', 'services', 'social', 'employees'].forEach(key => {
                 if (!appData[key]) {
                     appData[key] = JSON.parse(JSON.stringify(DEFAULT_DATA[key] || {}));
                 }
@@ -3428,16 +3504,20 @@
             } catch (e) { console.error('Save error:', e); }
         }
 
-        // --- Render functions (simplified) ---
+        // ============================================================
+        // RENDER FUNCTIONS
+        // ============================================================
         function renderAllPages() {
             renderHomePage();
             renderSocialLinks();
             updatePageTaglines();
-            ['study', 'career', 'books', 'more', 'blog'].forEach(page => {
-                if (page !== 'more') {
-                    renderGenericPage(page);
-                } else {
+            ['study', 'career', 'books', 'more', 'blog', 'services'].forEach(page => {
+                if (page === 'services') {
+                    renderServicesPage();
+                } else if (page === 'more') {
                     renderPageContent(page);
+                } else {
+                    renderGenericPage(page);
                 }
             });
         }
@@ -3469,7 +3549,7 @@
         }
 
         function updatePageTaglines() {
-            const pages = ['study', 'career', 'books', 'more', 'blog'];
+            const pages = ['study', 'career', 'books', 'more', 'blog', 'services'];
             const taglines = appData.home?.pageTaglines || DEFAULT_DATA.home.pageTaglines;
             pages.forEach(page => {
                 const ticker = document.getElementById(`${page}TickerText`);
@@ -3532,7 +3612,11 @@
 
         function filterGenericCategory(page, category) {
             genericFilters[page] = category;
-            renderGenericPage(page);
+            if (page === 'services') {
+                renderServicesPage();
+            } else {
+                renderGenericPage(page);
+            }
             document.getElementById(page).scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -3551,7 +3635,60 @@
             }
         }
 
-        // --- Jobs functions ---
+        // ============================================================
+        // SERVICES PAGE RENDERER (NO TOOLS)
+        // ============================================================
+        function renderServicesPage() {
+            const container = document.getElementById('servicesContainer');
+            const items = appData.services?.items || [];
+            const content = appData.services?.content || '';
+
+            // Group by category
+            const groups = {};
+            items.forEach(item => {
+                const cat = item.category || 'Uncategorized';
+                if (!groups[cat]) groups[cat] = [];
+                groups[cat].push(item);
+            });
+
+            let html = '';
+            if (content) {
+                html += `<div class="page-content-display" style="margin-bottom:20px;">${content}</div>`;
+            }
+
+            for (const [cat, items] of Object.entries(groups)) {
+                let icon = 'fa-cogs';
+                if (cat === 'Essential & Services') icon = 'fa-crown';
+                else if (cat === 'Creative Design Studio') icon = 'fa-paint-brush';
+                else if (cat === 'Portal Service') icon = 'fa-portal';
+                else if (cat === 'Card Printing Services') icon = 'fa-credit-card';
+
+                html += `
+                    <div class="services-category">
+                        <div class="cat-title"><i class="fas ${icon}"></i> ${cat}</div>
+                        <div class="services-grid">
+                            ${items.map(item => `
+                                <div class="service-item">
+                                    <i class="fas ${item.icon || 'fa-cog'}"></i>
+                                    <span>${item.title}</span>
+                                    ${item.badge ? `<span class="${item.badge === 'new' ? 'badge-new' : 'badge-hot'}">${item.badge}</span>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (!html) {
+                html = `<div class="empty-state"><i class="fas fa-cogs"></i> No services added yet. Click "Add Service Item" in Admin Panel.</div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // JOBS FUNCTIONS
+        // ============================================================
         function showJobsCategory(category) {
             showSection('home');
             selectCategory(category);
@@ -3668,7 +3805,9 @@
             });
         }
 
-        // --- Detail Overlay ---
+        // ============================================================
+        // DETAIL OVERLAY
+        // ============================================================
         function openDetail(index) {
             const job = jobsData[index];
             if (!job) return;
@@ -3734,7 +3873,9 @@
             document.body.style.overflow = '';
         }
 
-        // --- Navigation ---
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             const section = document.getElementById(sectionId);
@@ -3773,7 +3914,9 @@
             }
         });
 
-        // --- Toast ---
+        // ============================================================
+        // TOAST
+        // ============================================================
         function showToast(msg, type = 'info') {
             const t = document.createElement('div');
             t.className = `toast ${type}`;
@@ -3783,7 +3926,9 @@
                 setTimeout(() => t.remove(), 300); }, 3000);
         }
 
-        // --- Admin Panel (simplified) ---
+        // ============================================================
+        // ADMIN PANEL
+        // ============================================================
         function openAdminPanel() {
             const overlay = document.getElementById('adminPanelOverlay');
             overlay.innerHTML = renderAdminLogin();
@@ -3851,7 +3996,7 @@
         }
 
         function renderAdminPanel() {
-            const pages = ['study', 'career', 'books', 'more', 'blog'];
+            const pages = ['study', 'career', 'books', 'more', 'blog', 'services'];
             const isEmployee = adminAccessLevel === 'employee';
             const accessPages = employeeAccessPages;
             const allowedPages = isEmployee ? pages.filter(p => accessPages.includes(p)) : pages;
@@ -3867,7 +4012,7 @@
                             <li class="section-title">Page Editor</li>
                             <li><a data-page="home-editor" onclick="showAdminPage('home-editor')"><i class="fas fa-home"></i> Home Page</a></li>
                             ${allowedPages.map(p => `
-                                <li><a data-page="${p}-editor" onclick="showAdminPage('${p}-editor')"><i class="fas ${p === 'study' ? 'fa-book' : p === 'career' ? 'fa-briefcase' : p === 'books' ? 'fa-book-open' : p === 'more' ? 'fa-plus-circle' : 'fa-blog'}"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Page <span class="count">✎</span></a></li>
+                                <li><a data-page="${p}-editor" onclick="showAdminPage('${p}-editor')"><i class="fas ${p === 'study' ? 'fa-book' : p === 'career' ? 'fa-briefcase' : p === 'books' ? 'fa-book-open' : p === 'more' ? 'fa-tools' : p === 'blog' ? 'fa-blog' : 'fa-cogs'}"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Page <span class="count">✎</span></a></li>
                             `).join('')}
                             <li class="section-title">Data Items</li>
                             ${allowedPages.map(p => `
@@ -3898,7 +4043,7 @@
                                 <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Total Jobs</div><div class="stat-value" id="statJobs">${jobsData.length}</div></div>
                                 <div class="stat-item"><div class="stat-icon">🌐</div><div class="stat-label">Public Jobs</div><div class="stat-value" id="statPublic">${jobsData.filter(j => j.visibility !== 'private').length}</div></div>
                                 <div class="stat-item"><div class="stat-icon">🔒</div><div class="stat-label">Private Jobs</div><div class="stat-value" id="statPrivate">${jobsData.filter(j => j.visibility === 'private').length}</div></div>
-                                <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value">7</div></div>
+                                <div class="stat-item"><div class="stat-icon">✨</div><div class="stat-label">Services</div><div class="stat-value" id="statServices">${(appData.services?.items || []).length}</div></div>
                             </div>
                             <div class="admin-quick-actions">
                                 <h3>⚡ Quick Actions</h3>
@@ -3908,6 +4053,7 @@
                                     <button onclick="exportCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                     <button onclick="exportAdminData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
                                     ${!isEmployee ? `<button onclick="syncWithGoogleSheets()" style="background:#dc3545;"><i class="fas fa-cloud-upload-alt"></i> Sync to Google Sheets</button>` : ''}
+                                    <button onclick="showAdminPage('items-services')" style="background:#f39c12;"><i class="fas fa-cogs"></i> Manage Services</button>
                                 </div>
                             </div>
                         </div>
@@ -3974,6 +4120,7 @@
                                         <div style="margin-bottom:6px;"><label style="font-size:12px;">Books:</label> <input type="text" id="taglineBooks" value="${appData.home?.pageTaglines?.books || ''}" style="width:100%;max-width:400px;"></div>
                                         <div style="margin-bottom:6px;"><label style="font-size:12px;">More:</label> <input type="text" id="taglineMore" value="${appData.home?.pageTaglines?.more || ''}" style="width:100%;max-width:400px;"></div>
                                         <div style="margin-bottom:6px;"><label style="font-size:12px;">Blog:</label> <input type="text" id="taglineBlog" value="${appData.home?.pageTaglines?.blog || ''}" style="width:100%;max-width:400px;"></div>
+                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Services:</label> <input type="text" id="taglineServices" value="${appData.home?.pageTaglines?.services || ''}" style="width:100%;max-width:400px;"></div>
                                         <button class="btn-setting success" onclick="saveTaglines()"><i class="fas fa-save"></i> Save Taglines</button>
                                     </div>
                                 </div>
@@ -4053,15 +4200,15 @@
             if (!items || items.length === 0) {
                 return `<div class="empty-state"><i class="fas fa-inbox"></i> No items yet. Click "Add Item" to create one.</div>`;
             }
+            const isServices = page === 'services';
             return `
                 <div class="items-grid">
                     ${items.map((item, idx) => `
                         <div class="item-card">
                             <div class="item-info">
-                                <div class="item-title">${item.title || 'Untitled'}</div>
-                                <div class="item-desc-preview">${item.description || ''}</div>
-                                ${page !== 'more' ? `<span style="font-size:10px;background:var(--secondary-blue);color:#fff;padding:1px 8px;border-radius:10px;">${item.category || 'Uncategorized'}</span>` : ''}
-                                <span class="visibility-badge ${item.visibility === 'private' ? 'private' : 'public'}">${item.visibility === 'private' ? '🔒 Private' : '🌐 Public'}</span>
+                                <div class="item-title">${isServices ? `<i class="fas ${item.icon || 'fa-cog'}"></i> ` : ''}${item.title || 'Untitled'}</div>
+                                <div class="item-desc-preview">${item.category || ''}</div>
+                                ${!isServices ? `<span class="visibility-badge ${item.visibility === 'private' ? 'private' : 'public'}">${item.visibility === 'private' ? '🔒 Private' : '🌐 Public'}</span>` : ''}
                             </div>
                             <div class="item-actions">
                                 <button class="btn-edit" onclick="openItemEditor('${page}', ${idx})" title="Edit Item"><i class="fas fa-edit"></i></button>
@@ -4152,8 +4299,8 @@
             if (menuItem) menuItem.classList.add('active');
 
             const allPages = ['dashboard', 'home-editor', 'study-editor', 'career-editor', 'books-editor', 'more-editor',
-                'blog-editor', 'jobs', 'settings', 'sync', 'employees', 'social',
-                'items-study', 'items-career', 'items-books', 'items-more', 'items-blog'
+                'blog-editor', 'services-editor', 'jobs', 'settings', 'sync', 'employees', 'social',
+                'items-study', 'items-career', 'items-books', 'items-more', 'items-blog', 'items-services'
             ];
 
             allPages.forEach(p => {
@@ -4169,11 +4316,13 @@
                 'books-editor': '📖 <span>Books Page Editor</span>',
                 'more-editor': '⚙️ <span>More Page Editor</span>',
                 'blog-editor': '📝 <span>Blog Page Editor</span>',
+                'services-editor': '✨ <span>Services Page Editor</span>',
                 'items-study': '📚 <span>Study Items</span>',
                 'items-career': '🎯 <span>Career Items</span>',
                 'items-books': '📖 <span>Books Items</span>',
                 'items-more': '⚙️ <span>More Items</span>',
                 'items-blog': '📝 <span>Blog Items</span>',
+                'items-services': '✨ <span>Services Items</span>',
                 jobs: '💼 <span>Jobs Manager</span>',
                 settings: '⚙️ <span>Settings</span>',
                 sync: '🔄 <span>Google Sheets Sync</span>',
@@ -4186,6 +4335,7 @@
                 document.getElementById('statJobs').textContent = jobsData.length;
                 document.getElementById('statPublic').textContent = jobsData.filter(j => j.visibility !== 'private').length;
                 document.getElementById('statPrivate').textContent = jobsData.filter(j => j.visibility === 'private').length;
+                document.getElementById('statServices').textContent = (appData.services?.items || []).length;
             }
             if (page === 'jobs') renderAdminTables();
             if (page === 'employees') {
@@ -4201,7 +4351,8 @@
                 const container = document.getElementById(`adminItemsContainer-${pageName}`);
                 if (container) container.innerHTML = renderAdminItems(pageName);
             }
-            if (['study-editor', 'career-editor', 'books-editor', 'more-editor', 'blog-editor'].includes(page)) {
+            if (['study-editor', 'career-editor', 'books-editor', 'more-editor', 'blog-editor', 'services-editor'].includes(
+                    page)) {
                 const pageName = page.replace('-editor', '');
                 const container = document.getElementById(`adminPageContent-${pageName}`);
                 if (container) container.innerHTML = renderAdminPageContent(pageName);
@@ -4217,6 +4368,9 @@
             document.getElementById('adminSidebar').classList.toggle('open');
         }
 
+        // ============================================================
+        // JOB MODAL
+        // ============================================================
         function openJobModal(data = null) {
             if (adminAccessLevel === 'employee') {
                 showToast('You do not have permission to manage jobs.', 'error');
@@ -4349,7 +4503,9 @@
             document.getElementById('adminModalOverlay').classList.remove('active');
         }
 
-        // --- Editor functions ---
+        // ============================================================
+        // EDITOR FUNCTIONS
+        // ============================================================
         function createEditorToolbar(editorId, options = {}) {
             const toolbar = document.createElement('div');
             toolbar.className = 'editor-toolbar';
@@ -4491,37 +4647,6 @@
                 insertGroup.appendChild(btn);
             });
             toolbar.appendChild(insertGroup);
-
-            // Font Converter
-            const convertGroup = document.createElement('div');
-            convertGroup.className = 'toolbar-group';
-            const convertBtn = document.createElement('button');
-            convertBtn.innerHTML = '<i class="fas fa-language"></i> <span style="font-size:10px;">🔄 Font Conv</span>';
-            convertBtn.title = 'Convert DevLys010 to Unicode (Mangal)';
-            convertBtn.style.background = '#f39c12';
-            convertBtn.style.color = '#fff';
-            convertBtn.style.padding = '4px 10px';
-            convertBtn.onmousedown = function(e) {
-                e.preventDefault();
-                const editor = document.getElementById(editorId);
-                let selection = window.getSelection();
-                let selectedText = selection.toString();
-                if (!selectedText) selectedText = editor.innerText || editor.textContent;
-                if (selectedText) {
-                    const converted = devlysToUnicode(selectedText);
-                    if (selection.rangeCount > 0 && selection.toString()) {
-                        document.execCommand('insertText', false, converted);
-                    } else {
-                        editor.innerHTML = converted;
-                    }
-                    editor.focus();
-                    showToast('✅ Font converted to Unicode!', 'success');
-                } else {
-                    showToast('Please select or type some text first.', 'info');
-                }
-            };
-            convertGroup.appendChild(convertBtn);
-            toolbar.appendChild(convertGroup);
 
             const undoGroup = document.createElement('div');
             undoGroup.className = 'toolbar-group';
@@ -4665,60 +4790,483 @@
             return result;
         }
 
-        // --- Font Converter functions ---
-        function convertFonts() {
-            const input = document.getElementById('fontInput');
-            const output = document.getElementById('fontOutput');
-            const text = input.value;
-            if (!text) { showToast('Please enter some text in DevLys/Kruti font.', 'error'); return; }
-            output.value = devlysToUnicode(text);
-            showToast('✅ Font conversion successful!', 'success');
-        }
+        // ============================================================
+        // PAGE EDITOR FUNCTIONS
+        // ============================================================
+        function openPageEditor(page) {
+            const content = page === 'home' ? (appData.home?.aboutText || '') : (appData[page]?.content || '');
+            const title = page === 'home' ? 'Home Page' : page.charAt(0).toUpperCase() + page.slice(1) + ' Page';
 
-        function copyFontOutput() {
-            const output = document.getElementById('fontOutput');
-            if (!output.value) { showToast('Nothing to copy. Convert text first.', 'error'); return; }
-            output.select();
-            navigator.clipboard.writeText(output.value).then(() => {
-                showToast('✅ Copied to clipboard!', 'success');
-            }).catch(() => {
-                document.execCommand('copy');
-                showToast('✅ Copied to clipboard!', 'success');
-            });
-        }
-
-        function clearFontConverter() {
-            document.getElementById('fontInput').value = '';
-            document.getElementById('fontOutput').value = '';
-            showToast('Cleared all fields.', 'info');
-        }
-
-        function previewFontOutput() {
-            const output = document.getElementById('fontOutput');
-            if (!output.value) { showToast('Convert text first.', 'error'); return; }
-            const previewOverlay = document.createElement('div');
-            previewOverlay.style.cssText = `
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background: rgba(0,0,0,0.7); z-index: 9999;
-                display: flex; align-items: center; justify-content: center;
-                backdrop-filter: blur(5px);
+            document.getElementById('adminModalTitle').textContent = `✏️ Edit ${title}`;
+            document.getElementById('adminModalBody').innerHTML = `
+                <div style="margin-bottom:12px;">
+                    <p style="font-size:13px;color:var(--text-light);">Use the toolbar below to format your content.</p>
+                </div>
+                <div id="editorContainer">
+                    <div id="editorToolbar"></div>
+                    <div class="editor-content" id="pageEditor" contenteditable="true">${content || ''}</div>
+                </div>
+                <div class="page-editor-area">
+                    <div class="editor-controls">
+                        <button class="btn-save-editor" onclick="savePageEditor('${page}')"><i class="fas fa-save"></i> Save Content</button>
+                        <button class="btn-cancel-editor" onclick="closeAdminModal()">Cancel</button>
+                        <button class="btn-preview" onclick="previewPageEditor('${page}')"><i class="fas fa-eye"></i> Preview</button>
+                        <button class="btn-fullscreen" onclick="toggleEditorFullscreen()"><i class="fas fa-expand"></i> Fullscreen</button>
+                    </div>
+                </div>
+                <input type="hidden" id="editorPage" value="${page}">
             `;
-            const previewBox = document.createElement('div');
-            previewBox.style.cssText = `
-                background: #fff; padding: 30px; border-radius: 12px;
-                max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-                font-family: 'Mangal', 'Arial Unicode MS', sans-serif;
-                font-size: 18px; line-height: 1.8; color: #333;
-            `;
-            previewBox.innerHTML =
-                `<h3 style="margin-top:0;color:#123c9b;">📄 Preview Output</h3><p>${output.value.replace(/\n/g, '<br>')}</p><button onclick="this.closest('div[style]').remove()" style="padding:8px 20px;background:#dc3545;color:#fff;border:none;border-radius:6px;cursor:pointer;margin-top:15px;">Close Preview</button>`;
-            previewOverlay.appendChild(previewBox);
-            previewOverlay.onclick = function(e) { if (e.target === this) this.remove(); };
-            document.body.appendChild(previewOverlay);
+
+            document.getElementById('adminModalOverlay').classList.add('active');
+            const toolbarContainer = document.getElementById('editorToolbar');
+            const toolbar = createEditorToolbar('pageEditor', { showSource: true });
+            toolbarContainer.appendChild(toolbar);
+            setTimeout(() => { const editor = document.getElementById('pageEditor'); if (editor) editor.focus(); }, 100);
         }
 
-        // --- Tool switch ---
+        function savePageEditor(page) {
+            const editor = document.getElementById('pageEditor');
+            const content = editor.innerHTML;
+            if (page === 'home') {
+                if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
+                appData.home.aboutText = content;
+            } else {
+                if (!appData[page]) appData[page] = { content: '', items: [] };
+                appData[page].content = content;
+            }
+            saveToLocalStorage();
+            renderAllPages();
+            closeAdminModal();
+            showToast('✅ Page content saved!', 'success');
+            if (page === 'home') {
+                const container = document.getElementById('adminPageContent-home');
+                if (container) container.innerHTML = renderAdminHomeContent();
+            } else {
+                const container = document.getElementById(`adminPageContent-${page}`);
+                if (container) container.innerHTML = renderAdminPageContent(page);
+            }
+        }
+
+        function previewPageEditor(page) {
+            const editor = document.getElementById('pageEditor');
+            const content = editor.innerHTML;
+            const win = window.open('', '_blank', 'width=800,height=600,scrollbars=yes');
+            if (win) {
+                win.document.write(`
+                    <!DOCTYPE html>
+                    <html><head><title>Preview - ${page}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 30px; max-width: 800px; margin: auto; line-height: 1.8; }
+                        img { max-width: 100%; }
+                        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+                        table td, table th { border: 1px solid #ddd; padding: 8px 12px; }
+                        blockquote { border-left: 4px solid #1976d2; padding: 8px 16px; margin: 10px 0; background: #f5f5f5; }
+                        pre { background: #f5f5f5; padding: 12px; border-radius: 4px; overflow-x: auto; }
+                    </style>
+                    </head><body>
+                    <h2>📄 Preview: ${page.charAt(0).toUpperCase() + page.slice(1)} Page</h2>
+                    <div>${content}</div>
+                    <hr>
+                    <p style="color:#999;font-size:12px;">This is a preview. Close this window to return.</p>
+                    </body></html>
+                `);
+                win.document.close();
+            } else {
+                showToast('Please allow popups for preview', 'info');
+            }
+        }
+
+        function toggleEditorFullscreen() {
+            const modal = document.querySelector('#adminModalOverlay .admin-modal');
+            if (modal) {
+                modal.style.maxWidth = modal.style.maxWidth === '100%' ? '95%' : '100%';
+                modal.style.height = modal.style.height === '100vh' ? 'auto' : '100vh';
+                modal.style.maxHeight = modal.style.maxHeight === '100vh' ? '90vh' : '100vh';
+                modal.style.borderRadius = modal.style.borderRadius === '0' ? '12px' : '0';
+                const btn = document.querySelector('.btn-fullscreen i');
+                if (btn) {
+                    btn.classList.toggle('fa-expand');
+                    btn.classList.toggle('fa-compress');
+                }
+            }
+        }
+
+        // ============================================================
+        // ITEM EDITOR
+        // ============================================================
+        function openItemEditor(page, index = null) {
+            const isEdit = index !== null;
+            const items = appData[page]?.items || [];
+            const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public', category: '' };
+
+            const isServices = page === 'services';
+
+            document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit ${page} Item` : `➕ Add ${page} Item`;
+
+            let categoryHtml = '';
+            if (!isServices) {
+                let catOptions = [];
+                if (page === 'study') {
+                    catOptions = ['Subject-wise notes', 'Practice sets with answer keys',
+                        'Previous year papers with detailed solutions', 'Revision notes for quick review'
+                    ];
+                } else if (page === 'career') {
+                    catOptions = ['Government Jobs', 'Banking', 'SSC', 'Railway', 'Defence', 'Police', 'Teaching',
+                        'Engineering', 'Medical', 'Management', 'Law', 'IT', 'UPSC', 'Private Jobs'
+                    ];
+                } else if (page === 'books') {
+                    catOptions = ['Competitive Exams', 'Rajasthan GK', 'General Knowledge', 'Motivation'];
+                } else if (page === 'blog') {
+                    catOptions = ['Technology', 'Business', 'Design', 'Lifestyle', 'Education', 'News', 'Portfolio'];
+                } else if (page === 'more') {
+                    // no category for more
+                }
+                if (catOptions.length) {
+                    categoryHtml = `
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select id="itemCategory">
+                                <option value="">Select Category</option>
+                                ${catOptions.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                            </select>
+                        </div>
+                    `;
+                }
+            } else {
+                const serviceCategories = ['Essential & Services', 'Creative Design Studio', 'Portal Service',
+                    'Card Printing Services'
+                ];
+                categoryHtml = `
+                    <div class="form-group">
+                        <label>Category (Group) *</label>
+                        <select id="itemCategory">
+                            <option value="">Select Category</option>
+                            ${serviceCategories.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Icon Class (Font Awesome)</label>
+                        <input type="text" id="itemIcon" value="${item.icon || 'fa-cog'}" placeholder="e.g. fa-cog, fa-briefcase">
+                    </div>
+                `;
+            }
+
+            let visibilityHtml = '';
+            if (!isServices) {
+                visibilityHtml = `
+                    <div class="form-group">
+                        <label>Visibility</label>
+                        <select id="itemVisibility">
+                            <option value="public" ${item.visibility === 'public' ? 'selected' : ''}>🌐 Public</option>
+                            <option value="private" ${item.visibility === 'private' ? 'selected' : ''}>🔒 Private</option>
+                        </select>
+                    </div>
+                `;
+            }
+
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="itemPage" value="${page}">
+                <input type="hidden" id="itemIndex" value="${isEdit ? index : -1}">
+                <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${item.title || ''}"></div>
+                ${categoryHtml}
+                ${!isServices ? `<div class="form-group">
+                    <label>Description (Rich Text)</label>
+                    <div id="itemDescContainer">
+                        <div id="itemDescToolbar"></div>
+                        <div class="editor-content" id="itemDescription" contenteditable="true" style="min-height:150px;">${item.description || ''}</div>
+                    </div>
+                </div>` : ''}
+                ${visibilityHtml}
+                <button class="btn-submit" onclick="saveItem()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+
+            document.getElementById('adminModalOverlay').classList.add('active');
+            if (!isServices) {
+                setTimeout(() => {
+                    const toolbarContainer = document.getElementById('itemDescToolbar');
+                    if (toolbarContainer) {
+                        const toolbar = createEditorToolbar('itemDescription', { showSource: true });
+                        toolbarContainer.appendChild(toolbar);
+                    }
+                    const editor = document.getElementById('itemDescription');
+                    if (editor) editor.focus();
+                }, 50);
+            }
+        }
+
+        function saveItem() {
+            const page = document.getElementById('itemPage').value;
+            const index = parseInt(document.getElementById('itemIndex').value);
+            const title = document.getElementById('itemTitle').value.trim();
+
+            if (!title) { showToast('Title is required!', 'error'); return; }
+
+            const isServices = page === 'services';
+
+            let category = '';
+            let icon = '';
+            if (isServices) {
+                category = document.getElementById('itemCategory').value;
+                icon = document.getElementById('itemIcon').value.trim() || 'fa-cog';
+                if (!category) { showToast('Please select a Category!', 'error'); return; }
+            } else {
+                const editor = document.getElementById('itemDescription');
+                const description = editor ? editor.innerHTML : '';
+                const visibility = document.getElementById('itemVisibility').value;
+                category = document.getElementById('itemCategory')?.value || '';
+
+                if (!appData[page]) appData[page] = { content: '', items: [] };
+                if (!appData[page].items) appData[page].items = [];
+
+                const item = { id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5), title, description,
+                    visibility };
+                if (category) item.category = category;
+
+                if (index >= 0 && index < appData[page].items.length) {
+                    appData[page].items[index] = { ...appData[page].items[index], ...item };
+                    showToast('✅ Item updated!', 'success');
+                } else {
+                    appData[page].items.push(item);
+                    showToast('✅ Item added!', 'success');
+                }
+            }
+
+            if (isServices) {
+                if (!appData.services) appData.services = { content: '', items: [] };
+                if (!appData.services.items) appData.services.items = [];
+                const item = { id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5), title, category,
+                icon };
+                if (index >= 0 && index < appData.services.items.length) {
+                    appData.services.items[index] = { ...appData.services.items[index], ...item };
+                    showToast('✅ Service updated!', 'success');
+                } else {
+                    appData.services.items.push(item);
+                    showToast('✅ Service added!', 'success');
+                }
+            }
+
+            saveToLocalStorage();
+            renderAllPages();
+            closeAdminModal();
+            showAdminPage(`items-${page}`);
+        }
+
+        function deleteItem(page, index) {
+            if (!confirm(`Delete this item from ${page}?`)) return;
+            if (appData[page] && appData[page].items) {
+                appData[page].items.splice(index, 1);
+                saveToLocalStorage();
+                renderAllPages();
+                showAdminPage(`items-${page}`);
+                showToast('🗑️ Item deleted!', 'warning');
+            }
+        }
+
+        // ============================================================
+        // EMPLOYEE FUNCTIONS
+        // ============================================================
+        function openEmployeeModal(index = null) {
+            const isEdit = index !== null;
+            const employees = appData.employees || [];
+            const emp = isEdit ? employees[index] : { name: '', email: '', access: [] };
+            const allPages = ['study', 'career', 'books', 'more', 'blog', 'services'];
+
+            document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Employee' : '👤 Add Employee';
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="empIndex" value="${isEdit ? index : -1}">
+                <div class="form-group"><label>Employee Name *</label><input type="text" id="empName" value="${emp.name || ''}"></div>
+                <div class="form-group"><label>Employee Code / Email *</label><input type="text" id="empCode" value="${emp.email || ''}" placeholder="Unique code for login"></div>
+                <div class="form-group"><label>Access Pages (Select multiple)</label>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;padding:8px 0;">
+                        ${allPages.map(p => `
+                            <label style="display:flex;align-items:center;gap:4px;font-size:13px;cursor:pointer;">
+                                <input type="checkbox" ${(emp.access || []).includes(p) ? 'checked' : ''} value="${p}" class="empAccessCheck"> ${p.charAt(0).toUpperCase() + p.slice(1)}
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="saveEmployee()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        function saveEmployee() {
+            const index = parseInt(document.getElementById('empIndex').value);
+            const name = document.getElementById('empName').value.trim();
+            const email = document.getElementById('empCode').value.trim();
+            const access = [];
+            document.querySelectorAll('.empAccessCheck:checked').forEach(cb => access.push(cb.value));
+            if (!name || !email) { showToast('Name and Code are required!', 'error'); return; }
+            if (access.length === 0) { showToast('Select at least one page access!', 'error'); return; }
+            const emp = { id: email, name, email, access };
+            if (!appData.employees) appData.employees = [];
+            if (index >= 0 && index < appData.employees.length) {
+                appData.employees[index] = emp;
+                showToast('✅ Employee updated!', 'success');
+            } else {
+                appData.employees.push(emp);
+                showToast('✅ Employee added!', 'success');
+            }
+            saveToLocalStorage();
+            closeAdminModal();
+            showAdminPage('employees');
+        }
+
+        function deleteEmployee(index) {
+            if (!confirm('Delete this employee?')) return;
+            if (appData.employees) {
+                appData.employees.splice(index, 1);
+                saveToLocalStorage();
+                showAdminPage('employees');
+                showToast('🗑️ Employee deleted!', 'warning');
+            }
+        }
+
+        // ============================================================
+        // SYNC, EXPORT, RESET
+        // ============================================================
+        async function loadFromGoogleSheets() {
+            showToast('🔄 Loading from Google Sheets (demo)...', 'info');
+            loadFromLocalStorage();
+            renderAllPages();
+            updateJobsUI();
+            renderSocialLinks();
+            updatePageTaglines();
+            updateLogo();
+            showToast('✅ Data loaded from local storage (Google Sheets demo).', 'success');
+            return true;
+        }
+
+        async function syncWithGoogleSheets() {
+            showToast('🔄 Syncing (demo)...', 'info');
+            saveToLocalStorage();
+            showToast('✅ Data synced locally. Google Sheets integration requires OAuth.', 'success');
+        }
+
+        function exportCSV() {
+            if (!jobsData.length) { showToast('No data!', 'warning'); return; }
+            const headers = ['ID', 'Title', 'Job Type', 'Sub Category', 'Department', 'Post', 'Eligibility', 'Age',
+                'Last Date', 'Experience', 'Description', 'Website', 'Apply Link', 'Visibility'
+            ];
+            const rows = jobsData.map(j => [j.id || '', j.title || '', j.jobType || '', j.subCat || '', j.department || '',
+                    j.post || '', j.eligibility || '', j.age || '', j.lastDate || '', j.experience || '',
+                    j.description || '', j.website || '', j.applyLink || '', j.visibility || 'public'
+                ].map(escapeCSV));
+            const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+            download(csv, 'dreamjosh_jobs.csv', 'text/csv');
+            showToast('📥 CSV exported!', 'success');
+        }
+
+        function exportAdminData() {
+            const fullData = { appData, jobs: jobsData };
+            const blob = new Blob([JSON.stringify(fullData, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'dreamjosh_backup_' + new Date().toISOString().slice(0, 10) + '.json';
+            a.click();
+            showToast('📥 Backup downloaded!', 'success');
+        }
+
+        function resetAllData() {
+            if (!confirm('⚠️ This will reset ALL data to default! Are you sure?')) return;
+            if (!confirm('⚠️ LAST WARNING: All your custom data will be lost!')) return;
+            appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+            jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
+            saveToLocalStorage();
+            renderAllPages();
+            updateJobsUI();
+            showToast('🔄 All data reset to default!', 'warning');
+            closeAdminPanel();
+        }
+
+        function changeAdminPassword() {
+            const newPass = document.getElementById('adminNewPass').value;
+            const confirmPass = document.getElementById('adminConfirmPass').value;
+            if (!newPass || newPass.length < 6) { showToast('Min 6 characters!', 'error'); return; }
+            if (newPass !== confirmPass) { showToast('Passwords do not match!', 'error'); return; }
+            localStorage.setItem('dreamjosh_admin_pass', newPass);
+            showToast('✅ Password updated!', 'success');
+            document.getElementById('adminNewPass').value = '';
+            document.getElementById('adminConfirmPass').value = '';
+        }
+
+        function escapeCSV(str) { if (!str) return ''; str = String(str); if (str.includes(',') || str.includes('"') || str
+                .includes('\n')) return '"' + str.replace(/"/g, '""') + '"'; return str; }
+
+        function download(content, filename, mime) {
+            const blob = new Blob(['\uFEFF' + content], { type: mime + ';charset=utf-8;' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+        }
+
+        // ============================================================
+        // LOGO HANDLERS
+        // ============================================================
+        let logoFileData = null;
+
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    logoFileData = e.target.result;
+                    const preview = document.getElementById('logoPreview');
+                    preview.innerHTML =
+                        `<img src="${logoFileData}" style="max-height:80px;border-radius:4px;border:1px solid var(--border-color);">`;
+                    showToast('Logo loaded. Click "Upload Logo" to save.', 'info');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function uploadLogo() {
+            if (!logoFileData) { showToast('Please select a logo image first.', 'error'); return; }
+            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
+            appData.home.logo = logoFileData;
+            saveToLocalStorage();
+            updateLogo();
+            showToast('✅ Logo updated successfully!', 'success');
+            showAdminPage('settings');
+        }
+
+        function removeLogo() {
+            if (!confirm('Remove logo?')) return;
+            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
+            appData.home.logo = '';
+            logoFileData = null;
+            document.getElementById('logoPreview').innerHTML = '';
+            document.getElementById('logoFileInput').value = '';
+            saveToLocalStorage();
+            updateLogo();
+            showToast('🗑️ Logo removed.', 'warning');
+            showAdminPage('settings');
+        }
+
+        function saveTaglines() {
+            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
+            if (!appData.home.pageTaglines) appData.home.pageTaglines = { ...DEFAULT_DATA.home.pageTaglines };
+            appData.home.pageTaglines.study = document.getElementById('taglineStudy').value.trim();
+            appData.home.pageTaglines.career = document.getElementById('taglineCareer').value.trim();
+            appData.home.pageTaglines.books = document.getElementById('taglineBooks').value.trim();
+            appData.home.pageTaglines.more = document.getElementById('taglineMore').value.trim();
+            appData.home.pageTaglines.blog = document.getElementById('taglineBlog').value.trim();
+            appData.home.pageTaglines.services = document.getElementById('taglineServices').value.trim();
+            saveToLocalStorage();
+            updatePageTaglines();
+            showToast('✅ Taglines updated!', 'success');
+            showAdminPage('settings');
+        }
+
+        // ============================================================
+        // TOOLS (PDF Merge, Excel, Word, OCR, Font Converter, JPG/PNG, Delete Page)
+        // ============================================================
         function switchTool(toolId) {
             document.querySelectorAll('.tools-list .tool-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.tool === toolId);
@@ -4728,7 +5276,529 @@
             });
         }
 
-        // --- PDF Merge Functions (simplified) ---
+        // --- JPG to PDF ---
+        let jpgPdfFiles = [];
+
+        function handleJpgToPdf(event) {
+            const files = event.target.files;
+            const fileList = document.getElementById('jpgPdfFileList');
+            const fileName = document.getElementById('jpgPdfFileName');
+            for (let f of files) {
+                if (f.type.startsWith('image/')) {
+                    jpgPdfFiles.push(f);
+                }
+            }
+            if (jpgPdfFiles.length > 0) {
+                fileName.textContent = `${jpgPdfFiles.length} file(s) selected`;
+                fileList.innerHTML = jpgPdfFiles.map((f, i) =>
+                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removeJpgPdfFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
+                ).join('');
+                document.getElementById('jpgPdfResult').style.display = 'none';
+            }
+            event.target.value = '';
+        }
+
+        function removeJpgPdfFile(index) {
+            jpgPdfFiles.splice(index, 1);
+            updateJpgPdfUI();
+        }
+
+        function updateJpgPdfUI() {
+            const fileList = document.getElementById('jpgPdfFileList');
+            const fileName = document.getElementById('jpgPdfFileName');
+            if (jpgPdfFiles.length === 0) {
+                fileName.textContent = 'No files selected';
+                fileList.innerHTML = '';
+            } else {
+                fileName.textContent = `${jpgPdfFiles.length} file(s) selected`;
+                fileList.innerHTML = jpgPdfFiles.map((f, i) =>
+                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removeJpgPdfFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
+                ).join('');
+            }
+            document.getElementById('jpgPdfResult').style.display = 'none';
+        }
+
+        function clearJpgPdf() {
+            jpgPdfFiles = [];
+            document.getElementById('jpgPdfFileName').textContent = 'No files selected';
+            document.getElementById('jpgPdfFileList').innerHTML = '';
+            document.getElementById('jpgPdfResult').style.display = 'none';
+            document.getElementById('jpgPdfProgressBar').style.display = 'none';
+            document.getElementById('jpgPdfStatus').classList.remove('show');
+            document.getElementById('jpgPdfInput').value = '';
+        }
+
+        async function convertJpgToPdf() {
+            if (jpgPdfFiles.length === 0) {
+                showToast('Please select JPG images first.', 'error');
+                return;
+            }
+            const progressBar = document.getElementById('jpgPdfProgressBar');
+            const progressFill = document.getElementById('jpgPdfProgressFill');
+            const status = document.getElementById('jpgPdfStatus');
+            const resultArea = document.getElementById('jpgPdfResult');
+
+            progressBar.style.display = 'block';
+            progressFill.style.width = '0%';
+            status.classList.add('show');
+            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Converting... Please wait.';
+
+            try {
+                const { PDFDocument } = PDFLib;
+                const pdfDoc = await PDFDocument.create();
+
+                for (let i = 0; i < jpgPdfFiles.length; i++) {
+                    const file = jpgPdfFiles[i];
+                    const arrayBuffer = await file.arrayBuffer();
+                    const image = await pdfDoc.embedJpg(arrayBuffer);
+                    const page = pdfDoc.addPage([image.width, image.height]);
+                    page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
+
+                    const pct = Math.round(((i + 1) / jpgPdfFiles.length) * 100);
+                    progressFill.style.width = pct + '%';
+                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing ${i+1}/${jpgPdfFiles.length}...`;
+                }
+
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+
+                resultArea.style.display = 'block';
+                document.getElementById('jpgPdfDownloadLink').href = url;
+                document.getElementById('jpgPdfFileSize').textContent = `File size: ${(blob.size / 1024).toFixed(1)} KB`;
+                document.getElementById('jpgPdfDownloadLink').onclick = function(e) {
+                    setTimeout(() => URL.revokeObjectURL(url), 5000);
+                };
+
+                progressFill.style.width = '100%';
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    status.classList.remove('show');
+                }, 500);
+                showToast('✅ Conversion completed!', 'success');
+            } catch (error) {
+                console.error(error);
+                status.innerHTML = '❌ Error converting. Please try again.';
+                status.style.color = 'var(--warning-red)';
+                showToast('Error converting.', 'error');
+                setTimeout(() => {
+                    status.classList.remove('show');
+                    progressBar.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // --- PDF to JPG ---
+        let pdfJpgFile = null;
+
+        function handlePdfToJpg(event) {
+            const file = event.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                pdfJpgFile = file;
+                document.getElementById('pdfJpgFileName').textContent = file.name;
+                document.getElementById('pdfJpgResult').style.display = 'none';
+                document.getElementById('pdfJpgProgressBar').style.display = 'none';
+            } else {
+                showToast('Please select a valid PDF file.', 'error');
+                event.target.value = '';
+            }
+        }
+
+        function clearPdfJpg() {
+            pdfJpgFile = null;
+            document.getElementById('pdfJpgFileName').textContent = 'No file selected';
+            document.getElementById('pdfJpgResult').style.display = 'none';
+            document.getElementById('pdfJpgProgressBar').style.display = 'none';
+            document.getElementById('pdfJpgInput').value = '';
+        }
+
+        async function convertPdfToJpg() {
+            if (!pdfJpgFile) {
+                showToast('Please upload a PDF file first.', 'error');
+                return;
+            }
+            const progressBar = document.getElementById('pdfJpgProgressBar');
+            const progressFill = document.getElementById('pdfJpgProgressFill');
+            const status = document.getElementById('pdfJpgStatus');
+            const resultArea = document.getElementById('pdfJpgResult');
+
+            progressBar.style.display = 'block';
+            progressFill.style.width = '0%';
+            status.classList.add('show');
+            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Converting... Please wait.';
+
+            try {
+                const arrayBuffer = await pdfJpgFile.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const totalPages = pdf.numPages;
+                const zip = new JSZip();
+
+                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                    const page = await pdf.getPage(pageNum);
+                    const viewport = page.getViewport({ scale: 1.5 });
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    await page.render({ canvasContext: context, viewport: viewport }).promise;
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                    const blob = await fetch(dataUrl).then(res => res.blob());
+                    zip.file(`page_${pageNum}.jpg`, blob);
+
+                    const pct = Math.round((pageNum / totalPages) * 100);
+                    progressFill.style.width = pct + '%';
+                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing page ${pageNum}/${totalPages}...`;
+                }
+
+                const zipBlob = await zip.generateAsync({ type: 'blob' });
+                const url = URL.createObjectURL(zipBlob);
+
+                resultArea.style.display = 'block';
+                document.getElementById('pdfJpgDownloadLink').href = url;
+                document.getElementById('pdfJpgFileSize').textContent = `File size: ${(zipBlob.size / 1024).toFixed(1)} KB`;
+                document.getElementById('pdfJpgDownloadLink').onclick = function(e) {
+                    setTimeout(() => URL.revokeObjectURL(url), 5000);
+                };
+
+                progressFill.style.width = '100%';
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    status.classList.remove('show');
+                }, 500);
+                showToast('✅ Conversion completed!', 'success');
+            } catch (error) {
+                console.error(error);
+                status.innerHTML = '❌ Error converting. Please try again.';
+                status.style.color = 'var(--warning-red)';
+                showToast('Error converting.', 'error');
+                setTimeout(() => {
+                    status.classList.remove('show');
+                    progressBar.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // --- PNG to PDF ---
+        let pngPdfFiles = [];
+
+        function handlePngToPdf(event) {
+            const files = event.target.files;
+            const fileList = document.getElementById('pngPdfFileList');
+            const fileName = document.getElementById('pngPdfFileName');
+            for (let f of files) {
+                if (f.type === 'image/png') {
+                    pngPdfFiles.push(f);
+                }
+            }
+            if (pngPdfFiles.length > 0) {
+                fileName.textContent = `${pngPdfFiles.length} file(s) selected`;
+                fileList.innerHTML = pngPdfFiles.map((f, i) =>
+                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removePngPdfFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
+                ).join('');
+                document.getElementById('pngPdfResult').style.display = 'none';
+            }
+            event.target.value = '';
+        }
+
+        function removePngPdfFile(index) {
+            pngPdfFiles.splice(index, 1);
+            updatePngPdfUI();
+        }
+
+        function updatePngPdfUI() {
+            const fileList = document.getElementById('pngPdfFileList');
+            const fileName = document.getElementById('pngPdfFileName');
+            if (pngPdfFiles.length === 0) {
+                fileName.textContent = 'No files selected';
+                fileList.innerHTML = '';
+            } else {
+                fileName.textContent = `${pngPdfFiles.length} file(s) selected`;
+                fileList.innerHTML = pngPdfFiles.map((f, i) =>
+                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removePngPdfFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
+                ).join('');
+            }
+            document.getElementById('pngPdfResult').style.display = 'none';
+        }
+
+        function clearPngPdf() {
+            pngPdfFiles = [];
+            document.getElementById('pngPdfFileName').textContent = 'No files selected';
+            document.getElementById('pngPdfFileList').innerHTML = '';
+            document.getElementById('pngPdfResult').style.display = 'none';
+            document.getElementById('pngPdfProgressBar').style.display = 'none';
+            document.getElementById('pngPdfStatus').classList.remove('show');
+            document.getElementById('pngPdfInput').value = '';
+        }
+
+        async function convertPngToPdf() {
+            if (pngPdfFiles.length === 0) {
+                showToast('Please select PNG images first.', 'error');
+                return;
+            }
+            const progressBar = document.getElementById('pngPdfProgressBar');
+            const progressFill = document.getElementById('pngPdfProgressFill');
+            const status = document.getElementById('pngPdfStatus');
+            const resultArea = document.getElementById('pngPdfResult');
+
+            progressBar.style.display = 'block';
+            progressFill.style.width = '0%';
+            status.classList.add('show');
+            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Converting... Please wait.';
+
+            try {
+                const { PDFDocument } = PDFLib;
+                const pdfDoc = await PDFDocument.create();
+
+                for (let i = 0; i < pngPdfFiles.length; i++) {
+                    const file = pngPdfFiles[i];
+                    const arrayBuffer = await file.arrayBuffer();
+                    const image = await pdfDoc.embedPng(arrayBuffer);
+                    const page = pdfDoc.addPage([image.width, image.height]);
+                    page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
+
+                    const pct = Math.round(((i + 1) / pngPdfFiles.length) * 100);
+                    progressFill.style.width = pct + '%';
+                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing ${i+1}/${pngPdfFiles.length}...`;
+                }
+
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+
+                resultArea.style.display = 'block';
+                document.getElementById('pngPdfDownloadLink').href = url;
+                document.getElementById('pngPdfFileSize').textContent = `File size: ${(blob.size / 1024).toFixed(1)} KB`;
+                document.getElementById('pngPdfDownloadLink').onclick = function(e) {
+                    setTimeout(() => URL.revokeObjectURL(url), 5000);
+                };
+
+                progressFill.style.width = '100%';
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    status.classList.remove('show');
+                }, 500);
+                showToast('✅ Conversion completed!', 'success');
+            } catch (error) {
+                console.error(error);
+                status.innerHTML = '❌ Error converting. Please try again.';
+                status.style.color = 'var(--warning-red)';
+                showToast('Error converting.', 'error');
+                setTimeout(() => {
+                    status.classList.remove('show');
+                    progressBar.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // --- PNG to JPG ---
+        let pngJpgFiles = [];
+
+        function handlePngToJpg(event) {
+            const files = event.target.files;
+            const fileList = document.getElementById('pngJpgFileList');
+            const fileName = document.getElementById('pngJpgFileName');
+            for (let f of files) {
+                if (f.type === 'image/png') {
+                    pngJpgFiles.push(f);
+                }
+            }
+            if (pngJpgFiles.length > 0) {
+                fileName.textContent = `${pngJpgFiles.length} file(s) selected`;
+                fileList.innerHTML = pngJpgFiles.map((f, i) =>
+                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removePngJpgFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
+                ).join('');
+                document.getElementById('pngJpgResult').style.display = 'none';
+            }
+            event.target.value = '';
+        }
+
+        function removePngJpgFile(index) {
+            pngJpgFiles.splice(index, 1);
+            updatePngJpgUI();
+        }
+
+        function updatePngJpgUI() {
+            const fileList = document.getElementById('pngJpgFileList');
+            const fileName = document.getElementById('pngJpgFileName');
+            if (pngJpgFiles.length === 0) {
+                fileName.textContent = 'No files selected';
+                fileList.innerHTML = '';
+            } else {
+                fileName.textContent = `${pngJpgFiles.length} file(s) selected`;
+                fileList.innerHTML = pngJpgFiles.map((f, i) =>
+                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removePngJpgFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
+                ).join('');
+            }
+            document.getElementById('pngJpgResult').style.display = 'none';
+        }
+
+        function clearPngJpg() {
+            pngJpgFiles = [];
+            document.getElementById('pngJpgFileName').textContent = 'No files selected';
+            document.getElementById('pngJpgFileList').innerHTML = '';
+            document.getElementById('pngJpgResult').style.display = 'none';
+            document.getElementById('pngJpgProgressBar').style.display = 'none';
+            document.getElementById('pngJpgStatus').classList.remove('show');
+            document.getElementById('pngJpgInput').value = '';
+        }
+
+        async function convertPngToJpg() {
+            if (pngJpgFiles.length === 0) {
+                showToast('Please select PNG images first.', 'error');
+                return;
+            }
+            const progressBar = document.getElementById('pngJpgProgressBar');
+            const progressFill = document.getElementById('pngJpgProgressFill');
+            const status = document.getElementById('pngJpgStatus');
+            const resultArea = document.getElementById('pngJpgResult');
+
+            progressBar.style.display = 'block';
+            progressFill.style.width = '0%';
+            status.classList.add('show');
+            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Converting... Please wait.';
+
+            try {
+                const zip = new JSZip();
+
+                for (let i = 0; i < pngJpgFiles.length; i++) {
+                    const file = pngJpgFiles[i];
+                    const arrayBuffer = await file.arrayBuffer();
+                    const blob = new Blob([arrayBuffer], { type: 'image/png' });
+                    const img = await createImageBitmap(blob);
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                    const jpgBlob = await fetch(dataUrl).then(res => res.blob());
+                    const name = file.name.replace(/\.png$/i, '.jpg');
+                    zip.file(name, jpgBlob);
+
+                    const pct = Math.round(((i + 1) / pngJpgFiles.length) * 100);
+                    progressFill.style.width = pct + '%';
+                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing ${i+1}/${pngJpgFiles.length}...`;
+                }
+
+                const zipBlob = await zip.generateAsync({ type: 'blob' });
+                const url = URL.createObjectURL(zipBlob);
+
+                resultArea.style.display = 'block';
+                document.getElementById('pngJpgDownloadLink').href = url;
+                document.getElementById('pngJpgFileSize').textContent = `File size: ${(zipBlob.size / 1024).toFixed(1)} KB`;
+                document.getElementById('pngJpgDownloadLink').onclick = function(e) {
+                    setTimeout(() => URL.revokeObjectURL(url), 5000);
+                };
+
+                progressFill.style.width = '100%';
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    status.classList.remove('show');
+                }, 500);
+                showToast('✅ Conversion completed!', 'success');
+            } catch (error) {
+                console.error(error);
+                status.innerHTML = '❌ Error converting. Please try again.';
+                status.style.color = 'var(--warning-red)';
+                showToast('Error converting.', 'error');
+                setTimeout(() => {
+                    status.classList.remove('show');
+                    progressBar.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // --- Delete PDF Page ---
+        let deletePdfFile = null;
+
+        function handleDeletePdf(event) {
+            const file = event.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                deletePdfFile = file;
+                document.getElementById('deletePdfFileName').textContent = file.name;
+                document.getElementById('deletePdfResult').style.display = 'none';
+                document.getElementById('deletePdfProgressBar').style.display = 'none';
+            } else {
+                showToast('Please select a valid PDF file.', 'error');
+                event.target.value = '';
+            }
+        }
+
+        function clearDeletePdf() {
+            deletePdfFile = null;
+            document.getElementById('deletePdfFileName').textContent = 'No file selected';
+            document.getElementById('deletePdfResult').style.display = 'none';
+            document.getElementById('deletePdfProgressBar').style.display = 'none';
+            document.getElementById('deletePdfStatus').classList.remove('show');
+            document.getElementById('deletePdfInput').value = '';
+            document.getElementById('deletePageNumber').value = '1';
+        }
+
+        async function deletePdfPage() {
+            if (!deletePdfFile) {
+                showToast('Please upload a PDF file first.', 'error');
+                return;
+            }
+            const pageNum = parseInt(document.getElementById('deletePageNumber').value);
+            if (pageNum < 1) {
+                showToast('Page number must be 1 or greater.', 'error');
+                return;
+            }
+
+            const progressBar = document.getElementById('deletePdfProgressBar');
+            const progressFill = document.getElementById('deletePdfProgressFill');
+            const status = document.getElementById('deletePdfStatus');
+            const resultArea = document.getElementById('deletePdfResult');
+
+            progressBar.style.display = 'block';
+            progressFill.style.width = '0%';
+            status.classList.add('show');
+            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Processing... Please wait.';
+
+            try {
+                const { PDFDocument } = PDFLib;
+                const arrayBuffer = await deletePdfFile.arrayBuffer();
+                const pdfDoc = await PDFDocument.load(arrayBuffer);
+                const totalPages = pdfDoc.getPageCount();
+
+                if (pageNum > totalPages) {
+                    showToast(`Page ${pageNum} does not exist. Total pages: ${totalPages}`, 'error');
+                    status.classList.remove('show');
+                    progressBar.style.display = 'none';
+                    return;
+                }
+
+                pdfDoc.removePage(pageNum - 1);
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+
+                resultArea.style.display = 'block';
+                document.getElementById('deletePdfDownloadLink').href = url;
+                document.getElementById('deletePdfFileSize').textContent = `File size: ${(blob.size / 1024).toFixed(1)} KB`;
+                document.getElementById('deletePdfDownloadLink').onclick = function(e) {
+                    setTimeout(() => URL.revokeObjectURL(url), 5000);
+                };
+
+                progressFill.style.width = '100%';
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    status.classList.remove('show');
+                }, 500);
+                showToast('✅ Page deleted successfully!', 'success');
+            } catch (error) {
+                console.error(error);
+                status.innerHTML = '❌ Error processing. Please try again.';
+                status.style.color = 'var(--warning-red)';
+                showToast('Error processing.', 'error');
+                setTimeout(() => {
+                    status.classList.remove('show');
+                    progressBar.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // --- Merge PDF ---
         let mergeFiles = [];
 
         function handleMergeFiles(event) {
@@ -4838,7 +5908,7 @@
             }
         }
 
-        // --- PDF to Excel (simplified) ---
+        // --- PDF to Excel ---
         let excelFile = null;
 
         function handleExcelFile(event) {
@@ -4863,10 +5933,7 @@
         }
 
         async function convertPDFtoExcel() {
-            if (!excelFile) {
-                showToast('Please upload a PDF file first.', 'error');
-                return;
-            }
+            if (!excelFile) { showToast('Please upload a PDF file first.', 'error'); return; }
             const progressBar = document.getElementById('excelProgressBar');
             const progressFill = document.getElementById('excelProgressFill');
             const status = document.getElementById('excelStatus');
@@ -4926,7 +5993,7 @@
             }
         }
 
-        // --- PDF to Word (simplified) ---
+        // --- PDF to Word ---
         let wordFile = null;
 
         function handleWordFile(event) {
@@ -4951,10 +6018,7 @@
         }
 
         async function convertPDFtoWord() {
-            if (!wordFile) {
-                showToast('Please upload a PDF file first.', 'error');
-                return;
-            }
+            if (!wordFile) { showToast('Please upload a PDF file first.', 'error'); return; }
             const progressBar = document.getElementById('wordProgressBar');
             const progressFill = document.getElementById('wordProgressFill');
             const status = document.getElementById('wordStatus');
@@ -5019,7 +6083,7 @@
             }
         }
 
-        // --- OCR functions (simplified) ---
+        // --- OCR functions ---
         function switchOCRtab(tabId) {
             document.querySelectorAll('.ocr-tabs button').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`.ocr-tabs button[data-tab="${tabId}"]`).classList.add('active');
@@ -5178,408 +6242,62 @@
             showToast('Cleared.', 'info');
         }
 
-        // --- Other admin functions ---
-        function openPageEditor(page) {
-            const content = page === 'home' ? (appData.home?.aboutText || '') : (appData[page]?.content || '');
-            const title = page === 'home' ? 'Home Page' : page.charAt(0).toUpperCase() + page.slice(1) + ' Page';
+        // --- Font Converter ---
+        function convertFonts() {
+            const input = document.getElementById('fontInput');
+            const output = document.getElementById('fontOutput');
+            const text = input.value;
+            if (!text) { showToast('Please enter some text in DevLys/Kruti font.', 'error'); return; }
+            output.value = devlysToUnicode(text);
+            showToast('✅ Font conversion successful!', 'success');
+        }
 
-            document.getElementById('adminModalTitle').textContent = `✏️ Edit ${title}`;
-            document.getElementById('adminModalBody').innerHTML = `
-                <div style="margin-bottom:12px;">
-                    <p style="font-size:13px;color:var(--text-light);">Use the toolbar below to format your content.</p>
-                </div>
-                <div id="editorContainer">
-                    <div id="editorToolbar"></div>
-                    <div class="editor-content" id="pageEditor" contenteditable="true">${content || ''}</div>
-                </div>
-                <div class="page-editor-area">
-                    <div class="editor-controls">
-                        <button class="btn-save-editor" onclick="savePageEditor('${page}')"><i class="fas fa-save"></i> Save Content</button>
-                        <button class="btn-cancel-editor" onclick="closeAdminModal()">Cancel</button>
-                        <button class="btn-preview" onclick="previewPageEditor('${page}')"><i class="fas fa-eye"></i> Preview</button>
-                        <button class="btn-fullscreen" onclick="toggleEditorFullscreen()"><i class="fas fa-expand"></i> Fullscreen</button>
-                    </div>
-                </div>
-                <input type="hidden" id="editorPage" value="${page}">
+        function copyFontOutput() {
+            const output = document.getElementById('fontOutput');
+            if (!output.value) { showToast('Nothing to copy. Convert text first.', 'error'); return; }
+            output.select();
+            navigator.clipboard.writeText(output.value).then(() => {
+                showToast('✅ Copied to clipboard!', 'success');
+            }).catch(() => {
+                document.execCommand('copy');
+                showToast('✅ Copied to clipboard!', 'success');
+            });
+        }
+
+        function clearFontConverter() {
+            document.getElementById('fontInput').value = '';
+            document.getElementById('fontOutput').value = '';
+            showToast('Cleared all fields.', 'info');
+        }
+
+        function previewFontOutput() {
+            const output = document.getElementById('fontOutput');
+            if (!output.value) { showToast('Convert text first.', 'error'); return; }
+            const previewOverlay = document.createElement('div');
+            previewOverlay.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.7); z-index: 9999;
+                display: flex; align-items: center; justify-content: center;
+                backdrop-filter: blur(5px);
             `;
-
-            document.getElementById('adminModalOverlay').classList.add('active');
-            const toolbarContainer = document.getElementById('editorToolbar');
-            const toolbar = createEditorToolbar('pageEditor', { showSource: true });
-            toolbarContainer.appendChild(toolbar);
-            setTimeout(() => { const editor = document.getElementById('pageEditor'); if (editor) editor.focus(); }, 100);
-        }
-
-        function savePageEditor(page) {
-            const editor = document.getElementById('pageEditor');
-            const content = editor.innerHTML;
-            if (page === 'home') {
-                if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
-                appData.home.aboutText = content;
-            } else {
-                if (!appData[page]) appData[page] = { content: '', items: [] };
-                appData[page].content = content;
-            }
-            saveToLocalStorage();
-            renderAllPages();
-            closeAdminModal();
-            showToast('✅ Page content saved!', 'success');
-            if (page === 'home') {
-                const container = document.getElementById('adminPageContent-home');
-                if (container) container.innerHTML = renderAdminHomeContent();
-            } else {
-                const container = document.getElementById(`adminPageContent-${page}`);
-                if (container) container.innerHTML = renderAdminPageContent(page);
-            }
-        }
-
-        function previewPageEditor(page) {
-            const editor = document.getElementById('pageEditor');
-            const content = editor.innerHTML;
-            const win = window.open('', '_blank', 'width=800,height=600,scrollbars=yes');
-            if (win) {
-                win.document.write(`
-                    <!DOCTYPE html>
-                    <html><head><title>Preview - ${page}</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; padding: 30px; max-width: 800px; margin: auto; line-height: 1.8; }
-                        img { max-width: 100%; }
-                        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
-                        table td, table th { border: 1px solid #ddd; padding: 8px 12px; }
-                        blockquote { border-left: 4px solid #1976d2; padding: 8px 16px; margin: 10px 0; background: #f5f5f5; }
-                        pre { background: #f5f5f5; padding: 12px; border-radius: 4px; overflow-x: auto; }
-                    </style>
-                    </head><body>
-                    <h2>📄 Preview: ${page.charAt(0).toUpperCase() + page.slice(1)} Page</h2>
-                    <div>${content}</div>
-                    <hr>
-                    <p style="color:#999;font-size:12px;">This is a preview. Close this window to return.</p>
-                    </body></html>
-                `);
-                win.document.close();
-            } else {
-                showToast('Please allow popups for preview', 'info');
-            }
-        }
-
-        function toggleEditorFullscreen() {
-            const modal = document.querySelector('#adminModalOverlay .admin-modal');
-            if (modal) {
-                modal.style.maxWidth = modal.style.maxWidth === '100%' ? '95%' : '100%';
-                modal.style.height = modal.style.height === '100vh' ? 'auto' : '100vh';
-                modal.style.maxHeight = modal.style.maxHeight === '100vh' ? '90vh' : '100vh';
-                modal.style.borderRadius = modal.style.borderRadius === '0' ? '12px' : '0';
-                const btn = document.querySelector('.btn-fullscreen i');
-                if (btn) {
-                    btn.classList.toggle('fa-expand');
-                    btn.classList.toggle('fa-compress');
-                }
-            }
-        }
-
-        function openItemEditor(page, index = null) {
-            const isEdit = index !== null;
-            const items = appData[page]?.items || [];
-            const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public', category: '' };
-
-            document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit ${page} Item` : `➕ Add ${page} Item`;
-
-            let categoryHtml = '';
-            if (page !== 'more') {
-                let catOptions = [];
-                if (page === 'study') {
-                    catOptions = ['Subject-wise notes', 'Practice sets with answer keys',
-                        'Previous year papers with detailed solutions', 'Revision notes for quick review'
-                    ];
-                } else if (page === 'career') {
-                    catOptions = ['Government Jobs', 'Banking', 'SSC', 'Railway', 'Defence', 'Police', 'Teaching',
-                        'Engineering', 'Medical', 'Management', 'Law', 'IT', 'UPSC', 'Private Jobs'
-                    ];
-                } else if (page === 'books') {
-                    catOptions = ['Competitive Exams', 'Rajasthan GK', 'General Knowledge', 'Motivation'];
-                } else if (page === 'blog') {
-                    catOptions = ['Technology', 'Business', 'Design', 'Lifestyle', 'Education', 'News', 'Portfolio'];
-                }
-                categoryHtml = `
-                    <div class="form-group">
-                        <label>Category *</label>
-                        <select id="itemCategory">
-                            <option value="">Select Category</option>
-                            ${catOptions.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
-                        </select>
-                    </div>
-                `;
-            }
-
-            document.getElementById('adminModalBody').innerHTML = `
-                <input type="hidden" id="itemPage" value="${page}">
-                <input type="hidden" id="itemIndex" value="${isEdit ? index : -1}">
-                <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${item.title || ''}"></div>
-                ${categoryHtml}
-                <div class="form-group">
-                    <label>Description (Rich Text)</label>
-                    <div id="itemDescContainer">
-                        <div id="itemDescToolbar"></div>
-                        <div class="editor-content" id="itemDescription" contenteditable="true" style="min-height:150px;">${item.description || ''}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Visibility</label>
-                    <select id="itemVisibility">
-                        <option value="public" ${item.visibility === 'public' ? 'selected' : ''}>🌐 Public</option>
-                        <option value="private" ${item.visibility === 'private' ? 'selected' : ''}>🔒 Private</option>
-                    </select>
-                </div>
-                <button class="btn-submit" onclick="saveItem()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
-                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            const previewBox = document.createElement('div');
+            previewBox.style.cssText = `
+                background: #fff; padding: 30px; border-radius: 12px;
+                max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                font-family: 'Mangal', 'Arial Unicode MS', sans-serif;
+                font-size: 18px; line-height: 1.8; color: #333;
             `;
-
-            document.getElementById('adminModalOverlay').classList.add('active');
-            setTimeout(() => {
-                const toolbarContainer = document.getElementById('itemDescToolbar');
-                const toolbar = createEditorToolbar('itemDescription', { showSource: true });
-                toolbarContainer.appendChild(toolbar);
-                const editor = document.getElementById('itemDescription');
-                if (editor) editor.focus();
-            }, 50);
+            previewBox.innerHTML =
+                `<h3 style="margin-top:0;color:#123c9b;">📄 Preview Output</h3><p>${output.value.replace(/\n/g, '<br>')}</p><button onclick="this.closest('div[style]').remove()" style="padding:8px 20px;background:#dc3545;color:#fff;border:none;border-radius:6px;cursor:pointer;margin-top:15px;">Close Preview</button>`;
+            previewOverlay.appendChild(previewBox);
+            previewOverlay.onclick = function(e) { if (e.target === this) this.remove(); };
+            document.body.appendChild(previewOverlay);
         }
 
-        function saveItem() {
-            const page = document.getElementById('itemPage').value;
-            const index = parseInt(document.getElementById('itemIndex').value);
-            const title = document.getElementById('itemTitle').value.trim();
-            const editor = document.getElementById('itemDescription');
-            const description = editor ? editor.innerHTML : '';
-            const visibility = document.getElementById('itemVisibility').value;
-            let category = '';
-            if (page !== 'more') {
-                category = document.getElementById('itemCategory').value;
-                if (!category) { showToast('Please select a Category!', 'error'); return; }
-            }
-            if (!title) { showToast('Title is required!', 'error'); return; }
-            if (!appData[page]) appData[page] = { content: '', items: [] };
-            if (!appData[page].items) appData[page].items = [];
-            const item = { id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5), title, description,
-                visibility };
-            if (page !== 'more') item.category = category;
-            if (index >= 0 && index < appData[page].items.length) {
-                appData[page].items[index] = { ...appData[page].items[index], ...item };
-                showToast('✅ Item updated!', 'success');
-            } else {
-                appData[page].items.push(item);
-                showToast('✅ Item added!', 'success');
-            }
-            saveToLocalStorage();
-            renderAllPages();
-            closeAdminModal();
-            showAdminPage(`items-${page}`);
-        }
-
-        function deleteItem(page, index) {
-            if (!confirm(`Delete this item from ${page}?`)) return;
-            if (appData[page] && appData[page].items) {
-                appData[page].items.splice(index, 1);
-                saveToLocalStorage();
-                renderAllPages();
-                showAdminPage(`items-${page}`);
-                showToast('🗑️ Item deleted!', 'warning');
-            }
-        }
-
-        function openEmployeeModal(index = null) {
-            const isEdit = index !== null;
-            const employees = appData.employees || [];
-            const emp = isEdit ? employees[index] : { name: '', email: '', access: [] };
-            const allPages = ['study', 'career', 'books', 'more', 'blog'];
-
-            document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Employee' : '👤 Add Employee';
-            document.getElementById('adminModalBody').innerHTML = `
-                <input type="hidden" id="empIndex" value="${isEdit ? index : -1}">
-                <div class="form-group"><label>Employee Name *</label><input type="text" id="empName" value="${emp.name || ''}"></div>
-                <div class="form-group"><label>Employee Code / Email *</label><input type="text" id="empCode" value="${emp.email || ''}" placeholder="Unique code for login"></div>
-                <div class="form-group"><label>Access Pages (Select multiple)</label>
-                    <div style="display:flex;flex-wrap:wrap;gap:8px;padding:8px 0;">
-                        ${allPages.map(p => `
-                            <label style="display:flex;align-items:center;gap:4px;font-size:13px;cursor:pointer;">
-                                <input type="checkbox" ${(emp.access || []).includes(p) ? 'checked' : ''} value="${p}" class="empAccessCheck"> ${p.charAt(0).toUpperCase() + p.slice(1)}
-                            </label>
-                        `).join('')}
-                    </div>
-                </div>
-                <button class="btn-submit" onclick="saveEmployee()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
-                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-            `;
-            document.getElementById('adminModalOverlay').classList.add('active');
-        }
-
-        function saveEmployee() {
-            const index = parseInt(document.getElementById('empIndex').value);
-            const name = document.getElementById('empName').value.trim();
-            const email = document.getElementById('empCode').value.trim();
-            const access = [];
-            document.querySelectorAll('.empAccessCheck:checked').forEach(cb => access.push(cb.value));
-            if (!name || !email) { showToast('Name and Code are required!', 'error'); return; }
-            if (access.length === 0) { showToast('Select at least one page access!', 'error'); return; }
-            const emp = { id: email, name, email, access };
-            if (!appData.employees) appData.employees = [];
-            if (index >= 0 && index < appData.employees.length) {
-                appData.employees[index] = emp;
-                showToast('✅ Employee updated!', 'success');
-            } else {
-                appData.employees.push(emp);
-                showToast('✅ Employee added!', 'success');
-            }
-            saveToLocalStorage();
-            closeAdminModal();
-            showAdminPage('employees');
-        }
-
-        function deleteEmployee(index) {
-            if (!confirm('Delete this employee?')) return;
-            if (appData.employees) {
-                appData.employees.splice(index, 1);
-                saveToLocalStorage();
-                showAdminPage('employees');
-                showToast('🗑️ Employee deleted!', 'warning');
-            }
-        }
-
-        // --- Sync, Export, Reset ---
-        async function loadFromGoogleSheets() {
-            showToast('🔄 Loading from Google Sheets (demo)...', 'info');
-            loadFromLocalStorage();
-            renderAllPages();
-            updateJobsUI();
-            renderSocialLinks();
-            updatePageTaglines();
-            updateLogo();
-            showToast('✅ Data loaded from local storage (Google Sheets demo).', 'success');
-            return true;
-        }
-
-        async function syncWithGoogleSheets() {
-            showToast('🔄 Syncing (demo)...', 'info');
-            saveToLocalStorage();
-            showToast('✅ Data synced locally. Google Sheets integration requires OAuth.', 'success');
-        }
-
-        function exportCSV() {
-            if (!jobsData.length) { showToast('No data!', 'warning'); return; }
-            const headers = ['ID', 'Title', 'Job Type', 'Sub Category', 'Department', 'Post', 'Eligibility', 'Age',
-                'Last Date', 'Experience', 'Description', 'Website', 'Apply Link', 'Visibility'
-            ];
-            const rows = jobsData.map(j => [j.id || '', j.title || '', j.jobType || '', j.subCat || '', j.department || '',
-                    j.post || '', j.eligibility || '', j.age || '', j.lastDate || '', j.experience || '',
-                    j.description || '', j.website || '', j.applyLink || '', j.visibility || 'public'
-                ].map(escapeCSV));
-            const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-            download(csv, 'dreamjosh_jobs.csv', 'text/csv');
-            showToast('📥 CSV exported!', 'success');
-        }
-
-        function exportAdminData() {
-            const fullData = { appData, jobs: jobsData };
-            const blob = new Blob([JSON.stringify(fullData, null, 2)], { type: 'application/json' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'dreamjosh_backup_' + new Date().toISOString().slice(0, 10) + '.json';
-            a.click();
-            showToast('📥 Backup downloaded!', 'success');
-        }
-
-        function resetAllData() {
-            if (!confirm('⚠️ This will reset ALL data to default! Are you sure?')) return;
-            if (!confirm('⚠️ LAST WARNING: All your custom data will be lost!')) return;
-            appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-            jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
-            saveToLocalStorage();
-            renderAllPages();
-            updateJobsUI();
-            showToast('🔄 All data reset to default!', 'warning');
-            closeAdminPanel();
-        }
-
-        function changeAdminPassword() {
-            const newPass = document.getElementById('adminNewPass').value;
-            const confirmPass = document.getElementById('adminConfirmPass').value;
-            if (!newPass || newPass.length < 6) { showToast('Min 6 characters!', 'error'); return; }
-            if (newPass !== confirmPass) { showToast('Passwords do not match!', 'error'); return; }
-            localStorage.setItem('dreamjosh_admin_pass', newPass);
-            showToast('✅ Password updated!', 'success');
-            document.getElementById('adminNewPass').value = '';
-            document.getElementById('adminConfirmPass').value = '';
-        }
-
-        function escapeCSV(str) { if (!str) return ''; str = String(str); if (str.includes(',') || str.includes('"') || str
-                .includes('\n')) return '"' + str.replace(/"/g, '""') + '"'; return str; }
-
-        function download(content, filename, mime) {
-            const blob = new Blob(['\uFEFF' + content], { type: mime + ';charset=utf-8;' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(a.href);
-        }
-
-        // --- Logo handlers ---
-        let logoFileData = null;
-
-        function handleLogoUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    logoFileData = e.target.result;
-                    const preview = document.getElementById('logoPreview');
-                    preview.innerHTML =
-                        `<img src="${logoFileData}" style="max-height:80px;border-radius:4px;border:1px solid var(--border-color);">`;
-                    showToast('Logo loaded. Click "Upload Logo" to save.', 'info');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function uploadLogo() {
-            if (!logoFileData) { showToast('Please select a logo image first.', 'error'); return; }
-            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
-            appData.home.logo = logoFileData;
-            saveToLocalStorage();
-            updateLogo();
-            showToast('✅ Logo updated successfully!', 'success');
-            showAdminPage('settings');
-        }
-
-        function removeLogo() {
-            if (!confirm('Remove logo?')) return;
-            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
-            appData.home.logo = '';
-            logoFileData = null;
-            document.getElementById('logoPreview').innerHTML = '';
-            document.getElementById('logoFileInput').value = '';
-            saveToLocalStorage();
-            updateLogo();
-            showToast('🗑️ Logo removed.', 'warning');
-            showAdminPage('settings');
-        }
-
-        function saveTaglines() {
-            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
-            if (!appData.home.pageTaglines) appData.home.pageTaglines = { ...DEFAULT_DATA.home.pageTaglines };
-            appData.home.pageTaglines.study = document.getElementById('taglineStudy').value.trim();
-            appData.home.pageTaglines.career = document.getElementById('taglineCareer').value.trim();
-            appData.home.pageTaglines.books = document.getElementById('taglineBooks').value.trim();
-            appData.home.pageTaglines.more = document.getElementById('taglineMore').value.trim();
-            appData.home.pageTaglines.blog = document.getElementById('taglineBlog').value.trim();
-            saveToLocalStorage();
-            updatePageTaglines();
-            showToast('✅ Taglines updated!', 'success');
-            showAdminPage('settings');
-        }
-
-        // --- Init ---
+        // ============================================================
+        // INIT
+        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             loadFromLocalStorage();
             renderAllPages();
@@ -5589,16 +6307,16 @@
             updateLogo();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private')
                 .length;
-            console.log('🚀 Dream Josh – All Features with Services Section');
-            switchTool('pdf-merge');
-            // Ensure services section is hidden initially
+            console.log('🚀 Dream Josh – All PDF & Image Tools in More Section');
+            switchTool('jpg-pdf');
             document.getElementById('services').classList.remove('active');
-            // Set default active section
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('home').classList.add('active');
         });
 
-        // --- Expose all functions to global scope ---
+        // ============================================================
+        // EXPOSE TO GLOBAL
+        // ============================================================
         window.showSection = showSection;
         window.toggleDropdownMobile = toggleDropdownMobile;
         window.closeDropdownMobile = closeDropdownMobile;
@@ -5667,8 +6385,25 @@
         window.uploadLogo = uploadLogo;
         window.removeLogo = removeLogo;
         window.saveTaglines = saveTaglines;
+        window.handleJpgToPdf = handleJpgToPdf;
+        window.removeJpgPdfFile = removeJpgPdfFile;
+        window.clearJpgPdf = clearJpgPdf;
+        window.convertJpgToPdf = convertJpgToPdf;
+        window.handlePdfToJpg = handlePdfToJpg;
+        window.clearPdfJpg = clearPdfJpg;
+        window.convertPdfToJpg = convertPdfToJpg;
+        window.handlePngToPdf = handlePngToPdf;
+        window.removePngPdfFile = removePngPdfFile;
+        window.clearPngPdf = clearPngPdf;
+        window.convertPngToPdf = convertPngToPdf;
+        window.handlePngToJpg = handlePngToJpg;
+        window.removePngJpgFile = removePngJpgFile;
+        window.clearPngJpg = clearPngJpg;
+        window.convertPngToJpg = convertPngToJpg;
+        window.handleDeletePdf = handleDeletePdf;
+        window.clearDeletePdf = clearDeletePdf;
+        window.deletePdfPage = deletePdfPage;
 
-        // Set PDF.js worker
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     </script>
 
