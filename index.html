@@ -2491,6 +2491,23 @@
             font-weight: 700;
         }
 
+        /* Service Links */
+        .service-link {
+            display: inline-block;
+            padding: 2px 10px;
+            background: var(--secondary-blue);
+            color: #fff;
+            border-radius: 4px;
+            font-size: 10px;
+            text-decoration: none;
+            margin-left: 8px;
+            transition: 0.3s;
+        }
+        .service-link:hover {
+            background: var(--primary-blue);
+            transform: scale(1.05);
+        }
+
         @media (max-width: 640px) {
             .services-grid {
                 grid-template-columns: 1fr 1fr;
@@ -2553,42 +2570,29 @@
                 </div>
             </div>
 
-            <div class="dropdown-wrapper" id="studyDropdown">
-                <button class="dropdown-btn" onclick="toggleDropdownMobile('study')">📚 Study <span class="arrow">▾</span></button>
-                <div class="dropdown-content" id="studyDropdownContent">
-                    <div class="dropdown-label">📖 Study Materials</div>
-                    <button onclick="showSection('study'); filterGenericCategory('study', 'all'); closeDropdownMobile('study');">📝 All Study Notes</button>
-                    <div class="dropdown-divider"></div>
-                    <button onclick="showSection('study'); filterGenericCategory('study', 'Subject-wise notes'); closeDropdownMobile('study');">📚 Subject-wise notes</button>
-                    <button onclick="showSection('study'); filterGenericCategory('study', 'Practice sets with answer keys'); closeDropdownMobile('study');">📄 Practice sets</button>
-                    <button onclick="showSection('study'); filterGenericCategory('study', 'Previous year papers with detailed solutions'); closeDropdownMobile('study');">📑 Previous Year Papers</button>
-                    <button onclick="showSection('study'); filterGenericCategory('study', 'Revision notes for quick review'); closeDropdownMobile('study');">🔁 Revision notes</button>
-                </div>
-            </div>
-
-            <div class="dropdown-wrapper" id="booksDropdown">
-                <button class="dropdown-btn" onclick="toggleDropdownMobile('books')">📖 Books <span class="arrow">▾</span></button>
-                <div class="dropdown-content" id="booksDropdownContent">
-                    <div class="dropdown-label">📚 Book Categories</div>
-                    <button onclick="showSection('books'); filterGenericCategory('books', 'all'); closeDropdownMobile('books');">📚 All Books</button>
-                    <div class="dropdown-divider"></div>
-                    <button onclick="showSection('books'); filterGenericCategory('books', 'Competitive Exams'); closeDropdownMobile('books');">🏛️ Competitive Exams</button>
-                    <button onclick="showSection('books'); filterGenericCategory('books', 'Rajasthan GK'); closeDropdownMobile('books');">🏜️ Rajasthan GK</button>
-                    <button onclick="showSection('books'); filterGenericCategory('books', 'General Knowledge'); closeDropdownMobile('books');">🧠 General Knowledge</button>
-                    <button onclick="showSection('books'); filterGenericCategory('books', 'Motivation'); closeDropdownMobile('books');">🔥 Motivation</button>
-                </div>
-            </div>
-
             <div class="dropdown-wrapper" id="moreDropdown">
                 <button class="dropdown-btn" onclick="toggleDropdownMobile('more')">⚙️ More <span class="arrow">▾</span></button>
                 <div class="dropdown-content" id="moreDropdownContent">
-                    <div class="dropdown-label">⚡ More Features</div>
+                    <div class="dropdown-label">📚 Study & Books</div>
+                    <button onclick="showSection('more'); filterGenericCategory('more', 'all'); closeDropdownMobile('more');">📚 All Study & Books</button>
+                    <button onclick="showSection('more'); filterGenericCategory('more', 'Study'); closeDropdownMobile('more');">📝 Study Materials</button>
+                    <button onclick="showSection('more'); filterGenericCategory('more', 'Books'); closeDropdownMobile('more');">📖 Books</button>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-label">⚡ Tools</div>
                     <button onclick="showSection('more'); closeDropdownMobile('more');">📄 PDF Tools</button>
                     <button onclick="showSection('more'); closeDropdownMobile('more');">🎨 Gallery</button>
-                    <button onclick="showSection('more'); closeDropdownMobile('more');">🎥 Videos</button>
                     <button onclick="showSection('more'); closeDropdownMobile('more');">💪 Motivation</button>
-                    <button onclick="showSection('more'); closeDropdownMobile('more');">📋 All Features</button>
-                    <button onclick="showSection('services'); closeDropdownMobile('more');" style="color:var(--gold);">✨ Services</button>
+                </div>
+            </div>
+
+            <div class="dropdown-wrapper" id="serviceDropdown">
+                <button class="dropdown-btn" onclick="toggleDropdownMobile('service')">🛠️ Services <span class="arrow">▾</span></button>
+                <div class="dropdown-content" id="serviceDropdownContent">
+                    <div class="dropdown-label">🛠️ Services</div>
+                    <button onclick="showSection('service'); filterServiceCategory('all'); closeDropdownMobile('service');">📋 All Services</button>
+                    <button onclick="showSection('service'); filterServiceCategory('government'); closeDropdownMobile('service');">🏛️ Government</button>
+                    <button onclick="showSection('service'); filterServiceCategory('private'); closeDropdownMobile('service');">💼 Private</button>
+                    <button onclick="showSection('service'); filterServiceCategory('education'); closeDropdownMobile('service');">📚 Education</button>
                 </div>
             </div>
 
@@ -2704,21 +2708,6 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: STUDY ================= -->
-        <section class="section" id="study">
-            <div class="page-ticker" id="studyTicker"><span id="studyTickerText">📚 Study Materials • Complete Notes • Practice Sets • Previous Papers • Revision Notes</span></div>
-            <div class="section-header">
-                <h2>📚 <span>Study Notes</span></h2>
-                <div id="studySubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('study', 'all')">📌 All</button>
-                </div>
-            </div>
-            <div id="studyContent" class="page-content-display"></div>
-            <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
-                <i class="fas fa-info-circle"></i> Study Items are managed from Admin Panel → Study Items
-            </div>
-        </section>
-
         <!-- ================= SECTION: CAREER ================= -->
         <section class="section" id="career">
             <div class="page-ticker" id="careerTicker"><span id="careerTickerText">🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs</span></div>
@@ -2734,367 +2723,361 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: BOOKS ================= -->
-        <section class="section" id="books">
-            <div class="page-ticker" id="booksTicker"><span id="booksTickerText">📖 Recommended Books • Competitive Exams • Rajasthan GK • General Knowledge • Motivation</span></div>
-            <div class="section-header">
-                <h2>📖 <span>Books</span></h2>
-                <div id="booksSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('books', 'all')">📌 All</button>
-                </div>
-            </div>
-            <div id="booksContent" class="page-content-display"></div>
-            <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
-                <i class="fas fa-info-circle"></i> Books Items are managed from Admin Panel → Books Items
-            </div>
-        </section>
-
-        <!-- ================= SECTION: MORE (UPDATED WITH ALL TOOLS) ================= -->
+        <!-- ================= SECTION: MORE (Study + Books + Tools) ================= -->
         <section class="section" id="more">
-            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">⚙️ PDF & Image Tools • JPG to PDF • PDF to JPG • PNG to PDF • PNG to JPG • Delete PDF Page • Merge PDF • PDF to Excel • PDF to Word • OCR • Font Converter</span></div>
+            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">📚 Study Materials • Books • PDF Tools • JPG to PDF • PDF to JPG • PNG to PDF • PNG to JPG • Delete PDF Page • Merge PDF • PDF to Excel • PDF to Word • OCR • Font Converter</span></div>
             <div class="section-header">
-                <h2>⚙️ <span>PDF & Image Tools</span></h2>
+                <h2>📚 <span>Study & Books</span></h2>
+                <div id="moreSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
+                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('more', 'all')">📌 All</button>
+                    <button class="sub-btn" data-sub="Study" onclick="filterGenericCategory('more', 'Study')">📝 Study</button>
+                    <button class="sub-btn" data-sub="Books" onclick="filterGenericCategory('more', 'Books')">📖 Books</button>
+                </div>
             </div>
+            <div id="moreContent" class="page-content-display"></div>
 
-            <!-- TOOLS SECTION -->
-            <div class="tools-container">
-                <!-- Tools List -->
-                <div class="tools-list">
-                    <button class="tool-btn active" data-tool="jpg-pdf" onclick="switchTool('jpg-pdf')">
-                        <i class="fas fa-file-image"></i> JPG to PDF
-                    </button>
-                    <button class="tool-btn" data-tool="pdf-jpg" onclick="switchTool('pdf-jpg')">
-                        <i class="fas fa-file-pdf"></i> PDF to JPG
-                    </button>
-                    <button class="tool-btn" data-tool="png-pdf" onclick="switchTool('png-pdf')">
-                        <i class="fas fa-file-image"></i> PNG to PDF
-                    </button>
-                    <button class="tool-btn" data-tool="png-jpg" onclick="switchTool('png-jpg')">
-                        <i class="fas fa-file-image"></i> PNG to JPG
-                    </button>
-                    <button class="tool-btn" data-tool="delete-pdf" onclick="switchTool('delete-pdf')">
-                        <i class="fas fa-trash-alt"></i> Delete PDF Page
-                    </button>
-                    <button class="tool-btn" data-tool="pdf-merge" onclick="switchTool('pdf-merge')">
-                        <i class="fas fa-object-group"></i> Merge PDF
-                    </button>
-                    <button class="tool-btn" data-tool="pdf-excel" onclick="switchTool('pdf-excel')">
-                        <i class="fas fa-file-excel"></i> PDF to Excel
-                    </button>
-                    <button class="tool-btn" data-tool="pdf-word" onclick="switchTool('pdf-word')">
-                        <i class="fas fa-file-word"></i> PDF to Word
-                    </button>
-                    <button class="tool-btn" data-tool="ocr" onclick="switchTool('ocr')">
-                        <i class="fas fa-eye"></i> PDF/Image to Text (OCR)
-                    </button>
-                    <button class="tool-btn" data-tool="font-converter" onclick="switchTool('font-converter')">
-                        <i class="fas fa-language"></i> Font Converter
-                    </button>
-                </div>
-
-                <!-- Tool: JPG to PDF -->
-                <div class="tool-content active" id="tool-jpg-pdf">
-                    <div class="pdf-tool-card">
-                        <div class="tool-header">
-                            <i class="fas fa-file-image"></i>
-                            <h4>JPG to PDF Converter</h4>
-                            <span class="badge-tool">Free</span>
-                        </div>
-                        <div class="upload-area" onclick="document.getElementById('jpgPdfInput').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select JPG images to convert</p>
-                            <div class="file-name" id="jpgPdfFileName">No files selected</div>
-                            <input type="file" id="jpgPdfInput" accept="image/*" multiple style="display:none" onchange="handleJpgToPdf(event)">
-                        </div>
-                        <div class="file-list" id="jpgPdfFileList"></div>
-                        <div class="action-buttons">
-                            <button class="btn-primary" onclick="convertJpgToPdf()"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
-                            <button class="btn-danger" onclick="clearJpgPdf()"><i class="fas fa-trash"></i> Clear All</button>
-                        </div>
-                        <div class="progress-bar" id="jpgPdfProgressBar"><div class="progress-fill" id="jpgPdfProgressFill"></div></div>
-                        <div class="status-text" id="jpgPdfStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                        <div class="result-area" id="jpgPdfResult">
-                            <a href="#" class="download-link" id="jpgPdfDownloadLink" download="converted.pdf"><i class="fas fa-download"></i> Download PDF</a>
-                            <div class="file-size" id="jpgPdfFileSize"></div>
-                        </div>
+            <!-- Tools Section -->
+            <div style="margin-top:30px;border-top:2px solid var(--border-color);padding-top:20px;">
+                <h3 style="color:var(--primary-blue);margin-bottom:15px;">⚙️ PDF & Image Tools</h3>
+                
+                <div class="tools-container">
+                    <div class="tools-list">
+                        <button class="tool-btn active" data-tool="jpg-pdf" onclick="switchTool('jpg-pdf')">
+                            <i class="fas fa-file-image"></i> JPG to PDF
+                        </button>
+                        <button class="tool-btn" data-tool="pdf-jpg" onclick="switchTool('pdf-jpg')">
+                            <i class="fas fa-file-pdf"></i> PDF to JPG
+                        </button>
+                        <button class="tool-btn" data-tool="png-pdf" onclick="switchTool('png-pdf')">
+                            <i class="fas fa-file-image"></i> PNG to PDF
+                        </button>
+                        <button class="tool-btn" data-tool="png-jpg" onclick="switchTool('png-jpg')">
+                            <i class="fas fa-file-image"></i> PNG to JPG
+                        </button>
+                        <button class="tool-btn" data-tool="delete-pdf" onclick="switchTool('delete-pdf')">
+                            <i class="fas fa-trash-alt"></i> Delete PDF Page
+                        </button>
+                        <button class="tool-btn" data-tool="pdf-merge" onclick="switchTool('pdf-merge')">
+                            <i class="fas fa-object-group"></i> Merge PDF
+                        </button>
+                        <button class="tool-btn" data-tool="pdf-excel" onclick="switchTool('pdf-excel')">
+                            <i class="fas fa-file-excel"></i> PDF to Excel
+                        </button>
+                        <button class="tool-btn" data-tool="pdf-word" onclick="switchTool('pdf-word')">
+                            <i class="fas fa-file-word"></i> PDF to Word
+                        </button>
+                        <button class="tool-btn" data-tool="ocr" onclick="switchTool('ocr')">
+                            <i class="fas fa-eye"></i> PDF/Image to Text (OCR)
+                        </button>
+                        <button class="tool-btn" data-tool="font-converter" onclick="switchTool('font-converter')">
+                            <i class="fas fa-language"></i> Font Converter
+                        </button>
                     </div>
-                </div>
 
-                <!-- Tool: PDF to JPG -->
-                <div class="tool-content" id="tool-pdf-jpg">
-                    <div class="pdf-tool-card">
-                        <div class="tool-header">
-                            <i class="fas fa-file-pdf"></i>
-                            <h4>PDF to JPG Converter</h4>
-                            <span class="badge-tool">Free</span>
-                        </div>
-                        <div class="upload-area" onclick="document.getElementById('pdfJpgInput').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to upload a PDF file</p>
-                            <div class="file-name" id="pdfJpgFileName">No file selected</div>
-                            <input type="file" id="pdfJpgInput" accept=".pdf" style="display:none" onchange="handlePdfToJpg(event)">
-                        </div>
-                        <div class="action-buttons">
-                            <button class="btn-primary" onclick="convertPdfToJpg()"><i class="fas fa-file-image"></i> Convert to JPG</button>
-                            <button class="btn-danger" onclick="clearPdfJpg()"><i class="fas fa-trash"></i> Clear</button>
-                        </div>
-                        <div class="progress-bar" id="pdfJpgProgressBar"><div class="progress-fill" id="pdfJpgProgressFill"></div></div>
-                        <div class="status-text" id="pdfJpgStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                        <div class="result-area" id="pdfJpgResult">
-                            <a href="#" class="download-link" id="pdfJpgDownloadLink" download="images.zip"><i class="fas fa-download"></i> Download JPG (ZIP)</a>
-                            <div class="file-size" id="pdfJpgFileSize"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tool: PNG to PDF -->
-                <div class="tool-content" id="tool-png-pdf">
-                    <div class="pdf-tool-card">
-                        <div class="tool-header">
-                            <i class="fas fa-file-image"></i>
-                            <h4>PNG to PDF Converter</h4>
-                            <span class="badge-tool">Free</span>
-                        </div>
-                        <div class="upload-area" onclick="document.getElementById('pngPdfInput').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select PNG images to convert</p>
-                            <div class="file-name" id="pngPdfFileName">No files selected</div>
-                            <input type="file" id="pngPdfInput" accept="image/png" multiple style="display:none" onchange="handlePngToPdf(event)">
-                        </div>
-                        <div class="file-list" id="pngPdfFileList"></div>
-                        <div class="action-buttons">
-                            <button class="btn-primary" onclick="convertPngToPdf()"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
-                            <button class="btn-danger" onclick="clearPngPdf()"><i class="fas fa-trash"></i> Clear All</button>
-                        </div>
-                        <div class="progress-bar" id="pngPdfProgressBar"><div class="progress-fill" id="pngPdfProgressFill"></div></div>
-                        <div class="status-text" id="pngPdfStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                        <div class="result-area" id="pngPdfResult">
-                            <a href="#" class="download-link" id="pngPdfDownloadLink" download="converted.pdf"><i class="fas fa-download"></i> Download PDF</a>
-                            <div class="file-size" id="pngPdfFileSize"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tool: PNG to JPG -->
-                <div class="tool-content" id="tool-png-jpg">
-                    <div class="pdf-tool-card">
-                        <div class="tool-header">
-                            <i class="fas fa-file-image"></i>
-                            <h4>PNG to JPG Converter</h4>
-                            <span class="badge-tool">Free</span>
-                        </div>
-                        <div class="upload-area" onclick="document.getElementById('pngJpgInput').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select PNG images to convert</p>
-                            <div class="file-name" id="pngJpgFileName">No files selected</div>
-                            <input type="file" id="pngJpgInput" accept="image/png" multiple style="display:none" onchange="handlePngToJpg(event)">
-                        </div>
-                        <div class="file-list" id="pngJpgFileList"></div>
-                        <div class="action-buttons">
-                            <button class="btn-primary" onclick="convertPngToJpg()"><i class="fas fa-file-image"></i> Convert to JPG</button>
-                            <button class="btn-danger" onclick="clearPngJpg()"><i class="fas fa-trash"></i> Clear All</button>
-                        </div>
-                        <div class="progress-bar" id="pngJpgProgressBar"><div class="progress-fill" id="pngJpgProgressFill"></div></div>
-                        <div class="status-text" id="pngJpgStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                        <div class="result-area" id="pngJpgResult">
-                            <a href="#" class="download-link" id="pngJpgDownloadLink" download="images.zip"><i class="fas fa-download"></i> Download JPG (ZIP)</a>
-                            <div class="file-size" id="pngJpgFileSize"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tool: Delete PDF Page -->
-                <div class="tool-content" id="tool-delete-pdf">
-                    <div class="pdf-tool-card">
-                        <div class="tool-header">
-                            <i class="fas fa-trash-alt"></i>
-                            <h4>Delete PDF Page</h4>
-                            <span class="badge-tool">Free</span>
-                        </div>
-                        <div class="upload-area" onclick="document.getElementById('deletePdfInput').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to upload a PDF file</p>
-                            <div class="file-name" id="deletePdfFileName">No file selected</div>
-                            <input type="file" id="deletePdfInput" accept=".pdf" style="display:none" onchange="handleDeletePdf(event)">
-                        </div>
-                        <div class="form-group" style="margin:12px 0;">
-                            <label>Page Number to Delete (1-based):</label>
-                            <input type="number" id="deletePageNumber" min="1" value="1" style="width:100px;padding:6px;border:2px solid var(--border-color);border-radius:6px;">
-                        </div>
-                        <div class="action-buttons">
-                            <button class="btn-danger" onclick="deletePdfPage()"><i class="fas fa-trash-alt"></i> Delete Page</button>
-                            <button class="btn-secondary" onclick="clearDeletePdf()"><i class="fas fa-trash"></i> Clear</button>
-                        </div>
-                        <div class="progress-bar" id="deletePdfProgressBar"><div class="progress-fill" id="deletePdfProgressFill"></div></div>
-                        <div class="status-text" id="deletePdfStatus"><i class="fas fa-spinner spinner"></i> Processing... Please wait.</div>
-                        <div class="result-area" id="deletePdfResult">
-                            <a href="#" class="download-link" id="deletePdfDownloadLink" download="deleted.pdf"><i class="fas fa-download"></i> Download PDF</a>
-                            <div class="file-size" id="deletePdfFileSize"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tool: PDF Merge -->
-                <div class="tool-content" id="tool-pdf-merge">
-                    <div class="pdf-tool-card">
-                        <div class="tool-header">
-                            <i class="fas fa-object-group"></i>
-                            <h4>PDF Merge – Combine PDFs</h4>
-                            <span class="badge-tool">Free</span>
-                        </div>
-                        <div class="upload-area" onclick="document.getElementById('mergeFileInput').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select PDF files to merge</p>
-                            <div class="file-name" id="mergeFileName">No files selected</div>
-                            <input type="file" id="mergeFileInput" accept=".pdf" multiple style="display:none" onchange="handleMergeFiles(event)">
-                        </div>
-                        <div class="file-list" id="mergeFileList"></div>
-                        <div class="action-buttons">
-                            <button class="btn-primary" onclick="mergePDFs()"><i class="fas fa-object-group"></i> Merge PDFs</button>
-                            <button class="btn-danger" onclick="clearMergeFiles()"><i class="fas fa-trash"></i> Clear All</button>
-                        </div>
-                        <div class="progress-bar" id="mergeProgressBar"><div class="progress-fill" id="mergeProgressFill"></div></div>
-                        <div class="status-text" id="mergeStatus"><i class="fas fa-spinner spinner"></i> Merging... Please wait.</div>
-                        <div class="result-area" id="mergeResult">
-                            <a href="#" class="download-link" id="mergeDownloadLink" download="merged.pdf"><i class="fas fa-download"></i> Download Merged PDF</a>
-                            <div class="file-size" id="mergeFileSize"></div>
-                            <button class="preview-btn" onclick="previewMergeResult()"><i class="fas fa-eye"></i> Preview</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tool: PDF to Excel -->
-                <div class="tool-content" id="tool-pdf-excel">
-                    <div class="pdf-tool-card">
-                        <div class="tool-header">
-                            <i class="fas fa-file-excel"></i>
-                            <h4>PDF to Excel Converter</h4>
-                            <span class="badge-tool">Free</span>
-                        </div>
-                        <div class="upload-area" onclick="document.getElementById('excelFileInput').click()">
-                            <i class="fas fa-file-pdf"></i>
-                            <p>Click to upload a PDF file</p>
-                            <div class="file-name" id="excelFileName">No file selected</div>
-                            <input type="file" id="excelFileInput" accept=".pdf" style="display:none" onchange="handleExcelFile(event)">
-                        </div>
-                        <div class="action-buttons">
-                            <button class="btn-success" onclick="convertPDFtoExcel()"><i class="fas fa-file-excel"></i> Convert to Excel</button>
-                            <button class="btn-danger" onclick="clearExcelFile()"><i class="fas fa-trash"></i> Clear</button>
-                        </div>
-                        <div class="progress-bar" id="excelProgressBar"><div class="progress-fill" id="excelProgressFill"></div></div>
-                        <div class="status-text" id="excelStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                        <div class="result-area" id="excelResult">
-                            <a href="#" class="download-link" id="excelDownloadLink" download="converted.xlsx"><i class="fas fa-download"></i> Download Excel File</a>
-                            <div class="file-size" id="excelFileSize"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tool: PDF to Word -->
-                <div class="tool-content" id="tool-pdf-word">
-                    <div class="pdf-tool-card">
-                        <div class="tool-header">
-                            <i class="fas fa-file-word"></i>
-                            <h4>PDF to Word Converter</h4>
-                            <span class="badge-tool">Free</span>
-                        </div>
-                        <div class="upload-area" onclick="document.getElementById('wordFileInput').click()">
-                            <i class="fas fa-file-pdf"></i>
-                            <p>Click to upload a PDF file</p>
-                            <div class="file-name" id="wordFileName">No file selected</div>
-                            <input type="file" id="wordFileInput" accept=".pdf" style="display:none" onchange="handleWordFile(event)">
-                        </div>
-                        <div class="action-buttons">
-                            <button class="btn-primary" onclick="convertPDFtoWord()"><i class="fas fa-file-word"></i> Convert to Word</button>
-                            <button class="btn-danger" onclick="clearWordFile()"><i class="fas fa-trash"></i> Clear</button>
-                        </div>
-                        <div class="progress-bar" id="wordProgressBar"><div class="progress-fill" id="wordProgressFill"></div></div>
-                        <div class="status-text" id="wordStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                        <div class="result-area" id="wordResult">
-                            <a href="#" class="download-link" id="wordDownloadLink" download="converted.docx"><i class="fas fa-download"></i> Download Word File</a>
-                            <div class="file-size" id="wordFileSize"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tool: Text OCR -->
-                <div class="tool-content" id="tool-ocr">
-                    <div class="ocr-section">
-                        <div class="ocr-header">
-                            <h3><i class="fas fa-eye"></i> PDF & Image to Text (OCR)</h3>
-                            <div class="ocr-tabs">
-                                <button class="active" data-tab="image-tab" onclick="switchOCRtab('image-tab')"><i class="fas fa-image"></i> Image to Text</button>
-                                <button data-tab="pdf-tab" onclick="switchOCRtab('pdf-tab')"><i class="fas fa-file-pdf"></i> PDF to Text</button>
+                    <!-- Tool: JPG to PDF -->
+                    <div class="tool-content active" id="tool-jpg-pdf">
+                        <div class="pdf-tool-card">
+                            <div class="tool-header">
+                                <i class="fas fa-file-image"></i>
+                                <h4>JPG to PDF Converter</h4>
+                                <span class="badge-tool">Free</span>
                             </div>
-                        </div>
-
-                        <!-- Image OCR Panel -->
-                        <div class="ocr-panel active" id="image-tab">
-                            <div class="upload-area" onclick="document.getElementById('imageFileInput').click()">
+                            <div class="upload-area" onclick="document.getElementById('jpgPdfInput').click()">
                                 <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload an image (JPG, PNG, WEBP)</p>
-                                <div class="file-name" id="imageFileName">No file selected</div>
-                                <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageOCR(event)">
+                                <p>Click to select JPG images to convert</p>
+                                <div class="file-name" id="jpgPdfFileName">No files selected</div>
+                                <input type="file" id="jpgPdfInput" accept="image/*" multiple style="display:none" onchange="handleJpgToPdf(event)">
                             </div>
-                            <div class="progress-bar" id="imageProgressBar"><div class="progress-fill" id="imageProgressFill"></div></div>
-                            <div class="status-text" id="imageStatusText"><i class="fas fa-spinner spinner"></i> Processing OCR... Please wait.</div>
-                            <div class="result-area" id="imageResultArea">
-                                <textarea id="imageResultText" placeholder="Extracted text will appear here..."></textarea>
-                                <div class="action-buttons">
-                                    <button class="btn-success" onclick="copyOCRResult('imageResultText')"><i class="fas fa-copy"></i> Copy Text</button>
-                                    <button class="btn-primary" onclick="downloadOCRResult('imageResultText', 'ocr_image_text')"><i class="fas fa-download"></i> Download .txt</button>
-                                    <button class="btn-danger" onclick="clearOCRResult('image-tab')"><i class="fas fa-trash"></i> Clear</button>
-                                </div>
+                            <div class="file-list" id="jpgPdfFileList"></div>
+                            <div class="action-buttons">
+                                <button class="btn-primary" onclick="convertJpgToPdf()"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
+                                <button class="btn-danger" onclick="clearJpgPdf()"><i class="fas fa-trash"></i> Clear All</button>
+                            </div>
+                            <div class="progress-bar" id="jpgPdfProgressBar"><div class="progress-fill" id="jpgPdfProgressFill"></div></div>
+                            <div class="status-text" id="jpgPdfStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                            <div class="result-area" id="jpgPdfResult">
+                                <a href="#" class="download-link" id="jpgPdfDownloadLink" download="converted.pdf"><i class="fas fa-download"></i> Download PDF</a>
+                                <div class="file-size" id="jpgPdfFileSize"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- PDF OCR Panel -->
-                        <div class="ocr-panel" id="pdf-tab">
-                            <div class="upload-area" onclick="document.getElementById('pdfFileInput').click()">
+                    <!-- Tool: PDF to JPG -->
+                    <div class="tool-content" id="tool-pdf-jpg">
+                        <div class="pdf-tool-card">
+                            <div class="tool-header">
+                                <i class="fas fa-file-pdf"></i>
+                                <h4>PDF to JPG Converter</h4>
+                                <span class="badge-tool">Free</span>
+                            </div>
+                            <div class="upload-area" onclick="document.getElementById('pdfJpgInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload a PDF file</p>
+                                <div class="file-name" id="pdfJpgFileName">No file selected</div>
+                                <input type="file" id="pdfJpgInput" accept=".pdf" style="display:none" onchange="handlePdfToJpg(event)">
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-primary" onclick="convertPdfToJpg()"><i class="fas fa-file-image"></i> Convert to JPG</button>
+                                <button class="btn-danger" onclick="clearPdfJpg()"><i class="fas fa-trash"></i> Clear</button>
+                            </div>
+                            <div class="progress-bar" id="pdfJpgProgressBar"><div class="progress-fill" id="pdfJpgProgressFill"></div></div>
+                            <div class="status-text" id="pdfJpgStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                            <div class="result-area" id="pdfJpgResult">
+                                <a href="#" class="download-link" id="pdfJpgDownloadLink" download="images.zip"><i class="fas fa-download"></i> Download JPG (ZIP)</a>
+                                <div class="file-size" id="pdfJpgFileSize"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool: PNG to PDF -->
+                    <div class="tool-content" id="tool-png-pdf">
+                        <div class="pdf-tool-card">
+                            <div class="tool-header">
+                                <i class="fas fa-file-image"></i>
+                                <h4>PNG to PDF Converter</h4>
+                                <span class="badge-tool">Free</span>
+                            </div>
+                            <div class="upload-area" onclick="document.getElementById('pngPdfInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to select PNG images to convert</p>
+                                <div class="file-name" id="pngPdfFileName">No files selected</div>
+                                <input type="file" id="pngPdfInput" accept="image/png" multiple style="display:none" onchange="handlePngToPdf(event)">
+                            </div>
+                            <div class="file-list" id="pngPdfFileList"></div>
+                            <div class="action-buttons">
+                                <button class="btn-primary" onclick="convertPngToPdf()"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
+                                <button class="btn-danger" onclick="clearPngPdf()"><i class="fas fa-trash"></i> Clear All</button>
+                            </div>
+                            <div class="progress-bar" id="pngPdfProgressBar"><div class="progress-fill" id="pngPdfProgressFill"></div></div>
+                            <div class="status-text" id="pngPdfStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                            <div class="result-area" id="pngPdfResult">
+                                <a href="#" class="download-link" id="pngPdfDownloadLink" download="converted.pdf"><i class="fas fa-download"></i> Download PDF</a>
+                                <div class="file-size" id="pngPdfFileSize"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool: PNG to JPG -->
+                    <div class="tool-content" id="tool-png-jpg">
+                        <div class="pdf-tool-card">
+                            <div class="tool-header">
+                                <i class="fas fa-file-image"></i>
+                                <h4>PNG to JPG Converter</h4>
+                                <span class="badge-tool">Free</span>
+                            </div>
+                            <div class="upload-area" onclick="document.getElementById('pngJpgInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to select PNG images to convert</p>
+                                <div class="file-name" id="pngJpgFileName">No files selected</div>
+                                <input type="file" id="pngJpgInput" accept="image/png" multiple style="display:none" onchange="handlePngToJpg(event)">
+                            </div>
+                            <div class="file-list" id="pngJpgFileList"></div>
+                            <div class="action-buttons">
+                                <button class="btn-primary" onclick="convertPngToJpg()"><i class="fas fa-file-image"></i> Convert to JPG</button>
+                                <button class="btn-danger" onclick="clearPngJpg()"><i class="fas fa-trash"></i> Clear All</button>
+                            </div>
+                            <div class="progress-bar" id="pngJpgProgressBar"><div class="progress-fill" id="pngJpgProgressFill"></div></div>
+                            <div class="status-text" id="pngJpgStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                            <div class="result-area" id="pngJpgResult">
+                                <a href="#" class="download-link" id="pngJpgDownloadLink" download="images.zip"><i class="fas fa-download"></i> Download JPG (ZIP)</a>
+                                <div class="file-size" id="pngJpgFileSize"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool: Delete PDF Page -->
+                    <div class="tool-content" id="tool-delete-pdf">
+                        <div class="pdf-tool-card">
+                            <div class="tool-header">
+                                <i class="fas fa-trash-alt"></i>
+                                <h4>Delete PDF Page</h4>
+                                <span class="badge-tool">Free</span>
+                            </div>
+                            <div class="upload-area" onclick="document.getElementById('deletePdfInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload a PDF file</p>
+                                <div class="file-name" id="deletePdfFileName">No file selected</div>
+                                <input type="file" id="deletePdfInput" accept=".pdf" style="display:none" onchange="handleDeletePdf(event)">
+                            </div>
+                            <div class="form-group" style="margin:12px 0;">
+                                <label>Page Number to Delete (1-based):</label>
+                                <input type="number" id="deletePageNumber" min="1" value="1" style="width:100px;padding:6px;border:2px solid var(--border-color);border-radius:6px;">
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-danger" onclick="deletePdfPage()"><i class="fas fa-trash-alt"></i> Delete Page</button>
+                                <button class="btn-secondary" onclick="clearDeletePdf()"><i class="fas fa-trash"></i> Clear</button>
+                            </div>
+                            <div class="progress-bar" id="deletePdfProgressBar"><div class="progress-fill" id="deletePdfProgressFill"></div></div>
+                            <div class="status-text" id="deletePdfStatus"><i class="fas fa-spinner spinner"></i> Processing... Please wait.</div>
+                            <div class="result-area" id="deletePdfResult">
+                                <a href="#" class="download-link" id="deletePdfDownloadLink" download="deleted.pdf"><i class="fas fa-download"></i> Download PDF</a>
+                                <div class="file-size" id="deletePdfFileSize"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool: PDF Merge -->
+                    <div class="tool-content" id="tool-pdf-merge">
+                        <div class="pdf-tool-card">
+                            <div class="tool-header">
+                                <i class="fas fa-object-group"></i>
+                                <h4>PDF Merge – Combine PDFs</h4>
+                                <span class="badge-tool">Free</span>
+                            </div>
+                            <div class="upload-area" onclick="document.getElementById('mergeFileInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to select PDF files to merge</p>
+                                <div class="file-name" id="mergeFileName">No files selected</div>
+                                <input type="file" id="mergeFileInput" accept=".pdf" multiple style="display:none" onchange="handleMergeFiles(event)">
+                            </div>
+                            <div class="file-list" id="mergeFileList"></div>
+                            <div class="action-buttons">
+                                <button class="btn-primary" onclick="mergePDFs()"><i class="fas fa-object-group"></i> Merge PDFs</button>
+                                <button class="btn-danger" onclick="clearMergeFiles()"><i class="fas fa-trash"></i> Clear All</button>
+                            </div>
+                            <div class="progress-bar" id="mergeProgressBar"><div class="progress-fill" id="mergeProgressFill"></div></div>
+                            <div class="status-text" id="mergeStatus"><i class="fas fa-spinner spinner"></i> Merging... Please wait.</div>
+                            <div class="result-area" id="mergeResult">
+                                <a href="#" class="download-link" id="mergeDownloadLink" download="merged.pdf"><i class="fas fa-download"></i> Download Merged PDF</a>
+                                <div class="file-size" id="mergeFileSize"></div>
+                                <button class="preview-btn" onclick="previewMergeResult()"><i class="fas fa-eye"></i> Preview</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool: PDF to Excel -->
+                    <div class="tool-content" id="tool-pdf-excel">
+                        <div class="pdf-tool-card">
+                            <div class="tool-header">
+                                <i class="fas fa-file-excel"></i>
+                                <h4>PDF to Excel Converter</h4>
+                                <span class="badge-tool">Free</span>
+                            </div>
+                            <div class="upload-area" onclick="document.getElementById('excelFileInput').click()">
                                 <i class="fas fa-file-pdf"></i>
                                 <p>Click to upload a PDF file</p>
-                                <div class="file-name" id="pdfFileName">No file selected</div>
-                                <input type="file" id="pdfFileInput" accept=".pdf" style="display:none" onchange="handlePDFOCR(event)">
+                                <div class="file-name" id="excelFileName">No file selected</div>
+                                <input type="file" id="excelFileInput" accept=".pdf" style="display:none" onchange="handleExcelFile(event)">
                             </div>
-                            <div class="progress-bar" id="pdfProgressBar"><div class="progress-fill" id="pdfProgressFill"></div></div>
-                            <div class="status-text" id="pdfStatusText"><i class="fas fa-spinner spinner"></i> Processing PDF OCR... Please wait.</div>
-                            <div class="result-area" id="pdfResultArea">
-                                <textarea id="pdfResultText" placeholder="Extracted text from PDF will appear here..."></textarea>
-                                <div class="action-buttons">
-                                    <button class="btn-success" onclick="copyOCRResult('pdfResultText')"><i class="fas fa-copy"></i> Copy Text</button>
-                                    <button class="btn-primary" onclick="downloadOCRResult('pdfResultText', 'ocr_pdf_text')"><i class="fas fa-download"></i> Download .txt</button>
-                                    <button class="btn-danger" onclick="clearOCRResult('pdf-tab')"><i class="fas fa-trash"></i> Clear</button>
+                            <div class="action-buttons">
+                                <button class="btn-success" onclick="convertPDFtoExcel()"><i class="fas fa-file-excel"></i> Convert to Excel</button>
+                                <button class="btn-danger" onclick="clearExcelFile()"><i class="fas fa-trash"></i> Clear</button>
+                            </div>
+                            <div class="progress-bar" id="excelProgressBar"><div class="progress-fill" id="excelProgressFill"></div></div>
+                            <div class="status-text" id="excelStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                            <div class="result-area" id="excelResult">
+                                <a href="#" class="download-link" id="excelDownloadLink" download="converted.xlsx"><i class="fas fa-download"></i> Download Excel File</a>
+                                <div class="file-size" id="excelFileSize"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool: PDF to Word -->
+                    <div class="tool-content" id="tool-pdf-word">
+                        <div class="pdf-tool-card">
+                            <div class="tool-header">
+                                <i class="fas fa-file-word"></i>
+                                <h4>PDF to Word Converter</h4>
+                                <span class="badge-tool">Free</span>
+                            </div>
+                            <div class="upload-area" onclick="document.getElementById('wordFileInput').click()">
+                                <i class="fas fa-file-pdf"></i>
+                                <p>Click to upload a PDF file</p>
+                                <div class="file-name" id="wordFileName">No file selected</div>
+                                <input type="file" id="wordFileInput" accept=".pdf" style="display:none" onchange="handleWordFile(event)">
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-primary" onclick="convertPDFtoWord()"><i class="fas fa-file-word"></i> Convert to Word</button>
+                                <button class="btn-danger" onclick="clearWordFile()"><i class="fas fa-trash"></i> Clear</button>
+                            </div>
+                            <div class="progress-bar" id="wordProgressBar"><div class="progress-fill" id="wordProgressFill"></div></div>
+                            <div class="status-text" id="wordStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                            <div class="result-area" id="wordResult">
+                                <a href="#" class="download-link" id="wordDownloadLink" download="converted.docx"><i class="fas fa-download"></i> Download Word File</a>
+                                <div class="file-size" id="wordFileSize"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool: Text OCR -->
+                    <div class="tool-content" id="tool-ocr">
+                        <div class="ocr-section">
+                            <div class="ocr-header">
+                                <h3><i class="fas fa-eye"></i> PDF & Image to Text (OCR)</h3>
+                                <div class="ocr-tabs">
+                                    <button class="active" data-tab="image-tab" onclick="switchOCRtab('image-tab')"><i class="fas fa-image"></i> Image to Text</button>
+                                    <button data-tab="pdf-tab" onclick="switchOCRtab('pdf-tab')"><i class="fas fa-file-pdf"></i> PDF to Text</button>
+                                </div>
+                            </div>
+
+                            <!-- Image OCR Panel -->
+                            <div class="ocr-panel active" id="image-tab">
+                                <div class="upload-area" onclick="document.getElementById('imageFileInput').click()">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Click to upload an image (JPG, PNG, WEBP)</p>
+                                    <div class="file-name" id="imageFileName">No file selected</div>
+                                    <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageOCR(event)">
+                                </div>
+                                <div class="progress-bar" id="imageProgressBar"><div class="progress-fill" id="imageProgressFill"></div></div>
+                                <div class="status-text" id="imageStatusText"><i class="fas fa-spinner spinner"></i> Processing OCR... Please wait.</div>
+                                <div class="result-area" id="imageResultArea">
+                                    <textarea id="imageResultText" placeholder="Extracted text will appear here..."></textarea>
+                                    <div class="action-buttons">
+                                        <button class="btn-success" onclick="copyOCRResult('imageResultText')"><i class="fas fa-copy"></i> Copy Text</button>
+                                        <button class="btn-primary" onclick="downloadOCRResult('imageResultText', 'ocr_image_text')"><i class="fas fa-download"></i> Download .txt</button>
+                                        <button class="btn-danger" onclick="clearOCRResult('image-tab')"><i class="fas fa-trash"></i> Clear</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PDF OCR Panel -->
+                            <div class="ocr-panel" id="pdf-tab">
+                                <div class="upload-area" onclick="document.getElementById('pdfFileInput').click()">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <p>Click to upload a PDF file</p>
+                                    <div class="file-name" id="pdfFileName">No file selected</div>
+                                    <input type="file" id="pdfFileInput" accept=".pdf" style="display:none" onchange="handlePDFOCR(event)">
+                                </div>
+                                <div class="progress-bar" id="pdfProgressBar"><div class="progress-fill" id="pdfProgressFill"></div></div>
+                                <div class="status-text" id="pdfStatusText"><i class="fas fa-spinner spinner"></i> Processing PDF OCR... Please wait.</div>
+                                <div class="result-area" id="pdfResultArea">
+                                    <textarea id="pdfResultText" placeholder="Extracted text from PDF will appear here..."></textarea>
+                                    <div class="action-buttons">
+                                        <button class="btn-success" onclick="copyOCRResult('pdfResultText')"><i class="fas fa-copy"></i> Copy Text</button>
+                                        <button class="btn-primary" onclick="downloadOCRResult('pdfResultText', 'ocr_pdf_text')"><i class="fas fa-download"></i> Download .txt</button>
+                                        <button class="btn-danger" onclick="clearOCRResult('pdf-tab')"><i class="fas fa-trash"></i> Clear</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Tool: Font Converter -->
-                <div class="tool-content" id="tool-font-converter">
-                    <div class="font-converter-box">
-                        <div class="converter-header">
-                            <h4><i class="fas fa-language" style="color:var(--secondary-blue);"></i> Font Converter (DevLys / Kruti to Unicode)</h4>
-                            <span style="font-size:12px;color:var(--text-light);">Convert legacy fonts to Mangal/Unicode instantly.</span>
-                        </div>
-                        <div class="converter-grid">
-                            <div class="input-area">
-                                <label for="fontInput">📥 Input Text (Type or Paste DevLys/Kruti Font)</label>
-                                <textarea id="fontInput" placeholder="यहाँ DevLys या Kruti Dev font में टाइप करें या पेस्ट करें... (जैसे: 'd;k' का मतलब 'क' होगा)"></textarea>
+                    <!-- Tool: Font Converter -->
+                    <div class="tool-content" id="tool-font-converter">
+                        <div class="font-converter-box">
+                            <div class="converter-header">
+                                <h4><i class="fas fa-language" style="color:var(--secondary-blue);"></i> Font Converter (DevLys / Kruti to Unicode)</h4>
+                                <span style="font-size:12px;color:var(--text-light);">Convert legacy fonts to Mangal/Unicode instantly.</span>
                             </div>
-                            <div class="output-area">
-                                <label for="fontOutput">📤 Unicode Output (Mangal / Arial Unicode)</label>
-                                <textarea id="fontOutput" placeholder="Converted Unicode text will appear here..." readonly></textarea>
+                            <div class="converter-grid">
+                                <div class="input-area">
+                                    <label for="fontInput">📥 Input Text (Type or Paste DevLys/Kruti Font)</label>
+                                    <textarea id="fontInput" placeholder="यहाँ DevLys या Kruti Dev font में टाइप करें या पेस्ट करें... (जैसे: 'd;k' का मतलब 'क' होगा)"></textarea>
+                                </div>
+                                <div class="output-area">
+                                    <label for="fontOutput">📤 Unicode Output (Mangal / Arial Unicode)</label>
+                                    <textarea id="fontOutput" placeholder="Converted Unicode text will appear here..." readonly></textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="converter-controls">
-                            <button class="btn-convert" onclick="convertFonts()"><i class="fas fa-sync-alt"></i> Convert</button>
-                            <button class="btn-copy" onclick="copyFontOutput()"><i class="fas fa-copy"></i> Copy Output</button>
-                            <button class="btn-clear" onclick="clearFontConverter()"><i class="fas fa-trash-alt"></i> Clear All</button>
-                            <button class="btn-preview" onclick="previewFontOutput()"><i class="fas fa-eye"></i> Preview</button>
-                        </div>
-                        <div class="converter-info">
-                            💡 <strong>Tip:</strong> Legacy fonts (DevLys010, Kruti Dev) ki mapping automatic ho jati hai. Copy karke kisi bhi Editor mein paste karein.
+                            <div class="converter-controls">
+                                <button class="btn-convert" onclick="convertFonts()"><i class="fas fa-sync-alt"></i> Convert</button>
+                                <button class="btn-copy" onclick="copyFontOutput()"><i class="fas fa-copy"></i> Copy Output</button>
+                                <button class="btn-clear" onclick="clearFontConverter()"><i class="fas fa-trash-alt"></i> Clear All</button>
+                                <button class="btn-preview" onclick="previewFontOutput()"><i class="fas fa-eye"></i> Preview</button>
+                            </div>
+                            <div class="converter-info">
+                                💡 <strong>Tip:</strong> Legacy fonts (DevLys010, Kruti Dev) ki mapping automatic ho jati hai. Copy karke kisi bhi Editor mein paste karein.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3105,19 +3088,21 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: SERVICES (NO TOOLS, ONLY SERVICES) ================= -->
-        <section class="section" id="services">
-            <div class="page-ticker" style="background:linear-gradient(135deg,#6c5ce7,#1976d2);"><span>✨ Services • Card Printing • Portal Services • Creative Studio • Govt. Services</span></div>
+        <!-- ================= SECTION: SERVICE (NEW) ================= -->
+        <section class="section" id="service">
+            <div class="page-ticker" id="serviceTicker"><span id="serviceTickerText">🛠️ Services • Government Services • Private Services • Education Services</span></div>
             <div class="section-header">
-                <h2>✨ <span>Services</span></h2>
-                <span style="font-size:14px;color:var(--text-light);">Explore all our premium services</span>
+                <h2>🛠️ <span>Services</span></h2>
+                <div id="serviceSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
+                    <button class="sub-btn active" data-sub="all" onclick="filterServiceCategory('all')">📌 All</button>
+                    <button class="sub-btn" data-sub="government" onclick="filterServiceCategory('government')">🏛️ Government</button>
+                    <button class="sub-btn" data-sub="private" onclick="filterServiceCategory('private')">💼 Private</button>
+                    <button class="sub-btn" data-sub="education" onclick="filterServiceCategory('education')">📚 Education</button>
+                </div>
             </div>
-
-            <div class="services-container" id="servicesContainer">
-                <!-- Rendered by JavaScript -->
-            </div>
+            <div id="serviceContent" class="page-content-display"></div>
             <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
-                <i class="fas fa-info-circle"></i> Services are managed from Admin Panel → Services Items
+                <i class="fas fa-info-circle"></i> Service Items are managed from Admin Panel → Service Items
             </div>
         </section>
 
@@ -3141,11 +3126,9 @@
     <footer class="app-footer">
         <div class="footer-nav">
             <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
-            <button class="nav-btn" onclick="showSection('study')" data-section="study">📚 Study</button>
             <button class="nav-btn" onclick="showSection('career')" data-section="career">🎯 Career</button>
-            <button class="nav-btn" onclick="showSection('books')" data-section="books">📖 Books</button>
-            <button class="nav-btn" onclick="showSection('more')" data-section="more">⚙️ More</button>
-            <button class="nav-btn" onclick="showSection('services')" data-section="services" style="background:rgba(255,215,0,0.25);color:#ffd700;">✨ Services</button>
+            <button class="nav-btn" onclick="showSection('more')" data-section="more">📚 More</button>
+            <button class="nav-btn" onclick="showSection('service')" data-section="service" style="background:rgba(255,215,0,0.25);color:#ffd700;">🛠️ Services</button>
             <button class="nav-btn" onclick="showSection('blog')" data-section="blog">📝 Blog</button>
             <button class="nav-btn admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
         </div>
@@ -3179,14 +3162,14 @@
                 blog: 'Blog',
                 social: 'SocialLinks',
                 employees: 'Employees',
-                services: 'Services'
+                service: 'Services'
             }
         };
 
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v19';
+        const STORAGE_KEY = 'dreamjosh_all_data_v20';
 
         const DEFAULT_DATA = {
             home: {
@@ -3205,28 +3188,11 @@
                 highlight: '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>',
                 logo: '',
                 pageTaglines: {
-                    study: '📚 Study Materials • Complete Notes • Practice Sets • Previous Papers • Revision Notes',
                     career: '🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs',
-                    books: '📖 Recommended Books • Competitive Exams • Rajasthan GK • General Knowledge • Motivation',
-                    more: '⚙️ PDF & Image Tools • JPG to PDF • PDF to JPG • PNG to PDF • PNG to JPG • Delete PDF Page • Merge PDF • PDF to Excel • PDF to Word • OCR • Font Converter',
+                    more: '📚 Study Materials • Books • PDF Tools • Complete Resources',
                     blog: '📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio',
-                    services: '✨ Services • Card Printing • Portal Services • Creative Studio • Govt. Services'
+                    service: '🛠️ Services • Government Services • Private Services • Education Services'
                 }
-            },
-            study: {
-                content: '<h2>📚 Study Materials</h2><p>Welcome to the study section of Dream Josh. Here you will find comprehensive study materials for all competitive exams.</p><blockquote><p>🔹 <strong>Quote:</strong> "Success is the sum of small efforts, repeated day in and day out."</p></blockquote>',
-                items: [
-                    { id: 's1', title: '📝 Complete UPSC Notes', description: 'Detailed Subject-wise notes for UPSC Prelims and Mains.',
-                        visibility: 'public', category: 'Subject-wise notes' },
-                    { id: 's2', title: '📄 SSC CGL Practice Set', description: '20 Practice sets with answer keys and explanations for SSC CGL.',
-                        visibility: 'public', category: 'Practice sets with answer keys' },
-                    { id: 's3', title: '📑 RBI Grade B Previous Papers',
-                        description: 'Previous year papers with detailed solutions for RBI Grade B.', visibility: 'public',
-                        category: 'Previous year papers with detailed solutions' },
-                    { id: 's4', title: '🔁 Quick Revision Notes: Maths',
-                        description: 'Short revision notes for formula and concepts.', visibility: 'public',
-                        category: 'Revision notes for quick review' }
-                ]
             },
             career: {
                 content: '<h2>🎯 Career Guidance</h2><p>Explore various career options and find the right path for your future.</p><p><strong>🔹 Get expert guidance:</strong> Our career counselors help you choose the right career path.</p>',
@@ -3239,31 +3205,54 @@
                         visibility: 'public', category: 'Teaching' }
                 ]
             },
-            books: {
-                content: '<h2>📖 Recommended Books</h2><p>Find the best books for your exam preparation.</p><blockquote><p>📖 "A reader lives a thousand lives before he dies."</p></blockquote>',
+            more: {
+                content: '<h2>📚 Study & Books</h2><p>All study materials and books in one place. Find everything you need for your preparation.</p>',
                 items: [
+                    // Study Items
+                    { id: 's1', title: '📝 Complete UPSC Notes', description: 'Detailed Subject-wise notes for UPSC Prelims and Mains.',
+                        visibility: 'public', category: 'Study' },
+                    { id: 's2', title: '📄 SSC CGL Practice Set', description: '20 Practice sets with answer keys and explanations for SSC CGL.',
+                        visibility: 'public', category: 'Study' },
+                    { id: 's3', title: '📑 RBI Grade B Previous Papers',
+                        description: 'Previous year papers with detailed solutions for RBI Grade B.', visibility: 'public',
+                        category: 'Study' },
+                    { id: 's4', title: '🔁 Quick Revision Notes: Maths',
+                        description: 'Short revision notes for formula and concepts.', visibility: 'public',
+                        category: 'Study' },
+                    // Books Items
                     { id: 'b1', title: '📚 Competitive Exam Books', description: 'Best books for UPSC, SSC, Banking, Railway',
-                        visibility: 'public', category: 'Competitive Exams' },
+                        visibility: 'public', category: 'Books' },
                     { id: 'b2', title: '🏜️ Rajasthan GK', description: 'Rajasthan General Knowledge books', visibility: 'public',
-                        category: 'Rajasthan GK' },
+                        category: 'Books' },
                     { id: 'b3', title: '🧠 General Knowledge', description: 'GK books for all competitive exams',
-                        visibility: 'public', category: 'General Knowledge' }
+                        visibility: 'public', category: 'Books' },
+                    { id: 'b4', title: '🔥 Motivation Books', description: 'Top motivational and self-help books',
+                        visibility: 'public', category: 'Books' }
                 ]
             },
-            more: {
-                content: '<h2>⚙️ PDF & Image Tools</h2><p>Complete suite of PDF and image conversion tools:</p><ul><li>🖼️ <strong>JPG to PDF</strong> - Convert JPG images to PDF</li><li>📄 <strong>PDF to JPG</strong> - Convert PDF to JPG images</li><li>🖼️ <strong>PNG to PDF</strong> - Convert PNG images to PDF</li><li>🖼️ <strong>PNG to JPG</strong> - Convert PNG to JPG</li><li>🗑️ <strong>Delete PDF Page</strong> - Remove pages from PDF</li><li>📑 <strong>Merge PDF</strong> - Combine multiple PDFs</li><li>📊 <strong>PDF to Excel</strong> - Extract data to Excel</li><li>📝 <strong>PDF to Word</strong> - Convert to editable Word</li><li>👁️ <strong>OCR</strong> - Extract text from images/PDFs</li><li>🔤 <strong>Font Converter</strong> - DevLys to Unicode</li></ul>',
+            service: {
+                content: '<h2>🛠️ Services</h2><p>Welcome to Dream Josh Services. Find all types of services here with direct links.</p>',
                 items: [
-                    { id: 'm1', title: '🖼️ JPG to PDF', description: 'Convert JPG images to PDF', visibility: 'public' },
-                    { id: 'm2', title: '📄 PDF to JPG', description: 'Convert PDF to JPG images', visibility: 'public' },
-                    { id: 'm3', title: '🖼️ PNG to PDF', description: 'Convert PNG images to PDF', visibility: 'public' },
-                    { id: 'm4', title: '🖼️ PNG to JPG', description: 'Convert PNG to JPG', visibility: 'public' },
-                    { id: 'm5', title: '🗑️ Delete PDF Page', description: 'Remove pages from PDF', visibility: 'public' },
-                    { id: 'm6', title: '📑 Merge PDF', description: 'Combine multiple PDFs', visibility: 'public' },
-                    { id: 'm7', title: '📊 PDF to Excel', description: 'Extract data to Excel', visibility: 'public' },
-                    { id: 'm8', title: '📝 PDF to Word', description: 'Convert to editable Word', visibility: 'public' },
-                    { id: 'm9', title: '👁️ OCR (Image/PDF to Text)', description: 'Extract text from images/PDFs',
-                        visibility: 'public' },
-                    { id: 'm10', title: '🔤 Font Converter', description: 'DevLys to Unicode', visibility: 'public' }
+                    { id: 'sv1', title: '📝 Resume Writing Service', description: 'Professional resume writing for all career levels.',
+                        visibility: 'public', category: 'private', link: 'https://dreamjosh.com/resume' },
+                    { id: 'sv2', title: '🏛️ Passport Services', description: 'Complete passport assistance and verification.',
+                        visibility: 'public', category: 'government', link: 'https://passport.gov.in' },
+                    { id: 'sv3', title: '📚 Online Tutoring', description: 'One-on-one tutoring for competitive exams.',
+                        visibility: 'public', category: 'education', link: 'https://dreamjosh.com/tutoring' },
+                    { id: 'sv4', title: '💼 Career Counseling', description: 'Expert career guidance and counseling services.',
+                        visibility: 'public', category: 'private', link: 'https://dreamjosh.com/counseling' },
+                    { id: 'sv5', title: '🪪 Aadhar Services', description: 'Aadhar card update and enrollment assistance.',
+                        visibility: 'public', category: 'government', link: 'https://uidai.gov.in' },
+                    { id: 'sv6', title: '🎯 Mock Test Series', description: 'Online mock tests for all competitive exams.',
+                        visibility: 'public', category: 'education', link: 'https://dreamjosh.com/tests' },
+                    { id: 'sv7', title: '📄 Document Verification', description: 'Document attestation and verification services.',
+                        visibility: 'public', category: 'government', link: 'https://dreamjosh.com/verify' },
+                    { id: 'sv8', title: '💻 IT Services', description: 'Web development and digital marketing services.',
+                        visibility: 'public', category: 'private', link: 'https://dreamjosh.com/it' },
+                    { id: 'sv9', title: '🎓 Scholarship Assistance', description: 'Help with scholarship applications and guidance.',
+                        visibility: 'public', category: 'education', link: 'https://dreamjosh.com/scholarship' },
+                    { id: 'sv10', title: '🏦 Banking Services', description: 'Bank account opening and financial services.',
+                        visibility: 'public', category: 'private', link: 'https://dreamjosh.com/banking' }
                 ]
             },
             blog: {
@@ -3277,97 +3266,14 @@
                         category: 'Lifestyle' }
                 ]
             },
-            services: {
-                content: '<h2>✨ Services</h2><p>Explore all our premium services including card printing, portal services, creative studio and government services.</p>',
-                items: [
-                    // Essential & Services
-                    { id: 'ser1', title: 'Latest Jobs', category: 'Essential & Services', icon: 'fa-briefcase' },
-                    { id: 'ser2', title: 'Mock Test', category: 'Essential & Services', icon: 'fa-pencil-alt' },
-                    { id: 'ser3', title: 'ID Card Print', category: 'Essential & Services', icon: 'fa-id-card' },
-                    { id: 'ser4', title: 'PVC Auto Crop', category: 'Essential & Services', icon: 'fa-crop-alt' },
-                    { id: 'ser5', title: 'Auto Print', category: 'Essential & Services', icon: 'fa-print' },
-                    { id: 'ser6', title: 'Passport Photo', category: 'Essential & Services', icon: 'fa-passport' },
-                    { id: 'ser7', title: 'Photo Crop And Resize', category: 'Essential & Services', icon: 'fa-crop' },
-                    { id: 'ser8', title: 'Resume/CV', category: 'Essential & Services', icon: 'fa-file-alt' },
-                    { id: 'ser9', title: 'New Service Post', category: 'Essential & Services', icon: 'fa-plus-circle' },
-                    { id: 'ser10', title: 'Document Album', category: 'Essential & Services', icon: 'fa-images' },
-                    { id: 'ser11', title: 'NSDL PAAM ID', category: 'Essential & Services', icon: 'fa-qrcode' },
-                    { id: 'ser12', title: 'Payment Locked QR', category: 'Essential & Services', icon: 'fa-lock' },
-                    // Creative Design Studio
-                    { id: 'ser13', title: 'Pro Resume Maker', category: 'Creative Design Studio', icon: 'fa-file-pdf' },
-                    { id: 'ser14', title: 'Marriage Biodata', category: 'Creative Design Studio', icon: 'fa-heart' },
-                    { id: 'ser15', title: 'Pro ID Maker', category: 'Creative Design Studio', icon: 'fa-id-card' },
-                    { id: 'ser16', title: 'Pro Poster Maker', category: 'Creative Design Studio', icon: 'fa-poster' },
-                    { id: 'ser17', title: 'Application Maker', category: 'Creative Design Studio',
-                    icon: 'fa-file-signature' },
-                    { id: 'ser18', title: 'Shop Promotion Maker', category: 'Creative Design Studio', icon: 'fa-store' },
-                    // Portal Service
-                    { id: 'ser19', title: 'Aadhar Beta Service', category: 'Portal Service', icon: 'fa-id-card' },
-                    { id: 'ser20', title: 'Aadhaar Information', category: 'Portal Service', icon: 'fa-id-card' },
-                    { id: 'ser21', title: 'PAN Card Service', category: 'Portal Service', icon: 'fa-id-card' },
-                    { id: 'ser22', title: 'Voter ID Correction & Status', category: 'Portal Service',
-                    icon: 'fa-id-card' },
-                    { id: 'ser23', title: 'Ayushman Bharat', category: 'Portal Service', icon: 'fa-hospital' },
-                    { id: 'ser24', title: 'Driving Licence Service', category: 'Portal Service', icon: 'fa-car' },
-                    { id: 'ser25', title: 'RC Service (Registration...)', category: 'Portal Service', icon: 'fa-car' },
-                    { id: 'ser26', title: 'Vehicle Service', category: 'Portal Service', icon: 'fa-car' },
-                    { id: 'ser27', title: 'Birth & Death Certificate', category: 'Portal Service',
-                    icon: 'fa-birthday-cake' },
-                    { id: 'ser28', title: 'E-Challan', category: 'Portal Service', icon: 'fa-gavel' },
-                    { id: 'ser29', title: 'E-Shram Card', category: 'Portal Service', icon: 'fa-id-card' },
-                    { id: 'ser30', title: 'EPFO', category: 'Portal Service', icon: 'fa-umbrella' },
-                    { id: 'ser31', title: 'APAAR ID Card', category: 'Portal Service', icon: 'fa-id-card' },
-                    { id: 'ser32', title: 'ABHA Card', category: 'Portal Service', icon: 'fa-id-card' },
-                    { id: 'ser33', title: 'PM Fasal Bima Yojana', category: 'Portal Service', icon: 'fa-leaf' },
-                    { id: 'ser34', title: 'PMAY-Gramin', category: 'Portal Service', icon: 'fa-home' },
-                    { id: 'ser35', title: 'PMAY-Ubhan/Sehri', category: 'Portal Service', icon: 'fa-home' },
-                    { id: 'ser36', title: 'LIC Service', category: 'Portal Service', icon: 'fa-shield-alt' },
-                    { id: 'ser37', title: 'E-NAM', category: 'Portal Service', icon: 'fa-seedling' },
-                    { id: 'ser38', title: 'PM SVANidhi Yojana', category: 'Portal Service', icon: 'fa-hand-holding-usd' },
-                    { id: 'ser39', title: 'Soil Health Card', category: 'Portal Service', icon: 'fa-leaf' },
-                    { id: 'ser40', title: 'Mikisan Portal', category: 'Portal Service', icon: 'fa-edit' },
-                    { id: 'ser41', title: 'PM Surya Ghar Yojana', category: 'Portal Service', icon: 'fa-sun' },
-                    { id: 'ser42', title: 'Udyam Aadhaar Service', category: 'Portal Service', icon: 'fa-id-card' },
-                    { id: 'ser43', title: 'National Scholarship Portal', category: 'Portal Service',
-                    icon: 'fa-graduation-cap' },
-                    { id: 'ser44', title: 'Lost/Found Mobile & Internet', category: 'Portal Service',
-                    icon: 'fa-mobile-alt' },
-                    { id: 'ser45', title: 'Railway Service', category: 'Portal Service', icon: 'fa-train' },
-                    { id: 'ser46', title: 'Passport Seva Service', category: 'Portal Service', icon: 'fa-passport' },
-                    { id: 'ser47', title: 'GST Verification', category: 'Portal Service', icon: 'fa-check-circle' },
-                    { id: 'ser48', title: 'Checkpost Tax/Road Tax', category: 'Portal Service', icon: 'fa-road' },
-                    { id: 'ser49', title: 'Vahan Green Sewa', category: 'Portal Service', icon: 'fa-car' },
-                    { id: 'ser50', title: 'PUC Service', category: 'Portal Service', icon: 'fa-leaf' },
-                    { id: 'ser51', title: 'National Payments Corporation', category: 'Portal Service',
-                    icon: 'fa-university' },
-                    { id: 'ser52', title: 'National Consumer Helpline', category: 'Portal Service',
-                    icon: 'fa-phone-alt' },
-                    { id: 'ser53', title: 'National Career Service', category: 'Portal Service', icon: 'fa-briefcase' },
-                    { id: 'ser54', title: 'Check Free CIBIL Score', category: 'Portal Service', icon: 'fa-chart-line' },
-                    { id: 'ser55', title: 'INDANE GAS', category: 'Portal Service', icon: 'fa-fire' },
-                    { id: 'ser56', title: 'HP GAS', category: 'Portal Service', icon: 'fa-fire' },
-                    { id: 'ser57', title: 'BHARAT GAS', category: 'Portal Service', icon: 'fa-fire' },
-                    { id: 'ser58', title: 'Unique Disability ID Card', category: 'Portal Service', icon: 'fa-id-card' },
-                    // Card Printing Services
-                    { id: 'ser59', title: 'Unique ID Card Print', category: 'Card Printing Services', icon: 'fa-id-card' },
-                    { id: 'ser60', title: 'Election Card Print', category: 'Card Printing Services', icon: 'fa-id-card' },
-                    { id: 'ser61', title: 'Health Plan Card Print', category: 'Card Printing Services',
-                    icon: 'fa-heartbeat' },
-                    { id: 'ser62', title: 'Tax Id Card Print', category: 'Card Printing Services', icon: 'fa-id-card' },
-                    { id: 'ser63', title: 'Driving Permit Print', category: 'Card Printing Services', icon: 'fa-car' },
-                    { id: 'ser64', title: 'School/College ID', category: 'Card Printing Services', icon: 'fa-school' },
-                    { id: 'ser65', title: 'Food Subsidy Card Print', category: 'Card Printing Services',
-                    icon: 'fa-utensils' }
-                ]
-            },
             social: {
                 instagram: 'https://instagram.com/dreamjosh',
                 youtube: 'https://youtube.com/dreamjosh',
                 facebook: 'https://facebook.com/dreamjosh'
             },
             employees: [
-                { id: 'emp1', name: 'Employee 1', email: 'emp1@dreamjosh.com', access: ['study', 'career'] },
-                { id: 'emp2', name: 'Employee 2', email: 'emp2@dreamjosh.com', access: ['books', 'blog'] }
+                { id: 'emp1', name: 'Employee 1', email: 'emp1@dreamjosh.com', access: ['career', 'more'] },
+                { id: 'emp2', name: 'Employee 2', email: 'emp2@dreamjosh.com', access: ['blog', 'service'] }
             ]
         };
 
@@ -3458,7 +3364,7 @@
         let currentUser = null;
         let adminAccessLevel = 'full';
         let employeeAccessPages = [];
-        const genericFilters = { study: 'all', career: 'all', books: 'all', blog: 'all', services: 'all' };
+        const genericFilters = { career: 'all', more: 'all', blog: 'all', service: 'all' };
 
         // ============================================================
         // LOAD/SAVE FUNCTIONS
@@ -3473,7 +3379,7 @@
                 }
             } catch (e) { console.error('Load error:', e); }
 
-            ['home', 'study', 'career', 'books', 'more', 'blog', 'services', 'social', 'employees'].forEach(key => {
+            ['home', 'career', 'more', 'service', 'blog', 'social', 'employees'].forEach(key => {
                 if (!appData[key]) {
                     appData[key] = JSON.parse(JSON.stringify(DEFAULT_DATA[key] || {}));
                 }
@@ -3491,6 +3397,10 @@
                     }
                 }
             });
+
+            // Remove old study and books data if present
+            if (appData.study) delete appData.study;
+            if (appData.books) delete appData.books;
 
             if (!jobsData || jobsData.length === 0) {
                 jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
@@ -3511,11 +3421,9 @@
             renderHomePage();
             renderSocialLinks();
             updatePageTaglines();
-            ['study', 'career', 'books', 'more', 'blog', 'services'].forEach(page => {
-                if (page === 'services') {
-                    renderServicesPage();
-                } else if (page === 'more') {
-                    renderPageContent(page);
+            ['career', 'more', 'blog', 'service'].forEach(page => {
+                if (page === 'service') {
+                    renderServicePage('all');
                 } else {
                     renderGenericPage(page);
                 }
@@ -3549,7 +3457,7 @@
         }
 
         function updatePageTaglines() {
-            const pages = ['study', 'career', 'books', 'more', 'blog', 'services'];
+            const pages = ['career', 'more', 'blog', 'service'];
             const taglines = appData.home?.pageTaglines || DEFAULT_DATA.home.pageTaglines;
             pages.forEach(page => {
                 const ticker = document.getElementById(`${page}TickerText`);
@@ -3557,16 +3465,6 @@
                     ticker.textContent = taglines[page] || DEFAULT_DATA.home.pageTaglines[page] || '';
                 }
             });
-        }
-
-        function renderPageContent(page) {
-            const container = document.getElementById(`${page}Content`);
-            const content = appData[page]?.content || '';
-            if (!content || content.trim() === '') {
-                container.innerHTML = `<p style="color:var(--text-light);">No content available.</p>`;
-                return;
-            }
-            container.innerHTML = content;
         }
 
         function renderGenericPage(page) {
@@ -3612,12 +3510,61 @@
 
         function filterGenericCategory(page, category) {
             genericFilters[page] = category;
-            if (page === 'services') {
-                renderServicesPage();
-            } else {
-                renderGenericPage(page);
-            }
+            renderGenericPage(page);
             document.getElementById(page).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ============================================================
+        // SERVICE PAGE RENDERER
+        // ============================================================
+        function filterServiceCategory(category) {
+            if (category === 'all') {
+                genericFilters.service = 'all';
+            } else {
+                genericFilters.service = category;
+            }
+            renderServicePage(category);
+            document.getElementById('service').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderServicePage(category = 'all') {
+            const container = document.getElementById('serviceContent');
+            const items = (appData.service?.items || []).filter(i => i.visibility !== 'private');
+
+            // Update filter buttons
+            document.querySelectorAll('#serviceSubFilter .sub-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.sub === category);
+            });
+
+            let filtered = items;
+            if (category !== 'all') {
+                filtered = items.filter(i => i.category === category);
+            }
+
+            let html = appData.service?.content || '';
+
+            if (filtered.length > 0) {
+                html += `<div style="margin-top:20px;border-top:2px solid var(--border-color);padding-top:16px;">
+                    <h3 style="color:var(--primary-blue);margin-bottom:10px;">📂 ${category === 'all' ? 'All Services' : category.charAt(0).toUpperCase() + category.slice(1) + ' Services'}</h3>
+                    <ul style="list-style:none;padding:0;">`;
+                filtered.forEach(item => {
+                    const linkHtml = item.link ? `<a href="${item.link}" target="_blank" class="service-link"><i class="fas fa-external-link-alt"></i> Visit</a>` : '';
+                    html += `
+                        <li style="padding:12px 14px;background:var(--bg-color);border-radius:8px;margin-bottom:8px;border-left:3px solid var(--secondary-blue);">
+                            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
+                                <strong style="font-size:15px;">${item.title || 'Untitled'}</strong>
+                                ${linkHtml}
+                                ${item.category ? `<span style="font-size:10px;background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;margin-left:4px;">${item.category}</span>` : ''}
+                            </div>
+                            ${item.description ? `<div style="font-size:13px;color:var(--text-light);margin-top:4px;">${item.description}</div>` : ''}
+                        </li>`;
+                });
+                html += `</ul></div>`;
+            } else {
+                html += `<p style="color:var(--text-light);margin-top:16px;">No services available in this category yet.</p>`;
+            }
+
+            container.innerHTML = html;
         }
 
         function updateLogo() {
@@ -3633,57 +3580,6 @@
                 logoText.style.display = 'inline-block';
                 logoText.innerHTML = '🚀 <span>Dream</span>Josh';
             }
-        }
-
-        // ============================================================
-        // SERVICES PAGE RENDERER (NO TOOLS)
-        // ============================================================
-        function renderServicesPage() {
-            const container = document.getElementById('servicesContainer');
-            const items = appData.services?.items || [];
-            const content = appData.services?.content || '';
-
-            // Group by category
-            const groups = {};
-            items.forEach(item => {
-                const cat = item.category || 'Uncategorized';
-                if (!groups[cat]) groups[cat] = [];
-                groups[cat].push(item);
-            });
-
-            let html = '';
-            if (content) {
-                html += `<div class="page-content-display" style="margin-bottom:20px;">${content}</div>`;
-            }
-
-            for (const [cat, items] of Object.entries(groups)) {
-                let icon = 'fa-cogs';
-                if (cat === 'Essential & Services') icon = 'fa-crown';
-                else if (cat === 'Creative Design Studio') icon = 'fa-paint-brush';
-                else if (cat === 'Portal Service') icon = 'fa-portal';
-                else if (cat === 'Card Printing Services') icon = 'fa-credit-card';
-
-                html += `
-                    <div class="services-category">
-                        <div class="cat-title"><i class="fas ${icon}"></i> ${cat}</div>
-                        <div class="services-grid">
-                            ${items.map(item => `
-                                <div class="service-item">
-                                    <i class="fas ${item.icon || 'fa-cog'}"></i>
-                                    <span>${item.title}</span>
-                                    ${item.badge ? `<span class="${item.badge === 'new' ? 'badge-new' : 'badge-hot'}">${item.badge}</span>` : ''}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (!html) {
-                html = `<div class="empty-state"><i class="fas fa-cogs"></i> No services added yet. Click "Add Service Item" in Admin Panel.</div>`;
-            }
-
-            container.innerHTML = html;
         }
 
         // ============================================================
@@ -3887,14 +3783,14 @@
                 btn.classList.toggle('active', btn.dataset.section === sectionId);
             });
             if (window.innerWidth <= 768) {
-                ['govt', 'career', 'study', 'books', 'more', 'blog'].forEach(name => closeDropdownMobile(name));
+                ['govt', 'career', 'more', 'service', 'blog'].forEach(name => closeDropdownMobile(name));
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function toggleDropdownMobile(name) {
             if (window.innerWidth <= 768) {
-                const allDropdowns = ['govt', 'career', 'study', 'books', 'more', 'blog'];
+                const allDropdowns = ['govt', 'career', 'more', 'service', 'blog'];
                 allDropdowns.forEach(d => { if (d !== name) closeDropdownMobile(d); });
                 const content = document.getElementById(`${name}DropdownContent`);
                 if (content) content.classList.toggle('show');
@@ -3909,7 +3805,7 @@
         document.addEventListener('click', function(e) {
             if (window.innerWidth <= 768) {
                 if (!e.target.closest('.dropdown-wrapper')) {
-                    ['govt', 'career', 'study', 'books', 'more', 'blog'].forEach(name => closeDropdownMobile(name));
+                    ['govt', 'career', 'more', 'service', 'blog'].forEach(name => closeDropdownMobile(name));
                 }
             }
         });
@@ -3996,7 +3892,7 @@
         }
 
         function renderAdminPanel() {
-            const pages = ['study', 'career', 'books', 'more', 'blog', 'services'];
+            const pages = ['career', 'more', 'blog', 'service'];
             const isEmployee = adminAccessLevel === 'employee';
             const accessPages = employeeAccessPages;
             const allowedPages = isEmployee ? pages.filter(p => accessPages.includes(p)) : pages;
@@ -4012,7 +3908,7 @@
                             <li class="section-title">Page Editor</li>
                             <li><a data-page="home-editor" onclick="showAdminPage('home-editor')"><i class="fas fa-home"></i> Home Page</a></li>
                             ${allowedPages.map(p => `
-                                <li><a data-page="${p}-editor" onclick="showAdminPage('${p}-editor')"><i class="fas ${p === 'study' ? 'fa-book' : p === 'career' ? 'fa-briefcase' : p === 'books' ? 'fa-book-open' : p === 'more' ? 'fa-tools' : p === 'blog' ? 'fa-blog' : 'fa-cogs'}"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Page <span class="count">✎</span></a></li>
+                                <li><a data-page="${p}-editor" onclick="showAdminPage('${p}-editor')"><i class="fas ${p === 'career' ? 'fa-briefcase' : p === 'more' ? 'fa-book' : p === 'blog' ? 'fa-blog' : 'fa-cogs'}"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Page <span class="count">✎</span></a></li>
                             `).join('')}
                             <li class="section-title">Data Items</li>
                             ${allowedPages.map(p => `
@@ -4043,7 +3939,7 @@
                                 <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Total Jobs</div><div class="stat-value" id="statJobs">${jobsData.length}</div></div>
                                 <div class="stat-item"><div class="stat-icon">🌐</div><div class="stat-label">Public Jobs</div><div class="stat-value" id="statPublic">${jobsData.filter(j => j.visibility !== 'private').length}</div></div>
                                 <div class="stat-item"><div class="stat-icon">🔒</div><div class="stat-label">Private Jobs</div><div class="stat-value" id="statPrivate">${jobsData.filter(j => j.visibility === 'private').length}</div></div>
-                                <div class="stat-item"><div class="stat-icon">✨</div><div class="stat-label">Services</div><div class="stat-value" id="statServices">${(appData.services?.items || []).length}</div></div>
+                                <div class="stat-item"><div class="stat-icon">🛠️</div><div class="stat-label">Services</div><div class="stat-value" id="statServices">${(appData.service?.items || []).length}</div></div>
                             </div>
                             <div class="admin-quick-actions">
                                 <h3>⚡ Quick Actions</h3>
@@ -4053,7 +3949,7 @@
                                     <button onclick="exportCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                     <button onclick="exportAdminData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
                                     ${!isEmployee ? `<button onclick="syncWithGoogleSheets()" style="background:#dc3545;"><i class="fas fa-cloud-upload-alt"></i> Sync to Google Sheets</button>` : ''}
-                                    <button onclick="showAdminPage('items-services')" style="background:#f39c12;"><i class="fas fa-cogs"></i> Manage Services</button>
+                                    <button onclick="showAdminPage('items-service')" style="background:#f39c12;"><i class="fas fa-cogs"></i> Manage Services</button>
                                 </div>
                             </div>
                         </div>
@@ -4115,12 +4011,10 @@
                                         <div id="logoPreview" style="margin-top:8px;"></div>
                                     </div>
                                     <div class="setting-group"><h5>📢 Page Taglines</h5>
-                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Study:</label> <input type="text" id="taglineStudy" value="${appData.home?.pageTaglines?.study || ''}" style="width:100%;max-width:400px;"></div>
                                         <div style="margin-bottom:6px;"><label style="font-size:12px;">Career:</label> <input type="text" id="taglineCareer" value="${appData.home?.pageTaglines?.career || ''}" style="width:100%;max-width:400px;"></div>
-                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Books:</label> <input type="text" id="taglineBooks" value="${appData.home?.pageTaglines?.books || ''}" style="width:100%;max-width:400px;"></div>
                                         <div style="margin-bottom:6px;"><label style="font-size:12px;">More:</label> <input type="text" id="taglineMore" value="${appData.home?.pageTaglines?.more || ''}" style="width:100%;max-width:400px;"></div>
                                         <div style="margin-bottom:6px;"><label style="font-size:12px;">Blog:</label> <input type="text" id="taglineBlog" value="${appData.home?.pageTaglines?.blog || ''}" style="width:100%;max-width:400px;"></div>
-                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Services:</label> <input type="text" id="taglineServices" value="${appData.home?.pageTaglines?.services || ''}" style="width:100%;max-width:400px;"></div>
+                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Service:</label> <input type="text" id="taglineService" value="${appData.home?.pageTaglines?.service || ''}" style="width:100%;max-width:400px;"></div>
                                         <button class="btn-setting success" onclick="saveTaglines()"><i class="fas fa-save"></i> Save Taglines</button>
                                     </div>
                                 </div>
@@ -4200,15 +4094,16 @@
             if (!items || items.length === 0) {
                 return `<div class="empty-state"><i class="fas fa-inbox"></i> No items yet. Click "Add Item" to create one.</div>`;
             }
-            const isServices = page === 'services';
+            const isService = page === 'service';
             return `
                 <div class="items-grid">
                     ${items.map((item, idx) => `
                         <div class="item-card">
                             <div class="item-info">
-                                <div class="item-title">${isServices ? `<i class="fas ${item.icon || 'fa-cog'}"></i> ` : ''}${item.title || 'Untitled'}</div>
+                                <div class="item-title">${item.title || 'Untitled'}</div>
                                 <div class="item-desc-preview">${item.category || ''}</div>
-                                ${!isServices ? `<span class="visibility-badge ${item.visibility === 'private' ? 'private' : 'public'}">${item.visibility === 'private' ? '🔒 Private' : '🌐 Public'}</span>` : ''}
+                                ${isService && item.link ? `<div style="font-size:10px;color:var(--text-light);"><i class="fas fa-link"></i> ${item.link}</div>` : ''}
+                                <span class="visibility-badge ${item.visibility === 'private' ? 'private' : 'public'}">${item.visibility === 'private' ? '🔒 Private' : '🌐 Public'}</span>
                             </div>
                             <div class="item-actions">
                                 <button class="btn-edit" onclick="openItemEditor('${page}', ${idx})" title="Edit Item"><i class="fas fa-edit"></i></button>
@@ -4298,9 +4193,9 @@
             const menuItem = document.querySelector(`#adminPanelOverlay .admin-menu a[data-page="${page}"]`);
             if (menuItem) menuItem.classList.add('active');
 
-            const allPages = ['dashboard', 'home-editor', 'study-editor', 'career-editor', 'books-editor', 'more-editor',
-                'blog-editor', 'services-editor', 'jobs', 'settings', 'sync', 'employees', 'social',
-                'items-study', 'items-career', 'items-books', 'items-more', 'items-blog', 'items-services'
+            const allPages = ['dashboard', 'home-editor', 'career-editor', 'more-editor', 'blog-editor', 'service-editor',
+                'jobs', 'settings', 'sync', 'employees', 'social',
+                'items-career', 'items-more', 'items-blog', 'items-service'
             ];
 
             allPages.forEach(p => {
@@ -4311,18 +4206,14 @@
             const titles = {
                 dashboard: '📊 <span>Dashboard</span>',
                 'home-editor': '🏠 <span>Home Page Editor</span>',
-                'study-editor': '📚 <span>Study Page Editor</span>',
                 'career-editor': '🎯 <span>Career Page Editor</span>',
-                'books-editor': '📖 <span>Books Page Editor</span>',
-                'more-editor': '⚙️ <span>More Page Editor</span>',
+                'more-editor': '📚 <span>More Page Editor</span>',
                 'blog-editor': '📝 <span>Blog Page Editor</span>',
-                'services-editor': '✨ <span>Services Page Editor</span>',
-                'items-study': '📚 <span>Study Items</span>',
+                'service-editor': '🛠️ <span>Service Page Editor</span>',
                 'items-career': '🎯 <span>Career Items</span>',
-                'items-books': '📖 <span>Books Items</span>',
-                'items-more': '⚙️ <span>More Items</span>',
+                'items-more': '📚 <span>More Items</span>',
                 'items-blog': '📝 <span>Blog Items</span>',
-                'items-services': '✨ <span>Services Items</span>',
+                'items-service': '🛠️ <span>Service Items</span>',
                 jobs: '💼 <span>Jobs Manager</span>',
                 settings: '⚙️ <span>Settings</span>',
                 sync: '🔄 <span>Google Sheets Sync</span>',
@@ -4335,7 +4226,7 @@
                 document.getElementById('statJobs').textContent = jobsData.length;
                 document.getElementById('statPublic').textContent = jobsData.filter(j => j.visibility !== 'private').length;
                 document.getElementById('statPrivate').textContent = jobsData.filter(j => j.visibility === 'private').length;
-                document.getElementById('statServices').textContent = (appData.services?.items || []).length;
+                document.getElementById('statServices').textContent = (appData.service?.items || []).length;
             }
             if (page === 'jobs') renderAdminTables();
             if (page === 'employees') {
@@ -4351,8 +4242,7 @@
                 const container = document.getElementById(`adminItemsContainer-${pageName}`);
                 if (container) container.innerHTML = renderAdminItems(pageName);
             }
-            if (['study-editor', 'career-editor', 'books-editor', 'more-editor', 'blog-editor', 'services-editor'].includes(
-                    page)) {
+            if (['career-editor', 'more-editor', 'blog-editor', 'service-editor'].includes(page)) {
                 const pageName = page.replace('-editor', '');
                 const container = document.getElementById(`adminPageContent-${pageName}`);
                 if (container) container.innerHTML = renderAdminPageContent(pageName);
@@ -4892,74 +4782,66 @@
         }
 
         // ============================================================
-        // ITEM EDITOR
+        // ITEM EDITOR WITH LINK SUPPORT FOR SERVICES
         // ============================================================
         function openItemEditor(page, index = null) {
             const isEdit = index !== null;
             const items = appData[page]?.items || [];
-            const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public', category: '' };
+            const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public', category: '', link: '' };
 
-            const isServices = page === 'services';
+            const isService = page === 'service';
 
             document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit ${page} Item` : `➕ Add ${page} Item`;
 
             let categoryHtml = '';
-            if (!isServices) {
-                let catOptions = [];
-                if (page === 'study') {
-                    catOptions = ['Subject-wise notes', 'Practice sets with answer keys',
-                        'Previous year papers with detailed solutions', 'Revision notes for quick review'
-                    ];
-                } else if (page === 'career') {
-                    catOptions = ['Government Jobs', 'Banking', 'SSC', 'Railway', 'Defence', 'Police', 'Teaching',
-                        'Engineering', 'Medical', 'Management', 'Law', 'IT', 'UPSC', 'Private Jobs'
-                    ];
-                } else if (page === 'books') {
-                    catOptions = ['Competitive Exams', 'Rajasthan GK', 'General Knowledge', 'Motivation'];
-                } else if (page === 'blog') {
-                    catOptions = ['Technology', 'Business', 'Design', 'Lifestyle', 'Education', 'News', 'Portfolio'];
-                } else if (page === 'more') {
-                    // no category for more
-                }
-                if (catOptions.length) {
-                    categoryHtml = `
-                        <div class="form-group">
-                            <label>Category *</label>
-                            <select id="itemCategory">
-                                <option value="">Select Category</option>
-                                ${catOptions.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
-                            </select>
-                        </div>
-                    `;
-                }
-            } else {
-                const serviceCategories = ['Essential & Services', 'Creative Design Studio', 'Portal Service',
-                    'Card Printing Services'
+            if (page === 'career') {
+                const catOptions = ['Government Jobs', 'Banking', 'SSC', 'Railway', 'Defence', 'Police', 'Teaching',
+                    'Engineering', 'Medical', 'Management', 'Law', 'IT', 'UPSC', 'Private Jobs'
                 ];
                 categoryHtml = `
                     <div class="form-group">
-                        <label>Category (Group) *</label>
+                        <label>Category *</label>
                         <select id="itemCategory">
                             <option value="">Select Category</option>
-                            ${serviceCategories.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                            ${catOptions.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Icon Class (Font Awesome)</label>
-                        <input type="text" id="itemIcon" value="${item.icon || 'fa-cog'}" placeholder="e.g. fa-cog, fa-briefcase">
                     </div>
                 `;
-            }
-
-            let visibilityHtml = '';
-            if (!isServices) {
-                visibilityHtml = `
+            } else if (page === 'more') {
+                const catOptions = ['Study', 'Books'];
+                categoryHtml = `
                     <div class="form-group">
-                        <label>Visibility</label>
-                        <select id="itemVisibility">
-                            <option value="public" ${item.visibility === 'public' ? 'selected' : ''}>🌐 Public</option>
-                            <option value="private" ${item.visibility === 'private' ? 'selected' : ''}>🔒 Private</option>
+                        <label>Category *</label>
+                        <select id="itemCategory">
+                            <option value="">Select Category</option>
+                            ${catOptions.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
                         </select>
+                    </div>
+                `;
+            } else if (page === 'blog') {
+                const catOptions = ['Technology', 'Business', 'Design', 'Lifestyle', 'Education', 'News', 'Portfolio'];
+                categoryHtml = `
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="itemCategory">
+                            <option value="">Select Category</option>
+                            ${catOptions.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+            } else if (isService) {
+                const catOptions = ['government', 'private', 'education'];
+                categoryHtml = `
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="itemCategory">
+                            <option value="">Select Category</option>
+                            ${catOptions.map(cat => `<option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Link URL (optional)</label>
+                        <input type="url" id="itemLink" value="${item.link || ''}" placeholder="https://example.com">
                     </div>
                 `;
             }
@@ -4969,30 +4851,34 @@
                 <input type="hidden" id="itemIndex" value="${isEdit ? index : -1}">
                 <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${item.title || ''}"></div>
                 ${categoryHtml}
-                ${!isServices ? `<div class="form-group">
+                <div class="form-group">
                     <label>Description (Rich Text)</label>
                     <div id="itemDescContainer">
                         <div id="itemDescToolbar"></div>
                         <div class="editor-content" id="itemDescription" contenteditable="true" style="min-height:150px;">${item.description || ''}</div>
                     </div>
-                </div>` : ''}
-                ${visibilityHtml}
+                </div>
+                <div class="form-group">
+                    <label>Visibility</label>
+                    <select id="itemVisibility">
+                        <option value="public" ${item.visibility === 'public' ? 'selected' : ''}>🌐 Public</option>
+                        <option value="private" ${item.visibility === 'private' ? 'selected' : ''}>🔒 Private</option>
+                    </select>
+                </div>
                 <button class="btn-submit" onclick="saveItem()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
                 <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
             `;
 
             document.getElementById('adminModalOverlay').classList.add('active');
-            if (!isServices) {
-                setTimeout(() => {
-                    const toolbarContainer = document.getElementById('itemDescToolbar');
-                    if (toolbarContainer) {
-                        const toolbar = createEditorToolbar('itemDescription', { showSource: true });
-                        toolbarContainer.appendChild(toolbar);
-                    }
-                    const editor = document.getElementById('itemDescription');
-                    if (editor) editor.focus();
-                }, 50);
-            }
+            setTimeout(() => {
+                const toolbarContainer = document.getElementById('itemDescToolbar');
+                if (toolbarContainer) {
+                    const toolbar = createEditorToolbar('itemDescription', { showSource: true });
+                    toolbarContainer.appendChild(toolbar);
+                }
+                const editor = document.getElementById('itemDescription');
+                if (editor) editor.focus();
+            }, 50);
         }
 
         function saveItem() {
@@ -5002,48 +4888,33 @@
 
             if (!title) { showToast('Title is required!', 'error'); return; }
 
-            const isServices = page === 'services';
+            const editor = document.getElementById('itemDescription');
+            const description = editor ? editor.innerHTML : '';
+            const visibility = document.getElementById('itemVisibility').value;
+            const category = document.getElementById('itemCategory')?.value || '';
+            const link = document.getElementById('itemLink')?.value || '';
 
-            let category = '';
-            let icon = '';
-            if (isServices) {
-                category = document.getElementById('itemCategory').value;
-                icon = document.getElementById('itemIcon').value.trim() || 'fa-cog';
-                if (!category) { showToast('Please select a Category!', 'error'); return; }
-            } else {
-                const editor = document.getElementById('itemDescription');
-                const description = editor ? editor.innerHTML : '';
-                const visibility = document.getElementById('itemVisibility').value;
-                category = document.getElementById('itemCategory')?.value || '';
+            if (!appData[page]) appData[page] = { content: '', items: [] };
+            if (!appData[page].items) appData[page].items = [];
 
-                if (!appData[page]) appData[page] = { content: '', items: [] };
-                if (!appData[page].items) appData[page].items = [];
+            const item = {
+                id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+                title,
+                description,
+                visibility,
+                category
+            };
 
-                const item = { id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5), title, description,
-                    visibility };
-                if (category) item.category = category;
-
-                if (index >= 0 && index < appData[page].items.length) {
-                    appData[page].items[index] = { ...appData[page].items[index], ...item };
-                    showToast('✅ Item updated!', 'success');
-                } else {
-                    appData[page].items.push(item);
-                    showToast('✅ Item added!', 'success');
-                }
+            if (page === 'service' && link) {
+                item.link = link;
             }
 
-            if (isServices) {
-                if (!appData.services) appData.services = { content: '', items: [] };
-                if (!appData.services.items) appData.services.items = [];
-                const item = { id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5), title, category,
-                icon };
-                if (index >= 0 && index < appData.services.items.length) {
-                    appData.services.items[index] = { ...appData.services.items[index], ...item };
-                    showToast('✅ Service updated!', 'success');
-                } else {
-                    appData.services.items.push(item);
-                    showToast('✅ Service added!', 'success');
-                }
+            if (index >= 0 && index < appData[page].items.length) {
+                appData[page].items[index] = { ...appData[page].items[index], ...item };
+                showToast('✅ Item updated!', 'success');
+            } else {
+                appData[page].items.push(item);
+                showToast('✅ Item added!', 'success');
             }
 
             saveToLocalStorage();
@@ -5070,7 +4941,7 @@
             const isEdit = index !== null;
             const employees = appData.employees || [];
             const emp = isEdit ? employees[index] : { name: '', email: '', access: [] };
-            const allPages = ['study', 'career', 'books', 'more', 'blog', 'services'];
+            const allPages = ['career', 'more', 'blog', 'service'];
 
             document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Employee' : '👤 Add Employee';
             document.getElementById('adminModalBody').innerHTML = `
@@ -5252,12 +5123,10 @@
         function saveTaglines() {
             if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
             if (!appData.home.pageTaglines) appData.home.pageTaglines = { ...DEFAULT_DATA.home.pageTaglines };
-            appData.home.pageTaglines.study = document.getElementById('taglineStudy').value.trim();
             appData.home.pageTaglines.career = document.getElementById('taglineCareer').value.trim();
-            appData.home.pageTaglines.books = document.getElementById('taglineBooks').value.trim();
             appData.home.pageTaglines.more = document.getElementById('taglineMore').value.trim();
             appData.home.pageTaglines.blog = document.getElementById('taglineBlog').value.trim();
-            appData.home.pageTaglines.services = document.getElementById('taglineServices').value.trim();
+            appData.home.pageTaglines.service = document.getElementById('taglineService').value.trim();
             saveToLocalStorage();
             updatePageTaglines();
             showToast('✅ Taglines updated!', 'success');
@@ -6307,9 +6176,9 @@
             updateLogo();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private')
                 .length;
-            console.log('🚀 Dream Josh – All PDF & Image Tools in More Section');
+            console.log('🚀 Dream Josh – Study & Books moved to More, New Service Page Added');
             switchTool('jpg-pdf');
-            document.getElementById('services').classList.remove('active');
+            document.getElementById('service').classList.remove('active');
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('home').classList.add('active');
         });
@@ -6351,6 +6220,7 @@
         window.deleteItem = deleteItem;
         window.renderAdminItems = renderAdminItems;
         window.filterGenericCategory = filterGenericCategory;
+        window.filterServiceCategory = filterServiceCategory;
         window.devlysToUnicode = devlysToUnicode;
         window.convertFonts = convertFonts;
         window.copyFontOutput = copyFontOutput;
