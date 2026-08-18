@@ -1035,7 +1035,7 @@
             }
         }
         .admin-panel-overlay .admin-sidebar {
-            width: 260px;
+            width: 280px;
             background: var(--footer-bg);
             color: #fff;
             padding: 20px 0;
@@ -1413,7 +1413,8 @@
             margin-bottom: 3px;
         }
         .admin-panel-overlay .admin-modal .form-group input,
-        .admin-panel-overlay .admin-modal .form-group select {
+        .admin-panel-overlay .admin-modal .form-group select,
+        .admin-panel-overlay .admin-modal .form-group textarea {
             width: 100%;
             padding: 8px 12px;
             border: 2px solid var(--border-color);
@@ -1424,8 +1425,13 @@
             transition: 0.3s;
             font-family: inherit;
         }
+        .admin-panel-overlay .admin-modal .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
         .admin-panel-overlay .admin-modal .form-group input:focus,
-        .admin-panel-overlay .admin-modal .form-group select:focus {
+        .admin-panel-overlay .admin-modal .form-group select:focus,
+        .admin-panel-overlay .admin-modal .form-group textarea:focus {
             border-color: var(--primary-blue);
             outline: none;
         }
@@ -2747,6 +2753,166 @@
             margin-top: 4px;
             font-size: 13px;
         }
+
+        /* ================= SLIDES CAROUSEL ================= */
+        .slides-preview-container {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 10px 0;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+        .slides-preview-container .slide-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slides-preview-container .slide-item {
+            min-width: 100%;
+            padding: 20px;
+            text-align: center;
+            background: var(--card-bg);
+            border-radius: 8px;
+        }
+        .slides-preview-container .slide-item img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .slides-preview-container .slide-item .slide-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 8px 0 4px;
+        }
+        .slides-preview-container .slide-item .slide-desc {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        .slides-preview-container .slide-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 10;
+            transition: 0.3s;
+        }
+        .slides-preview-container .slide-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .slides-preview-container .slide-nav.prev {
+            left: 10px;
+        }
+        .slides-preview-container .slide-nav.next {
+            right: 10px;
+        }
+        .slides-preview-container .slide-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 0;
+        }
+        .slides-preview-container .slide-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            padding: 0;
+        }
+        .slides-preview-container .slide-dots .dot.active {
+            background: var(--secondary-blue);
+            transform: scale(1.2);
+        }
+
+        /* Admin table styles */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .table-wrap table th {
+            background: var(--secondary-blue);
+            color: #fff;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .table-wrap table td {
+            padding: 6px 12px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        .table-wrap table tr:hover td {
+            background: var(--card-hover);
+        }
+        .table-wrap table .actions-cell {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .table-wrap table .actions-cell button {
+            padding: 2px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.3s;
+            min-height: 28px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .table-wrap table .actions-cell .btn-edit {
+            background: #ffc107;
+            color: #333;
+        }
+        .table-wrap table .actions-cell .btn-edit:hover {
+            background: #e0a800;
+        }
+        .table-wrap table .actions-cell .btn-delete {
+            background: #dc3545;
+            color: #fff;
+        }
+        .table-wrap table .actions-cell .btn-delete:hover {
+            background: #a71d2a;
+        }
+        .table-wrap table .actions-cell .btn-view {
+            background: var(--secondary-blue);
+            color: #fff;
+        }
+        .table-wrap table .actions-cell .btn-view:hover {
+            background: var(--primary-blue);
+        }
+        .table-wrap table .status-badge {
+            display: inline-block;
+            padding: 1px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .table-wrap table .status-badge.active {
+            background: var(--success-green);
+            color: #fff;
+        }
+        .table-wrap table .status-badge.inactive {
+            background: #dc3545;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -2757,91 +2923,8 @@
             <img id="headerLogoImg" src="" alt="Logo" style="display:none;">
             <span id="headerLogoText">🚀 <span>Dream</span>Josh</span>
         </div>
-        <div class="header-controls">
-            <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
-
-            <div class="dropdown-wrapper" id="govtDropdown">
-                <button class="dropdown-btn" onclick="toggleDropdownMobile('govt')">💼 Jobs <span class="arrow">▾</span></button>
-                <div class="dropdown-content" id="govtDropdownContent">
-                    <div class="dropdown-label">📂 Select Category</div>
-                    <button onclick="showJobsCategory('central')">
-                        🏛️ Central Govt. <span style="background:var(--central-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="centralCount">0</span>
-                    </button>
-                    <button onclick="showJobsCategory('state')">
-                        🏜️ Rajasthan Govt. <span style="background:var(--state-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="stateCount">0</span>
-                    </button>
-                    <button onclick="showJobsCategory('private')">
-                        💼 Private <span style="background:var(--private-color);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="privateCount">0</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="dropdown-wrapper" id="careerDropdown">
-                <button class="dropdown-btn" onclick="toggleDropdownMobile('career')">🎯 Career <span class="arrow">▾</span></button>
-                <div class="dropdown-content" id="careerDropdownContent">
-                    <div class="dropdown-label">🎯 Career Options</div>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'all'); closeDropdownMobile('career');"><i class="fas fa-th-list dropdown-item-icon"></i> All Careers</button>
-                    <div class="dropdown-divider"></div>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Government Jobs'); closeDropdownMobile('career');"><i class="fas fa-landmark dropdown-item-icon"></i> Government Jobs</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Banking'); closeDropdownMobile('career');"><i class="fas fa-university dropdown-item-icon"></i> Banking</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'SSC'); closeDropdownMobile('career');"><i class="fas fa-file-alt dropdown-item-icon"></i> SSC</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Railway'); closeDropdownMobile('career');"><i class="fas fa-train dropdown-item-icon"></i> Railway</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Defence'); closeDropdownMobile('career');"><i class="fas fa-shield-alt dropdown-item-icon"></i> Defence</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Police'); closeDropdownMobile('career');"><i class="fas fa-user-shield dropdown-item-icon"></i> Police</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Teaching'); closeDropdownMobile('career');"><i class="fas fa-chalkboard-teacher dropdown-item-icon"></i> Teaching</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Engineering'); closeDropdownMobile('career');"><i class="fas fa-cogs dropdown-item-icon"></i> Engineering</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Medical'); closeDropdownMobile('career');"><i class="fas fa-heartbeat dropdown-item-icon"></i> Medical</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Management'); closeDropdownMobile('career');"><i class="fas fa-chart-pie dropdown-item-icon"></i> Management</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Law'); closeDropdownMobile('career');"><i class="fas fa-gavel dropdown-item-icon"></i> Law</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'IT'); closeDropdownMobile('career');"><i class="fas fa-code dropdown-item-icon"></i> IT</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'UPSC'); closeDropdownMobile('career');"><i class="fas fa-flag dropdown-item-icon"></i> UPSC</button>
-                    <button onclick="showSection('career'); filterGenericCategory('career', 'Private Jobs'); closeDropdownMobile('career');"><i class="fas fa-briefcase dropdown-item-icon"></i> Private Jobs</button>
-                </div>
-            </div>
-
-            <div class="dropdown-wrapper" id="moreDropdown">
-                <button class="dropdown-btn" onclick="toggleDropdownMobile('more')">⚙️ More <span class="arrow">▾</span></button>
-                <div class="dropdown-content" id="moreDropdownContent">
-                    <div class="dropdown-label">📚 Study & Books</div>
-                    <button onclick="showSection('more'); filterGenericCategory('more', 'all'); closeDropdownMobile('more');">📚 All Study & Books</button>
-                    <button onclick="showSection('more'); filterGenericCategory('more', 'Study'); closeDropdownMobile('more');">📝 Study Materials</button>
-                    <button onclick="showSection('more'); filterGenericCategory('more', 'Books'); closeDropdownMobile('more');">📖 Books</button>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-label">⚡ Tools</div>
-                    <button onclick="showSection('more'); closeDropdownMobile('more');">📄 PDF Tools</button>
-                    <button onclick="showSection('more'); closeDropdownMobile('more');">🎨 Gallery</button>
-                    <button onclick="showSection('more'); closeDropdownMobile('more');">💪 Motivation</button>
-                </div>
-            </div>
-
-            <div class="dropdown-wrapper" id="serviceDropdown">
-                <button class="dropdown-btn" onclick="toggleDropdownMobile('service')">🛠️ Services <span class="arrow">▾</span></button>
-                <div class="dropdown-content" id="serviceDropdownContent">
-                    <div class="dropdown-label">🛠️ Services</div>
-                    <button onclick="showSection('service'); filterServiceCategory('all'); closeDropdownMobile('service');">📋 All Services</button>
-                    <button onclick="showSection('service'); filterServiceCategory('government'); closeDropdownMobile('service');">🏛️ Government</button>
-                    <button onclick="showSection('service'); filterServiceCategory('private'); closeDropdownMobile('service');">💼 Private</button>
-                    <button onclick="showSection('service'); filterServiceCategory('education'); closeDropdownMobile('service');">📚 Education</button>
-                </div>
-            </div>
-
-            <div class="dropdown-wrapper" id="blogDropdown">
-                <button class="dropdown-btn" onclick="toggleDropdownMobile('blog')">📝 Blog <span class="arrow">▾</span></button>
-                <div class="dropdown-content" id="blogDropdownContent">
-                    <div class="dropdown-label">📝 Blog Posts</div>
-                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'all'); closeDropdownMobile('blog');">📚 All Blog Posts</button>
-                    <div class="dropdown-divider"></div>
-                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Technology'); closeDropdownMobile('blog');">💻 Technology</button>
-                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Business'); closeDropdownMobile('blog');">📊 Business</button>
-                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Design'); closeDropdownMobile('blog');">🎨 Design</button>
-                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Lifestyle'); closeDropdownMobile('blog');">❤️ Lifestyle</button>
-                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Education'); closeDropdownMobile('blog');">📚 Education</button>
-                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'News'); closeDropdownMobile('blog');">📰 News</button>
-                    <button onclick="showSection('blog'); filterGenericCategory('blog', 'Portfolio'); closeDropdownMobile('blog');">💼 Portfolio</button>
-                </div>
-            </div>
-
-            <button class="nav-btn admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
+        <div class="header-controls" id="dynamicNav">
+            <!-- Dynamic navigation rendered by JavaScript -->
         </div>
     </header>
 
@@ -2877,6 +2960,9 @@
                                     <span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>
                                 </div>
                             </div>
+
+                            <!-- ================= SLIDES CAROUSEL ================= -->
+                            <div id="slidesCarouselContainer" style="margin:20px 0;"></div>
 
                             <div class="job-grid-wrapper" id="jobsSectionWrapper">
                                 <div class="jobs-header">
@@ -2952,7 +3038,7 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: MORE (Study + Books + Tools + Creative Studio) ================= -->
+        <!-- ================= SECTION: MORE ================= -->
         <section class="section" id="more">
             <div class="page-ticker" id="moreTicker"><span id="moreTickerText">📚 Study • Books • Creative Studio • PDF Tools • Font Converter • OCR</span></div>
             <div class="section-header">
@@ -3468,7 +3554,7 @@
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v22';
+        const STORAGE_KEY = 'dreamjosh_all_data_v23';
 
         const DEFAULT_DATA = {
             home: {
@@ -3571,7 +3657,42 @@
             employees: [
                 { id: 'emp1', name: 'Employee 1', email: 'emp1@dreamjosh.com', access: ['career', 'more'] },
                 { id: 'emp2', name: 'Employee 2', email: 'emp2@dreamjosh.com', access: ['blog', 'service'] }
-            ]
+            ],
+            slides: [
+                { id: 'slide1', title: '🚀 Welcome to Dream Josh', description: 'Your ultimate career and study platform',
+                    image: '', link: '#', active: true },
+                { id: 'slide2', title: '📚 Study Materials', description: 'Get access to premium study resources',
+                    image: '', link: '#', active: true },
+                { id: 'slide3', title: '🏛️ Govt. Jobs', description: 'Find the latest government job updates', image: '',
+                    link: '#', active: true }
+            ],
+            dropdownMenus: {
+                jobs: { label: '💼 Jobs', items: [{ label: '🏛️ Central Govt.', action: 'central' },
+                        { label: '🏜️ Rajasthan Govt.', action: 'state' }, { label: '💼 Private', action: 'private' }
+                    ] },
+                career: { label: '🎯 Career', items: [{ label: '📋 All Careers', action: 'all' },
+                        { label: '🏛️ Government Jobs', action: 'Government Jobs' },
+                        { label: '🏦 Banking', action: 'Banking' }, { label: '📄 SSC', action: 'SSC' },
+                        { label: '🚂 Railway', action: 'Railway' }, { label: '🛡️ Defence', action: 'Defence' },
+                        { label: '👮 Police', action: 'Police' }, { label: '📚 Teaching', action: 'Teaching' },
+                        { label: '⚙️ Engineering', action: 'Engineering' },
+                        { label: '🏥 Medical', action: 'Medical' }, { label: '📊 Management', action: 'Management' },
+                        { label: '⚖️ Law', action: 'Law' }, { label: '💻 IT', action: 'IT' },
+                        { label: '🏴 UPSC', action: 'UPSC' }, { label: '💼 Private Jobs', action: 'Private Jobs' }
+                    ] },
+                more: { label: '⚙️ More', items: [{ label: '📚 All Study & Books', action: 'all' },
+                        { label: '📝 Study Materials', action: 'Study' }, { label: '📖 Books', action: 'Books' }
+                    ] },
+                service: { label: '🛠️ Services', items: [{ label: '📋 All Services', action: 'all' },
+                        { label: '🏛️ Government', action: 'government' }, { label: '💼 Private', action: 'private' },
+                        { label: '📚 Education', action: 'education' }] },
+                blog: { label: '📝 Blog', items: [{ label: '📚 All Blog Posts', action: 'all' },
+                        { label: '💻 Technology', action: 'Technology' }, { label: '📊 Business', action: 'Business' },
+                        { label: '🎨 Design', action: 'Design' }, { label: '❤️ Lifestyle', action: 'Lifestyle' },
+                        { label: '📚 Education', action: 'Education' }, { label: '📰 News', action: 'News' },
+                        { label: '💼 Portfolio', action: 'Portfolio' }] }
+            },
+            darkMode: false
         };
 
         const DEFAULT_JOBS = [
@@ -3676,11 +3797,13 @@
                 }
             } catch (e) { console.error('Load error:', e); }
 
-            ['home', 'career', 'more', 'service', 'blog', 'social', 'employees'].forEach(key => {
+            ['home', 'career', 'more', 'service', 'blog', 'social', 'employees', 'slides', 'dropdownMenus', 'darkMode']
+            .forEach(key => {
                 if (!appData[key]) {
                     appData[key] = JSON.parse(JSON.stringify(DEFAULT_DATA[key] || {}));
                 }
-                if (key !== 'home' && key !== 'social' && key !== 'employees') {
+                if (key !== 'home' && key !== 'social' && key !== 'employees' && key !== 'slides' && key !==
+                    'dropdownMenus' && key !== 'darkMode') {
                     if (!appData[key].content) {
                         appData[key].content = DEFAULT_DATA[key]?.content || '';
                     }
@@ -3693,10 +3816,25 @@
                         appData[key].pageTaglines = DEFAULT_DATA.home.pageTaglines || {};
                     }
                 }
+                if (key === 'slides' && !Array.isArray(appData[key])) {
+                    appData[key] = DEFAULT_DATA.slides || [];
+                }
+                if (key === 'dropdownMenus' && typeof appData[key] !== 'object') {
+                    appData[key] = DEFAULT_DATA.dropdownMenus || {};
+                }
+                if (key === 'darkMode' && typeof appData[key] !== 'boolean') {
+                    appData[key] = false;
+                }
             });
 
             if (!jobsData || jobsData.length === 0) {
                 jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
+            }
+            // Apply dark mode
+            if (appData.darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
             }
             saveToLocalStorage();
         }
@@ -3714,6 +3852,8 @@
             renderHomePage();
             renderSocialLinks();
             updatePageTaglines();
+            renderSlidesCarousel();
+            renderNavigation();
             ['career', 'more', 'blog', 'service'].forEach(page => {
                 if (page === 'service') {
                     renderServicePage('all');
@@ -3875,6 +4015,207 @@
         }
 
         // ============================================================
+        // SLIDES CAROUSEL
+        // ============================================================
+        let slideIndex = 0;
+        let slideInterval = null;
+
+        function renderSlidesCarousel() {
+            const container = document.getElementById('slidesCarouselContainer');
+            const slides = appData.slides || [];
+            const activeSlides = slides.filter(s => s.active !== false);
+
+            if (activeSlides.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = `
+                <div class="slides-preview-container">
+                    <div class="slide-track" id="slideTrack">
+                        ${activeSlides.map((slide, idx) => `
+                            <div class="slide-item" data-index="${idx}">
+                                ${slide.image ? `<img src="${slide.image}" alt="${slide.title || 'Slide'}" loading="lazy">` : `<div style="height:200px;background:var(--secondary-blue);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:48px;">🚀</div>`}
+                                ${slide.title ? `<div class="slide-title">${slide.title}</div>` : ''}
+                                ${slide.description ? `<div class="slide-desc">${slide.description}</div>` : ''}
+                                ${slide.link && slide.link !== '#' ? `<a href="${slide.link}" target="_blank" style="display:inline-block;margin-top:8px;padding:6px 16px;background:var(--secondary-blue);color:#fff;border-radius:6px;text-decoration:none;font-size:13px;">Learn More →</a>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                    ${activeSlides.length > 1 ? `
+                        <button class="slide-nav prev" onclick="changeSlide(-1)">‹</button>
+                        <button class="slide-nav next" onclick="changeSlide(1)">›</button>
+                        <div class="slide-dots" id="slideDots">
+                            ${activeSlides.map((_, idx) => `<button class="dot ${idx === 0 ? 'active' : ''}" onclick="goToSlide(${idx})"></button>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+            slideIndex = 0;
+            updateSlidePosition();
+            startSlideAutoPlay();
+        }
+
+        function updateSlidePosition() {
+            const track = document.getElementById('slideTrack');
+            const dots = document.querySelectorAll('.dot');
+            if (!track) return;
+            const slides = track.querySelectorAll('.slide-item');
+            if (slides.length === 0) return;
+            if (slideIndex >= slides.length) slideIndex = 0;
+            if (slideIndex < 0) slideIndex = slides.length - 1;
+            track.style.transform = `translateX(-${slideIndex * 100}%)`;
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === slideIndex);
+            });
+        }
+
+        function changeSlide(dir) {
+            const track = document.getElementById('slideTrack');
+            if (!track) return;
+            const slides = track.querySelectorAll('.slide-item');
+            if (slides.length === 0) return;
+            slideIndex += dir;
+            if (slideIndex >= slides.length) slideIndex = 0;
+            if (slideIndex < 0) slideIndex = slides.length - 1;
+            updateSlidePosition();
+            resetSlideAutoPlay();
+        }
+
+        function goToSlide(idx) {
+            const track = document.getElementById('slideTrack');
+            if (!track) return;
+            const slides = track.querySelectorAll('.slide-item');
+            if (slides.length === 0) return;
+            slideIndex = idx;
+            if (slideIndex >= slides.length) slideIndex = slides.length - 1;
+            if (slideIndex < 0) slideIndex = 0;
+            updateSlidePosition();
+            resetSlideAutoPlay();
+        }
+
+        function startSlideAutoPlay() {
+            stopSlideAutoPlay();
+            slideInterval = setInterval(() => {
+                const track = document.getElementById('slideTrack');
+                if (!track) { stopSlideAutoPlay(); return; }
+                const slides = track.querySelectorAll('.slide-item');
+                if (slides.length <= 1) { stopSlideAutoPlay(); return; }
+                slideIndex = (slideIndex + 1) % slides.length;
+                updateSlidePosition();
+            }, 5000);
+        }
+
+        function stopSlideAutoPlay() {
+            if (slideInterval) {
+                clearInterval(slideInterval);
+                slideInterval = null;
+            }
+        }
+
+        function resetSlideAutoPlay() {
+            stopSlideAutoPlay();
+            startSlideAutoPlay();
+        }
+
+        // ============================================================
+        // NAVIGATION RENDERER
+        // ============================================================
+        function renderNavigation() {
+            const nav = document.getElementById('dynamicNav');
+            const dropdowns = appData.dropdownMenus || DEFAULT_DATA.dropdownMenus;
+
+            let html = `
+                <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
+            `;
+
+            // Jobs dropdown - special handling for job categories
+            const jobsDropdown = dropdowns.jobs || { label: '💼 Jobs', items: [{ label: '🏛️ Central Govt.', action: 'central' },
+                    { label: '🏜️ Rajasthan Govt.', action: 'state' }, { label: '💼 Private', action: 'private' }] };
+            html += `
+                <div class="dropdown-wrapper" id="govtDropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdownMobile('govt')">${jobsDropdown.label} <span class="arrow">▾</span></button>
+                    <div class="dropdown-content" id="govtDropdownContent">
+                        <div class="dropdown-label">📂 Select Category</div>
+                        ${jobsDropdown.items.map(item => `
+                            <button onclick="showJobsCategory('${item.action}'); closeDropdownMobile('govt');">
+                                ${item.label} <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="${item.action}Count">0</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Other dropdowns
+            const dropdownKeys = ['career', 'more', 'service', 'blog'];
+            dropdownKeys.forEach(key => {
+                const menu = dropdowns[key] || { label: key.charAt(0).toUpperCase() + key.slice(1), items: [] };
+                html += `
+                    <div class="dropdown-wrapper" id="${key}Dropdown">
+                        <button class="dropdown-btn" onclick="toggleDropdownMobile('${key}')">${menu.label} <span class="arrow">▾</span></button>
+                        <div class="dropdown-content" id="${key}DropdownContent">
+                            <div class="dropdown-label">📂 ${menu.label}</div>
+                            ${menu.items.map(item => `
+                                <button onclick="handleDropdownAction('${key}', '${item.action}'); closeDropdownMobile('${key}');">
+                                    <i class="fas fa-th-list dropdown-item-icon"></i> ${item.label}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <button class="nav-btn admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
+            `;
+
+            nav.innerHTML = html;
+
+            // Update job counts in dropdown
+            updateJobCounts();
+        }
+
+        function handleDropdownAction(key, action) {
+            if (key === 'career' || key === 'more' || key === 'blog') {
+                filterGenericCategory(key, action);
+                showSection(key);
+            } else if (key === 'service') {
+                filterServiceCategory(action);
+                showSection('service');
+            }
+        }
+
+        function updateJobCounts() {
+            const publicJobs = jobsData.filter(j => j.visibility !== 'private');
+            document.getElementById('centralCount').textContent = publicJobs.filter(j => j.jobType === 'central').length;
+            document.getElementById('stateCount').textContent = publicJobs.filter(j => j.jobType === 'state').length;
+            document.getElementById('privateCount').textContent = publicJobs.filter(j => j.jobType === 'private').length;
+        }
+
+        function toggleDropdownMobile(name) {
+            if (window.innerWidth <= 768) {
+                const allDropdowns = ['govt', 'career', 'more', 'service', 'blog'];
+                allDropdowns.forEach(d => { if (d !== name) closeDropdownMobile(d); });
+                const content = document.getElementById(`${name}DropdownContent`);
+                if (content) content.classList.toggle('show');
+            }
+        }
+
+        function closeDropdownMobile(name) {
+            const content = document.getElementById(`${name}DropdownContent`);
+            if (content) content.classList.remove('show');
+        }
+
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                if (!e.target.closest('.dropdown-wrapper')) {
+                    ['govt', 'career', 'more', 'service', 'blog'].forEach(name => closeDropdownMobile(name));
+                }
+            }
+        });
+
+        // ============================================================
         // JOBS FUNCTIONS
         // ============================================================
         function showJobsCategory(category) {
@@ -3922,9 +4263,7 @@
             const info = CATEGORY_INFO[currentCategory];
             const totalJobs = publicJobs.filter(j => j.jobType === currentCategory).length;
 
-            document.getElementById('centralCount').textContent = publicJobs.filter(j => j.jobType === 'central').length;
-            document.getElementById('stateCount').textContent = publicJobs.filter(j => j.jobType === 'state').length;
-            document.getElementById('privateCount').textContent = publicJobs.filter(j => j.jobType === 'private').length;
+            updateJobCounts();
 
             document.getElementById('selectedCategoryLabel').textContent = info.label;
             document.getElementById('jobCount').textContent = filtered.length;
@@ -4080,28 +4419,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function toggleDropdownMobile(name) {
-            if (window.innerWidth <= 768) {
-                const allDropdowns = ['govt', 'career', 'more', 'service', 'blog'];
-                allDropdowns.forEach(d => { if (d !== name) closeDropdownMobile(d); });
-                const content = document.getElementById(`${name}DropdownContent`);
-                if (content) content.classList.toggle('show');
-            }
-        }
-
-        function closeDropdownMobile(name) {
-            const content = document.getElementById(`${name}DropdownContent`);
-            if (content) content.classList.remove('show');
-        }
-
-        document.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                if (!e.target.closest('.dropdown-wrapper')) {
-                    ['govt', 'career', 'more', 'service', 'blog'].forEach(name => closeDropdownMobile(name));
-                }
-            }
-        });
-
         // ============================================================
         // TOAST
         // ============================================================
@@ -4189,6 +4506,9 @@
             const accessPages = employeeAccessPages;
             const allowedPages = isEmployee ? pages.filter(p => accessPages.includes(p)) : pages;
 
+            // Get slide count
+            const slideCount = (appData.slides || []).length;
+
             return `
                 <div class="admin-wrapper">
                     <div class="admin-sidebar" id="adminSidebar">
@@ -4207,9 +4527,16 @@
                                 <li><a data-page="items-${p}" onclick="showAdminPage('items-${p}')"><i class="fas fa-list"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Items <span class="count">${(appData[p]?.items || []).length}</span></a></li>
                             `).join('')}
                             ${!isEmployee ? `
+                            <li class="section-title">Sub-Sections</li>
+                            ${allowedPages.map(p => `
+                                <li><a data-page="subsections-${p}" onclick="showAdminPage('subsections-${p}')"><i class="fas fa-tags"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Subs <span class="count">${getSubSectionCount(p)}</span></a></li>
+                            `).join('')}
                             <li class="section-title">Jobs</li>
                             <li><a data-page="jobs" onclick="showAdminPage('jobs')"><i class="fas fa-briefcase"></i> All Jobs <span class="count">${jobsData.length}</span></a></li>
+                            <li class="section-title">Media</li>
+                            <li><a data-page="slides" onclick="showAdminPage('slides')"><i class="fas fa-images"></i> Slides <span class="count">${slideCount}</span></a></li>
                             <li class="section-title">System</li>
+                            <li><a data-page="dropdowns" onclick="showAdminPage('dropdowns')"><i class="fas fa-bars"></i> Dropdown Menu</a></li>
                             <li><a data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
                             <li><a data-page="sync" onclick="showAdminPage('sync')"><i class="fas fa-sync-alt"></i> Sync Google Sheets</a></li>
                             <li><a data-page="employees" onclick="showAdminPage('employees')"><i class="fas fa-users"></i> Employees <span class="count">${(appData.employees || []).length}</span></a></li>
@@ -4223,6 +4550,11 @@
                             <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
                             <div class="admin-actions">
                                 <button class="admin-menu-toggle" onclick="toggleAdminSidebar()"><i class="fas fa-bars"></i></button>
+                                ${!isEmployee ? `
+                                    <button class="btn-dark-admin ${appData.darkMode ? 'active' : ''}" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                                        <i class="fas ${appData.darkMode ? 'fa-sun' : 'fa-moon'}"></i> ${appData.darkMode ? 'Light' : 'Dark'}
+                                    </button>
+                                ` : ''}
                                 <button class="btn-close-admin" onclick="closeAdminPanel()"><i class="fas fa-times"></i> Close</button>
                             </div>
                         </div>
@@ -4232,16 +4564,22 @@
                                 <div class="stat-item"><div class="stat-icon">🌐</div><div class="stat-label">Public Jobs</div><div class="stat-value" id="statPublic">${jobsData.filter(j => j.visibility !== 'private').length}</div></div>
                                 <div class="stat-item"><div class="stat-icon">🔒</div><div class="stat-label">Private Jobs</div><div class="stat-value" id="statPrivate">${jobsData.filter(j => j.visibility === 'private').length}</div></div>
                                 <div class="stat-item"><div class="stat-icon">🛠️</div><div class="stat-label">Services</div><div class="stat-value" id="statServices">${(appData.service?.items || []).length}</div></div>
+                                <div class="stat-item"><div class="stat-icon">📸</div><div class="stat-label">Slides</div><div class="stat-value" id="statSlides">${(appData.slides || []).length}</div></div>
+                                <div class="stat-item"><div class="stat-icon">📂</div><div class="stat-label">Total Items</div><div class="stat-value" id="statItems">${getTotalItems()}</div></div>
                             </div>
                             <div class="admin-quick-actions">
                                 <h3>⚡ Quick Actions</h3>
                                 <div class="actions-grid">
                                     <button onclick="showAdminPage('home-editor')"><i class="fas fa-home"></i> Edit Home</button>
                                     ${!isEmployee ? `<button onclick="showAdminPage('jobs'); openJobModal()"><i class="fas fa-plus"></i> Add Job</button>` : ''}
+                                    <button onclick="showAdminPage('slides')"><i class="fas fa-images"></i> Manage Slides</button>
+                                    <button onclick="showAdminPage('dropdowns')"><i class="fas fa-bars"></i> Dropdown Menu</button>
+                                    ${!isEmployee ? `<button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>` : ''}
                                     <button onclick="exportCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                     <button onclick="exportAdminData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
-                                    ${!isEmployee ? `<button onclick="syncWithGoogleSheets()" style="background:#dc3545;"><i class="fas fa-cloud-upload-alt"></i> Sync to Google Sheets</button>` : ''}
-                                    <button onclick="showAdminPage('items-service')" style="background:#f39c12;"><i class="fas fa-cogs"></i> Manage Services</button>
+                                    <button onclick="toggleDarkMode()" style="background:#2d3436;color:#fff;">
+                                        <i class="fas ${appData.darkMode ? 'fa-sun' : 'fa-moon'}"></i> ${appData.darkMode ? 'Light Mode' : 'Dark Mode'}
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -4260,19 +4598,6 @@
                                 </div>
                             </div>
                         `).join('')}
-                        ${!isEmployee ? `
-                        <div id="adminPage-jobs" class="admin-section">
-                            <div class="admin-card">
-                                <div class="card-header"><h4>💼 Jobs Manager</h4><button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button></div>
-                                <div class="table-wrap">
-                                    <table>
-                                        <thead><tr><th>#</th><th>Title</th><th>Type</th><th>Visibility</th><th>Dept</th><th>Actions</th></tr></thead>
-                                        <tbody id="adminJobsTable"></tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        ` : ''}
                         ${allowedPages.map(page => `
                             <div id="adminPage-items-${page}" class="admin-section">
                                 <div class="admin-card">
@@ -4289,6 +4614,48 @@
                             </div>
                         `).join('')}
                         ${!isEmployee ? `
+                        ${allowedPages.map(page => `
+                            <div id="adminPage-subsections-${page}" class="admin-section">
+                                <div class="admin-card">
+                                    <div class="card-header">
+                                        <h4>${page.charAt(0).toUpperCase() + page.slice(1)} - Sub-Sections / Categories</h4>
+                                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                                            <button class="btn-add" onclick="openSubSectionModal('${page}')"><i class="fas fa-plus"></i> Add Sub-Section</button>
+                                        </div>
+                                    </div>
+                                    <div id="adminSubSectionsContainer-${page}">
+                                        ${renderAdminSubSections(page)}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                        <div id="adminPage-jobs" class="admin-section">
+                            <div class="admin-card">
+                                <div class="card-header"><h4>💼 Jobs Manager</h4><button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button></div>
+                                <div class="table-wrap">
+                                    <table>
+                                        <thead><tr><th>#</th><th>Title</th><th>Type</th><th>Visibility</th><th>Dept</th><th>Actions</th></tr></thead>
+                                        <tbody id="adminJobsTable"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="adminPage-slides" class="admin-section">
+                            <div class="admin-card">
+                                <div class="card-header"><h4>📸 Slides / Carousel Manager</h4><button class="btn-add" onclick="openSlideModal()"><i class="fas fa-plus"></i> Add Slide</button></div>
+                                <div id="adminSlidesContainer">
+                                    ${renderAdminSlides()}
+                                </div>
+                            </div>
+                        </div>
+                        <div id="adminPage-dropdowns" class="admin-section">
+                            <div class="admin-card">
+                                <div class="card-header"><h4>📋 Dropdown Menu Setup</h4></div>
+                                <div id="adminDropdownsContainer">
+                                    ${renderAdminDropdowns()}
+                                </div>
+                            </div>
+                        </div>
                         <div id="adminPage-settings" class="admin-section">
                             <div class="admin-card">
                                 <div class="card-header"><h4>⚙️ Settings</h4></div>
@@ -4309,6 +4676,12 @@
                                         <div style="margin-bottom:6px;"><label style="font-size:12px;">Service:</label> <input type="text" id="taglineService" value="${appData.home?.pageTaglines?.service || ''}" style="width:100%;max-width:400px;"></div>
                                         <button class="btn-setting success" onclick="saveTaglines()"><i class="fas fa-save"></i> Save Taglines</button>
                                     </div>
+                                    <div class="setting-group"><h5>🌓 Dark Mode</h5>
+                                        <button class="btn-setting ${appData.darkMode ? 'primary' : 'secondary'}" onclick="toggleDarkMode()">
+                                            <i class="fas ${appData.darkMode ? 'fa-sun' : 'fa-moon'}"></i> ${appData.darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                                        </button>
+                                        <span style="font-size:12px;color:var(--text-light);margin-left:8px;">Current: ${appData.darkMode ? '🌙 Dark' : '☀️ Light'}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -4325,7 +4698,7 @@
                                     </button>
                                 </div>
                                 <div style="border-top:1px solid var(--border-color);padding-top:12px;font-size:12px;color:var(--text-light);">
-                                    <strong>Note:</strong> For full Google Sheets integration, you need to set up OAuth2 authentication. 
+                                    <strong>Note:</strong> For full Google Sheets integration, you need to set up OAuth2 authentication.
                                     Replace the API key and sheet ID in the GOOGLE_SHEETS_CONFIG object.
                                 </div>
                             </div>
@@ -4356,6 +4729,21 @@
                     </div>
                 </div>
             `;
+        }
+
+        function getSubSectionCount(page) {
+            const items = appData[page]?.items || [];
+            const cats = new Set();
+            items.forEach(i => { if (i.category) cats.add(i.category); });
+            return cats.size;
+        }
+
+        function getTotalItems() {
+            let count = 0;
+            ['career', 'more', 'blog', 'service'].forEach(p => {
+                count += (appData[p]?.items || []).length;
+            });
+            return count;
         }
 
         function renderAdminHomeContent() {
@@ -4405,6 +4793,101 @@
                     `).join('')}
                 </div>
             `;
+        }
+
+        function renderAdminSubSections(page) {
+            const items = appData[page]?.items || [];
+            const cats = new Map();
+            items.forEach(i => {
+                if (i.category) {
+                    if (!cats.has(i.category)) cats.set(i.category, []);
+                    cats.get(i.category).push(i);
+                }
+            });
+            if (cats.size === 0) {
+                return `<div class="empty-state"><i class="fas fa-tags"></i> No sub-sections/categories found. Add items with categories first.</div>`;
+            }
+            let html = `<div class="items-grid">`;
+            cats.forEach((itemsList, cat) => {
+                html += `
+                    <div class="item-card">
+                        <div class="item-info">
+                            <div class="item-title">📂 ${cat}</div>
+                            <div class="item-desc-preview">${itemsList.length} item(s) in this category</div>
+                            <div style="font-size:10px;color:var(--text-light);">${itemsList.map(i => i.title).join(', ')}</div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-edit" onclick="renameSubSection('${page}', '${cat}')" title="Rename Category"><i class="fas fa-edit"></i></button>
+                            <button class="btn-delete" onclick="deleteSubSection('${page}', '${cat}')" title="Delete Category & Items"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            return html;
+        }
+
+        function renderAdminSlides() {
+            const slides = appData.slides || [];
+            if (!slides || slides.length === 0) {
+                return `<div class="empty-state"><i class="fas fa-images"></i> No slides added yet. Click "Add Slide" to create one.</div>`;
+            }
+            return `
+                <div class="items-grid">
+                    ${slides.map((slide, idx) => `
+                        <div class="item-card">
+                            <div class="item-info">
+                                <div class="item-title">${slide.title || 'Untitled Slide'}</div>
+                                <div class="item-desc-preview">${slide.description || ''}</div>
+                                <div style="font-size:10px;color:var(--text-light);">
+                                    ${slide.image ? '🖼️ Image uploaded' : '📝 No image'} 
+                                    ${slide.link && slide.link !== '#' ? `🔗 ${slide.link}` : ''}
+                                    <span class="status-badge ${slide.active !== false ? 'active' : 'inactive'}">${slide.active !== false ? 'Active' : 'Inactive'}</span>
+                                </div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="btn-edit" onclick="openSlideModal(${idx})" title="Edit Slide"><i class="fas fa-edit"></i></button>
+                                <button class="btn-delete" onclick="deleteSlide(${idx})" title="Delete Slide"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderAdminDropdowns() {
+            const menus = appData.dropdownMenus || DEFAULT_DATA.dropdownMenus;
+            let html = `
+                <div style="margin-bottom:16px;padding:12px;background:var(--highlight-bg);border-radius:8px;font-size:13px;color:var(--text-color);">
+                    <i class="fas fa-info-circle" style="color:var(--secondary-blue);"></i> 
+                    Manage dropdown menu items for the header navigation. Each menu can have multiple items.
+                </div>
+            `;
+            Object.keys(menus).forEach(key => {
+                const menu = menus[key];
+                html += `
+                    <div style="border:1px solid var(--border-color);border-radius:8px;padding:12px 16px;margin-bottom:12px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                            <h5 style="margin:0;color:var(--primary-blue);">${menu.label || key}</h5>
+                            <button class="btn-add" onclick="openDropdownItemModal('${key}')" style="padding:4px 12px;font-size:11px;">
+                                <i class="fas fa-plus"></i> Add Item
+                            </button>
+                        </div>
+                        <div style="margin-top:8px;">
+                            ${menu.items && menu.items.length > 0 ? menu.items.map((item, idx) => `
+                                <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;background:var(--bg-color);border-radius:4px;margin-bottom:4px;border-left:3px solid var(--secondary-blue);">
+                                    <span style="font-size:13px;">${item.label}</span>
+                                    <div>
+                                        <button onclick="editDropdownItem('${key}', ${idx})" style="background:transparent;border:none;color:var(--secondary-blue);cursor:pointer;padding:2px 6px;"><i class="fas fa-edit"></i></button>
+                                        <button onclick="deleteDropdownItem('${key}', ${idx})" style="background:transparent;border:none;color:var(--warning-red);cursor:pointer;padding:2px 6px;"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            `).join('') : `<div style="color:var(--text-light);font-size:13px;padding:8px;">No items in this menu.</div>`}
+                        </div>
+                    </div>
+                `;
+            });
+            return html;
         }
 
         function renderEmployeeList() {
@@ -4486,8 +4969,9 @@
             if (menuItem) menuItem.classList.add('active');
 
             const allPages = ['dashboard', 'home-editor', 'career-editor', 'more-editor', 'blog-editor', 'service-editor',
-                'jobs', 'settings', 'sync', 'employees', 'social',
-                'items-career', 'items-more', 'items-blog', 'items-service'
+                'jobs', 'settings', 'sync', 'employees', 'social', 'slides', 'dropdowns',
+                'items-career', 'items-more', 'items-blog', 'items-service',
+                'subsections-career', 'subsections-more', 'subsections-blog', 'subsections-service'
             ];
 
             allPages.forEach(p => {
@@ -4506,19 +4990,28 @@
                 'items-more': '📚 <span>More Items</span>',
                 'items-blog': '📝 <span>Blog Items</span>',
                 'items-service': '🛠️ <span>Service Items</span>',
+                'subsections-career': '🎯 <span>Career Sub-Sections</span>',
+                'subsections-more': '📚 <span>More Sub-Sections</span>',
+                'subsections-blog': '📝 <span>Blog Sub-Sections</span>',
+                'subsections-service': '🛠️ <span>Service Sub-Sections</span>',
                 jobs: '💼 <span>Jobs Manager</span>',
                 settings: '⚙️ <span>Settings</span>',
                 sync: '🔄 <span>Google Sheets Sync</span>',
                 employees: '👥 <span>Employees</span>',
-                social: '🔗 <span>Social Links</span>'
+                social: '🔗 <span>Social Links</span>',
+                slides: '📸 <span>Slides Manager</span>',
+                dropdowns: '📋 <span>Dropdown Menu Setup</span>'
             };
             document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
 
+            // Refresh content for dynamic pages
             if (page === 'dashboard') {
                 document.getElementById('statJobs').textContent = jobsData.length;
                 document.getElementById('statPublic').textContent = jobsData.filter(j => j.visibility !== 'private').length;
                 document.getElementById('statPrivate').textContent = jobsData.filter(j => j.visibility === 'private').length;
                 document.getElementById('statServices').textContent = (appData.service?.items || []).length;
+                document.getElementById('statSlides').textContent = (appData.slides || []).length;
+                document.getElementById('statItems').textContent = getTotalItems();
             }
             if (page === 'jobs') renderAdminTables();
             if (page === 'employees') {
@@ -4529,10 +5022,23 @@
                 const container = document.getElementById('socialLinksForm');
                 if (container) container.innerHTML = renderSocialLinksForm();
             }
+            if (page === 'slides') {
+                const container = document.getElementById('adminSlidesContainer');
+                if (container) container.innerHTML = renderAdminSlides();
+            }
+            if (page === 'dropdowns') {
+                const container = document.getElementById('adminDropdownsContainer');
+                if (container) container.innerHTML = renderAdminDropdowns();
+            }
             if (page.startsWith('items-')) {
                 const pageName = page.replace('items-', '');
                 const container = document.getElementById(`adminItemsContainer-${pageName}`);
                 if (container) container.innerHTML = renderAdminItems(pageName);
+            }
+            if (page.startsWith('subsections-')) {
+                const pageName = page.replace('subsections-', '');
+                const container = document.getElementById(`adminSubSectionsContainer-${pageName}`);
+                if (container) container.innerHTML = renderAdminSubSections(pageName);
             }
             if (['career-editor', 'more-editor', 'blog-editor', 'service-editor'].includes(page)) {
                 const pageName = page.replace('-editor', '');
@@ -4548,6 +5054,304 @@
 
         function toggleAdminSidebar() {
             document.getElementById('adminSidebar').classList.toggle('open');
+        }
+
+        // ============================================================
+        // DARK MODE TOGGLE
+        // ============================================================
+        function toggleDarkMode() {
+            appData.darkMode = !appData.darkMode;
+            saveToLocalStorage();
+            if (appData.darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            // Update admin panel UI if open
+            const darkBtn = document.querySelector('.btn-dark-admin');
+            if (darkBtn) {
+                darkBtn.innerHTML = `<i class="fas ${appData.darkMode ? 'fa-sun' : 'fa-moon'}"></i> ${appData.darkMode ? 'Light' : 'Dark'}`;
+                darkBtn.classList.toggle('active', appData.darkMode);
+            }
+            // Update quick action button
+            const quickBtn = document.querySelector('.admin-quick-actions .actions-grid button:last-child');
+            if (quickBtn && quickBtn.textContent.includes('Mode')) {
+                quickBtn.innerHTML =
+                    `<i class="fas ${appData.darkMode ? 'fa-sun' : 'fa-moon'}"></i> ${appData.darkMode ? 'Light Mode' : 'Dark Mode'}`;
+            }
+            // Update settings button
+            const settingBtn = document.querySelector('.setting-group:last-child .btn-setting');
+            if (settingBtn) {
+                settingBtn.innerHTML =
+                    `<i class="fas ${appData.darkMode ? 'fa-sun' : 'fa-moon'}"></i> ${appData.darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}`;
+            }
+            const settingLabel = document.querySelector('.setting-group:last-child span');
+            if (settingLabel) {
+                settingLabel.textContent = `Current: ${appData.darkMode ? '🌙 Dark' : '☀️ Light'}`;
+            }
+            showToast(appData.darkMode ? '🌙 Dark mode enabled' : '☀️ Light mode enabled', 'info');
+        }
+
+        // ============================================================
+        // SUB-SECTION MODAL
+        // ============================================================
+        function openSubSectionModal(page, existingCat = null) {
+            const isEdit = existingCat !== null;
+            document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Rename Sub-Section` :
+                `➕ Add Sub-Section to ${page.charAt(0).toUpperCase() + page.slice(1)}`;
+
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="subSectionPage" value="${page}">
+                <input type="hidden" id="subSectionOldName" value="${isEdit ? existingCat : ''}">
+                <div class="form-group">
+                    <label>Sub-Section / Category Name *</label>
+                    <input type="text" id="subSectionName" value="${isEdit ? existingCat : ''}" placeholder="e.g., Government Jobs">
+                </div>
+                <button class="btn-submit" onclick="saveSubSection()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        function saveSubSection() {
+            const page = document.getElementById('subSectionPage').value;
+            const oldName = document.getElementById('subSectionOldName').value;
+            const newName = document.getElementById('subSectionName').value.trim();
+            if (!newName) { showToast('Category name is required!', 'error'); return; }
+
+            const items = appData[page]?.items || [];
+            if (!appData[page]) appData[page] = { content: '', items: [] };
+            if (!appData[page].items) appData[page].items = [];
+
+            if (oldName) {
+                // Rename existing category
+                let found = false;
+                appData[page].items.forEach(item => {
+                    if (item.category === oldName) {
+                        item.category = newName;
+                        found = true;
+                    }
+                });
+                if (found) {
+                    showToast('✅ Category renamed!', 'success');
+                } else {
+                    showToast('Category not found.', 'error');
+                    return;
+                }
+            } else {
+                // Add new category - just create a placeholder item or update UI
+                // We'll add a dummy item to show the category
+                appData[page].items.push({
+                    id: 'sub_' + Date.now(),
+                    title: `📂 ${newName}`,
+                    description: 'New category - add items to populate.',
+                    visibility: 'public',
+                    category: newName
+                });
+                showToast('✅ Sub-section added!', 'success');
+            }
+
+            saveToLocalStorage();
+            renderAllPages();
+            closeAdminModal();
+            showAdminPage(`subsections-${page}`);
+        }
+
+        function renameSubSection(page, cat) {
+            openSubSectionModal(page, cat);
+        }
+
+        function deleteSubSection(page, cat) {
+            if (!confirm(`Delete category "${cat}" and all items in it?`)) return;
+            const items = appData[page]?.items || [];
+            appData[page].items = items.filter(item => item.category !== cat);
+            saveToLocalStorage();
+            renderAllPages();
+            showAdminPage(`subsections-${page}`);
+            showToast('🗑️ Category deleted!', 'warning');
+        }
+
+        // ============================================================
+        // SLIDE MODAL
+        // ============================================================
+        function openSlideModal(index = null) {
+            const isEdit = index !== null;
+            const slides = appData.slides || [];
+            const slide = isEdit ? slides[index] : { title: '', description: '', image: '', link: '#', active: true };
+
+            document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Slide' : '📸 Add Slide';
+
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="slideIndex" value="${isEdit ? index : -1}">
+                <div class="form-group">
+                    <label>Title *</label>
+                    <input type="text" id="slideTitle" value="${slide.title || ''}" placeholder="Slide title">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="slideDesc" placeholder="Slide description">${slide.description || ''}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Image URL (optional) - paste image URL or use upload below</label>
+                    <input type="text" id="slideImage" value="${slide.image || ''}" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Upload Image (optional)</label>
+                    <input type="file" id="slideImageFile" accept="image/*" onchange="handleSlideImageUpload(event)">
+                    <div id="slideImagePreview" style="margin-top:8px;">
+                        ${slide.image ? `<img src="${slide.image}" style="max-height:100px;border-radius:4px;border:1px solid var(--border-color);">` : ''}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Link URL</label>
+                    <input type="url" id="slideLink" value="${slide.link || '#'}" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                    <label>Active</label>
+                    <select id="slideActive">
+                        <option value="true" ${slide.active !== false ? 'selected' : ''}>✅ Active</option>
+                        <option value="false" ${slide.active === false ? 'selected' : ''}>⛔ Inactive</option>
+                    </select>
+                </div>
+                <button class="btn-submit" onclick="saveSlide()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        let slideImageData = null;
+
+        function handleSlideImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    slideImageData = e.target.result;
+                    const preview = document.getElementById('slideImagePreview');
+                    preview.innerHTML =
+                        `<img src="${slideImageData}" style="max-height:100px;border-radius:4px;border:1px solid var(--border-color);">`;
+                    document.getElementById('slideImage').value = slideImageData;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveSlide() {
+            const index = parseInt(document.getElementById('slideIndex').value);
+            const title = document.getElementById('slideTitle').value.trim();
+            const description = document.getElementById('slideDesc').value.trim();
+            let image = document.getElementById('slideImage').value.trim();
+            const link = document.getElementById('slideLink').value.trim() || '#';
+            const active = document.getElementById('slideActive').value === 'true';
+
+            if (!title) { showToast('Title is required!', 'error'); return; }
+
+            if (!appData.slides) appData.slides = [];
+
+            const slide = { id: 'slide_' + Date.now(), title, description, image, link, active };
+
+            if (index >= 0 && index < appData.slides.length) {
+                appData.slides[index] = { ...appData.slides[index], ...slide };
+                showToast('✅ Slide updated!', 'success');
+            } else {
+                appData.slides.push(slide);
+                showToast('✅ Slide added!', 'success');
+            }
+
+            saveToLocalStorage();
+            renderSlidesCarousel();
+            closeAdminModal();
+            showAdminPage('slides');
+            slideImageData = null;
+        }
+
+        function deleteSlide(index) {
+            if (!confirm('Delete this slide?')) return;
+            if (appData.slides) {
+                appData.slides.splice(index, 1);
+                saveToLocalStorage();
+                renderSlidesCarousel();
+                showAdminPage('slides');
+                showToast('🗑️ Slide deleted!', 'warning');
+            }
+        }
+
+        // ============================================================
+        // DROPDOWN ITEM MODAL
+        // ============================================================
+        function openDropdownItemModal(menuKey, itemIndex = null) {
+            const isEdit = itemIndex !== null;
+            const menus = appData.dropdownMenus || DEFAULT_DATA.dropdownMenus;
+            const menu = menus[menuKey] || { label: menuKey, items: [] };
+            const item = isEdit ? menu.items[itemIndex] : { label: '', action: '' };
+
+            document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Dropdown Item' :
+                '➕ Add Dropdown Item';
+
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="ddMenuKey" value="${menuKey}">
+                <input type="hidden" id="ddItemIndex" value="${isEdit ? itemIndex : -1}">
+                <div class="form-group">
+                    <label>Menu Label *</label>
+                    <input type="text" id="ddItemLabel" value="${item.label || ''}" placeholder="e.g., Government Jobs">
+                </div>
+                <div class="form-group">
+                    <label>Action / Value *</label>
+                    <input type="text" id="ddItemAction" value="${item.action || ''}" placeholder="e.g., Government Jobs">
+                    <div style="font-size:11px;color:var(--text-light);margin-top:4px;">
+                        For Jobs menu: use 'central', 'state', 'private'<br>
+                        For Career/More/Blog: use the category name<br>
+                        For Service: use 'government', 'private', 'education'
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="saveDropdownItem()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        function saveDropdownItem() {
+            const menuKey = document.getElementById('ddMenuKey').value;
+            const index = parseInt(document.getElementById('ddItemIndex').value);
+            const label = document.getElementById('ddItemLabel').value.trim();
+            const action = document.getElementById('ddItemAction').value.trim();
+
+            if (!label || !action) { showToast('Label and Action are required!', 'error'); return; }
+
+            if (!appData.dropdownMenus) appData.dropdownMenus = { ...DEFAULT_DATA.dropdownMenus };
+            if (!appData.dropdownMenus[menuKey]) {
+                appData.dropdownMenus[menuKey] = { label: menuKey, items: [] };
+            }
+
+            const item = { label, action };
+
+            if (index >= 0 && index < appData.dropdownMenus[menuKey].items.length) {
+                appData.dropdownMenus[menuKey].items[index] = item;
+                showToast('✅ Dropdown item updated!', 'success');
+            } else {
+                appData.dropdownMenus[menuKey].items.push(item);
+                showToast('✅ Dropdown item added!', 'success');
+            }
+
+            saveToLocalStorage();
+            renderNavigation();
+            closeAdminModal();
+            showAdminPage('dropdowns');
+        }
+
+        function editDropdownItem(menuKey, index) {
+            openDropdownItemModal(menuKey, index);
+        }
+
+        function deleteDropdownItem(menuKey, index) {
+            if (!confirm('Delete this dropdown item?')) return;
+            if (appData.dropdownMenus && appData.dropdownMenus[menuKey]) {
+                appData.dropdownMenus[menuKey].items.splice(index, 1);
+                saveToLocalStorage();
+                renderNavigation();
+                showAdminPage('dropdowns');
+                showToast('🗑️ Item deleted!', 'warning');
+            }
         }
 
         // ============================================================
@@ -4658,6 +5462,7 @@
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private').length;
             document.getElementById('totalJobsBadge').textContent =
                 `Total: ${jobsData.filter(j => j.jobType === currentCategory && j.visibility !== 'private').length}`;
+            updateJobCounts();
         }
 
         function editJob(idx) {
@@ -4674,6 +5479,7 @@
             renderAdminTables();
             updateJobsUI();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private').length;
+            updateJobCounts();
             showToast('🗑️ Deleted!', 'warning');
         }
 
@@ -6207,7 +7013,6 @@
                 }
             });
 
-            // Reset global variables
             if (toolId === 'id-card') idPhotoData = null;
             if (toolId === 'passport-photo') passportPhotoData = null;
             if (toolId === 'photo-crop') cropPhotoData = null;
@@ -6217,7 +7022,7 @@
         }
 
         // ============================================================
-        // TOOLS (PDF Merge, Excel, Word, OCR, Font Converter, JPG/PNG, Delete Page) - Keeping existing implementations
+        // TOOLS (PDF Merge, Excel, Word, OCR, Font Converter, JPG/PNG, Delete Page)
         // ============================================================
         function switchTool(toolId) {
             document.querySelectorAll('.tools-list .tool-btn').forEach(btn => {
@@ -7259,11 +8064,13 @@
             updateLogo();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private')
                 .length;
-            console.log('🚀 Dream Josh – Creative Studio + Full Admin Panel (Fully Functional)');
+            console.log('🚀 Dream Josh – Fully Updated Admin Panel (Sub-Sections, Slides, Dropdown Menu, Dark Mode)');
             switchTool('jpg-pdf');
             document.getElementById('service').classList.remove('active');
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('home').classList.add('active');
+            // Start slides autoplay
+            setTimeout(startSlideAutoPlay, 1000);
         });
 
         // ============================================================
@@ -7378,6 +8185,22 @@
         window.removeAlbumFile = removeAlbumFile;
         window.generateAlbum = generateAlbum;
         window.clearCreativeTool = clearCreativeTool;
+        // New admin features
+        window.toggleDarkMode = toggleDarkMode;
+        window.openSubSectionModal = openSubSectionModal;
+        window.saveSubSection = saveSubSection;
+        window.renameSubSection = renameSubSection;
+        window.deleteSubSection = deleteSubSection;
+        window.openSlideModal = openSlideModal;
+        window.saveSlide = saveSlide;
+        window.deleteSlide = deleteSlide;
+        window.handleSlideImageUpload = handleSlideImageUpload;
+        window.openDropdownItemModal = openDropdownItemModal;
+        window.saveDropdownItem = saveDropdownItem;
+        window.editDropdownItem = editDropdownItem;
+        window.deleteDropdownItem = deleteDropdownItem;
+        window.changeSlide = changeSlide;
+        window.goToSlide = goToSlide;
 
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     </script>
