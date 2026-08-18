@@ -14,6 +14,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <!-- pdf-lib for merging -->
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <!-- Tesseract.js for OCR -->
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
     <style>
         /* ================= CSS VARIABLES ================= */
         :root {
@@ -1374,7 +1376,58 @@
             cursor: pointer;
         }
 
-        /* ================= NEW PDF TOOLS STYLES ================= */
+        /* ================= NEW TOOLS SECTION STYLES ================= */
+        .tools-container {
+            margin-top: 20px;
+        }
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .tools-list .tool-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1 1 auto;
+            min-width: 180px;
+            justify-content: center;
+        }
+        .tools-list .tool-btn:hover {
+            border-color: var(--secondary-blue);
+            background: var(--card-hover);
+        }
+        .tools-list .tool-btn.active {
+            background: var(--secondary-blue);
+            color: #fff;
+            border-color: var(--secondary-blue);
+        }
+        .tools-list .tool-btn i {
+            font-size: 18px;
+        }
+
+        .tool-content {
+            display: none;
+            animation: fadeInSection 0.4s ease;
+        }
+        .tool-content.active {
+            display: block;
+        }
+
         .pdf-tool-card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -1584,10 +1637,316 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        @media (max-width: 600px) {
-            .pdf-tool-card .action-buttons button {
+
+        /* Font Converter Styles */
+        .font-converter-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            padding: 20px;
+            margin-top: 0;
+        }
+        .font-converter-box .converter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .font-converter-box .converter-header h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        .font-converter-box .converter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .font-converter-box .converter-grid .input-area, 
+        .font-converter-box .converter-grid .output-area {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .font-converter-box .converter-grid label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .font-converter-box .converter-grid textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: 0.3s;
+        }
+        .font-converter-box .converter-grid textarea:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+        .font-converter-box .converter-grid .output-area textarea {
+            background: var(--editor-toolbar-bg);
+            font-family: "Mangal", "Arial Unicode MS", sans-serif;
+        }
+        .font-converter-box .converter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            justify-content: center;
+        }
+        .font-converter-box .converter-controls button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .font-converter-box .converter-controls .btn-convert {
+            background: var(--secondary-blue);
+            color: #fff;
+        }
+        .font-converter-box .converter-controls .btn-convert:hover {
+            background: var(--primary-blue);
+            transform: scale(1.02);
+        }
+        .font-converter-box .converter-controls .btn-copy {
+            background: var(--success-green);
+            color: #fff;
+        }
+        .font-converter-box .converter-controls .btn-copy:hover {
+            background: #15803d;
+        }
+        .font-converter-box .converter-controls .btn-clear {
+            background: #dc3545;
+            color: #fff;
+        }
+        .font-converter-box .converter-controls .btn-clear:hover {
+            background: #a71d2a;
+        }
+        .font-converter-box .converter-controls .btn-preview {
+            background: var(--secondary);
+            color: #fff;
+        }
+        .font-converter-box .converter-controls .btn-preview:hover {
+            opacity: 0.8;
+        }
+        .font-converter-box .converter-info {
+            font-size: 12px;
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* OCR Styles */
+        .ocr-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            padding: 24px;
+            margin-top: 0;
+        }
+        .ocr-section .ocr-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+        .ocr-section .ocr-header h3 {
+            font-size: 20px;
+            color: var(--primary-blue);
+        }
+        .ocr-section .ocr-header h3 i { color: var(--secondary-blue); }
+        .ocr-section .ocr-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .ocr-section .ocr-tabs button {
+            padding: 8px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .ocr-section .ocr-tabs button.active {
+            background: var(--secondary-blue);
+            color: #fff;
+            border-color: var(--secondary-blue);
+        }
+        .ocr-section .ocr-tabs button:hover:not(.active) {
+            background: var(--card-hover);
+        }
+        .ocr-section .ocr-panel {
+            display: none;
+            padding: 16px 0;
+        }
+        .ocr-section .ocr-panel.active { display: block; }
+        .ocr-section .ocr-panel .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: var(--bg-color);
+        }
+        .ocr-section .ocr-panel .upload-area:hover {
+            border-color: var(--secondary-blue);
+            background: var(--card-hover);
+        }
+        .ocr-section .ocr-panel .upload-area i {
+            font-size: 48px;
+            color: var(--secondary-blue);
+            margin-bottom: 10px;
+        }
+        .ocr-section .ocr-panel .upload-area p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        .ocr-section .ocr-panel .upload-area .file-name {
+            margin-top: 8px;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        .ocr-section .ocr-panel .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            margin: 16px 0;
+            overflow: hidden;
+            display: none;
+        }
+        .ocr-section .ocr-panel .progress-bar .progress-fill {
+            height: 100%;
+            background: var(--secondary-blue);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+        .ocr-section .ocr-panel .result-area {
+            margin-top: 16px;
+            display: none;
+        }
+        .ocr-section .ocr-panel .result-area textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .ocr-section .ocr-panel .result-area textarea:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+        .ocr-section .ocr-panel .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .ocr-section .ocr-panel .action-buttons button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-primary {
+            background: var(--secondary-blue);
+            color: #fff;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-primary:hover {
+            background: var(--primary-blue);
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-success {
+            background: var(--success-green);
+            color: #fff;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-success:hover {
+            background: #15803d;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-danger {
+            background: #dc3545;
+            color: #fff;
+        }
+        .ocr-section .ocr-panel .action-buttons .btn-danger:hover {
+            background: #a71d2a;
+        }
+        .ocr-section .ocr-panel .status-text {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 10px;
+            display: none;
+        }
+        .ocr-section .ocr-panel .status-text.show { display: block; }
+        .ocr-section .ocr-panel .status-text .spinner {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @media (max-width: 768px) {
+            .font-converter-box .converter-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .font-converter-box .converter-grid textarea {
+                min-height: 150px;
+            }
+            .tools-list .tool-btn {
+                min-width: 140px;
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+            .ocr-section .ocr-tabs button {
                 font-size: 12px;
-                padding: 6px 14px;
+                padding: 6px 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .tools-list .tool-btn {
+                min-width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -1831,163 +2190,195 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: MORE (PDF TOOLS + OCR + Font Converter) ================= -->
+        <!-- ================= SECTION: MORE ================= -->
         <section class="section" id="more">
             <div class="section-header">
                 <h2>⚙️ <span>More Features</span></h2>
             </div>
             <div id="moreContent" class="page-content-display"></div>
 
-            <!-- ===== PDF MERGE TOOL ===== -->
-            <div class="pdf-tool-card" id="pdfMergeTool">
-                <div class="tool-header">
-                    <i class="fas fa-object-group"></i>
-                    <h4>PDF Merge – Combine PDFs</h4>
-                    <span class="badge-tool">Free</span>
-                </div>
-                <div class="upload-area" id="mergeUploadArea" onclick="document.getElementById('mergeFileInput').click()">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Click to select PDF files to merge</p>
-                    <div class="file-name" id="mergeFileName">No files selected</div>
-                    <input type="file" id="mergeFileInput" accept=".pdf" multiple style="display:none" onchange="handleMergeFiles(event)">
-                </div>
-                <div class="file-list" id="mergeFileList"></div>
-                <div class="action-buttons">
-                    <button class="btn-primary" onclick="mergePDFs()"><i class="fas fa-object-group"></i> Merge PDFs</button>
-                    <button class="btn-danger" onclick="clearMergeFiles()"><i class="fas fa-trash"></i> Clear All</button>
-                </div>
-                <div class="progress-bar" id="mergeProgressBar"><div class="progress-fill" id="mergeProgressFill"></div></div>
-                <div class="status-text" id="mergeStatus"><i class="fas fa-spinner spinner"></i> Merging... Please wait.</div>
-                <div class="result-area" id="mergeResult">
-                    <a href="#" class="download-link" id="mergeDownloadLink" download="merged.pdf"><i class="fas fa-download"></i> Download Merged PDF</a>
-                    <div class="file-size" id="mergeFileSize"></div>
-                    <button class="preview-btn" onclick="previewMergeResult()"><i class="fas fa-eye"></i> Preview</button>
-                </div>
-            </div>
-
-            <!-- ===== PDF TO EXCEL CONVERTER ===== -->
-            <div class="pdf-tool-card" id="pdfToExcelTool">
-                <div class="tool-header">
-                    <i class="fas fa-file-excel"></i>
-                    <h4>PDF to Excel Converter</h4>
-                    <span class="badge-tool">Free</span>
-                </div>
-                <div class="upload-area" id="excelUploadArea" onclick="document.getElementById('excelFileInput').click()">
-                    <i class="fas fa-file-pdf"></i>
-                    <p>Click to upload a PDF file</p>
-                    <div class="file-name" id="excelFileName">No file selected</div>
-                    <input type="file" id="excelFileInput" accept=".pdf" style="display:none" onchange="handleExcelFile(event)">
-                </div>
-                <div class="action-buttons">
-                    <button class="btn-success" onclick="convertPDFtoExcel()"><i class="fas fa-file-excel"></i> Convert to Excel</button>
-                    <button class="btn-danger" onclick="clearExcelFile()"><i class="fas fa-trash"></i> Clear</button>
-                </div>
-                <div class="progress-bar" id="excelProgressBar"><div class="progress-fill" id="excelProgressFill"></div></div>
-                <div class="status-text" id="excelStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                <div class="result-area" id="excelResult">
-                    <a href="#" class="download-link" id="excelDownloadLink" download="converted.xlsx"><i class="fas fa-download"></i> Download Excel File</a>
-                    <div class="file-size" id="excelFileSize"></div>
-                </div>
-            </div>
-
-            <!-- ===== PDF TO WORD CONVERTER ===== -->
-            <div class="pdf-tool-card" id="pdfToWordTool">
-                <div class="tool-header">
-                    <i class="fas fa-file-word"></i>
-                    <h4>PDF to Word Converter</h4>
-                    <span class="badge-tool">Free</span>
-                </div>
-                <div class="upload-area" id="wordUploadArea" onclick="document.getElementById('wordFileInput').click()">
-                    <i class="fas fa-file-pdf"></i>
-                    <p>Click to upload a PDF file</p>
-                    <div class="file-name" id="wordFileName">No file selected</div>
-                    <input type="file" id="wordFileInput" accept=".pdf" style="display:none" onchange="handleWordFile(event)">
-                </div>
-                <div class="action-buttons">
-                    <button class="btn-primary" onclick="convertPDFtoWord()"><i class="fas fa-file-word"></i> Convert to Word</button>
-                    <button class="btn-danger" onclick="clearWordFile()"><i class="fas fa-trash"></i> Clear</button>
-                </div>
-                <div class="progress-bar" id="wordProgressBar"><div class="progress-fill" id="wordProgressFill"></div></div>
-                <div class="status-text" id="wordStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                <div class="result-area" id="wordResult">
-                    <a href="#" class="download-link" id="wordDownloadLink" download="converted.docx"><i class="fas fa-download"></i> Download Word File</a>
-                    <div class="file-size" id="wordFileSize"></div>
-                </div>
-            </div>
-
-            <!-- Font Converter Component -->
-            <div class="font-converter-box" id="fontConverterBox">
-                <div class="converter-header">
-                    <h4><i class="fas fa-language" style="color:var(--secondary-blue);"></i> Font Converter (DevLys / Kruti to Unicode)</h4>
-                    <span style="font-size:12px;color:var(--text-light);">Convert legacy fonts to Mangal/Unicode instantly.</span>
-                </div>
-                <div class="converter-grid">
-                    <div class="input-area">
-                        <label for="fontInput">📥 Input Text (Type or Paste DevLys/Kruti Font)</label>
-                        <textarea id="fontInput" placeholder="यहाँ DevLys या Kruti Dev font में टाइप करें या पेस्ट करें... (जैसे: 'd;k' का मतलब 'क' होगा)"></textarea>
-                    </div>
-                    <div class="output-area">
-                        <label for="fontOutput">📤 Unicode Output (Mangal / Arial Unicode)</label>
-                        <textarea id="fontOutput" placeholder="Converted Unicode text will appear here..." readonly></textarea>
-                    </div>
-                </div>
-                <div class="converter-controls">
-                    <button class="btn-convert" onclick="convertFonts()"><i class="fas fa-sync-alt"></i> Convert</button>
-                    <button class="btn-copy" onclick="copyFontOutput()"><i class="fas fa-copy"></i> Copy Output</button>
-                    <button class="btn-clear" onclick="clearFontConverter()"><i class="fas fa-trash-alt"></i> Clear All</button>
-                    <button class="btn-preview" style="background:var(--secondary);color:#fff;" onclick="previewFontOutput()"><i class="fas fa-eye"></i> Preview</button>
-                </div>
-                <div class="converter-info">
-                    💡 <strong>Tip:</strong> Legacy fonts (DevLys010, Kruti Dev) ki mapping automatic ho jati hai. Copy karke kisi bhi Editor mein paste karein.
-                </div>
-            </div>
-
-            <!-- ================= OCR SECTION ================= -->
-            <div class="ocr-section" id="ocrSection">
-                <div class="ocr-header">
-                    <h3><i class="fas fa-eye"></i> Text OCR – PDF & Image to Text</h3>
-                    <div class="ocr-tabs">
-                        <button class="active" data-tab="image-tab" onclick="switchOCRtab('image-tab')"><i class="fas fa-image"></i> Image to Text</button>
-                        <button data-tab="pdf-tab" onclick="switchOCRtab('pdf-tab')"><i class="fas fa-file-pdf"></i> PDF to Text</button>
-                    </div>
+            <!-- TOOLS SECTION -->
+            <div class="tools-container">
+                <!-- Tools List -->
+                <div class="tools-list">
+                    <button class="tool-btn active" data-tool="pdf-merge" onclick="switchTool('pdf-merge')">
+                        <i class="fas fa-object-group"></i> PDF Merge
+                    </button>
+                    <button class="tool-btn" data-tool="pdf-excel" onclick="switchTool('pdf-excel')">
+                        <i class="fas fa-file-excel"></i> PDF to Excel
+                    </button>
+                    <button class="tool-btn" data-tool="pdf-word" onclick="switchTool('pdf-word')">
+                        <i class="fas fa-file-word"></i> PDF to Word
+                    </button>
+                    <button class="tool-btn" data-tool="ocr" onclick="switchTool('ocr')">
+                        <i class="fas fa-eye"></i> Text OCR
+                    </button>
+                    <button class="tool-btn" data-tool="font-converter" onclick="switchTool('font-converter')">
+                        <i class="fas fa-language"></i> Font Converter
+                    </button>
                 </div>
 
-                <!-- Image OCR Panel -->
-                <div class="ocr-panel active" id="image-tab">
-                    <div class="upload-area" id="imageUploadArea" onclick="document.getElementById('imageFileInput').click()">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Click to upload an image (JPG, PNG, WEBP)</p>
-                        <div class="file-name" id="imageFileName">No file selected</div>
-                        <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageOCR(event)">
-                    </div>
-                    <div class="progress-bar" id="imageProgressBar"><div class="progress-fill" id="imageProgressFill"></div></div>
-                    <div class="status-text" id="imageStatusText"><i class="fas fa-spinner spinner"></i> Processing OCR... Please wait.</div>
-                    <div class="result-area" id="imageResultArea">
-                        <textarea id="imageResultText" placeholder="Extracted text will appear here..."></textarea>
+                <!-- Tool: PDF Merge -->
+                <div class="tool-content active" id="tool-pdf-merge">
+                    <div class="pdf-tool-card">
+                        <div class="tool-header">
+                            <i class="fas fa-object-group"></i>
+                            <h4>PDF Merge – Combine PDFs</h4>
+                            <span class="badge-tool">Free</span>
+                        </div>
+                        <div class="upload-area" onclick="document.getElementById('mergeFileInput').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to select PDF files to merge</p>
+                            <div class="file-name" id="mergeFileName">No files selected</div>
+                            <input type="file" id="mergeFileInput" accept=".pdf" multiple style="display:none" onchange="handleMergeFiles(event)">
+                        </div>
+                        <div class="file-list" id="mergeFileList"></div>
                         <div class="action-buttons">
-                            <button class="btn-success" onclick="copyOCRResult('imageResultText')"><i class="fas fa-copy"></i> Copy Text</button>
-                            <button class="btn-primary" onclick="downloadOCRResult('imageResultText', 'ocr_image_text')"><i class="fas fa-download"></i> Download .txt</button>
-                            <button class="btn-danger" onclick="clearOCRResult('image-tab')"><i class="fas fa-trash"></i> Clear</button>
+                            <button class="btn-primary" onclick="mergePDFs()"><i class="fas fa-object-group"></i> Merge PDFs</button>
+                            <button class="btn-danger" onclick="clearMergeFiles()"><i class="fas fa-trash"></i> Clear All</button>
+                        </div>
+                        <div class="progress-bar" id="mergeProgressBar"><div class="progress-fill" id="mergeProgressFill"></div></div>
+                        <div class="status-text" id="mergeStatus"><i class="fas fa-spinner spinner"></i> Merging... Please wait.</div>
+                        <div class="result-area" id="mergeResult">
+                            <a href="#" class="download-link" id="mergeDownloadLink" download="merged.pdf"><i class="fas fa-download"></i> Download Merged PDF</a>
+                            <div class="file-size" id="mergeFileSize"></div>
+                            <button class="preview-btn" onclick="previewMergeResult()"><i class="fas fa-eye"></i> Preview</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- PDF OCR Panel -->
-                <div class="ocr-panel" id="pdf-tab">
-                    <div class="upload-area" id="pdfUploadArea" onclick="document.getElementById('pdfFileInput').click()">
-                        <i class="fas fa-file-pdf"></i>
-                        <p>Click to upload a PDF file</p>
-                        <div class="file-name" id="pdfFileName">No file selected</div>
-                        <input type="file" id="pdfFileInput" accept=".pdf" style="display:none" onchange="handlePDFOCR(event)">
-                    </div>
-                    <div class="progress-bar" id="pdfProgressBar"><div class="progress-fill" id="pdfProgressFill"></div></div>
-                    <div class="status-text" id="pdfStatusText"><i class="fas fa-spinner spinner"></i> Processing PDF OCR... Please wait.</div>
-                    <div class="result-area" id="pdfResultArea">
-                        <textarea id="pdfResultText" placeholder="Extracted text from PDF will appear here..."></textarea>
+                <!-- Tool: PDF to Excel -->
+                <div class="tool-content" id="tool-pdf-excel">
+                    <div class="pdf-tool-card">
+                        <div class="tool-header">
+                            <i class="fas fa-file-excel"></i>
+                            <h4>PDF to Excel Converter</h4>
+                            <span class="badge-tool">Free</span>
+                        </div>
+                        <div class="upload-area" onclick="document.getElementById('excelFileInput').click()">
+                            <i class="fas fa-file-pdf"></i>
+                            <p>Click to upload a PDF file</p>
+                            <div class="file-name" id="excelFileName">No file selected</div>
+                            <input type="file" id="excelFileInput" accept=".pdf" style="display:none" onchange="handleExcelFile(event)">
+                        </div>
                         <div class="action-buttons">
-                            <button class="btn-success" onclick="copyOCRResult('pdfResultText')"><i class="fas fa-copy"></i> Copy Text</button>
-                            <button class="btn-primary" onclick="downloadOCRResult('pdfResultText', 'ocr_pdf_text')"><i class="fas fa-download"></i> Download .txt</button>
-                            <button class="btn-danger" onclick="clearOCRResult('pdf-tab')"><i class="fas fa-trash"></i> Clear</button>
+                            <button class="btn-success" onclick="convertPDFtoExcel()"><i class="fas fa-file-excel"></i> Convert to Excel</button>
+                            <button class="btn-danger" onclick="clearExcelFile()"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="progress-bar" id="excelProgressBar"><div class="progress-fill" id="excelProgressFill"></div></div>
+                        <div class="status-text" id="excelStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                        <div class="result-area" id="excelResult">
+                            <a href="#" class="download-link" id="excelDownloadLink" download="converted.xlsx"><i class="fas fa-download"></i> Download Excel File</a>
+                            <div class="file-size" id="excelFileSize"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool: PDF to Word -->
+                <div class="tool-content" id="tool-pdf-word">
+                    <div class="pdf-tool-card">
+                        <div class="tool-header">
+                            <i class="fas fa-file-word"></i>
+                            <h4>PDF to Word Converter</h4>
+                            <span class="badge-tool">Free</span>
+                        </div>
+                        <div class="upload-area" onclick="document.getElementById('wordFileInput').click()">
+                            <i class="fas fa-file-pdf"></i>
+                            <p>Click to upload a PDF file</p>
+                            <div class="file-name" id="wordFileName">No file selected</div>
+                            <input type="file" id="wordFileInput" accept=".pdf" style="display:none" onchange="handleWordFile(event)">
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn-primary" onclick="convertPDFtoWord()"><i class="fas fa-file-word"></i> Convert to Word</button>
+                            <button class="btn-danger" onclick="clearWordFile()"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="progress-bar" id="wordProgressBar"><div class="progress-fill" id="wordProgressFill"></div></div>
+                        <div class="status-text" id="wordStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
+                        <div class="result-area" id="wordResult">
+                            <a href="#" class="download-link" id="wordDownloadLink" download="converted.docx"><i class="fas fa-download"></i> Download Word File</a>
+                            <div class="file-size" id="wordFileSize"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool: Text OCR -->
+                <div class="tool-content" id="tool-ocr">
+                    <div class="ocr-section">
+                        <div class="ocr-header">
+                            <h3><i class="fas fa-eye"></i> Text OCR – PDF & Image to Text</h3>
+                            <div class="ocr-tabs">
+                                <button class="active" data-tab="image-tab" onclick="switchOCRtab('image-tab')"><i class="fas fa-image"></i> Image to Text</button>
+                                <button data-tab="pdf-tab" onclick="switchOCRtab('pdf-tab')"><i class="fas fa-file-pdf"></i> PDF to Text</button>
+                            </div>
+                        </div>
+
+                        <!-- Image OCR Panel -->
+                        <div class="ocr-panel active" id="image-tab">
+                            <div class="upload-area" onclick="document.getElementById('imageFileInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload an image (JPG, PNG, WEBP)</p>
+                                <div class="file-name" id="imageFileName">No file selected</div>
+                                <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageOCR(event)">
+                            </div>
+                            <div class="progress-bar" id="imageProgressBar"><div class="progress-fill" id="imageProgressFill"></div></div>
+                            <div class="status-text" id="imageStatusText"><i class="fas fa-spinner spinner"></i> Processing OCR... Please wait.</div>
+                            <div class="result-area" id="imageResultArea">
+                                <textarea id="imageResultText" placeholder="Extracted text will appear here..."></textarea>
+                                <div class="action-buttons">
+                                    <button class="btn-success" onclick="copyOCRResult('imageResultText')"><i class="fas fa-copy"></i> Copy Text</button>
+                                    <button class="btn-primary" onclick="downloadOCRResult('imageResultText', 'ocr_image_text')"><i class="fas fa-download"></i> Download .txt</button>
+                                    <button class="btn-danger" onclick="clearOCRResult('image-tab')"><i class="fas fa-trash"></i> Clear</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PDF OCR Panel -->
+                        <div class="ocr-panel" id="pdf-tab">
+                            <div class="upload-area" onclick="document.getElementById('pdfFileInput').click()">
+                                <i class="fas fa-file-pdf"></i>
+                                <p>Click to upload a PDF file</p>
+                                <div class="file-name" id="pdfFileName">No file selected</div>
+                                <input type="file" id="pdfFileInput" accept=".pdf" style="display:none" onchange="handlePDFOCR(event)">
+                            </div>
+                            <div class="progress-bar" id="pdfProgressBar"><div class="progress-fill" id="pdfProgressFill"></div></div>
+                            <div class="status-text" id="pdfStatusText"><i class="fas fa-spinner spinner"></i> Processing PDF OCR... Please wait.</div>
+                            <div class="result-area" id="pdfResultArea">
+                                <textarea id="pdfResultText" placeholder="Extracted text from PDF will appear here..."></textarea>
+                                <div class="action-buttons">
+                                    <button class="btn-success" onclick="copyOCRResult('pdfResultText')"><i class="fas fa-copy"></i> Copy Text</button>
+                                    <button class="btn-primary" onclick="downloadOCRResult('pdfResultText', 'ocr_pdf_text')"><i class="fas fa-download"></i> Download .txt</button>
+                                    <button class="btn-danger" onclick="clearOCRResult('pdf-tab')"><i class="fas fa-trash"></i> Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool: Font Converter -->
+                <div class="tool-content" id="tool-font-converter">
+                    <div class="font-converter-box">
+                        <div class="converter-header">
+                            <h4><i class="fas fa-language" style="color:var(--secondary-blue);"></i> Font Converter (DevLys / Kruti to Unicode)</h4>
+                            <span style="font-size:12px;color:var(--text-light);">Convert legacy fonts to Mangal/Unicode instantly.</span>
+                        </div>
+                        <div class="converter-grid">
+                            <div class="input-area">
+                                <label for="fontInput">📥 Input Text (Type or Paste DevLys/Kruti Font)</label>
+                                <textarea id="fontInput" placeholder="यहाँ DevLys या Kruti Dev font में टाइप करें या पेस्ट करें... (जैसे: 'd;k' का मतलब 'क' होगा)"></textarea>
+                            </div>
+                            <div class="output-area">
+                                <label for="fontOutput">📤 Unicode Output (Mangal / Arial Unicode)</label>
+                                <textarea id="fontOutput" placeholder="Converted Unicode text will appear here..." readonly></textarea>
+                            </div>
+                        </div>
+                        <div class="converter-controls">
+                            <button class="btn-convert" onclick="convertFonts()"><i class="fas fa-sync-alt"></i> Convert</button>
+                            <button class="btn-copy" onclick="copyFontOutput()"><i class="fas fa-copy"></i> Copy Output</button>
+                            <button class="btn-clear" onclick="clearFontConverter()"><i class="fas fa-trash-alt"></i> Clear All</button>
+                            <button class="btn-preview" onclick="previewFontOutput()"><i class="fas fa-eye"></i> Preview</button>
+                        </div>
+                        <div class="converter-info">
+                            💡 <strong>Tip:</strong> Legacy fonts (DevLys010, Kruti Dev) ki mapping automatic ho jati hai. Copy karke kisi bhi Editor mein paste karein.
                         </div>
                     </div>
                 </div>
@@ -2927,6 +3318,20 @@
         }
 
         // ============================================================
+        // TOOLS SWITCH FUNCTION
+        // ============================================================
+        function switchTool(toolId) {
+            // Update active button
+            document.querySelectorAll('.tools-list .tool-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tool === toolId);
+            });
+            // Show active tool content
+            document.querySelectorAll('.tool-content').forEach(content => {
+                content.classList.toggle('active', content.id === 'tool-' + toolId);
+            });
+        }
+
+        // ============================================================
         // PDF MERGE FUNCTIONS
         // ============================================================
         let mergeFiles = [];
@@ -3255,7 +3660,7 @@
         }
 
         // ============================================================
-        // OCR FUNCTIONS (Existing)
+        // OCR FUNCTIONS
         // ============================================================
         function switchOCRtab(tabId) {
             document.querySelectorAll('.ocr-tabs button').forEach(btn => btn.classList.remove('active'));
@@ -3656,9 +4061,6 @@
         }
 
         // Keep existing admin helper functions (renderAdminHomeContent, renderAdminPageContent, renderAdminItems, etc.)
-        // For brevity, I'm keeping them as-is from the original code.
-
-        // Stub functions for admin - keeping existing implementations
         function renderAdminHomeContent() {
             const data = appData.home || DEFAULT_DATA.home;
             return `
@@ -4375,7 +4777,9 @@
                     renderSocialLinks();
                 }
                 document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private').length;
-                console.log('🚀 Dream Josh – All Features with PDF Merge, PDF to Excel, PDF to Word, OCR & Font Converter');
+                console.log('🚀 Dream Josh – All Features with Tools Section');
+                // Set default tool to PDF Merge
+                switchTool('pdf-merge');
             });
         });
 
@@ -4442,6 +4846,7 @@
         window.handleWordFile = handleWordFile;
         window.clearWordFile = clearWordFile;
         window.convertPDFtoWord = convertPDFtoWord;
+        window.switchTool = switchTool;
 
         // Set PDF.js worker
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
