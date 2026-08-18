@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <title>Dream Josh - Study & Govt. Jobs</title>
+    <title>Dream Josh - Creative Studio</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- PDF.js for PDF operations -->
@@ -1659,6 +1659,51 @@
             display: block;
         }
 
+        /* ===== CREATIVE TOOL CARDS ===== */
+        .creative-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 10px 0;
+        }
+        .creative-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            transition: 0.3s;
+            text-align: center;
+            cursor: default;
+        }
+        .creative-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 6px 20px var(--shadow-color);
+        }
+        .creative-card .card-icon {
+            font-size: 38px;
+            margin-bottom: 8px;
+            color: var(--secondary-blue);
+        }
+        .creative-card h4 {
+            font-size: 15px;
+            color: var(--primary-blue);
+            margin-bottom: 4px;
+        }
+        .creative-card p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        .creative-card .badge-new {
+            background: var(--success-green);
+            color: #fff;
+            font-size: 8px;
+            padding: 1px 8px;
+            border-radius: 20px;
+            margin-left: 4px;
+        }
+
         .pdf-tool-card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -1875,7 +1920,6 @@
             }
         }
 
-        /* Font Converter Styles */
         .font-converter-box {
             background: var(--card-bg);
             border-radius: 12px;
@@ -1994,7 +2038,6 @@
             margin-top: 10px;
         }
 
-        /* OCR Styles */
         .ocr-section {
             background: var(--card-bg);
             border-radius: 12px;
@@ -2168,7 +2211,6 @@
             animation: spin 1s linear infinite;
         }
 
-        /* Items Grid for Admin */
         .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -2402,14 +2444,12 @@
             }
         }
 
-        /* SERVICES PAGE - NEW LAYOUT */
         .services-container {
             display: flex;
             flex-direction: column;
             gap: 24px;
             margin-top: 12px;
         }
-
         .services-category {
             background: var(--card-bg);
             border-radius: 16px;
@@ -2436,13 +2476,11 @@
             font-size: 22px;
             color: var(--secondary-blue);
         }
-
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 12px;
         }
-
         .service-item {
             background: var(--bg-color);
             border-radius: 10px;
@@ -2470,7 +2508,6 @@
             font-weight: 500;
             color: var(--text-color);
         }
-
         .service-item .badge-new {
             background: var(--success-green);
             color: #fff;
@@ -2480,7 +2517,6 @@
             margin-left: auto;
             font-weight: 700;
         }
-
         .service-item .badge-hot {
             background: #dc3545;
             color: #fff;
@@ -2490,8 +2526,6 @@
             margin-left: auto;
             font-weight: 700;
         }
-
-        /* Service Links */
         .service-link {
             display: inline-block;
             padding: 2px 10px;
@@ -2507,7 +2541,6 @@
             background: var(--primary-blue);
             transform: scale(1.05);
         }
-
         @media (max-width: 640px) {
             .services-grid {
                 grid-template-columns: 1fr 1fr;
@@ -2517,6 +2550,18 @@
             .services-grid {
                 grid-template-columns: 1fr;
             }
+        }
+        .creative-section-title {
+            color: var(--primary-blue);
+            font-size: 22px;
+            font-weight: 700;
+            margin: 20px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .creative-section-title i {
+            color: var(--secondary-blue);
         }
     </style>
 </head>
@@ -2725,7 +2770,7 @@
 
         <!-- ================= SECTION: MORE (Study + Books + Tools) ================= -->
         <section class="section" id="more">
-            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">📚 Study Materials • Books • PDF Tools • JPG to PDF • PDF to JPG • PNG to PDF • PNG to JPG • Delete PDF Page • Merge PDF • PDF to Excel • PDF to Word • OCR • Font Converter</span></div>
+            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">📚 Study • Books • Creative Studio • PDF Tools • Font Converter • OCR</span></div>
             <div class="section-header">
                 <h2>📚 <span>Study & Books</span></h2>
                 <div id="moreSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
@@ -2736,10 +2781,67 @@
             </div>
             <div id="moreContent" class="page-content-display"></div>
 
+            <!-- Creative Design Studio -->
+            <div style="margin-top:30px;border-top:2px solid var(--border-color);padding-top:20px;">
+                <div class="creative-section-title"><i class="fas fa-paint-brush"></i> Creative Design Studio <span style="font-size:14px;color:var(--text-light);font-weight:400;">— Professional Tools</span></div>
+
+                <div class="creative-grid">
+                    <div class="creative-card">
+                        <div class="card-icon"><i class="fas fa-id-card"></i></div>
+                        <h4>ID Card Print <span class="badge-new">New</span></h4>
+                        <p>Design & print professional ID cards</p>
+                    </div>
+                    <div class="creative-card">
+                        <div class="card-icon"><i class="fas fa-passport"></i></div>
+                        <h4>Passport Photo</h4>
+                        <p>Create passport size photos instantly</p>
+                    </div>
+                    <div class="creative-card">
+                        <div class="card-icon"><i class="fas fa-crop-alt"></i></div>
+                        <h4>Photo Crop & Resize</h4>
+                        <p>Crop and resize photos for any purpose</p>
+                    </div>
+                    <div class="creative-card">
+                        <div class="card-icon"><i class="fas fa-poster"></i></div>
+                        <h4>Pro Poster Maker</h4>
+                        <p>Design stunning posters in minutes</p>
+                    </div>
+                    <div class="creative-card">
+                        <div class="card-icon"><i class="fas fa-id-badge"></i></div>
+                        <h4>Pro ID Maker</h4>
+                        <p>Create custom IDs for events & offices</p>
+                    </div>
+                    <div class="creative-card">
+                        <div class="card-icon"><i class="fas fa-store"></i></div>
+                        <h4>Shop Promotion Maker <span class="badge-hot">🔥</span></h4>
+                        <p>Design promotional content for shops</p>
+                    </div>
+                    <div class="creative-card">
+                        <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+                        <h4>Resume/CV</h4>
+                        <p>Build professional resumes & CVs</p>
+                    </div>
+                    <div class="creative-card">
+                        <div class="card-icon"><i class="fas fa-file-signature"></i></div>
+                        <h4>Application Maker</h4>
+                        <p>Create applications for any purpose</p>
+                    </div>
+                    <div class="creative-card">
+                        <div class="card-icon"><i class="fas fa-images"></i></div>
+                        <h4>Document Album</h4>
+                        <p>Organize documents into albums</p>
+                    </div>
+                </div>
+
+                <div style="margin-top:16px;padding:12px 16px;background:var(--highlight-bg);border-radius:8px;border-left:4px solid var(--secondary-blue);font-size:13px;color:var(--text-color);">
+                    <i class="fas fa-lightbulb" style="color:var(--gold);"></i> <strong>Pro Tip:</strong> All creative tools are ready-to-use. Just click any tool to get started — no design skills needed!
+                </div>
+            </div>
+
             <!-- Tools Section -->
             <div style="margin-top:30px;border-top:2px solid var(--border-color);padding-top:20px;">
                 <h3 style="color:var(--primary-blue);margin-bottom:15px;">⚙️ PDF & Image Tools</h3>
-                
+
                 <div class="tools-container">
                     <div class="tools-list">
                         <button class="tool-btn active" data-tool="jpg-pdf" onclick="switchTool('jpg-pdf')">
@@ -3088,9 +3190,9 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: SERVICE (NEW) ================= -->
+        <!-- ================= SECTION: SERVICE ================= -->
         <section class="section" id="service">
-            <div class="page-ticker" id="serviceTicker"><span id="serviceTickerText">🛠️ Services • Government Services • Private Services • Education Services</span></div>
+            <div class="page-ticker" id="serviceTicker"><span id="serviceTickerText">🛠️ Services • Government • Private • Education</span></div>
             <div class="section-header">
                 <h2>🛠️ <span>Services</span></h2>
                 <div id="serviceSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
@@ -3169,7 +3271,7 @@
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v20';
+        const STORAGE_KEY = 'dreamjosh_all_data_v21';
 
         const DEFAULT_DATA = {
             home: {
@@ -3189,7 +3291,7 @@
                 logo: '',
                 pageTaglines: {
                     career: '🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs',
-                    more: '📚 Study Materials • Books • PDF Tools • Complete Resources',
+                    more: '📚 Study Materials • Books • PDF Tools • Complete Resources • Creative Studio',
                     blog: '📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio',
                     service: '🛠️ Services • Government Services • Private Services • Education Services'
                 }
@@ -3208,7 +3310,6 @@
             more: {
                 content: '<h2>📚 Study & Books</h2><p>All study materials and books in one place. Find everything you need for your preparation.</p>',
                 items: [
-                    // Study Items
                     { id: 's1', title: '📝 Complete UPSC Notes', description: 'Detailed Subject-wise notes for UPSC Prelims and Mains.',
                         visibility: 'public', category: 'Study' },
                     { id: 's2', title: '📄 SSC CGL Practice Set', description: '20 Practice sets with answer keys and explanations for SSC CGL.',
@@ -3219,7 +3320,6 @@
                     { id: 's4', title: '🔁 Quick Revision Notes: Maths',
                         description: 'Short revision notes for formula and concepts.', visibility: 'public',
                         category: 'Study' },
-                    // Books Items
                     { id: 'b1', title: '📚 Competitive Exam Books', description: 'Best books for UPSC, SSC, Banking, Railway',
                         visibility: 'public', category: 'Books' },
                     { id: 'b2', title: '🏜️ Rajasthan GK', description: 'Rajasthan General Knowledge books', visibility: 'public',
@@ -3398,10 +3498,6 @@
                 }
             });
 
-            // Remove old study and books data if present
-            if (appData.study) delete appData.study;
-            if (appData.books) delete appData.books;
-
             if (!jobsData || jobsData.length === 0) {
                 jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
             }
@@ -3440,7 +3536,7 @@
             document.getElementById('homeHeading').textContent = data.heading || '🚀 Dream Josh में आपका स्वागत है';
             document.getElementById('homeAboutTitle').textContent = data.aboutTitle || '🌟 Dream Josh के बारे में';
             document.getElementById('homeAboutText').innerHTML = data.aboutText ||
-            '<b>Dream Josh</b> एक educational platform है।';
+                '<b>Dream Josh</b> एक educational platform है।';
             document.getElementById('homeFeaturesTitle').textContent = data.featuresTitle || '📚 Dream Josh पर क्या मिलेगा?';
             const list = document.getElementById('homeFeaturesList');
             list.innerHTML = (data.features || ['📖 Study Notes', '🏛️ Govt. Jobs', '🎯 Career Guide']).map(f =>
@@ -3531,7 +3627,6 @@
             const container = document.getElementById('serviceContent');
             const items = (appData.service?.items || []).filter(i => i.visibility !== 'private');
 
-            // Update filter buttons
             document.querySelectorAll('#serviceSubFilter .sub-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.sub === category);
             });
@@ -5926,7 +6021,7 @@
                     </html>
                 `;
                 const blob = new Blob([wordContent],
-                { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+                    { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
                 const url = URL.createObjectURL(blob);
                 resultArea.style.display = 'block';
                 document.getElementById('wordDownloadLink').href = url;
@@ -6176,7 +6271,7 @@
             updateLogo();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private')
                 .length;
-            console.log('🚀 Dream Josh – Study & Books moved to More, New Service Page Added');
+            console.log('🚀 Dream Josh – Creative Studio + Full Admin Panel');
             switchTool('jpg-pdf');
             document.getElementById('service').classList.remove('active');
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
