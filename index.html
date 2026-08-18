@@ -3866,7 +3866,7 @@
                 document.getElementById('statPublic').textContent = jobsData.filter(j => j.visibility !== 'private').length;
                 document.getElementById('statPrivate').textContent = jobsData.filter(j => j.visibility === 'private').length;
             }
-            if (page === 'jobs') renderAdminTable();
+            if (page === 'jobs') renderAdminTables();
             if (page === 'employees') {
                 const container = document.getElementById('employeeListContainer');
                 if (container) container.innerHTML = renderEmployeeList();
@@ -4270,7 +4270,7 @@
             const job = { id: Date.now(), title, jobType, subCat, department, post, eligibility, age, lastDate, experience, description, website, applyLink, visibility };
             if (idx >= 0 && idx < jobsData.length) { jobsData[idx] = job; showToast('✅ Job updated!', 'success'); }
             else { jobsData.push(job); showToast('✅ Job added!', 'success'); }
-            saveToLocalStorage(); closeAdminModal(); renderAdminTable(); updateJobsUI();
+            saveToLocalStorage(); closeAdminModal(); renderAdminTables(); updateJobsUI();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private').length;
             document.getElementById('totalJobsBadge').textContent = `Total: ${jobsData.filter(j => j.jobType === currentCategory && j.visibility !== 'private').length}`;
         }
@@ -4285,7 +4285,7 @@
             if (adminAccessLevel === 'employee') { showToast('Permission denied.', 'error'); return; }
             if (!confirm('Delete this job?')) return;
             jobsData.splice(idx, 1);
-            saveToLocalStorage(); renderAdminTable(); updateJobsUI();
+            saveToLocalStorage(); renderAdminTables(); updateJobsUI();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private').length;
             showToast('🗑️ Deleted!', 'warning');
         }
