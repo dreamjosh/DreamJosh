@@ -21,6 +21,9 @@
     <!-- Tesseract.js for OCR -->
     <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'>
     </script>
+    <!-- FileSaver for Word/Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js">
+    </script>
     <style>
         /* ================= CSS VARIABLES ================= */
         :root {
@@ -2679,75 +2682,8 @@
                     <span class="cat-pill">🪪 Identity</span>
                 </div>
 
-                <div class="creative-grid">
-                    <div class="creative-card" onclick="openCreativeTool('id-card')">
-                        <span class="badge-ai"><i class="fas fa-robot"></i> AI</span>
-                        <div class="card-content">
-                            <div class="card-icon"><i class="fas fa-id-card"></i></div>
-                            <h4>ID Card Print</h4>
-                            <p>AI-enhanced ID design</p>
-                        </div>
-                    </div>
-                    <div class="creative-card" onclick="openCreativeTool('passport-photo')">
-                        <span class="badge-new">New</span>
-                        <div class="card-content">
-                            <div class="card-icon"><i class="fas fa-passport"></i></div>
-                            <h4>Passport Photo</h4>
-                            <p>Auto-crop & resize</p>
-                        </div>
-                    </div>
-                    <div class="creative-card" onclick="openCreativeTool('photo-crop')">
-                        <div class="card-content">
-                            <div class="card-icon"><i class="fas fa-crop-alt"></i></div>
-                            <h4>Photo Crop</h4>
-                            <p>Precision editing</p>
-                        </div>
-                    </div>
-                    <div class="creative-card" onclick="openCreativeTool('poster-maker')">
-                        <span class="badge-ai"><i class="fas fa-robot"></i> AI</span>
-                        <div class="card-content">
-                            <div class="card-icon"><i class="fas fa-palette"></i></div>
-                            <h4>Pro Poster Maker</h4>
-                            <p>AI-generated designs</p>
-                        </div>
-                    </div>
-                    <div class="creative-card" onclick="openCreativeTool('id-maker')">
-                        <div class="card-content">
-                            <div class="card-icon"><i class="fas fa-id-badge"></i></div>
-                            <h4>Pro ID Maker</h4>
-                            <p>Custom ID cards</p>
-                        </div>
-                    </div>
-                    <div class="creative-card" onclick="openCreativeTool('shop-promotion')">
-                        <span class="badge-hot">🔥</span>
-                        <div class="card-content">
-                            <div class="card-icon"><i class="fas fa-store"></i></div>
-                            <h4>Shop Promotion</h4>
-                            <p>Marketing visuals</p>
-                        </div>
-                    </div>
-                    <div class="creative-card" onclick="openCreativeTool('resume-cv')">
-                        <span class="badge-ai"><i class="fas fa-robot"></i> AI</span>
-                        <div class="card-content">
-                            <div class="card-icon"><i class="fas fa-file-alt"></i></div>
-                            <h4>Resume/CV</h4>
-                            <p>AI-powered builder</p>
-                        </div>
-                    </div>
-                    <div class="creative-card" onclick="openCreativeTool('application-maker')">
-                        <div class="card-content">
-                            <div class="card-icon"><i class="fas fa-file-signature"></i></div>
-                            <h4>Application Maker</h4>
-                            <p>Instant drafts</p>
-                        </div>
-                    </div>
-                    <div class="creative-card" onclick="openCreativeTool('document-album')">
-                        <div class="card-content">
-                            <div class="card-icon"><i class="fas fa-images"></i></div>
-                            <h4>Document Album</h4>
-                            <p>Organize files</p>
-                        </div>
-                    </div>
+                <div class="creative-grid" id="creativeGridContainer">
+                    <!-- Dynamic creative tools rendered by JavaScript -->
                 </div>
 
                 <div style="margin-top:20px;padding:16px 20px;background:linear-gradient(135deg, rgba(124,58,237,0.1), rgba(236,72,153,0.05));border-radius:16px;border-left:4px solid var(--studio-accent);font-size:13px;color:var(--text-color);">
@@ -2892,6 +2828,18 @@
             </div>
         </section>
 
+        <!-- ================= SECTION: RSR ================= -->
+        <section class="section" id="rsr">
+            <div class="page-ticker"><span>📜 Rajasthan Service Rules (RSR) – Earned Leave Rules</span></div>
+            <div class="section-header">
+                <h2>📜 <span>RSR</span></h2>
+                <div id="rsrSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
+                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('rsr', 'all')">📌 All</button>
+                </div>
+            </div>
+            <div id="rsrContent" class="page-content-display"></div>
+        </section>
+
         <!-- ================= SECTION: TOOLS ================= -->
         <section class="section" id="tools">
             <div class="tools-page">
@@ -2909,125 +2857,8 @@
 
                 <!-- PDF Tools -->
                 <div class="tools-category-title"><i class="fas fa-file-pdf" style="margin-right:10px;"></i> PDF Utilities</div>
-                <div class="tools-grid">
-                    <div class="tool-item" onclick="showSection('more'); switchTool('jpg-pdf')">
-                        <div class="tool-icon"><i class="fas fa-file-image"></i></div>
-                        <h4>JPG to PDF</h4>
-                        <p>Convert images to a single PDF.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="showSection('more'); switchTool('pdf-jpg')">
-                        <div class="tool-icon"><i class="fas fa-file-pdf"></i></div>
-                        <h4>PDF to JPG</h4>
-                        <p>Extract pages as high-quality JPG.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="showSection('more'); switchTool('png-pdf')">
-                        <div class="tool-icon"><i class="fas fa-file-image"></i></div>
-                        <h4>PNG to PDF</h4>
-                        <p>Merge PNGs into one PDF document.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="showSection('more'); switchTool('png-jpg')">
-                        <div class="tool-icon"><i class="fas fa-file-image"></i></div>
-                        <h4>PNG to JPG</h4>
-                        <p>Convert PNG images to JPG format.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="showSection('more'); switchTool('delete-pdf')">
-                        <div class="tool-icon"><i class="fas fa-trash-alt"></i></div>
-                        <h4>Delete PDF Page</h4>
-                        <p>Remove a specific page from a PDF.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="showSection('more'); switchTool('pdf-merge')">
-                        <div class="tool-icon"><i class="fas fa-object-group"></i></div>
-                        <h4>Merge PDF</h4>
-                        <p>Combine multiple PDFs into one file.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="showSection('more'); switchTool('pdf-excel')">
-                        <div class="tool-icon"><i class="fas fa-file-excel"></i></div>
-                        <h4>PDF to Excel</h4>
-                        <p>Extract tables to Excel format.</p>
-                        <span class="badge pro">Pro</span>
-                    </div>
-                    <div class="tool-item" onclick="showSection('more'); switchTool('pdf-word')">
-                        <div class="tool-icon"><i class="fas fa-file-word"></i></div>
-                        <h4>PDF to Word</h4>
-                        <p>Convert PDF to editable Word doc.</p>
-                        <span class="badge pro">Pro</span>
-                    </div>
-                </div>
-
-                <!-- Image Tools -->
-                <div class="tools-category-title"><i class="fas fa-image" style="margin-right:10px;"></i> Image & OCR</div>
-                <div class="tools-grid">
-                    <div class="tool-item" onclick="showSection('more'); switchTool('ocr')">
-                        <div class="tool-icon"><i class="fas fa-eye"></i></div>
-                        <h4>OCR (Image/PDF to Text)</h4>
-                        <p>Extract text from images and PDFs.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="openCreativeTool('passport-photo')">
-                        <div class="tool-icon"><i class="fas fa-passport"></i></div>
-                        <h4>Passport Photo</h4>
-                        <p>Auto-crop & resize for official use.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="openCreativeTool('photo-crop')">
-                        <div class="tool-icon"><i class="fas fa-crop-alt"></i></div>
-                        <h4>Photo Crop & Resize</h4>
-                        <p>Precision crop and resize images.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                </div>
-
-                <!-- Creative Tools -->
-                <div class="tools-category-title"><i class="fas fa-paint-brush" style="margin-right:10px;"></i> Creative & Productivity</div>
-                <div class="tools-grid">
-                    <div class="tool-item" onclick="openCreativeTool('id-card')">
-                        <div class="tool-icon"><i class="fas fa-id-card"></i></div>
-                        <h4>ID Card Print</h4>
-                        <p>Design and download ID cards.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="openCreativeTool('poster-maker')">
-                        <div class="tool-icon"><i class="fas fa-palette"></i></div>
-                        <h4>Pro Poster Maker</h4>
-                        <p>AI-enhanced poster design.</p>
-                        <span class="badge pro">Pro</span>
-                    </div>
-                    <div class="tool-item" onclick="openCreativeTool('id-maker')">
-                        <div class="tool-icon"><i class="fas fa-id-badge"></i></div>
-                        <h4>Pro ID Maker</h4>
-                        <p>Custom ID cards with branding.</p>
-                        <span class="badge pro">Pro</span>
-                    </div>
-                    <div class="tool-item" onclick="openCreativeTool('shop-promotion')">
-                        <div class="tool-icon"><i class="fas fa-store"></i></div>
-                        <h4>Shop Promotion</h4>
-                        <p>Create marketing visuals for shops.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="openCreativeTool('resume-cv')">
-                        <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
-                        <h4>Resume/CV Builder</h4>
-                        <p>Professional resume in minutes.</p>
-                        <span class="badge pro">Pro</span>
-                    </div>
-                    <div class="tool-item" onclick="openCreativeTool('application-maker')">
-                        <div class="tool-icon"><i class="fas fa-file-signature"></i></div>
-                        <h4>Application Maker</h4>
-                        <p>Instant application drafts.</p>
-                        <span class="badge free">Free</span>
-                    </div>
-                    <div class="tool-item" onclick="openCreativeTool('document-album')">
-                        <div class="tool-icon"><i class="fas fa-images"></i></div>
-                        <h4>Document Album</h4>
-                        <p>Organize files into a clean album.</p>
-                        <span class="badge free">Free</span>
-                    </div>
+                <div class="tools-grid" id="toolsGrid">
+                    <!-- Dynamic tools rendered by JavaScript -->
                 </div>
             </div>
         </section>
@@ -3035,14 +2866,8 @@
 
     <!-- ================= FOOTER ================= -->
     <footer class="app-footer">
-        <div class="footer-nav">
-            <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
-            <button class="nav-btn" onclick="showSection('career')" data-section="career">🎯 Career</button>
-            <button class="nav-btn" onclick="showSection('more')" data-section="more">📚 More</button>
-            <button class="nav-btn" onclick="showSection('service')" data-section="service" style="background:rgba(255,215,0,0.25);color:#ffd700;">🛠️ Services</button>
-            <button class="nav-btn" onclick="showSection('blog')" data-section="blog">📝 Blog</button>
-            <button class="nav-btn" onclick="showSection('tools')" data-section="tools">🛠️ Tools</button>
-            <button class="nav-btn admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
+        <div class="footer-nav" id="footerNav">
+            <!-- Dynamic footer navigation rendered by JavaScript -->
         </div>
         <div class="footer-text">© 2026 <span>Dream Josh</span> • 150+ Jobs • Full Details</div>
     </footer>
@@ -3189,6 +3014,46 @@
                         category: 'Lifestyle' }
                 ]
             },
+            rsr: {
+                content: `<h2>📜 उपार्जित अवकाश एवं उनकी देयता-नियम 91</h2>
+                <h3>उपार्जित अवकाश</h3>
+                <p>उपार्जित अवकाश एवं उनकी देयताः नियम 91(1)(क) के अनुसार राज्य कर्मचारी जो स्थायी या अस्थायी है, को एक कलेण्डर वर्ष में 30 दिन का उपार्जित अवकाश देय होगा लेकिन भारतीय पुलिस सेवा के अधिकारियों को छोडकर राजस्थान सशस्त्र पुलिस के सदस्य जो भारतीय रिजर्व बटालियन में तैनात है, को कलेण्डर वर्ष में 42 दिन का उपार्जित अवकाश देय होगा।</p>
+                <p>नियम 91(1)(ग) के अनुसार कर्मचारी अपने लेखों में 1 जनवरी 1998 से अधिकतम 300 दिनों का उपार्जित अवकाश जमा रख सकता है।इससे पूर्व 1 जनवरी 1992 से 240 दिन व उससे भी पहले 180 दिन का उपार्जित अवकाश जमा रखा जा सकता था।</p>
+                <p>नियम 91(2)(a) (i) के अनुसार प्रत्येक राज्य कर्मचारी के उपार्जित अवकाश लेखों में प्रत्येक कलैण्डर वर्ष में दो बार, 1 जनवरी को 15 तथा 1 जुलाई को 15 दिन के उपार्जित अवकाश, अग्रिम के रूप में जमा किये जायेंगे। लेकिन राजस्थान सशस्त्र पुलिस के कर्मिकों के मामलो में एक बार में 15 दिन की बजाय 21 दिन के उपार्जित अवकाश जमा किये जायेंगे चाहे वह लीप वर्ष हो या दूसरा ।</p>
+                <p>वित्त विभाग की अधिसूचना क्रमांकः एफ.1(4)वि.वि/नियम / 98 दिनांक 12 दिसम्बर 2012 द्वारा नियम 91(2)(a)(i) के नीचे एक परन्तुक जोड़कर दिनांक 1 जनवरी 2013 से यह प्रावधान किया गया है कि यदि किसी राज्य कर्मचारी का उपार्जित अवकाश 31 दिसम्बर व 30 जून को 300 दिवस या कम लेकिन 285 से अधिक जमा है वहां 1 जनवरी व 1 जुलाई को 15 अग्रिम उपार्जित अवकाश लेखे का पृथक से संघारण किया जायेगा। 6 माह की अवधि मे लिये गये उपार्जित अवकाश या समर्पित अवकाश का समायोजन पहले 15 दिवस के उपार्जित अवकाश में से किया जायेगा, इसके बाद शेष अवकाश में समायोजन किया जायेगा। 6 माह की समाप्ति पर अग्रिम जमा उपार्जित अवकाश तथा पहले पूर्व में जमा उपार्जित अवकाश का योग 300 दिवस से अधिक नहीं होगा।</p>
+                <p>नियम 91(2)(b) के अनुसार यदि कोई कर्मचारी किसी कलैण्डर वर्ष की एक छमाही में असाधारण अवकाश पर रहता है तो उसके उपार्जित अवकाश के खाते में प्रत्येक 10 दिन के असाधारण अवकाश पर एक दिन का उपार्जित अवकाश कम कर दिया जायेगा जिसकी सीमा 15 दिन से अधिक नहीं होगी तथा सशस्त्र पुलिस कर्मियों के मामलों में 21 दिन से अधिक नहीं होगी। अन्य किसी भी प्रकार के अवकाशों के उपभोग पर उपार्जित अवकाश कम नहीं किये जायेंगे।</p>
+                <p>नियम 91(3) के अनुसार सेवा नियम 59 के प्रावधानों को ध्यान में रखते हुए एक राज्य कर्मचारी को एक समय में अधिकतम 120 दिन का उपार्जित अवकाश स्वीकृत किया जा सकेगा। यदि उसे ऐसा अवकाश किसी मान्यता प्राप्त सेनिटोरियम/अस्पताल में टी. बी., कैंसर, कोढ़ अथवा मानसिक रोग के निदान/चिकित्सा के लिये आवश्यक हो तो एक समय में 300 दिन का उपार्जित अवकाश, देय होने पर, स्वीकृत किया जा सकता हैं।</p>
+                <p>नियम 91(4)(क) के अनुसार यदि कोई राज्य कर्मचारी किसी कलैण्डर वर्ष की किसी छमाही में राज्य सेवा में नियुक्त होता है तो उसको प्रत्येक पूर्ण माह की सेवा पर 2.5 दिन का उपार्जित अवकाश देय होगा। संशस्त्र पुलिस कर्मियों के मामलों में यह 3.5 दिन का देय होगा।</p>
+                <p>नियम 91(4)(ख) के अनुसार एक राज्य कर्मचारी के द्वारा पद त्याग करने पर, अस्थाई सेवा समाप्ति पर, सेवा से निष्कासित अथवा बर्खास्त करने पर, सेवा मुक्त करने अथवा सेवा में रहते हुये मृत्यु हो जाने पर अथवा सेवानिवृत्त किये जाने पर कर्मचारी को देय/स्वीकार्य उपार्जित अवकाशों की गणना के लिये एक जनवरी अथवा एक जुलाई, जैसे भी स्थिति हो, वाली छमाही सेवा में प्रति पूर्ण माह की, उस घटना तक की सेवा के आधार पर, 2.5 दिन एवं सशस्त्र पुलिस कर्मियों के मामलों में 3.5 दिन के आधार पर, गणना की जायेगी। गणना करते समय उस माह के अंतिम दिन तक गणना की जायेगी जिसमें कर्मचारी उपरोक्त में किसी घटना के कारण सेवा से संबंध विच्छेद करता है।</p>
+                <h3>Privilege leave</h3>
+                <p><strong>Admissibility of privilege leave —</strong></p>
+                <p>(1) (a) A Government servant whether temporary or permanent shall be entitled to privilege leave of 30 days in a calendar year.</p>
+                <p>(b) Notwithstanding the provisions of clause (a) above the amount of privilege leave admissible to a member of Rajasthan Armed Constabulary other than I.P.S. Deployed on deputation to Indian Reserve Battalion or on Border (as defined from time to time), shall be 42 days in a calendar year.</p>
+                <p><em>Amount of Privilege leave admissible :—</em></p>
+                <p>( 1) (a) The Privilege leave admissible to a permanent Government servant other than I.P.S. Officers,[employed in the Rajasthan Armed Constabulary and posted in NEFA and Tripura or] on the Border as defined in Government Order No. F. 1 (21) GA/A/Gr.II/64, dated 8-5-1964 is one eighth of the period spent on such duty. Provided that he shall cease to earn such leave when the privilege leave due amounts to 180 days.</p>
+                <p>(b) The privilege leave admissible to a Government servant in permanent employ is one eleventh of the period spent on duty. Provided that he shall cease to earn such leave when the privilege leave due amounts to 180. Days.</p>
+                <p>(2) The maximum privilege leave that may be granted at a time to a Government servant shall be 120 days.</p>
+                <p>(3) The maximum privilege leave that may be granted at a time to a Government servant shall be 180 days when he is undergoing treatment for Tuberculosis or Leprosy or Cancer or a Mental Disease in recognized Sanatorium/Hospital.</p>
+                <p><strong>Exceptions.</strong> — (1) the maximum privilege leave that may be granted at a time to an officer shall be 120 days. (2) Privilege leave may be granted to a Government servant other than class IV service for a period of 120 days but not exceeding 180 days if the entire leave so granted or any portion thereof is spent outside India, Burma, Ceylon, Nepal and Pakistan. Provided that where privilege leave exceeding a period of 120 days is granted the period of leave spent in India shall not in the aggregate exceed the aforesaid limits. (3) The maximum privilege leave that may be granted at a time to a Government servant shall be 300 days when he is undergoing treatment for Tuberculosis or Leprosy or Cancer or a mental disease in a recognized Sanatorium, Hospital.</p>
+                <p>(c) (i) Except as provided in sub-clause (ii) of this clause a Government servant shall be entitled to accumulate leave upto a maximum period of 300 days. (ii) A member of R.A.C. other than I. P. S. deployed on deputation to Indian Reserved Battalion, who has been denied the whole or part of leave due to him in exigency of public service by issue of a formal order setting forth the reasons thereof, shall be entitled to accumulate such leave in excess of maximum limit of 300 days.</p>
+                <p>(2) (a) (i) The leave account of every Government servant shall be credited with privilege leave, in advance, in two installments of 15 days each or 21 days each in the case of R.A.C. on the first day of January and July of every calendar year irrespective of whether it is an even or uneven year. The leave taken during the course of calendar year from time to time shall be accounted for from the balance of privilege leave.</p>
+                <p>(ii) When a Government servant joins a new post without availing of the full joining time subject to the maximum of 15 days, reduced by the number of days actually availed off, shall be credited to his leave account as earned leave, provided that earned leave already at his credit together with the credit given under this sub-clause does not exceed 300 days.</p>
+                <p>(b) No deduction in leave balance shall be made if a Government servant remains on any kind of leave other than extraordinary leave. If a Government servant remains on extraordinary leave in a half year, deduction shall be made at the rate of one tenth of the period of extraordinary leave during that half year subject to a maximum of 15 days or 21 days in case of R.A.C. personnel.</p>
+                <p><strong>Government of Rajasthan's Decision.</strong></p>
+                <p>1-A Government servant may opt for credit of privilege leave into their privilege leave account on the basis of monthly credit as is allowed in the case of Government servants appointed during the calendar year. The rate of credit of privilege leave into privilege leave account on monthly basis is given below: —</p>
+                <ul>
+                    <li><strong>Category of Government servants</strong> → <strong>Rate of credit of P.L, per month.</strong></li>
+                    <li>(1) Government servants who are entitled for 30 days privilege leave in a calendar year → 2.5 days</li>
+                    <li>(2) R.A.C. personnel → 3.5 days</li>
+                    <li>(3) Staff of Courts → 1 day.</li>
+                </ul>
+                <p>2- In case of resignation, termination, discharge, removal or dismissal from service or death while in service or on retirement from service the privilege leave shall be reckoned with effect from 1st January or 1st July as the case may be in the half year of occurrence of the event and credited to his leave account at the rate of 2.5 days or 3.5 days in case of R.A.C. personnel for each completed calendar month upto the end of the month in which he ceases to be in service</p>
+                <div style="margin-top:20px;padding:16px;background:var(--highlight-bg);border-radius:8px;border-left:4px solid var(--secondary-blue);">
+                    <p><strong>Source:</strong> Rajasthan Service Rules (RSR) - Rule 91</p>
+                    <p style="font-size:13px;color:var(--text-light);">Original content from: <a href="https://rajasthanservicerules.com/rsr/index.php?lid=22&pid=169" target="_blank" style="color:var(--secondary-blue);">rajasthanservicerules.com</a></p>
+                </div>`,
+                items: []
+            },
             social: {
                 instagram: 'https://instagram.com/dreamjosh',
                 youtube: 'https://youtube.com/dreamjosh',
@@ -3230,7 +3095,8 @@
                         { label: '💻 Technology', action: 'Technology' }, { label: '📊 Business', action: 'Business' },
                         { label: '🎨 Design', action: 'Design' }, { label: '❤️ Lifestyle', action: 'Lifestyle' },
                         { label: '📚 Education', action: 'Education' }, { label: '📰 News', action: 'News' },
-                        { label: '💼 Portfolio', action: 'Portfolio' }] }
+                        { label: '💼 Portfolio', action: 'Portfolio' }] },
+                rsr: { label: '📜 RSR', items: [{ label: '📜 All Rules', action: 'all' }] }
             },
             darkMode: false,
             customPages: [
@@ -3238,9 +3104,48 @@
                 { id: 'more', label: 'More', icon: 'fa-book', visible: true, public: true },
                 { id: 'service', label: 'Services', icon: 'fa-cogs', visible: true, public: true },
                 { id: 'blog', label: 'Blog', icon: 'fa-blog', visible: true, public: true },
-                { id: 'tools', label: 'Tools', icon: 'fa-wrench', visible: true, public: true }
+                { id: 'tools', label: 'Tools', icon: 'fa-wrench', visible: true, public: true },
+                { id: 'rsr', label: 'RSR', icon: 'fa-gavel', visible: true, public: true }
             ],
-            ads: []
+            ads: [],
+            tools: [
+                { id: 'jpg-pdf', name: 'JPG to PDF', icon: 'fa-file-image', category: 'PDF', badge: 'Free',
+                    desc: 'Convert images to a single PDF.', action: 'showSection(\'more\'); switchTool(\'jpg-pdf\')' },
+                { id: 'pdf-jpg', name: 'PDF to JPG', icon: 'fa-file-pdf', category: 'PDF', badge: 'Free',
+                    desc: 'Extract pages as high-quality JPG.', action: 'showSection(\'more\'); switchTool(\'pdf-jpg\')' },
+                { id: 'png-pdf', name: 'PNG to PDF', icon: 'fa-file-image', category: 'PDF', badge: 'Free',
+                    desc: 'Merge PNGs into one PDF document.', action: 'showSection(\'more\'); switchTool(\'png-pdf\')' },
+                { id: 'png-jpg', name: 'PNG to JPG', icon: 'fa-file-image', category: 'PDF', badge: 'Free',
+                    desc: 'Convert PNG images to JPG format.', action: 'showSection(\'more\'); switchTool(\'png-jpg\')' },
+                { id: 'delete-pdf', name: 'Delete PDF Page', icon: 'fa-trash-alt', category: 'PDF', badge: 'Free',
+                    desc: 'Remove a specific page from a PDF.', action: 'showSection(\'more\'); switchTool(\'delete-pdf\')' },
+                { id: 'pdf-merge', name: 'Merge PDF', icon: 'fa-object-group', category: 'PDF', badge: 'Free',
+                    desc: 'Combine multiple PDFs into one file.', action: 'showSection(\'more\'); switchTool(\'pdf-merge\')' },
+                { id: 'pdf-excel', name: 'PDF to Excel', icon: 'fa-file-excel', category: 'PDF', badge: 'Pro',
+                    desc: 'Extract tables to Excel format.', action: 'showSection(\'more\'); switchTool(\'pdf-excel\')' },
+                { id: 'pdf-word', name: 'PDF to Word', icon: 'fa-file-word', category: 'PDF', badge: 'Pro',
+                    desc: 'Convert PDF to editable Word doc.', action: 'showSection(\'more\'); switchTool(\'pdf-word\')' },
+                { id: 'ocr', name: 'OCR (Image/PDF to Text)', icon: 'fa-eye', category: 'Image', badge: 'Free',
+                    desc: 'Extract text from images and PDFs.', action: 'showSection(\'more\'); switchTool(\'ocr\')' },
+                { id: 'passport-photo', name: 'Passport Photo', icon: 'fa-passport', category: 'Image', badge: 'Free',
+                    desc: 'Auto-crop & resize for official use.', action: 'openCreativeTool(\'passport-photo\')' },
+                { id: 'photo-crop', name: 'Photo Crop & Resize', icon: 'fa-crop-alt', category: 'Image', badge: 'Free',
+                    desc: 'Precision crop and resize images.', action: 'openCreativeTool(\'photo-crop\')' },
+                { id: 'id-card', name: 'ID Card Print', icon: 'fa-id-card', category: 'Creative', badge: 'Free',
+                    desc: 'Design and download ID cards.', action: 'openCreativeTool(\'id-card\')' },
+                { id: 'poster-maker', name: 'Pro Poster Maker', icon: 'fa-palette', category: 'Creative', badge: 'Pro',
+                    desc: 'AI-enhanced poster design.', action: 'openCreativeTool(\'poster-maker\')' },
+                { id: 'id-maker', name: 'Pro ID Maker', icon: 'fa-id-badge', category: 'Creative', badge: 'Pro',
+                    desc: 'Custom ID cards with branding.', action: 'openCreativeTool(\'id-maker\')' },
+                { id: 'shop-promotion', name: 'Shop Promotion', icon: 'fa-store', category: 'Creative', badge: 'Free',
+                    desc: 'Create marketing visuals for shops.', action: 'openCreativeTool(\'shop-promotion\')' },
+                { id: 'resume-cv', name: 'Resume/CV Builder', icon: 'fa-file-alt', category: 'Creative', badge: 'Pro',
+                    desc: 'Professional resume in minutes.', action: 'openCreativeTool(\'resume-cv\')' },
+                { id: 'application-maker', name: 'Application Maker', icon: 'fa-file-signature', category: 'Creative',
+                    badge: 'Free', desc: 'Instant application drafts.', action: 'openCreativeTool(\'application-maker\')' },
+                { id: 'document-album', name: 'Document Album', icon: 'fa-images', category: 'Creative', badge: 'Free',
+                    desc: 'Organize files into a clean album.', action: 'openCreativeTool(\'document-album\')' }
+            ]
         };
 
         const DEFAULT_JOBS = [
@@ -3330,7 +3235,7 @@
         let currentUser = null;
         let adminAccessLevel = 'full';
         let employeeAccessPages = [];
-        const genericFilters = { career: 'all', more: 'all', blog: 'all', service: 'all' };
+        const genericFilters = { career: 'all', more: 'all', blog: 'all', service: 'all', rsr: 'all' };
 
         // ============================================================
         // SETTINGS FUNCTIONS
@@ -3438,7 +3343,6 @@
             }
             footerCodeEl.innerHTML = settings.footerCode || '';
 
-            // Maintenance Mode
             if (settings.maintenanceMode) {
                 const isAdmin = document.getElementById('adminPanelOverlay')?.classList?.contains('active') || false;
                 if (!isAdmin) {
@@ -3461,7 +3365,6 @@
                 if (overlay) overlay.remove();
             }
 
-            // Search Engine Visibility
             const metaRobots = document.querySelector('meta[name="robots"]');
             if (settings.searchVisibility) {
                 if (!metaRobots) {
@@ -3646,14 +3549,14 @@
                 }
             } catch (e) { console.error('Load error:', e); }
 
-            ['home', 'career', 'more', 'service', 'blog', 'social', 'employees', 'slides', 'dropdownMenus', 'darkMode',
-                'customPages', 'ads'
+            ['home', 'career', 'more', 'service', 'blog', 'rsr', 'social', 'employees', 'slides', 'dropdownMenus', 'darkMode',
+                'customPages', 'ads', 'tools'
             ].forEach(key => {
                 if (!appData[key]) {
                     appData[key] = JSON.parse(JSON.stringify(DEFAULT_DATA[key] || {}));
                 }
                 if (key !== 'home' && key !== 'social' && key !== 'employees' && key !== 'slides' && key !==
-                    'dropdownMenus' && key !== 'darkMode' && key !== 'customPages' && key !== 'ads') {
+                    'dropdownMenus' && key !== 'darkMode' && key !== 'customPages' && key !== 'ads' && key !== 'tools') {
                     if (!appData[key].content) {
                         appData[key].content = DEFAULT_DATA[key]?.content || '';
                     }
@@ -3680,6 +3583,12 @@
                 }
                 if (key === 'ads' && !Array.isArray(appData[key])) {
                     appData[key] = [];
+                }
+                if (key === 'tools' && !Array.isArray(appData[key])) {
+                    appData[key] = DEFAULT_DATA.tools || [];
+                }
+                if (key === 'rsr') {
+                    if (!appData[key].items) appData[key].items = [];
                 }
             });
 
@@ -3710,6 +3619,9 @@
             updatePageTaglines();
             renderSlidesCarousel();
             renderNavigation();
+            renderFooterNav();
+            renderCreativeTools();
+            renderToolsGrid();
             renderAds();
             const pages = appData.customPages || DEFAULT_DATA.customPages;
             pages.forEach(page => {
@@ -3760,7 +3672,7 @@
         }
 
         function renderDynamicPage(pageId) {
-            if (pageId === 'career' || pageId === 'more' || pageId === 'blog' || pageId === 'service') {
+            if (pageId === 'career' || pageId === 'more' || pageId === 'blog' || pageId === 'service' || pageId === 'rsr') {
                 if (pageId === 'service') {
                     renderServicePage('all');
                 } else {
@@ -3989,6 +3901,61 @@
         }
 
         // ============================================================
+        // CREATIVE TOOLS RENDER
+        // ============================================================
+        function renderCreativeTools() {
+            const container = document.getElementById('creativeGridContainer');
+            const tools = appData.tools || DEFAULT_DATA.tools;
+            const creativeTools = tools.filter(t => t.category === 'Creative');
+
+            if (creativeTools.length === 0) {
+                container.innerHTML =
+                    `<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-light);">No creative tools available.</div>`;
+                return;
+            }
+
+            container.innerHTML = creativeTools.map(tool => `
+                <div class="creative-card" onclick="${tool.action || 'showToast(\'Tool coming soon!\',\'info\')'}">
+                    ${tool.badge === 'Pro' ? `<span class="badge-ai"><i class="fas fa-robot"></i> ${tool.badge}</span>` : ''}
+                    ${tool.badge === 'New' ? `<span class="badge-new">${tool.badge}</span>` : ''}
+                    ${tool.badge === 'Hot' ? `<span class="badge-hot">${tool.badge}</span>` : ''}
+                    <div class="card-content">
+                        <div class="card-icon"><i class="fas ${tool.icon || 'fa-cube'}"></i></div>
+                        <h4>${tool.name}</h4>
+                        <p>${tool.desc || ''}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderToolsGrid() {
+            const container = document.getElementById('toolsGrid');
+            const tools = appData.tools || DEFAULT_DATA.tools;
+            const pdfTools = tools.filter(t => t.category === 'PDF');
+            const imageTools = tools.filter(t => t.category === 'Image');
+
+            if (pdfTools.length === 0 && imageTools.length === 0) {
+                container.innerHTML =
+                    `<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-light);">No tools available.</div>`;
+                return;
+            }
+
+            let html = '';
+            const allTools = [...pdfTools, ...imageTools];
+            allTools.forEach(tool => {
+                html += `
+                    <div class="tool-item" onclick="${tool.action || 'showToast(\'Tool coming soon!\',\'info\')'}">
+                        <div class="tool-icon"><i class="fas ${tool.icon || 'fa-cube'}"></i></div>
+                        <h4>${tool.name}</h4>
+                        <p>${tool.desc || ''}</p>
+                        <span class="badge ${tool.badge === 'Free' ? 'free' : 'pro'}">${tool.badge || 'Free'}</span>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // ============================================================
         // ADS RENDER
         // ============================================================
         function renderAds() {
@@ -4022,7 +3989,7 @@
                 </div>
             `;
 
-            const dropdownKeys = ['career', 'more', 'service', 'blog'];
+            const dropdownKeys = ['career', 'more', 'service', 'blog', 'rsr'];
             dropdownKeys.forEach(key => {
                 const pageConfig = customPages.find(p => p.id === key);
                 if (!pageConfig || !pageConfig.visible) return;
@@ -4052,8 +4019,27 @@
             updateJobCounts();
         }
 
+        function renderFooterNav() {
+            const footer = document.getElementById('footerNav');
+            const customPages = appData.customPages || DEFAULT_DATA.customPages;
+            const visiblePages = customPages.filter(p => p.visible);
+
+            let html = `
+                <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
+                ${visiblePages.map(p => `
+                    <button class="nav-btn" onclick="showSection('${p.id}')" data-section="${p.id}">${p.label}</button>
+                `).join('')}
+                <button class="nav-btn admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
+            `;
+            footer.innerHTML = html;
+
+            document.querySelectorAll('.app-footer .nav-btn[data-section]').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.section === 'home');
+            });
+        }
+
         function handleDropdownAction(key, action) {
-            if (key === 'career' || key === 'more' || key === 'blog') {
+            if (key === 'career' || key === 'more' || key === 'blog' || key === 'rsr') {
                 filterGenericCategory(key, action);
                 showSection(key);
             } else if (key === 'service') {
@@ -4071,7 +4057,7 @@
 
         function toggleDropdownMobile(name) {
             if (window.innerWidth <= 768) {
-                const allDropdowns = ['govt', 'career', 'more', 'service', 'blog'];
+                const allDropdowns = ['govt', 'career', 'more', 'service', 'blog', 'rsr'];
                 allDropdowns.forEach(d => { if (d !== name) closeDropdownMobile(d); });
                 const content = document.getElementById(`${name}DropdownContent`);
                 if (content) content.classList.toggle('show');
@@ -4086,7 +4072,7 @@
         document.addEventListener('click', function(e) {
             if (window.innerWidth <= 768) {
                 if (!e.target.closest('.dropdown-wrapper')) {
-                    ['govt', 'career', 'more', 'service', 'blog'].forEach(name => closeDropdownMobile(name));
+                    ['govt', 'career', 'more', 'service', 'blog', 'rsr'].forEach(name => closeDropdownMobile(name));
                 }
             }
         });
@@ -4290,7 +4276,7 @@
                 btn.classList.toggle('active', btn.dataset.section === sectionId);
             });
             if (window.innerWidth <= 768) {
-                ['govt', 'career', 'more', 'service', 'blog'].forEach(name => closeDropdownMobile(name));
+                ['govt', 'career', 'more', 'service', 'blog', 'rsr'].forEach(name => closeDropdownMobile(name));
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -4383,13 +4369,14 @@
         // RENDER ADMIN PANEL
         // ============================================================
         function renderAdminPanel() {
-            const pages = ['career', 'more', 'blog', 'service'];
+            const pages = ['career', 'more', 'blog', 'service', 'rsr'];
             const isEmployee = adminAccessLevel === 'employee';
             const accessPages = employeeAccessPages;
             const allowedPages = isEmployee ? pages.filter(p => accessPages.includes(p)) : pages;
             const customPages = appData.customPages || DEFAULT_DATA.customPages;
             const slideCount = (appData.slides || []).length;
             const ads = appData.ads || [];
+            const tools = appData.tools || [];
 
             return `
                 <div class="admin-wrapper">
@@ -4402,7 +4389,7 @@
                             <li class="section-title">Page Editor</li>
                             <li><a data-page="home-editor" onclick="showAdminPage('home-editor')"><i class="fas fa-home"></i> Home Page</a></li>
                             ${allowedPages.map(p => `
-                                <li><a data-page="${p}-editor" onclick="showAdminPage('${p}-editor')"><i class="fas ${p === 'career' ? 'fa-briefcase' : p === 'more' ? 'fa-book' : p === 'blog' ? 'fa-blog' : 'fa-cogs'}"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Page <span class="count">✎</span></a></li>
+                                <li><a data-page="${p}-editor" onclick="showAdminPage('${p}-editor')"><i class="fas ${p === 'career' ? 'fa-briefcase' : p === 'more' ? 'fa-book' : p === 'blog' ? 'fa-blog' : p === 'service' ? 'fa-cogs' : 'fa-gavel'}"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Page <span class="count">✎</span></a></li>
                             `).join('')}
                             <li><a data-page="tools-editor" onclick="showAdminPage('tools-editor')"><i class="fas fa-wrench"></i> Tools Page <span class="count">✎</span></a></li>
                             <li class="section-title">Data Items</li>
@@ -4428,6 +4415,8 @@
                             <li><a data-page="social" onclick="showAdminPage('social')"><i class="fas fa-share-alt"></i> Social Links</a></li>
                             <li class="section-title">Ads</li>
                             <li><a data-page="ads" onclick="showAdminPage('ads')"><i class="fas fa-ad"></i> Ads Manager <span class="count">${ads.length}</span></a></li>
+                            <li class="section-title">Tools</li>
+                            <li><a data-page="tools-manager" onclick="showAdminPage('tools-manager')"><i class="fas fa-tools"></i> Tools Manager <span class="count">${tools.length}</span></a></li>
                             ` : ''}
                         </ul>
                         <div class="admin-footer-menu"><a onclick="closeAdminPanel()"><i class="fas fa-sign-out-alt"></i> Close</a></div>
@@ -4453,6 +4442,7 @@
                                 <div class="stat-item"><div class="stat-icon">🛠️</div><div class="stat-label">Services</div><div class="stat-value" id="statServices">${(appData.service?.items || []).length}</div></div>
                                 <div class="stat-item"><div class="stat-icon">📸</div><div class="stat-label">Slides</div><div class="stat-value" id="statSlides">${(appData.slides || []).length}</div></div>
                                 <div class="stat-item"><div class="stat-icon">📂</div><div class="stat-label">Total Items</div><div class="stat-value" id="statItems">${getTotalItems()}</div></div>
+                                <div class="stat-item"><div class="stat-icon">🔧</div><div class="stat-label">Tools</div><div class="stat-value" id="statTools">${tools.length}</div></div>
                             </div>
                             <div class="admin-quick-actions">
                                 <h3>⚡ Quick Actions</h3>
@@ -4463,6 +4453,7 @@
                                     <button onclick="showAdminPage('dropdowns')"><i class="fas fa-bars"></i> Dropdown Menu</button>
                                     ${!isEmployee ? `<button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>` : ''}
                                     ${!isEmployee ? `<button onclick="showAdminPage('ads')"><i class="fas fa-ad"></i> Ads Manager</button>` : ''}
+                                    ${!isEmployee ? `<button onclick="showAdminPage('tools-manager')"><i class="fas fa-tools"></i> Tools Manager</button>` : ''}
                                     <button onclick="exportCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                     <button onclick="exportAdminData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
                                     <button onclick="toggleDarkMode()" style="background:#2d3436;color:#fff;">
@@ -4478,6 +4469,8 @@
                                         <h4>${page.charAt(0).toUpperCase() + page.slice(1)} Page Editor</h4>
                                         <div style="display:flex;gap:6px;flex-wrap:wrap;">
                                             <button class="btn-add" onclick="openPageEditor('${page}')"><i class="fas fa-edit"></i> Edit Content</button>
+                                            <button class="btn-add" onclick="downloadPageWord('${page}')" style="background:#2b5797;"><i class="fas fa-file-word"></i> Word</button>
+                                            <button class="btn-add" onclick="downloadPageExcel('${page}')" style="background:#217346;"><i class="fas fa-file-excel"></i> Excel</button>
                                         </div>
                                     </div>
                                     <div id="adminPageContent-${page}">
@@ -4491,15 +4484,12 @@
                                 <div class="card-header">
                                     <h4>🛠️ Tools Page Editor</h4>
                                     <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                                        <button class="btn-add" onclick="showToast('Tools page is static – edit via HTML or add new tools in the grid.','info')"><i class="fas fa-info-circle"></i> Info</button>
+                                        <button class="btn-add" onclick="showToast('Tools page is managed via Tools Manager.','info')"><i class="fas fa-info-circle"></i> Info</button>
                                     </div>
                                 </div>
                                 <div style="padding:10px 0;color:var(--text-light);font-size:14px;">
-                                    <p><i class="fas fa-wrench" style="color:var(--primary-blue);"></i> The Tools page displays a curated list of PDF, Image and Creative utilities.</p>
-                                    <p style="margin-top:8px;">To add or remove tools, edit the <code>.tools-grid</code> section in the HTML (static content).</p>
-                                    <div style="background:var(--highlight-bg);padding:12px;border-radius:8px;margin-top:12px;border-left:3px solid var(--secondary-blue);">
-                                        <strong>📌 Current tools:</strong> JPG to PDF, PDF to JPG, PNG to PDF, PNG to JPG, Delete PDF Page, Merge PDF, PDF to Excel, PDF to Word, OCR, Passport Photo, Photo Crop, ID Card, Poster Maker, Pro ID Maker, Shop Promotion, Resume/CV, Application Maker, Document Album.
-                                    </div>
+                                    <p><i class="fas fa-wrench" style="color:var(--primary-blue);"></i> The Tools page displays tools from the Tools Manager.</p>
+                                    <p style="margin-top:8px;">To add, edit, or remove tools, go to <strong>Tools Manager</strong> from the sidebar.</p>
                                 </div>
                             </div>
                         </div>
@@ -4576,7 +4566,7 @@
                             <div class="admin-card">
                                 <div class="card-header"><h4>⚙️ Settings</h4></div>
                                 <div class="admin-settings">
-                                    <!-- ===== TABS NAVIGATION ===== -->
+                                    <!-- TABS NAVIGATION -->
                                     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
                                         <button class="settings-tab-btn active" data-tab="general" onclick="switchSettingsTab('general')">⚙️ General</button>
                                         <button class="settings-tab-btn" data-tab="branding" onclick="switchSettingsTab('branding')">🎨 Branding</button>
@@ -4844,6 +4834,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="adminPage-tools-manager" class="admin-section">
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <h4>🛠️ Tools Manager</h4>
+                                    <button class="btn-add" onclick="openToolManagerModal()"><i class="fas fa-plus"></i> Add New Tool</button>
+                                </div>
+                                <div id="toolsManagerContainer">
+                                    ${renderToolsManager()}
+                                </div>
+                            </div>
+                        </div>
                         ` : ''}
                     </div>
                 </div>
@@ -4868,7 +4869,7 @@
 
         function getTotalItems() {
             let count = 0;
-            ['career', 'more', 'blog', 'service'].forEach(p => {
+            ['career', 'more', 'blog', 'service', 'rsr'].forEach(p => {
                 count += (appData[p]?.items || []).length;
             });
             return count;
@@ -4984,7 +4985,7 @@
                     `).join('')}
                 </div>
                 <div style="font-size:12px;color:var(--text-light);padding:8px;background:var(--highlight-bg);border-radius:6px;">
-                    <i class="fas fa-info-circle"></i> Note: Default pages (Home, Career, More, Services, Blog) cannot be deleted.
+                    <i class="fas fa-info-circle"></i> Note: Default pages (Home, Career, More, Services, Blog, RSR) cannot be deleted.
                     Only custom pages added here can be managed.
                 </div>
             `;
@@ -5075,6 +5076,10 @@
                     appData[id] = { content: '', items: [] };
                 }
                 customPages.push(pageData);
+                // Add to dropdown menus
+                if (!appData.dropdownMenus[id]) {
+                    appData.dropdownMenus[id] = { label: label, items: [{ label: `📌 All ${label}`, action: 'all' }] };
+                }
                 showToast('✅ Page added!', 'success');
             }
 
@@ -5092,6 +5097,14 @@
             if (index >= 0 && index < customPages.length) {
                 customPages[index].visible = !customPages[index].visible;
                 appData.customPages = customPages;
+                // Update dropdown menus
+                if (customPages[index].visible) {
+                    if (!appData.dropdownMenus[customPages[index].id]) {
+                        appData.dropdownMenus[customPages[index].id] = { label: customPages[index].label, items: [{ label: `📌 All ${customPages[index].label}`, action: 'all' }] };
+                    }
+                } else {
+                    delete appData.dropdownMenus[customPages[index].id];
+                }
                 saveToLocalStorage();
                 renderAllPages();
                 const container = document.getElementById('pageManagerContainer');
@@ -5117,12 +5130,13 @@
             const customPages = appData.customPages || DEFAULT_DATA.customPages;
             if (index >= 0 && index < customPages.length) {
                 const page = customPages[index];
-                if (['career', 'more', 'service', 'blog', 'tools'].includes(page.id)) {
+                if (['career', 'more', 'service', 'blog', 'tools', 'rsr'].includes(page.id)) {
                     showToast('Cannot delete default pages!', 'error');
                     return;
                 }
                 if (!confirm(`Delete page "${page.label}" and all its data?`)) return;
                 delete appData[page.id];
+                delete appData.dropdownMenus[page.id];
                 customPages.splice(index, 1);
                 appData.customPages = customPages;
                 saveToLocalStorage();
@@ -5269,15 +5283,191 @@
             `).join('');
         }
 
+        // ============================================================
+        // TOOLS MANAGER
+        // ============================================================
+        function renderToolsManager() {
+            const tools = appData.tools || [];
+            if (tools.length === 0) {
+                return `<div class="empty-state"><i class="fas fa-tools"></i> No tools added yet. Click "Add New Tool" to create one.</div>`;
+            }
+            return `
+                <div style="margin-top:10px;">
+                    ${tools.map((tool, idx) => `
+                        <div class="admin-page-item">
+                            <div class="page-info">
+                                <span class="page-name"><i class="fas ${tool.icon || 'fa-cube'}"></i> ${tool.name}</span>
+                                <span style="font-size:11px;background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;">${tool.category || 'Uncategorized'}</span>
+                                <span style="font-size:11px;background:${tool.badge === 'Free' ? 'var(--success-green)' : 'var(--studio-accent)'};color:#fff;padding:1px 10px;border-radius:12px;">${tool.badge || 'Free'}</span>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn-edit-page" onclick="openToolManagerModal(${idx})" title="Edit Tool"><i class="fas fa-edit"></i></button>
+                                <button class="btn-delete-page" onclick="deleteTool(${idx})" title="Delete Tool"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function openToolManagerModal(index = null) {
+            const isEdit = index !== null;
+            const tools = appData.tools || [];
+            const tool = isEdit ? tools[index] : { id: '', name: '', icon: 'fa-cube', category: 'PDF', badge: 'Free',
+                desc: '', action: '' };
+
+            document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Tool' : '➕ Add New Tool';
+
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="toolIndex" value="${isEdit ? index : -1}">
+                <div class="form-group">
+                    <label>Tool Name *</label>
+                    <input type="text" id="toolName" value="${tool.name || ''}" placeholder="e.g., JPG to PDF">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" id="toolDesc" value="${tool.desc || ''}" placeholder="e.g., Convert images to a single PDF.">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Icon (Font Awesome class) *</label>
+                        <input type="text" id="toolIcon" value="${tool.icon || 'fa-cube'}" placeholder="e.g., fa-file-pdf">
+                    </div>
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="toolCategory">
+                            <option value="PDF" ${tool.category === 'PDF' ? 'selected' : ''}>PDF</option>
+                            <option value="Image" ${tool.category === 'Image' ? 'selected' : ''}>Image</option>
+                            <option value="Creative" ${tool.category === 'Creative' ? 'selected' : ''}>Creative</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Badge</label>
+                        <select id="toolBadge">
+                            <option value="Free" ${tool.badge === 'Free' ? 'selected' : ''}>Free</option>
+                            <option value="Pro" ${tool.badge === 'Pro' ? 'selected' : ''}>Pro</option>
+                            <option value="New" ${tool.badge === 'New' ? 'selected' : ''}>New</option>
+                            <option value="Hot" ${tool.badge === 'Hot' ? 'selected' : ''}>Hot</option>
+                            <option value="" ${!tool.badge ? 'selected' : ''}>None</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Action (JavaScript code) *</label>
+                        <input type="text" id="toolAction" value="${tool.action || ''}" placeholder="e.g., showSection('more'); switchTool('pdf-merge')">
+                        <div style="font-size:11px;color:var(--text-light);margin-top:2px;">JavaScript function to call when tool is clicked.</div>
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="saveTool()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'} Tool</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        function saveTool() {
+            const index = parseInt(document.getElementById('toolIndex').value);
+            const name = document.getElementById('toolName').value.trim();
+            const desc = document.getElementById('toolDesc').value.trim();
+            const icon = document.getElementById('toolIcon').value.trim() || 'fa-cube';
+            const category = document.getElementById('toolCategory').value;
+            const badge = document.getElementById('toolBadge').value;
+            const action = document.getElementById('toolAction').value.trim();
+
+            if (!name || !action) {
+                showToast('Tool Name and Action are required!', 'error');
+                return;
+            }
+
+            if (!appData.tools) appData.tools = [];
+
+            const tool = { id: 'tool_' + Date.now(), name, desc, icon, category, badge, action };
+
+            if (index >= 0 && index < appData.tools.length) {
+                appData.tools[index] = { ...appData.tools[index], ...tool };
+                showToast('✅ Tool updated!', 'success');
+            } else {
+                appData.tools.push(tool);
+                showToast('✅ Tool added!', 'success');
+            }
+
+            saveToLocalStorage();
+            renderAllPages();
+            closeAdminModal();
+            showAdminPage('tools-manager');
+        }
+
+        function deleteTool(index) {
+            if (!confirm('Delete this tool?')) return;
+            if (appData.tools) {
+                appData.tools.splice(index, 1);
+                saveToLocalStorage();
+                renderAllPages();
+                showAdminPage('tools-manager');
+                showToast('🗑️ Tool deleted!', 'warning');
+            }
+        }
+
+        // ============================================================
+        // PAGE DOWNLOAD (WORD & EXCEL)
+        // ============================================================
+        function downloadPageWord(page) {
+            const content = page === 'home' ? appData.home?.aboutText || '' : appData[page]?.content || '';
+            if (!content) {
+                showToast('No content to download!', 'error');
+                return;
+            }
+            const html = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head><meta charset='utf-8'><title>${page.charAt(0).toUpperCase() + page.slice(1)} Page</title></head>
+                <body><h1>${page.charAt(0).toUpperCase() + page.slice(1)} Page</h1><div>${content}</div></body></html>
+            `;
+            const blob = new Blob(['\uFEFF' + html], { type: 'application/msword;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `${page}_page.docx`;
+            a.click();
+            URL.revokeObjectURL(a.href);
+            showToast('📥 Word file downloaded!', 'success');
+        }
+
+        function downloadPageExcel(page) {
+            const content = page === 'home' ? appData.home?.aboutText || '' : appData[page]?.content || '';
+            if (!content) {
+                showToast('No content to download!', 'error');
+                return;
+            }
+            const cleanText = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+            const data = [
+                ['Page', 'Content'],
+                [page.charAt(0).toUpperCase() + page.slice(1), cleanText]
+            ];
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            XLSX.utils.book_append_sheet(wb, ws, 'Page');
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `${page}_page.xlsx`;
+            a.click();
+            URL.revokeObjectURL(a.href);
+            showToast('📥 Excel file downloaded!', 'success');
+        }
+
+        // ============================================================
+        // OTHER HELPER FUNCTIONS
+        // ============================================================
         function showAdminPage(page) {
             document.querySelectorAll('#adminPanelOverlay .admin-menu a').forEach(el => el.classList.remove('active'));
             const menuItem = document.querySelector(`#adminPanelOverlay .admin-menu a[data-page="${page}"]`);
             if (menuItem) menuItem.classList.add('active');
 
             const allPages = ['dashboard', 'home-editor', 'career-editor', 'more-editor', 'blog-editor', 'service-editor',
-                'tools-editor', 'jobs', 'settings', 'sync', 'employees', 'social', 'slides', 'dropdowns', 'page-manager',
-                'items-career', 'items-more', 'items-blog', 'items-service',
-                'subsections-career', 'subsections-more', 'subsections-blog', 'subsections-service', 'ads'
+                'rsr-editor', 'tools-editor', 'jobs', 'settings', 'sync', 'employees', 'social', 'slides', 'dropdowns',
+                'page-manager', 'items-career', 'items-more', 'items-blog', 'items-service', 'items-rsr',
+                'subsections-career', 'subsections-more', 'subsections-blog', 'subsections-service', 'subsections-rsr',
+                'ads', 'tools-manager'
             ];
 
             allPages.forEach(p => {
@@ -5292,15 +5482,18 @@
                 'more-editor': '📚 <span>More Page Editor</span>',
                 'blog-editor': '📝 <span>Blog Page Editor</span>',
                 'service-editor': '🛠️ <span>Service Page Editor</span>',
+                'rsr-editor': '📜 <span>RSR Page Editor</span>',
                 'tools-editor': '🛠️ <span>Tools Page Editor</span>',
                 'items-career': '🎯 <span>Career Items</span>',
                 'items-more': '📚 <span>More Items</span>',
                 'items-blog': '📝 <span>Blog Items</span>',
                 'items-service': '🛠️ <span>Service Items</span>',
+                'items-rsr': '📜 <span>RSR Items</span>',
                 'subsections-career': '🎯 <span>Career Sub-Sections</span>',
                 'subsections-more': '📚 <span>More Sub-Sections</span>',
                 'subsections-blog': '📝 <span>Blog Sub-Sections</span>',
                 'subsections-service': '🛠️ <span>Service Sub-Sections</span>',
+                'subsections-rsr': '📜 <span>RSR Sub-Sections</span>',
                 jobs: '💼 <span>Jobs Manager</span>',
                 settings: '⚙️ <span>Settings</span>',
                 sync: '🔄 <span>Google Sheets Sync</span>',
@@ -5309,7 +5502,8 @@
                 slides: '📸 <span>Slides Manager</span>',
                 dropdowns: '📋 <span>Dropdown Menu Setup</span>',
                 'page-manager': '📄 <span>Page Manager</span>',
-                ads: '📢 <span>Ads Manager</span>'
+                ads: '📢 <span>Ads Manager</span>',
+                'tools-manager': '🛠️ <span>Tools Manager</span>'
             };
             document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
 
@@ -5320,6 +5514,7 @@
                 document.getElementById('statServices').textContent = (appData.service?.items || []).length;
                 document.getElementById('statSlides').textContent = (appData.slides || []).length;
                 document.getElementById('statItems').textContent = getTotalItems();
+                document.getElementById('statTools').textContent = (appData.tools || []).length;
             }
             if (page === 'jobs') renderAdminTables();
             if (page === 'employees') {
@@ -5346,6 +5541,10 @@
                 const container = document.getElementById('adsContainer');
                 if (container) container.innerHTML = renderAdminAds();
             }
+            if (page === 'tools-manager') {
+                const container = document.getElementById('toolsManagerContainer');
+                if (container) container.innerHTML = renderToolsManager();
+            }
             if (page === 'settings') {
                 loadSettingsIntoAdmin();
             }
@@ -5359,7 +5558,7 @@
                 const container = document.getElementById(`adminSubSectionsContainer-${pageName}`);
                 if (container) container.innerHTML = renderAdminSubSections(pageName);
             }
-            if (['career-editor', 'more-editor', 'blog-editor', 'service-editor'].includes(page)) {
+            if (['career-editor', 'more-editor', 'blog-editor', 'service-editor', 'rsr-editor'].includes(page)) {
                 const pageName = page.replace('-editor', '');
                 const container = document.getElementById(`adminPageContent-${pageName}`);
                 if (container) container.innerHTML = renderAdminPageContent(pageName);
@@ -5395,15 +5594,6 @@
             if (quickBtn && quickBtn.textContent.includes('Mode')) {
                 quickBtn.innerHTML =
                     `<i class="fas ${appData.darkMode ? 'fa-sun' : 'fa-moon'}"></i> ${appData.darkMode ? 'Light Mode' : 'Dark Mode'}`;
-            }
-            const settingBtn = document.querySelector('.setting-group:last-child .btn-setting');
-            if (settingBtn) {
-                settingBtn.innerHTML =
-                    `<i class="fas ${appData.darkMode ? 'fa-sun' : 'fa-moon'}"></i> ${appData.darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}`;
-            }
-            const settingLabel = document.querySelector('.setting-group:last-child span');
-            if (settingLabel) {
-                settingLabel.textContent = `Current: ${appData.darkMode ? '🌙 Dark' : '☀️ Light'}`;
             }
             showToast(appData.darkMode ? '🌙 Dark mode enabled' : '☀️ Light mode enabled', 'info');
         }
@@ -5613,7 +5803,7 @@
                     <input type="text" id="ddItemAction" value="${item.action || ''}" placeholder="e.g., Government Jobs">
                     <div style="font-size:11px;color:var(--text-light);margin-top:4px;">
                         For Jobs menu: use 'central', 'state', 'private'<br>
-                        For Career/More/Blog: use the category name<br>
+                        For Career/More/Blog/RSR: use the category name<br>
                         For Service: use 'government', 'private', 'education'
                     </div>
                 </div>
@@ -6455,6 +6645,13 @@
                         <input type="url" id="itemLink" value="${item.link || ''}" placeholder="https://example.com">
                     </div>
                 `;
+            } else if (page === 'rsr') {
+                categoryHtml = `
+                    <div class="form-group">
+                        <label>Category (optional)</label>
+                        <input type="text" id="itemCategory" value="${item.category || ''}" placeholder="e.g., Leave Rules">
+                    </div>
+                `;
             }
 
             document.getElementById('adminModalBody').innerHTML = `
@@ -6552,7 +6749,7 @@
             const isEdit = index !== null;
             const employees = appData.employees || [];
             const emp = isEdit ? employees[index] : { name: '', email: '', access: [] };
-            const allPages = ['career', 'more', 'blog', 'service'];
+            const allPages = ['career', 'more', 'blog', 'service', 'rsr'];
 
             document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Employee' : '👤 Add Employee';
             document.getElementById('adminModalBody').innerHTML = `
@@ -7593,7 +7790,7 @@
             updateLogo();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private')
                 .length;
-            console.log('🚀 Dream Josh – Fully loaded with Settings Panel!');
+            console.log('🚀 Dream Josh – Fully loaded with RSR Page, Tools Manager, and Word/Excel Export!');
             switchTool('ocr');
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('home').classList.add('active');
@@ -7657,7 +7854,6 @@
         window.downloadOCRResult = downloadOCRResult;
         window.clearOCRResult = clearOCRResult;
         window.switchTool = switchTool;
-        // Settings
         window.saveAllSettings = saveAllSettings;
         window.switchSettingsTab = switchSettingsTab;
         window.handleFaviconUpload = handleFaviconUpload;
@@ -7666,7 +7862,6 @@
         window.handleBrandLogoDarkUpload = handleBrandLogoDarkUpload;
         window.removeBrandLogo = removeBrandLogo;
         window.loadSettingsIntoAdmin = loadSettingsIntoAdmin;
-        // Creative Studio
         window.openCreativeTool = openCreativeTool;
         window.closeCreativeTool = closeCreativeTool;
         window.handleIdPhotoUpload = handleIdPhotoUpload;
@@ -7688,7 +7883,6 @@
         window.removeAlbumFile = removeAlbumFile;
         window.generateAlbum = generateAlbum;
         window.clearCreativeTool = clearCreativeTool;
-        // Admin features
         window.toggleDarkMode = toggleDarkMode;
         window.openSubSectionModal = openSubSectionModal;
         window.saveSubSection = saveSubSection;
@@ -7715,6 +7909,11 @@
         window.toggleAdStatus = toggleAdStatus;
         window.previewAd = previewAd;
         window.handleAdImageUpload = handleAdImageUpload;
+        window.downloadPageWord = downloadPageWord;
+        window.downloadPageExcel = downloadPageExcel;
+        window.openToolManagerModal = openToolManagerModal;
+        window.saveTool = saveTool;
+        window.deleteTool = deleteTool;
 
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     </script>
