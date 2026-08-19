@@ -50,12 +50,10 @@
             --editor-bg: #f8f9fa;
             --editor-toolbar-bg: #ffffff;
             --editor-border: #d1d5db;
-            /* Studio Vars */
             --studio-glow: rgba(124, 58, 237, 0.4);
             --studio-accent: #7c3aed;
             --tools-bg: #f0f7ff;
         }
-
         .dark-mode {
             --bg-color: #0a0e1a;
             --card-bg: #141428;
@@ -78,13 +76,7 @@
             --studio-glow: rgba(124, 58, 237, 0.6);
             --tools-bg: #11182a;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background: var(--bg-color);
@@ -94,8 +86,6 @@
             padding-top: 70px;
             padding-bottom: 70px;
         }
-
-        /* ================= HEADER ================= */
         .app-header {
             background: var(--header-bg);
             padding: 10px 16px;
@@ -121,14 +111,8 @@
             align-items: center;
             gap: 8px;
         }
-        .app-header .logo img {
-            height: 32px;
-            width: auto;
-            border-radius: 4px;
-        }
-        .app-header .logo span {
-            color: var(--gold);
-        }
+        .app-header .logo img { height: 32px; width: auto; border-radius: 4px; }
+        .app-header .logo span { color: var(--gold); }
         .app-header .header-controls {
             display: flex;
             align-items: center;
@@ -148,24 +132,11 @@
             white-space: nowrap;
             text-decoration: none;
         }
-        .app-header .header-controls .nav-btn:hover {
-            background: var(--gold);
-            color: #0a0e1a;
-        }
-        .app-header .header-controls .nav-btn.active {
-            background: var(--gold);
-            color: #0a0e1a;
-        }
-        .app-header .header-controls .admin-btn {
-            background: #dc3545;
-            border-color: #dc3545;
-        }
-        .app-header .header-controls .admin-btn:hover {
-            background: #ff4757;
-            color: #fff;
-        }
+        .app-header .header-controls .nav-btn:hover { background: var(--gold); color: #0a0e1a; }
+        .app-header .header-controls .nav-btn.active { background: var(--gold); color: #0a0e1a; }
+        .app-header .header-controls .admin-btn { background: #dc3545; border-color: #dc3545; }
+        .app-header .header-controls .admin-btn:hover { background: #ff4757; color: #fff; }
 
-        /* ================= DROPDOWN ================= */
         .dropdown-wrapper {
             position: relative;
             display: inline-block;
@@ -182,19 +153,10 @@
             transition: 0.3s;
             white-space: nowrap;
         }
-        .dropdown-wrapper .dropdown-btn:hover {
-            background: var(--gold);
-            color: #0a0e1a;
-        }
-        .dropdown-wrapper .dropdown-btn .arrow {
-            font-size: 10px;
-            margin-left: 3px;
-        }
+        .dropdown-wrapper .dropdown-btn:hover { background: var(--gold); color: #0a0e1a; }
+        .dropdown-wrapper .dropdown-btn .arrow { font-size: 10px; margin-left: 3px; }
         .dropdown-wrapper:hover .dropdown-content,
-        .dropdown-wrapper .dropdown-content.show {
-            display: block;
-            animation: dropdownFade 0.25s ease;
-        }
+        .dropdown-wrapper .dropdown-content.show { display: block; animation: dropdownFade 0.25s ease; }
         .dropdown-wrapper .dropdown-content {
             display: none;
             position: absolute;
@@ -227,9 +189,7 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .dropdown-wrapper .dropdown-content button:hover {
-            background: var(--card-hover);
-        }
+        .dropdown-wrapper .dropdown-content button:hover { background: var(--card-hover); }
         .dropdown-wrapper .dropdown-content .dropdown-divider {
             height: 1px;
             background: var(--border-color);
@@ -243,11 +203,8 @@
             opacity: 0.4;
             font-weight: 700;
         }
-        .dropdown-wrapper .dropdown-content .dropdown-item-icon {
-            margin-right: 8px;
-        }
+        .dropdown-wrapper .dropdown-content .dropdown-item-icon { margin-right: 8px; }
 
-        /* ================= FOOTER ================= */
         .app-footer {
             position: fixed;
             bottom: 0;
@@ -270,9 +227,7 @@
             font-size: 12px;
             text-align: center;
         }
-        .app-footer .footer-text span {
-            color: var(--gold);
-        }
+        .app-footer .footer-text span { color: var(--gold); }
         .app-footer .footer-nav {
             display: flex;
             gap: 6px;
@@ -302,7 +257,6 @@
             color: #0a0e1a;
         }
 
-        /* ================= SECTION CONTAINER ================= */
         .section-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -313,9 +267,7 @@
             padding: 20px 0 30px 0;
             animation: fadeInSection 0.4s ease;
         }
-        .section.active {
-            display: block;
-        }
+        .section.active { display: block; }
         @keyframes fadeInSection {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -333,11 +285,8 @@
             font-weight: 700;
             color: var(--text-color);
         }
-        .section .section-header h2 span {
-            color: var(--primary-blue);
-        }
+        .section .section-header h2 span { color: var(--primary-blue); }
 
-        /* ================= PAGE TAGLINE TICKER ================= */
         .page-ticker {
             margin: 8px auto 16px auto;
             max-width: 1100px;
@@ -358,7 +307,6 @@
             to { transform: translateX(-100%); }
         }
 
-        /* ================= HOME PAGE (unchanged) ================= */
         .home-original {
             background: var(--bg-color);
             color: var(--text-color);
@@ -496,7 +444,6 @@
             .section-container { padding: 12px 14px; }
         }
 
-        /* ================= JOB SECTION (unchanged) ================= */
         .job-grid-wrapper {
             margin: 20px 0;
             padding: 20px;
@@ -597,7 +544,6 @@
             border-color: var(--secondary-blue);
         }
 
-        /* ================= DETAIL OVERLAY ================= */
         .detail-overlay {
             display: none;
             position: fixed;
@@ -699,7 +645,6 @@
             border: 1px solid var(--border-color);
         }
 
-        /* ================= TOAST ================= */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -719,7 +664,6 @@
         .toast.error { background: #dc3545; }
         .toast.info { background: #1976d2; }
 
-        /* ================= PAGE CONTENT DISPLAY ================= */
         .page-content-display {
             background: var(--card-bg);
             border-radius: 12px;
@@ -761,7 +705,6 @@
             border: 1px solid var(--border-color);
         }
 
-        /* ================= ADMIN PANEL ================= */
         .admin-panel-overlay {
             display: none;
             position: fixed;
@@ -1355,10 +1298,7 @@
             cursor: pointer;
         }
 
-        /* ================= NEW TOOLS SECTION STYLES ================= */
-        .tools-container {
-            margin-top: 20px;
-        }
+        .tools-container { margin-top: 20px; }
         .tools-list {
             display: flex;
             flex-wrap: wrap;
@@ -1400,7 +1340,6 @@
         .tool-content { display: none; animation: fadeInSection 0.4s ease; }
         .tool-content.active { display: block; }
 
-        /* ===== CREATIVE DESIGN STUDIO - CANVA PRO AI STYLE ===== */
         .studio-hero {
             background: linear-gradient(145deg, rgba(124, 58, 237, 0.15), rgba(236, 72, 153, 0.10));
             border-radius: 24px;
@@ -1603,7 +1542,6 @@
             z-index: 2;
         }
 
-        /* ===== CREATIVE TOOL MODAL (CANVA PRO STYLE) ===== */
         .tool-modal-overlay {
             display: none;
             position: fixed;
@@ -1831,10 +1769,7 @@
             .studio-hero .hero-text h2 { font-size: 22px; }
         }
 
-        /* ========== TOOLS PAGE – NEW LAYOUT ========== */
-        .tools-page {
-            margin-top: 10px;
-        }
+        .tools-page { margin-top: 10px; }
         .tools-hero {
             background: linear-gradient(135deg, rgba(25, 118, 210, 0.08), rgba(124, 58, 237, 0.08));
             border-radius: 20px;
@@ -1928,7 +1863,6 @@
         }
         .tools-category-title:first-of-type { margin-top: 0; }
 
-        /* rest (unchanged) */
         .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -2572,6 +2506,70 @@
         .admin-page-item .page-actions .btn-toggle-vis { color: var(--success-green); }
         .admin-page-item .page-actions .btn-toggle-vis:hover { background: rgba(22, 163, 74, 0.15); }
         .admin-page-item .visibility-badge { font-size: 10px; }
+
+        /* ADS MANAGER STYLES */
+        .ad-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            transition: 0.3s;
+            flex-wrap: wrap;
+        }
+        .ad-card:hover { border-color: var(--secondary-blue); box-shadow: 0 4px 12px var(--shadow-color); }
+        .ad-card .ad-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .ad-card .ad-info { flex: 1; min-width: 150px; }
+        .ad-card .ad-info h4 { margin: 0 0 4px 0; font-size: 15px; color: var(--text-color); }
+        .ad-card .ad-info p { margin: 0; font-size: 12px; color: var(--text-light); }
+        .ad-card .ad-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+        .ad-card .ad-actions button {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+            min-height: 30px;
+        }
+        .ad-card .ad-actions .btn-edit-ad { background: #ffc107; color: #333; }
+        .ad-card .ad-actions .btn-edit-ad:hover { background: #e0a800; }
+        .ad-card .ad-actions .btn-delete-ad { background: #dc3545; color: #fff; }
+        .ad-card .ad-actions .btn-delete-ad:hover { background: #a71d2a; }
+        .ad-card .ad-actions .btn-toggle-ad { background: var(--secondary-blue); color: #fff; }
+        .ad-card .ad-actions .btn-toggle-ad:hover { background: var(--primary-blue); }
+        .ad-card .ad-actions .btn-preview-ad { background: var(--success-green); color: #fff; }
+        .ad-card .ad-actions .btn-preview-ad:hover { background: #15803d; }
+        .ad-status-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .ad-status-badge.active { background: var(--success-green); color: #fff; }
+        .ad-status-badge.inactive { background: #dc3545; color: #fff; }
+        .ad-position-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            background: var(--editor-toolbar-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+        }
     </style>
 </head>
 <body>
@@ -2590,7 +2588,7 @@
     <!-- ================= MAIN CONTENT ================= -->
     <div class="section-container">
 
-        <!-- ================= SECTION: HOME (unchanged) ================= -->
+        <!-- ================= SECTION: HOME ================= -->
         <section class="section active" id="home">
             <div class="home-original">
                 <header>
@@ -2682,7 +2680,7 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: CAREER (unchanged) ================= -->
+        <!-- ================= SECTION: CAREER ================= -->
         <section class="section" id="career">
             <div class="page-ticker" id="careerTicker"><span id="careerTickerText">🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs</span></div>
             <div class="section-header">
@@ -2697,9 +2695,9 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: MORE (unchanged) ================= -->
+        <!-- ================= SECTION: MORE (PDF Tools Removed) ================= -->
         <section class="section" id="more">
-            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">📚 Study • Books • Creative Studio • PDF Tools • Font Converter • OCR</span></div>
+            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">📚 Study • Books • Creative Studio • Font Converter • OCR</span></div>
             <div class="section-header">
                 <h2>📚 <span>Study & Books</span></h2>
                 <div id="moreSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
@@ -2710,7 +2708,7 @@
             </div>
             <div id="moreContent" class="page-content-display"></div>
 
-            <!-- ================= CREATIVE DESIGN STUDIO - CANVA PRO AI STYLE ================= -->
+            <!-- ================= CREATIVE DESIGN STUDIO ================= -->
             <div style="margin-top:30px;border-top:2px solid var(--border-color);padding-top:20px;">
                 <div class="studio-hero">
                     <div class="hero-text">
@@ -2808,37 +2806,13 @@
                 </div>
             </div>
 
-            <!-- ================= PDF & IMAGE TOOLS ================= -->
+            <!-- ================= FONT CONVERTER & OCR (PDF Tools Removed) ================= -->
             <div style="margin-top:40px;border-top:2px solid var(--border-color);padding-top:20px;">
-                <h3 style="color:var(--primary-blue);margin-bottom:15px;font-size:22px;">⚙️ Professional PDF & Image Tools</h3>
+                <h3 style="color:var(--primary-blue);margin-bottom:15px;font-size:22px;">⚙️ Text & Font Utilities</h3>
 
                 <div class="tools-container">
                     <div class="tools-list">
-                        <button class="tool-btn active" data-tool="jpg-pdf" onclick="switchTool('jpg-pdf')">
-                            <i class="fas fa-file-image"></i> JPG to PDF
-                        </button>
-                        <button class="tool-btn" data-tool="pdf-jpg" onclick="switchTool('pdf-jpg')">
-                            <i class="fas fa-file-pdf"></i> PDF to JPG
-                        </button>
-                        <button class="tool-btn" data-tool="png-pdf" onclick="switchTool('png-pdf')">
-                            <i class="fas fa-file-image"></i> PNG to PDF
-                        </button>
-                        <button class="tool-btn" data-tool="png-jpg" onclick="switchTool('png-jpg')">
-                            <i class="fas fa-file-image"></i> PNG to JPG
-                        </button>
-                        <button class="tool-btn" data-tool="delete-pdf" onclick="switchTool('delete-pdf')">
-                            <i class="fas fa-trash-alt"></i> Delete PDF Page
-                        </button>
-                        <button class="tool-btn" data-tool="pdf-merge" onclick="switchTool('pdf-merge')">
-                            <i class="fas fa-object-group"></i> Merge PDF
-                        </button>
-                        <button class="tool-btn" data-tool="pdf-excel" onclick="switchTool('pdf-excel')">
-                            <i class="fas fa-file-excel"></i> PDF to Excel
-                        </button>
-                        <button class="tool-btn" data-tool="pdf-word" onclick="switchTool('pdf-word')">
-                            <i class="fas fa-file-word"></i> PDF to Word
-                        </button>
-                        <button class="tool-btn" data-tool="ocr" onclick="switchTool('ocr')">
+                        <button class="tool-btn active" data-tool="ocr" onclick="switchTool('ocr')">
                             <i class="fas fa-eye"></i> OCR (Image/PDF to Text)
                         </button>
                         <button class="tool-btn" data-tool="font-converter" onclick="switchTool('font-converter')">
@@ -2846,233 +2820,8 @@
                         </button>
                     </div>
 
-                    <!-- Tool: JPG to PDF -->
-                    <div class="tool-content active" id="tool-jpg-pdf">
-                        <div class="pdf-tool-card">
-                            <div class="tool-header">
-                                <i class="fas fa-file-image"></i>
-                                <h4>JPG to PDF Converter</h4>
-                                <span class="badge-tool">Free</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('jpgPdfInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to select JPG images to convert</p>
-                                <div class="file-name" id="jpgPdfFileName">No files selected</div>
-                                <input type="file" id="jpgPdfInput" accept="image/*" multiple style="display:none" onchange="handleJpgToPdf(event)">
-                            </div>
-                            <div class="file-list" id="jpgPdfFileList"></div>
-                            <div class="action-buttons">
-                                <button class="btn-primary" onclick="convertJpgToPdf()"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
-                                <button class="btn-danger" onclick="clearJpgPdf()"><i class="fas fa-trash"></i> Clear All</button>
-                            </div>
-                            <div class="progress-bar" id="jpgPdfProgressBar"><div class="progress-fill" id="jpgPdfProgressFill"></div></div>
-                            <div class="status-text" id="jpgPdfStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                            <div class="result-area" id="jpgPdfResult">
-                                <a href="#" class="download-link" id="jpgPdfDownloadLink" download="converted.pdf"><i class="fas fa-download"></i> Download PDF</a>
-                                <div class="file-size" id="jpgPdfFileSize"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: PDF to JPG -->
-                    <div class="tool-content" id="tool-pdf-jpg">
-                        <div class="pdf-tool-card">
-                            <div class="tool-header">
-                                <i class="fas fa-file-pdf"></i>
-                                <h4>PDF to JPG Converter</h4>
-                                <span class="badge-tool">Free</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('pdfJpgInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload a PDF file</p>
-                                <div class="file-name" id="pdfJpgFileName">No file selected</div>
-                                <input type="file" id="pdfJpgInput" accept=".pdf" style="display:none" onchange="handlePdfToJpg(event)">
-                            </div>
-                            <div class="action-buttons">
-                                <button class="btn-primary" onclick="convertPdfToJpg()"><i class="fas fa-file-image"></i> Convert to JPG</button>
-                                <button class="btn-danger" onclick="clearPdfJpg()"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                            <div class="progress-bar" id="pdfJpgProgressBar"><div class="progress-fill" id="pdfJpgProgressFill"></div></div>
-                            <div class="status-text" id="pdfJpgStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                            <div class="result-area" id="pdfJpgResult">
-                                <a href="#" class="download-link" id="pdfJpgDownloadLink" download="images.zip"><i class="fas fa-download"></i> Download JPG (ZIP)</a>
-                                <div class="file-size" id="pdfJpgFileSize"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: PNG to PDF -->
-                    <div class="tool-content" id="tool-png-pdf">
-                        <div class="pdf-tool-card">
-                            <div class="tool-header">
-                                <i class="fas fa-file-image"></i>
-                                <h4>PNG to PDF Converter</h4>
-                                <span class="badge-tool">Free</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('pngPdfInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to select PNG images to convert</p>
-                                <div class="file-name" id="pngPdfFileName">No files selected</div>
-                                <input type="file" id="pngPdfInput" accept="image/png" multiple style="display:none" onchange="handlePngToPdf(event)">
-                            </div>
-                            <div class="file-list" id="pngPdfFileList"></div>
-                            <div class="action-buttons">
-                                <button class="btn-primary" onclick="convertPngToPdf()"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
-                                <button class="btn-danger" onclick="clearPngPdf()"><i class="fas fa-trash"></i> Clear All</button>
-                            </div>
-                            <div class="progress-bar" id="pngPdfProgressBar"><div class="progress-fill" id="pngPdfProgressFill"></div></div>
-                            <div class="status-text" id="pngPdfStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                            <div class="result-area" id="pngPdfResult">
-                                <a href="#" class="download-link" id="pngPdfDownloadLink" download="converted.pdf"><i class="fas fa-download"></i> Download PDF</a>
-                                <div class="file-size" id="pngPdfFileSize"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: PNG to JPG -->
-                    <div class="tool-content" id="tool-png-jpg">
-                        <div class="pdf-tool-card">
-                            <div class="tool-header">
-                                <i class="fas fa-file-image"></i>
-                                <h4>PNG to JPG Converter</h4>
-                                <span class="badge-tool">Free</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('pngJpgInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to select PNG images to convert</p>
-                                <div class="file-name" id="pngJpgFileName">No files selected</div>
-                                <input type="file" id="pngJpgInput" accept="image/png" multiple style="display:none" onchange="handlePngToJpg(event)">
-                            </div>
-                            <div class="file-list" id="pngJpgFileList"></div>
-                            <div class="action-buttons">
-                                <button class="btn-primary" onclick="convertPngToJpg()"><i class="fas fa-file-image"></i> Convert to JPG</button>
-                                <button class="btn-danger" onclick="clearPngJpg()"><i class="fas fa-trash"></i> Clear All</button>
-                            </div>
-                            <div class="progress-bar" id="pngJpgProgressBar"><div class="progress-fill" id="pngJpgProgressFill"></div></div>
-                            <div class="status-text" id="pngJpgStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                            <div class="result-area" id="pngJpgResult">
-                                <a href="#" class="download-link" id="pngJpgDownloadLink" download="images.zip"><i class="fas fa-download"></i> Download JPG (ZIP)</a>
-                                <div class="file-size" id="pngJpgFileSize"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: Delete PDF Page -->
-                    <div class="tool-content" id="tool-delete-pdf">
-                        <div class="pdf-tool-card">
-                            <div class="tool-header">
-                                <i class="fas fa-trash-alt"></i>
-                                <h4>Delete PDF Page</h4>
-                                <span class="badge-tool">Free</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('deletePdfInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload a PDF file</p>
-                                <div class="file-name" id="deletePdfFileName">No file selected</div>
-                                <input type="file" id="deletePdfInput" accept=".pdf" style="display:none" onchange="handleDeletePdf(event)">
-                            </div>
-                            <div class="form-group" style="margin:12px 0;">
-                                <label>Page Number to Delete (1-based):</label>
-                                <input type="number" id="deletePageNumber" min="1" value="1" style="width:100px;padding:6px;border:2px solid var(--border-color);border-radius:6px;">
-                            </div>
-                            <div class="action-buttons">
-                                <button class="btn-danger" onclick="deletePdfPage()"><i class="fas fa-trash-alt"></i> Delete Page</button>
-                                <button class="btn-secondary" onclick="clearDeletePdf()"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                            <div class="progress-bar" id="deletePdfProgressBar"><div class="progress-fill" id="deletePdfProgressFill"></div></div>
-                            <div class="status-text" id="deletePdfStatus"><i class="fas fa-spinner spinner"></i> Processing... Please wait.</div>
-                            <div class="result-area" id="deletePdfResult">
-                                <a href="#" class="download-link" id="deletePdfDownloadLink" download="deleted.pdf"><i class="fas fa-download"></i> Download PDF</a>
-                                <div class="file-size" id="deletePdfFileSize"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: PDF Merge -->
-                    <div class="tool-content" id="tool-pdf-merge">
-                        <div class="pdf-tool-card">
-                            <div class="tool-header">
-                                <i class="fas fa-object-group"></i>
-                                <h4>PDF Merge – Combine PDFs</h4>
-                                <span class="badge-tool">Free</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('mergeFileInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to select PDF files to merge</p>
-                                <div class="file-name" id="mergeFileName">No files selected</div>
-                                <input type="file" id="mergeFileInput" accept=".pdf" multiple style="display:none" onchange="handleMergeFiles(event)">
-                            </div>
-                            <div class="file-list" id="mergeFileList"></div>
-                            <div class="action-buttons">
-                                <button class="btn-primary" onclick="mergePDFs()"><i class="fas fa-object-group"></i> Merge PDFs</button>
-                                <button class="btn-danger" onclick="clearMergeFiles()"><i class="fas fa-trash"></i> Clear All</button>
-                            </div>
-                            <div class="progress-bar" id="mergeProgressBar"><div class="progress-fill" id="mergeProgressFill"></div></div>
-                            <div class="status-text" id="mergeStatus"><i class="fas fa-spinner spinner"></i> Merging... Please wait.</div>
-                            <div class="result-area" id="mergeResult">
-                                <a href="#" class="download-link" id="mergeDownloadLink" download="merged.pdf"><i class="fas fa-download"></i> Download Merged PDF</a>
-                                <div class="file-size" id="mergeFileSize"></div>
-                                <button class="preview-btn" onclick="previewMergeResult()"><i class="fas fa-eye"></i> Preview</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: PDF to Excel -->
-                    <div class="tool-content" id="tool-pdf-excel">
-                        <div class="pdf-tool-card">
-                            <div class="tool-header">
-                                <i class="fas fa-file-excel"></i>
-                                <h4>PDF to Excel Converter</h4>
-                                <span class="badge-tool">Free</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('excelFileInput').click()">
-                                <i class="fas fa-file-pdf"></i>
-                                <p>Click to upload a PDF file</p>
-                                <div class="file-name" id="excelFileName">No file selected</div>
-                                <input type="file" id="excelFileInput" accept=".pdf" style="display:none" onchange="handleExcelFile(event)">
-                            </div>
-                            <div class="action-buttons">
-                                <button class="btn-success" onclick="convertPDFtoExcel()"><i class="fas fa-file-excel"></i> Convert to Excel</button>
-                                <button class="btn-danger" onclick="clearExcelFile()"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                            <div class="progress-bar" id="excelProgressBar"><div class="progress-fill" id="excelProgressFill"></div></div>
-                            <div class="status-text" id="excelStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                            <div class="result-area" id="excelResult">
-                                <a href="#" class="download-link" id="excelDownloadLink" download="converted.xlsx"><i class="fas fa-download"></i> Download Excel File</a>
-                                <div class="file-size" id="excelFileSize"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: PDF to Word -->
-                    <div class="tool-content" id="tool-pdf-word">
-                        <div class="pdf-tool-card">
-                            <div class="tool-header">
-                                <i class="fas fa-file-word"></i>
-                                <h4>PDF to Word Converter</h4>
-                                <span class="badge-tool">Free</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('wordFileInput').click()">
-                                <i class="fas fa-file-pdf"></i>
-                                <p>Click to upload a PDF file</p>
-                                <div class="file-name" id="wordFileName">No file selected</div>
-                                <input type="file" id="wordFileInput" accept=".pdf" style="display:none" onchange="handleWordFile(event)">
-                            </div>
-                            <div class="action-buttons">
-                                <button class="btn-primary" onclick="convertPDFtoWord()"><i class="fas fa-file-word"></i> Convert to Word</button>
-                                <button class="btn-danger" onclick="clearWordFile()"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                            <div class="progress-bar" id="wordProgressBar"><div class="progress-fill" id="wordProgressFill"></div></div>
-                            <div class="status-text" id="wordStatus"><i class="fas fa-spinner spinner"></i> Converting... Please wait.</div>
-                            <div class="result-area" id="wordResult">
-                                <a href="#" class="download-link" id="wordDownloadLink" download="converted.docx"><i class="fas fa-download"></i> Download Word File</a>
-                                <div class="file-size" id="wordFileSize"></div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Tool: Text OCR -->
-                    <div class="tool-content" id="tool-ocr">
+                    <div class="tool-content active" id="tool-ocr">
                         <div class="ocr-section">
                             <div class="ocr-header">
                                 <h3><i class="fas fa-eye"></i> PDF & Image to Text (OCR)</h3>
@@ -3160,7 +2909,7 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: SERVICE (unchanged) ================= -->
+        <!-- ================= SECTION: SERVICE ================= -->
         <section class="section" id="service">
             <div class="page-ticker" id="serviceTicker"><span id="serviceTickerText">🛠️ Services • Government • Private • Education</span></div>
             <div class="section-header">
@@ -3178,7 +2927,7 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: BLOG (unchanged) ================= -->
+        <!-- ================= SECTION: BLOG ================= -->
         <section class="section" id="blog">
             <div class="page-ticker" id="blogTicker"><span id="blogTickerText">📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio</span></div>
             <div class="section-header">
@@ -3193,7 +2942,7 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: TOOLS (NEW) ================= -->
+        <!-- ================= SECTION: TOOLS ================= -->
         <section class="section" id="tools">
             <div class="tools-page">
                 <!-- Hero -->
@@ -3416,7 +3165,7 @@
                 logo: '',
                 pageTaglines: {
                     career: '🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs',
-                    more: '📚 Study Materials • Books • PDF Tools • Complete Resources • Creative Studio',
+                    more: '📚 Study Materials • Books • Creative Studio • Font Converter • OCR',
                     blog: '📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio',
                     service: '🛠️ Services • Government Services • Private Services • Education Services'
                 }
@@ -3541,7 +3290,8 @@
                 { id: 'service', label: 'Services', icon: 'fa-cogs', visible: true, public: true },
                 { id: 'blog', label: 'Blog', icon: 'fa-blog', visible: true, public: true },
                 { id: 'tools', label: 'Tools', icon: 'fa-wrench', visible: true, public: true }
-            ]
+            ],
+            ads: []
         };
 
         const DEFAULT_JOBS = [
@@ -3646,13 +3396,13 @@
                 }
             } catch (e) { console.error('Load error:', e); }
 
-            ['home', 'career', 'more', 'service', 'blog', 'social', 'employees', 'slides', 'dropdownMenus', 'darkMode', 'customPages']
+            ['home', 'career', 'more', 'service', 'blog', 'social', 'employees', 'slides', 'dropdownMenus', 'darkMode', 'customPages', 'ads']
             .forEach(key => {
                 if (!appData[key]) {
                     appData[key] = JSON.parse(JSON.stringify(DEFAULT_DATA[key] || {}));
                 }
                 if (key !== 'home' && key !== 'social' && key !== 'employees' && key !== 'slides' && key !==
-                    'dropdownMenus' && key !== 'darkMode' && key !== 'customPages') {
+                    'dropdownMenus' && key !== 'darkMode' && key !== 'customPages' && key !== 'ads') {
                     if (!appData[key].content) {
                         appData[key].content = DEFAULT_DATA[key]?.content || '';
                     }
@@ -3677,12 +3427,14 @@
                 if (key === 'customPages' && !Array.isArray(appData[key])) {
                     appData[key] = DEFAULT_DATA.customPages || [];
                 }
+                if (key === 'ads' && !Array.isArray(appData[key])) {
+                    appData[key] = [];
+                }
             });
 
             if (!jobsData || jobsData.length === 0) {
                 jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
             }
-            // Apply dark mode
             if (appData.darkMode) {
                 document.body.classList.add('dark-mode');
             } else {
@@ -3706,6 +3458,7 @@
             updatePageTaglines();
             renderSlidesCarousel();
             renderNavigation();
+            renderAds();
             const pages = appData.customPages || DEFAULT_DATA.customPages;
             pages.forEach(page => {
                 if (page.visible) {
@@ -3759,7 +3512,6 @@
                     renderGenericPage(pageId);
                 }
             }
-            // tools page is static, no dynamic content needed
         }
 
         function renderGenericPage(page) {
@@ -3980,7 +3732,26 @@
         }
 
         // ============================================================
-        // NAVIGATION RENDERER (added Tools)
+        // ADS RENDER
+        // ============================================================
+        function renderAds() {
+            // Ads will be rendered in admin panel only
+            // Frontend ad placements can be added here if needed
+        }
+
+        function getAdsByPosition(position) {
+            const ads = appData.ads || [];
+            const now = new Date();
+            return ads.filter(ad => {
+                if (ad.status !== 'active') return false;
+                if (ad.startDate && new Date(ad.startDate) > now) return false;
+                if (ad.endDate && new Date(ad.endDate) < now) return false;
+                return ad.position === position;
+            });
+        }
+
+        // ============================================================
+        // NAVIGATION RENDERER
         // ============================================================
         function renderNavigation() {
             const nav = document.getElementById('dynamicNav');
@@ -3991,7 +3762,6 @@
                 <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
             `;
 
-            // Jobs dropdown
             const jobsDropdown = dropdowns.jobs || { label: '💼 Jobs', items: [{ label: '🏛️ Central Govt.', action: 'central' },
                     { label: '🏜️ Rajasthan Govt.', action: 'state' }, { label: '💼 Private', action: 'private' }] };
             html += `
@@ -4008,7 +3778,6 @@
                 </div>
             `;
 
-            // Other dropdowns
             const dropdownKeys = ['career', 'more', 'service', 'blog'];
             dropdownKeys.forEach(key => {
                 const pageConfig = customPages.find(p => p.id === key);
@@ -4029,12 +3798,8 @@
                 `;
             });
 
-            // Tools – direct nav
             html += `
                 <button class="nav-btn" onclick="showSection('tools')" data-section="tools">🛠️ Tools</button>
-            `;
-
-            html += `
                 <button class="nav-btn admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
             `;
 
@@ -4082,7 +3847,7 @@
         });
 
         // ============================================================
-        // JOBS FUNCTIONS (unchanged)
+        // JOBS FUNCTIONS
         // ============================================================
         function showJobsCategory(category) {
             showSection('home');
@@ -4199,7 +3964,7 @@
         }
 
         // ============================================================
-        // DETAIL OVERLAY (unchanged)
+        // DETAIL OVERLAY
         // ============================================================
         function openDetail(index) {
             const job = jobsData[index];
@@ -4298,7 +4063,7 @@
         }
 
         // ============================================================
-        // ADMIN PANEL (extended with Tools page management)
+        // ADMIN PANEL
         // ============================================================
         function openAdminPanel() {
             const overlay = document.getElementById('adminPanelOverlay');
@@ -4367,7 +4132,7 @@
         }
 
         // ============================================================
-        // RENDER ADMIN PANEL (includes Tools page management)
+        // RENDER ADMIN PANEL
         // ============================================================
         function renderAdminPanel() {
             const pages = ['career', 'more', 'blog', 'service'];
@@ -4376,6 +4141,7 @@
             const allowedPages = isEmployee ? pages.filter(p => accessPages.includes(p)) : pages;
             const customPages = appData.customPages || DEFAULT_DATA.customPages;
             const slideCount = (appData.slides || []).length;
+            const ads = appData.ads || [];
 
             return `
                 <div class="admin-wrapper">
@@ -4412,6 +4178,8 @@
                             <li><a data-page="sync" onclick="showAdminPage('sync')"><i class="fas fa-sync-alt"></i> Sync Google Sheets</a></li>
                             <li><a data-page="employees" onclick="showAdminPage('employees')"><i class="fas fa-users"></i> Employees <span class="count">${(appData.employees || []).length}</span></a></li>
                             <li><a data-page="social" onclick="showAdminPage('social')"><i class="fas fa-share-alt"></i> Social Links</a></li>
+                            <li class="section-title">Ads</li>
+                            <li><a data-page="ads" onclick="showAdminPage('ads')"><i class="fas fa-ad"></i> Ads Manager <span class="count">${ads.length}</span></a></li>
                             ` : ''}
                         </ul>
                         <div class="admin-footer-menu"><a onclick="closeAdminPanel()"><i class="fas fa-sign-out-alt"></i> Close</a></div>
@@ -4446,6 +4214,7 @@
                                     <button onclick="showAdminPage('slides')"><i class="fas fa-images"></i> Manage Slides</button>
                                     <button onclick="showAdminPage('dropdowns')"><i class="fas fa-bars"></i> Dropdown Menu</button>
                                     ${!isEmployee ? `<button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>` : ''}
+                                    ${!isEmployee ? `<button onclick="showAdminPage('ads')"><i class="fas fa-ad"></i> Ads Manager</button>` : ''}
                                     <button onclick="exportCSV()" style="background:#17a2b8;"><i class="fas fa-file-csv"></i> Export CSV</button>
                                     <button onclick="exportAdminData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
                                     <button onclick="toggleDarkMode()" style="background:#2d3436;color:#fff;">
@@ -4469,7 +4238,6 @@
                                 </div>
                             </div>
                         `).join('')}
-                        <!-- Tools Editor (static content) -->
                         <div id="adminPage-tools-editor" class="admin-section">
                             <div class="admin-card">
                                 <div class="card-header">
@@ -4619,6 +4387,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="adminPage-ads" class="admin-section">
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <h4>📢 Ads Manager</h4>
+                                    <button class="btn-add" onclick="openAdModal()"><i class="fas fa-plus"></i> Add New Ad</button>
+                                </div>
+                                <div id="adsContainer">
+                                    ${renderAdminAds()}
+                                </div>
+                            </div>
+                        </div>
                         ` : ''}
                     </div>
                 </div>
@@ -4632,7 +4411,7 @@
         }
 
         // ============================================================
-        // HELPER FUNCTIONS (unchanged)
+        // HELPER FUNCTIONS
         // ============================================================
         function getSubSectionCount(page) {
             const items = appData[page]?.items || [];
@@ -5052,7 +4831,7 @@
             const allPages = ['dashboard', 'home-editor', 'career-editor', 'more-editor', 'blog-editor', 'service-editor',
                 'tools-editor', 'jobs', 'settings', 'sync', 'employees', 'social', 'slides', 'dropdowns', 'page-manager',
                 'items-career', 'items-more', 'items-blog', 'items-service',
-                'subsections-career', 'subsections-more', 'subsections-blog', 'subsections-service'
+                'subsections-career', 'subsections-more', 'subsections-blog', 'subsections-service', 'ads'
             ];
 
             allPages.forEach(p => {
@@ -5083,7 +4862,8 @@
                 social: '🔗 <span>Social Links</span>',
                 slides: '📸 <span>Slides Manager</span>',
                 dropdowns: '📋 <span>Dropdown Menu Setup</span>',
-                'page-manager': '📄 <span>Page Manager</span>'
+                'page-manager': '📄 <span>Page Manager</span>',
+                ads: '📢 <span>Ads Manager</span>'
             };
             document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
 
@@ -5115,6 +4895,10 @@
             if (page === 'page-manager') {
                 const container = document.getElementById('pageManagerContainer');
                 if (container) container.innerHTML = renderAdminPageManager();
+            }
+            if (page === 'ads') {
+                const container = document.getElementById('adsContainer');
+                if (container) container.innerHTML = renderAdminAds();
             }
             if (page.startsWith('items-')) {
                 const pageName = page.replace('items-', '');
@@ -5176,7 +4960,7 @@
         }
 
         // ============================================================
-        // SUB-SECTION MODAL (unchanged)
+        // SUB-SECTION MODAL
         // ============================================================
         function openSubSectionModal(page, existingCat = null) {
             const isEdit = existingCat !== null;
@@ -5252,7 +5036,7 @@
         }
 
         // ============================================================
-        // SLIDE MODAL (unchanged)
+        // SLIDE MODAL
         // ============================================================
         function openSlideModal(index = null) {
             const isEdit = index !== null;
@@ -5357,7 +5141,7 @@
         }
 
         // ============================================================
-        // DROPDOWN ITEM MODAL (unchanged)
+        // DROPDOWN ITEM MODAL
         // ============================================================
         function openDropdownItemModal(menuKey, itemIndex = null) {
             const isEdit = itemIndex !== null;
@@ -5435,7 +5219,205 @@
         }
 
         // ============================================================
-        // JOB MODAL (unchanged)
+        // ADS MANAGER
+        // ============================================================
+        function renderAdminAds() {
+            const ads = appData.ads || [];
+            if (!ads.length) {
+                return `<div class="empty-state"><i class="fas fa-ad"></i> No ads added yet. Click "Add New Ad" to create one.</div>`;
+            }
+            return ads.map((ad, idx) => `
+                <div class="ad-card">
+                    ${ad.image ? `<img src="${ad.image}" class="ad-image" alt="${ad.name}">` : `<div class="ad-image" style="display:flex;align-items:center;justify-content:center;background:var(--editor-toolbar-bg);font-size:32px;color:var(--text-light);"><i class="fas fa-image"></i></div>`}
+                    <div class="ad-info">
+                        <h4>${ad.name || 'Untitled Ad'}</h4>
+                        <p>${ad.link || 'No link'}</p>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;">
+                            <span class="ad-position-badge">📌 ${ad.position || 'Unset'}</span>
+                            <span class="ad-status-badge ${ad.status === 'active' ? 'active' : 'inactive'}">${ad.status === 'active' ? '✅ Active' : '⛔ Inactive'}</span>
+                            ${ad.startDate ? `<span style="font-size:11px;color:var(--text-light);">📅 From: ${ad.startDate}</span>` : ''}
+                            ${ad.endDate ? `<span style="font-size:11px;color:var(--text-light);">📅 To: ${ad.endDate}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="ad-actions">
+                        <button class="btn-edit-ad" onclick="openAdModal(${idx})"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn-preview-ad" onclick="previewAd(${idx})"><i class="fas fa-eye"></i> Preview</button>
+                        <button class="btn-toggle-ad" onclick="toggleAdStatus(${idx})"><i class="fas fa-toggle-on"></i> Toggle</button>
+                        <button class="btn-delete-ad" onclick="deleteAd(${idx})"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openAdModal(index = null) {
+            const isEdit = index !== null;
+            const ads = appData.ads || [];
+            const ad = isEdit ? ads[index] : { name: '', image: '', link: '', position: 'Blog के ऊपर', startDate: '', endDate: '', status: 'active' };
+
+            document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Ad' : '📢 Add New Ad';
+
+            const positions = ['Blog के ऊपर', 'Title के नीचे', 'Content के बीच', 'Content के बाद', 'Sidebar', 'Bottom'];
+
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="adIndex" value="${isEdit ? index : -1}">
+                <div class="form-group">
+                    <label>Ad Name *</label>
+                    <input type="text" id="adName" value="${ad.name || ''}" placeholder="e.g., Summer Sale Banner">
+                </div>
+                <div class="form-group">
+                    <label>Ad Poster / Image (URL or Upload)</label>
+                    <input type="text" id="adImage" value="${ad.image || ''}" placeholder="https://example.com/image.jpg">
+                    <div style="margin-top:6px;">
+                        <input type="file" id="adImageFile" accept="image/*" onchange="handleAdImageUpload(event)">
+                        <div id="adImagePreview" style="margin-top:6px;">
+                            ${ad.image ? `<img src="${ad.image}" style="max-height:80px;border-radius:4px;border:1px solid var(--border-color);">` : ''}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Ad Link / URL</label>
+                    <input type="url" id="adLink" value="${ad.link || ''}" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                    <label>Open Link → New Tab</label>
+                    <select id="adNewTab">
+                        <option value="true" ${ad.newTab !== false ? 'selected' : ''}>✅ Yes</option>
+                        <option value="false" ${ad.newTab === false ? 'selected' : ''}>❌ No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ad Position *</label>
+                    <select id="adPosition">
+                        ${positions.map(p => `<option value="${p}" ${ad.position === p ? 'selected' : ''}>${p}</option>`).join('')}
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" id="adStartDate" value="${ad.startDate || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="date" id="adEndDate" value="${ad.endDate || ''}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="adStatus">
+                        <option value="active" ${ad.status === 'active' ? 'selected' : ''}>✅ Active</option>
+                        <option value="inactive" ${ad.status === 'inactive' ? 'selected' : ''}>⛔ Inactive</option>
+                    </select>
+                </div>
+                <button class="btn-submit" onclick="saveAd()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'} Ad</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        let adImageData = null;
+
+        function handleAdImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    adImageData = e.target.result;
+                    const preview = document.getElementById('adImagePreview');
+                    preview.innerHTML =
+                        `<img src="${adImageData}" style="max-height:80px;border-radius:4px;border:1px solid var(--border-color);">`;
+                    document.getElementById('adImage').value = adImageData;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveAd() {
+            const index = parseInt(document.getElementById('adIndex').value);
+            const name = document.getElementById('adName').value.trim();
+            const image = document.getElementById('adImage').value.trim();
+            const link = document.getElementById('adLink').value.trim();
+            const newTab = document.getElementById('adNewTab').value === 'true';
+            const position = document.getElementById('adPosition').value;
+            const startDate = document.getElementById('adStartDate').value;
+            const endDate = document.getElementById('adEndDate').value;
+            const status = document.getElementById('adStatus').value;
+
+            if (!name) { showToast('Ad Name is required!', 'error'); return; }
+            if (!position) { showToast('Ad Position is required!', 'error'); return; }
+
+            if (!appData.ads) appData.ads = [];
+
+            const ad = { id: 'ad_' + Date.now(), name, image, link, newTab, position, startDate, endDate, status };
+
+            if (index >= 0 && index < appData.ads.length) {
+                appData.ads[index] = { ...appData.ads[index], ...ad };
+                showToast('✅ Ad updated!', 'success');
+            } else {
+                appData.ads.push(ad);
+                showToast('✅ Ad added!', 'success');
+            }
+
+            saveToLocalStorage();
+            renderAllPages();
+            closeAdminModal();
+            showAdminPage('ads');
+            adImageData = null;
+        }
+
+        function deleteAd(index) {
+            if (!confirm('Delete this ad?')) return;
+            if (appData.ads) {
+                appData.ads.splice(index, 1);
+                saveToLocalStorage();
+                renderAllPages();
+                showAdminPage('ads');
+                showToast('🗑️ Ad deleted!', 'warning');
+            }
+        }
+
+        function toggleAdStatus(index) {
+            if (appData.ads && appData.ads[index]) {
+                appData.ads[index].status = appData.ads[index].status === 'active' ? 'inactive' : 'active';
+                saveToLocalStorage();
+                renderAllPages();
+                showAdminPage('ads');
+                showToast(`Ad ${appData.ads[index].status === 'active' ? 'activated' : 'deactivated'}`, 'info');
+            }
+        }
+
+        function previewAd(index) {
+            const ad = appData.ads && appData.ads[index];
+            if (!ad) { showToast('Ad not found!', 'error'); return; }
+            const win = window.open('', '_blank', 'width=600,height=400');
+            if (win) {
+                win.document.write(`
+                    <html><head><title>Ad Preview - ${ad.name}</title>
+                    <style>body{font-family:Arial,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f0f0f0;padding:20px;}
+                    .ad-preview{max-width:500px;width:100%;background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.15);overflow:hidden;}
+                    .ad-preview img{width:100%;height:auto;display:block;}
+                    .ad-preview .info{padding:16px;text-align:center;}
+                    .ad-preview .info h3{margin:0 0 4px 0;color:#123c9b;}
+                    .ad-preview .info p{margin:0;color:#666;font-size:13px;}
+                    .ad-preview .badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#16a34a;color:#fff;margin-top:8px;}
+                    </style></head>
+                    <body>
+                        <div class="ad-preview">
+                            ${ad.image ? `<img src="${ad.image}" alt="${ad.name}">` : `<div style="height:200px;background:#1976d2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:48px;"><i class="fas fa-ad"></i></div>`}
+                            <div class="info">
+                                <h3>${ad.name}</h3>
+                                <p>${ad.link || 'No link'}</p>
+                                <p style="font-size:12px;color:#999;">Position: ${ad.position}</p>
+                                <span class="badge">${ad.status === 'active' ? '✅ Active' : '⛔ Inactive'}</span>
+                            </div>
+                        </div>
+                    </body></html>
+                `);
+                win.document.close();
+            }
+        }
+
+        // ============================================================
+        // JOB MODAL
         // ============================================================
         function openJobModal(data = null) {
             if (adminAccessLevel === 'employee') {
@@ -5572,7 +5554,7 @@
         }
 
         // ============================================================
-        // EDITOR FUNCTIONS (unchanged)
+        // EDITOR FUNCTIONS
         // ============================================================
         function createEditorToolbar(editorId, options = {}) {
             const toolbar = document.createElement('div');
@@ -5859,7 +5841,7 @@
         }
 
         // ============================================================
-        // PAGE EDITOR FUNCTIONS (unchanged)
+        // PAGE EDITOR FUNCTIONS
         // ============================================================
         function openPageEditor(page) {
             const content = page === 'home' ? (appData.home?.aboutText || '') : (appData[page]?.content || '');
@@ -5960,7 +5942,7 @@
         }
 
         // ============================================================
-        // ITEM EDITOR (unchanged)
+        // ITEM EDITOR
         // ============================================================
         function openItemEditor(page, index = null) {
             const isEdit = index !== null;
@@ -6113,7 +6095,7 @@
         }
 
         // ============================================================
-        // EMPLOYEE FUNCTIONS (unchanged)
+        // EMPLOYEE FUNCTIONS
         // ============================================================
         function openEmployeeModal(index = null) {
             const isEdit = index !== null;
@@ -6174,7 +6156,7 @@
         }
 
         // ============================================================
-        // SYNC, EXPORT, RESET (unchanged)
+        // SYNC, EXPORT, RESET
         // ============================================================
         async function loadFromGoogleSheets() {
             showToast('🔄 Loading from Google Sheets (demo)...', 'info');
@@ -6256,7 +6238,7 @@
         }
 
         // ============================================================
-        // LOGO HANDLERS (unchanged)
+        // LOGO HANDLERS
         // ============================================================
         let logoFileData = null;
 
@@ -6312,7 +6294,7 @@
         }
 
         // ============================================================
-        // CREATIVE TOOL FUNCTIONS (unchanged)
+        // CREATIVE TOOL FUNCTIONS
         // ============================================================
         function openCreativeTool(toolId) {
             const modal = document.getElementById('creativeToolModal');
@@ -7102,7 +7084,7 @@
         }
 
         // ============================================================
-        // TOOLS (unchanged, but note switchTool)
+        // TOOLS (Only OCR and Font Converter remain in More page)
         // ============================================================
         function switchTool(toolId) {
             document.querySelectorAll('.tools-list .tool-btn').forEach(btn => {
@@ -7116,813 +7098,6 @@
             if (toolsSection && toolsSection.classList.contains('active')) {
                 const container = document.querySelector('.tools-container');
                 if (container) container.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // --- JPG to PDF ---
-        let jpgPdfFiles = [];
-
-        function handleJpgToPdf(event) {
-            const files = event.target.files;
-            const fileList = document.getElementById('jpgPdfFileList');
-            const fileName = document.getElementById('jpgPdfFileName');
-            for (let f of files) {
-                if (f.type.startsWith('image/')) {
-                    jpgPdfFiles.push(f);
-                }
-            }
-            if (jpgPdfFiles.length > 0) {
-                fileName.textContent = `${jpgPdfFiles.length} file(s) selected`;
-                fileList.innerHTML = jpgPdfFiles.map((f, i) =>
-                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removeJpgPdfFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
-                ).join('');
-                document.getElementById('jpgPdfResult').style.display = 'none';
-            }
-            event.target.value = '';
-        }
-
-        function removeJpgPdfFile(index) {
-            jpgPdfFiles.splice(index, 1);
-            updateJpgPdfUI();
-        }
-
-        function updateJpgPdfUI() {
-            const fileList = document.getElementById('jpgPdfFileList');
-            const fileName = document.getElementById('jpgPdfFileName');
-            if (jpgPdfFiles.length === 0) {
-                fileName.textContent = 'No files selected';
-                fileList.innerHTML = '';
-            } else {
-                fileName.textContent = `${jpgPdfFiles.length} file(s) selected`;
-                fileList.innerHTML = jpgPdfFiles.map((f, i) =>
-                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removeJpgPdfFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
-                ).join('');
-            }
-            document.getElementById('jpgPdfResult').style.display = 'none';
-        }
-
-        function clearJpgPdf() {
-            jpgPdfFiles = [];
-            document.getElementById('jpgPdfFileName').textContent = 'No files selected';
-            document.getElementById('jpgPdfFileList').innerHTML = '';
-            document.getElementById('jpgPdfResult').style.display = 'none';
-            document.getElementById('jpgPdfProgressBar').style.display = 'none';
-            document.getElementById('jpgPdfStatus').classList.remove('show');
-            document.getElementById('jpgPdfInput').value = '';
-        }
-
-        async function convertJpgToPdf() {
-            if (jpgPdfFiles.length === 0) {
-                showToast('Please select JPG images first.', 'error');
-                return;
-            }
-            const progressBar = document.getElementById('jpgPdfProgressBar');
-            const progressFill = document.getElementById('jpgPdfProgressFill');
-            const status = document.getElementById('jpgPdfStatus');
-            const resultArea = document.getElementById('jpgPdfResult');
-
-            progressBar.style.display = 'block';
-            progressFill.style.width = '0%';
-            status.classList.add('show');
-            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Converting... Please wait.';
-
-            try {
-                const { PDFDocument } = PDFLib;
-                const pdfDoc = await PDFDocument.create();
-
-                for (let i = 0; i < jpgPdfFiles.length; i++) {
-                    const file = jpgPdfFiles[i];
-                    const arrayBuffer = await file.arrayBuffer();
-                    const image = await pdfDoc.embedJpg(arrayBuffer);
-                    const page = pdfDoc.addPage([image.width, image.height]);
-                    page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
-
-                    const pct = Math.round(((i + 1) / jpgPdfFiles.length) * 100);
-                    progressFill.style.width = pct + '%';
-                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing ${i+1}/${jpgPdfFiles.length}...`;
-                }
-
-                const pdfBytes = await pdfDoc.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-
-                resultArea.style.display = 'block';
-                document.getElementById('jpgPdfDownloadLink').href = url;
-                document.getElementById('jpgPdfFileSize').textContent = `File size: ${(blob.size / 1024).toFixed(1)} KB`;
-                document.getElementById('jpgPdfDownloadLink').onclick = function(e) {
-                    setTimeout(() => URL.revokeObjectURL(url), 5000);
-                };
-
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressBar.style.display = 'none';
-                    status.classList.remove('show');
-                }, 500);
-                showToast('✅ Conversion completed!', 'success');
-            } catch (error) {
-                console.error(error);
-                status.innerHTML = '❌ Error converting. Please try again.';
-                status.style.color = 'var(--warning-red)';
-                showToast('Error converting.', 'error');
-                setTimeout(() => {
-                    status.classList.remove('show');
-                    progressBar.style.display = 'none';
-                }, 3000);
-            }
-        }
-
-        // --- PDF to JPG ---
-        let pdfJpgFile = null;
-
-        function handlePdfToJpg(event) {
-            const file = event.target.files[0];
-            if (file && file.type === 'application/pdf') {
-                pdfJpgFile = file;
-                document.getElementById('pdfJpgFileName').textContent = file.name;
-                document.getElementById('pdfJpgResult').style.display = 'none';
-                document.getElementById('pdfJpgProgressBar').style.display = 'none';
-            } else {
-                showToast('Please select a valid PDF file.', 'error');
-                event.target.value = '';
-            }
-        }
-
-        function clearPdfJpg() {
-            pdfJpgFile = null;
-            document.getElementById('pdfJpgFileName').textContent = 'No file selected';
-            document.getElementById('pdfJpgResult').style.display = 'none';
-            document.getElementById('pdfJpgProgressBar').style.display = 'none';
-            document.getElementById('pdfJpgInput').value = '';
-        }
-
-        async function convertPdfToJpg() {
-            if (!pdfJpgFile) {
-                showToast('Please upload a PDF file first.', 'error');
-                return;
-            }
-            const progressBar = document.getElementById('pdfJpgProgressBar');
-            const progressFill = document.getElementById('pdfJpgProgressFill');
-            const status = document.getElementById('pdfJpgStatus');
-            const resultArea = document.getElementById('pdfJpgResult');
-
-            progressBar.style.display = 'block';
-            progressFill.style.width = '0%';
-            status.classList.add('show');
-            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Converting... Please wait.';
-
-            try {
-                const arrayBuffer = await pdfJpgFile.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-                const totalPages = pdf.numPages;
-                const zip = new JSZip();
-
-                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-                    const viewport = page.getViewport({ scale: 1.5 });
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-                    await page.render({ canvasContext: context, viewport: viewport }).promise;
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-                    const blob = await fetch(dataUrl).then(res => res.blob());
-                    zip.file(`page_${pageNum}.jpg`, blob);
-
-                    const pct = Math.round((pageNum / totalPages) * 100);
-                    progressFill.style.width = pct + '%';
-                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing page ${pageNum}/${totalPages}...`;
-                }
-
-                const zipBlob = await zip.generateAsync({ type: 'blob' });
-                const url = URL.createObjectURL(zipBlob);
-
-                resultArea.style.display = 'block';
-                document.getElementById('pdfJpgDownloadLink').href = url;
-                document.getElementById('pdfJpgFileSize').textContent = `File size: ${(zipBlob.size / 1024).toFixed(1)} KB`;
-                document.getElementById('pdfJpgDownloadLink').onclick = function(e) {
-                    setTimeout(() => URL.revokeObjectURL(url), 5000);
-                };
-
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressBar.style.display = 'none';
-                    status.classList.remove('show');
-                }, 500);
-                showToast('✅ Conversion completed!', 'success');
-            } catch (error) {
-                console.error(error);
-                status.innerHTML = '❌ Error converting. Please try again.';
-                status.style.color = 'var(--warning-red)';
-                showToast('Error converting.', 'error');
-                setTimeout(() => {
-                    status.classList.remove('show');
-                    progressBar.style.display = 'none';
-                }, 3000);
-            }
-        }
-
-        // --- PNG to PDF ---
-        let pngPdfFiles = [];
-
-        function handlePngToPdf(event) {
-            const files = event.target.files;
-            const fileList = document.getElementById('pngPdfFileList');
-            const fileName = document.getElementById('pngPdfFileName');
-            for (let f of files) {
-                if (f.type === 'image/png') {
-                    pngPdfFiles.push(f);
-                }
-            }
-            if (pngPdfFiles.length > 0) {
-                fileName.textContent = `${pngPdfFiles.length} file(s) selected`;
-                fileList.innerHTML = pngPdfFiles.map((f, i) =>
-                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removePngPdfFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
-                ).join('');
-                document.getElementById('pngPdfResult').style.display = 'none';
-            }
-            event.target.value = '';
-        }
-
-        function removePngPdfFile(index) {
-            pngPdfFiles.splice(index, 1);
-            updatePngPdfUI();
-        }
-
-        function updatePngPdfUI() {
-            const fileList = document.getElementById('pngPdfFileList');
-            const fileName = document.getElementById('pngPdfFileName');
-            if (pngPdfFiles.length === 0) {
-                fileName.textContent = 'No files selected';
-                fileList.innerHTML = '';
-            } else {
-                fileName.textContent = `${pngPdfFiles.length} file(s) selected`;
-                fileList.innerHTML = pngPdfFiles.map((f, i) =>
-                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removePngPdfFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
-                ).join('');
-            }
-            document.getElementById('pngPdfResult').style.display = 'none';
-        }
-
-        function clearPngPdf() {
-            pngPdfFiles = [];
-            document.getElementById('pngPdfFileName').textContent = 'No files selected';
-            document.getElementById('pngPdfFileList').innerHTML = '';
-            document.getElementById('pngPdfResult').style.display = 'none';
-            document.getElementById('pngPdfProgressBar').style.display = 'none';
-            document.getElementById('pngPdfStatus').classList.remove('show');
-            document.getElementById('pngPdfInput').value = '';
-        }
-
-        async function convertPngToPdf() {
-            if (pngPdfFiles.length === 0) {
-                showToast('Please select PNG images first.', 'error');
-                return;
-            }
-            const progressBar = document.getElementById('pngPdfProgressBar');
-            const progressFill = document.getElementById('pngPdfProgressFill');
-            const status = document.getElementById('pngPdfStatus');
-            const resultArea = document.getElementById('pngPdfResult');
-
-            progressBar.style.display = 'block';
-            progressFill.style.width = '0%';
-            status.classList.add('show');
-            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Converting... Please wait.';
-
-            try {
-                const { PDFDocument } = PDFLib;
-                const pdfDoc = await PDFDocument.create();
-
-                for (let i = 0; i < pngPdfFiles.length; i++) {
-                    const file = pngPdfFiles[i];
-                    const arrayBuffer = await file.arrayBuffer();
-                    const image = await pdfDoc.embedPng(arrayBuffer);
-                    const page = pdfDoc.addPage([image.width, image.height]);
-                    page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
-
-                    const pct = Math.round(((i + 1) / pngPdfFiles.length) * 100);
-                    progressFill.style.width = pct + '%';
-                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing ${i+1}/${pngPdfFiles.length}...`;
-                }
-
-                const pdfBytes = await pdfDoc.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-
-                resultArea.style.display = 'block';
-                document.getElementById('pngPdfDownloadLink').href = url;
-                document.getElementById('pngPdfFileSize').textContent = `File size: ${(blob.size / 1024).toFixed(1)} KB`;
-                document.getElementById('pngPdfDownloadLink').onclick = function(e) {
-                    setTimeout(() => URL.revokeObjectURL(url), 5000);
-                };
-
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressBar.style.display = 'none';
-                    status.classList.remove('show');
-                }, 500);
-                showToast('✅ Conversion completed!', 'success');
-            } catch (error) {
-                console.error(error);
-                status.innerHTML = '❌ Error converting. Please try again.';
-                status.style.color = 'var(--warning-red)';
-                showToast('Error converting.', 'error');
-                setTimeout(() => {
-                    status.classList.remove('show');
-                    progressBar.style.display = 'none';
-                }, 3000);
-            }
-        }
-
-        // --- PNG to JPG ---
-        let pngJpgFiles = [];
-
-        function handlePngToJpg(event) {
-            const files = event.target.files;
-            const fileList = document.getElementById('pngJpgFileList');
-            const fileName = document.getElementById('pngJpgFileName');
-            for (let f of files) {
-                if (f.type === 'image/png') {
-                    pngJpgFiles.push(f);
-                }
-            }
-            if (pngJpgFiles.length > 0) {
-                fileName.textContent = `${pngJpgFiles.length} file(s) selected`;
-                fileList.innerHTML = pngJpgFiles.map((f, i) =>
-                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removePngJpgFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
-                ).join('');
-                document.getElementById('pngJpgResult').style.display = 'none';
-            }
-            event.target.value = '';
-        }
-
-        function removePngJpgFile(index) {
-            pngJpgFiles.splice(index, 1);
-            updatePngJpgUI();
-        }
-
-        function updatePngJpgUI() {
-            const fileList = document.getElementById('pngJpgFileList');
-            const fileName = document.getElementById('pngJpgFileName');
-            if (pngJpgFiles.length === 0) {
-                fileName.textContent = 'No files selected';
-                fileList.innerHTML = '';
-            } else {
-                fileName.textContent = `${pngJpgFiles.length} file(s) selected`;
-                fileList.innerHTML = pngJpgFiles.map((f, i) =>
-                    `<div class="file-item"><span>🖼️ ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removePngJpgFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
-                ).join('');
-            }
-            document.getElementById('pngJpgResult').style.display = 'none';
-        }
-
-        function clearPngJpg() {
-            pngJpgFiles = [];
-            document.getElementById('pngJpgFileName').textContent = 'No files selected';
-            document.getElementById('pngJpgFileList').innerHTML = '';
-            document.getElementById('pngJpgResult').style.display = 'none';
-            document.getElementById('pngJpgProgressBar').style.display = 'none';
-            document.getElementById('pngJpgStatus').classList.remove('show');
-            document.getElementById('pngJpgInput').value = '';
-        }
-
-        async function convertPngToJpg() {
-            if (pngJpgFiles.length === 0) {
-                showToast('Please select PNG images first.', 'error');
-                return;
-            }
-            const progressBar = document.getElementById('pngJpgProgressBar');
-            const progressFill = document.getElementById('pngJpgProgressFill');
-            const status = document.getElementById('pngJpgStatus');
-            const resultArea = document.getElementById('pngJpgResult');
-
-            progressBar.style.display = 'block';
-            progressFill.style.width = '0%';
-            status.classList.add('show');
-            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Converting... Please wait.';
-
-            try {
-                const zip = new JSZip();
-
-                for (let i = 0; i < pngJpgFiles.length; i++) {
-                    const file = pngJpgFiles[i];
-                    const arrayBuffer = await file.arrayBuffer();
-                    const blob = new Blob([arrayBuffer], { type: 'image/png' });
-                    const img = await createImageBitmap(blob);
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-                    const jpgBlob = await fetch(dataUrl).then(res => res.blob());
-                    const name = file.name.replace(/\.png$/i, '.jpg');
-                    zip.file(name, jpgBlob);
-
-                    const pct = Math.round(((i + 1) / pngJpgFiles.length) * 100);
-                    progressFill.style.width = pct + '%';
-                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing ${i+1}/${pngJpgFiles.length}...`;
-                }
-
-                const zipBlob = await zip.generateAsync({ type: 'blob' });
-                const url = URL.createObjectURL(zipBlob);
-
-                resultArea.style.display = 'block';
-                document.getElementById('pngJpgDownloadLink').href = url;
-                document.getElementById('pngJpgFileSize').textContent = `File size: ${(zipBlob.size / 1024).toFixed(1)} KB`;
-                document.getElementById('pngJpgDownloadLink').onclick = function(e) {
-                    setTimeout(() => URL.revokeObjectURL(url), 5000);
-                };
-
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressBar.style.display = 'none';
-                    status.classList.remove('show');
-                }, 500);
-                showToast('✅ Conversion completed!', 'success');
-            } catch (error) {
-                console.error(error);
-                status.innerHTML = '❌ Error converting. Please try again.';
-                status.style.color = 'var(--warning-red)';
-                showToast('Error converting.', 'error');
-                setTimeout(() => {
-                    status.classList.remove('show');
-                    progressBar.style.display = 'none';
-                }, 3000);
-            }
-        }
-
-        // --- Delete PDF Page ---
-        let deletePdfFile = null;
-
-        function handleDeletePdf(event) {
-            const file = event.target.files[0];
-            if (file && file.type === 'application/pdf') {
-                deletePdfFile = file;
-                document.getElementById('deletePdfFileName').textContent = file.name;
-                document.getElementById('deletePdfResult').style.display = 'none';
-                document.getElementById('deletePdfProgressBar').style.display = 'none';
-            } else {
-                showToast('Please select a valid PDF file.', 'error');
-                event.target.value = '';
-            }
-        }
-
-        function clearDeletePdf() {
-            deletePdfFile = null;
-            document.getElementById('deletePdfFileName').textContent = 'No file selected';
-            document.getElementById('deletePdfResult').style.display = 'none';
-            document.getElementById('deletePdfProgressBar').style.display = 'none';
-            document.getElementById('deletePdfStatus').classList.remove('show');
-            document.getElementById('deletePdfInput').value = '';
-            document.getElementById('deletePageNumber').value = '1';
-        }
-
-        async function deletePdfPage() {
-            if (!deletePdfFile) {
-                showToast('Please upload a PDF file first.', 'error');
-                return;
-            }
-            const pageNum = parseInt(document.getElementById('deletePageNumber').value);
-            if (pageNum < 1) {
-                showToast('Page number must be 1 or greater.', 'error');
-                return;
-            }
-
-            const progressBar = document.getElementById('deletePdfProgressBar');
-            const progressFill = document.getElementById('deletePdfProgressFill');
-            const status = document.getElementById('deletePdfStatus');
-            const resultArea = document.getElementById('deletePdfResult');
-
-            progressBar.style.display = 'block';
-            progressFill.style.width = '0%';
-            status.classList.add('show');
-            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Processing... Please wait.';
-
-            try {
-                const { PDFDocument } = PDFLib;
-                const arrayBuffer = await deletePdfFile.arrayBuffer();
-                const pdfDoc = await PDFDocument.load(arrayBuffer);
-                const totalPages = pdfDoc.getPageCount();
-
-                if (pageNum > totalPages) {
-                    showToast(`Page ${pageNum} does not exist. Total pages: ${totalPages}`, 'error');
-                    status.classList.remove('show');
-                    progressBar.style.display = 'none';
-                    return;
-                }
-
-                pdfDoc.removePage(pageNum - 1);
-                const pdfBytes = await pdfDoc.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-
-                resultArea.style.display = 'block';
-                document.getElementById('deletePdfDownloadLink').href = url;
-                document.getElementById('deletePdfFileSize').textContent = `File size: ${(blob.size / 1024).toFixed(1)} KB`;
-                document.getElementById('deletePdfDownloadLink').onclick = function(e) {
-                    setTimeout(() => URL.revokeObjectURL(url), 5000);
-                };
-
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressBar.style.display = 'none';
-                    status.classList.remove('show');
-                }, 500);
-                showToast('✅ Page deleted successfully!', 'success');
-            } catch (error) {
-                console.error(error);
-                status.innerHTML = '❌ Error processing. Please try again.';
-                status.style.color = 'var(--warning-red)';
-                showToast('Error processing.', 'error');
-                setTimeout(() => {
-                    status.classList.remove('show');
-                    progressBar.style.display = 'none';
-                }, 3000);
-            }
-        }
-
-        // --- Merge PDF ---
-        let mergeFiles = [];
-
-        function handleMergeFiles(event) {
-            const files = event.target.files;
-            const fileList = document.getElementById('mergeFileList');
-            const fileName = document.getElementById('mergeFileName');
-            for (let f of files) {
-                if (f.type === 'application/pdf') {
-                    mergeFiles.push(f);
-                }
-            }
-            if (mergeFiles.length > 0) {
-                fileName.textContent = `${mergeFiles.length} file(s) selected`;
-                fileList.innerHTML = mergeFiles.map((f, i) =>
-                    `<div class="file-item"><span>📄 ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removeMergeFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
-                ).join('');
-                document.getElementById('mergeResult').style.display = 'none';
-            }
-            event.target.value = '';
-        }
-
-        function removeMergeFile(index) {
-            mergeFiles.splice(index, 1);
-            const fileList = document.getElementById('mergeFileList');
-            const fileName = document.getElementById('mergeFileName');
-            if (mergeFiles.length === 0) {
-                fileName.textContent = 'No files selected';
-                fileList.innerHTML = '';
-            } else {
-                fileName.textContent = `${mergeFiles.length} file(s) selected`;
-                fileList.innerHTML = mergeFiles.map((f, i) =>
-                    `<div class="file-item"><span>📄 ${f.name} (${(f.size/1024).toFixed(1)} KB)</span><span class="remove-file" onclick="removeMergeFile(${i})"><i class="fas fa-times-circle"></i></span></div>`
-                ).join('');
-            }
-            document.getElementById('mergeResult').style.display = 'none';
-        }
-
-        function clearMergeFiles() {
-            mergeFiles = [];
-            document.getElementById('mergeFileName').textContent = 'No files selected';
-            document.getElementById('mergeFileList').innerHTML = '';
-            document.getElementById('mergeResult').style.display = 'none';
-            document.getElementById('mergeProgressBar').style.display = 'none';
-            document.getElementById('mergeStatus').classList.remove('show');
-            document.getElementById('mergeFileInput').value = '';
-        }
-
-        async function mergePDFs() {
-            if (mergeFiles.length < 2) {
-                showToast('Please select at least 2 PDF files to merge.', 'error');
-                return;
-            }
-            const progressBar = document.getElementById('mergeProgressBar');
-            const progressFill = document.getElementById('mergeProgressFill');
-            const status = document.getElementById('mergeStatus');
-            const resultArea = document.getElementById('mergeResult');
-            progressBar.style.display = 'block';
-            progressFill.style.width = '0%';
-            status.classList.add('show');
-            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Merging PDFs... Please wait.';
-            try {
-                const { PDFDocument } = PDFLib;
-                const mergedPdf = await PDFDocument.create();
-                for (let i = 0; i < mergeFiles.length; i++) {
-                    const file = mergeFiles[i];
-                    const arrayBuffer = await file.arrayBuffer();
-                    const pdf = await PDFDocument.load(arrayBuffer);
-                    const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-                    pages.forEach(page => mergedPdf.addPage(page));
-                    const pct = Math.round(((i + 1) / mergeFiles.length) * 100);
-                    progressFill.style.width = pct + '%';
-                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Merging ${i+1}/${mergeFiles.length}...`;
-                }
-                const mergedBytes = await mergedPdf.save();
-                const blob = new Blob([mergedBytes], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-                resultArea.style.display = 'block';
-                document.getElementById('mergeDownloadLink').href = url;
-                document.getElementById('mergeFileSize').textContent = `File size: ${(blob.size / 1024).toFixed(1)} KB`;
-                document.getElementById('mergeDownloadLink').onclick = function(e) {
-                    setTimeout(() => URL.revokeObjectURL(url), 5000);
-                };
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressBar.style.display = 'none';
-                    status.classList.remove('show');
-                }, 500);
-                showToast('✅ PDF merge completed!', 'success');
-            } catch (error) {
-                console.error(error);
-                status.innerHTML = '❌ Error merging PDFs. Please try again.';
-                status.style.color = 'var(--warning-red)';
-                showToast('Error merging PDFs.', 'error');
-                setTimeout(() => {
-                    status.classList.remove('show');
-                    progressBar.style.display = 'none';
-                }, 3000);
-            }
-        }
-
-        function previewMergeResult() {
-            const link = document.getElementById('mergeDownloadLink');
-            if (link.href && link.href.startsWith('blob:')) {
-                window.open(link.href, '_blank');
-            } else {
-                showToast('Please merge PDFs first.', 'info');
-            }
-        }
-
-        // --- PDF to Excel ---
-        let excelFile = null;
-
-        function handleExcelFile(event) {
-            const file = event.target.files[0];
-            if (file && file.type === 'application/pdf') {
-                excelFile = file;
-                document.getElementById('excelFileName').textContent = file.name;
-                document.getElementById('excelResult').style.display = 'none';
-                document.getElementById('excelProgressBar').style.display = 'none';
-            } else {
-                showToast('Please select a valid PDF file.', 'error');
-                event.target.value = '';
-            }
-        }
-
-        function clearExcelFile() {
-            excelFile = null;
-            document.getElementById('excelFileName').textContent = 'No file selected';
-            document.getElementById('excelResult').style.display = 'none';
-            document.getElementById('excelProgressBar').style.display = 'none';
-            document.getElementById('excelFileInput').value = '';
-        }
-
-        async function convertPDFtoExcel() {
-            if (!excelFile) { showToast('Please upload a PDF file first.', 'error'); return; }
-            const progressBar = document.getElementById('excelProgressBar');
-            const progressFill = document.getElementById('excelProgressFill');
-            const status = document.getElementById('excelStatus');
-            const resultArea = document.getElementById('excelResult');
-            progressBar.style.display = 'block';
-            progressFill.style.width = '0%';
-            status.classList.add('show');
-            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Converting PDF to Excel... Please wait.';
-            try {
-                const arrayBuffer = await excelFile.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-                const totalPages = pdf.numPages;
-                let allText = '';
-                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-                    const viewport = page.getViewport({ scale: 2.0 });
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-                    await page.render({ canvasContext: context, viewport: viewport }).promise;
-                    const imageData = canvas.toDataURL('image/png');
-                    const { data: { text } } = await Tesseract.recognize(imageData, 'hin+eng');
-                    allText += `Page ${pageNum}:\n${text}\n\n`;
-                    const pct = Math.round((pageNum / totalPages) * 100);
-                    progressFill.style.width = pct + '%';
-                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing page ${pageNum}/${totalPages}...`;
-                }
-                const wb = XLSX.utils.book_new();
-                const wsData = allText.split('\n').map(line => [line]);
-                const ws = XLSX.utils.aoa_to_sheet(wsData);
-                XLSX.utils.book_append_sheet(wb, ws, 'Extracted Text');
-                const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-                const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                const url = URL.createObjectURL(blob);
-                resultArea.style.display = 'block';
-                document.getElementById('excelDownloadLink').href = url;
-                document.getElementById('excelFileSize').textContent = `File size: ${(blob.size / 1024).toFixed(1)} KB`;
-                document.getElementById('excelDownloadLink').onclick = function(e) {
-                    setTimeout(() => URL.revokeObjectURL(url), 5000);
-                };
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressBar.style.display = 'none';
-                    status.classList.remove('show');
-                }, 500);
-                showToast('✅ PDF to Excel conversion completed!', 'success');
-            } catch (error) {
-                console.error(error);
-                status.innerHTML = '❌ Error converting PDF to Excel. Please try again.';
-                status.style.color = 'var(--warning-red)';
-                showToast('Error converting PDF to Excel.', 'error');
-                setTimeout(() => {
-                    status.classList.remove('show');
-                    progressBar.style.display = 'none';
-                }, 3000);
-            }
-        }
-
-        // --- PDF to Word ---
-        let wordFile = null;
-
-        function handleWordFile(event) {
-            const file = event.target.files[0];
-            if (file && file.type === 'application/pdf') {
-                wordFile = file;
-                document.getElementById('wordFileName').textContent = file.name;
-                document.getElementById('wordResult').style.display = 'none';
-                document.getElementById('wordProgressBar').style.display = 'none';
-            } else {
-                showToast('Please select a valid PDF file.', 'error');
-                event.target.value = '';
-            }
-        }
-
-        function clearWordFile() {
-            wordFile = null;
-            document.getElementById('wordFileName').textContent = 'No file selected';
-            document.getElementById('wordResult').style.display = 'none';
-            document.getElementById('wordProgressBar').style.display = 'none';
-            document.getElementById('wordFileInput').value = '';
-        }
-
-        async function convertPDFtoWord() {
-            if (!wordFile) { showToast('Please upload a PDF file first.', 'error'); return; }
-            const progressBar = document.getElementById('wordProgressBar');
-            const progressFill = document.getElementById('wordProgressFill');
-            const status = document.getElementById('wordStatus');
-            const resultArea = document.getElementById('wordResult');
-            progressBar.style.display = 'block';
-            progressFill.style.width = '0%';
-            status.classList.add('show');
-            status.innerHTML = '<i class="fas fa-spinner spinner"></i> Converting PDF to Word... Please wait.';
-            try {
-                const arrayBuffer = await wordFile.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-                const totalPages = pdf.numPages;
-                let allText = '';
-                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-                    const viewport = page.getViewport({ scale: 2.0 });
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-                    await page.render({ canvasContext: context, viewport: viewport }).promise;
-                    const imageData = canvas.toDataURL('image/png');
-                    const { data: { text } } = await Tesseract.recognize(imageData, 'hin+eng');
-                    allText += `Page ${pageNum}:\n${text}\n\n`;
-                    const pct = Math.round((pageNum / totalPages) * 100);
-                    progressFill.style.width = pct + '%';
-                    status.innerHTML = `<i class="fas fa-spinner spinner"></i> Processing page ${pageNum}/${totalPages}...`;
-                }
-                const wordContent = `
-                    <html>
-                        <head><meta charset="UTF-8"></head>
-                        <body>
-                            <h1>Converted PDF Content</h1>
-                            <pre style="font-size:14px;font-family:Arial,sans-serif;line-height:1.8;">${allText}</pre>
-                        </body>
-                    </html>
-                `;
-                const blob = new Blob([wordContent],
-                    { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-                const url = URL.createObjectURL(blob);
-                resultArea.style.display = 'block';
-                document.getElementById('wordDownloadLink').href = url;
-                document.getElementById('wordFileSize').textContent = `File size: ${(blob.size / 1024).toFixed(1)} KB`;
-                document.getElementById('wordDownloadLink').onclick = function(e) {
-                    setTimeout(() => URL.revokeObjectURL(url), 5000);
-                };
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressBar.style.display = 'none';
-                    status.classList.remove('show');
-                }, 500);
-                showToast('✅ PDF to Word conversion completed!', 'success');
-            } catch (error) {
-                console.error(error);
-                status.innerHTML = '❌ Error converting PDF to Word. Please try again.';
-                status.style.color = 'var(--warning-red)';
-                showToast('Error converting PDF to Word.', 'error');
-                setTimeout(() => {
-                    status.classList.remove('show');
-                    progressBar.style.display = 'none';
-                }, 3000);
             }
         }
 
@@ -8150,8 +7325,8 @@
             updateLogo();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private')
                 .length;
-            console.log('🚀 Dream Josh – Tools page added, admin extended.');
-            switchTool('jpg-pdf');
+            console.log('🚀 Dream Josh – Ads Manager added, PDF tools removed from More page.');
+            switchTool('ocr');
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('home').classList.add('active');
             setTimeout(startSlideAutoPlay, 1000);
@@ -8213,40 +7388,11 @@
         window.copyOCRResult = copyOCRResult;
         window.downloadOCRResult = downloadOCRResult;
         window.clearOCRResult = clearOCRResult;
-        window.handleMergeFiles = handleMergeFiles;
-        window.removeMergeFile = removeMergeFile;
-        window.clearMergeFiles = clearMergeFiles;
-        window.mergePDFs = mergePDFs;
-        window.previewMergeResult = previewMergeResult;
-        window.handleExcelFile = handleExcelFile;
-        window.clearExcelFile = clearExcelFile;
-        window.convertPDFtoExcel = convertPDFtoExcel;
-        window.handleWordFile = handleWordFile;
-        window.clearWordFile = clearWordFile;
-        window.convertPDFtoWord = convertPDFtoWord;
         window.switchTool = switchTool;
         window.handleLogoUpload = handleLogoUpload;
         window.uploadLogo = uploadLogo;
         window.removeLogo = removeLogo;
         window.saveTaglines = saveTaglines;
-        window.handleJpgToPdf = handleJpgToPdf;
-        window.removeJpgPdfFile = removeJpgPdfFile;
-        window.clearJpgPdf = clearJpgPdf;
-        window.convertJpgToPdf = convertJpgToPdf;
-        window.handlePdfToJpg = handlePdfToJpg;
-        window.clearPdfJpg = clearPdfJpg;
-        window.convertPdfToJpg = convertPdfToJpg;
-        window.handlePngToPdf = handlePngToPdf;
-        window.removePngPdfFile = removePngPdfFile;
-        window.clearPngPdf = clearPngPdf;
-        window.convertPngToPdf = convertPngToPdf;
-        window.handlePngToJpg = handlePngToJpg;
-        window.removePngJpgFile = removePngJpgFile;
-        window.clearPngJpg = clearPngJpg;
-        window.convertPngToJpg = convertPngToJpg;
-        window.handleDeletePdf = handleDeletePdf;
-        window.clearDeletePdf = clearDeletePdf;
-        window.deletePdfPage = deletePdfPage;
         // Creative Studio
         window.openCreativeTool = openCreativeTool;
         window.closeCreativeTool = closeCreativeTool;
@@ -8269,7 +7415,7 @@
         window.removeAlbumFile = removeAlbumFile;
         window.generateAlbum = generateAlbum;
         window.clearCreativeTool = clearCreativeTool;
-        // New admin features
+        // Admin features
         window.toggleDarkMode = toggleDarkMode;
         window.openSubSectionModal = openSubSectionModal;
         window.saveSubSection = saveSubSection;
@@ -8285,12 +7431,19 @@
         window.deleteDropdownItem = deleteDropdownItem;
         window.changeSlide = changeSlide;
         window.goToSlide = goToSlide;
-        // New page manager
+        // Page manager
         window.openPageManagerModal = openPageManagerModal;
         window.saveCustomPage = saveCustomPage;
         window.togglePageVisibility = togglePageVisibility;
         window.togglePagePublic = togglePagePublic;
         window.deleteCustomPage = deleteCustomPage;
+        // Ads
+        window.openAdModal = openAdModal;
+        window.saveAd = saveAd;
+        window.deleteAd = deleteAd;
+        window.toggleAdStatus = toggleAdStatus;
+        window.previewAd = previewAd;
+        window.handleAdImageUpload = handleAdImageUpload;
 
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     </script>
