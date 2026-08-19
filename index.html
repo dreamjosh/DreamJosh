@@ -1257,6 +1257,97 @@
             max-width: 100%;
         }
 
+        /* ========== SETTINGS TABS STYLES ========== */
+        .settings-tab-btn {
+            padding: 6px 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .settings-tab-btn:hover {
+            border-color: var(--secondary-blue);
+            background: var(--card-hover);
+        }
+        .settings-tab-btn.active {
+            background: var(--secondary-blue);
+            color: #fff;
+            border-color: var(--secondary-blue);
+        }
+        .settings-tab-content {
+            display: none;
+            animation: fadeInSection 0.3s ease;
+        }
+        .settings-tab-content.active { display: block; }
+
+        /* ========== ADS MANAGER ========== */
+        .ad-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            transition: 0.3s;
+            flex-wrap: wrap;
+        }
+        .ad-card:hover { border-color: var(--secondary-blue); box-shadow: 0 4px 12px var(--shadow-color); }
+        .ad-card .ad-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .ad-card .ad-info { flex: 1; min-width: 150px; }
+        .ad-card .ad-info h4 { margin: 0 0 4px 0; font-size: 15px; color: var(--text-color); }
+        .ad-card .ad-info p { margin: 0; font-size: 12px; color: var(--text-light); }
+        .ad-card .ad-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+        .ad-card .ad-actions button {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+            min-height: 30px;
+        }
+        .ad-card .ad-actions .btn-edit-ad { background: #ffc107; color: #333; }
+        .ad-card .ad-actions .btn-edit-ad:hover { background: #e0a800; }
+        .ad-card .ad-actions .btn-delete-ad { background: #dc3545; color: #fff; }
+        .ad-card .ad-actions .btn-delete-ad:hover { background: #a71d2a; }
+        .ad-card .ad-actions .btn-toggle-ad { background: var(--secondary-blue); color: #fff; }
+        .ad-card .ad-actions .btn-toggle-ad:hover { background: var(--primary-blue); }
+        .ad-card .ad-actions .btn-preview-ad { background: var(--success-green); color: #fff; }
+        .ad-card .ad-actions .btn-preview-ad:hover { background: #15803d; }
+        .ad-status-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .ad-status-badge.active { background: var(--success-green); color: #fff; }
+        .ad-status-badge.inactive { background: #dc3545; color: #fff; }
+        .ad-position-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            background: var(--editor-toolbar-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+        }
+
         @media (max-width: 768px) {
             .admin-panel-overlay .admin-sidebar {
                 position: fixed;
@@ -1283,6 +1374,7 @@
             }
             .admin-menu-toggle { display: flex !important; }
             .admin-panel-overlay .admin-login-box { padding: 30px 20px; margin: 10px; }
+            .settings-tab-btn { font-size: 10px; padding: 4px 10px; }
         }
         @media (max-width: 480px) {
             .admin-panel-overlay .admin-stats { grid-template-columns: 1fr; }
@@ -1298,6 +1390,7 @@
             cursor: pointer;
         }
 
+        /* ========== TOOLS STYLES ========== */
         .tools-container { margin-top: 20px; }
         .tools-list {
             display: flex;
@@ -1340,6 +1433,7 @@
         .tool-content { display: none; animation: fadeInSection 0.4s ease; }
         .tool-content.active { display: block; }
 
+        /* ========== CREATIVE STUDIO ========== */
         .studio-hero {
             background: linear-gradient(145deg, rgba(124, 58, 237, 0.15), rgba(236, 72, 153, 0.10));
             border-radius: 24px;
@@ -1542,6 +1636,7 @@
             z-index: 2;
         }
 
+        /* ========== TOOL MODAL ========== */
         .tool-modal-overlay {
             display: none;
             position: fixed;
@@ -1721,54 +1816,7 @@
             font-size: 13px;
         }
 
-        .pdf-tool-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 20px var(--shadow-color);
-            padding: 24px;
-            margin-bottom: 20px;
-            transition: 0.3s;
-        }
-        .pdf-tool-card:hover {
-            border-color: var(--secondary-blue);
-            box-shadow: 0 8px 30px var(--shadow-color);
-        }
-        .pdf-tool-card .tool-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 18px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--border-color);
-        }
-        .pdf-tool-card .tool-header i { font-size: 30px; color: var(--secondary-blue); }
-        .pdf-tool-card .tool-header h4 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin: 0;
-        }
-        .pdf-tool-card .tool-header .badge-tool {
-            margin-left: auto;
-            font-size: 11px;
-            padding: 4px 14px;
-            border-radius: 40px;
-            background: var(--success-green);
-            color: #fff;
-        }
-
-        @media (max-width: 768px) {
-            .studio-hero { flex-direction: column; align-items: flex-start; }
-            .tool-modal { padding: 24px 18px; }
-            .creative-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
-            .creative-card .card-icon { width: 56px; height: 56px; font-size: 26px; }
-        }
-        @media (max-width: 480px) {
-            .creative-grid { grid-template-columns: 1fr 1fr; }
-            .studio-hero .hero-text h2 { font-size: 22px; }
-        }
-
+        /* ========== TOOLS PAGE ========== */
         .tools-page { margin-top: 10px; }
         .tools-hero {
             background: linear-gradient(135deg, rgba(25, 118, 210, 0.08), rgba(124, 58, 237, 0.08));
@@ -1863,6 +1911,7 @@
         }
         .tools-category-title:first-of-type { margin-top: 0; }
 
+        /* ========== ITEMS GRID ========== */
         .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1906,6 +1955,8 @@
         .items-grid .item-card .item-actions .btn-delete:hover { background: rgba(214, 40, 57, 0.15); }
         .empty-state { padding: 30px 20px; text-align: center; color: var(--text-light); }
         .empty-state i { font-size: 36px; margin-bottom: 8px; opacity: 0.4; }
+
+        /* ========== EDITOR ========== */
         .page-editor-area { margin-top: 12px; }
         .editor-content {
             min-height: 200px;
@@ -2023,99 +2074,8 @@
             min-height: 36px;
         }
         .editor-controls .btn-fullscreen:hover { opacity: 0.8; }
-        .services-container {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            margin-top: 12px;
-        }
-        .services-category {
-            background: var(--card-bg);
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            padding: 18px 20px 20px 20px;
-            box-shadow: 0 2px 10px var(--shadow-color);
-            transition: 0.3s;
-        }
-        .services-category:hover { border-color: var(--secondary-blue); }
-        .services-category .cat-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--border-color);
-        }
-        .services-category .cat-title i { font-size: 22px; color: var(--secondary-blue); }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 12px;
-        }
-        .service-item {
-            background: var(--bg-color);
-            border-radius: 10px;
-            padding: 12px 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
-            border-left: 3px solid transparent;
-            cursor: default;
-        }
-        .service-item:hover {
-            background: var(--card-hover);
-            border-left-color: var(--secondary-blue);
-            transform: translateX(4px);
-        }
-        .service-item i { font-size: 18px; color: var(--secondary-blue); width: 24px; text-align: center; }
-        .service-item span { font-size: 13px; font-weight: 500; color: var(--text-color); }
-        .service-item .badge-new {
-            background: var(--success-green);
-            color: #fff;
-            font-size: 8px;
-            padding: 1px 8px;
-            border-radius: 20px;
-            margin-left: auto;
-            font-weight: 700;
-        }
-        .service-item .badge-hot {
-            background: #dc3545;
-            color: #fff;
-            font-size: 8px;
-            padding: 1px 8px;
-            border-radius: 20px;
-            margin-left: auto;
-            font-weight: 700;
-        }
-        .service-link {
-            display: inline-block;
-            padding: 2px 10px;
-            background: var(--secondary-blue);
-            color: #fff;
-            border-radius: 4px;
-            font-size: 10px;
-            text-decoration: none;
-            margin-left: 8px;
-            transition: 0.3s;
-        }
-        .service-link:hover {
-            background: var(--primary-blue);
-            transform: scale(1.05);
-        }
-        .creative-section-title {
-            color: var(--primary-blue);
-            font-size: 22px;
-            font-weight: 700;
-            margin: 20px 0 12px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .creative-section-title i { color: var(--secondary-blue); }
+
+        /* ========== SLIDES CAROUSEL ========== */
         .slides-preview-container {
             position: relative;
             max-width: 100%;
@@ -2189,6 +2149,8 @@
             background: var(--secondary-blue);
             transform: scale(1.2);
         }
+
+        /* ========== TABLE WRAP ========== */
         .table-wrap { overflow-x: auto; margin: 10px 0; }
         .table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
         .table-wrap table th {
@@ -2236,6 +2198,8 @@
         }
         .table-wrap table .status-badge.active { background: var(--success-green); color: #fff; }
         .table-wrap table .status-badge.inactive { background: #dc3545; color: #fff; }
+
+        /* ========== OCR ========== */
         .ocr-section {
             background: var(--card-bg);
             border-radius: 12px;
@@ -2369,6 +2333,12 @@
             display: inline-block;
             animation: spin 1s linear infinite;
         }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== FONT CONVERTER ========== */
         .font-converter-box {
             background: var(--card-bg);
             border-radius: 12px;
@@ -2468,10 +2438,8 @@
             text-align: center;
             margin-top: 10px;
         }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+
+        /* ========== ADMIN PAGE ITEMS ========== */
         .admin-page-item {
             display: flex;
             justify-content: space-between;
@@ -2507,68 +2475,50 @@
         .admin-page-item .page-actions .btn-toggle-vis:hover { background: rgba(22, 163, 74, 0.15); }
         .admin-page-item .visibility-badge { font-size: 10px; }
 
-        /* ADS MANAGER STYLES */
-        .ad-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            padding: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            transition: 0.3s;
-            flex-wrap: wrap;
-        }
-        .ad-card:hover { border-color: var(--secondary-blue); box-shadow: 0 4px 12px var(--shadow-color); }
-        .ad-card .ad-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            object-fit: cover;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            flex-shrink: 0;
-        }
-        .ad-card .ad-info { flex: 1; min-width: 150px; }
-        .ad-card .ad-info h4 { margin: 0 0 4px 0; font-size: 15px; color: var(--text-color); }
-        .ad-card .ad-info p { margin: 0; font-size: 12px; color: var(--text-light); }
-        .ad-card .ad-actions { display: flex; gap: 6px; flex-wrap: wrap; }
-        .ad-card .ad-actions button {
-            padding: 4px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: 0.3s;
-            min-height: 30px;
-        }
-        .ad-card .ad-actions .btn-edit-ad { background: #ffc107; color: #333; }
-        .ad-card .ad-actions .btn-edit-ad:hover { background: #e0a800; }
-        .ad-card .ad-actions .btn-delete-ad { background: #dc3545; color: #fff; }
-        .ad-card .ad-actions .btn-delete-ad:hover { background: #a71d2a; }
-        .ad-card .ad-actions .btn-toggle-ad { background: var(--secondary-blue); color: #fff; }
-        .ad-card .ad-actions .btn-toggle-ad:hover { background: var(--primary-blue); }
-        .ad-card .ad-actions .btn-preview-ad { background: var(--success-green); color: #fff; }
-        .ad-card .ad-actions .btn-preview-ad:hover { background: #15803d; }
-        .ad-status-badge {
+        .service-link {
             display: inline-block;
             padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 600;
-        }
-        .ad-status-badge.active { background: var(--success-green); color: #fff; }
-        .ad-status-badge.inactive { background: #dc3545; color: #fff; }
-        .ad-position-badge {
-            display: inline-block;
-            padding: 2px 8px;
+            background: var(--secondary-blue);
+            color: #fff;
             border-radius: 4px;
             font-size: 10px;
-            background: var(--editor-toolbar-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 8px;
+            transition: 0.3s;
+        }
+        .service-link:hover {
+            background: var(--primary-blue);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .font-converter-box .converter-grid {
+                grid-template-columns: 1fr;
+            }
+            .tool-modal {
+                padding: 24px 18px;
+            }
+            .creative-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 14px;
+            }
+            .creative-card .card-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 26px;
+            }
+            .studio-hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        @media (max-width: 480px) {
+            .creative-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .studio-hero .hero-text h2 {
+                font-size: 22px;
+            }
         }
     </style>
 </head>
@@ -2695,7 +2645,7 @@
             </div>
         </section>
 
-        <!-- ================= SECTION: MORE (PDF Tools Removed) ================= -->
+        <!-- ================= SECTION: MORE ================= -->
         <section class="section" id="more">
             <div class="page-ticker" id="moreTicker"><span id="moreTickerText">📚 Study • Books • Creative Studio • Font Converter • OCR</span></div>
             <div class="section-header">
@@ -2806,7 +2756,7 @@
                 </div>
             </div>
 
-            <!-- ================= FONT CONVERTER & OCR (PDF Tools Removed) ================= -->
+            <!-- ================= FONT CONVERTER & OCR ================= -->
             <div style="margin-top:40px;border-top:2px solid var(--border-color);padding-top:20px;">
                 <h3 style="color:var(--primary-blue);margin-bottom:15px;font-size:22px;">⚙️ Text & Font Utilities</h3>
 
@@ -2945,7 +2895,6 @@
         <!-- ================= SECTION: TOOLS ================= -->
         <section class="section" id="tools">
             <div class="tools-page">
-                <!-- Hero -->
                 <div class="tools-hero">
                     <div>
                         <h2>🛠️ <span>Tools</span></h2>
@@ -3384,6 +3333,307 @@
         const genericFilters = { career: 'all', more: 'all', blog: 'all', service: 'all' };
 
         // ============================================================
+        // SETTINGS FUNCTIONS
+        // ============================================================
+        function getDefaultSettings() {
+            return {
+                siteName: '🚀 DREAM JOSH',
+                tagline: '"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"',
+                siteURL: '',
+                adminEmail: '',
+                timezone: 'Asia/Kolkata',
+                dateFormat: 'DD/MM/YYYY',
+                timeFormat: '12h',
+                siteLanguage: 'en',
+                favicon: '',
+                logo: '',
+                logoDark: '',
+                primaryColor: '#123c9b',
+                secondaryColor: '#1976d2',
+                accentColor: '#7c3aed',
+                headerCode: '',
+                footerCode: '',
+                homepageDisplay: 'latest',
+                postsPerPage: 10,
+                searchVisibility: false,
+                registration: false,
+                defaultRole: 'subscriber',
+                emailVerification: false,
+                maintenanceMode: false,
+                paymentAPI: '',
+                emailAPI: '',
+                analyticsAPI: '',
+                webhookURL: ''
+            };
+        }
+
+        function loadSettings() {
+            let settings = {};
+            try {
+                const saved = localStorage.getItem('dreamjosh_settings');
+                if (saved) {
+                    settings = JSON.parse(saved);
+                }
+            } catch (e) {}
+            const defaults = getDefaultSettings();
+            for (let key in defaults) {
+                if (settings[key] === undefined) {
+                    settings[key] = defaults[key];
+                }
+            }
+            return settings;
+        }
+
+        function saveSettings(settings) {
+            localStorage.setItem('dreamjosh_settings', JSON.stringify(settings));
+        }
+
+        function applySettings(settings) {
+            if (!settings) settings = loadSettings();
+
+            const homeTitle = document.getElementById('homeTitle');
+            if (homeTitle) homeTitle.textContent = settings.siteName || '🚀 DREAM JOSH';
+            const homeSubtitle = document.getElementById('homeSubtitle');
+            if (homeSubtitle) homeSubtitle.textContent = settings.tagline || '"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"';
+            document.title = settings.siteName + ' - ' + settings.tagline;
+
+            const headerLogoImg = document.getElementById('headerLogoImg');
+            const headerLogoText = document.getElementById('headerLogoText');
+            if (settings.logo) {
+                headerLogoImg.src = settings.logo;
+                headerLogoImg.style.display = 'inline-block';
+                headerLogoText.style.display = 'none';
+            } else {
+                headerLogoImg.style.display = 'none';
+                headerLogoText.style.display = 'inline-block';
+            }
+
+            if (settings.favicon) {
+                let link = document.querySelector("link[rel*='icon']");
+                if (!link) {
+                    link = document.createElement('link');
+                    link.rel = 'icon';
+                    document.head.appendChild(link);
+                }
+                link.href = settings.favicon;
+            }
+
+            document.documentElement.style.setProperty('--primary-blue', settings.primaryColor || '#123c9b');
+            document.documentElement.style.setProperty('--secondary-blue', settings.secondaryColor || '#1976d2');
+            document.documentElement.style.setProperty('--studio-accent', settings.accentColor || '#7c3aed');
+
+            let headerCodeEl = document.getElementById('customHeaderCode');
+            if (!headerCodeEl) {
+                headerCodeEl = document.createElement('div');
+                headerCodeEl.id = 'customHeaderCode';
+                document.head.appendChild(headerCodeEl);
+            }
+            headerCodeEl.innerHTML = settings.headerCode || '';
+
+            let footerCodeEl = document.getElementById('customFooterCode');
+            if (!footerCodeEl) {
+                footerCodeEl = document.createElement('div');
+                footerCodeEl.id = 'customFooterCode';
+                document.body.appendChild(footerCodeEl);
+            }
+            footerCodeEl.innerHTML = settings.footerCode || '';
+
+            // Maintenance Mode
+            if (settings.maintenanceMode) {
+                const isAdmin = document.getElementById('adminPanelOverlay')?.classList?.contains('active') || false;
+                if (!isAdmin) {
+                    let overlay = document.getElementById('maintenanceOverlay');
+                    if (!overlay) {
+                        overlay = document.createElement('div');
+                        overlay.id = 'maintenanceOverlay';
+                        overlay.style.cssText =
+                            'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Arial,sans-serif;flex-direction:column;text-align:center;padding:20px;backdrop-filter:blur(8px);';
+                        overlay.innerHTML =
+                            '<div style="font-size:64px;margin-bottom:16px;">🛠️</div><h1 style="font-size:32px;margin:0;">We\'ll be back soon!</h1><p style="font-size:18px;opacity:0.7;max-width:500px;">The site is currently under maintenance. Please check back later.</p><div style="margin-top:20px;width:60px;height:60px;border-radius:50%;border:4px solid rgba(255,255,255,0.2);border-top-color:#fff;animation:spin 1s linear infinite;"></div><style>@keyframes spin{to{transform:rotate(360deg)}}</style>';
+                        document.body.appendChild(overlay);
+                    }
+                } else {
+                    const overlay = document.getElementById('maintenanceOverlay');
+                    if (overlay) overlay.remove();
+                }
+            } else {
+                const overlay = document.getElementById('maintenanceOverlay');
+                if (overlay) overlay.remove();
+            }
+
+            // Search Engine Visibility
+            const metaRobots = document.querySelector('meta[name="robots"]');
+            if (settings.searchVisibility) {
+                if (!metaRobots) {
+                    const meta = document.createElement('meta');
+                    meta.name = 'robots';
+                    meta.content = 'noindex, nofollow';
+                    document.head.appendChild(meta);
+                } else {
+                    metaRobots.content = 'noindex, nofollow';
+                }
+            } else {
+                if (metaRobots) metaRobots.remove();
+            }
+
+            document.documentElement.lang = settings.siteLanguage || 'en';
+        }
+
+        function populateSettingsForm() {
+            const settings = loadSettings();
+            document.getElementById('settingSiteName').value = settings.siteName || '';
+            document.getElementById('settingTagline').value = settings.tagline || '';
+            document.getElementById('settingSiteURL').value = settings.siteURL || '';
+            document.getElementById('settingAdminEmail').value = settings.adminEmail || '';
+            document.getElementById('settingTimezone').value = settings.timezone || 'Asia/Kolkata';
+            document.getElementById('settingDateFormat').value = settings.dateFormat || 'DD/MM/YYYY';
+            document.getElementById('settingTimeFormat').value = settings.timeFormat || '12h';
+            document.getElementById('settingSiteLanguage').value = settings.siteLanguage || 'en';
+
+            if (settings.favicon) {
+                document.getElementById('faviconPreview').innerHTML =
+                    `<img src="${settings.favicon}" style="max-width:32px;max-height:32px;">`;
+            }
+            if (settings.logo) {
+                document.getElementById('brandLogoPreview').innerHTML =
+                    `<img src="${settings.logo}" style="max-height:56px;">`;
+            }
+            if (settings.logoDark) {
+                document.getElementById('brandLogoDarkPreview').innerHTML =
+                    `<img src="${settings.logoDark}" style="max-height:56px;">`;
+            }
+            document.getElementById('settingPrimaryColor').value = settings.primaryColor || '#123c9b';
+            document.getElementById('settingSecondaryColor').value = settings.secondaryColor || '#1976d2';
+            document.getElementById('settingAccentColor').value = settings.accentColor || '#7c3aed';
+            document.getElementById('settingHeaderCode').value = settings.headerCode || '';
+            document.getElementById('settingFooterCode').value = settings.footerCode || '';
+
+            document.getElementById('settingHomepageDisplay').value = settings.homepageDisplay || 'latest';
+            document.getElementById('settingPostsPerPage').value = settings.postsPerPage || 10;
+            document.getElementById('settingSearchVisibility').checked = settings.searchVisibility || false;
+
+            document.getElementById('settingRegistration').checked = settings.registration || false;
+            document.getElementById('settingDefaultRole').value = settings.defaultRole || 'subscriber';
+            document.getElementById('settingEmailVerification').checked = settings.emailVerification || false;
+            document.getElementById('settingMaintenanceMode').checked = settings.maintenanceMode || false;
+
+            document.getElementById('settingPaymentAPI').value = settings.paymentAPI || '';
+            document.getElementById('settingEmailAPI').value = settings.emailAPI || '';
+            document.getElementById('settingAnalyticsAPI').value = settings.analyticsAPI || '';
+            document.getElementById('settingWebhookURL').value = settings.webhookURL || '';
+        }
+
+        function saveAllSettings() {
+            const settings = {
+                siteName: document.getElementById('settingSiteName').value.trim(),
+                tagline: document.getElementById('settingTagline').value.trim(),
+                siteURL: document.getElementById('settingSiteURL').value.trim(),
+                adminEmail: document.getElementById('settingAdminEmail').value.trim(),
+                timezone: document.getElementById('settingTimezone').value,
+                dateFormat: document.getElementById('settingDateFormat').value,
+                timeFormat: document.getElementById('settingTimeFormat').value,
+                siteLanguage: document.getElementById('settingSiteLanguage').value,
+                favicon: document.getElementById('faviconPreview')?.querySelector('img')?.src || '',
+                logo: document.getElementById('brandLogoPreview')?.querySelector('img')?.src || '',
+                logoDark: document.getElementById('brandLogoDarkPreview')?.querySelector('img')?.src || '',
+                primaryColor: document.getElementById('settingPrimaryColor').value,
+                secondaryColor: document.getElementById('settingSecondaryColor').value,
+                accentColor: document.getElementById('settingAccentColor').value,
+                headerCode: document.getElementById('settingHeaderCode').value,
+                footerCode: document.getElementById('settingFooterCode').value,
+                homepageDisplay: document.getElementById('settingHomepageDisplay').value,
+                postsPerPage: parseInt(document.getElementById('settingPostsPerPage').value) || 10,
+                searchVisibility: document.getElementById('settingSearchVisibility').checked,
+                registration: document.getElementById('settingRegistration').checked,
+                defaultRole: document.getElementById('settingDefaultRole').value,
+                emailVerification: document.getElementById('settingEmailVerification').checked,
+                maintenanceMode: document.getElementById('settingMaintenanceMode').checked,
+                paymentAPI: document.getElementById('settingPaymentAPI').value.trim(),
+                emailAPI: document.getElementById('settingEmailAPI').value.trim(),
+                analyticsAPI: document.getElementById('settingAnalyticsAPI').value.trim(),
+                webhookURL: document.getElementById('settingWebhookURL').value.trim()
+            };
+            saveSettings(settings);
+            applySettings(settings);
+            showToast('✅ All settings saved successfully!', 'success');
+        }
+
+        function switchSettingsTab(tabId) {
+            document.querySelectorAll('.settings-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.settings-tab-btn[data-tab="${tabId}"]`).classList.add('active');
+            document.querySelectorAll('.settings-tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`settings-${tabId}`).classList.add('active');
+        }
+
+        let faviconData = null;
+
+        function handleFaviconUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    faviconData = ev.target.result;
+                    document.getElementById('faviconPreview').innerHTML =
+                        `<img src="${faviconData}" style="max-width:32px;max-height:32px;">`;
+                    showToast('Favicon loaded. Save settings to apply.', 'info');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeFavicon() {
+            faviconData = null;
+            document.getElementById('faviconPreview').innerHTML =
+                `<span style="font-size:11px;color:var(--text-light);">?</span>`;
+            document.getElementById('settingFaviconInput').value = '';
+            showToast('Favicon removed. Save settings to apply.', 'info');
+        }
+
+        let brandLogoData = null;
+        let brandLogoDarkData = null;
+
+        function handleBrandLogoUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    brandLogoData = ev.target.result;
+                    document.getElementById('brandLogoPreview').innerHTML =
+                        `<img src="${brandLogoData}" style="max-height:56px;">`;
+                    showToast('Logo loaded. Save settings to apply.', 'info');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleBrandLogoDarkUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    brandLogoDarkData = ev.target.result;
+                    document.getElementById('brandLogoDarkPreview').innerHTML =
+                        `<img src="${brandLogoDarkData}" style="max-height:56px;">`;
+                    showToast('Dark logo loaded. Save settings to apply.', 'info');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeBrandLogo() {
+            brandLogoData = null;
+            document.getElementById('brandLogoPreview').innerHTML =
+                `<span style="font-size:11px;color:var(--text-light);">No logo</span>`;
+            document.getElementById('settingLogoInput').value = '';
+            showToast('Logo removed. Save settings to apply.', 'info');
+        }
+
+        function loadSettingsIntoAdmin() {
+            populateSettingsForm();
+            applySettings();
+        }
+
+        // ============================================================
         // LOAD/SAVE FUNCTIONS
         // ============================================================
         function loadFromLocalStorage() {
@@ -3396,8 +3646,9 @@
                 }
             } catch (e) { console.error('Load error:', e); }
 
-            ['home', 'career', 'more', 'service', 'blog', 'social', 'employees', 'slides', 'dropdownMenus', 'darkMode', 'customPages', 'ads']
-            .forEach(key => {
+            ['home', 'career', 'more', 'service', 'blog', 'social', 'employees', 'slides', 'dropdownMenus', 'darkMode',
+                'customPages', 'ads'
+            ].forEach(key => {
                 if (!appData[key]) {
                     appData[key] = JSON.parse(JSON.stringify(DEFAULT_DATA[key] || {}));
                 }
@@ -3441,6 +3692,7 @@
                 document.body.classList.remove('dark-mode');
             }
             saveToLocalStorage();
+            applySettings();
         }
 
         function saveToLocalStorage() {
@@ -3471,14 +3723,17 @@
             const data = appData.home || DEFAULT_DATA.home;
             document.getElementById('homeTitle').textContent = data.title || '🚀 DREAM JOSH';
             document.getElementById('homeSubtitle').textContent = data.subtitle || '"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"';
-            document.getElementById('homeTagline').textContent = data.tagline || 'Motivation • Study • Govt. Jobs • Career Guide';
-            document.getElementById('tickerText1').textContent = data.ticker1 || '🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी';
+            document.getElementById('homeTagline').textContent = data.tagline ||
+                'Motivation • Study • Govt. Jobs • Career Guide';
+            document.getElementById('tickerText1').textContent = data.ticker1 ||
+                '🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी';
             document.getElementById('tickerText2').textContent = data.ticker2 || '✨ सपने बड़े रखें • मेहनत करते रहें';
             document.getElementById('homeHeading').textContent = data.heading || '🚀 Dream Josh में आपका स्वागत है';
             document.getElementById('homeAboutTitle').textContent = data.aboutTitle || '🌟 Dream Josh के बारे में';
             document.getElementById('homeAboutText').innerHTML = data.aboutText ||
                 '<b>Dream Josh</b> एक educational platform है।';
-            document.getElementById('homeFeaturesTitle').textContent = data.featuresTitle || '📚 Dream Josh पर क्या मिलेगा?';
+            document.getElementById('homeFeaturesTitle').textContent = data.featuresTitle ||
+                '📚 Dream Josh पर क्या मिलेगा?';
             const list = document.getElementById('homeFeaturesList');
             list.innerHTML = (data.features || ['📖 Study Notes', '🏛️ Govt. Jobs', '🎯 Career Guide']).map(f =>
                 `<li>${f}</li>`).join('');
@@ -3592,7 +3847,9 @@
                     <h3 style="color:var(--primary-blue);margin-bottom:10px;">📂 ${category === 'all' ? 'All Services' : category.charAt(0).toUpperCase() + category.slice(1) + ' Services'}</h3>
                     <ul style="list-style:none;padding:0;">`;
                 filtered.forEach(item => {
-                    const linkHtml = item.link ? `<a href="${item.link}" target="_blank" class="service-link"><i class="fas fa-external-link-alt"></i> Visit</a>` : '';
+                    const linkHtml = item.link ?
+                        `<a href="${item.link}" target="_blank" class="service-link"><i class="fas fa-external-link-alt"></i> Visit</a>` :
+                        '';
                     html += `
                         <li style="padding:12px 14px;background:var(--bg-color);border-radius:8px;margin-bottom:8px;border-left:3px solid var(--secondary-blue);">
                             <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
@@ -3735,19 +3992,7 @@
         // ADS RENDER
         // ============================================================
         function renderAds() {
-            // Ads will be rendered in admin panel only
-            // Frontend ad placements can be added here if needed
-        }
-
-        function getAdsByPosition(position) {
-            const ads = appData.ads || [];
-            const now = new Date();
-            return ads.filter(ad => {
-                if (ad.status !== 'active') return false;
-                if (ad.startDate && new Date(ad.startDate) > now) return false;
-                if (ad.endDate && new Date(ad.endDate) < now) return false;
-                return ad.position === position;
-            });
+            // Ads are rendered in admin panel only
         }
 
         // ============================================================
@@ -3758,9 +4003,8 @@
             const dropdowns = appData.dropdownMenus || DEFAULT_DATA.dropdownMenus;
             const customPages = appData.customPages || DEFAULT_DATA.customPages;
 
-            let html = `
-                <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
-            `;
+            let html =
+                `<button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>`;
 
             const jobsDropdown = dropdowns.jobs || { label: '💼 Jobs', items: [{ label: '🏛️ Central Govt.', action: 'central' },
                     { label: '🏜️ Rajasthan Govt.', action: 'state' }, { label: '💼 Private', action: 'private' }] };
@@ -3782,7 +4026,8 @@
             dropdownKeys.forEach(key => {
                 const pageConfig = customPages.find(p => p.id === key);
                 if (!pageConfig || !pageConfig.visible) return;
-                const menu = dropdowns[key] || { label: pageConfig.label || key.charAt(0).toUpperCase() + key.slice(1), items: [] };
+                const menu = dropdowns[key] || { label: pageConfig.label || key.charAt(0).toUpperCase() + key.slice(1),
+                    items: [] };
                 html += `
                     <div class="dropdown-wrapper" id="${key}Dropdown">
                         <button class="dropdown-btn" onclick="toggleDropdownMobile('${key}')">${menu.label} <span class="arrow">▾</span></button>
@@ -4071,6 +4316,7 @@
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             setTimeout(() => { const inp = document.getElementById('adminPass'); if (inp) inp.focus(); }, 100);
+            loadSettingsIntoAdmin();
         }
 
         function renderAdminLogin() {
@@ -4102,6 +4348,7 @@
                 document.getElementById('adminPanelOverlay').innerHTML = renderAdminPanel();
                 renderAdminTables();
                 showToast('✅ Welcome Admin!', 'success');
+                loadSettingsIntoAdmin();
                 return;
             }
             const employees = appData.employees || [];
@@ -4114,6 +4361,7 @@
                 document.getElementById('adminPanelOverlay').innerHTML = renderAdminPanel();
                 renderAdminTables();
                 showToast(`✅ Welcome ${found.name}!`, 'success');
+                loadSettingsIntoAdmin();
                 return;
             }
             err.classList.add('show');
@@ -4328,27 +4576,225 @@
                             <div class="admin-card">
                                 <div class="card-header"><h4>⚙️ Settings</h4></div>
                                 <div class="admin-settings">
-                                    <div class="setting-group"><h5>🔑 Change Admin Password</h5><input type="password" id="adminNewPass" placeholder="New Password"><input type="password" id="adminConfirmPass" placeholder="Confirm"><button class="btn-setting primary" onclick="changeAdminPassword()">Update</button></div>
-                                    <div class="setting-group"><h5>💾 Backup All Data</h5><button class="btn-setting success" onclick="exportAdminData()"><i class="fas fa-download"></i> Download Backup</button></div>
-                                    <div class="setting-group"><h5>🔄 Reset All Data (Warning!)</h5><button class="btn-setting danger" onclick="resetAllData()"><i class="fas fa-exclamation-triangle"></i> Reset to Default</button></div>
-                                    <div class="setting-group"><h5>🖼️ Logo Upload</h5>
-                                        <input type="file" id="logoFileInput" accept="image/*" onchange="handleLogoUpload(event)">
-                                        <button class="btn-setting primary" onclick="uploadLogo()"><i class="fas fa-upload"></i> Upload Logo</button>
-                                        <button class="btn-setting danger" onclick="removeLogo()"><i class="fas fa-trash"></i> Remove Logo</button>
-                                        <div id="logoPreview" style="margin-top:8px;"></div>
+                                    <!-- ===== TABS NAVIGATION ===== -->
+                                    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
+                                        <button class="settings-tab-btn active" data-tab="general" onclick="switchSettingsTab('general')">⚙️ General</button>
+                                        <button class="settings-tab-btn" data-tab="branding" onclick="switchSettingsTab('branding')">🎨 Branding</button>
+                                        <button class="settings-tab-btn" data-tab="content" onclick="switchSettingsTab('content')">📄 Content</button>
+                                        <button class="settings-tab-btn" data-tab="security" onclick="switchSettingsTab('security')">🔐 Security</button>
+                                        <button class="settings-tab-btn" data-tab="integrations" onclick="switchSettingsTab('integrations')">🔌 Integrations</button>
                                     </div>
-                                    <div class="setting-group"><h5>📢 Page Taglines</h5>
-                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Career:</label> <input type="text" id="taglineCareer" value="${appData.home?.pageTaglines?.career || ''}" style="width:100%;max-width:400px;"></div>
-                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">More:</label> <input type="text" id="taglineMore" value="${appData.home?.pageTaglines?.more || ''}" style="width:100%;max-width:400px;"></div>
-                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Blog:</label> <input type="text" id="taglineBlog" value="${appData.home?.pageTaglines?.blog || ''}" style="width:100%;max-width:400px;"></div>
-                                        <div style="margin-bottom:6px;"><label style="font-size:12px;">Service:</label> <input type="text" id="taglineService" value="${appData.home?.pageTaglines?.service || ''}" style="width:100%;max-width:400px;"></div>
-                                        <button class="btn-setting success" onclick="saveTaglines()"><i class="fas fa-save"></i> Save Taglines</button>
+
+                                    <!-- TAB 1: GENERAL -->
+                                    <div class="settings-tab-content active" id="settings-general">
+                                        <div class="setting-group"><h5>🌐 Site Name & Tagline</h5>
+                                            <div style="display:flex;flex-direction:column;gap:6px;max-width:400px;">
+                                                <div><label style="font-size:12px;font-weight:600;">Site Name</label>
+                                                    <input type="text" id="settingSiteName" value="" placeholder="e.g., Dream Josh" style="width:100%;">
+                                                    <span style="font-size:11px;color:var(--text-light);">Website ka naam. Title tags aur emails mein use hota hai.</span>
+                                                </div>
+                                                <div><label style="font-size:12px;font-weight:600;">Tagline</label>
+                                                    <input type="text" id="settingTagline" value="" placeholder="e.g., Career & Study Platform" style="width:100%;">
+                                                    <span style="font-size:11px;color:var(--text-light);">Website ki brief description.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>🔗 Site URL</h5>
+                                            <div style="max-width:400px;">
+                                                <input type="url" id="settingSiteURL" value="" placeholder="https://dreamjosh.com" style="width:100%;">
+                                                <span style="font-size:11px;color:var(--text-light);">Website ka official address. Isko sahi set karna zaroori hai.</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>📧 Admin Email</h5>
+                                            <div style="max-width:400px;">
+                                                <input type="email" id="settingAdminEmail" value="" placeholder="admin@dreamjosh.com" style="width:100%;">
+                                                <span style="font-size:11px;color:var(--text-light);">System notifications aur important alerts yahan bheje jaayein.</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>🕐 Timezone, Date & Time Format</h5>
+                                            <div style="display:flex;flex-wrap:wrap;gap:10px;max-width:500px;">
+                                                <div style="flex:1;min-width:150px;"><label style="font-size:12px;font-weight:600;">Timezone</label>
+                                                    <select id="settingTimezone" style="width:100%;">
+                                                        <option value="Asia/Kolkata">Asia/Kolkata (UTC +5:30)</option>
+                                                        <option value="America/New_York">America/New_York</option>
+                                                        <option value="Europe/London">Europe/London</option>
+                                                        <option value="Australia/Sydney">Australia/Sydney</option>
+                                                        <option value="UTC">UTC</option>
+                                                    </select>
+                                                </div>
+                                                <div style="flex:1;min-width:150px;"><label style="font-size:12px;font-weight:600;">Date Format</label>
+                                                    <select id="settingDateFormat" style="width:100%;">
+                                                        <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                                        <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                                        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                                        <option value="DD Month YYYY">DD Month YYYY</option>
+                                                    </select>
+                                                </div>
+                                                <div style="flex:1;min-width:150px;"><label style="font-size:12px;font-weight:600;">Time Format</label>
+                                                    <select id="settingTimeFormat" style="width:100%;">
+                                                        <option value="12h">12-Hour (AM/PM)</option>
+                                                        <option value="24h">24-Hour</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <span style="font-size:11px;color:var(--text-light);display:block;margin-top:4px;">Website ke har jagah time kis format mein dikhega.</span>
+                                        </div>
+                                        <div class="setting-group"><h5>🌍 Site Language</h5>
+                                            <div style="max-width:300px;">
+                                                <select id="settingSiteLanguage" style="width:100%;">
+                                                    <option value="en">English</option>
+                                                    <option value="hi">हिन्दी (Hindi)</option>
+                                                    <option value="mr">मराठी (Marathi)</option>
+                                                    <option value="gu">ગુજરાતી (Gujarati)</option>
+                                                    <option value="ta">தமிழ் (Tamil)</option>
+                                                    <option value="te">తెలుగు (Telugu)</option>
+                                                    <option value="bn">বাংলা (Bengali)</option>
+                                                    <option value="ur">اردو (Urdu)</option>
+                                                </select>
+                                                <span style="font-size:11px;color:var(--text-light);">Website aur admin panel ki default language.</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn-setting success" onclick="saveAllSettings()" style="margin-top:10px;"><i class="fas fa-save"></i> Save General Settings</button>
                                     </div>
-                                    <div class="setting-group"><h5>🌓 Dark Mode</h5>
-                                        <button class="btn-setting ${appData.darkMode ? 'primary' : 'secondary'}" onclick="toggleDarkMode()">
-                                            <i class="fas ${appData.darkMode ? 'fa-sun' : 'fa-moon'}"></i> ${appData.darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-                                        </button>
-                                        <span style="font-size:12px;color:var(--text-light);margin-left:8px;">Current: ${appData.darkMode ? '🌙 Dark' : '☀️ Light'}</span>
+
+                                    <!-- TAB 2: BRANDING -->
+                                    <div class="settings-tab-content" id="settings-branding">
+                                        <div class="setting-group"><h5>🖼️ Favicon</h5>
+                                            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                                                <input type="file" id="settingFaviconInput" accept="image/*" onchange="handleFaviconUpload(event)">
+                                                <div id="faviconPreview" style="width:32px;height:32px;border:1px solid var(--border-color);border-radius:4px;display:flex;align-items:center;justify-content:center;background:#fff;"><span style="font-size:11px;color:var(--text-light);">?</span></div>
+                                                <button class="btn-setting danger" onclick="removeFavicon()"><i class="fas fa-trash"></i> Remove</button>
+                                                <span style="font-size:11px;color:var(--text-light);">Browser tab mein dikhne wala small icon.</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>🏷️ Logo</h5>
+                                            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+                                                <input type="file" id="settingLogoInput" accept="image/*" onchange="handleBrandLogoUpload(event)">
+                                                <div id="brandLogoPreview" style="max-height:60px;border:1px solid var(--border-color);border-radius:4px;padding:4px;background:#fff;"><span style="font-size:11px;color:var(--text-light);">No logo</span></div>
+                                                <button class="btn-setting danger" onclick="removeBrandLogo()"><i class="fas fa-trash"></i> Remove</button>
+                                                <span style="font-size:11px;color:var(--text-light);">Website ka primary logo. Dark mode ke liye ek variant bhi de sakte hain.</span>
+                                            </div>
+                                            <div style="margin-top:8px;">
+                                                <label style="font-size:12px;font-weight:600;">Dark Mode Logo (optional)</label>
+                                                <input type="file" id="settingLogoDarkInput" accept="image/*" onchange="handleBrandLogoDarkUpload(event)">
+                                                <div id="brandLogoDarkPreview" style="max-height:60px;border:1px solid var(--border-color);border-radius:4px;padding:4px;background:#1a1a2e;margin-top:4px;"><span style="font-size:11px;color:var(--text-light);">No dark logo</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>🎨 Brand Colors</h5>
+                                            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+                                                <div><label style="font-size:12px;font-weight:600;">Primary Color</label><input type="color" id="settingPrimaryColor" value="#123c9b"></div>
+                                                <div><label style="font-size:12px;font-weight:600;">Secondary Color</label><input type="color" id="settingSecondaryColor" value="#1976d2"></div>
+                                                <div><label style="font-size:12px;font-weight:600;">Accent Color</label><input type="color" id="settingAccentColor" value="#7c3aed"></div>
+                                            </div>
+                                            <span style="font-size:11px;color:var(--text-light);display:block;margin-top:4px;">Primary aur secondary colors set karein jo website aur emails mein use honge.</span>
+                                        </div>
+                                        <div class="setting-group"><h5>📝 Custom Code (Header/Footer)</h5>
+                                            <div style="max-width:100%;">
+                                                <label style="font-size:12px;font-weight:600;">Header Code (inside &lt;head&gt;)</label>
+                                                <textarea id="settingHeaderCode" rows="3" placeholder="Google Analytics, Meta tags, Custom CSS..." style="width:100%;font-family:monospace;font-size:13px;"></textarea>
+                                                <span style="font-size:11px;color:var(--text-light);">Advanced users ke liye, jahan woh analytics tracking codes (jaise Google Analytics) ya custom CSS/JS daal sakte hain.</span>
+                                            </div>
+                                            <div style="max-width:100%;margin-top:8px;">
+                                                <label style="font-size:12px;font-weight:600;">Footer Code (before &lt;/body&gt;)</label>
+                                                <textarea id="settingFooterCode" rows="3" placeholder="Custom JS, Chat scripts, Pixel..." style="width:100%;font-family:monospace;font-size:13px;"></textarea>
+                                            </div>
+                                        </div>
+                                        <button class="btn-setting success" onclick="saveAllSettings()" style="margin-top:10px;"><i class="fas fa-save"></i> Save Branding Settings</button>
+                                    </div>
+
+                                    <!-- TAB 3: CONTENT -->
+                                    <div class="settings-tab-content" id="settings-content">
+                                        <div class="setting-group"><h5>🏠 Homepage Display</h5>
+                                            <div style="max-width:400px;">
+                                                <select id="settingHomepageDisplay" style="width:100%;">
+                                                    <option value="latest">📰 Latest Posts</option>
+                                                    <option value="static">📄 Static Page</option>
+                                                </select>
+                                                <span style="font-size:11px;color:var(--text-light);">Choose karein ke homepage par latest posts dikhein ya ek static page (jaise 'About Us').</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>📄 Posts per Page</h5>
+                                            <div style="max-width:200px;">
+                                                <input type="number" id="settingPostsPerPage" value="10" min="1" max="100" style="width:100%;">
+                                                <span style="font-size:11px;color:var(--text-light);">Blog list ya archive page par kitne posts dikhane hain.</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>🔍 Search Engine Visibility</h5>
+                                            <div style="display:flex;align-items:center;gap:8px;">
+                                                <input type="checkbox" id="settingSearchVisibility">
+                                                <label for="settingSearchVisibility" style="font-size:13px;cursor:pointer;">Block search engines from indexing this site</label>
+                                            </div>
+                                            <span style="font-size:11px;color:var(--text-light);">Ek checkbox jo search engines ko "index mat karo" ka signal deta hai. Useful for staging sites.</span>
+                                        </div>
+                                        <button class="btn-setting success" onclick="saveAllSettings()" style="margin-top:10px;"><i class="fas fa-save"></i> Save Content Settings</button>
+                                    </div>
+
+                                    <!-- TAB 4: SECURITY -->
+                                    <div class="settings-tab-content" id="settings-security">
+                                        <div class="setting-group"><h5>🔑 Admin Password</h5>
+                                            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+                                                <input type="password" id="adminNewPass" placeholder="New Password" style="max-width:200px;">
+                                                <input type="password" id="adminConfirmPass" placeholder="Confirm" style="max-width:200px;">
+                                                <button class="btn-setting primary" onclick="changeAdminPassword()">Update Password</button>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>📝 Registration</h5>
+                                            <div style="display:flex;align-items:center;gap:8px;">
+                                                <input type="checkbox" id="settingRegistration">
+                                                <label for="settingRegistration" style="font-size:13px;cursor:pointer;">Allow anyone to register on the website</label>
+                                            </div>
+                                            <span style="font-size:11px;color:var(--text-light);">Kya koi bhi visitor account create kar sakta hai?</span>
+                                            <div style="margin-top:6px;max-width:250px;">
+                                                <label style="font-size:12px;font-weight:600;">Default Role</label>
+                                                <select id="settingDefaultRole" style="width:100%;">
+                                                    <option value="subscriber">Subscriber</option>
+                                                    <option value="customer">Customer</option>
+                                                    <option value="editor">Editor</option>
+                                                    <option value="contributor">Contributor</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>📧 Email Verification</h5>
+                                            <div style="display:flex;align-items:center;gap:8px;">
+                                                <input type="checkbox" id="settingEmailVerification">
+                                                <label for="settingEmailVerification" style="font-size:13px;cursor:pointer;">Require email verification for new users</label>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>🛠️ Maintenance Mode</h5>
+                                            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                                                <input type="checkbox" id="settingMaintenanceMode">
+                                                <label for="settingMaintenanceMode" style="font-size:13px;cursor:pointer;">Enable Maintenance Mode</label>
+                                                <span style="font-size:11px;color:var(--text-light);">Website ko offline le jaane ka option. Useful during updates. Admin log in rahein toh unhe site dikhti rahe.</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn-setting success" onclick="saveAllSettings()" style="margin-top:10px;"><i class="fas fa-save"></i> Save Security Settings</button>
+                                    </div>
+
+                                    <!-- TAB 5: INTEGRATIONS -->
+                                    <div class="settings-tab-content" id="settings-integrations">
+                                        <div class="setting-group"><h5>🔌 API Keys</h5>
+                                            <div style="max-width:100%;">
+                                                <div style="margin-bottom:6px;"><label style="font-size:12px;font-weight:600;">Payment Gateway (e.g., Stripe, Razorpay)</label>
+                                                    <input type="text" id="settingPaymentAPI" placeholder="pk_live_..." style="width:100%;">
+                                                </div>
+                                                <div style="margin-bottom:6px;"><label style="font-size:12px;font-weight:600;">Email Service (e.g., SendGrid, Mailchimp)</label>
+                                                    <input type="text" id="settingEmailAPI" placeholder="SG.xxxxx" style="width:100%;">
+                                                </div>
+                                                <div style="margin-bottom:6px;"><label style="font-size:12px;font-weight:600;">Google Analytics / Tag Manager</label>
+                                                    <input type="text" id="settingAnalyticsAPI" placeholder="G-XXXXXXXX" style="width:100%;">
+                                                </div>
+                                                <span style="font-size:11px;color:var(--text-light);">Agar aap website ko third-party services se connect karte hain, toh unki keys yahan daalein.</span>
+                                            </div>
+                                        </div>
+                                        <div class="setting-group"><h5>🌐 Webhooks</h5>
+                                            <div style="max-width:100%;">
+                                                <div style="margin-bottom:6px;"><label style="font-size:12px;font-weight:600;">Incoming Webhook URL</label>
+                                                    <input type="url" id="settingWebhookURL" placeholder="https://api.example.com/webhook" style="width:100%;">
+                                                </div>
+                                                <span style="font-size:11px;color:var(--text-light);">Agar aapko external events par trigger actions karne hain.</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn-setting success" onclick="saveAllSettings()" style="margin-top:10px;"><i class="fas fa-save"></i> Save Integration Settings</button>
                                     </div>
                                 </div>
                             </div>
@@ -4900,6 +5346,9 @@
                 const container = document.getElementById('adsContainer');
                 if (container) container.innerHTML = renderAdminAds();
             }
+            if (page === 'settings') {
+                loadSettingsIntoAdmin();
+            }
             if (page.startsWith('items-')) {
                 const pageName = page.replace('items-', '');
                 const container = document.getElementById(`adminItemsContainer-${pageName}`);
@@ -5252,7 +5701,8 @@
         function openAdModal(index = null) {
             const isEdit = index !== null;
             const ads = appData.ads || [];
-            const ad = isEdit ? ads[index] : { name: '', image: '', link: '', position: 'Blog के ऊपर', startDate: '', endDate: '', status: 'active' };
+            const ad = isEdit ? ads[index] : { name: '', image: '', link: '', position: 'Blog के ऊपर', startDate: '',
+                endDate: '', status: 'active' };
 
             document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Ad' : '📢 Add New Ad';
 
@@ -5947,7 +6397,8 @@
         function openItemEditor(page, index = null) {
             const isEdit = index !== null;
             const items = appData[page]?.items || [];
-            const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public', category: '', link: '' };
+            const item = isEdit ? items[index] : { title: '', description: '', visibility: 'public', category: '',
+                link: '' };
 
             const isService = page === 'service';
 
@@ -6238,62 +6689,6 @@
         }
 
         // ============================================================
-        // LOGO HANDLERS
-        // ============================================================
-        let logoFileData = null;
-
-        function handleLogoUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    logoFileData = e.target.result;
-                    const preview = document.getElementById('logoPreview');
-                    preview.innerHTML =
-                        `<img src="${logoFileData}" style="max-height:80px;border-radius:4px;border:1px solid var(--border-color);">`;
-                    showToast('Logo loaded. Click "Upload Logo" to save.', 'info');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function uploadLogo() {
-            if (!logoFileData) { showToast('Please select a logo image first.', 'error'); return; }
-            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
-            appData.home.logo = logoFileData;
-            saveToLocalStorage();
-            updateLogo();
-            showToast('✅ Logo updated successfully!', 'success');
-            showAdminPage('settings');
-        }
-
-        function removeLogo() {
-            if (!confirm('Remove logo?')) return;
-            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
-            appData.home.logo = '';
-            logoFileData = null;
-            document.getElementById('logoPreview').innerHTML = '';
-            document.getElementById('logoFileInput').value = '';
-            saveToLocalStorage();
-            updateLogo();
-            showToast('🗑️ Logo removed.', 'warning');
-            showAdminPage('settings');
-        }
-
-        function saveTaglines() {
-            if (!appData.home) appData.home = { ...DEFAULT_DATA.home };
-            if (!appData.home.pageTaglines) appData.home.pageTaglines = { ...DEFAULT_DATA.home.pageTaglines };
-            appData.home.pageTaglines.career = document.getElementById('taglineCareer').value.trim();
-            appData.home.pageTaglines.more = document.getElementById('taglineMore').value.trim();
-            appData.home.pageTaglines.blog = document.getElementById('taglineBlog').value.trim();
-            appData.home.pageTaglines.service = document.getElementById('taglineService').value.trim();
-            saveToLocalStorage();
-            updatePageTaglines();
-            showToast('✅ Taglines updated!', 'success');
-            showAdminPage('settings');
-        }
-
-        // ============================================================
         // CREATIVE TOOL FUNCTIONS
         // ============================================================
         function openCreativeTool(toolId) {
@@ -6305,20 +6700,10 @@
                 'id-card': {
                     title: '🪪 ID Card Print',
                     html: `
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="idName" placeholder="Enter full name" value="John Doe">
-                        </div>
-                        <div class="form-group">
-                            <label>Designation / Role</label>
-                            <input type="text" id="idRole" placeholder="e.g., Software Engineer" value="Developer">
-                        </div>
-                        <div class="form-group">
-                            <label>Company / Organization</label>
-                            <input type="text" id="idCompany" placeholder="Company name" value="Dream Josh">
-                        </div>
-                        <div class="form-group">
-                            <label>Photo (optional)</label>
+                        <div class="form-group"><label>Full Name</label><input type="text" id="idName" placeholder="Enter full name" value="John Doe"></div>
+                        <div class="form-group"><label>Designation / Role</label><input type="text" id="idRole" placeholder="e.g., Software Engineer" value="Developer"></div>
+                        <div class="form-group"><label>Company / Organization</label><input type="text" id="idCompany" placeholder="Company name" value="Dream Josh"></div>
+                        <div class="form-group"><label>Photo (optional)</label>
                             <div class="file-upload-area" onclick="document.getElementById('idPhotoInput').click()">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <p>Click to upload a photo</p>
@@ -6331,16 +6716,13 @@
                             <button class="btn-print" onclick="printIdCard()"><i class="fas fa-print"></i> Print</button>
                             <button class="btn-clear-tool" onclick="clearCreativeTool('id-card')"><i class="fas fa-trash"></i> Clear</button>
                         </div>
-                        <div class="preview-box" id="idPreview">
-                            <p style="color:var(--text-light);">Your ID card preview will appear here.</p>
-                        </div>
+                        <div class="preview-box" id="idPreview"><p style="color:var(--text-light);">Your ID card preview will appear here.</p></div>
                     `
                 },
                 'passport-photo': {
                     title: '📸 Passport Photo',
                     html: `
-                        <div class="form-group">
-                            <label>Upload Photo</label>
+                        <div class="form-group"><label>Upload Photo</label>
                             <div class="file-upload-area" onclick="document.getElementById('passportPhotoInput').click()">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <p>Click to upload a photo for passport size</p>
@@ -6353,16 +6735,13 @@
                             <button class="btn-print" onclick="printPassportPhoto()"><i class="fas fa-print"></i> Print</button>
                             <button class="btn-clear-tool" onclick="clearCreativeTool('passport-photo')"><i class="fas fa-trash"></i> Clear</button>
                         </div>
-                        <div class="preview-box" id="passportPreview">
-                            <p style="color:var(--text-light);">Passport photo preview will appear here.</p>
-                        </div>
+                        <div class="preview-box" id="passportPreview"><p style="color:var(--text-light);">Passport photo preview will appear here.</p></div>
                     `
                 },
                 'photo-crop': {
                     title: '✂️ Photo Crop & Resize',
                     html: `
-                        <div class="form-group">
-                            <label>Upload Photo</label>
+                        <div class="form-group"><label>Upload Photo</label>
                             <div class="file-upload-area" onclick="document.getElementById('cropPhotoInput').click()">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <p>Click to upload a photo to crop</p>
@@ -6370,166 +6749,90 @@
                                 <input type="file" id="cropPhotoInput" accept="image/*" style="display:none" onchange="handleCropPhotoUpload(event)">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Width (px)</label>
-                            <input type="number" id="cropWidth" value="400" min="10">
-                        </div>
-                        <div class="form-group">
-                            <label>Height (px)</label>
-                            <input type="number" id="cropHeight" value="400" min="10">
-                        </div>
+                        <div class="form-group"><label>Width (px)</label><input type="number" id="cropWidth" value="400" min="10"></div>
+                        <div class="form-group"><label>Height (px)</label><input type="number" id="cropHeight" value="400" min="10"></div>
                         <div class="action-row">
                             <button class="btn-download" onclick="cropAndResize()"><i class="fas fa-download"></i> Download Cropped Image</button>
                             <button class="btn-clear-tool" onclick="clearCreativeTool('photo-crop')"><i class="fas fa-trash"></i> Clear</button>
                         </div>
-                        <div class="preview-box" id="cropPreview">
-                            <p style="color:var(--text-light);">Cropped image preview will appear here.</p>
-                        </div>
+                        <div class="preview-box" id="cropPreview"><p style="color:var(--text-light);">Cropped image preview will appear here.</p></div>
                     `
                 },
                 'poster-maker': {
                     title: '🖼️ Pro Poster Maker',
                     html: `
-                        <div class="form-group">
-                            <label>Poster Title</label>
-                            <input type="text" id="posterTitle" placeholder="Event / Sale Title" value="🔥 Mega Sale">
-                        </div>
-                        <div class="form-group">
-                            <label>Subtitle / Description</label>
-                            <textarea id="posterDesc" placeholder="Enter description" rows="3">Up to 50% off on all items!</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Background Color</label>
-                            <input type="color" id="posterColor" value="#1976d2">
-                        </div>
-                        <div class="form-group">
-                            <label>Text Color</label>
-                            <input type="color" id="posterTextColor" value="#ffffff">
-                        </div>
+                        <div class="form-group"><label>Poster Title</label><input type="text" id="posterTitle" placeholder="Event / Sale Title" value="🔥 Mega Sale"></div>
+                        <div class="form-group"><label>Subtitle / Description</label><textarea id="posterDesc" placeholder="Enter description" rows="3">Up to 50% off on all items!</textarea></div>
+                        <div class="form-group"><label>Background Color</label><input type="color" id="posterColor" value="#1976d2"></div>
+                        <div class="form-group"><label>Text Color</label><input type="color" id="posterTextColor" value="#ffffff"></div>
                         <div class="action-row">
                             <button class="btn-download" onclick="generatePoster()"><i class="fas fa-download"></i> Download Poster</button>
                             <button class="btn-clear-tool" onclick="clearCreativeTool('poster-maker')"><i class="fas fa-trash"></i> Clear</button>
                         </div>
-                        <div class="preview-box" id="posterPreview">
-                            <p style="color:var(--text-light);">Poster preview will appear here.</p>
-                        </div>
+                        <div class="preview-box" id="posterPreview"><p style="color:var(--text-light);">Poster preview will appear here.</p></div>
                     `
                 },
                 'id-maker': {
                     title: '🪪 Pro ID Maker',
                     html: `
-                        <div class="form-group">
-                            <label>ID Type</label>
-                            <input type="text" id="idType" placeholder="e.g., Student, Employee" value="Student ID">
-                        </div>
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" id="idName2" placeholder="Full name" value="John Doe">
-                        </div>
-                        <div class="form-group">
-                            <label>ID Number</label>
-                            <input type="text" id="idNumber" placeholder="ID number" value="JD-001">
-                        </div>
+                        <div class="form-group"><label>ID Type</label><input type="text" id="idType" placeholder="e.g., Student, Employee" value="Student ID"></div>
+                        <div class="form-group"><label>Name</label><input type="text" id="idName2" placeholder="Full name" value="John Doe"></div>
+                        <div class="form-group"><label>ID Number</label><input type="text" id="idNumber" placeholder="ID number" value="JD-001"></div>
                         <div class="action-row">
                             <button class="btn-download" onclick="generateProId()"><i class="fas fa-download"></i> Download ID</button>
                             <button class="btn-clear-tool" onclick="clearCreativeTool('id-maker')"><i class="fas fa-trash"></i> Clear</button>
                         </div>
-                        <div class="preview-box" id="idMakerPreview">
-                            <p style="color:var(--text-light);">ID preview will appear here.</p>
-                        </div>
+                        <div class="preview-box" id="idMakerPreview"><p style="color:var(--text-light);">ID preview will appear here.</p></div>
                     `
                 },
                 'shop-promotion': {
                     title: '🏪 Shop Promotion Maker',
                     html: `
-                        <div class="form-group">
-                            <label>Shop Name</label>
-                            <input type="text" id="shopName" placeholder="Shop name" value="Dream Store">
-                        </div>
-                        <div class="form-group">
-                            <label>Promotion Text</label>
-                            <textarea id="shopPromo" placeholder="Enter promotion message" rows="3">Visit our shop for the best deals!</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Contact / Location</label>
-                            <input type="text" id="shopContact" placeholder="Phone / Address" value="+91-9876543210">
-                        </div>
+                        <div class="form-group"><label>Shop Name</label><input type="text" id="shopName" placeholder="Shop name" value="Dream Store"></div>
+                        <div class="form-group"><label>Promotion Text</label><textarea id="shopPromo" placeholder="Enter promotion message" rows="3">Visit our shop for the best deals!</textarea></div>
+                        <div class="form-group"><label>Contact / Location</label><input type="text" id="shopContact" placeholder="Phone / Address" value="+91-9876543210"></div>
                         <div class="action-row">
                             <button class="btn-download" onclick="generateShopPromo()"><i class="fas fa-download"></i> Download Promotion</button>
                             <button class="btn-clear-tool" onclick="clearCreativeTool('shop-promotion')"><i class="fas fa-trash"></i> Clear</button>
                         </div>
-                        <div class="preview-box" id="shopPreview">
-                            <p style="color:var(--text-light);">Promotion preview will appear here.</p>
-                        </div>
+                        <div class="preview-box" id="shopPreview"><p style="color:var(--text-light);">Promotion preview will appear here.</p></div>
                     `
                 },
                 'resume-cv': {
                     title: '📄 Resume / CV Builder',
                     html: `
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="resumeName" placeholder="Full name" value="John Doe">
-                        </div>
-                        <div class="form-group">
-                            <label>Job Title / Headline</label>
-                            <input type="text" id="resumeTitle" placeholder="e.g., Software Developer" value="Full Stack Developer">
-                        </div>
-                        <div class="form-group">
-                            <label>Summary / About</label>
-                            <textarea id="resumeSummary" placeholder="Write a brief summary" rows="4">Experienced developer with 5+ years of experience in web technologies.</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Contact Email</label>
-                            <input type="email" id="resumeEmail" placeholder="Email address" value="john@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="text" id="resumePhone" placeholder="Phone number" value="+91-9876543210">
-                        </div>
+                        <div class="form-group"><label>Full Name</label><input type="text" id="resumeName" placeholder="Full name" value="John Doe"></div>
+                        <div class="form-group"><label>Job Title / Headline</label><input type="text" id="resumeTitle" placeholder="e.g., Software Developer" value="Full Stack Developer"></div>
+                        <div class="form-group"><label>Summary / About</label><textarea id="resumeSummary" placeholder="Write a brief summary" rows="4">Experienced developer with 5+ years of experience in web technologies.</textarea></div>
+                        <div class="form-group"><label>Contact Email</label><input type="email" id="resumeEmail" placeholder="Email address" value="john@example.com"></div>
+                        <div class="form-group"><label>Phone Number</label><input type="text" id="resumePhone" placeholder="Phone number" value="+91-9876543210"></div>
                         <div class="action-row">
                             <button class="btn-download" onclick="generateResume()"><i class="fas fa-download"></i> Download Resume (PDF)</button>
                             <button class="btn-print" onclick="printResume()"><i class="fas fa-print"></i> Print</button>
                             <button class="btn-clear-tool" onclick="clearCreativeTool('resume-cv')"><i class="fas fa-trash"></i> Clear</button>
                         </div>
-                        <div class="preview-box" id="resumePreview">
-                            <p style="color:var(--text-light);">Resume preview will appear here.</p>
-                        </div>
+                        <div class="preview-box" id="resumePreview"><p style="color:var(--text-light);">Resume preview will appear here.</p></div>
                     `
                 },
                 'application-maker': {
                     title: '📝 Application Maker',
                     html: `
-                        <div class="form-group">
-                            <label>Your Name</label>
-                            <input type="text" id="appName" placeholder="Full name" value="John Doe">
-                        </div>
-                        <div class="form-group">
-                            <label>Application Type</label>
-                            <input type="text" id="appType" placeholder="e.g., Job, Leave, Passport" value="Job Application">
-                        </div>
-                        <div class="form-group">
-                            <label>Application Text</label>
-                            <textarea id="appText" placeholder="Write your application here" rows="6">I am writing to apply for the position of Software Engineer at your esteemed company.</textarea>
-                        </div>
+                        <div class="form-group"><label>Your Name</label><input type="text" id="appName" placeholder="Full name" value="John Doe"></div>
+                        <div class="form-group"><label>Application Type</label><input type="text" id="appType" placeholder="e.g., Job, Leave, Passport" value="Job Application"></div>
+                        <div class="form-group"><label>Application Text</label><textarea id="appText" placeholder="Write your application here" rows="6">I am writing to apply for the position of Software Engineer at your esteemed company.</textarea></div>
                         <div class="action-row">
                             <button class="btn-download" onclick="generateApplication()"><i class="fas fa-download"></i> Download Application</button>
                             <button class="btn-print" onclick="printApplication()"><i class="fas fa-print"></i> Print</button>
                             <button class="btn-clear-tool" onclick="clearCreativeTool('application-maker')"><i class="fas fa-trash"></i> Clear</button>
                         </div>
-                        <div class="preview-box" id="appPreview">
-                            <p style="color:var(--text-light);">Application preview will appear here.</p>
-                        </div>
+                        <div class="preview-box" id="appPreview"><p style="color:var(--text-light);">Application preview will appear here.</p></div>
                     `
                 },
                 'document-album': {
                     title: '🖼️ Document Album',
                     html: `
-                        <div class="form-group">
-                            <label>Document Title</label>
-                            <input type="text" id="albumTitle" placeholder="Album title" value="My Documents">
-                        </div>
-                        <div class="form-group">
-                            <label>Upload Documents (Images/PDFs)</label>
+                        <div class="form-group"><label>Document Title</label><input type="text" id="albumTitle" placeholder="Album title" value="My Documents"></div>
+                        <div class="form-group"><label>Upload Documents (Images/PDFs)</label>
                             <div class="file-upload-area" onclick="document.getElementById('albumFileInput').click()">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <p>Click to upload multiple files</p>
@@ -6541,9 +6844,7 @@
                             <button class="btn-download" onclick="generateAlbum()"><i class="fas fa-download"></i> Download Album (ZIP)</button>
                             <button class="btn-clear-tool" onclick="clearCreativeTool('document-album')"><i class="fas fa-trash"></i> Clear</button>
                         </div>
-                        <div class="preview-box" id="albumPreview">
-                            <p style="color:var(--text-light);">Album preview will appear here.</p>
-                        </div>
+                        <div class="preview-box" id="albumPreview"><p style="color:var(--text-light);">Album preview will appear here.</p></div>
                     `
                 }
             };
@@ -6562,7 +6863,6 @@
             document.body.style.overflow = '';
         }
 
-        // --- ID Card ---
         let idPhotoData = null;
 
         function handleIdPhotoUpload(e) {
@@ -6583,7 +6883,8 @@
             const company = document.getElementById('idCompany').value || 'Dream Josh';
             const preview = document.getElementById('idPreview');
 
-            let photoHtml = idPhotoData ? `<img src="${idPhotoData}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #fff;">` :
+            let photoHtml = idPhotoData ?
+                `<img src="${idPhotoData}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #fff;">` :
                 `<div style="width:100px;height:100px;border-radius:50%;background:#ccc;display:flex;align-items:center;justify-content:center;color:#fff;font-size:40px;border:3px solid #fff;"><i class="fas fa-user"></i></div>`;
 
             preview.innerHTML = `
@@ -6593,9 +6894,7 @@
                         <h3 style="margin:4px 0;font-size:20px;">${name}</h3>
                         <p style="margin:0;font-size:14px;opacity:0.9;">${role}</p>
                         <p style="margin:0;font-size:12px;opacity:0.7;">${company}</p>
-                        <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.3);padding-top:8px;width:100%;font-size:11px;opacity:0.6;">
-                            <i class="fas fa-id-card"></i> Valid ID
-                        </div>
+                        <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.3);padding-top:8px;width:100%;font-size:11px;opacity:0.6;"><i class="fas fa-id-card"></i> Valid ID</div>
                     </div>
                 </div>
                 <p style="text-align:center;margin-top:8px;font-size:12px;color:var(--text-light);">Click Download to save as image.</p>
@@ -6609,17 +6908,14 @@
             if (content.includes('Your ID card preview')) { showToast('Generate ID card first!', 'error'); return; }
             const win = window.open('', '_blank', 'width=400,height=500');
             if (win) {
-                win.document.write(`
-                    <html><head><title>ID Card</title>
-                    <style>body{display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f0f0f0;font-family:Arial,sans-serif;}</style>
-                    </head><body>${content}</body></html>
-                `);
+                win.document.write(
+                    `<html><head><title>ID Card</title><style>body{display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f0f0f0;font-family:Arial,sans-serif;}</style></head><body>${content}</body></html>`
+                    );
                 win.document.close();
                 win.print();
             }
         }
 
-        // --- Passport Photo ---
         let passportPhotoData = null;
 
         function handlePassportPhotoUpload(e) {
@@ -6673,17 +6969,14 @@
             if (!img) { showToast('Generate passport photo first!', 'error'); return; }
             const win = window.open('', '_blank', 'width=400,height=500');
             if (win) {
-                win.document.write(`
-                    <html><head><title>Passport Photo</title>
-                    <style>body{display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f0f0f0;font-family:Arial,sans-serif;}</style>
-                    </head><body>${img.outerHTML}</body></html>
-                `);
+                win.document.write(
+                    `<html><head><title>Passport Photo</title><style>body{display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f0f0f0;font-family:Arial,sans-serif;}</style></head><body>${img.outerHTML}</body></html>`
+                    );
                 win.document.close();
                 win.print();
             }
         }
 
-        // --- Photo Crop ---
         let cropPhotoData = null;
 
         function handleCropPhotoUpload(e) {
@@ -6725,7 +7018,6 @@
             img.src = cropPhotoData;
         }
 
-        // --- Poster Maker ---
         function generatePoster() {
             const title = document.getElementById('posterTitle').value || 'Mega Sale';
             const desc = document.getElementById('posterDesc').value || 'Up to 50% off!';
@@ -6764,7 +7056,6 @@
             showToast('✅ Poster generated!', 'success');
         }
 
-        // --- Pro ID Maker ---
         function generateProId() {
             const type = document.getElementById('idType').value || 'Student ID';
             const name = document.getElementById('idName2').value || 'John Doe';
@@ -6773,9 +7064,7 @@
 
             preview.innerHTML = `
                 <div style="background:linear-gradient(145deg,#1a2332,#2c3e50);color:#fff;padding:20px;border-radius:12px;max-width:350px;margin:auto;border:2px solid var(--gold);">
-                    <div style="text-align:center;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px;margin-bottom:10px;">
-                        <h3 style="margin:0;font-size:18px;">${type}</h3>
-                    </div>
+                    <div style="text-align:center;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px;margin-bottom:10px;"><h3 style="margin:0;font-size:18px;">${type}</h3></div>
                     <div style="display:flex;flex-direction:column;gap:6px;">
                         <p style="margin:0;"><strong>Name:</strong> ${name}</p>
                         <p style="margin:0;"><strong>ID:</strong> ${number}</p>
@@ -6815,7 +7104,6 @@
             showToast('✅ ID generated!', 'success');
         }
 
-        // --- Shop Promotion ---
         function generateShopPromo() {
             const name = document.getElementById('shopName').value || 'Dream Store';
             const promo = document.getElementById('shopPromo').value || 'Visit our shop for the best deals!';
@@ -6853,12 +7141,11 @@
             showToast('✅ Promotion generated!', 'success');
         }
 
-        // --- Resume ---
         function generateResume() {
             const name = document.getElementById('resumeName').value || 'John Doe';
             const title = document.getElementById('resumeTitle').value || 'Full Stack Developer';
             const summary = document.getElementById('resumeSummary').value ||
-            'Experienced developer with 5+ years of experience.';
+                'Experienced developer with 5+ years of experience.';
             const email = document.getElementById('resumeEmail').value || 'john@example.com';
             const phone = document.getElementById('resumePhone').value || '+91-9876543210';
             const preview = document.getElementById('resumePreview');
@@ -6911,17 +7198,14 @@
             if (content.includes('Resume preview will appear here')) { showToast('Generate resume first!', 'error'); return; }
             const win = window.open('', '_blank', 'width=600,height=800');
             if (win) {
-                win.document.write(`
-                    <html><head><title>Resume</title>
-                    <style>body{font-family:Arial,sans-serif;padding:30px;max-width:600px;margin:auto;line-height:1.6;}</style>
-                    </head><body>${content}</body></html>
-                `);
+                win.document.write(
+                    `<html><head><title>Resume</title><style>body{font-family:Arial,sans-serif;padding:30px;max-width:600px;margin:auto;line-height:1.6;}</style></head><body>${content}</body></html>`
+                    );
                 win.document.close();
                 win.print();
             }
         }
 
-        // --- Application Maker ---
         function generateApplication() {
             const name = document.getElementById('appName').value || 'John Doe';
             const type = document.getElementById('appType').value || 'Job Application';
@@ -6956,17 +7240,14 @@
                 'error'); return; }
             const win = window.open('', '_blank', 'width=600,height=800');
             if (win) {
-                win.document.write(`
-                    <html><head><title>Application</title>
-                    <style>body{font-family:Arial,sans-serif;padding:30px;max-width:600px;margin:auto;line-height:1.8;}</style>
-                    </head><body>${content}</body></html>
-                `);
+                win.document.write(
+                    `<html><head><title>Application</title><style>body{font-family:Arial,sans-serif;padding:30px;max-width:600px;margin:auto;line-height:1.8;}</style></head><body>${content}</body></html>`
+                    );
                 win.document.close();
                 win.print();
             }
         }
 
-        // --- Document Album ---
         let albumFiles = [];
 
         function handleAlbumFiles(e) {
@@ -7044,7 +7325,6 @@
             });
         }
 
-        // --- Clear Creative Tool ---
         function clearCreativeTool(toolId) {
             const toolMap = {
                 'id-card': ['idName', 'idRole', 'idCompany', 'idPhotoInput', 'idPhotoName', 'idPreview'],
@@ -7084,7 +7364,7 @@
         }
 
         // ============================================================
-        // TOOLS (Only OCR and Font Converter remain in More page)
+        // TOOLS (OCR & Font Converter)
         // ============================================================
         function switchTool(toolId) {
             document.querySelectorAll('.tools-list .tool-btn').forEach(btn => {
@@ -7093,7 +7373,6 @@
             document.querySelectorAll('.tool-content').forEach(content => {
                 content.classList.toggle('active', content.id === 'tool-' + toolId);
             });
-            // If in tools section, scroll to the tool container
             const toolsSection = document.getElementById('more');
             if (toolsSection && toolsSection.classList.contains('active')) {
                 const container = document.querySelector('.tools-container');
@@ -7101,7 +7380,6 @@
             }
         }
 
-        // --- OCR functions ---
         function switchOCRtab(tabId) {
             document.querySelectorAll('.ocr-tabs button').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`.ocr-tabs button[data-tab="${tabId}"]`).classList.add('active');
@@ -7260,7 +7538,6 @@
             showToast('Cleared.', 'info');
         }
 
-        // --- Font Converter ---
         function convertFonts() {
             const input = document.getElementById('fontInput');
             const output = document.getElementById('fontOutput');
@@ -7292,22 +7569,13 @@
             const output = document.getElementById('fontOutput');
             if (!output.value) { showToast('Convert text first.', 'error'); return; }
             const previewOverlay = document.createElement('div');
-            previewOverlay.style.cssText = `
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background: rgba(0,0,0,0.7); z-index: 9999;
-                display: flex; align-items: center; justify-content: center;
-                backdrop-filter: blur(5px);
-            `;
+            previewOverlay.style.cssText =
+                'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(5px);';
             const previewBox = document.createElement('div');
-            previewBox.style.cssText = `
-                background: #fff; padding: 30px; border-radius: 12px;
-                max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-                font-family: 'Mangal', 'Arial Unicode MS', sans-serif;
-                font-size: 18px; line-height: 1.8; color: #333;
-            `;
+            previewBox.style.cssText =
+                'background:#fff;padding:30px;border-radius:12px;max-width:600px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 10px 30px rgba(0,0,0,0.5);font-family:"Mangal","Arial Unicode MS",sans-serif;font-size:18px;line-height:1.8;color:#333;';
             previewBox.innerHTML =
-                `<h3 style="margin-top:0;color:#123c9b;">📄 Preview Output</h3><p>${output.value.replace(/\n/g, '<br>')}</p><button onclick="this.closest('div[style]').remove()" style="padding:8px 20px;background:#dc3545;color:#fff;border:none;border-radius:6px;cursor:pointer;margin-top:15px;">Close Preview</button>`;
+                `<h3 style="margin-top:0;color:#123c9b;">📄 Preview Output</h3><p>${output.value.replace(/\n/g,'<br>')}</p><button onclick="this.closest('div[style]').remove()" style="padding:8px 20px;background:#dc3545;color:#fff;border:none;border-radius:6px;cursor:pointer;margin-top:15px;">Close Preview</button>`;
             previewOverlay.appendChild(previewBox);
             previewOverlay.onclick = function(e) { if (e.target === this) this.remove(); };
             document.body.appendChild(previewOverlay);
@@ -7325,7 +7593,7 @@
             updateLogo();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private')
                 .length;
-            console.log('🚀 Dream Josh – Ads Manager added, PDF tools removed from More page.');
+            console.log('🚀 Dream Josh – Fully loaded with Settings Panel!');
             switchTool('ocr');
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('home').classList.add('active');
@@ -7389,10 +7657,15 @@
         window.downloadOCRResult = downloadOCRResult;
         window.clearOCRResult = clearOCRResult;
         window.switchTool = switchTool;
-        window.handleLogoUpload = handleLogoUpload;
-        window.uploadLogo = uploadLogo;
-        window.removeLogo = removeLogo;
-        window.saveTaglines = saveTaglines;
+        // Settings
+        window.saveAllSettings = saveAllSettings;
+        window.switchSettingsTab = switchSettingsTab;
+        window.handleFaviconUpload = handleFaviconUpload;
+        window.removeFavicon = removeFavicon;
+        window.handleBrandLogoUpload = handleBrandLogoUpload;
+        window.handleBrandLogoDarkUpload = handleBrandLogoDarkUpload;
+        window.removeBrandLogo = removeBrandLogo;
+        window.loadSettingsIntoAdmin = loadSettingsIntoAdmin;
         // Creative Studio
         window.openCreativeTool = openCreativeTool;
         window.closeCreativeTool = closeCreativeTool;
@@ -7431,13 +7704,11 @@
         window.deleteDropdownItem = deleteDropdownItem;
         window.changeSlide = changeSlide;
         window.goToSlide = goToSlide;
-        // Page manager
         window.openPageManagerModal = openPageManagerModal;
         window.saveCustomPage = saveCustomPage;
         window.togglePageVisibility = togglePageVisibility;
         window.togglePagePublic = togglePagePublic;
         window.deleteCustomPage = deleteCustomPage;
-        // Ads
         window.openAdModal = openAdModal;
         window.saveAd = saveAd;
         window.deleteAd = deleteAd;
