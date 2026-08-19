@@ -2905,6 +2905,61 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
+        /* ===== NEW ADMIN PAGE MANAGEMENT ===== */
+        .admin-page-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: var(--bg-color);
+            border-radius: 6px;
+            margin-bottom: 6px;
+            border-left: 3px solid var(--secondary-blue);
+        }
+        .admin-page-item .page-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .admin-page-item .page-info .page-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .admin-page-item .page-actions {
+            display: flex;
+            gap: 4px;
+        }
+        .admin-page-item .page-actions button {
+            background: transparent;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 13px;
+        }
+        .admin-page-item .page-actions .btn-edit-page {
+            color: var(--secondary-blue);
+        }
+        .admin-page-item .page-actions .btn-edit-page:hover {
+            background: rgba(25, 118, 210, 0.15);
+        }
+        .admin-page-item .page-actions .btn-delete-page {
+            color: var(--warning-red);
+        }
+        .admin-page-item .page-actions .btn-delete-page:hover {
+            background: rgba(214, 40, 57, 0.15);
+        }
+        .admin-page-item .page-actions .btn-toggle-vis {
+            color: var(--success-green);
+        }
+        .admin-page-item .page-actions .btn-toggle-vis:hover {
+            background: rgba(22, 163, 74, 0.15);
+        }
+        .admin-page-item .visibility-badge {
+            font-size: 10px;
+        }
     </style>
 </head>
 <body>
@@ -3019,7 +3074,7 @@
         <section class="section" id="career">
             <div class="page-ticker" id="careerTicker"><span id="careerTickerText">🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs</span></div>
             <div class="section-header">
-                <h2>🎯 <span>Career Guide</span></h2>
+                <h2>🎯 <span>Career</span></h2>
                 <div id="careerSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
                     <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('career', 'all')">📌 All</button>
                 </div>
@@ -3726,7 +3781,14 @@
                         { label: '📚 Education', action: 'Education' }, { label: '📰 News', action: 'News' },
                         { label: '💼 Portfolio', action: 'Portfolio' }] }
             },
-            darkMode: false
+            darkMode: false,
+            // New: dynamic pages list (beyond default sections)
+            customPages: [
+                { id: 'career', label: 'Career', icon: 'fa-briefcase', visible: true, public: true },
+                { id: 'more', label: 'More', icon: 'fa-book', visible: true, public: true },
+                { id: 'service', label: 'Services', icon: 'fa-cogs', visible: true, public: true },
+                { id: 'blog', label: 'Blog', icon: 'fa-blog', visible: true, public: true }
+            ]
         };
 
         const DEFAULT_JOBS = [
@@ -3831,13 +3893,13 @@
                 }
             } catch (e) { console.error('Load error:', e); }
 
-            ['home', 'career', 'more', 'service', 'blog', 'social', 'employees', 'slides', 'dropdownMenus', 'darkMode']
+            ['home', 'career', 'more', 'service', 'blog', 'social', 'employees', 'slides', 'dropdownMenus', 'darkMode', 'customPages']
             .forEach(key => {
                 if (!appData[key]) {
                     appData[key] = JSON.parse(JSON.stringify(DEFAULT_DATA[key] || {}));
                 }
                 if (key !== 'home' && key !== 'social' && key !== 'employees' && key !== 'slides' && key !==
-                    'dropdownMenus' && key !== 'darkMode') {
+                    'dropdownMenus' && key !== 'darkMode' && key !== 'customPages') {
                     if (!appData[key].content) {
                         appData[key].content = DEFAULT_DATA[key]?.content || '';
                     }
@@ -3858,6 +3920,9 @@
                 }
                 if (key === 'darkMode' && typeof appData[key] !== 'boolean') {
                     appData[key] = false;
+                }
+                if (key === 'customPages' && !Array.isArray(appData[key])) {
+                    appData[key] = DEFAULT_DATA.customPages || [];
                 }
             });
 
@@ -3888,11 +3953,11 @@
             updatePageTaglines();
             renderSlidesCarousel();
             renderNavigation();
-            ['career', 'more', 'blog', 'service'].forEach(page => {
-                if (page === 'service') {
-                    renderServicePage('all');
-                } else {
-                    renderGenericPage(page);
+            // Only render pages that exist in customPages and are visible
+            const pages = appData.customPages || DEFAULT_DATA.customPages;
+            pages.forEach(page => {
+                if (page.visible) {
+                    renderDynamicPage(page.id);
                 }
             });
         }
@@ -3934,8 +3999,21 @@
             });
         }
 
+        function renderDynamicPage(pageId) {
+            // For pages like career, more, blog, service, we render them via their specific renderers
+            // This function is called to ensure they are rendered
+            if (pageId === 'career' || pageId === 'more' || pageId === 'blog' || pageId === 'service') {
+                if (pageId === 'service') {
+                    renderServicePage('all');
+                } else {
+                    renderGenericPage(pageId);
+                }
+            }
+        }
+
         function renderGenericPage(page) {
             const container = document.getElementById(`${page}Content`);
+            if (!container) return;
             const items = (appData[page]?.items || []).filter(i => i.visibility !== 'private');
             updateGenericSubFilter(page, items);
             let filtered = items;
@@ -4159,6 +4237,7 @@
         function renderNavigation() {
             const nav = document.getElementById('dynamicNav');
             const dropdowns = appData.dropdownMenus || DEFAULT_DATA.dropdownMenus;
+            const customPages = appData.customPages || DEFAULT_DATA.customPages;
 
             let html = `
                 <button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>
@@ -4181,10 +4260,12 @@
                 </div>
             `;
 
-            // Other dropdowns
+            // Other dropdowns - only for visible pages
             const dropdownKeys = ['career', 'more', 'service', 'blog'];
             dropdownKeys.forEach(key => {
-                const menu = dropdowns[key] || { label: key.charAt(0).toUpperCase() + key.slice(1), items: [] };
+                const pageConfig = customPages.find(p => p.id === key);
+                if (!pageConfig || !pageConfig.visible) return;
+                const menu = dropdowns[key] || { label: pageConfig.label || key.charAt(0).toUpperCase() + key.slice(1), items: [] };
                 html += `
                     <div class="dropdown-wrapper" id="${key}Dropdown">
                         <button class="dropdown-btn" onclick="toggleDropdownMobile('${key}')">${menu.label} <span class="arrow">▾</span></button>
@@ -4537,6 +4618,7 @@
             const isEmployee = adminAccessLevel === 'employee';
             const accessPages = employeeAccessPages;
             const allowedPages = isEmployee ? pages.filter(p => accessPages.includes(p)) : pages;
+            const customPages = appData.customPages || DEFAULT_DATA.customPages;
 
             const slideCount = (appData.slides || []).length;
 
@@ -4562,6 +4644,8 @@
                             ${allowedPages.map(p => `
                                 <li><a data-page="subsections-${p}" onclick="showAdminPage('subsections-${p}')"><i class="fas fa-tags"></i> ${p.charAt(0).toUpperCase() + p.slice(1)} Subs <span class="count">${getSubSectionCount(p)}</span></a></li>
                             `).join('')}
+                            <li class="section-title">Page Management</li>
+                            <li><a data-page="page-manager" onclick="showAdminPage('page-manager')"><i class="fas fa-files"></i> Manage Pages <span class="count">${customPages.length}</span></a></li>
                             <li class="section-title">Jobs</li>
                             <li><a data-page="jobs" onclick="showAdminPage('jobs')"><i class="fas fa-briefcase"></i> All Jobs <span class="count">${jobsData.length}</span></a></li>
                             <li class="section-title">Media</li>
@@ -4660,6 +4744,17 @@
                                 </div>
                             </div>
                         `).join('')}
+                        <div id="adminPage-page-manager" class="admin-section">
+                            <div class="admin-card">
+                                <div class="card-header">
+                                    <h4>📄 Page Manager</h4>
+                                    <button class="btn-add" onclick="openPageManagerModal()"><i class="fas fa-plus"></i> Add New Page</button>
+                                </div>
+                                <div id="pageManagerContainer">
+                                    ${renderAdminPageManager()}
+                                </div>
+                            </div>
+                        </div>
                         <div id="adminPage-jobs" class="admin-section">
                             <div class="admin-card">
                                 <div class="card-header"><h4>💼 Jobs Manager</h4><button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button></div>
@@ -4858,6 +4953,192 @@
             return html;
         }
 
+        // ===== NEW: Admin Page Manager =====
+        function renderAdminPageManager() {
+            const customPages = appData.customPages || DEFAULT_DATA.customPages;
+            if (!customPages.length) {
+                return `<div class="empty-state"><i class="fas fa-files"></i> No custom pages configured.</div>`;
+            }
+            return `
+                <div style="margin-bottom:12px;">
+                    ${customPages.map((page, idx) => `
+                        <div class="admin-page-item">
+                            <div class="page-info">
+                                <span class="page-name"><i class="fas ${page.icon || 'fa-file'}"></i> ${page.label}</span>
+                                <span class="visibility-badge ${page.public !== false ? 'public' : 'private'}">${page.public !== false ? '🌐 Public' : '🔒 Private'}</span>
+                                <span style="font-size:11px;color:var(--text-light);">ID: ${page.id}</span>
+                                <span style="font-size:11px;color:var(--text-light);">${page.visible ? '✅ Visible' : '⛔ Hidden'}</span>
+                            </div>
+                            <div class="page-actions">
+                                <button class="btn-edit-page" onclick="openPageManagerModal(${idx})" title="Edit Page"><i class="fas fa-edit"></i></button>
+                                <button class="btn-toggle-vis" onclick="togglePageVisibility(${idx})" title="Toggle Visibility">
+                                    <i class="fas ${page.visible ? 'fa-eye' : 'fa-eye-slash'}"></i>
+                                </button>
+                                <button class="btn-toggle-vis" onclick="togglePagePublic(${idx})" title="Toggle Public/Private">
+                                    <i class="fas ${page.public !== false ? 'fa-globe' : 'fa-lock'}"></i>
+                                </button>
+                                <button class="btn-delete-page" onclick="deleteCustomPage(${idx})" title="Delete Page"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div style="font-size:12px;color:var(--text-light);padding:8px;background:var(--highlight-bg);border-radius:6px;">
+                    <i class="fas fa-info-circle"></i> Note: Default pages (Home, Career, More, Services, Blog) cannot be deleted.
+                    Only custom pages added here can be managed.
+                </div>
+            `;
+        }
+
+        function openPageManagerModal(index = null) {
+            const customPages = appData.customPages || DEFAULT_DATA.customPages;
+            const isEdit = index !== null;
+            const page = isEdit ? customPages[index] : { id: '', label: '', icon: 'fa-file', visible: true, public: true };
+
+            document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Page' : '📄 Add New Page';
+
+            document.getElementById('adminModalBody').innerHTML = `
+                <input type="hidden" id="pageManagerIndex" value="${isEdit ? index : -1}">
+                <div class="form-group">
+                    <label>Page ID (unique, lowercase, no spaces) *</label>
+                    <input type="text" id="pageId" value="${page.id || ''}" placeholder="e.g., about" ${isEdit ? 'readonly' : ''}>
+                    <div style="font-size:11px;color:var(--text-light);margin-top:2px;">Unique identifier for the page.</div>
+                </div>
+                <div class="form-group">
+                    <label>Page Label (display name) *</label>
+                    <input type="text" id="pageLabel" value="${page.label || ''}" placeholder="e.g., About Us">
+                </div>
+                <div class="form-group">
+                    <label>Icon (Font Awesome class) *</label>
+                    <input type="text" id="pageIcon" value="${page.icon || 'fa-file'}" placeholder="e.g., fa-info-circle">
+                    <div style="font-size:11px;color:var(--text-light);margin-top:2px;">Use Font Awesome icon class (without 'fas' prefix).</div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Visibility</label>
+                        <select id="pageVisible">
+                            <option value="true" ${page.visible ? 'selected' : ''}>✅ Visible</option>
+                            <option value="false" ${!page.visible ? 'selected' : ''}>⛔ Hidden</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Public / Private</label>
+                        <select id="pagePublic">
+                            <option value="true" ${page.public !== false ? 'selected' : ''}>🌐 Public</option>
+                            <option value="false" ${page.public === false ? 'selected' : ''}>🔒 Private</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="background:var(--highlight-bg);padding:10px;border-radius:6px;font-size:13px;color:var(--text-light);">
+                    <i class="fas fa-info-circle"></i> 
+                    <strong>Note:</strong> When you add a new page, you'll need to add its content and items via the 
+                    Page Editor and Items Manager sections in the admin panel.
+                </div>
+                <button class="btn-submit" onclick="saveCustomPage()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'} Page</button>
+                <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+            `;
+            document.getElementById('adminModalOverlay').classList.add('active');
+        }
+
+        function saveCustomPage() {
+            const index = parseInt(document.getElementById('pageManagerIndex').value);
+            const id = document.getElementById('pageId').value.trim().toLowerCase();
+            const label = document.getElementById('pageLabel').value.trim();
+            const icon = document.getElementById('pageIcon').value.trim() || 'fa-file';
+            const visible = document.getElementById('pageVisible').value === 'true';
+            const publicVal = document.getElementById('pagePublic').value === 'true';
+
+            if (!id || !label) {
+                showToast('Page ID and Label are required!', 'error');
+                return;
+            }
+
+            if (!/^[a-z0-9_\-]+$/.test(id)) {
+                showToast('Page ID can only contain lowercase letters, numbers, underscore and hyphen.', 'error');
+                return;
+            }
+
+            // Check for duplicate ID (except when editing same page)
+            const customPages = appData.customPages || DEFAULT_DATA.customPages;
+            const existing = customPages.find((p, i) => p.id === id && i !== index);
+            if (existing) {
+                showToast('A page with this ID already exists!', 'error');
+                return;
+            }
+
+            const pageData = { id, label, icon, visible, public: publicVal };
+
+            if (index >= 0 && index < customPages.length) {
+                customPages[index] = { ...customPages[index], ...pageData };
+                showToast('✅ Page updated!', 'success');
+            } else {
+                // Add new page - also initialize data structure for it
+                if (!appData[id]) {
+                    appData[id] = { content: '', items: [] };
+                }
+                customPages.push(pageData);
+                showToast('✅ Page added!', 'success');
+            }
+
+            appData.customPages = customPages;
+            saveToLocalStorage();
+            renderAllPages();
+            closeAdminModal();
+            showAdminPage('page-manager');
+            // Also update the page manager container
+            const container = document.getElementById('pageManagerContainer');
+            if (container) container.innerHTML = renderAdminPageManager();
+        }
+
+        function togglePageVisibility(index) {
+            const customPages = appData.customPages || DEFAULT_DATA.customPages;
+            if (index >= 0 && index < customPages.length) {
+                customPages[index].visible = !customPages[index].visible;
+                appData.customPages = customPages;
+                saveToLocalStorage();
+                renderAllPages();
+                const container = document.getElementById('pageManagerContainer');
+                if (container) container.innerHTML = renderAdminPageManager();
+                showToast(`Page ${customPages[index].visible ? 'shown' : 'hidden'}`, 'info');
+            }
+        }
+
+        function togglePagePublic(index) {
+            const customPages = appData.customPages || DEFAULT_DATA.customPages;
+            if (index >= 0 && index < customPages.length) {
+                customPages[index].public = customPages[index].public === false ? true : false;
+                appData.customPages = customPages;
+                saveToLocalStorage();
+                renderAllPages();
+                const container = document.getElementById('pageManagerContainer');
+                if (container) container.innerHTML = renderAdminPageManager();
+                showToast(`Page set to ${customPages[index].public !== false ? 'Public' : 'Private'}`, 'info');
+            }
+        }
+
+        function deleteCustomPage(index) {
+            const customPages = appData.customPages || DEFAULT_DATA.customPages;
+            if (index >= 0 && index < customPages.length) {
+                const page = customPages[index];
+                // Prevent deletion of default pages
+                if (['career', 'more', 'service', 'blog'].includes(page.id)) {
+                    showToast('Cannot delete default pages!', 'error');
+                    return;
+                }
+                if (!confirm(`Delete page "${page.label}" and all its data?`)) return;
+                // Remove page data
+                delete appData[page.id];
+                customPages.splice(index, 1);
+                appData.customPages = customPages;
+                saveToLocalStorage();
+                renderAllPages();
+                const container = document.getElementById('pageManagerContainer');
+                if (container) container.innerHTML = renderAdminPageManager();
+                showToast('🗑️ Page deleted!', 'warning');
+            }
+        }
+
+        // ===== End new page manager =====
+
         function renderAdminSlides() {
             const slides = appData.slides || [];
             if (!slides || slides.length === 0) {
@@ -5000,7 +5281,7 @@
             if (menuItem) menuItem.classList.add('active');
 
             const allPages = ['dashboard', 'home-editor', 'career-editor', 'more-editor', 'blog-editor', 'service-editor',
-                'jobs', 'settings', 'sync', 'employees', 'social', 'slides', 'dropdowns',
+                'jobs', 'settings', 'sync', 'employees', 'social', 'slides', 'dropdowns', 'page-manager',
                 'items-career', 'items-more', 'items-blog', 'items-service',
                 'subsections-career', 'subsections-more', 'subsections-blog', 'subsections-service'
             ];
@@ -5031,7 +5312,8 @@
                 employees: '👥 <span>Employees</span>',
                 social: '🔗 <span>Social Links</span>',
                 slides: '📸 <span>Slides Manager</span>',
-                dropdowns: '📋 <span>Dropdown Menu Setup</span>'
+                dropdowns: '📋 <span>Dropdown Menu Setup</span>',
+                'page-manager': '📄 <span>Page Manager</span>'
             };
             document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
 
@@ -5059,6 +5341,10 @@
             if (page === 'dropdowns') {
                 const container = document.getElementById('adminDropdownsContainer');
                 if (container) container.innerHTML = renderAdminDropdowns();
+            }
+            if (page === 'page-manager') {
+                const container = document.getElementById('pageManagerContainer');
+                if (container) container.innerHTML = renderAdminPageManager();
             }
             if (page.startsWith('items-')) {
                 const pageName = page.replace('items-', '');
@@ -8224,6 +8510,12 @@
         window.deleteDropdownItem = deleteDropdownItem;
         window.changeSlide = changeSlide;
         window.goToSlide = goToSlide;
+        // New page manager
+        window.openPageManagerModal = openPageManagerModal;
+        window.saveCustomPage = saveCustomPage;
+        window.togglePageVisibility = togglePageVisibility;
+        window.togglePagePublic = togglePagePublic;
+        window.deleteCustomPage = deleteCustomPage;
 
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     </script>
