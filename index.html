@@ -1260,7 +1260,6 @@
             max-width: 100%;
         }
 
-        /* ========== SETTINGS TABS STYLES ========== */
         .settings-tab-btn {
             padding: 6px 14px;
             border: 2px solid var(--border-color);
@@ -1287,7 +1286,6 @@
         }
         .settings-tab-content.active { display: block; }
 
-        /* ========== ADS MANAGER ========== */
         .ad-card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -2650,7 +2648,7 @@
 
         <!-- ================= SECTION: MORE ================= -->
         <section class="section" id="more">
-            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">📚 Study • Books • Creative Studio • Font Converter • OCR</span></div>
+            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">📚 Study • Books</span></div>
             <div class="section-header">
                 <h2>📚 <span>Study & Books</span></h2>
                 <div id="moreSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
@@ -2660,42 +2658,72 @@
                 </div>
             </div>
             <div id="moreContent" class="page-content-display"></div>
+            <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
+                <i class="fas fa-info-circle"></i> More Items are managed from Admin Panel → More Items
+            </div>
+        </section>
 
-            <!-- ================= CREATIVE DESIGN STUDIO ================= -->
-            <div style="margin-top:30px;border-top:2px solid var(--border-color);padding-top:20px;">
-                <div class="studio-hero">
-                    <div class="hero-text">
-                        <h2>✨ Creative Design Studio <span style="font-size:18px;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pro</span></h2>
-                        <p>AI-powered design tools • Canva-style interface • Instant professional results</p>
-                    </div>
-                    <div class="hero-badge">
-                        <i class="fas fa-robot"></i> Powered by AI Studio
-                    </div>
-                </div>
-
-                <div class="studio-categories">
-                    <span class="cat-pill active">🔥 All Tools</span>
-                    <span class="cat-pill ai-pill"><i class="fas fa-sparkles"></i> AI-Powered</span>
-                    <span class="cat-pill">📸 Photo</span>
-                    <span class="cat-pill">🖼️ Poster</span>
-                    <span class="cat-pill">📄 Document</span>
-                    <span class="cat-pill">🪪 Identity</span>
-                </div>
-
-                <div class="creative-grid" id="creativeGridContainer">
-                    <!-- Dynamic creative tools rendered by JavaScript -->
-                </div>
-
-                <div style="margin-top:20px;padding:16px 20px;background:linear-gradient(135deg, rgba(124,58,237,0.1), rgba(236,72,153,0.05));border-radius:16px;border-left:4px solid var(--studio-accent);font-size:13px;color:var(--text-color);">
-                    <i class="fas fa-robot" style="color:var(--studio-accent);margin-right:8px;"></i> 
-                    <strong>AI Pro Tip:</strong> Click any card to unlock the full AI-powered editor. All designs are fully customizable and export-ready!
+        <!-- ================= SECTION: SERVICE ================= -->
+        <section class="section" id="service">
+            <div class="page-ticker" id="serviceTicker"><span id="serviceTickerText">🛠️ Services • Government • Private • Education</span></div>
+            <div class="section-header">
+                <h2>🛠️ <span>Services</span></h2>
+                <div id="serviceSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
+                    <button class="sub-btn active" data-sub="all" onclick="filterServiceCategory('all')">📌 All</button>
+                    <button class="sub-btn" data-sub="government" onclick="filterServiceCategory('government')">🏛️ Government</button>
+                    <button class="sub-btn" data-sub="private" onclick="filterServiceCategory('private')">💼 Private</button>
+                    <button class="sub-btn" data-sub="education" onclick="filterServiceCategory('education')">📚 Education</button>
                 </div>
             </div>
+            <div id="serviceContent" class="page-content-display"></div>
+            <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
+                <i class="fas fa-info-circle"></i> Service Items are managed from Admin Panel → Service Items
+            </div>
+        </section>
 
-            <!-- ================= FONT CONVERTER & OCR ================= -->
-            <div style="margin-top:40px;border-top:2px solid var(--border-color);padding-top:20px;">
-                <h3 style="color:var(--primary-blue);margin-bottom:15px;font-size:22px;">⚙️ Text & Font Utilities</h3>
+        <!-- ================= SECTION: BLOG ================= -->
+        <section class="section" id="blog">
+            <div class="page-ticker" id="blogTicker"><span id="blogTickerText">📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio</span></div>
+            <div class="section-header">
+                <h2>📝 <span>Blog</span></h2>
+                <div id="blogSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
+                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('blog', 'all')">📌 All</button>
+                </div>
+            </div>
+            <div id="blogContent" class="page-content-display"></div>
+            <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
+                <i class="fas fa-info-circle"></i> Blog Items are managed from Admin Panel → Blog Items
+            </div>
+        </section>
 
+        <!-- ================= SECTION: RSR ================= -->
+        <section class="section" id="rsr">
+            <div class="page-ticker"><span>📜 Rajasthan Service Rules (RSR) – Earned Leave Rules</span></div>
+            <div class="section-header">
+                <h2>📜 <span>RSR</span></h2>
+                <div id="rsrSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
+                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('rsr', 'all')">📌 All</button>
+                </div>
+            </div>
+            <div id="rsrContent" class="page-content-display"></div>
+        </section>
+
+        <!-- ================= SECTION: TOOLS ================= -->
+        <section class="section" id="tools">
+            <div class="tools-page">
+                <div class="tools-hero">
+                    <div>
+                        <h2>🛠️ <span>Tools</span></h2>
+                        <p>Professional PDF, image & creative utilities for every need.</p>
+                    </div>
+                    <div class="badge-stats">
+                        <span class="stat"><i class="fas fa-file-pdf"></i> PDF Tools</span>
+                        <span class="stat"><i class="fas fa-image"></i> Image Tools</span>
+                        <span class="stat"><i class="fas fa-paint-brush"></i> Creative Suite</span>
+                    </div>
+                </div>
+
+                <!-- ========== TOOLS TABS (OCR & Font Converter) ========== -->
                 <div class="tools-container">
                     <div class="tools-list">
                         <button class="tool-btn active" data-tool="ocr" onclick="switchTool('ocr')">
@@ -2788,77 +2816,44 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
-                <i class="fas fa-info-circle"></i> More Items are managed from Admin Panel → More Items
-            </div>
-        </section>
-
-        <!-- ================= SECTION: SERVICE ================= -->
-        <section class="section" id="service">
-            <div class="page-ticker" id="serviceTicker"><span id="serviceTickerText">🛠️ Services • Government • Private • Education</span></div>
-            <div class="section-header">
-                <h2>🛠️ <span>Services</span></h2>
-                <div id="serviceSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterServiceCategory('all')">📌 All</button>
-                    <button class="sub-btn" data-sub="government" onclick="filterServiceCategory('government')">🏛️ Government</button>
-                    <button class="sub-btn" data-sub="private" onclick="filterServiceCategory('private')">💼 Private</button>
-                    <button class="sub-btn" data-sub="education" onclick="filterServiceCategory('education')">📚 Education</button>
-                </div>
-            </div>
-            <div id="serviceContent" class="page-content-display"></div>
-            <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
-                <i class="fas fa-info-circle"></i> Service Items are managed from Admin Panel → Service Items
-            </div>
-        </section>
-
-        <!-- ================= SECTION: BLOG ================= -->
-        <section class="section" id="blog">
-            <div class="page-ticker" id="blogTicker"><span id="blogTickerText">📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio</span></div>
-            <div class="section-header">
-                <h2>📝 <span>Blog</span></h2>
-                <div id="blogSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('blog', 'all')">📌 All</button>
-                </div>
-            </div>
-            <div id="blogContent" class="page-content-display"></div>
-            <div style="margin-top:16px;text-align:center;color:var(--text-light);font-size:13px;">
-                <i class="fas fa-info-circle"></i> Blog Items are managed from Admin Panel → Blog Items
-            </div>
-        </section>
-
-        <!-- ================= SECTION: RSR ================= -->
-        <section class="section" id="rsr">
-            <div class="page-ticker"><span>📜 Rajasthan Service Rules (RSR) – Earned Leave Rules</span></div>
-            <div class="section-header">
-                <h2>📜 <span>RSR</span></h2>
-                <div id="rsrSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('rsr', 'all')">📌 All</button>
-                </div>
-            </div>
-            <div id="rsrContent" class="page-content-display"></div>
-        </section>
-
-        <!-- ================= SECTION: TOOLS ================= -->
-        <section class="section" id="tools">
-            <div class="tools-page">
-                <div class="tools-hero">
-                    <div>
-                        <h2>🛠️ <span>Tools</span></h2>
-                        <p>Professional PDF, image & creative utilities for every need.</p>
+                <!-- ========== CREATIVE DESIGN STUDIO ========== -->
+                <div style="margin-top:40px;border-top:2px solid var(--border-color);padding-top:20px;">
+                    <div class="studio-hero">
+                        <div class="hero-text">
+                            <h2>✨ Creative Design Studio <span style="font-size:18px;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pro</span></h2>
+                            <p>AI-powered design tools • Canva-style interface • Instant professional results</p>
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fas fa-robot"></i> Powered by AI Studio
+                        </div>
                     </div>
-                    <div class="badge-stats">
-                        <span class="stat"><i class="fas fa-file-pdf"></i> 10+ PDF Tools</span>
-                        <span class="stat"><i class="fas fa-image"></i> Image Tools</span>
-                        <span class="stat"><i class="fas fa-paint-brush"></i> Creative Suite</span>
+
+                    <div class="studio-categories">
+                        <span class="cat-pill active">🔥 All Tools</span>
+                        <span class="cat-pill ai-pill"><i class="fas fa-sparkles"></i> AI-Powered</span>
+                        <span class="cat-pill">📸 Photo</span>
+                        <span class="cat-pill">🖼️ Poster</span>
+                        <span class="cat-pill">📄 Document</span>
+                        <span class="cat-pill">🪪 Identity</span>
+                    </div>
+
+                    <div class="creative-grid" id="creativeGridContainer">
+                        <!-- Dynamic creative tools rendered by JavaScript -->
+                    </div>
+
+                    <div style="margin-top:20px;padding:16px 20px;background:linear-gradient(135deg, rgba(124,58,237,0.1), rgba(236,72,153,0.05));border-radius:16px;border-left:4px solid var(--studio-accent);font-size:13px;color:var(--text-color);">
+                        <i class="fas fa-robot" style="color:var(--studio-accent);margin-right:8px;"></i> 
+                        <strong>AI Pro Tip:</strong> Click any card to unlock the full AI-powered editor. All designs are fully customizable and export-ready!
                     </div>
                 </div>
 
-                <!-- PDF Tools -->
-                <div class="tools-category-title"><i class="fas fa-file-pdf" style="margin-right:10px;"></i> PDF Utilities</div>
-                <div class="tools-grid" id="toolsGrid">
-                    <!-- Dynamic tools rendered by JavaScript -->
+                <!-- PDF Tools Grid -->
+                <div style="margin-top:40px;border-top:2px solid var(--border-color);padding-top:20px;">
+                    <div class="tools-category-title"><i class="fas fa-file-pdf" style="margin-right:10px;"></i> PDF Utilities</div>
+                    <div class="tools-grid" id="toolsGrid">
+                        <!-- Dynamic tools rendered by JavaScript -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -2919,7 +2914,7 @@
         // ============================================================
         // DATA STORAGE
         // ============================================================
-        const STORAGE_KEY = 'dreamjosh_all_data_v23';
+        const STORAGE_KEY = 'dreamjosh_all_data_v24';
 
         const DEFAULT_DATA = {
             home: {
@@ -2939,7 +2934,7 @@
                 logo: '',
                 pageTaglines: {
                     career: '🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs',
-                    more: '📚 Study Materials • Books • Creative Studio • Font Converter • OCR',
+                    more: '📚 Study Materials • Books',
                     blog: '📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio',
                     service: '🛠️ Services • Government Services • Private Services • Education Services'
                 }
@@ -3110,41 +3105,41 @@
             ads: [],
             tools: [
                 { id: 'jpg-pdf', name: 'JPG to PDF', icon: 'fa-file-image', category: 'PDF', badge: 'Free',
-                    desc: 'Convert images to a single PDF.', action: 'showSection(\'more\'); switchTool(\'jpg-pdf\')' },
+                    desc: 'Convert images to a single PDF.', action: "showSection('tools'); switchTool('jpg-pdf')" },
                 { id: 'pdf-jpg', name: 'PDF to JPG', icon: 'fa-file-pdf', category: 'PDF', badge: 'Free',
-                    desc: 'Extract pages as high-quality JPG.', action: 'showSection(\'more\'); switchTool(\'pdf-jpg\')' },
+                    desc: 'Extract pages as high-quality JPG.', action: "showSection('tools'); switchTool('pdf-jpg')" },
                 { id: 'png-pdf', name: 'PNG to PDF', icon: 'fa-file-image', category: 'PDF', badge: 'Free',
-                    desc: 'Merge PNGs into one PDF document.', action: 'showSection(\'more\'); switchTool(\'png-pdf\')' },
+                    desc: 'Merge PNGs into one PDF document.', action: "showSection('tools'); switchTool('png-pdf')" },
                 { id: 'png-jpg', name: 'PNG to JPG', icon: 'fa-file-image', category: 'PDF', badge: 'Free',
-                    desc: 'Convert PNG images to JPG format.', action: 'showSection(\'more\'); switchTool(\'png-jpg\')' },
+                    desc: 'Convert PNG images to JPG format.', action: "showSection('tools'); switchTool('png-jpg')" },
                 { id: 'delete-pdf', name: 'Delete PDF Page', icon: 'fa-trash-alt', category: 'PDF', badge: 'Free',
-                    desc: 'Remove a specific page from a PDF.', action: 'showSection(\'more\'); switchTool(\'delete-pdf\')' },
+                    desc: 'Remove a specific page from a PDF.', action: "showSection('tools'); switchTool('delete-pdf')" },
                 { id: 'pdf-merge', name: 'Merge PDF', icon: 'fa-object-group', category: 'PDF', badge: 'Free',
-                    desc: 'Combine multiple PDFs into one file.', action: 'showSection(\'more\'); switchTool(\'pdf-merge\')' },
+                    desc: 'Combine multiple PDFs into one file.', action: "showSection('tools'); switchTool('pdf-merge')" },
                 { id: 'pdf-excel', name: 'PDF to Excel', icon: 'fa-file-excel', category: 'PDF', badge: 'Pro',
-                    desc: 'Extract tables to Excel format.', action: 'showSection(\'more\'); switchTool(\'pdf-excel\')' },
+                    desc: 'Extract tables to Excel format.', action: "showSection('tools'); switchTool('pdf-excel')" },
                 { id: 'pdf-word', name: 'PDF to Word', icon: 'fa-file-word', category: 'PDF', badge: 'Pro',
-                    desc: 'Convert PDF to editable Word doc.', action: 'showSection(\'more\'); switchTool(\'pdf-word\')' },
+                    desc: 'Convert PDF to editable Word doc.', action: "showSection('tools'); switchTool('pdf-word')" },
                 { id: 'ocr', name: 'OCR (Image/PDF to Text)', icon: 'fa-eye', category: 'Image', badge: 'Free',
-                    desc: 'Extract text from images and PDFs.', action: 'showSection(\'more\'); switchTool(\'ocr\')' },
+                    desc: 'Extract text from images and PDFs.', action: "showSection('tools'); switchTool('ocr')" },
                 { id: 'passport-photo', name: 'Passport Photo', icon: 'fa-passport', category: 'Image', badge: 'Free',
-                    desc: 'Auto-crop & resize for official use.', action: 'openCreativeTool(\'passport-photo\')' },
+                    desc: 'Auto-crop & resize for official use.', action: "openCreativeTool('passport-photo')" },
                 { id: 'photo-crop', name: 'Photo Crop & Resize', icon: 'fa-crop-alt', category: 'Image', badge: 'Free',
-                    desc: 'Precision crop and resize images.', action: 'openCreativeTool(\'photo-crop\')' },
+                    desc: 'Precision crop and resize images.', action: "openCreativeTool('photo-crop')" },
                 { id: 'id-card', name: 'ID Card Print', icon: 'fa-id-card', category: 'Creative', badge: 'Free',
-                    desc: 'Design and download ID cards.', action: 'openCreativeTool(\'id-card\')' },
+                    desc: 'Design and download ID cards.', action: "openCreativeTool('id-card')" },
                 { id: 'poster-maker', name: 'Pro Poster Maker', icon: 'fa-palette', category: 'Creative', badge: 'Pro',
-                    desc: 'AI-enhanced poster design.', action: 'openCreativeTool(\'poster-maker\')' },
+                    desc: 'AI-enhanced poster design.', action: "openCreativeTool('poster-maker')" },
                 { id: 'id-maker', name: 'Pro ID Maker', icon: 'fa-id-badge', category: 'Creative', badge: 'Pro',
-                    desc: 'Custom ID cards with branding.', action: 'openCreativeTool(\'id-maker\')' },
+                    desc: 'Custom ID cards with branding.', action: "openCreativeTool('id-maker')" },
                 { id: 'shop-promotion', name: 'Shop Promotion', icon: 'fa-store', category: 'Creative', badge: 'Free',
-                    desc: 'Create marketing visuals for shops.', action: 'openCreativeTool(\'shop-promotion\')' },
+                    desc: 'Create marketing visuals for shops.', action: "openCreativeTool('shop-promotion')" },
                 { id: 'resume-cv', name: 'Resume/CV Builder', icon: 'fa-file-alt', category: 'Creative', badge: 'Pro',
-                    desc: 'Professional resume in minutes.', action: 'openCreativeTool(\'resume-cv\')' },
+                    desc: 'Professional resume in minutes.', action: "openCreativeTool('resume-cv')" },
                 { id: 'application-maker', name: 'Application Maker', icon: 'fa-file-signature', category: 'Creative',
-                    badge: 'Free', desc: 'Instant application drafts.', action: 'openCreativeTool(\'application-maker\')' },
+                    badge: 'Free', desc: 'Instant application drafts.', action: "openCreativeTool('application-maker')" },
                 { id: 'document-album', name: 'Document Album', icon: 'fa-images', category: 'Creative', badge: 'Free',
-                    desc: 'Organize files into a clean album.', action: 'openCreativeTool(\'document-album\')' }
+                    desc: 'Organize files into a clean album.', action: "openCreativeTool('document-album')" }
             ]
         };
 
@@ -5076,7 +5071,6 @@
                     appData[id] = { content: '', items: [] };
                 }
                 customPages.push(pageData);
-                // Add to dropdown menus
                 if (!appData.dropdownMenus[id]) {
                     appData.dropdownMenus[id] = { label: label, items: [{ label: `📌 All ${label}`, action: 'all' }] };
                 }
@@ -5097,7 +5091,6 @@
             if (index >= 0 && index < customPages.length) {
                 customPages[index].visible = !customPages[index].visible;
                 appData.customPages = customPages;
-                // Update dropdown menus
                 if (customPages[index].visible) {
                     if (!appData.dropdownMenus[customPages[index].id]) {
                         appData.dropdownMenus[customPages[index].id] = { label: customPages[index].label, items: [{ label: `📌 All ${customPages[index].label}`, action: 'all' }] };
@@ -5355,7 +5348,7 @@
                     </div>
                     <div class="form-group">
                         <label>Action (JavaScript code) *</label>
-                        <input type="text" id="toolAction" value="${tool.action || ''}" placeholder="e.g., showSection('more'); switchTool('pdf-merge')">
+                        <input type="text" id="toolAction" value="${tool.action || ''}" placeholder="e.g., showSection('tools'); switchTool('pdf-merge')">
                         <div style="font-size:11px;color:var(--text-light);margin-top:2px;">JavaScript function to call when tool is clicked.</div>
                     </div>
                 </div>
@@ -7570,7 +7563,7 @@
             document.querySelectorAll('.tool-content').forEach(content => {
                 content.classList.toggle('active', content.id === 'tool-' + toolId);
             });
-            const toolsSection = document.getElementById('more');
+            const toolsSection = document.getElementById('tools');
             if (toolsSection && toolsSection.classList.contains('active')) {
                 const container = document.querySelector('.tools-container');
                 if (container) container.scrollIntoView({ behavior: 'smooth' });
@@ -7790,7 +7783,7 @@
             updateLogo();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private')
                 .length;
-            console.log('🚀 Dream Josh – Fully loaded with RSR Page, Tools Manager, and Word/Excel Export!');
+            console.log('🚀 Dream Josh – Tools page now includes OCR, Font Converter, and Creative Studio!');
             switchTool('ocr');
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('home').classList.add('active');
