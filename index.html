@@ -1434,150 +1434,387 @@
         .tool-content { display: none; animation: fadeInSection 0.4s ease; }
         .tool-content.active { display: block; }
 
-        /* ========== PDF TOOLS ========== */
-        .pdf-tool-container {
-            background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 8px var(--shadow-color);
-            padding: 24px;
-            margin-top: 0;
-        }
-        .pdf-tool-container .pdf-header {
+        /* ========== CREATIVE STUDIO ========== */
+        .studio-hero {
+            background: linear-gradient(145deg, rgba(124, 58, 237, 0.15), rgba(236, 72, 153, 0.10));
+            border-radius: 24px;
+            padding: 30px 28px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            backdrop-filter: blur(4px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .studio-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.2), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .studio-hero .hero-text h2 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 4px 0;
+        }
+        .studio-hero .hero-text p {
+            color: var(--text-light);
+            font-size: 14px;
+            margin: 0;
+        }
+        .studio-hero .hero-badge {
+            background: rgba(124, 58, 237, 0.2);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--studio-accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(4px);
+            white-space: nowrap;
+        }
+        .studio-hero .hero-badge i {
+            font-size: 14px;
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; text-shadow: 0 0 5px rgba(124,58,237,0.3); }
+            50% { opacity: 1; text-shadow: 0 0 20px rgba(124,58,237,0.8); }
+            100% { opacity: 0.6; text-shadow: 0 0 5px rgba(124,58,237,0.3); }
+        }
+
+        .studio-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .studio-categories .cat-pill {
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            cursor: default;
+            transition: 0.3s;
+        }
+        .studio-categories .cat-pill.active {
+            background: var(--studio-accent);
+            color: #fff;
+            border-color: var(--studio-accent);
+        }
+        .studio-categories .cat-pill.ai-pill {
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            color: #fff;
+            border: none;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .creative-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 10px 0;
+        }
+        .creative-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 24px 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px var(--shadow-color);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .dark-mode .creative-card {
+            background: rgba(20, 20, 40, 0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .creative-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(145deg, rgba(124, 58, 237, 0.05), rgba(236, 72, 153, 0.02));
+            border-radius: 20px;
+            opacity: 0;
+            transition: 0.4s;
+            z-index: 0;
+        }
+        .creative-card:hover::before { opacity: 1; }
+        .creative-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--studio-accent);
+            box-shadow: 0 16px 40px var(--studio-glow);
+        }
+        .creative-card .card-content { position: relative; z-index: 1; }
+        .creative-card .card-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 12px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(236, 72, 153, 0.2));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: var(--studio-accent);
+            transition: 0.4s;
+            border: 1px solid rgba(124, 58, 237, 0.1);
+        }
+        .creative-card:hover .card-icon {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(236, 72, 153, 0.4));
+            transform: scale(1.1) rotate(-4deg);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+        }
+        .creative-card h4 { font-size: 15px; font-weight: 700; color: var(--text-color); margin-bottom: 4px; }
+        .creative-card p { font-size: 12px; color: var(--text-light); margin: 0; }
+        .creative-card .badge-ai {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(90deg, #7c3aed, #ec4899);
+            color: #fff;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+            animation: pulseGlow 2s infinite;
+            z-index: 2;
+        }
+        .creative-card .badge-new {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--success-green);
+            color: #fff;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+        .creative-card .badge-hot {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #dc3545;
+            color: #fff;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        /* ========== TOOL MODAL ========== */
+        .tool-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 5000;
+            backdrop-filter: blur(12px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .tool-modal-overlay.active { display: flex; }
+        .tool-modal {
+            background: var(--card-bg);
+            border-radius: 28px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 92vh;
+            overflow-y: auto;
+            padding: 32px 36px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            animation: modalIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .dark-mode .tool-modal { border: 1px solid rgba(255,255,255,0.05); }
+        .tool-modal .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 12px;
         }
-        .pdf-tool-container .pdf-header h3 {
-            font-size: 20px;
-            color: var(--primary-blue);
+        .tool-modal .modal-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
         }
-        .pdf-tool-container .pdf-header h3 i { color: var(--secondary-blue); }
-        .pdf-tool-container .upload-area {
+        .tool-modal .modal-header .close-modal-btn {
+            font-size: 28px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.3s;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tool-modal .modal-header .close-modal-btn:hover {
+            opacity: 1;
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+            transform: rotate(90deg);
+        }
+        .tool-modal .tool-body { padding: 4px 0; }
+        .tool-modal .tool-body .form-group { margin-bottom: 18px; }
+        .tool-modal .tool-body .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: var(--text-color);
+            letter-spacing: 0.3px;
+        }
+        .tool-modal .tool-body .form-group input,
+        .tool-modal .tool-body .form-group textarea,
+        .tool-modal .tool-body .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 14px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .tool-modal .tool-body .form-group input:focus,
+        .tool-modal .tool-body .form-group textarea:focus,
+        .tool-modal .tool-body .form-group select:focus {
+            border-color: var(--studio-accent);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+        }
+        .tool-modal .tool-body .form-group textarea { min-height: 120px; resize: vertical; }
+        .tool-modal .tool-body .preview-box {
+            background: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            min-height: 80px;
+            font-size: 14px;
+            line-height: 1.8;
+            transition: 0.3s;
+            box-shadow: inset 0 2px 8px var(--shadow-color);
+        }
+        .tool-modal .tool-body .preview-box img { max-width: 100%; height: auto; border-radius: 8px; }
+        .tool-modal .tool-body .action-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-color);
+        }
+        .tool-modal .tool-body .action-row button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--secondary-blue);
+            color: #fff;
+        }
+        .tool-modal .tool-body .action-row .btn-download {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        .tool-modal .tool-body .action-row .btn-download:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+        .tool-modal .tool-body .action-row .btn-print { background: var(--secondary-blue); }
+        .tool-modal .tool-body .action-row .btn-print:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
+        }
+        .tool-modal .tool-body .action-row .btn-clear-tool { background: #dc3545; }
+        .tool-modal .tool-body .action-row .btn-clear-tool:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+        }
+        .tool-modal .tool-body .file-upload-area {
             border: 2px dashed var(--border-color);
-            border-radius: 10px;
-            padding: 30px 20px;
+            border-radius: 16px;
+            padding: 40px 20px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
             background: var(--bg-color);
         }
-        .pdf-tool-container .upload-area:hover {
-            border-color: var(--secondary-blue);
+        .tool-modal .tool-body .file-upload-area:hover {
+            border-color: var(--studio-accent);
             background: var(--card-hover);
         }
-        .pdf-tool-container .upload-area i { font-size: 40px; color: var(--secondary-blue); margin-bottom: 10px; }
-        .pdf-tool-container .upload-area p { color: var(--text-light); font-size: 14px; }
-        .pdf-tool-container .upload-area .file-name {
-            margin-top: 8px;
+        .tool-modal .tool-body .file-upload-area i {
+            font-size: 36px;
+            color: var(--studio-accent);
+            margin-bottom: 8px;
+        }
+        .tool-modal .tool-body .file-upload-area p {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+        .tool-modal .tool-body .file-upload-area .file-name-display {
             font-weight: 600;
             color: var(--primary-blue);
-        }
-        .pdf-tool-container .action-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 16px;
-        }
-        .pdf-tool-container .action-row button {
-            padding: 8px 20px;
-            border: none;
-            border-radius: 6px;
+            margin-top: 6px;
             font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            min-height: 36px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .pdf-tool-container .action-row .btn-primary { background: var(--secondary-blue); color: #fff; }
-        .pdf-tool-container .action-row .btn-primary:hover { background: var(--primary-blue); }
-        .pdf-tool-container .action-row .btn-success { background: var(--success-green); color: #fff; }
-        .pdf-tool-container .action-row .btn-success:hover { background: #15803d; }
-        .pdf-tool-container .action-row .btn-danger { background: #dc3545; color: #fff; }
-        .pdf-tool-container .action-row .btn-danger:hover { background: #a71d2a; }
-        .pdf-tool-container .action-row .btn-warning { background: #ffc107; color: #333; }
-        .pdf-tool-container .action-row .btn-warning:hover { background: #e0a800; }
-        .pdf-tool-container .preview-area {
-            margin-top: 16px;
-            padding: 16px;
-            background: var(--bg-color);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            min-height: 60px;
-            font-size: 14px;
-            color: var(--text-light);
-        }
-        .pdf-tool-container .preview-area img { max-width: 100%; max-height: 300px; border-radius: 4px; }
-        .pdf-tool-container .preview-area .file-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 8px;
-        }
-        .pdf-tool-container .preview-area .file-list .file-tag {
-            background: var(--secondary-blue);
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .pdf-tool-container .preview-area .file-list .file-tag .remove {
-            cursor: pointer;
-            opacity: 0.7;
-        }
-        .pdf-tool-container .preview-area .file-list .file-tag .remove:hover { opacity: 1; }
-        .pdf-tool-container .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--border-color);
-            border-radius: 3px;
-            margin: 12px 0;
-            overflow: hidden;
-            display: none;
-        }
-        .pdf-tool-container .progress-bar .progress-fill {
-            height: 100%;
-            background: var(--secondary-blue);
-            width: 0%;
-            transition: width 0.3s ease;
-            border-radius: 3px;
-        }
-        .pdf-tool-container .status-text {
-            font-size: 13px;
-            color: var(--text-light);
-            margin-top: 8px;
-            display: none;
-        }
-        .pdf-tool-container .status-text.show { display: block; }
-        .pdf-tool-container .status-text .spinner {
-            display: inline-block;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* ========== CREATIVE STUDIO (HIDDEN) ========== */
-        .studio-hero {
-            display: none;
-        }
-        .studio-categories {
-            display: none;
-        }
-        .creative-grid {
-            display: none;
         }
 
         /* ========== TOOLS PAGE ========== */
@@ -1616,6 +1853,352 @@
             color: var(--text-color);
         }
         .tools-hero .badge-stats .stat i { margin-right: 6px; color: var(--secondary-blue); }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 12px;
+        }
+        .tool-item {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 12px var(--shadow-color);
+            transition: 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .tool-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 8px 24px var(--shadow-color);
+        }
+        .tool-item .tool-icon {
+            font-size: 30px;
+            color: var(--primary-blue);
+            width: 56px;
+            height: 56px;
+            background: var(--highlight-bg);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tool-item h4 { font-size: 16px; font-weight: 700; color: var(--text-color); margin: 4px 0 0 0; }
+        .tool-item p { font-size: 13px; color: var(--text-light); margin: 0; flex: 1; }
+        .tool-item .badge {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            align-self: flex-start;
+            background: var(--secondary-blue);
+            color: #fff;
+        }
+        .tool-item .badge.free { background: var(--success-green); }
+        .tool-item .badge.pro { background: var(--studio-accent); }
+
+        .tools-category-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 30px 0 12px 0;
+            border-left: 5px solid var(--secondary-blue);
+            padding-left: 14px;
+        }
+        .tools-category-title:first-of-type { margin-top: 0; }
+
+        /* ========== ITEMS GRID ========== */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+        }
+        .items-grid .item-card {
+            background: var(--bg-color);
+            border-radius: 8px;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .items-grid .item-card:hover { border-color: var(--secondary-blue); }
+        .items-grid .item-card .item-info { flex: 1; }
+        .items-grid .item-card .item-title { font-weight: 600; font-size: 13px; color: var(--text-color); }
+        .items-grid .item-card .item-desc-preview {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 2px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .items-grid .item-card .item-actions { display: flex; gap: 4px; margin-left: 8px; }
+        .items-grid .item-card .item-actions button {
+            background: transparent;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .items-grid .item-card .item-actions .btn-edit { color: var(--secondary-blue); }
+        .items-grid .item-card .item-actions .btn-edit:hover { background: rgba(25, 118, 210, 0.15); }
+        .items-grid .item-card .item-actions .btn-delete { color: var(--warning-red); }
+        .items-grid .item-card .item-actions .btn-delete:hover { background: rgba(214, 40, 57, 0.15); }
+        .empty-state { padding: 30px 20px; text-align: center; color: var(--text-light); }
+        .empty-state i { font-size: 36px; margin-bottom: 8px; opacity: 0.4; }
+
+        /* ========== EDITOR ========== */
+        .page-editor-area { margin-top: 12px; }
+        .editor-content {
+            min-height: 200px;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
+            transition: 0.3s;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+        .editor-content:focus { border-color: var(--primary-blue); }
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 6px 10px;
+            background: var(--editor-toolbar-bg);
+            border: 2px solid var(--border-color);
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+        .editor-toolbar .toolbar-group {
+            display: flex;
+            gap: 2px;
+            padding: 0 6px;
+            border-right: 1px solid var(--border-color);
+        }
+        .editor-toolbar .toolbar-group:last-child { border-right: none; }
+        .editor-toolbar button {
+            padding: 4px 8px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background: transparent;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 13px;
+            min-width: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .editor-toolbar button:hover {
+            background: var(--card-hover);
+            border-color: var(--border-color);
+        }
+        .editor-toolbar select {
+            padding: 2px 6px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 12px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+        .editor-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+        .editor-controls .btn-save-editor {
+            padding: 8px 20px;
+            background: var(--success-green);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .editor-controls .btn-save-editor:hover { background: #15803d; }
+        .editor-controls .btn-cancel-editor {
+            padding: 8px 20px;
+            background: #6c757d;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .editor-controls .btn-cancel-editor:hover { background: #5a6268; }
+        .editor-controls .btn-preview {
+            padding: 8px 20px;
+            background: var(--secondary-blue);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .editor-controls .btn-preview:hover { background: var(--primary-blue); }
+        .editor-controls .btn-fullscreen {
+            padding: 8px 20px;
+            background: var(--secondary);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 36px;
+        }
+        .editor-controls .btn-fullscreen:hover { opacity: 0.8; }
+
+        /* ========== SLIDES CAROUSEL ========== */
+        .slides-preview-container {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 10px 0;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+        .slides-preview-container .slide-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slides-preview-container .slide-item {
+            min-width: 100%;
+            padding: 20px;
+            text-align: center;
+            background: var(--card-bg);
+            border-radius: 8px;
+        }
+        .slides-preview-container .slide-item img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .slides-preview-container .slide-item .slide-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 8px 0 4px;
+        }
+        .slides-preview-container .slide-item .slide-desc {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        .slides-preview-container .slide-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 10;
+            transition: 0.3s;
+        }
+        .slides-preview-container .slide-nav:hover { background: rgba(0, 0, 0, 0.8); }
+        .slides-preview-container .slide-nav.prev { left: 10px; }
+        .slides-preview-container .slide-nav.next { right: 10px; }
+        .slides-preview-container .slide-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 0;
+        }
+        .slides-preview-container .slide-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            padding: 0;
+        }
+        .slides-preview-container .slide-dots .dot.active {
+            background: var(--secondary-blue);
+            transform: scale(1.2);
+        }
+
+        /* ========== TABLE WRAP ========== */
+        .table-wrap { overflow-x: auto; margin: 10px 0; }
+        .table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .table-wrap table th {
+            background: var(--secondary-blue);
+            color: #fff;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .table-wrap table td {
+            padding: 6px 12px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        .table-wrap table tr:hover td { background: var(--card-hover); }
+        .table-wrap table .actions-cell {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .table-wrap table .actions-cell button {
+            padding: 2px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.3s;
+            min-height: 28px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .table-wrap table .actions-cell .btn-edit { background: #ffc107; color: #333; }
+        .table-wrap table .actions-cell .btn-edit:hover { background: #e0a800; }
+        .table-wrap table .actions-cell .btn-delete { background: #dc3545; color: #fff; }
+        .table-wrap table .actions-cell .btn-delete:hover { background: #a71d2a; }
+        .table-wrap table .actions-cell .btn-view { background: var(--secondary-blue); color: #fff; }
+        .table-wrap table .actions-cell .btn-view:hover { background: var(--primary-blue); }
+        .table-wrap table .status-badge {
+            display: inline-block;
+            padding: 1px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .table-wrap table .status-badge.active { background: var(--success-green); color: #fff; }
+        .table-wrap table .status-badge.inactive { background: #dc3545; color: #fff; }
 
         /* ========== OCR ========== */
         .ocr-section {
@@ -1750,6 +2333,10 @@
         .ocr-section .ocr-panel .status-text .spinner {
             display: inline-block;
             animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* ========== FONT CONVERTER ========== */
@@ -1912,13 +2499,26 @@
             .tool-modal {
                 padding: 24px 18px;
             }
+            .creative-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 14px;
+            }
+            .creative-card .card-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 26px;
+            }
             .studio-hero {
-                display: none;
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
         @media (max-width: 480px) {
-            .studio-hero {
-                display: none;
+            .creative-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .studio-hero .hero-text h2 {
+                font-size: 22px;
             }
         }
     </style>
@@ -2123,7 +2723,7 @@
                     </div>
                 </div>
 
-                <!-- ========== TOOLS TABS ========== -->
+                <!-- ========== TOOLS TABS (OCR & Font Converter) ========== -->
                 <div class="tools-container">
                     <div class="tools-list">
                         <button class="tool-btn active" data-tool="ocr" onclick="switchTool('ocr')">
@@ -2131,30 +2731,6 @@
                         </button>
                         <button class="tool-btn" data-tool="font-converter" onclick="switchTool('font-converter')">
                             <i class="fas fa-language"></i> Font Converter
-                        </button>
-                        <button class="tool-btn" data-tool="jpg-pdf" onclick="switchTool('jpg-pdf')">
-                            <i class="fas fa-file-image"></i> JPG to PDF
-                        </button>
-                        <button class="tool-btn" data-tool="pdf-jpg" onclick="switchTool('pdf-jpg')">
-                            <i class="fas fa-file-pdf"></i> PDF to JPG
-                        </button>
-                        <button class="tool-btn" data-tool="png-pdf" onclick="switchTool('png-pdf')">
-                            <i class="fas fa-file-image"></i> PNG to PDF
-                        </button>
-                        <button class="tool-btn" data-tool="png-jpg" onclick="switchTool('png-jpg')">
-                            <i class="fas fa-file-image"></i> PNG to JPG
-                        </button>
-                        <button class="tool-btn" data-tool="delete-pdf" onclick="switchTool('delete-pdf')">
-                            <i class="fas fa-trash-alt"></i> Delete PDF Page
-                        </button>
-                        <button class="tool-btn" data-tool="pdf-merge" onclick="switchTool('pdf-merge')">
-                            <i class="fas fa-object-group"></i> Merge PDF
-                        </button>
-                        <button class="tool-btn" data-tool="pdf-excel" onclick="switchTool('pdf-excel')">
-                            <i class="fas fa-file-excel"></i> PDF to Excel
-                        </button>
-                        <button class="tool-btn" data-tool="pdf-word" onclick="switchTool('pdf-word')">
-                            <i class="fas fa-file-word"></i> PDF to Word
                         </button>
                     </div>
 
@@ -2239,195 +2815,40 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Tool: JPG to PDF -->
-                    <div class="tool-content" id="tool-jpg-pdf">
-                        <div class="pdf-tool-container">
-                            <div class="pdf-header">
-                                <h3><i class="fas fa-file-image"></i> JPG to PDF</h3>
-                                <span style="font-size:12px;color:var(--text-light);">Convert JPG images to a single PDF</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('jpgPdfInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload JPG images</p>
-                                <div class="file-name" id="jpgPdfFileName">No files selected</div>
-                                <input type="file" id="jpgPdfInput" accept=".jpg,.jpeg" multiple style="display:none" onchange="handleJpgPdfUpload(event)">
-                            </div>
-                            <div class="progress-bar" id="jpgPdfProgress"><div class="progress-fill" id="jpgPdfProgressFill"></div></div>
-                            <div class="status-text" id="jpgPdfStatus"><i class="fas fa-spinner spinner"></i> Processing...</div>
-                            <div class="preview-area" id="jpgPdfPreview">No images uploaded yet.</div>
-                            <div class="action-row">
-                                <button class="btn-primary" onclick="convertJpgToPdf()"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
-                                <button class="btn-danger" onclick="clearPdfTool('jpg-pdf')"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
+                <!-- ========== CREATIVE DESIGN STUDIO ========== -->
+                <div style="margin-top:40px;border-top:2px solid var(--border-color);padding-top:20px;">
+                    <div class="studio-hero">
+                        <div class="hero-text">
+                            <h2>✨ Creative Design Studio <span style="font-size:18px;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pro</span></h2>
+                            <p>AI-powered design tools • Canva-style interface • Instant professional results</p>
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fas fa-robot"></i> Powered by AI Studio
                         </div>
                     </div>
 
-                    <!-- Tool: PDF to JPG -->
-                    <div class="tool-content" id="tool-pdf-jpg">
-                        <div class="pdf-tool-container">
-                            <div class="pdf-header">
-                                <h3><i class="fas fa-file-pdf"></i> PDF to JPG</h3>
-                                <span style="font-size:12px;color:var(--text-light);">Extract PDF pages as JPG images</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('pdfJpgInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload a PDF file</p>
-                                <div class="file-name" id="pdfJpgFileName">No file selected</div>
-                                <input type="file" id="pdfJpgInput" accept=".pdf" style="display:none" onchange="handlePdfJpgUpload(event)">
-                            </div>
-                            <div class="progress-bar" id="pdfJpgProgress"><div class="progress-fill" id="pdfJpgProgressFill"></div></div>
-                            <div class="status-text" id="pdfJpgStatus"><i class="fas fa-spinner spinner"></i> Processing...</div>
-                            <div class="preview-area" id="pdfJpgPreview">No PDF uploaded yet.</div>
-                            <div class="action-row">
-                                <button class="btn-primary" onclick="convertPdfToJpg()"><i class="fas fa-file-image"></i> Convert to JPG</button>
-                                <button class="btn-danger" onclick="clearPdfTool('pdf-jpg')"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                        </div>
+                    <div class="studio-categories">
+                        <span class="cat-pill active">🔥 All Tools</span>
+                        <span class="cat-pill ai-pill"><i class="fas fa-sparkles"></i> AI-Powered</span>
+                        <span class="cat-pill">📸 Photo</span>
+                        <span class="cat-pill">🖼️ Poster</span>
+                        <span class="cat-pill">📄 Document</span>
+                        <span class="cat-pill">🪪 Identity</span>
                     </div>
 
-                    <!-- Tool: PNG to PDF -->
-                    <div class="tool-content" id="tool-png-pdf">
-                        <div class="pdf-tool-container">
-                            <div class="pdf-header">
-                                <h3><i class="fas fa-file-image"></i> PNG to PDF</h3>
-                                <span style="font-size:12px;color:var(--text-light);">Convert PNG images to a single PDF</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('pngPdfInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload PNG images</p>
-                                <div class="file-name" id="pngPdfFileName">No files selected</div>
-                                <input type="file" id="pngPdfInput" accept=".png" multiple style="display:none" onchange="handlePngPdfUpload(event)">
-                            </div>
-                            <div class="progress-bar" id="pngPdfProgress"><div class="progress-fill" id="pngPdfProgressFill"></div></div>
-                            <div class="status-text" id="pngPdfStatus"><i class="fas fa-spinner spinner"></i> Processing...</div>
-                            <div class="preview-area" id="pngPdfPreview">No images uploaded yet.</div>
-                            <div class="action-row">
-                                <button class="btn-primary" onclick="convertPngToPdf()"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
-                                <button class="btn-danger" onclick="clearPdfTool('png-pdf')"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                        </div>
+                    <div class="creative-grid" id="creativeGridContainer">
+                        <!-- Dynamic creative tools rendered by JavaScript -->
                     </div>
 
-                    <!-- Tool: PNG to JPG -->
-                    <div class="tool-content" id="tool-png-jpg">
-                        <div class="pdf-tool-container">
-                            <div class="pdf-header">
-                                <h3><i class="fas fa-file-image"></i> PNG to JPG</h3>
-                                <span style="font-size:12px;color:var(--text-light);">Convert PNG images to JPG format</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('pngJpgInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload PNG images</p>
-                                <div class="file-name" id="pngJpgFileName">No files selected</div>
-                                <input type="file" id="pngJpgInput" accept=".png" multiple style="display:none" onchange="handlePngJpgUpload(event)">
-                            </div>
-                            <div class="progress-bar" id="pngJpgProgress"><div class="progress-fill" id="pngJpgProgressFill"></div></div>
-                            <div class="status-text" id="pngJpgStatus"><i class="fas fa-spinner spinner"></i> Processing...</div>
-                            <div class="preview-area" id="pngJpgPreview">No images uploaded yet.</div>
-                            <div class="action-row">
-                                <button class="btn-primary" onclick="convertPngToJpg()"><i class="fas fa-file-image"></i> Convert to JPG</button>
-                                <button class="btn-danger" onclick="clearPdfTool('png-jpg')"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: Delete PDF Page -->
-                    <div class="tool-content" id="tool-delete-pdf">
-                        <div class="pdf-tool-container">
-                            <div class="pdf-header">
-                                <h3><i class="fas fa-trash-alt"></i> Delete PDF Page</h3>
-                                <span style="font-size:12px;color:var(--text-light);">Remove a specific page from a PDF</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('deletePdfInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload a PDF file</p>
-                                <div class="file-name" id="deletePdfFileName">No file selected</div>
-                                <input type="file" id="deletePdfInput" accept=".pdf" style="display:none" onchange="handleDeletePdfUpload(event)">
-                            </div>
-                            <div class="form-group" style="margin-top:12px;">
-                                <label>Page number to delete *</label>
-                                <input type="number" id="deletePageNum" placeholder="e.g., 1" min="1" style="width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;background:var(--bg-color);color:var(--text-color);">
-                            </div>
-                            <div class="progress-bar" id="deletePdfProgress"><div class="progress-fill" id="deletePdfProgressFill"></div></div>
-                            <div class="status-text" id="deletePdfStatus"><i class="fas fa-spinner spinner"></i> Processing...</div>
-                            <div class="preview-area" id="deletePdfPreview">No PDF uploaded yet.</div>
-                            <div class="action-row">
-                                <button class="btn-primary" onclick="deletePdfPage()"><i class="fas fa-trash-alt"></i> Delete Page</button>
-                                <button class="btn-danger" onclick="clearPdfTool('delete-pdf')"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: Merge PDF -->
-                    <div class="tool-content" id="tool-pdf-merge">
-                        <div class="pdf-tool-container">
-                            <div class="pdf-header">
-                                <h3><i class="fas fa-object-group"></i> Merge PDF</h3>
-                                <span style="font-size:12px;color:var(--text-light);">Combine multiple PDFs into one file</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('mergePdfInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload PDF files to merge</p>
-                                <div class="file-name" id="mergePdfFileName">No files selected</div>
-                                <input type="file" id="mergePdfInput" accept=".pdf" multiple style="display:none" onchange="handleMergePdfUpload(event)">
-                            </div>
-                            <div class="preview-area" id="mergePdfPreview">No PDFs uploaded yet.</div>
-                            <div class="action-row">
-                                <button class="btn-primary" onclick="mergePdfFiles()"><i class="fas fa-object-group"></i> Merge PDFs</button>
-                                <button class="btn-danger" onclick="clearPdfTool('pdf-merge')"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: PDF to Excel -->
-                    <div class="tool-content" id="tool-pdf-excel">
-                        <div class="pdf-tool-container">
-                            <div class="pdf-header">
-                                <h3><i class="fas fa-file-excel"></i> PDF to Excel</h3>
-                                <span style="font-size:12px;color:var(--text-light);">Extract tables from PDF to Excel</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('pdfExcelInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload a PDF file</p>
-                                <div class="file-name" id="pdfExcelFileName">No file selected</div>
-                                <input type="file" id="pdfExcelInput" accept=".pdf" style="display:none" onchange="handlePdfExcelUpload(event)">
-                            </div>
-                            <div class="progress-bar" id="pdfExcelProgress"><div class="progress-fill" id="pdfExcelProgressFill"></div></div>
-                            <div class="status-text" id="pdfExcelStatus"><i class="fas fa-spinner spinner"></i> Processing...</div>
-                            <div class="preview-area" id="pdfExcelPreview">No PDF uploaded yet.</div>
-                            <div class="action-row">
-                                <button class="btn-primary" onclick="convertPdfToExcel()"><i class="fas fa-file-excel"></i> Convert to Excel</button>
-                                <button class="btn-danger" onclick="clearPdfTool('pdf-excel')"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tool: PDF to Word -->
-                    <div class="tool-content" id="tool-pdf-word">
-                        <div class="pdf-tool-container">
-                            <div class="pdf-header">
-                                <h3><i class="fas fa-file-word"></i> PDF to Word</h3>
-                                <span style="font-size:12px;color:var(--text-light);">Convert PDF to editable Word document</span>
-                            </div>
-                            <div class="upload-area" onclick="document.getElementById('pdfWordInput').click()">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload a PDF file</p>
-                                <div class="file-name" id="pdfWordFileName">No file selected</div>
-                                <input type="file" id="pdfWordInput" accept=".pdf" style="display:none" onchange="handlePdfWordUpload(event)">
-                            </div>
-                            <div class="progress-bar" id="pdfWordProgress"><div class="progress-fill" id="pdfWordProgressFill"></div></div>
-                            <div class="status-text" id="pdfWordStatus"><i class="fas fa-spinner spinner"></i> Processing...</div>
-                            <div class="preview-area" id="pdfWordPreview">No PDF uploaded yet.</div>
-                            <div class="action-row">
-                                <button class="btn-primary" onclick="convertPdfToWord()"><i class="fas fa-file-word"></i> Convert to Word</button>
-                                <button class="btn-danger" onclick="clearPdfTool('pdf-word')"><i class="fas fa-trash"></i> Clear</button>
-                            </div>
-                        </div>
+                    <div style="margin-top:20px;padding:16px 20px;background:linear-gradient(135deg, rgba(124,58,237,0.1), rgba(236,72,153,0.05));border-radius:16px;border-left:4px solid var(--studio-accent);font-size:13px;color:var(--text-color);">
+                        <i class="fas fa-robot" style="color:var(--studio-accent);margin-right:8px;"></i> 
+                        <strong>AI Pro Tip:</strong> Click any card to unlock the full AI-powered editor. All designs are fully customizable and export-ready!
                     </div>
                 </div>
 
-                <!-- PDF Tools Grid - Removed Creative Design Studio -->
+                <!-- PDF Tools Grid -->
                 <div style="margin-top:40px;border-top:2px solid var(--border-color);padding-top:20px;">
                     <div class="tools-category-title"><i class="fas fa-file-pdf" style="margin-right:10px;"></i> PDF Utilities</div>
                     <div class="tools-grid" id="toolsGrid">
@@ -2457,8 +2878,8 @@
     <!-- ================= ADMIN PANEL ================= -->
     <div class="admin-panel-overlay" id="adminPanelOverlay"></div>
 
-    <!-- ================= CREATIVE TOOL MODAL (Hidden) ================= -->
-    <div class="tool-modal-overlay" id="creativeToolModal" onclick="if(event.target===this) closeCreativeTool()" style="display:none;">
+    <!-- ================= CREATIVE TOOL MODAL ================= -->
+    <div class="tool-modal-overlay" id="creativeToolModal" onclick="if(event.target===this) closeCreativeTool()">
         <div class="tool-modal" id="creativeToolContent" onclick="event.stopPropagation()">
             <div class="modal-header">
                 <h3 id="creativeToolTitle">Creative Tool</h3>
@@ -2700,7 +3121,25 @@
                 { id: 'pdf-word', name: 'PDF to Word', icon: 'fa-file-word', category: 'PDF', badge: 'Pro',
                     desc: 'Convert PDF to editable Word doc.', action: "showSection('tools'); switchTool('pdf-word')" },
                 { id: 'ocr', name: 'OCR (Image/PDF to Text)', icon: 'fa-eye', category: 'Image', badge: 'Free',
-                    desc: 'Extract text from images and PDFs.', action: "showSection('tools'); switchTool('ocr')" }
+                    desc: 'Extract text from images and PDFs.', action: "showSection('tools'); switchTool('ocr')" },
+                { id: 'passport-photo', name: 'Passport Photo', icon: 'fa-passport', category: 'Image', badge: 'Free',
+                    desc: 'Auto-crop & resize for official use.', action: "openCreativeTool('passport-photo')" },
+                { id: 'photo-crop', name: 'Photo Crop & Resize', icon: 'fa-crop-alt', category: 'Image', badge: 'Free',
+                    desc: 'Precision crop and resize images.', action: "openCreativeTool('photo-crop')" },
+                { id: 'id-card', name: 'ID Card Print', icon: 'fa-id-card', category: 'Creative', badge: 'Free',
+                    desc: 'Design and download ID cards.', action: "openCreativeTool('id-card')" },
+                { id: 'poster-maker', name: 'Pro Poster Maker', icon: 'fa-palette', category: 'Creative', badge: 'Pro',
+                    desc: 'AI-enhanced poster design.', action: "openCreativeTool('poster-maker')" },
+                { id: 'id-maker', name: 'Pro ID Maker', icon: 'fa-id-badge', category: 'Creative', badge: 'Pro',
+                    desc: 'Custom ID cards with branding.', action: "openCreativeTool('id-maker')" },
+                { id: 'shop-promotion', name: 'Shop Promotion', icon: 'fa-store', category: 'Creative', badge: 'Free',
+                    desc: 'Create marketing visuals for shops.', action: "openCreativeTool('shop-promotion')" },
+                { id: 'resume-cv', name: 'Resume/CV Builder', icon: 'fa-file-alt', category: 'Creative', badge: 'Pro',
+                    desc: 'Professional resume in minutes.', action: "openCreativeTool('resume-cv')" },
+                { id: 'application-maker', name: 'Application Maker', icon: 'fa-file-signature', category: 'Creative',
+                    badge: 'Free', desc: 'Instant application drafts.', action: "openCreativeTool('application-maker')" },
+                { id: 'document-album', name: 'Document Album', icon: 'fa-images', category: 'Creative', badge: 'Free',
+                    desc: 'Organize files into a clean album.', action: "openCreativeTool('document-album')" }
             ]
         };
 
@@ -2792,10 +3231,6 @@
         let adminAccessLevel = 'full';
         let employeeAccessPages = [];
         const genericFilters = { career: 'all', more: 'all', blog: 'all', service: 'all', rsr: 'all' };
-
-        // PDF Tool Data
-        let pdfToolFiles = {};
-        let pdfToolData = {};
 
         // ============================================================
         // SETTINGS FUNCTIONS
@@ -3180,6 +3615,7 @@
             renderSlidesCarousel();
             renderNavigation();
             renderFooterNav();
+            renderCreativeTools();
             renderToolsGrid();
             renderAds();
             const pages = appData.customPages || DEFAULT_DATA.customPages;
@@ -3460,8 +3896,33 @@
         }
 
         // ============================================================
-        // TOOLS GRID
+        // CREATIVE TOOLS RENDER
         // ============================================================
+        function renderCreativeTools() {
+            const container = document.getElementById('creativeGridContainer');
+            const tools = appData.tools || DEFAULT_DATA.tools;
+            const creativeTools = tools.filter(t => t.category === 'Creative');
+
+            if (creativeTools.length === 0) {
+                container.innerHTML =
+                    `<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-light);">No creative tools available.</div>`;
+                return;
+            }
+
+            container.innerHTML = creativeTools.map(tool => `
+                <div class="creative-card" onclick="${tool.action || 'showToast(\'Tool coming soon!\',\'info\')'}">
+                    ${tool.badge === 'Pro' ? `<span class="badge-ai"><i class="fas fa-robot"></i> ${tool.badge}</span>` : ''}
+                    ${tool.badge === 'New' ? `<span class="badge-new">${tool.badge}</span>` : ''}
+                    ${tool.badge === 'Hot' ? `<span class="badge-hot">${tool.badge}</span>` : ''}
+                    <div class="card-content">
+                        <div class="card-icon"><i class="fas ${tool.icon || 'fa-cube'}"></i></div>
+                        <h4>${tool.name}</h4>
+                        <p>${tool.desc || ''}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         function renderToolsGrid() {
             const container = document.getElementById('toolsGrid');
             const tools = appData.tools || DEFAULT_DATA.tools;
@@ -6013,706 +6474,6 @@
         }
 
         // ============================================================
-        // PDF TOOL FUNCTIONS
-        // ============================================================
-        function showPdfToolStatus(toolId, message, type = 'info') {
-            const statusEl = document.getElementById(`${toolId}Status`);
-            if (statusEl) {
-                statusEl.innerHTML = message;
-                statusEl.classList.add('show');
-                if (type === 'error') statusEl.style.color = 'var(--warning-red)';
-                else statusEl.style.color = '';
-            }
-        }
-
-        function hidePdfToolStatus(toolId) {
-            const statusEl = document.getElementById(`${toolId}Status`);
-            if (statusEl) {
-                statusEl.classList.remove('show');
-                statusEl.style.color = '';
-            }
-        }
-
-        function showPdfToolProgress(toolId, percentage) {
-            const fill = document.getElementById(`${toolId}ProgressFill`);
-            const bar = document.getElementById(`${toolId}Progress`);
-            if (fill && bar) {
-                bar.style.display = 'block';
-                fill.style.width = Math.min(percentage, 100) + '%';
-            }
-        }
-
-        function hidePdfToolProgress(toolId) {
-            const bar = document.getElementById(`${toolId}Progress`);
-            if (bar) bar.style.display = 'none';
-        }
-
-        // JPG to PDF
-        let jpgPdfFiles = [];
-
-        function handleJpgPdfUpload(event) {
-            const files = event.target.files;
-            jpgPdfFiles = [];
-            for (let f of files) jpgPdfFiles.push(f);
-            const fileNameDisplay = document.getElementById('jpgPdfFileName');
-            fileNameDisplay.textContent = jpgPdfFiles.length > 0 ? `${jpgPdfFiles.length} file(s) selected` : 'No files selected';
-            const preview = document.getElementById('jpgPdfPreview');
-            if (jpgPdfFiles.length > 0) {
-                preview.innerHTML = `
-                    <div class="file-list">${jpgPdfFiles.map(f => `<span class="file-tag"><i class="fas fa-file-image"></i> ${f.name} <span class="remove" onclick="removeJpgPdfFile('${f.name}')">&times;</span></span>`).join('')}</div>
-                    <p style="margin-top:8px;font-size:13px;color:var(--text-light);">${jpgPdfFiles.length} images ready to convert.</p>
-                `;
-            } else {
-                preview.innerHTML = 'No images uploaded yet.';
-            }
-            event.target.value = '';
-        }
-
-        function removeJpgPdfFile(name) {
-            jpgPdfFiles = jpgPdfFiles.filter(f => f.name !== name);
-            const fileNameDisplay = document.getElementById('jpgPdfFileName');
-            fileNameDisplay.textContent = jpgPdfFiles.length > 0 ? `${jpgPdfFiles.length} file(s) selected` : 'No files selected';
-            const preview = document.getElementById('jpgPdfPreview');
-            if (jpgPdfFiles.length > 0) {
-                preview.innerHTML = `
-                    <div class="file-list">${jpgPdfFiles.map(f => `<span class="file-tag"><i class="fas fa-file-image"></i> ${f.name} <span class="remove" onclick="removeJpgPdfFile('${f.name}')">&times;</span></span>`).join('')}</div>
-                    <p style="margin-top:8px;font-size:13px;color:var(--text-light);">${jpgPdfFiles.length} images ready to convert.</p>
-                `;
-            } else {
-                preview.innerHTML = 'No images uploaded yet.';
-            }
-        }
-
-        async function convertJpgToPdf() {
-            if (jpgPdfFiles.length === 0) {
-                showToast('Please upload JPG images first.', 'error');
-                return;
-            }
-
-            showPdfToolProgress('jpgPdf', 10);
-            showPdfToolStatus('jpgPdf', '<i class="fas fa-spinner spinner"></i> Converting JPG to PDF...');
-
-            try {
-                const { PDFDocument } = PDFLib;
-                const pdfDoc = await PDFDocument.create();
-
-                for (let i = 0; i < jpgPdfFiles.length; i++) {
-                    const file = jpgPdfFiles[i];
-                    const arrayBuffer = await file.arrayBuffer();
-                    let image;
-                    try {
-                        image = await pdfDoc.embedJpg(arrayBuffer);
-                    } catch (e) {
-                        // Try as PNG
-                        try {
-                            image = await pdfDoc.embedPng(arrayBuffer);
-                        } catch (e2) {
-                            showToast(`Error processing ${file.name}. Please ensure it\'s a valid JPG or PNG.`, 'error');
-                            hidePdfToolProgress('jpgPdf');
-                            hidePdfToolStatus('jpgPdf');
-                            return;
-                        }
-                    }
-                    const page = pdfDoc.addPage([image.width, image.height]);
-                    page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
-                    const pct = Math.round(((i + 1) / jpgPdfFiles.length) * 90) + 10;
-                    showPdfToolProgress('jpgPdf', pct);
-                }
-
-                const pdfBytes = await pdfDoc.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'converted.pdf';
-                a.click();
-                URL.revokeObjectURL(url);
-
-                hidePdfToolProgress('jpgPdf');
-                hidePdfToolStatus('jpgPdf');
-                showToast('✅ PDF converted successfully!', 'success');
-            } catch (error) {
-                console.error(error);
-                hidePdfToolProgress('jpgPdf');
-                showPdfToolStatus('jpgPdf', '❌ Error converting to PDF. Please try again.', 'error');
-                showToast('Error converting to PDF.', 'error');
-            }
-        }
-
-        // PDF to JPG
-        let pdfJpgFile = null;
-
-        function handlePdfJpgUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                pdfJpgFile = file;
-                document.getElementById('pdfJpgFileName').textContent = file.name;
-                document.getElementById('pdfJpgPreview').innerHTML =
-                    `<p style="color:var(--text-light);"><i class="fas fa-file-pdf"></i> ${file.name} loaded. Click Convert to extract pages as JPG.</p>`;
-                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
-            }
-            event.target.value = '';
-        }
-
-        async function convertPdfToJpg() {
-            if (!pdfJpgFile) {
-                showToast('Please upload a PDF file first.', 'error');
-                return;
-            }
-
-            showPdfToolProgress('pdfJpg', 10);
-            showPdfToolStatus('pdfJpg', '<i class="fas fa-spinner spinner"></i> Extracting PDF pages to JPG...');
-
-            try {
-                const arrayBuffer = await pdfJpgFile.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-                const totalPages = pdf.numPages;
-                const zip = new JSZip();
-
-                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-                    const viewport = page.getViewport({ scale: 2.0 });
-                    const canvas = document.createElement('canvas');
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-                    const ctx = canvas.getContext('2d');
-                    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
-                    const blob = await fetch(dataUrl).then(res => res.blob());
-                    zip.file(`page_${pageNum}.jpg`, blob);
-                    const pct = Math.round((pageNum / totalPages) * 90) + 10;
-                    showPdfToolProgress('pdfJpg', pct);
-                }
-
-                const zipBlob = await zip.generateAsync({ type: 'blob' });
-                const url = URL.createObjectURL(zipBlob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'pdf_pages.zip';
-                a.click();
-                URL.revokeObjectURL(url);
-
-                hidePdfToolProgress('pdfJpg');
-                hidePdfToolStatus('pdfJpg');
-                document.getElementById('pdfJpgPreview').innerHTML =
-                    `<p style="color:var(--success-green);">✅ Successfully extracted ${totalPages} pages. ZIP downloaded.</p>`;
-                showToast('✅ PDF extracted to JPG!', 'success');
-            } catch (error) {
-                console.error(error);
-                hidePdfToolProgress('pdfJpg');
-                showPdfToolStatus('pdfJpg', '❌ Error extracting PDF pages.', 'error');
-                showToast('Error extracting PDF.', 'error');
-            }
-        }
-
-        // PNG to PDF
-        let pngPdfFiles = [];
-
-        function handlePngPdfUpload(event) {
-            const files = event.target.files;
-            pngPdfFiles = [];
-            for (let f of files) pngPdfFiles.push(f);
-            const fileNameDisplay = document.getElementById('pngPdfFileName');
-            fileNameDisplay.textContent = pngPdfFiles.length > 0 ? `${pngPdfFiles.length} file(s) selected` : 'No files selected';
-            const preview = document.getElementById('pngPdfPreview');
-            if (pngPdfFiles.length > 0) {
-                preview.innerHTML = `
-                    <div class="file-list">${pngPdfFiles.map(f => `<span class="file-tag"><i class="fas fa-file-image"></i> ${f.name} <span class="remove" onclick="removePngPdfFile('${f.name}')">&times;</span></span>`).join('')}</div>
-                    <p style="margin-top:8px;font-size:13px;color:var(--text-light);">${pngPdfFiles.length} images ready to convert.</p>
-                `;
-            } else {
-                preview.innerHTML = 'No images uploaded yet.';
-            }
-            event.target.value = '';
-        }
-
-        function removePngPdfFile(name) {
-            pngPdfFiles = pngPdfFiles.filter(f => f.name !== name);
-            const fileNameDisplay = document.getElementById('pngPdfFileName');
-            fileNameDisplay.textContent = pngPdfFiles.length > 0 ? `${pngPdfFiles.length} file(s) selected` : 'No files selected';
-            const preview = document.getElementById('pngPdfPreview');
-            if (pngPdfFiles.length > 0) {
-                preview.innerHTML = `
-                    <div class="file-list">${pngPdfFiles.map(f => `<span class="file-tag"><i class="fas fa-file-image"></i> ${f.name} <span class="remove" onclick="removePngPdfFile('${f.name}')">&times;</span></span>`).join('')}</div>
-                    <p style="margin-top:8px;font-size:13px;color:var(--text-light);">${pngPdfFiles.length} images ready to convert.</p>
-                `;
-            } else {
-                preview.innerHTML = 'No images uploaded yet.';
-            }
-        }
-
-        async function convertPngToPdf() {
-            if (pngPdfFiles.length === 0) {
-                showToast('Please upload PNG images first.', 'error');
-                return;
-            }
-
-            showPdfToolProgress('pngPdf', 10);
-            showPdfToolStatus('pngPdf', '<i class="fas fa-spinner spinner"></i> Converting PNG to PDF...');
-
-            try {
-                const { PDFDocument } = PDFLib;
-                const pdfDoc = await PDFDocument.create();
-
-                for (let i = 0; i < pngPdfFiles.length; i++) {
-                    const file = pngPdfFiles[i];
-                    const arrayBuffer = await file.arrayBuffer();
-                    const image = await pdfDoc.embedPng(arrayBuffer);
-                    const page = pdfDoc.addPage([image.width, image.height]);
-                    page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
-                    const pct = Math.round(((i + 1) / pngPdfFiles.length) * 90) + 10;
-                    showPdfToolProgress('pngPdf', pct);
-                }
-
-                const pdfBytes = await pdfDoc.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'converted.pdf';
-                a.click();
-                URL.revokeObjectURL(url);
-
-                hidePdfToolProgress('pngPdf');
-                hidePdfToolStatus('pngPdf');
-                showToast('✅ PDF converted successfully!', 'success');
-            } catch (error) {
-                console.error(error);
-                hidePdfToolProgress('pngPdf');
-                showPdfToolStatus('pngPdf', '❌ Error converting to PDF.', 'error');
-                showToast('Error converting to PDF.', 'error');
-            }
-        }
-
-        // PNG to JPG
-        let pngJpgFiles = [];
-
-        function handlePngJpgUpload(event) {
-            const files = event.target.files;
-            pngJpgFiles = [];
-            for (let f of files) pngJpgFiles.push(f);
-            const fileNameDisplay = document.getElementById('pngJpgFileName');
-            fileNameDisplay.textContent = pngJpgFiles.length > 0 ? `${pngJpgFiles.length} file(s) selected` : 'No files selected';
-            const preview = document.getElementById('pngJpgPreview');
-            if (pngJpgFiles.length > 0) {
-                preview.innerHTML = `
-                    <div class="file-list">${pngJpgFiles.map(f => `<span class="file-tag"><i class="fas fa-file-image"></i> ${f.name} <span class="remove" onclick="removePngJpgFile('${f.name}')">&times;</span></span>`).join('')}</div>
-                    <p style="margin-top:8px;font-size:13px;color:var(--text-light);">${pngJpgFiles.length} PNG images ready to convert to JPG.</p>
-                `;
-            } else {
-                preview.innerHTML = 'No images uploaded yet.';
-            }
-            event.target.value = '';
-        }
-
-        function removePngJpgFile(name) {
-            pngJpgFiles = pngJpgFiles.filter(f => f.name !== name);
-            const fileNameDisplay = document.getElementById('pngJpgFileName');
-            fileNameDisplay.textContent = pngJpgFiles.length > 0 ? `${pngJpgFiles.length} file(s) selected` : 'No files selected';
-            const preview = document.getElementById('pngJpgPreview');
-            if (pngJpgFiles.length > 0) {
-                preview.innerHTML = `
-                    <div class="file-list">${pngJpgFiles.map(f => `<span class="file-tag"><i class="fas fa-file-image"></i> ${f.name} <span class="remove" onclick="removePngJpgFile('${f.name}')">&times;</span></span>`).join('')}</div>
-                    <p style="margin-top:8px;font-size:13px;color:var(--text-light);">${pngJpgFiles.length} PNG images ready to convert.</p>
-                `;
-            } else {
-                preview.innerHTML = 'No images uploaded yet.';
-            }
-        }
-
-        async function convertPngToJpg() {
-            if (pngJpgFiles.length === 0) {
-                showToast('Please upload PNG images first.', 'error');
-                return;
-            }
-
-            showPdfToolProgress('pngJpg', 10);
-            showPdfToolStatus('pngJpg', '<i class="fas fa-spinner spinner"></i> Converting PNG to JPG...');
-
-            try {
-                const zip = new JSZip();
-
-                for (let i = 0; i < pngJpgFiles.length; i++) {
-                    const file = pngJpgFiles[i];
-                    const arrayBuffer = await file.arrayBuffer();
-                    const blob = new Blob([arrayBuffer], { type: 'image/png' });
-                    const url = URL.createObjectURL(blob);
-                    const img = new Image();
-                    await new Promise((resolve) => {
-                        img.onload = resolve;
-                        img.src = url;
-                    });
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-                    const jpgBlob = await fetch(dataUrl).then(res => res.blob());
-                    const baseName = file.name.replace(/\.png$/i, '');
-                    zip.file(`${baseName}.jpg`, jpgBlob);
-                    URL.revokeObjectURL(url);
-                    const pct = Math.round(((i + 1) / pngJpgFiles.length) * 90) + 10;
-                    showPdfToolProgress('pngJpg', pct);
-                }
-
-                const zipBlob = await zip.generateAsync({ type: 'blob' });
-                const downloadUrl = URL.createObjectURL(zipBlob);
-                const a = document.createElement('a');
-                a.href = downloadUrl;
-                a.download = 'converted_jpgs.zip';
-                a.click();
-                URL.revokeObjectURL(downloadUrl);
-
-                hidePdfToolProgress('pngJpg');
-                hidePdfToolStatus('pngJpg');
-                showToast('✅ PNG to JPG conversion complete!', 'success');
-            } catch (error) {
-                console.error(error);
-                hidePdfToolProgress('pngJpg');
-                showPdfToolStatus('pngJpg', '❌ Error converting to JPG.', 'error');
-                showToast('Error converting to JPG.', 'error');
-            }
-        }
-
-        // Delete PDF Page
-        let deletePdfFile = null;
-
-        function handleDeletePdfUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                deletePdfFile = file;
-                document.getElementById('deletePdfFileName').textContent = file.name;
-                document.getElementById('deletePdfPreview').innerHTML =
-                    `<p style="color:var(--text-light);"><i class="fas fa-file-pdf"></i> ${file.name} loaded. Specify the page number to delete.</p>`;
-            }
-            event.target.value = '';
-        }
-
-        async function deletePdfPage() {
-            if (!deletePdfFile) {
-                showToast('Please upload a PDF file first.', 'error');
-                return;
-            }
-
-            const pageNum = parseInt(document.getElementById('deletePageNum').value);
-            if (!pageNum || pageNum < 1) {
-                showToast('Please enter a valid page number.', 'error');
-                return;
-            }
-
-            showPdfToolProgress('deletePdf', 10);
-            showPdfToolStatus('deletePdf', '<i class="fas fa-spinner spinner"></i> Deleting page...');
-
-            try {
-                const arrayBuffer = await deletePdfFile.arrayBuffer();
-                const { PDFDocument } = PDFLib;
-                const pdfDoc = await PDFDocument.load(arrayBuffer);
-                const totalPages = pdfDoc.getPageCount();
-
-                if (pageNum > totalPages) {
-                    showToast(`Page number ${pageNum} exceeds total pages (${totalPages}).`, 'error');
-                    hidePdfToolProgress('deletePdf');
-                    hidePdfToolStatus('deletePdf');
-                    return;
-                }
-
-                const newDoc = await PDFDocument.create();
-                const indices = [];
-                for (let i = 0; i < totalPages; i++) {
-                    if (i !== pageNum - 1) indices.push(i);
-                }
-                const pages = await newDoc.copyPages(pdfDoc, indices);
-                pages.forEach(p => newDoc.addPage(p));
-
-                const pdfBytes = await newDoc.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'deleted.pdf';
-                a.click();
-                URL.revokeObjectURL(url);
-
-                hidePdfToolProgress('deletePdf');
-                hidePdfToolStatus('deletePdf');
-                document.getElementById('deletePdfPreview').innerHTML =
-                    `<p style="color:var(--success-green);">✅ Page ${pageNum} deleted successfully! New PDF downloaded.</p>`;
-                showToast('✅ Page deleted!', 'success');
-            } catch (error) {
-                console.error(error);
-                hidePdfToolProgress('deletePdf');
-                showPdfToolStatus('deletePdf', '❌ Error deleting page.', 'error');
-                showToast('Error deleting page.', 'error');
-            }
-        }
-
-        // Merge PDF
-        let mergePdfFiles = [];
-
-        function handleMergePdfUpload(event) {
-            const files = event.target.files;
-            mergePdfFiles = [];
-            for (let f of files) mergePdfFiles.push(f);
-            const fileNameDisplay = document.getElementById('mergePdfFileName');
-            fileNameDisplay.textContent = mergePdfFiles.length > 0 ? `${mergePdfFiles.length} file(s) selected` : 'No files selected';
-            const preview = document.getElementById('mergePdfPreview');
-            if (mergePdfFiles.length > 0) {
-                preview.innerHTML = `
-                    <div class="file-list">${mergePdfFiles.map(f => `<span class="file-tag"><i class="fas fa-file-pdf"></i> ${f.name} <span class="remove" onclick="removeMergePdfFile('${f.name}')">&times;</span></span>`).join('')}</div>
-                    <p style="margin-top:8px;font-size:13px;color:var(--text-light);">${mergePdfFiles.length} PDFs ready to merge.</p>
-                `;
-            } else {
-                preview.innerHTML = 'No PDFs uploaded yet.';
-            }
-            event.target.value = '';
-        }
-
-        function removeMergePdfFile(name) {
-            mergePdfFiles = mergePdfFiles.filter(f => f.name !== name);
-            const fileNameDisplay = document.getElementById('mergePdfFileName');
-            fileNameDisplay.textContent = mergePdfFiles.length > 0 ? `${mergePdfFiles.length} file(s) selected` : 'No files selected';
-            const preview = document.getElementById('mergePdfPreview');
-            if (mergePdfFiles.length > 0) {
-                preview.innerHTML = `
-                    <div class="file-list">${mergePdfFiles.map(f => `<span class="file-tag"><i class="fas fa-file-pdf"></i> ${f.name} <span class="remove" onclick="removeMergePdfFile('${f.name}')">&times;</span></span>`).join('')}</div>
-                    <p style="margin-top:8px;font-size:13px;color:var(--text-light);">${mergePdfFiles.length} PDFs ready to merge.</p>
-                `;
-            } else {
-                preview.innerHTML = 'No PDFs uploaded yet.';
-            }
-        }
-
-        async function mergePdfFiles() {
-            if (mergePdfFiles.length < 2) {
-                showToast('Please upload at least 2 PDF files to merge.', 'error');
-                return;
-            }
-
-            showPdfToolStatus('mergePdf', '<i class="fas fa-spinner spinner"></i> Merging PDFs...');
-
-            try {
-                const { PDFDocument } = PDFLib;
-                const mergedPdf = await PDFDocument.create();
-
-                for (let i = 0; i < mergePdfFiles.length; i++) {
-                    const file = mergePdfFiles[i];
-                    const arrayBuffer = await file.arrayBuffer();
-                    const pdf = await PDFDocument.load(arrayBuffer);
-                    const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-                    pages.forEach(p => mergedPdf.addPage(p));
-                }
-
-                const pdfBytes = await mergedPdf.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'merged.pdf';
-                a.click();
-                URL.revokeObjectURL(url);
-
-                hidePdfToolStatus('mergePdf');
-                document.getElementById('mergePdfPreview').innerHTML =
-                    `<p style="color:var(--success-green);">✅ ${mergePdfFiles.length} PDFs merged successfully!</p>`;
-                showToast('✅ PDFs merged!', 'success');
-            } catch (error) {
-                console.error(error);
-                hidePdfToolStatus('mergePdf');
-                showPdfToolStatus('mergePdf', '❌ Error merging PDFs.', 'error');
-                showToast('Error merging PDFs.', 'error');
-            }
-        }
-
-        // PDF to Excel
-        let pdfExcelFile = null;
-
-        function handlePdfExcelUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                pdfExcelFile = file;
-                document.getElementById('pdfExcelFileName').textContent = file.name;
-                document.getElementById('pdfExcelPreview').innerHTML =
-                    `<p style="color:var(--text-light);"><i class="fas fa-file-pdf"></i> ${file.name} loaded. Click Convert to Excel.</p>`;
-            }
-            event.target.value = '';
-        }
-
-        async function convertPdfToExcel() {
-            if (!pdfExcelFile) {
-                showToast('Please upload a PDF file first.', 'error');
-                return;
-            }
-
-            showPdfToolProgress('pdfExcel', 10);
-            showPdfToolStatus('pdfExcel', '<i class="fas fa-spinner spinner"></i> Processing PDF to Excel...');
-
-            try {
-                const arrayBuffer = await pdfExcelFile.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-                const totalPages = pdf.numPages;
-                let allText = '';
-                let tableData = [];
-
-                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-                    const textContent = await page.getTextContent();
-                    const strings = textContent.items.map(item => item.str.trim()).filter(s => s.length > 0);
-                    if (strings.length > 0) {
-                        tableData.push(['Page ' + pageNum, strings.join(' ')]);
-                    }
-                    allText += strings.join(' ') + '\n';
-                    const pct = Math.round((pageNum / totalPages) * 90) + 10;
-                    showPdfToolProgress('pdfExcel', pct);
-                }
-
-                if (tableData.length === 0) {
-                    showToast('No text found in this PDF.', 'error');
-                    hidePdfToolProgress('pdfExcel');
-                    hidePdfToolStatus('pdfExcel');
-                    return;
-                }
-
-                tableData.unshift(['Page', 'Extracted Text']);
-
-                const wb = XLSX.utils.book_new();
-                const ws = XLSX.utils.aoa_to_sheet(tableData);
-                XLSX.utils.book_append_sheet(wb, ws, 'PDF Data');
-
-                const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-                const blob = new Blob([wbout], { type: 'application/octet-stream' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'pdf_data.xlsx';
-                a.click();
-                URL.revokeObjectURL(url);
-
-                hidePdfToolProgress('pdfExcel');
-                hidePdfToolStatus('pdfExcel');
-                document.getElementById('pdfExcelPreview').innerHTML =
-                    `<p style="color:var(--success-green);">✅ PDF data extracted to Excel! Downloaded.</p>`;
-                showToast('✅ PDF to Excel conversion complete!', 'success');
-            } catch (error) {
-                console.error(error);
-                hidePdfToolProgress('pdfExcel');
-                showPdfToolStatus('pdfExcel', '❌ Error processing PDF.', 'error');
-                showToast('Error processing PDF.', 'error');
-            }
-        }
-
-        // PDF to Word
-        let pdfWordFile = null;
-
-        function handlePdfWordUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                pdfWordFile = file;
-                document.getElementById('pdfWordFileName').textContent = file.name;
-                document.getElementById('pdfWordPreview').innerHTML =
-                    `<p style="color:var(--text-light);"><i class="fas fa-file-pdf"></i> ${file.name} loaded. Click Convert to Word.</p>`;
-            }
-            event.target.value = '';
-        }
-
-        async function convertPdfToWord() {
-            if (!pdfWordFile) {
-                showToast('Please upload a PDF file first.', 'error');
-                return;
-            }
-
-            showPdfToolProgress('pdfWord', 10);
-            showPdfToolStatus('pdfWord', '<i class="fas fa-spinner spinner"></i> Processing PDF to Word...');
-
-            try {
-                const arrayBuffer = await pdfWordFile.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-                const totalPages = pdf.numPages;
-                let htmlContent = '<html><head><meta charset="utf-8"><title>PDF to Word</title></head><body>';
-
-                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-                    const textContent = await page.getTextContent();
-                    const strings = textContent.items.map(item => item.str.trim()).filter(s => s.length > 0);
-                    htmlContent += `<h3>Page ${pageNum}</h3><p>${strings.join(' ')}</p>`;
-                    const pct = Math.round((pageNum / totalPages) * 90) + 10;
-                    showPdfToolProgress('pdfWord', pct);
-                }
-
-                htmlContent += '</body></html>';
-
-                const blob = new Blob(['\uFEFF' + htmlContent], { type: 'application/msword;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'pdf_to_word.doc';
-                a.click();
-                URL.revokeObjectURL(url);
-
-                hidePdfToolProgress('pdfWord');
-                hidePdfToolStatus('pdfWord');
-                document.getElementById('pdfWordPreview').innerHTML =
-                    `<p style="color:var(--success-green);">✅ PDF converted to Word document!</p>`;
-                showToast('✅ PDF to Word conversion complete!', 'success');
-            } catch (error) {
-                console.error(error);
-                hidePdfToolProgress('pdfWord');
-                showPdfToolStatus('pdfWord', '❌ Error processing PDF.', 'error');
-                showToast('Error processing PDF.', 'error');
-            }
-        }
-
-        // Clear PDF Tool
-        function clearPdfTool(toolId) {
-            const toolMap = {
-                'jpg-pdf': { files: 'jpgPdfFiles', preview: 'jpgPdfPreview', fileName: 'jpgPdfFileName', input: 'jpgPdfInput' },
-                'pdf-jpg': { files: 'pdfJpgFile', preview: 'pdfJpgPreview', fileName: 'pdfJpgFileName', input: 'pdfJpgInput' },
-                'png-pdf': { files: 'pngPdfFiles', preview: 'pngPdfPreview', fileName: 'pngPdfFileName', input: 'pngPdfInput' },
-                'png-jpg': { files: 'pngJpgFiles', preview: 'pngJpgPreview', fileName: 'pngJpgFileName', input: 'pngJpgInput' },
-                'delete-pdf': { files: 'deletePdfFile', preview: 'deletePdfPreview', fileName: 'deletePdfFileName',
-                    input: 'deletePdfInput' },
-                'pdf-merge': { files: 'mergePdfFiles', preview: 'mergePdfPreview', fileName: 'mergePdfFileName',
-                    input: 'mergePdfInput' },
-                'pdf-excel': { files: 'pdfExcelFile', preview: 'pdfExcelPreview', fileName: 'pdfExcelFileName',
-                    input: 'pdfExcelInput' },
-                'pdf-word': { files: 'pdfWordFile', preview: 'pdfWordPreview', fileName: 'pdfWordFileName',
-                    input: 'pdfWordInput' }
-            };
-
-            const map = toolMap[toolId];
-            if (!map) return;
-
-            // Clear file variables
-            if (toolId === 'jpg-pdf') jpgPdfFiles = [];
-            else if (toolId === 'pdf-jpg') pdfJpgFile = null;
-            else if (toolId === 'png-pdf') pngPdfFiles = [];
-            else if (toolId === 'png-jpg') pngJpgFiles = [];
-            else if (toolId === 'delete-pdf') deletePdfFile = null;
-            else if (toolId === 'pdf-merge') mergePdfFiles = [];
-            else if (toolId === 'pdf-excel') pdfExcelFile = null;
-            else if (toolId === 'pdf-word') pdfWordFile = null;
-
-            // Clear UI
-            document.getElementById(map.fileName).textContent = 'No file selected';
-            document.getElementById(map.preview).innerHTML =
-                toolId === 'jpg-pdf' || toolId === 'png-pdf' || toolId === 'png-jpg' || toolId === 'pdf-merge' ?
-                'No files uploaded yet.' :
-                'No PDF uploaded yet.';
-            document.getElementById(map.input).value = '';
-
-            // Clear page number for delete-pdf
-            if (toolId === 'delete-pdf') {
-                document.getElementById('deletePageNum').value = '';
-            }
-
-            // Hide progress and status
-            hidePdfToolProgress(toolId);
-            hidePdfToolStatus(toolId);
-
-            showToast('Cleared.', 'info');
-        }
-
-        // ============================================================
         // PAGE EDITOR FUNCTIONS
         // ============================================================
         function openPageEditor(page) {
@@ -7118,36 +6879,679 @@
         }
 
         // ============================================================
-        // CREATIVE TOOL FUNCTIONS (Hidden)
+        // CREATIVE TOOL FUNCTIONS
         // ============================================================
         function openCreativeTool(toolId) {
-            // Function kept but tools hidden - no action needed
-            showToast('Creative tools are currently unavailable.', 'info');
+            const modal = document.getElementById('creativeToolModal');
+            const body = document.getElementById('creativeToolBody');
+            const title = document.getElementById('creativeToolTitle');
+
+            const toolData = {
+                'id-card': {
+                    title: '🪪 ID Card Print',
+                    html: `
+                        <div class="form-group"><label>Full Name</label><input type="text" id="idName" placeholder="Enter full name" value="John Doe"></div>
+                        <div class="form-group"><label>Designation / Role</label><input type="text" id="idRole" placeholder="e.g., Software Engineer" value="Developer"></div>
+                        <div class="form-group"><label>Company / Organization</label><input type="text" id="idCompany" placeholder="Company name" value="Dream Josh"></div>
+                        <div class="form-group"><label>Photo (optional)</label>
+                            <div class="file-upload-area" onclick="document.getElementById('idPhotoInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload a photo</p>
+                                <div class="file-name-display" id="idPhotoName">No file selected</div>
+                                <input type="file" id="idPhotoInput" accept="image/*" style="display:none" onchange="handleIdPhotoUpload(event)">
+                            </div>
+                        </div>
+                        <div class="action-row">
+                            <button class="btn-download" onclick="generateIdCard()"><i class="fas fa-download"></i> Download ID Card</button>
+                            <button class="btn-print" onclick="printIdCard()"><i class="fas fa-print"></i> Print</button>
+                            <button class="btn-clear-tool" onclick="clearCreativeTool('id-card')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="preview-box" id="idPreview"><p style="color:var(--text-light);">Your ID card preview will appear here.</p></div>
+                    `
+                },
+                'passport-photo': {
+                    title: '📸 Passport Photo',
+                    html: `
+                        <div class="form-group"><label>Upload Photo</label>
+                            <div class="file-upload-area" onclick="document.getElementById('passportPhotoInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload a photo for passport size</p>
+                                <div class="file-name-display" id="passportPhotoName">No file selected</div>
+                                <input type="file" id="passportPhotoInput" accept="image/*" style="display:none" onchange="handlePassportPhotoUpload(event)">
+                            </div>
+                        </div>
+                        <div class="action-row">
+                            <button class="btn-download" onclick="generatePassportPhoto()"><i class="fas fa-download"></i> Download Passport Photo</button>
+                            <button class="btn-print" onclick="printPassportPhoto()"><i class="fas fa-print"></i> Print</button>
+                            <button class="btn-clear-tool" onclick="clearCreativeTool('passport-photo')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="preview-box" id="passportPreview"><p style="color:var(--text-light);">Passport photo preview will appear here.</p></div>
+                    `
+                },
+                'photo-crop': {
+                    title: '✂️ Photo Crop & Resize',
+                    html: `
+                        <div class="form-group"><label>Upload Photo</label>
+                            <div class="file-upload-area" onclick="document.getElementById('cropPhotoInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload a photo to crop</p>
+                                <div class="file-name-display" id="cropPhotoName">No file selected</div>
+                                <input type="file" id="cropPhotoInput" accept="image/*" style="display:none" onchange="handleCropPhotoUpload(event)">
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Width (px)</label><input type="number" id="cropWidth" value="400" min="10"></div>
+                        <div class="form-group"><label>Height (px)</label><input type="number" id="cropHeight" value="400" min="10"></div>
+                        <div class="action-row">
+                            <button class="btn-download" onclick="cropAndResize()"><i class="fas fa-download"></i> Download Cropped Image</button>
+                            <button class="btn-clear-tool" onclick="clearCreativeTool('photo-crop')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="preview-box" id="cropPreview"><p style="color:var(--text-light);">Cropped image preview will appear here.</p></div>
+                    `
+                },
+                'poster-maker': {
+                    title: '🖼️ Pro Poster Maker',
+                    html: `
+                        <div class="form-group"><label>Poster Title</label><input type="text" id="posterTitle" placeholder="Event / Sale Title" value="🔥 Mega Sale"></div>
+                        <div class="form-group"><label>Subtitle / Description</label><textarea id="posterDesc" placeholder="Enter description" rows="3">Up to 50% off on all items!</textarea></div>
+                        <div class="form-group"><label>Background Color</label><input type="color" id="posterColor" value="#1976d2"></div>
+                        <div class="form-group"><label>Text Color</label><input type="color" id="posterTextColor" value="#ffffff"></div>
+                        <div class="action-row">
+                            <button class="btn-download" onclick="generatePoster()"><i class="fas fa-download"></i> Download Poster</button>
+                            <button class="btn-clear-tool" onclick="clearCreativeTool('poster-maker')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="preview-box" id="posterPreview"><p style="color:var(--text-light);">Poster preview will appear here.</p></div>
+                    `
+                },
+                'id-maker': {
+                    title: '🪪 Pro ID Maker',
+                    html: `
+                        <div class="form-group"><label>ID Type</label><input type="text" id="idType" placeholder="e.g., Student, Employee" value="Student ID"></div>
+                        <div class="form-group"><label>Name</label><input type="text" id="idName2" placeholder="Full name" value="John Doe"></div>
+                        <div class="form-group"><label>ID Number</label><input type="text" id="idNumber" placeholder="ID number" value="JD-001"></div>
+                        <div class="action-row">
+                            <button class="btn-download" onclick="generateProId()"><i class="fas fa-download"></i> Download ID</button>
+                            <button class="btn-clear-tool" onclick="clearCreativeTool('id-maker')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="preview-box" id="idMakerPreview"><p style="color:var(--text-light);">ID preview will appear here.</p></div>
+                    `
+                },
+                'shop-promotion': {
+                    title: '🏪 Shop Promotion Maker',
+                    html: `
+                        <div class="form-group"><label>Shop Name</label><input type="text" id="shopName" placeholder="Shop name" value="Dream Store"></div>
+                        <div class="form-group"><label>Promotion Text</label><textarea id="shopPromo" placeholder="Enter promotion message" rows="3">Visit our shop for the best deals!</textarea></div>
+                        <div class="form-group"><label>Contact / Location</label><input type="text" id="shopContact" placeholder="Phone / Address" value="+91-9876543210"></div>
+                        <div class="action-row">
+                            <button class="btn-download" onclick="generateShopPromo()"><i class="fas fa-download"></i> Download Promotion</button>
+                            <button class="btn-clear-tool" onclick="clearCreativeTool('shop-promotion')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="preview-box" id="shopPreview"><p style="color:var(--text-light);">Promotion preview will appear here.</p></div>
+                    `
+                },
+                'resume-cv': {
+                    title: '📄 Resume / CV Builder',
+                    html: `
+                        <div class="form-group"><label>Full Name</label><input type="text" id="resumeName" placeholder="Full name" value="John Doe"></div>
+                        <div class="form-group"><label>Job Title / Headline</label><input type="text" id="resumeTitle" placeholder="e.g., Software Developer" value="Full Stack Developer"></div>
+                        <div class="form-group"><label>Summary / About</label><textarea id="resumeSummary" placeholder="Write a brief summary" rows="4">Experienced developer with 5+ years of experience in web technologies.</textarea></div>
+                        <div class="form-group"><label>Contact Email</label><input type="email" id="resumeEmail" placeholder="Email address" value="john@example.com"></div>
+                        <div class="form-group"><label>Phone Number</label><input type="text" id="resumePhone" placeholder="Phone number" value="+91-9876543210"></div>
+                        <div class="action-row">
+                            <button class="btn-download" onclick="generateResume()"><i class="fas fa-download"></i> Download Resume (PDF)</button>
+                            <button class="btn-print" onclick="printResume()"><i class="fas fa-print"></i> Print</button>
+                            <button class="btn-clear-tool" onclick="clearCreativeTool('resume-cv')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="preview-box" id="resumePreview"><p style="color:var(--text-light);">Resume preview will appear here.</p></div>
+                    `
+                },
+                'application-maker': {
+                    title: '📝 Application Maker',
+                    html: `
+                        <div class="form-group"><label>Your Name</label><input type="text" id="appName" placeholder="Full name" value="John Doe"></div>
+                        <div class="form-group"><label>Application Type</label><input type="text" id="appType" placeholder="e.g., Job, Leave, Passport" value="Job Application"></div>
+                        <div class="form-group"><label>Application Text</label><textarea id="appText" placeholder="Write your application here" rows="6">I am writing to apply for the position of Software Engineer at your esteemed company.</textarea></div>
+                        <div class="action-row">
+                            <button class="btn-download" onclick="generateApplication()"><i class="fas fa-download"></i> Download Application</button>
+                            <button class="btn-print" onclick="printApplication()"><i class="fas fa-print"></i> Print</button>
+                            <button class="btn-clear-tool" onclick="clearCreativeTool('application-maker')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="preview-box" id="appPreview"><p style="color:var(--text-light);">Application preview will appear here.</p></div>
+                    `
+                },
+                'document-album': {
+                    title: '🖼️ Document Album',
+                    html: `
+                        <div class="form-group"><label>Document Title</label><input type="text" id="albumTitle" placeholder="Album title" value="My Documents"></div>
+                        <div class="form-group"><label>Upload Documents (Images/PDFs)</label>
+                            <div class="file-upload-area" onclick="document.getElementById('albumFileInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload multiple files</p>
+                                <div class="file-name-display" id="albumFileName">No files selected</div>
+                                <input type="file" id="albumFileInput" accept="image/*, .pdf" multiple style="display:none" onchange="handleAlbumFiles(event)">
+                            </div>
+                        </div>
+                        <div class="action-row">
+                            <button class="btn-download" onclick="generateAlbum()"><i class="fas fa-download"></i> Download Album (ZIP)</button>
+                            <button class="btn-clear-tool" onclick="clearCreativeTool('document-album')"><i class="fas fa-trash"></i> Clear</button>
+                        </div>
+                        <div class="preview-box" id="albumPreview"><p style="color:var(--text-light);">Album preview will appear here.</p></div>
+                    `
+                }
+            };
+
+            const data = toolData[toolId];
+            if (data) {
+                title.textContent = data.title;
+                body.innerHTML = data.html;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
         }
 
         function closeCreativeTool() {
-            // No action
+            document.getElementById('creativeToolModal').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
-        function handleIdPhotoUpload(e) {}
-        function generateIdCard() {}
-        function printIdCard() {}
-        function handlePassportPhotoUpload(e) {}
-        function generatePassportPhoto() {}
-        function printPassportPhoto() {}
-        function handleCropPhotoUpload(e) {}
-        function cropAndResize() {}
-        function generatePoster() {}
-        function generateProId() {}
-        function generateShopPromo() {}
-        function generateResume() {}
-        function printResume() {}
-        function generateApplication() {}
-        function printApplication() {}
-        function handleAlbumFiles(e) {}
-        function removeAlbumFile(idx) {}
-        function generateAlbum() {}
-        function clearCreativeTool(toolId) {}
+        let idPhotoData = null;
+
+        function handleIdPhotoUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    idPhotoData = ev.target.result;
+                    document.getElementById('idPhotoName').textContent = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function generateIdCard() {
+            const name = document.getElementById('idName').value || 'John Doe';
+            const role = document.getElementById('idRole').value || 'Developer';
+            const company = document.getElementById('idCompany').value || 'Dream Josh';
+            const preview = document.getElementById('idPreview');
+
+            let photoHtml = idPhotoData ?
+                `<img src="${idPhotoData}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #fff;">` :
+                `<div style="width:100px;height:100px;border-radius:50%;background:#ccc;display:flex;align-items:center;justify-content:center;color:#fff;font-size:40px;border:3px solid #fff;"><i class="fas fa-user"></i></div>`;
+
+            preview.innerHTML = `
+                <div style="background:linear-gradient(135deg,#123c9b,#1976d2);color:#fff;padding:20px;border-radius:12px;text-align:center;max-width:350px;margin:auto;">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                        ${photoHtml}
+                        <h3 style="margin:4px 0;font-size:20px;">${name}</h3>
+                        <p style="margin:0;font-size:14px;opacity:0.9;">${role}</p>
+                        <p style="margin:0;font-size:12px;opacity:0.7;">${company}</p>
+                        <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.3);padding-top:8px;width:100%;font-size:11px;opacity:0.6;"><i class="fas fa-id-card"></i> Valid ID</div>
+                    </div>
+                </div>
+                <p style="text-align:center;margin-top:8px;font-size:12px;color:var(--text-light);">Click Download to save as image.</p>
+            `;
+            showToast('✅ ID Card preview generated!', 'success');
+        }
+
+        function printIdCard() {
+            const preview = document.getElementById('idPreview');
+            const content = preview.innerHTML;
+            if (content.includes('Your ID card preview')) { showToast('Generate ID card first!', 'error'); return; }
+            const win = window.open('', '_blank', 'width=400,height=500');
+            if (win) {
+                win.document.write(
+                    `<html><head><title>ID Card</title><style>body{display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f0f0f0;font-family:Arial,sans-serif;}</style></head><body>${content}</body></html>`
+                    );
+                win.document.close();
+                win.print();
+            }
+        }
+
+        let passportPhotoData = null;
+
+        function handlePassportPhotoUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    passportPhotoData = ev.target.result;
+                    document.getElementById('passportPhotoName').textContent = file.name;
+                    const preview = document.getElementById('passportPreview');
+                    preview.innerHTML =
+                        `<img src="${passportPhotoData}" style="max-width:100%;max-height:300px;border-radius:8px;border:2px solid var(--border-color);">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function generatePassportPhoto() {
+            if (!passportPhotoData) { showToast('Please upload a photo first.', 'error'); return; }
+            const canvas = document.createElement('canvas');
+            const img = new Image();
+            img.onload = function() {
+                const size = Math.min(img.width, img.height);
+                canvas.width = 350;
+                canvas.height = 450;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                const sx = (img.width - size) / 2;
+                const sy = (img.height - size) / 2;
+                ctx.drawImage(img, sx, sy, size, size, 25, 25, 300, 400);
+                ctx.strokeStyle = '#ccc';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(0, 0, canvas.width, canvas.height);
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+                const preview = document.getElementById('passportPreview');
+                preview.innerHTML =
+                    `<img src="${dataUrl}" style="max-width:100%;max-height:300px;border-radius:4px;border:2px solid var(--border-color);"><p style="font-size:12px;color:var(--text-light);margin-top:4px;">Passport size: 3.5cm x 4.5cm (approx.)</p>`;
+                const a = document.createElement('a');
+                a.href = dataUrl;
+                a.download = 'passport_photo.jpg';
+                a.click();
+                showToast('✅ Passport photo generated!', 'success');
+            };
+            img.src = passportPhotoData;
+        }
+
+        function printPassportPhoto() {
+            const preview = document.getElementById('passportPreview');
+            const img = preview.querySelector('img');
+            if (!img) { showToast('Generate passport photo first!', 'error'); return; }
+            const win = window.open('', '_blank', 'width=400,height=500');
+            if (win) {
+                win.document.write(
+                    `<html><head><title>Passport Photo</title><style>body{display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f0f0f0;font-family:Arial,sans-serif;}</style></head><body>${img.outerHTML}</body></html>`
+                    );
+                win.document.close();
+                win.print();
+            }
+        }
+
+        let cropPhotoData = null;
+
+        function handleCropPhotoUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    cropPhotoData = ev.target.result;
+                    document.getElementById('cropPhotoName').textContent = file.name;
+                    const preview = document.getElementById('cropPreview');
+                    preview.innerHTML =
+                        `<img src="${cropPhotoData}" style="max-width:100%;max-height:300px;border-radius:4px;border:2px solid var(--border-color);">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function cropAndResize() {
+            if (!cropPhotoData) { showToast('Please upload a photo first.', 'error'); return; }
+            const width = parseInt(document.getElementById('cropWidth').value) || 400;
+            const height = parseInt(document.getElementById('cropHeight').value) || 400;
+            const canvas = document.createElement('canvas');
+            const img = new Image();
+            img.onload = function() {
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+                const preview = document.getElementById('cropPreview');
+                preview.innerHTML =
+                    `<img src="${dataUrl}" style="max-width:100%;max-height:300px;border-radius:4px;border:2px solid var(--border-color);"><p style="font-size:12px;color:var(--text-light);margin-top:4px;">${width}x${height} px</p>`;
+                const a = document.createElement('a');
+                a.href = dataUrl;
+                a.download = 'cropped_image.jpg';
+                a.click();
+                showToast('✅ Image cropped & resized!', 'success');
+            };
+            img.src = cropPhotoData;
+        }
+
+        function generatePoster() {
+            const title = document.getElementById('posterTitle').value || 'Mega Sale';
+            const desc = document.getElementById('posterDesc').value || 'Up to 50% off!';
+            const bgColor = document.getElementById('posterColor').value || '#1976d2';
+            const textColor = document.getElementById('posterTextColor').value || '#ffffff';
+
+            const preview = document.getElementById('posterPreview');
+            const canvas = document.createElement('canvas');
+            canvas.width = 600;
+            canvas.height = 800;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = textColor;
+            ctx.font = 'bold 48px Arial';
+            ctx.fillText(title, canvas.width / 2, canvas.height / 2 - 60);
+            ctx.font = '24px Arial';
+            ctx.fillText(desc, canvas.width / 2, canvas.height / 2 + 40);
+            ctx.font = '16px Arial';
+            ctx.fillText('Visit our store for more!', canvas.width / 2, canvas.height / 2 + 120);
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.fillRect(0, canvas.height - 40, canvas.width, 40);
+            ctx.fillStyle = textColor;
+            ctx.font = '12px Arial';
+            ctx.fillText('Dream Josh - Poster', canvas.width / 2, canvas.height - 15);
+
+            const dataUrl = canvas.toDataURL('image/png');
+            preview.innerHTML =
+                `<img src="${dataUrl}" style="max-width:100%;max-height:400px;border-radius:4px;border:2px solid var(--border-color);">`;
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = 'poster.png';
+            a.click();
+            showToast('✅ Poster generated!', 'success');
+        }
+
+        function generateProId() {
+            const type = document.getElementById('idType').value || 'Student ID';
+            const name = document.getElementById('idName2').value || 'John Doe';
+            const number = document.getElementById('idNumber').value || 'JD-001';
+            const preview = document.getElementById('idMakerPreview');
+
+            preview.innerHTML = `
+                <div style="background:linear-gradient(145deg,#1a2332,#2c3e50);color:#fff;padding:20px;border-radius:12px;max-width:350px;margin:auto;border:2px solid var(--gold);">
+                    <div style="text-align:center;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px;margin-bottom:10px;"><h3 style="margin:0;font-size:18px;">${type}</h3></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;">
+                        <p style="margin:0;"><strong>Name:</strong> ${name}</p>
+                        <p style="margin:0;"><strong>ID:</strong> ${number}</p>
+                        <p style="margin:0;font-size:12px;opacity:0.7;text-align:center;border-top:1px solid rgba(255,255,255,0.2);padding-top:10px;">Valid until: 31 Dec 2026</p>
+                    </div>
+                </div>
+                <p style="text-align:center;margin-top:8px;font-size:12px;color:var(--text-light);">Click Download to save as image.</p>
+            `;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 250;
+            const ctx = canvas.getContext('2d');
+            const grad = ctx.createLinearGradient(0, 0, 0, 250);
+            grad.addColorStop(0, '#1a2332');
+            grad.addColorStop(1, '#2c3e50');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 400, 250);
+            ctx.fillStyle = '#ffd700';
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(type, 200, 40);
+            ctx.fillStyle = '#fff';
+            ctx.font = '16px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText(`Name: ${name}`, 50, 100);
+            ctx.fillText(`ID: ${number}`, 50, 140);
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Valid until: 31 Dec 2026', 200, 220);
+            const dataUrl = canvas.toDataURL('image/png');
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = 'pro_id.png';
+            a.click();
+            showToast('✅ ID generated!', 'success');
+        }
+
+        function generateShopPromo() {
+            const name = document.getElementById('shopName').value || 'Dream Store';
+            const promo = document.getElementById('shopPromo').value || 'Visit our shop for the best deals!';
+            const contact = document.getElementById('shopContact').value || '+91-9876543210';
+            const preview = document.getElementById('shopPreview');
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 600;
+            canvas.height = 400;
+            const ctx = canvas.getContext('2d');
+            const grad = ctx.createLinearGradient(0, 0, 600, 0);
+            grad.addColorStop(0, '#e74c3c');
+            grad.addColorStop(1, '#f39c12');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 600, 400);
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 42px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(name, 300, 120);
+            ctx.font = '24px Arial';
+            ctx.fillText(promo, 300, 200);
+            ctx.font = '18px Arial';
+            ctx.fillText(`📞 ${contact}`, 300, 280);
+            ctx.fillStyle = 'rgba(255,255,255,0.3)';
+            ctx.font = '12px Arial';
+            ctx.fillText('Dream Josh - Shop Promotion', 300, 380);
+
+            const dataUrl = canvas.toDataURL('image/png');
+            preview.innerHTML =
+                `<img src="${dataUrl}" style="max-width:100%;max-height:300px;border-radius:4px;border:2px solid var(--border-color);">`;
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = 'shop_promo.png';
+            a.click();
+            showToast('✅ Promotion generated!', 'success');
+        }
+
+        function generateResume() {
+            const name = document.getElementById('resumeName').value || 'John Doe';
+            const title = document.getElementById('resumeTitle').value || 'Full Stack Developer';
+            const summary = document.getElementById('resumeSummary').value ||
+                'Experienced developer with 5+ years of experience.';
+            const email = document.getElementById('resumeEmail').value || 'john@example.com';
+            const phone = document.getElementById('resumePhone').value || '+91-9876543210';
+            const preview = document.getElementById('resumePreview');
+
+            preview.innerHTML = `
+                <div style="background:#fff;color:#333;padding:20px;border-radius:8px;border:2px solid var(--border-color);max-width:500px;margin:auto;font-family:Arial,sans-serif;">
+                    <h2 style="margin:0 0 4px 0;color:#123c9b;">${name}</h2>
+                    <p style="margin:0;font-size:16px;color:#1976d2;font-weight:600;">${title}</p>
+                    <hr style="border:1px solid #eee;margin:10px 0;">
+                    <p style="font-size:14px;line-height:1.6;">${summary}</p>
+                    <hr style="border:1px solid #eee;margin:10px 0;">
+                    <p style="margin:4px 0;font-size:13px;"><i class="fas fa-envelope"></i> ${email}</p>
+                    <p style="margin:4px 0;font-size:13px;"><i class="fas fa-phone"></i> ${phone}</p>
+                </div>
+                <p style="text-align:center;margin-top:8px;font-size:12px;color:var(--text-light);">Click Download to save as PDF.</p>
+            `;
+
+            const content = `
+                <html><head><title>Resume - ${name}</title>
+                <style>body{font-family:Arial,sans-serif;padding:30px;max-width:600px;margin:auto;line-height:1.6;}
+                h1{color:#123c9b;margin:0;}
+                .title{color:#1976d2;font-size:18px;font-weight:600;}
+                hr{border:1px solid #eee;}
+                .contact{color:#555;font-size:13px;}
+                </style></head>
+                <body>
+                    <h1>${name}</h1>
+                    <p class="title">${title}</p>
+                    <hr>
+                    <p>${summary}</p>
+                    <hr>
+                    <p class="contact"><i class="fas fa-envelope"></i> ${email}</p>
+                    <p class="contact"><i class="fas fa-phone"></i> ${phone}</p>
+                </body></html>
+            `;
+
+            const blob = new Blob([content], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'resume.pdf';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('✅ Resume generated!', 'success');
+        }
+
+        function printResume() {
+            const preview = document.getElementById('resumePreview');
+            const content = preview.innerHTML;
+            if (content.includes('Resume preview will appear here')) { showToast('Generate resume first!', 'error'); return; }
+            const win = window.open('', '_blank', 'width=600,height=800');
+            if (win) {
+                win.document.write(
+                    `<html><head><title>Resume</title><style>body{font-family:Arial,sans-serif;padding:30px;max-width:600px;margin:auto;line-height:1.6;}</style></head><body>${content}</body></html>`
+                    );
+                win.document.close();
+                win.print();
+            }
+        }
+
+        function generateApplication() {
+            const name = document.getElementById('appName').value || 'John Doe';
+            const type = document.getElementById('appType').value || 'Job Application';
+            const text = document.getElementById('appText').value || 'I am writing to apply...';
+            const preview = document.getElementById('appPreview');
+
+            preview.innerHTML = `
+                <div style="background:#fff;color:#333;padding:20px;border-radius:8px;border:2px solid var(--border-color);max-width:500px;margin:auto;font-family:Arial,sans-serif;">
+                    <h3 style="margin:0 0 8px 0;color:#123c9b;">${type}</h3>
+                    <p style="font-size:14px;line-height:1.8;white-space:pre-wrap;">${text}</p>
+                    <hr style="border:1px solid #eee;margin:10px 0;">
+                    <p style="text-align:right;font-size:13px;color:#555;">Sincerely,<br><strong>${name}</strong></p>
+                </div>
+                <p style="text-align:center;margin-top:8px;font-size:12px;color:var(--text-light);">Click Download to save as text file.</p>
+            `;
+
+            const content = `${type}\n\n${text}\n\nSincerely,\n${name}`;
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'application.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('✅ Application generated!', 'success');
+        }
+
+        function printApplication() {
+            const preview = document.getElementById('appPreview');
+            const content = preview.innerHTML;
+            if (content.includes('Application preview will appear here')) { showToast('Generate application first!',
+                    'error'); return; }
+            const win = window.open('', '_blank', 'width=600,height=800');
+            if (win) {
+                win.document.write(
+                    `<html><head><title>Application</title><style>body{font-family:Arial,sans-serif;padding:30px;max-width:600px;margin:auto;line-height:1.8;}</style></head><body>${content}</body></html>`
+                    );
+                win.document.close();
+                win.print();
+            }
+        }
+
+        let albumFiles = [];
+
+        function handleAlbumFiles(e) {
+            const files = e.target.files;
+            const fileNameDisplay = document.getElementById('albumFileName');
+            for (let f of files) {
+                albumFiles.push(f);
+            }
+            if (albumFiles.length > 0) {
+                fileNameDisplay.textContent = `${albumFiles.length} file(s) selected`;
+                const preview = document.getElementById('albumPreview');
+                let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;">';
+                albumFiles.forEach((f, idx) => {
+                    html +=
+                        `<div style="background:var(--bg-color);border-radius:4px;padding:6px;text-align:center;font-size:11px;border:1px solid var(--border-color);">
+                        <i class="fas fa-file" style="font-size:24px;color:var(--secondary-blue);"></i>
+                        <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${f.name}</div>
+                        <span class="remove-file" onclick="removeAlbumFile(${idx})" style="cursor:pointer;color:var(--warning-red);font-size:12px;"><i class="fas fa-times-circle"></i></span>
+                    </div>`;
+                });
+                html += '</div>';
+                preview.innerHTML = html;
+            }
+            e.target.value = '';
+        }
+
+        function removeAlbumFile(idx) {
+            albumFiles.splice(idx, 1);
+            const fileNameDisplay = document.getElementById('albumFileName');
+            const preview = document.getElementById('albumPreview');
+            if (albumFiles.length === 0) {
+                fileNameDisplay.textContent = 'No files selected';
+                preview.innerHTML = '<p style="color:var(--text-light);">Album preview will appear here.</p>';
+            } else {
+                fileNameDisplay.textContent = `${albumFiles.length} file(s) selected`;
+                let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;">';
+                albumFiles.forEach((f, idx) => {
+                    html +=
+                        `<div style="background:var(--bg-color);border-radius:4px;padding:6px;text-align:center;font-size:11px;border:1px solid var(--border-color);">
+                        <i class="fas fa-file" style="font-size:24px;color:var(--secondary-blue);"></i>
+                        <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${f.name}</div>
+                        <span class="remove-file" onclick="removeAlbumFile(${idx})" style="cursor:pointer;color:var(--warning-red);font-size:12px;"><i class="fas fa-times-circle"></i></span>
+                    </div>`;
+                });
+                html += '</div>';
+                preview.innerHTML = html;
+            }
+        }
+
+        function generateAlbum() {
+            if (albumFiles.length === 0) { showToast('Please add some files first.', 'error'); return; }
+            const zip = new JSZip();
+            let processed = 0;
+            const total = albumFiles.length;
+            const title = document.getElementById('albumTitle').value || 'My Documents';
+
+            albumFiles.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    zip.file(file.name, e.target.result);
+                    processed++;
+                    if (processed === total) {
+                        zip.generateAsync({ type: 'blob' }).then(function(content) {
+                            const url = URL.createObjectURL(content);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `${title}.zip`;
+                            a.click();
+                            URL.revokeObjectURL(url);
+                            showToast('✅ Album downloaded as ZIP!', 'success');
+                        });
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        function clearCreativeTool(toolId) {
+            const toolMap = {
+                'id-card': ['idName', 'idRole', 'idCompany', 'idPhotoInput', 'idPhotoName', 'idPreview'],
+                'passport-photo': ['passportPhotoInput', 'passportPhotoName', 'passportPreview'],
+                'photo-crop': ['cropPhotoInput', 'cropPhotoName', 'cropPreview', 'cropWidth', 'cropHeight'],
+                'poster-maker': ['posterTitle', 'posterDesc', 'posterColor', 'posterTextColor', 'posterPreview'],
+                'id-maker': ['idType', 'idName2', 'idNumber', 'idMakerPreview'],
+                'shop-promotion': ['shopName', 'shopPromo', 'shopContact', 'shopPreview'],
+                'resume-cv': ['resumeName', 'resumeTitle', 'resumeSummary', 'resumeEmail', 'resumePhone', 'resumePreview'],
+                'application-maker': ['appName', 'appType', 'appText', 'appPreview'],
+                'document-album': ['albumTitle', 'albumFileInput', 'albumFileName', 'albumPreview']
+            };
+
+            const ids = toolMap[toolId] || [];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (el.tagName === 'INPUT' && el.type === 'file') {
+                        el.value = '';
+                    } else if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.value = '';
+                    } else if (el.tagName === 'DIV' && el.classList.contains('preview-box')) {
+                        el.innerHTML = `<p style="color:var(--text-light);">Preview cleared.</p>`;
+                    } else if (el.id === 'idPhotoName' || el.id === 'passportPhotoName' || el.id === 'cropPhotoName' ||
+                        el.id === 'albumFileName') {
+                        el.textContent = 'No file selected';
+                    }
+                }
+            });
+
+            if (toolId === 'id-card') idPhotoData = null;
+            if (toolId === 'passport-photo') passportPhotoData = null;
+            if (toolId === 'photo-crop') cropPhotoData = null;
+            if (toolId === 'document-album') albumFiles = [];
+
+            showToast('🧹 Cleared!', 'info');
+        }
 
         // ============================================================
         // TOOLS (OCR & Font Converter)
@@ -7379,7 +7783,7 @@
             updateLogo();
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private')
                 .length;
-            console.log('🚀 Dream Josh – All PDF tools are now fully functional!');
+            console.log('🚀 Dream Josh – Tools page now includes OCR, Font Converter, and Creative Studio!');
             switchTool('ocr');
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('home').classList.add('active');
@@ -7503,29 +7907,6 @@
         window.openToolManagerModal = openToolManagerModal;
         window.saveTool = saveTool;
         window.deleteTool = deleteTool;
-
-        // PDF tool functions
-        window.handleJpgPdfUpload = handleJpgPdfUpload;
-        window.convertJpgToPdf = convertJpgToPdf;
-        window.removeJpgPdfFile = removeJpgPdfFile;
-        window.handlePdfJpgUpload = handlePdfJpgUpload;
-        window.convertPdfToJpg = convertPdfToJpg;
-        window.handlePngPdfUpload = handlePngPdfUpload;
-        window.convertPngToPdf = convertPngToPdf;
-        window.removePngPdfFile = removePngPdfFile;
-        window.handlePngJpgUpload = handlePngJpgUpload;
-        window.convertPngToJpg = convertPngToJpg;
-        window.removePngJpgFile = removePngJpgFile;
-        window.handleDeletePdfUpload = handleDeletePdfUpload;
-        window.deletePdfPage = deletePdfPage;
-        window.handleMergePdfUpload = handleMergePdfUpload;
-        window.mergePdfFiles = mergePdfFiles;
-        window.removeMergePdfFile = removeMergePdfFile;
-        window.handlePdfExcelUpload = handlePdfExcelUpload;
-        window.convertPdfToExcel = convertPdfToExcel;
-        window.handlePdfWordUpload = handlePdfWordUpload;
-        window.convertPdfToWord = convertPdfToWord;
-        window.clearPdfTool = clearPdfTool;
 
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     </script>
