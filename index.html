@@ -6,24 +6,25 @@
     <title>Dream Josh - AI Studio</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- PDF.js for PDF operations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js">
-    </script>
-    <!-- SheetJS for Excel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js">
-    </script>
-    <!-- JSZip for PDF merging -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
-    </script>
-    <!-- pdf-lib for merging -->
-    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js">
-    </script>
-    <!-- Tesseract.js for OCR -->
-    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'>
-    </script>
-    <!-- FileSaver for Word/Excel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js">
-    </script>
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <!-- SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- JSZip -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- pdf-lib -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <!-- Tesseract.js -->
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+    <!-- FileSaver -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <!-- 🔥 FIREBASE SDK (compat for plain HTML) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
     <style>
         /* ================= CSS VARIABLES ================= */
         :root {
@@ -89,6 +90,35 @@
             padding-top: 70px;
             padding-bottom: 70px;
         }
+
+        /* ================= FIREBASE STATUS BADGE ================= */
+        .firebase-status-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .firebase-status-badge.connected {
+            background: rgba(22, 163, 74, 0.3);
+            border-color: rgba(22, 163, 74, 0.5);
+            color: #6ee7b7;
+        }
+        .firebase-status-badge.error {
+            background: rgba(214, 40, 57, 0.3);
+            border-color: rgba(214, 40, 57, 0.5);
+            color: #fca5a5;
+        }
+        .firebase-status-badge i { font-size: 10px; }
+
+        /* ================= EXISTING STYLES (unchanged) ================= */
         .app-header {
             background: var(--header-bg);
             padding: 10px 16px;
@@ -310,6 +340,7 @@
             to { transform: translateX(-100%); }
         }
 
+        /* ================= HOME ORIGINAL ================= */
         .home-original {
             background: var(--bg-color);
             color: var(--text-color);
@@ -447,6 +478,7 @@
             .section-container { padding: 12px 14px; }
         }
 
+        /* ================= JOBS GRID ================= */
         .job-grid-wrapper {
             margin: 20px 0;
             padding: 20px;
@@ -547,13 +579,11 @@
             border-color: var(--secondary-blue);
         }
 
+        /* ================= DETAIL OVERLAY ================= */
         .detail-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.6);
             z-index: 2000;
             backdrop-filter: blur(8px);
@@ -648,6 +678,7 @@
             border: 1px solid var(--border-color);
         }
 
+        /* ================= TOAST ================= */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -667,6 +698,7 @@
         .toast.error { background: #dc3545; }
         .toast.info { background: #1976d2; }
 
+        /* ================= PAGE CONTENT ================= */
         .page-content-display {
             background: var(--card-bg);
             border-radius: 12px;
@@ -708,13 +740,11 @@
             border: 1px solid var(--border-color);
         }
 
+        /* ================= ADMIN PANEL ================= */
         .admin-panel-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             z-index: 3000;
             background: var(--bg-color);
             overflow-y: auto;
@@ -1080,10 +1110,7 @@
         .admin-panel-overlay .admin-modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.5);
             z-index: 9999;
             backdrop-filter: blur(4px);
@@ -1556,10 +1583,7 @@
         .creative-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(145deg, rgba(124, 58, 237, 0.05), rgba(236, 72, 153, 0.02));
             border-radius: 20px;
             opacity: 0;
@@ -1641,10 +1665,7 @@
         .tool-modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.7);
             z-index: 5000;
             backdrop-filter: blur(12px);
@@ -2532,6 +2553,10 @@
             <span id="headerLogoText">🚀 <span>Dream</span>Josh</span>
         </div>
         <div class="header-controls" id="dynamicNav">
+            <!-- Firebase Status Badge (injected by JS) -->
+            <div id="firebaseStatusBadge" class="firebase-status-badge">
+                <i class="fas fa-circle-notch fa-spin"></i> Firebase
+            </div>
             <!-- Dynamic navigation rendered by JavaScript -->
         </div>
     </header>
@@ -2892,6 +2917,53 @@
     </div>
 
     <script>
+        // ============================================================
+        // 🔥 FIREBASE CONFIGURATION & INITIALIZATION
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
+            authDomain: "dreamjosh-7d9ee.firebaseapp.com",
+            projectId: "dreamjosh-7d9ee",
+            storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
+            messagingSenderId: "461367857074",
+            appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab",
+            measurementId: "G-28W2EBTMQ8"
+        };
+
+        let firebaseApp = null, firebaseAuth = null, firebaseDB = null, firebaseStorage = null;
+
+        try {
+            firebaseApp = firebase.initializeApp(firebaseConfig);
+            firebaseAuth = firebase.auth();
+            firebaseDB = firebase.firestore();
+            firebaseStorage = firebase.storage();
+
+            console.log("✅ Firebase initialized:", firebaseConfig.projectId);
+
+            // Update status badge
+            const statusBadge = document.getElementById('firebaseStatusBadge');
+            if (statusBadge) {
+                statusBadge.classList.remove('error');
+                statusBadge.classList.add('connected');
+                statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> Firebase';
+            }
+
+            // Health check
+            firebaseDB.collection('_healthcheck').doc('ping').set({
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                userAgent: navigator.userAgent
+            }).catch(e => console.warn("Firestore test:", e.message));
+
+        } catch (err) {
+            console.error("❌ Firebase error:", err);
+            const statusBadge = document.getElementById('firebaseStatusBadge');
+            if (statusBadge) {
+                statusBadge.classList.remove('connected');
+                statusBadge.classList.add('error');
+                statusBadge.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Firebase';
+            }
+        }
+
         // ============================================================
         // GOOGLE SHEETS CONFIGURATION
         // ============================================================
@@ -3965,8 +4037,14 @@
             const dropdowns = appData.dropdownMenus || DEFAULT_DATA.dropdownMenus;
             const customPages = appData.customPages || DEFAULT_DATA.customPages;
 
-            let html =
-                `<button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>`;
+            // Preserve the Firebase status badge if it exists
+            let html = '';
+            const existingBadge = document.getElementById('firebaseStatusBadge');
+            if (existingBadge) {
+                // We'll re-add the badge after building the nav
+            }
+
+            html += `<button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>`;
 
             const jobsDropdown = dropdowns.jobs || { label: '💼 Jobs', items: [{ label: '🏛️ Central Govt.', action: 'central' },
                     { label: '🏜️ Rajasthan Govt.', action: 'state' }, { label: '💼 Private', action: 'private' }] };
@@ -7784,6 +7862,7 @@
             document.getElementById('totalJobsSidebar').textContent = jobsData.filter(j => j.visibility !== 'private')
                 .length;
             console.log('🚀 Dream Josh – Tools page now includes OCR, Font Converter, and Creative Studio!');
+            console.log('🔥 Firebase initialized with project: dreamjosh-7d9ee');
             switchTool('ocr');
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('home').classList.add('active');
