@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 <!-- Firebase -->
@@ -34,7 +33,6 @@
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   background:var(--bg-color);color:var(--text-color);min-height:100vh;transition:background .3s,color .3s;}
 
-/* LAYOUT */
 .admin-wrapper{display:flex;min-height:100vh;}
 .admin-sidebar{
   width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;
@@ -196,7 +194,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .toast.info{background:#1976d2;}
 .toast.warning{background:#f59e0b;}
 
-/* ============ WORD EDITOR ============ */
+/* WORD EDITOR */
 .word-toolbar{
   background:#fafbfc;border:1px solid #d1d9e6;border-radius:8px 8px 0 0;
   padding:6px 8px;display:flex;flex-wrap:wrap;gap:2px;position:sticky;top:0;z-index:50;
@@ -223,8 +221,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 
 .word-editor-wrap{
   background:#e8ecf1;padding:16px;min-height:400px;border:1px solid #d1d9e6;
-  border-top:none;border-radius:0 0 8px 8px;overflow-y:auto;max-height:600px;
-  position:relative;
+  border-top:none;border-radius:0 0 8px 8px;overflow-y:auto;max-height:600px;position:relative;
 }
 .dark-mode .word-editor-wrap{background:#0a0e1a;border-color:#2a2a4a;}
 .word-editor-wrap .page{
@@ -241,7 +238,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 }
 .dark-mode .word-editor-wrap .page.watermark::before{color:rgba(255,255,255,.05);}
 #richEditor{min-height:400px;outline:none;font-size:15px;line-height:1.7;position:relative;z-index:1;}
-#richEditor:empty:before{content:'यहाँ content लिखें... Insert Table, Image, PDF, Word, Excel, Link, H1-H6, Highlight सब available।';color:#999;font-style:italic;}
+#richEditor:empty:before{content:'यहाँ content लिखें... Insert Table, Image, PDF, Word, Excel, H1-H6, Highlight सब available।';color:#999;font-style:italic;}
 #richEditor h1{font-size:32px;margin:16px 0 10px;font-weight:800;}
 #richEditor h2{font-size:26px;margin:14px 0 8px;font-weight:700;}
 #richEditor h3{font-size:22px;margin:12px 0 6px;font-weight:700;}
@@ -262,11 +259,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 #richEditor a{color:#1976d2;text-decoration:underline;}
 #richEditor hr{border:none;border-top:2px solid #ccc;margin:16px 0;}
 
-/* Info/Warning Boxes */
-.info-box,.warning-box,.success-box,.tip-box{
-  padding:12px 16px;border-radius:8px;margin:10px 0;border-left:5px solid;
-  display:flex;gap:10px;align-items:flex-start;
-}
+.info-box,.warning-box,.success-box,.tip-box{padding:12px 16px;border-radius:8px;margin:10px 0;border-left:5px solid;display:flex;gap:10px;align-items:flex-start;}
 .info-box{background:#eff6ff;border-color:#1976d2;color:#0c4a6e;}
 .warning-box{background:#fef3c7;border-color:#f59e0b;color:#78350f;}
 .success-box{background:#f0fdf4;border-color:#16a34a;color:#14532d;}
@@ -276,14 +269,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .dark-mode .success-box{background:rgba(22,163,74,.15);color:#86efac;}
 .dark-mode .tip-box{background:rgba(234,179,8,.15);color:#fde047;}
 
-/* Checkbox list */
 .checklist{list-style:none;margin:10px 0;padding:0;}
-.checklist li{
-  display:flex;align-items:center;gap:8px;padding:6px 0;font-size:14px;
-}
-.checklist li input[type="checkbox"]{
-  width:18px;height:18px;cursor:pointer;accent-color:#1976d2;
-}
+.checklist li{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:14px;}
+.checklist li input[type="checkbox"]{width:18px;height:18px;cursor:pointer;accent-color:#1976d2;}
 
 .insert-modal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0;}
 .insert-item{
@@ -395,6 +383,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <li><a data-page="more-editor" onclick="showAdminPage('more-editor')"><i class="fas fa-book"></i> More Page</a></li>
       <li><a data-page="blog-editor" onclick="showAdminPage('blog-editor')"><i class="fas fa-blog"></i> Blog Page</a></li>
       <li><a data-page="service-editor" onclick="showAdminPage('service-editor')"><i class="fas fa-cogs"></i> Service Page</a></li>
+      <li><a data-page="tools-editor" onclick="showAdminPage('tools-editor')"><i class="fas fa-tools"></i> Tools Page</a></li>
       <li><a data-page="rsr-editor" onclick="showAdminPage('rsr-editor')"><i class="fas fa-gavel"></i> RSR Page</a></li>
 
       <li class="section-title">Data Items</li>
@@ -402,6 +391,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <li><a data-page="items-more" onclick="showAdminPage('items-more')"><i class="fas fa-list"></i> More Items <span class="count" id="count-more">0</span></a></li>
       <li><a data-page="items-blog" onclick="showAdminPage('items-blog')"><i class="fas fa-list"></i> Blog Items <span class="count" id="count-blog">0</span></a></li>
       <li><a data-page="items-service" onclick="showAdminPage('items-service')"><i class="fas fa-list"></i> Service Items <span class="count" id="count-service">0</span></a></li>
+      <li><a data-page="items-tools" onclick="showAdminPage('items-tools')"><i class="fas fa-list"></i> Tools Items <span class="count" id="count-tools">0</span></a></li>
       <li><a data-page="items-rsr" onclick="showAdminPage('items-rsr')"><i class="fas fa-list"></i> RSR Items <span class="count" id="count-rsr">0</span></a></li>
 
       <li class="section-title">Jobs</li>
@@ -513,6 +503,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         <div id="adminPageContent-service"></div>
       </div>
     </div>
+    <div id="adminPage-tools-editor" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>🛠️ Tools Page Editor</h4>
+          <button class="btn-add" onclick="openPageEditor('tools')"><i class="fas fa-edit"></i> Edit Content</button>
+        </div>
+        <div id="adminPageContent-tools"></div>
+      </div>
+    </div>
     <div id="adminPage-rsr-editor" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>📜 RSR Page Editor</h4>
@@ -569,6 +567,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           </div>
         </div>
         <div id="adminItemsContainer-service"></div>
+      </div>
+    </div>
+    <div id="adminPage-items-tools" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>🛠️ Tools Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('tools')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('tools')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
+        </div>
+        <div id="adminItemsContainer-tools"></div>
       </div>
     </div>
     <div id="adminPage-items-rsr" class="admin-section">
@@ -635,7 +645,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <button class="settings-tab-btn" data-tab="backup" onclick="switchSettingsTab('backup')">💾 Backup</button>
         </div>
 
-        <!-- GENERAL -->
         <div class="settings-tab-content active" id="settings-tab-general">
           <div class="setting-group">
             <h5>🌐 Site Information</h5>
@@ -665,7 +674,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save General</button>
         </div>
 
-        <!-- APPEARANCE -->
         <div class="settings-tab-content" id="settings-tab-appearance">
           <div class="setting-group">
             <h5>🖼️ Logo & Favicon</h5>
@@ -697,7 +705,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <button class="btn-setting success" onclick="saveSettingsGroup('appearance')"><i class="fas fa-save"></i> Save Appearance</button>
         </div>
 
-        <!-- CONTENT -->
         <div class="settings-tab-content" id="settings-tab-content">
           <div class="setting-group">
             <h5>📊 Display Settings</h5>
@@ -716,7 +723,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <button class="btn-setting success" onclick="saveSettingsGroup('content')"><i class="fas fa-save"></i> Save Content</button>
         </div>
 
-        <!-- SECURITY -->
         <div class="settings-tab-content" id="settings-tab-security">
           <div class="setting-group">
             <h5>🔑 Change Password</h5>
@@ -746,7 +752,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           </div>
         </div>
 
-        <!-- SEO -->
         <div class="settings-tab-content" id="settings-tab-seo">
           <div class="setting-group">
             <h5>🔍 Meta Tags</h5>
@@ -762,7 +767,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <button class="btn-setting success" onclick="saveSettingsGroup('seo')"><i class="fas fa-save"></i> Save SEO</button>
         </div>
 
-        <!-- SOCIAL -->
         <div class="settings-tab-content" id="settings-tab-social">
           <div class="setting-group">
             <h5>📱 Social Media Links</h5>
@@ -780,7 +784,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <button class="btn-setting success" onclick="saveSettingsGroup('social')"><i class="fas fa-save"></i> Save Social</button>
         </div>
 
-        <!-- BACKUP -->
         <div class="settings-tab-content" id="settings-tab-backup">
           <div class="setting-group">
             <h5>💾 Manual Backup</h5>
@@ -799,7 +802,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <div class="setting-group">
             <h5>ℹ️ System Info</h5>
             <div style="background:var(--bg-color);border-radius:6px;padding:12px;font-size:12px;">
-              <div><strong>Version:</strong> 3.0.0</div>
+              <div><strong>Version:</strong> 4.0.0</div>
               <div><strong>Firebase:</strong> <span id="sysFirebaseStatus">✅</span></div>
               <div><strong>Storage:</strong> <span id="sysStorageUsed">-</span></div>
               <div><strong>Files:</strong> <span id="sysFilesCount">0</span></div>
@@ -862,10 +865,12 @@ const SETTINGS_KEY = 'dreamjosh_settings';
 const ACTIVITY_LOG_KEY = 'dreamjosh_activity_log';
 const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
 
+const PAGE_KEYS = ['career', 'more', 'blog', 'service', 'tools', 'rsr'];
+
 const DEFAULT_DATA = {
   home:{content:''}, career:{content:'',items:[]}, more:{content:'',items:[]},
-  service:{content:'',items:[]}, blog:{content:'',items:[]}, rsr:{content:'',items:[]},
-  slides:[], employees:[]
+  service:{content:'',items:[]}, blog:{content:'',items:[]}, tools:{content:'',items:[]},
+  rsr:{content:'',items:[]}, slides:[], employees:[]
 };
 
 const DEFAULT_SETTINGS = {
@@ -977,6 +982,7 @@ function updateSidebarCounts() {
     more: (appData.more?.items || []).length,
     blog: (appData.blog?.items || []).length,
     service: (appData.service?.items || []).length,
+    tools: (appData.tools?.items || []).length,
     rsr: (appData.rsr?.items || []).length,
     jobs: jobsData.length,
     employees: (appData.employees || []).length,
@@ -996,85 +1002,63 @@ function updateSidebarCounts() {
 }
 
 // ============================================================
-// WORD EDITOR — FULL VERSION with ALL FEATURES
+// WORD EDITOR
 // ============================================================
 let currentWatermark = '';
 
 function getWordEditorHTML(content) {
   return `
     <div class="word-toolbar">
-      <!-- Undo/Redo -->
       <div class="tb-group">
         <button type="button" class="tb-btn" onclick="weCmd('undo')" title="Undo"><i class="fas fa-undo"></i></button>
         <button type="button" class="tb-btn" onclick="weCmd('redo')" title="Redo"><i class="fas fa-redo"></i></button>
       </div>
-
-      <!-- Heading -->
       <div class="tb-group">
         <select onchange="weFormat(this.value)" title="Style">
           <option value="p">Normal</option>
-          <option value="h1">H1</option>
-          <option value="h2">H2</option>
-          <option value="h3">H3</option>
-          <option value="h4">H4</option>
-          <option value="h5">H5</option>
-          <option value="h6">H6</option>
-          <option value="blockquote">Quote</option>
-          <option value="pre">Code Block</option>
+          <option value="h1">H1</option><option value="h2">H2</option><option value="h3">H3</option>
+          <option value="h4">H4</option><option value="h5">H5</option><option value="h6">H6</option>
+          <option value="blockquote">Quote</option><option value="pre">Code</option>
         </select>
       </div>
-
-      <!-- Font & Size -->
       <div class="tb-group">
         <select onchange="weCmd('fontName', this.value)" title="Font">
           <option value="Arial">Arial</option>
           <option value="Times New Roman">Times</option>
           <option value="Calibri">Calibri</option>
           <option value="Georgia">Georgia</option>
-          <option value="Verdana">Verdana</option>
           <option value="Mangal">Mangal (Hindi)</option>
           <option value="Nirmala UI">Nirmala (Hindi)</option>
         </select>
         <select onchange="weCmd('fontSize', this.value)" title="Size">
           <option value="1">8</option><option value="2">10</option>
           <option value="3" selected>12</option><option value="4">14</option>
-          <option value="5">18</option><option value="6">24</option>
-          <option value="7">36</option>
+          <option value="5">18</option><option value="6">24</option><option value="7">36</option>
         </select>
       </div>
-
-      <!-- Bold / Italic / Underline / Strike -->
       <div class="tb-group">
         <button type="button" class="tb-btn" onclick="weCmd('bold')" title="Bold"><i class="fas fa-bold"></i></button>
         <button type="button" class="tb-btn" onclick="weCmd('italic')" title="Italic"><i class="fas fa-italic"></i></button>
         <button type="button" class="tb-btn" onclick="weCmd('underline')" title="Underline"><i class="fas fa-underline"></i></button>
         <button type="button" class="tb-btn" onclick="weCmd('strikeThrough')" title="Strike"><i class="fas fa-strikethrough"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('superscript')" title="Superscript"><i class="fas fa-superscript"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('subscript')" title="Subscript"><i class="fas fa-subscript"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('superscript')" title="Super"><i class="fas fa-superscript"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('subscript')" title="Sub"><i class="fas fa-subscript"></i></button>
       </div>
-
-      <!-- Case -->
       <div class="tb-group">
         <button type="button" class="tb-btn text-btn" onclick="weChangeCase('upper')" title="UPPERCASE">AA</button>
         <button type="button" class="tb-btn text-btn" onclick="weChangeCase('lower')" title="lowercase">aa</button>
-        <button type="button" class="tb-btn text-btn" onclick="weChangeCase('title')" title="Title Case">Aa</button>
+        <button type="button" class="tb-btn text-btn" onclick="weChangeCase('title')" title="Title">Aa</button>
       </div>
-
-      <!-- Color -->
       <div class="tb-group">
         <input type="color" class="color-picker" value="#000000" onchange="weCmd('foreColor', this.value)" title="Font Color">
         <input type="color" class="color-picker" value="#ffff00" onchange="weCmd('hiliteColor', this.value)" title="Highlight">
       </div>
-
-      <!-- Align -->
       <div class="tb-group">
         <button type="button" class="tb-btn" onclick="weCmd('justifyLeft')" title="Left"><i class="fas fa-align-left"></i></button>
         <button type="button" class="tb-btn" onclick="weCmd('justifyCenter')" title="Center"><i class="fas fa-align-center"></i></button>
         <button type="button" class="tb-btn" onclick="weCmd('justifyRight')" title="Right"><i class="fas fa-align-right"></i></button>
         <button type="button" class="tb-btn" onclick="weCmd('justifyFull')" title="Justify"><i class="fas fa-align-justify"></i></button>
       </div>
-
-      <!-- Line Height -->
       <div class="tb-group">
         <select onchange="weLineHeight(this.value)" title="Line Height">
           <option value="1">Line 1.0</option>
@@ -1084,54 +1068,33 @@ function getWordEditorHTML(content) {
           <option value="3">Line 3.0</option>
         </select>
       </div>
-
-      <!-- Lists -->
       <div class="tb-group">
         <button type="button" class="tb-btn" onclick="weCmd('insertUnorderedList')" title="Bullet"><i class="fas fa-list-ul"></i></button>
         <button type="button" class="tb-btn" onclick="weCmd('insertOrderedList')" title="Numbered"><i class="fas fa-list-ol"></i></button>
         <button type="button" class="tb-btn" onclick="weChecklist()" title="Checklist"><i class="fas fa-tasks"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('outdent')" title="Outdent"><i class="fas fa-outdent"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('indent')" title="Indent"><i class="fas fa-indent"></i></button>
       </div>
-
-      <!-- Insert Menu -->
       <div class="tb-group">
         <button type="button" class="tb-btn wide" onclick="weOpenInsert()" title="Insert"><i class="fas fa-plus-circle"></i> Insert</button>
       </div>
-
-      <!-- Special Boxes -->
       <div class="tb-group">
         <button type="button" class="tb-btn wide" onclick="weOpenBoxes()" title="Boxes"><i class="fas fa-square"></i> Boxes</button>
       </div>
-
-      <!-- Link -->
       <div class="tb-group">
         <button type="button" class="tb-btn" onclick="weInsertLink()" title="Link"><i class="fas fa-link"></i></button>
       </div>
-
-      <!-- Find & Replace -->
       <div class="tb-group">
         <button type="button" class="tb-btn" onclick="weFindReplace()" title="Find & Replace"><i class="fas fa-search"></i></button>
       </div>
-
-      <!-- Page Break -->
       <div class="tb-group">
         <button type="button" class="tb-btn" onclick="wePageBreak()" title="Page Break"><i class="fas fa-file"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('removeFormat')" title="Clear"><i class="fas fa-eraser"></i></button>
       </div>
-
-      <!-- Clear Format -->
       <div class="tb-group">
-        <button type="button" class="tb-btn" onclick="weCmd('removeFormat')" title="Clear Format"><i class="fas fa-eraser"></i></button>
-      </div>
-
-      <!-- File Operations -->
-      <div class="tb-group">
-        <button type="button" class="tb-btn wide" onclick="weExportPDF()" title="Export PDF"><i class="fas fa-file-pdf"></i> PDF</button>
+        <button type="button" class="tb-btn wide" onclick="weExportPDF()" title="PDF"><i class="fas fa-file-pdf"></i> PDF</button>
         <button type="button" class="tb-btn wide" onclick="wePrint()" title="Print"><i class="fas fa-print"></i> Print</button>
         <button type="button" class="tb-btn wide" onclick="weWatermark()" title="Watermark"><i class="fas fa-tint"></i> WM</button>
       </div>
     </div>
-
     <div class="word-editor-wrap">
       <div class="page" id="wordPage">
         <div id="richEditor" contenteditable="true">${content || ''}</div>
@@ -1140,15 +1103,8 @@ function getWordEditorHTML(content) {
   `;
 }
 
-function weCmd(cmd, val) {
-  document.execCommand(cmd, false, val || null);
-  document.getElementById('richEditor')?.focus();
-}
-
-function weFormat(tag) {
-  document.execCommand('formatBlock', false, tag);
-  document.getElementById('richEditor')?.focus();
-}
+function weCmd(cmd, val) { document.execCommand(cmd, false, val || null); document.getElementById('richEditor')?.focus(); }
+function weFormat(tag) { document.execCommand('formatBlock', false, tag); document.getElementById('richEditor')?.focus(); }
 
 function weChangeCase(type) {
   const sel = window.getSelection();
@@ -1167,8 +1123,6 @@ function weLineHeight(val) {
   if (!sel.rangeCount) return;
   let node = sel.anchorNode;
   while (node && node.nodeType !== 1) node = node.parentNode;
-  if (!node) return;
-  // Find block parent
   while (node && !['P','DIV','H1','H2','H3','H4','H5','H6','LI','BLOCKQUOTE'].includes(node.tagName)) {
     node = node.parentNode;
   }
@@ -1189,10 +1143,10 @@ function weOpenBoxes() {
   document.getElementById('adminModalTitle').textContent = '📦 Insert Box';
   document.getElementById('adminModalBody').innerHTML = `
     <div class="insert-modal-grid">
-      <div class="insert-item" onclick="weInsertBox('info')"><div class="insert-icon">ℹ️</div><div class="insert-label">Info Box</div></div>
-      <div class="insert-item" onclick="weInsertBox('warning')"><div class="insert-icon">⚠️</div><div class="insert-label">Warning Box</div></div>
-      <div class="insert-item" onclick="weInsertBox('success')"><div class="insert-icon">✅</div><div class="insert-label">Success Box</div></div>
-      <div class="insert-item" onclick="weInsertBox('tip')"><div class="insert-icon">💡</div><div class="insert-label">Tip Box</div></div>
+      <div class="insert-item" onclick="weInsertBox('info')"><div class="insert-icon">ℹ️</div><div class="insert-label">Info</div></div>
+      <div class="insert-item" onclick="weInsertBox('warning')"><div class="insert-icon">⚠️</div><div class="insert-label">Warning</div></div>
+      <div class="insert-item" onclick="weInsertBox('success')"><div class="insert-icon">✅</div><div class="insert-label">Success</div></div>
+      <div class="insert-item" onclick="weInsertBox('tip')"><div class="insert-icon">💡</div><div class="insert-label">Tip</div></div>
     </div>
     <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
   `;
@@ -1200,16 +1154,16 @@ function weOpenBoxes() {
 }
 
 function weInsertBox(type) {
-  const config = {
-    info: { icon: 'ℹ️', title: 'Information', bg: 'info-box' },
-    warning: { icon: '⚠️', title: 'Warning', bg: 'warning-box' },
-    success: { icon: '✅', title: 'Success', bg: 'success-box' },
-    tip: { icon: '💡', title: 'Tip', bg: 'tip-box' }
+  const cfg = {
+    info: { icon: 'ℹ️', title: 'Information', cls: 'info-box' },
+    warning: { icon: '⚠️', title: 'Warning', cls: 'warning-box' },
+    success: { icon: '✅', title: 'Success', cls: 'success-box' },
+    tip: { icon: '💡', title: 'Tip', cls: 'tip-box' }
   };
-  const c = config[type];
-  const text = prompt(`${c.title} - Enter text:`, '');
+  const c = cfg[type];
+  const text = prompt(`${c.title} - text:`, '');
   if (!text) return;
-  const html = `<div class="${c.bg}"><span style="font-size:20px;">${c.icon}</span><div><strong>${c.title}:</strong> ${text}</div></div><p><br></p>`;
+  const html = `<div class="${c.cls}"><span style="font-size:20px;">${c.icon}</span><div><strong>${c.title}:</strong> ${text}</div></div><p><br></p>`;
   document.execCommand('insertHTML', false, html);
   closeAdminModal();
   showToast('✅ Box inserted!', 'success');
@@ -1226,9 +1180,9 @@ function weInsertLink() {
 function weFindReplace() {
   document.getElementById('adminModalTitle').textContent = '🔍 Find & Replace';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Find</label><input type="text" id="weFindText" placeholder="Text to find"></div>
-    <div class="form-group"><label>Replace with</label><input type="text" id="weReplaceText" placeholder="Replacement text"></div>
-    <button class="btn-submit" onclick="weDoFindReplace()"><i class="fas fa-exchange-alt"></i> Replace All</button>
+    <div class="form-group"><label>Find</label><input type="text" id="weFindText"></div>
+    <div class="form-group"><label>Replace</label><input type="text" id="weReplaceText"></div>
+    <button class="btn-submit" onclick="weDoFindReplace()">Replace All</button>
     <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
@@ -1237,11 +1191,9 @@ function weFindReplace() {
 function weDoFindReplace() {
   const find = document.getElementById('weFindText').value;
   const replace = document.getElementById('weReplaceText').value;
-  if (!find) return showToast('Enter text to find', 'error');
+  if (!find) return showToast('Enter text', 'error');
   const editor = document.getElementById('richEditor');
-  const html = editor.innerHTML;
-  const newHtml = html.split(find).join(replace);
-  editor.innerHTML = newHtml;
+  editor.innerHTML = editor.innerHTML.split(find).join(replace);
   closeAdminModal();
   showToast('✅ Replaced!', 'success');
 }
@@ -1249,13 +1201,13 @@ function weDoFindReplace() {
 function wePageBreak() {
   const html = `<div style="page-break-after:always;border-top:2px dashed #ccc;margin:20px 0;text-align:center;color:#999;font-size:11px;">— Page Break —</div><p><br></p>`;
   document.execCommand('insertHTML', false, html);
-  showToast('✅ Page break added!', 'success');
+  showToast('✅ Page break!', 'success');
 }
 
 function weWatermark() {
   document.getElementById('adminModalTitle').textContent = '💧 Watermark';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Watermark Text</label><input type="text" id="weWatermarkText" placeholder="e.g., CONFIDENTIAL" value="${currentWatermark}"></div>
+    <div class="form-group"><label>Text</label><input type="text" id="weWatermarkText" value="${currentWatermark}" placeholder="CONFIDENTIAL"></div>
     <button class="btn-submit" onclick="weDoWatermark()">Apply</button>
     <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
   `;
@@ -1269,7 +1221,7 @@ function weDoWatermark() {
   if (text) {
     page.classList.add('watermark');
     page.setAttribute('data-watermark', text);
-    showToast('✅ Watermark applied!', 'success');
+    showToast('✅ Watermark!', 'success');
   } else {
     page.classList.remove('watermark');
     page.removeAttribute('data-watermark');
@@ -1279,30 +1231,26 @@ function weDoWatermark() {
 }
 
 function weExportPDF() {
-  const { jsPDF } = window.jspdf;
   const content = document.getElementById('richEditor').innerHTML;
-
-  const printWin = window.open('', '_blank');
-  printWin.document.write(`
+  const win = window.open('', '_blank');
+  win.document.write(`
     <html><head><title>Export</title>
     <style>
-      body{font-family:Arial;padding:40px;max-width:900px;margin:auto;line-height:1.8;color:#000;}
+      body{font-family:Arial;padding:40px;max-width:900px;margin:auto;line-height:1.8;}
       table{border-collapse:collapse;width:100%;} td,th{border:1px solid #999;padding:8px;}
       img{max-width:100%;}
-      .info-box{padding:12px;background:#eff6ff;border-left:5px solid #1976d2;margin:10px 0;}
-      .warning-box{padding:12px;background:#fef3c7;border-left:5px solid #f59e0b;margin:10px 0;}
-      .success-box{padding:12px;background:#f0fdf4;border-left:5px solid #16a34a;margin:10px 0;}
-      .tip-box{padding:12px;background:#fef9c3;border-left:5px solid #eab308;margin:10px 0;}
+      .info-box,.warning-box,.success-box,.tip-box{padding:12px;margin:10px 0;border-radius:6px;border-left:5px solid;}
+      .info-box{background:#eff6ff;border-color:#1976d2;}
+      .warning-box{background:#fef3c7;border-color:#f59e0b;}
+      .success-box{background:#f0fdf4;border-color:#16a34a;}
+      .tip-box{background:#fef9c3;border-color:#eab308;}
       pre{background:#2c3e50;color:#fff;padding:12px;border-radius:6px;}
       .checklist{list-style:none;padding:0;}
     </style></head>
     <body>${content}</body></html>
   `);
-  printWin.document.close();
-  setTimeout(() => {
-    printWin.print();
-    showToast('💡 Use "Save as PDF" in print dialog', 'info');
-  }, 500);
+  win.document.close();
+  setTimeout(() => { win.print(); showToast('💡 Save as PDF', 'info'); }, 500);
 }
 
 function wePrint() {
@@ -1326,7 +1274,6 @@ function wePrint() {
   setTimeout(() => win.print(), 500);
 }
 
-// ---- INSERT MENU ----
 function weOpenInsert() {
   document.getElementById('adminModalTitle').textContent = '➕ Insert';
   document.getElementById('adminModalBody').innerHTML = `
@@ -1375,17 +1322,17 @@ function weDoInsertTable() {
   html += '</table><p><br></p>';
   weCmd('insertHTML', html);
   closeAdminModal();
-  showToast('✅ Table inserted!', 'success');
+  showToast('✅ Table!', 'success');
 }
 
 function weInsertImage() {
   document.getElementById('adminModalTitle').textContent = '🖼️ Image';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>File (JPG, PNG, GIF)</label><input type="file" id="weImgFile" accept="image/*"></div>
+    <div class="form-group"><label>File</label><input type="file" id="weImgFile" accept="image/*"></div>
     <div class="form-group"><label>या URL</label><input type="url" id="weImgUrl"></div>
     <div class="form-group">
       <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-        <input type="checkbox" id="weImgResize" style="width:auto;"> Resizable (drag corners)
+        <input type="checkbox" id="weImgResize" style="width:auto;"> Resizable
       </label>
     </div>
     <button class="btn-submit" onclick="weDoInsertImage()">Insert</button>
@@ -1408,7 +1355,7 @@ async function weDoInsertImage() {
   const cls = resizable ? ' class="img-resizable"' : '';
   weCmd('insertHTML', `<img src="${final}"${cls}><p><br></p>`);
   closeAdminModal();
-  showToast('✅ Image inserted!', 'success');
+  showToast('✅ Image!', 'success');
 }
 
 function weInsertPDF() {
@@ -1439,14 +1386,14 @@ async function weDoInsertPDF() {
   </div><p><br></p>`;
   weCmd('insertHTML', html);
   closeAdminModal();
-  showToast('✅ PDF inserted!', 'success');
+  showToast('✅ PDF!', 'success');
 }
 
 function weInsertWord() {
   document.getElementById('adminModalTitle').textContent = '📝 MS Word';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Word file (.doc, .docx)</label><input type="file" id="weWordFile" accept=".doc,.docx"></div>
-    <div class="form-group"><label>या Word Online URL</label><input type="url" id="weWordUrl" placeholder="https://word.cloud.microsoft/..."></div>
+    <div class="form-group"><label>Word file (.doc/.docx)</label><input type="file" id="weWordFile" accept=".doc,.docx"></div>
+    <div class="form-group"><label>या Word Online URL</label><input type="url" id="weWordUrl"></div>
     <button class="btn-submit" onclick="weDoInsertWord()">Insert</button>
     <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
   `;
@@ -1465,20 +1412,20 @@ async function weDoInsertWord() {
   if (!final) return showToast('File या URL दें', 'error');
   const embedUrl = url.includes('cloud.microsoft') ? url : `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(final)}`;
   const html = `<div style="border:2px solid #2b5797;border-radius:8px;padding:12px;margin:10px 0;background:#f0f4fb;">
-    <div style="font-weight:600;margin-bottom:8px;color:#2b5797;">📝 MS Word Document</div>
+    <div style="font-weight:600;margin-bottom:8px;color:#2b5797;">📝 MS Word</div>
     <iframe src="${embedUrl}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
     <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#2b5797;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
   </div><p><br></p>`;
   weCmd('insertHTML', html);
   closeAdminModal();
-  showToast('✅ Word inserted!', 'success');
+  showToast('✅ Word!', 'success');
 }
 
 function weInsertExcel() {
   document.getElementById('adminModalTitle').textContent = '📊 MS Excel';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Excel file (.xls, .xlsx, .csv)</label><input type="file" id="weExcelFile" accept=".xls,.xlsx,.csv"></div>
-    <div class="form-group"><label>या Excel Online URL</label><input type="url" id="weExcelUrl" placeholder="https://excel.cloud.microsoft/..."></div>
+    <div class="form-group"><label>Excel file (.xls/.xlsx/.csv)</label><input type="file" id="weExcelFile" accept=".xls,.xlsx,.csv"></div>
+    <div class="form-group"><label>या Excel Online URL</label><input type="url" id="weExcelUrl"></div>
     <button class="btn-submit" onclick="weDoInsertExcel()">Insert</button>
     <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
   `;
@@ -1497,13 +1444,13 @@ async function weDoInsertExcel() {
   if (!final) return showToast('File या URL दें', 'error');
   const embedUrl = url.includes('cloud.microsoft') ? url : `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(final)}`;
   const html = `<div style="border:2px solid #217346;border-radius:8px;padding:12px;margin:10px 0;background:#f0f7f3;">
-    <div style="font-weight:600;margin-bottom:8px;color:#217346;">📊 MS Excel Spreadsheet</div>
+    <div style="font-weight:600;margin-bottom:8px;color:#217346;">📊 MS Excel</div>
     <iframe src="${embedUrl}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
     <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#217346;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
   </div><p><br></p>`;
   weCmd('insertHTML', html);
   closeAdminModal();
-  showToast('✅ Excel inserted!', 'success');
+  showToast('✅ Excel!', 'success');
 }
 
 function weInsertSymbol() {
@@ -1528,7 +1475,7 @@ function weInsertEmoji() {
 function weInsertHr() {
   weCmd('insertHTML', '<hr><p><br></p>');
   closeAdminModal();
-  showToast('✅ Line inserted!', 'success');
+  showToast('✅ Line!', 'success');
 }
 
 // ============================================================
@@ -1671,11 +1618,11 @@ function deleteItem(page, index) {
 function openBulkAddModal(page) {
   document.getElementById('adminModalTitle').textContent = `📦 Bulk Add — ${page}`;
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple items ek saath</div>
+    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple items</div>
     <div class="form-group">
       <label>Format: <code>Title | Category | Link</code></label>
-      <textarea id="bulkText" rows="10" placeholder="SSC CGL 2024 | Government | https://ssc.nic.in
-Bank PO | Banking | https://bank.com"></textarea>
+      <textarea id="bulkText" rows="10" placeholder="Item 1 | Category | https://example.com
+Item 2 | Category2 | https://example2.com"></textarea>
     </div>
     <div class="form-group"><label>Common Description</label><textarea id="bulkDesc" rows="2"></textarea></div>
     <button class="btn-submit" onclick="doBulkAdd('${page}')"><i class="fas fa-layer-group"></i> Bulk Add</button>
@@ -1804,7 +1751,7 @@ function deleteJob(i) {
 function openBulkJobModal() {
   document.getElementById('adminModalTitle').textContent = '📦 Bulk Add Jobs';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple jobs ek saath</div>
+    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple jobs</div>
     <div class="form-group">
       <label>Format: <code>Title | Type | Department</code></label>
       <textarea id="bulkJobsText" rows="10" placeholder="SSC CGL 2024 | central | Staff Selection Commission
@@ -1962,13 +1909,13 @@ function openFileUploadModal() {
 }
 
 function openBulkUploadModal() {
-  document.getElementById('adminModalTitle').textContent = '📦 Bulk Upload Files';
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Upload';
   document.getElementById('adminModalBody').innerHTML = `
     <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple files</div>
     <div class="form-group"><label>Files चुनें</label><input type="file" id="bulkFilesInput" multiple></div>
     <div class="form-group">
       <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-        <input type="checkbox" id="bulkShowOnHome" style="width:auto;"> 🏠 सब को Home पर दिखाएं
+        <input type="checkbox" id="bulkShowOnHome" style="width:auto;"> 🏠 Home पर दिखाएं
       </label>
     </div>
     <div class="upload-progress" id="bulkUploadProgress"><div class="upload-progress-bar" id="bulkUploadProgressBar"></div></div>
@@ -2427,7 +2374,7 @@ function changeAdminUsername() {
 }
 
 function exportAllData() {
-  const data = { appData, jobsData, filesMeta, settings, activityLog, version: '3.0.0', exportedAt: new Date().toISOString() };
+  const data = { appData, jobsData, filesMeta, settings, activityLog, version: '4.0.0', exportedAt: new Date().toISOString() };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -2443,7 +2390,7 @@ function exportAllDataCSV() {
   jobsData.forEach(j => {
     csv += `Job,"${(j.title||'').replace(/"/g,'""')}","${(j.jobType||'').replace(/"/g,'""')}","${(j.department||'').replace(/"/g,'""')}",""\n`;
   });
-  Object.keys(appData).forEach(p => {
+  PAGE_KEYS.forEach(p => {
     (appData[p]?.items || []).forEach(it => {
       csv += `Item-${p},"${(it.title||'').replace(/"/g,'""')}","${(it.category||'').replace(/"/g,'""')}","","${(it.link||'').replace(/"/g,'""')}"\n`;
     });
@@ -2497,7 +2444,7 @@ function updateSystemInfo() {
   el('sysFilesCount', filesData.length);
   el('sysJobsCount', jobsData.length);
   let t = 0;
-  ['career', 'more', 'blog', 'service', 'rsr'].forEach(p => { t += (appData[p]?.items || []).length; });
+  PAGE_KEYS.forEach(p => { t += (appData[p]?.items || []).length; });
   el('sysItemsCount', t);
   let size = 0;
   try { Object.keys(localStorage).forEach(k => { size += (localStorage[k] || '').length * 2; }); } catch (e) {}
@@ -2515,9 +2462,10 @@ function showAdminPage(page) {
     'files-home':'🏠 <span>Home Display</span>', 'home-editor':'🏠 <span>Home Editor</span>',
     'career-editor':'🎯 <span>Career Editor</span>', 'more-editor':'📚 <span>More Editor</span>',
     'blog-editor':'📝 <span>Blog Editor</span>', 'service-editor':'🛠️ <span>Service Editor</span>',
-    'rsr-editor':'📜 <span>RSR Editor</span>', 'items-career':'🎯 <span>Career Items</span>',
-    'items-more':'📚 <span>More Items</span>', 'items-blog':'📝 <span>Blog Items</span>',
-    'items-service':'🛠️ <span>Service Items</span>', 'items-rsr':'📜 <span>RSR Items</span>',
+    'tools-editor':'🛠️ <span>Tools Editor</span>', 'rsr-editor':'📜 <span>RSR Editor</span>',
+    'items-career':'🎯 <span>Career Items</span>', 'items-more':'📚 <span>More Items</span>',
+    'items-blog':'📝 <span>Blog Items</span>', 'items-service':'🛠️ <span>Service Items</span>',
+    'items-tools':'🛠️ <span>Tools Items</span>', 'items-rsr':'📜 <span>RSR Items</span>',
     'jobs':'💼 <span>Jobs</span>', 'slides':'📸 <span>Slides</span>',
     'employees':'👥 <span>Employees</span>', 'settings':'⚙️ <span>Settings</span>'
   };
@@ -2574,10 +2522,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateSidebarCounts();
   showAdminPage('dashboard');
   loadFilesFromCloud();
-  console.log('✅ Admin Panel v3.0 Ready');
+  console.log('✅ Admin Panel v4.0 Ready');
 });
 
-// Expose all
+// Expose
 Object.assign(window, {
   showAdminPage, toggleSidebar,
   weCmd, weFormat, weChangeCase, weLineHeight, weChecklist, weOpenBoxes, weInsertBox,
