@@ -1,23 +1,2378 @@
-dk;kZy; dek.MsUV
-egkjk.kk izrki cVkfy;u] vkj-,-lh- ¼vkbZ-vkj-½] izrkix<+ ¼jkt-½
-irk& iqfyl Fkkuk gFkqfu;k ds ikl] gFkqfu;k] ftyk izrkix<+A         EMAIL-Maharanapratapir2018@gmail.com      
-Øekad%&v&12¼ ½e-iz-cVk@cy@2026@                      fnukad %&   
-                             &% dk;kZy; vkns’k %&
-               Jh ftrsUnz Hkê] IykVwu dek.Mj ^^,Q^^ dEiuh dks fu;e 91 mikftZr vodk’k dh ns;rk&¼1½¼d½ ds rgr mikftZr vodk’k fu;e 86 dh ikyuk djus dh ’krZ ij fnukad      17-09-2026 ls 25-09-2026 rd 09 fnol mikftZr vodk’k ,oa fnukad 26-09-2026 ls 27-09-2026 rd 02 fnol i'pkr~orhZ jktif=r vodk’k Lohd`r fd;k tkrk gSA 
-vkns’k iaftdk c) gksA   
-bZ-vks-ch- la0 %&	   fnukad 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>Dream Josh - Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-¼fo’kky tk¡fxM+½ IPS
-dek.MsUV]
-egkjk.kk izrki cVkfy;u]
-vkj-,-lh ¼vkbZ-vkj-½ izrkix<
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
-izfrfyfi %& fuEukafdr dks lwpukFkZ ,oa vko’;d dk;Zokgh gsrq izsf"kr gSA
-1-	lgk;d dek.MsUV] ^^,Q^^ dEiuh] egkjk.kk izrki cVkfy;u vkj-,-lh- ¼vkbZ-vkj-½ izrkix<+A 
-2-	izHkkjh ys[kk ’kk[kk] dk;kZy; gktkA
-3-	vkns’k i=koyh@futh i=koyhA
-4-	lacaf/kr dks ikyukFkZA
+<style>
+:root{
+  --bg-color:#eef5ff; --card-bg:#fff; --text-color:#172033;
+  --primary-blue:#123c9b; --secondary-blue:#1976d2;
+  --success-green:#16a34a; --warning-red:#d62839;
+  --border-color:#dce5f0; --shadow-color:rgba(0,0,0,.1);
+  --footer-bg:#123c9b; --gold:#ffd700; --text-light:#6c757d;
+  --secondary:#1a2332;
+}
+.dark-mode{
+  --bg-color:#0a0e1a; --card-bg:#141428; --text-color:#e8e8e8;
+  --text-light:#a0a0b8; --primary-blue:#1a3a8a; --secondary-blue:#2a5ac8;
+  --border-color:#2a2a4a; --shadow-color:rgba(0,0,0,.3);
+  --footer-bg:#0d1b3e; --secondary:#1a1a2e;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg-color);color:var(--text-color);min-height:100vh;transition:background .3s,color .3s;}
 
-dek.MsUV]
-egkjk.kk izrki cVkfy;u]
-vkj-,-lh ¼vkbZ-vkj-½ izrkix<
+/* LAYOUT */
+.admin-wrapper{display:flex;min-height:100vh;}
+.admin-sidebar{
+  width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;
+  position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;transition:transform .3s;
+}
+.admin-logo{padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.admin-logo h1{font-size:20px;font-weight:700;color:#fff;}
+.admin-logo h1 span{color:var(--gold);}
+.admin-logo .badge{background:var(--success-green);font-size:9px;padding:2px 8px;border-radius:20px;font-weight:600;}
+.admin-user{padding:0 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:12px;display:flex;align-items:center;gap:12px;}
+.admin-user .avatar{width:36px;height:36px;border-radius:50%;background:var(--secondary-blue);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;}
+.admin-user .name{font-size:13px;font-weight:600;}
+.admin-user .role{font-size:10px;opacity:.6;}
+.admin-menu{list-style:none;padding:0 10px;}
+.admin-menu li{margin-bottom:2px;}
+.admin-menu li a{
+  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
+  color:rgba(255,255,255,.7);text-decoration:none;font-size:13px;font-weight:500;
+  transition:.3s;cursor:pointer;
+}
+.admin-menu li a:hover{background:rgba(255,255,255,.08);color:#fff;}
+.admin-menu li a.active{background:rgba(255,215,0,.15);color:var(--gold);}
+.admin-menu li a i{width:18px;font-size:14px;}
+.admin-menu li a .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 8px;border-radius:20px;font-size:10px;}
+.admin-menu .section-title{padding:12px 14px 6px;font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.4;font-weight:700;}
+.admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
+.admin-footer-menu a{
+  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
+  color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;font-weight:500;
+  transition:.3s;cursor:pointer;
+}
+.admin-footer-menu a:hover{background:rgba(255,255,255,.08);color:#fff;}
+
+.admin-content{flex:1;padding:24px 30px;background:var(--bg-color);min-height:100vh;overflow-y:auto;}
+.admin-top-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--border-color);flex-wrap:wrap;gap:12px;}
+.admin-top-header h2{font-size:20px;font-weight:700;}
+.admin-top-header h2 span{color:var(--primary-blue);}
+.admin-top-header .admin-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.admin-top-header .admin-actions button{
+  padding:6px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;
+  font-weight:600;transition:.3s;min-height:34px;display:flex;align-items:center;gap:6px;
+}
+.btn-close-admin{background:#6c757d;color:#fff;}
+.btn-dark-admin{background:var(--secondary);color:#fff;}
+
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;}
+.admin-stats .stat-item{
+  background:var(--card-bg);padding:14px 16px;border-radius:10px;
+  border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);
+  text-align:center;transition:.3s;
+}
+.admin-stats .stat-item .stat-icon{font-size:22px;}
+.admin-stats .stat-item .stat-label{font-size:11px;color:var(--text-light);font-weight:600;margin-top:4px;}
+.admin-stats .stat-item .stat-value{font-size:24px;font-weight:700;color:var(--primary-blue);}
+
+.admin-quick-actions{
+  background:var(--card-bg);padding:16px 20px;border-radius:10px;
+  border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);margin:16px 0;
+}
+.admin-quick-actions h3{font-size:14px;margin-bottom:10px;}
+.admin-quick-actions .actions-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.admin-quick-actions .actions-grid button{
+  padding:6px 14px;background:var(--secondary-blue);color:#fff;border:none;
+  border-radius:6px;cursor:pointer;font-size:11px;font-weight:600;transition:.3s;min-height:32px;
+}
+
+.admin-section{display:none;margin-top:16px;}
+.admin-section.active{display:block;animation:fadeInSection .3s ease;}
+@keyframes fadeInSection{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.admin-card{
+  background:var(--card-bg);border-radius:10px;border:1px solid var(--border-color);
+  box-shadow:0 2px 8px var(--shadow-color);padding:16px 20px;margin-bottom:16px;
+}
+.admin-card .card-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+.admin-card .card-header h4{font-size:15px;font-weight:600;}
+.btn-add{
+  padding:6px 14px;background:var(--success-green);color:#fff;border:none;
+  border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:.3s;
+  min-height:32px;display:flex;align-items:center;gap:4px;
+}
+.btn-add:hover{background:#15803d;}
+.btn-add.bulk{background:#6c5ce7;}
+.btn-add.bulk:hover{background:#5a4dd1;}
+
+/* MODAL */
+.admin-modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;
+  backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;
+}
+.admin-modal-overlay.active{display:flex;}
+.admin-modal{
+  background:var(--card-bg);border-radius:12px;max-width:98%;width:100%;
+  max-height:96vh;overflow-y:auto;padding:20px 24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);animation:modalIn .3s ease;
+  border:1px solid var(--border-color);
+}
+@keyframes modalIn{from{transform:scale(.95) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.admin-modal .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);}
+.admin-modal .modal-header h3{font-size:18px;font-weight:700;}
+.admin-modal .modal-header .close-modal{font-size:22px;cursor:pointer;opacity:.5;background:none;border:none;color:var(--text-color);}
+.admin-modal .form-group{margin-bottom:12px;}
+.admin-modal .form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:3px;}
+.admin-modal .form-group input,
+.admin-modal .form-group select,
+.admin-modal .form-group textarea{
+  width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;
+  font-size:13px;background:var(--bg-color);color:var(--text-color);font-family:inherit;
+}
+.admin-modal .form-group input:focus,
+.admin-modal .form-group select:focus,
+.admin-modal .form-group textarea:focus{border-color:var(--primary-blue);outline:none;}
+.admin-modal .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:600px){.admin-modal .form-row{grid-template-columns:1fr;}}
+.admin-modal .btn-submit{padding:8px 20px;background:var(--success-green);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;}
+.admin-modal .btn-cancel{padding:8px 20px;background:#6c757d;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;margin-left:8px;}
+
+/* DATA ITEM */
+.data-item{
+  background:var(--bg-color);border-radius:8px;padding:12px 14px;
+  border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);
+  margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:.3s;
+}
+.data-item:hover{border-left-color:var(--gold);box-shadow:0 2px 8px var(--shadow-color);}
+.data-item .item-sno{
+  width:32px;height:32px;border-radius:50%;background:var(--secondary-blue);color:#fff;
+  font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.data-item .item-content{flex:1;min-width:0;}
+.data-item .item-title{font-weight:600;font-size:14px;color:var(--text-color);margin-bottom:3px;word-break:break-word;}
+.data-item .item-meta{font-size:11px;color:var(--text-light);}
+.data-item .item-actions{display:flex;gap:4px;flex-wrap:wrap;}
+.data-item .item-actions button,.data-item .item-actions a{
+  padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;
+  border:none;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:4px;
+  text-decoration:none;
+}
+.btn-i-edit{background:#ffc107;color:#333;}
+.btn-i-delete{background:#dc3545;color:#fff;}
+.btn-i-dup{background:#6c5ce7;color:#fff;}
+
+.empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
+.empty-state i{font-size:36px;margin-bottom:8px;opacity:.4;}
+
+.upload-zone{
+  border:2px dashed var(--border-color);border-radius:10px;padding:30px;
+  text-align:center;cursor:pointer;transition:.3s;background:var(--bg-color);
+}
+.upload-zone:hover{border-color:var(--secondary-blue);background:rgba(25,118,210,.05);}
+.upload-zone i{font-size:36px;color:var(--secondary-blue);margin-bottom:8px;}
+.upload-progress{margin-top:12px;height:8px;background:var(--border-color);border-radius:4px;overflow:hidden;display:none;}
+.upload-progress.active{display:block;}
+.upload-progress-bar{height:100%;background:var(--success-green);width:0%;transition:width .3s;}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
+  padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;
+  z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:90%;text-align:center;
+  animation:toastIn .3s ease;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.toast.success{background:#16a34a;}
+.toast.error{background:#dc3545;}
+.toast.info{background:#1976d2;}
+.toast.warning{background:#f59e0b;}
+
+/* WORD EDITOR */
+.word-toolbar{
+  background:#fafbfc;border:1px solid #d1d9e6;border-radius:8px 8px 0 0;
+  padding:6px 8px;display:flex;flex-wrap:wrap;gap:2px;position:sticky;top:0;z-index:50;
+}
+.dark-mode .word-toolbar{background:#1a1a2e;border-color:#2a2a4a;}
+.word-toolbar .tb-group{display:flex;gap:1px;padding:0 5px;border-right:1px solid #d1d9e6;align-items:center;}
+.dark-mode .word-toolbar .tb-group{border-color:#2a2a4a;}
+.word-toolbar .tb-group:last-child{border-right:none;}
+.word-toolbar .tb-btn{
+  width:28px;height:28px;border:1px solid transparent;border-radius:4px;background:transparent;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;
+  color:#2c3e50;transition:.15s;
+}
+.dark-mode .word-toolbar .tb-btn{color:#e8e8e8;}
+.word-toolbar .tb-btn:hover{background:#e8f0fe;border-color:#c2d4f0;}
+.word-toolbar .tb-btn.wide{width:auto;padding:0 8px;gap:4px;font-size:11px;}
+.word-toolbar select{height:28px;border:1px solid #d1d9e6;border-radius:4px;padding:0 4px;font-size:11px;background:#fff;cursor:pointer;color:#2c3e50;}
+.dark-mode .word-toolbar select{background:#141428;color:#e8e8e8;border-color:#2a2a4a;}
+.word-toolbar .color-picker{width:28px;height:28px;border:1px solid #d1d9e6;border-radius:4px;cursor:pointer;padding:1px;background:#fff;}
+.word-editor-wrap{
+  background:#e8ecf1;padding:16px;min-height:400px;border:1px solid #d1d9e6;
+  border-top:none;border-radius:0 0 8px 8px;overflow-y:auto;max-height:600px;
+}
+.dark-mode .word-editor-wrap{background:#0a0e1a;border-color:#2a2a4a;}
+.word-editor-wrap .page{
+  background:#fff;max-width:850px;margin:0 auto;min-height:500px;
+  padding:40px 50px;box-shadow:0 4px 20px rgba(0,0,0,.1);border-radius:2px;color:#1a1a1a;
+}
+.dark-mode .word-editor-wrap .page{background:#1a1a2e;color:#e8e8e8;}
+#richEditor{min-height:400px;outline:none;font-size:15px;line-height:1.7;}
+#richEditor:empty:before{content:'यहाँ content लिखें... Insert Table, Image, PDF, Word, Excel, Link सब available।';color:#999;font-style:italic;}
+#richEditor h1,#richEditor h2,#richEditor h3{margin:12px 0 8px;font-weight:700;}
+#richEditor h1{font-size:28px;}
+#richEditor h2{font-size:22px;}
+#richEditor h3{font-size:18px;}
+#richEditor p{margin:6px 0;}
+#richEditor ul,#richEditor ol{margin:8px 0 8px 25px;}
+#richEditor blockquote{border-left:4px solid #1976d2;padding:8px 14px;margin:10px 0;background:#f5f8ff;font-style:italic;}
+#richEditor table{border-collapse:collapse;width:100%;margin:10px 0;}
+#richEditor table td,#richEditor table th{border:1px solid #999;padding:8px 10px;min-width:40px;}
+#richEditor table th{background:#f0f0f0;font-weight:600;}
+#richEditor img{max-width:100%;height:auto;margin:8px 0;}
+#richEditor a{color:#1976d2;text-decoration:underline;}
+#richEditor hr{border:none;border-top:2px solid #ccc;margin:16px 0;}
+
+.insert-modal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin:12px 0;}
+.insert-item{
+  padding:14px 10px;border:2px solid var(--border-color);border-radius:8px;
+  background:var(--bg-color);cursor:pointer;text-align:center;transition:.3s;
+}
+.insert-item:hover{border-color:var(--primary-blue);transform:translateY(-2px);background:rgba(25,118,210,.08);}
+.insert-item .insert-icon{font-size:24px;margin-bottom:4px;}
+.insert-item .insert-label{font-size:11px;font-weight:600;}
+.color-grid{display:grid;grid-template-columns:repeat(8, 1fr);gap:4px;margin:8px 0;}
+.color-swatch{
+  width:100%;aspect-ratio:1;border-radius:4px;cursor:pointer;
+  border:1px solid rgba(0,0,0,.1);transition:.2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.color-swatch:hover{transform:scale(1.15);border-color:#000;}
+.bulk-mode-badge{display:none;background:#6c5ce7;color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:10px;}
+.bulk-mode-badge.active{display:inline-flex;align-items:center;gap:6px;}
+
+/* SETTINGS */
+.settings-tab-btn{
+  padding:8px 16px;border:2px solid var(--border-color);border-radius:20px;
+  background:var(--bg-color);color:var(--text-color);font-size:12px;font-weight:600;
+  cursor:pointer;transition:.3s;
+}
+.settings-tab-btn:hover{border-color:var(--secondary-blue);background:rgba(25,118,210,.08);}
+.settings-tab-btn.active{background:var(--secondary-blue);color:#fff;border-color:var(--secondary-blue);}
+.settings-tab-content{display:none;animation:fadeInSection .3s ease;}
+.settings-tab-content.active{display:block;}
+.setting-group{padding:16px 0;border-bottom:1px solid var(--border-color);}
+.setting-group:last-child{border-bottom:none;}
+.setting-group h5{font-size:14px;font-weight:700;color:var(--primary-blue);margin-bottom:12px;}
+.setting-row{display:grid;grid-template-columns:200px 1fr;gap:12px;align-items:center;margin-bottom:10px;}
+@media(max-width:600px){.setting-row{grid-template-columns:1fr;gap:6px;}}
+.setting-row label{font-size:12.5px;font-weight:600;color:var(--text-color);}
+.setting-row input[type="text"],
+.setting-row input[type="email"],
+.setting-row input[type="tel"],
+.setting-row input[type="url"],
+.setting-row input[type="number"],
+.setting-row input[type="password"],
+.setting-row select,
+.setting-row textarea{
+  width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;
+  font-size:13px;background:var(--card-bg);color:var(--text-color);font-family:inherit;transition:.3s;
+}
+.setting-row input:focus,.setting-row select:focus,.setting-row textarea:focus{
+  border-color:var(--primary-blue);outline:none;background:#fff;
+}
+.setting-row textarea{resize:vertical;min-height:60px;}
+.setting-row input[type="file"]{padding:6px;border:2px dashed var(--border-color);border-radius:6px;background:var(--bg-color);cursor:pointer;}
+.setting-row.checkbox-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg-color);border-radius:6px;cursor:pointer;}
+.setting-row.checkbox-row input[type="checkbox"]{width:auto;margin:0;cursor:pointer;transform:scale(1.2);}
+.setting-row.checkbox-row label{cursor:pointer;margin:0;}
+.btn-setting{
+  padding:8px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;
+  cursor:pointer;transition:.3s;min-height:38px;margin-right:8px;margin-top:8px;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-setting.primary{background:var(--secondary-blue);color:#fff;}
+.btn-setting.success{background:var(--success-green);color:#fff;}
+.btn-setting.danger{background:var(--warning-red);color:#fff;}
+#logoPreview img{max-height:60px;border-radius:6px;border:1px solid var(--border-color);padding:4px;background:#fff;}
+#faviconPreview img{width:32px;height:32px;border-radius:4px;border:1px solid var(--border-color);background:#fff;}
+.activity-log-item{padding:6px 10px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;font-size:11.5px;}
+.activity-log-item:last-child{border-bottom:none;}
+.activity-log-item .log-time{color:var(--text-light);font-size:10px;}
+
+.admin-menu-toggle{display:none;background:var(--secondary);color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:16px;cursor:pointer;}
+@media(max-width:768px){
+  .admin-sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);z-index:999;width:280px;}
+  .admin-sidebar.open{transform:translateX(0);}
+  .admin-content{padding:16px;}
+  .admin-stats{grid-template-columns:1fr 1fr;}
+  .admin-modal{padding:14px;}
+  .admin-modal .form-row{grid-template-columns:1fr;}
+  .admin-menu-toggle{display:flex;}
+  .word-toolbar{overflow-x:auto;flex-wrap:nowrap;}
+  .data-item{flex-wrap:wrap;}
+}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;}
+.sidebar-overlay.active{display:block;}
+</style>
+</head>
+<body>
+
+<div class="admin-wrapper">
+  <!-- SIDEBAR -->
+  <div class="admin-sidebar" id="adminSidebar">
+    <div class="admin-logo">
+      <h1>🚀 <span>Dream</span>Josh</h1>
+      <span class="badge">Admin</span>
+    </div>
+    <div class="admin-user">
+      <div class="avatar">A</div>
+      <div>
+        <div class="name">Administrator</div>
+        <div class="role">Super Admin</div>
+      </div>
+    </div>
+    <ul class="admin-menu">
+      <li class="section-title">Dashboard</li>
+      <li><a class="active" data-page="dashboard" onclick="showAdminPage('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+
+      <li class="section-title">📁 File Manager</li>
+      <li><a data-page="files" onclick="showAdminPage('files')"><i class="fas fa-folder-open"></i> All Files <span class="count" id="count-files">0</span></a></li>
+      <li><a data-page="files-home" onclick="showAdminPage('files-home')"><i class="fas fa-home"></i> Home Display <span class="count" id="count-files-home">0</span></a></li>
+
+      <li class="section-title">Page Editor</li>
+      <li><a data-page="home-editor" onclick="showAdminPage('home-editor')"><i class="fas fa-home"></i> Home Page</a></li>
+      <li><a data-page="career-editor" onclick="showAdminPage('career-editor')"><i class="fas fa-briefcase"></i> Career Page</a></li>
+      <li><a data-page="more-editor" onclick="showAdminPage('more-editor')"><i class="fas fa-book"></i> More Page</a></li>
+      <li><a data-page="blog-editor" onclick="showAdminPage('blog-editor')"><i class="fas fa-blog"></i> Blog Page</a></li>
+      <li><a data-page="service-editor" onclick="showAdminPage('service-editor')"><i class="fas fa-cogs"></i> Service Page</a></li>
+      <li><a data-page="rsr-editor" onclick="showAdminPage('rsr-editor')"><i class="fas fa-gavel"></i> RSR Page</a></li>
+
+      <li class="section-title">Data Items</li>
+      <li><a data-page="items-career" onclick="showAdminPage('items-career')"><i class="fas fa-list"></i> Career Items <span class="count" id="count-career">0</span></a></li>
+      <li><a data-page="items-more" onclick="showAdminPage('items-more')"><i class="fas fa-list"></i> More Items <span class="count" id="count-more">0</span></a></li>
+      <li><a data-page="items-blog" onclick="showAdminPage('items-blog')"><i class="fas fa-list"></i> Blog Items <span class="count" id="count-blog">0</span></a></li>
+      <li><a data-page="items-service" onclick="showAdminPage('items-service')"><i class="fas fa-list"></i> Service Items <span class="count" id="count-service">0</span></a></li>
+      <li><a data-page="items-rsr" onclick="showAdminPage('items-rsr')"><i class="fas fa-list"></i> RSR Items <span class="count" id="count-rsr">0</span></a></li>
+
+      <li class="section-title">Jobs</li>
+      <li><a data-page="jobs" onclick="showAdminPage('jobs')"><i class="fas fa-briefcase"></i> Jobs Manager <span class="count" id="count-jobs">0</span></a></li>
+
+      <li class="section-title">System</li>
+      <li><a data-page="slides" onclick="showAdminPage('slides')"><i class="fas fa-images"></i> Slides Manager</a></li>
+      <li><a data-page="employees" onclick="showAdminPage('employees')"><i class="fas fa-users"></i> Employees <span class="count" id="count-employees">0</span></a></li>
+      <li><a data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+    <div class="admin-footer-menu">
+      <a onclick="window.close()"><i class="fas fa-times-circle"></i> Close Panel</a>
+    </div>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <!-- CONTENT -->
+  <div class="admin-content">
+    <div class="admin-top-header">
+      <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
+      <div class="admin-actions">
+        <button class="admin-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
+        <button class="btn-close-admin" onclick="window.close()"><i class="fas fa-times"></i> Close</button>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="adminPage-dashboard" class="admin-section active">
+      <div class="admin-stats">
+        <div class="stat-item"><div class="stat-icon">📁</div><div class="stat-label">Total Files</div><div class="stat-value" id="statFiles">0</div></div>
+        <div class="stat-item"><div class="stat-icon">🏠</div><div class="stat-label">Home Display</div><div class="stat-value" id="statHomeFiles">0</div></div>
+        <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
+        <div class="stat-item"><div class="stat-icon">📸</div><div class="stat-label">Slides</div><div class="stat-value" id="statSlides">0</div></div>
+        <div class="stat-item"><div class="stat-icon">👥</div><div class="stat-label">Employees</div><div class="stat-value" id="statEmployees">0</div></div>
+      </div>
+
+      <div class="admin-quick-actions">
+        <h3>⚡ Quick Actions</h3>
+        <div class="actions-grid">
+          <button onclick="showAdminPage('files');openFileUploadModal()"><i class="fas fa-upload"></i> Upload File</button>
+          <button onclick="showAdminPage('jobs');openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+          <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALL FILES -->
+    <div id="adminPage-files" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📁 All Files Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openFileUploadModal()"><i class="fas fa-plus"></i> Upload File</button>
+            <button class="btn-add bulk" onclick="openBulkUploadModal()"><i class="fas fa-layer-group"></i> Bulk Upload</button>
+            <button class="btn-add" style="background:var(--primary-blue);" onclick="loadFilesFromCloud()"><i class="fas fa-sync-alt"></i> Refresh</button>
+          </div>
+        </div>
+        <div id="filesGridContainer"></div>
+      </div>
+    </div>
+
+    <!-- HOME DISPLAY -->
+    <div id="adminPage-files-home" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>🏠 Home Page Display Files</h4></div>
+        <div id="homeFilesContainer"></div>
+      </div>
+    </div>
+
+    <!-- PAGE EDITORS -->
+    <div id="adminPage-home-editor" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>🏠 Home Page Editor</h4>
+          <button class="btn-add" onclick="openPageEditor('home')"><i class="fas fa-edit"></i> Edit Content</button>
+        </div>
+        <div id="adminPageContent-home"></div>
+      </div>
+    </div>
+    <div id="adminPage-career-editor" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>🎯 Career Page Editor</h4>
+          <button class="btn-add" onclick="openPageEditor('career')"><i class="fas fa-edit"></i> Edit Content</button>
+        </div>
+        <div id="adminPageContent-career"></div>
+      </div>
+    </div>
+    <div id="adminPage-more-editor" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>📚 More Page Editor</h4>
+          <button class="btn-add" onclick="openPageEditor('more')"><i class="fas fa-edit"></i> Edit Content</button>
+        </div>
+        <div id="adminPageContent-more"></div>
+      </div>
+    </div>
+    <div id="adminPage-blog-editor" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>📝 Blog Page Editor</h4>
+          <button class="btn-add" onclick="openPageEditor('blog')"><i class="fas fa-edit"></i> Edit Content</button>
+        </div>
+        <div id="adminPageContent-blog"></div>
+      </div>
+    </div>
+    <div id="adminPage-service-editor" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>🛠️ Service Page Editor</h4>
+          <button class="btn-add" onclick="openPageEditor('service')"><i class="fas fa-edit"></i> Edit Content</button>
+        </div>
+        <div id="adminPageContent-service"></div>
+      </div>
+    </div>
+    <div id="adminPage-rsr-editor" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>📜 RSR Page Editor</h4>
+          <button class="btn-add" onclick="openPageEditor('rsr')"><i class="fas fa-edit"></i> Edit Content</button>
+        </div>
+        <div id="adminPageContent-rsr"></div>
+      </div>
+    </div>
+
+    <!-- ITEMS -->
+    <div id="adminPage-items-career" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>🎯 Career Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('career')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('career')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
+        </div>
+        <div id="adminItemsContainer-career"></div>
+      </div>
+    </div>
+    <div id="adminPage-items-more" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📚 More Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('more')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('more')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
+        </div>
+        <div id="adminItemsContainer-more"></div>
+      </div>
+    </div>
+    <div id="adminPage-items-blog" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📝 Blog Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('blog')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('blog')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
+        </div>
+        <div id="adminItemsContainer-blog"></div>
+      </div>
+    </div>
+    <div id="adminPage-items-service" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>🛠️ Service Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('service')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('service')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
+        </div>
+        <div id="adminItemsContainer-service"></div>
+      </div>
+    </div>
+    <div id="adminPage-items-rsr" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📜 RSR Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('rsr')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('rsr')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
+        </div>
+        <div id="adminItemsContainer-rsr"></div>
+      </div>
+    </div>
+
+    <!-- JOBS -->
+    <div id="adminPage-jobs" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>💼 Jobs Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+            <button class="btn-add bulk" onclick="openBulkJobModal()"><i class="fas fa-layer-group"></i> Bulk Add Jobs</button>
+          </div>
+        </div>
+        <div id="jobsContainer"></div>
+      </div>
+    </div>
+
+    <!-- SLIDES -->
+    <div id="adminPage-slides" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>📸 Slides Manager</h4>
+          <button class="btn-add" onclick="openSlideModal()"><i class="fas fa-plus"></i> Add Slide</button>
+        </div>
+        <div id="adminSlidesContainer"></div>
+      </div>
+    </div>
+
+    <!-- EMPLOYEES -->
+    <div id="adminPage-employees" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>👥 Employees</h4>
+          <button class="btn-add" onclick="openEmployeeModal()"><i class="fas fa-user-plus"></i> Add</button>
+        </div>
+        <div id="employeeListContainer"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="adminPage-settings" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>⚙️ Settings</h4>
+          <span style="font-size:12px;color:var(--text-light);">सभी settings यहाँ से manage करें</span>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
+          <button class="settings-tab-btn active" data-tab="general" onclick="switchSettingsTab('general')">🏠 General</button>
+          <button class="settings-tab-btn" data-tab="appearance" onclick="switchSettingsTab('appearance')">🎨 Appearance</button>
+          <button class="settings-tab-btn" data-tab="content" onclick="switchSettingsTab('content')">📄 Content</button>
+          <button class="settings-tab-btn" data-tab="security" onclick="switchSettingsTab('security')">🔐 Security</button>
+          <button class="settings-tab-btn" data-tab="seo" onclick="switchSettingsTab('seo')">🔍 SEO</button>
+          <button class="settings-tab-btn" data-tab="social" onclick="switchSettingsTab('social')">🔗 Social</button>
+          <button class="settings-tab-btn" data-tab="backup" onclick="switchSettingsTab('backup')">💾 Backup</button>
+        </div>
+
+        <!-- GENERAL -->
+        <div class="settings-tab-content active" id="settings-tab-general">
+          <div class="setting-group">
+            <h5>🌐 Site Information</h5>
+            <div class="setting-row"><label>Site Name</label><input type="text" id="setSiteName" placeholder="Dream Josh"></div>
+            <div class="setting-row"><label>Tagline</label><input type="text" id="setTagline" placeholder="Career & Study Platform"></div>
+            <div class="setting-row"><label>Site Description</label><textarea id="setSiteDesc" rows="2"></textarea></div>
+            <div class="setting-row"><label>Site URL</label><input type="url" id="setSiteURL" placeholder="https://dreamjosh.com"></div>
+          </div>
+          <div class="setting-group">
+            <h5>📞 Contact Information</h5>
+            <div class="setting-row"><label>Contact Email</label><input type="email" id="setContactEmail" placeholder="info@dreamjosh.com"></div>
+            <div class="setting-row"><label>Contact Phone</label><input type="tel" id="setContactPhone" placeholder="+91 98765 43210"></div>
+            <div class="setting-row"><label>Address</label><textarea id="setAddress" rows="2"></textarea></div>
+          </div>
+          <div class="setting-group">
+            <h5>🌍 Regional</h5>
+            <div class="setting-row"><label>Language</label>
+              <select id="setLanguage"><option value="hi">हिंदी</option><option value="en">English</option><option value="both">दोनों</option></select>
+            </div>
+            <div class="setting-row"><label>Timezone</label>
+              <select id="setTimezone"><option value="Asia/Kolkata">IST (India)</option><option value="UTC">UTC</option></select>
+            </div>
+            <div class="setting-row"><label>Date Format</label>
+              <select id="setDateFormat"><option value="DD-MM-YYYY">DD-MM-YYYY</option><option value="YYYY-MM-DD">YYYY-MM-DD</option></select>
+            </div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save General</button>
+        </div>
+
+        <!-- APPEARANCE -->
+        <div class="settings-tab-content" id="settings-tab-appearance">
+          <div class="setting-group">
+            <h5>🖼️ Logo & Favicon</h5>
+            <div class="setting-row"><label>Logo Upload</label>
+              <input type="file" id="setLogoFile" accept="image/*" onchange="handleLogoUpload(event)">
+            </div>
+            <div id="logoPreview" style="margin-left:212px;"></div>
+            <div class="setting-row"><label>Favicon Upload</label>
+              <input type="file" id="setFaviconFile" accept="image/*" onchange="handleFaviconUpload(event)">
+            </div>
+            <div id="faviconPreview" style="margin-left:212px;"></div>
+          </div>
+          <div class="setting-group">
+            <h5>🎨 Colors (Live Preview)</h5>
+            <div class="setting-row"><label>Primary Color</label><input type="color" id="setPrimaryColor" value="#123c9b" onchange="applyColorPreview()"></div>
+            <div class="setting-row"><label>Secondary Color</label><input type="color" id="setSecondaryColor" value="#1976d2" onchange="applyColorPreview()"></div>
+            <div class="setting-row"><label>Accent Color</label><input type="color" id="setAccentColor" value="#ffd700" onchange="applyColorPreview()"></div>
+          </div>
+          <div class="setting-group">
+            <h5>🎭 Theme</h5>
+            <div class="setting-row"><label>Theme Mode</label>
+              <select id="setThemeMode"><option value="light">☀️ Light</option><option value="dark">🌙 Dark</option><option value="auto">🌓 Auto</option></select>
+            </div>
+            <div class="setting-row"><label>Font Family</label>
+              <select id="setFontFamily" onchange="applyFontPreview()">
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="'Segoe UI', sans-serif">Segoe UI</option>
+                <option value="Roboto, sans-serif">Roboto</option>
+                <option value="'Nirmala UI', sans-serif">Nirmala UI (Hindi)</option>
+              </select>
+            </div>
+            <div class="setting-row"><label>Border Radius</label>
+              <select id="setBorderRadius"><option value="0px">Square</option><option value="6px">Slightly Rounded</option><option value="12px">Rounded</option></select>
+            </div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('appearance')"><i class="fas fa-save"></i> Save Appearance</button>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="settings-tab-content" id="settings-tab-content">
+          <div class="setting-group">
+            <h5>📊 Display Settings</h5>
+            <div class="setting-row"><label>Items Per Page</label><input type="number" id="setItemsPerPage" value="12" min="1" max="100"></div>
+            <div class="setting-row"><label>Home Limit</label><input type="number" id="setHomeLimit" value="6" min="1" max="50"></div>
+            <div class="setting-row"><label>Items Per Row</label>
+              <select id="setItemsPerRow"><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select>
+            </div>
+            <div class="setting-row"><label>Home Layout</label>
+              <select id="setHomeLayout"><option value="grid">Grid</option><option value="list">List</option><option value="card">Card</option></select>
+            </div>
+          </div>
+          <div class="setting-group">
+            <h5>💬 Features</h5>
+            <div class="setting-row checkbox-row"><input type="checkbox" id="setEnableComments"><label for="setEnableComments">💬 Comments</label></div>
+            <div class="setting-row checkbox-row"><input type="checkbox" id="setEnableRating"><label for="setEnableRating">⭐ Rating</label></div>
+            <div class="setting-row checkbox-row"><input type="checkbox" id="setEnableLike" checked><label for="setEnableLike">❤️ Like Button</label></div>
+            <div class="setting-row checkbox-row"><input type="checkbox" id="setEnableShare" checked><label for="setEnableShare">📤 Share</label></div>
+            <div class="setting-row checkbox-row"><input type="checkbox" id="setEnablePrint" checked><label for="setEnablePrint">🖨️ Print</label></div>
+          </div>
+          <div class="setting-group">
+            <h5>📢 Announcements</h5>
+            <div class="setting-row"><label>Announcement Bar</label><input type="text" id="setAnnouncementBar" placeholder="🎉 New jobs every day!"></div>
+            <div class="setting-row checkbox-row"><input type="checkbox" id="setShowTicker"><label for="setShowTicker">📜 Show Ticker</label></div>
+            <div class="setting-row"><label>Ticker Text</label><input type="text" id="setTickerText" placeholder="🔥 New updates"></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('content')"><i class="fas fa-save"></i> Save Content</button>
+        </div>
+
+        <!-- SECURITY -->
+        <div class="settings-tab-content" id="settings-tab-security">
+          <div class="setting-group">
+            <h5>🔑 Change Password</h5>
+            <div class="setting-row"><label>Current Password</label><input type="password" id="setCurPassword" placeholder="Current"></div>
+            <div class="setting-row"><label>New Password</label><input type="password" id="setNewPassword" placeholder="Min 6 chars"></div>
+            <div class="setting-row"><label>Confirm Password</label><input type="password" id="setConfirmPassword" placeholder="Re-enter"></div>
+            <button class="btn-setting danger" onclick="changeAdminPassword()" style="margin-top:8px;"><i class="fas fa-key"></i> Change Password</button>
+          </div>
+          <div class="setting-group">
+            <h5>👤 Change Username</h5>
+            <div class="setting-row"><label>Current Username</label><input type="text" id="setCurUsername" readonly></div>
+            <div class="setting-row"><label>New Username</label><input type="text" id="setNewUsername"></div>
+            <button class="btn-setting primary" onclick="changeAdminUsername()" style="margin-top:8px;"><i class="fas fa-user-edit"></i> Change Username</button>
+          </div>
+          <div class="setting-group">
+            <h5>🛠️ Maintenance Mode</h5>
+            <div class="setting-row checkbox-row"><input type="checkbox" id="setMaintenanceMode"><label for="setMaintenanceMode">🚧 Enable Maintenance</label></div>
+            <div class="setting-row"><label>Message</label><textarea id="setMaintenanceMsg" rows="2" placeholder="We'll be back soon"></textarea></div>
+            <button class="btn-setting success" onclick="saveSettingsGroup('security')" style="margin-top:8px;"><i class="fas fa-save"></i> Save Security</button>
+          </div>
+          <div class="setting-group">
+            <h5>📋 Activity Log</h5>
+            <div style="background:var(--bg-color);border-radius:6px;padding:12px;max-height:200px;overflow-y:auto;font-size:12px;font-family:monospace;">
+              <div id="activityLogContainer">No activity yet</div>
+            </div>
+            <button class="btn-setting danger" onclick="clearActivityLog()" style="margin-top:8px;"><i class="fas fa-trash"></i> Clear Log</button>
+          </div>
+        </div>
+
+        <!-- SEO -->
+        <div class="settings-tab-content" id="settings-tab-seo">
+          <div class="setting-group">
+            <h5>🔍 Meta Tags</h5>
+            <div class="setting-row"><label>Meta Title</label><input type="text" id="setMetaTitle"></div>
+            <div class="setting-row"><label>Meta Description</label><textarea id="setMetaDesc" rows="2"></textarea></div>
+            <div class="setting-row"><label>Meta Keywords</label><input type="text" id="setMetaKeywords"></div>
+          </div>
+          <div class="setting-group">
+            <h5>📊 Analytics</h5>
+            <div class="setting-row"><label>Google Analytics ID</label><input type="text" id="setGAId" placeholder="G-XXXXXXXXXX"></div>
+            <div class="setting-row"><label>Search Console</label><input type="text" id="setGSCode"></div>
+            <div class="setting-row"><label>FB Pixel ID</label><input type="text" id="setFBPixel"></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('seo')"><i class="fas fa-save"></i> Save SEO</button>
+        </div>
+
+        <!-- SOCIAL -->
+        <div class="settings-tab-content" id="settings-tab-social">
+          <div class="setting-group">
+            <h5>📱 Social Media Links</h5>
+            <div class="setting-row"><label>📷 Instagram</label><input type="url" id="setInstagram"></div>
+            <div class="setting-row"><label>▶️ YouTube</label><input type="url" id="setYouTube"></div>
+            <div class="setting-row"><label>📘 Facebook</label><input type="url" id="setFacebook"></div>
+            <div class="setting-row"><label>💬 WhatsApp</label><input type="tel" id="setWhatsApp"></div>
+            <div class="setting-row"><label>✈️ Telegram</label><input type="url" id="setTelegram"></div>
+            <div class="setting-row"><label>🐦 Twitter/X</label><input type="url" id="setTwitter"></div>
+            <div class="setting-row"><label>💼 LinkedIn</label><input type="url" id="setLinkedIn"></div>
+            <div class="setting-row"><label>📌 Pinterest</label><input type="url" id="setPinterest"></div>
+          </div>
+          <div class="setting-group">
+            <div class="setting-row checkbox-row"><input type="checkbox" id="setShowSocialHome" checked><label for="setShowSocialHome">Home Page पर social buttons दिखाएं</label></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('social')"><i class="fas fa-save"></i> Save Social</button>
+        </div>
+
+        <!-- BACKUP -->
+        <div class="settings-tab-content" id="settings-tab-backup">
+          <div class="setting-group">
+            <h5>💾 Manual Backup</h5>
+            <button class="btn-setting success" onclick="exportAllData()"><i class="fas fa-download"></i> Backup JSON</button>
+            <button class="btn-setting primary" onclick="exportAllDataCSV()"><i class="fas fa-file-csv"></i> Export CSV</button>
+          </div>
+          <div class="setting-group">
+            <h5>📥 Restore</h5>
+            <input type="file" id="restoreFileInput" accept=".json" style="padding:6px;border:2px dashed var(--border-color);border-radius:6px;background:var(--bg-color);width:100%;">
+            <button class="btn-setting primary" onclick="importData()" style="margin-top:8px;"><i class="fas fa-upload"></i> Restore</button>
+          </div>
+          <div class="setting-group">
+            <h5>🗑️ Clear All</h5>
+            <button class="btn-setting danger" onclick="clearAllAdminData()"><i class="fas fa-trash"></i> Clear Everything</button>
+          </div>
+          <div class="setting-group">
+            <h5>ℹ️ System Info</h5>
+            <div style="background:var(--bg-color);border-radius:6px;padding:12px;font-size:12px;">
+              <div><strong>Version:</strong> 2.0.0</div>
+              <div><strong>Firebase:</strong> <span id="sysFirebaseStatus">✅</span></div>
+              <div><strong>Storage:</strong> <span id="sysStorageUsed">-</span></div>
+              <div><strong>Files:</strong> <span id="sysFilesCount">0</span></div>
+              <div><strong>Jobs:</strong> <span id="sysJobsCount">0</span></div>
+              <div><strong>Items:</strong> <span id="sysItemsCount">0</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="admin-modal-overlay" id="adminModalOverlay" onclick="if(event.target===this) closeAdminModal()">
+  <div class="admin-modal" id="adminModalBox">
+    <div class="modal-header">
+      <h3 id="adminModalTitle">Edit</h3>
+      <button class="close-modal" onclick="closeAdminModal()">&times;</button>
+    </div>
+    <div id="adminModalBody"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// FIREBASE
+// ============================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
+  authDomain: "dreamjosh-7d9ee.firebaseapp.com",
+  projectId: "dreamjosh-7d9ee",
+  storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
+  messagingSenderId: "461367857074",
+  appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
+};
+
+let firebaseApp, firebaseDB, firebaseStorage;
+try {
+  firebaseApp = firebase.initializeApp(firebaseConfig);
+  firebaseDB = firebase.firestore();
+  firebaseStorage = firebase.storage();
+} catch (err) { console.error(err); }
+
+// ============================================================
+// STATE
+// ============================================================
+let appData = {};
+let jobsData = [];
+let filesData = [];
+let filesMeta = [];
+let settings = {};
+let activityLog = [];
+
+const STORAGE_KEY = 'dreamjosh_admin_data';
+const FILES_META_KEY = 'dreamjosh_files_meta';
+const SETTINGS_KEY = 'dreamjosh_settings';
+const ACTIVITY_LOG_KEY = 'dreamjosh_activity_log';
+const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
+
+const DEFAULT_DATA = {
+  home: { content: '' },
+  career: { content: '', items: [] },
+  more: { content: '', items: [] },
+  service: { content: '', items: [] },
+  blog: { content: '', items: [] },
+  rsr: { content: '', items: [] },
+  slides: [],
+  employees: []
+};
+
+const DEFAULT_SETTINGS = {
+  siteName:'Dream Josh', tagline:'Career & Study Platform', siteDesc:'', siteURL:'',
+  contactEmail:'', contactPhone:'', address:'', language:'both', timezone:'Asia/Kolkata', dateFormat:'DD-MM-YYYY',
+  logo:'', favicon:'', primaryColor:'#123c9b', secondaryColor:'#1976d2', accentColor:'#ffd700',
+  themeMode:'light', fontFamily:'Arial, sans-serif', borderRadius:'12px',
+  itemsPerPage:12, homeLimit:6, itemsPerRow:3, homeLayout:'grid',
+  enableComments:false, enableRating:false, enableLike:true, enableShare:true, enablePrint:true,
+  announcementBar:'', showTicker:false, tickerText:'',
+  maintenanceMode:false, maintenanceMsg:'We will be back soon!',
+  metaTitle:'Dream Josh - Career & Study Platform', metaDesc:'', metaKeywords:'',
+  gaId:'', gsCode:'', fbPixel:'',
+  instagram:'', youtube:'', facebook:'', whatsapp:'', telegram:'', twitter:'', linkedin:'', pinterest:'',
+  showSocialHome:true
+};
+
+const DEFAULT_ADMIN = { username: 'Admin', password: 'Admin@123' };
+
+// ============================================================
+// LOAD / SAVE
+// ============================================================
+function loadData() {
+  try {
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) { const p = JSON.parse(s); appData = p.appData || {}; jobsData = p.jobsData || []; }
+  } catch (e) {}
+  Object.keys(DEFAULT_DATA).forEach(k => {
+    if (!appData[k]) appData[k] = JSON.parse(JSON.stringify(DEFAULT_DATA[k]));
+  });
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData, jobsData }));
+    if (firebaseDB) {
+      firebaseDB.collection('dreamjosh').doc('appData').set(appData).catch(()=>{});
+      firebaseDB.collection('dreamjosh').doc('jobsData').set({ jobs: jobsData }).catch(()=>{});
+    }
+  } catch (e) {}
+}
+
+function loadSettings() {
+  try {
+    const s = localStorage.getItem(SETTINGS_KEY);
+    settings = s ? JSON.parse(s) : {};
+  } catch (e) { settings = {}; }
+  Object.keys(DEFAULT_SETTINGS).forEach(k => {
+    if (settings[k] === undefined) settings[k] = DEFAULT_SETTINGS[k];
+  });
+}
+
+function saveSettings() {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('settings').set(settings).catch(()=>{});
+}
+
+async function loadSettingsFromCloud() {
+  if (!firebaseDB) return;
+  try {
+    const d = await firebaseDB.collection('dreamjosh').doc('settings').get();
+    if (d.exists) { settings = { ...settings, ...d.data() }; localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
+  } catch (e) {}
+}
+
+function loadActivityLog() {
+  try { activityLog = JSON.parse(localStorage.getItem(ACTIVITY_LOG_KEY)) || []; } catch (e) { activityLog = []; }
+}
+
+function logActivity(action, details) {
+  activityLog.unshift({ action, details, time: new Date().toISOString() });
+  if (activityLog.length > 100) activityLog = activityLog.slice(0, 100);
+  localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(activityLog));
+  renderActivityLog();
+}
+
+function renderActivityLog() {
+  const c = document.getElementById('activityLogContainer');
+  if (!c) return;
+  if (!activityLog.length) { c.innerHTML = '<em style="color:var(--text-light);">No activity yet</em>'; return; }
+  c.innerHTML = activityLog.slice(0, 20).map(l => `
+    <div class="activity-log-item">
+      <span><strong>${escapeHtml(l.action)}</strong> — ${escapeHtml(l.details || '')}</span>
+      <span class="log-time">${new Date(l.time).toLocaleString()}</span>
+    </div>
+  `).join('');
+}
+
+function clearActivityLog() {
+  if (!confirm('Log clear करें?')) return;
+  activityLog = [];
+  localStorage.removeItem(ACTIVITY_LOG_KEY);
+  renderActivityLog();
+  showToast('✅ Log cleared!', 'success');
+}
+
+function getAdminCreds() {
+  try {
+    const s = localStorage.getItem(ADMIN_CREDS_KEY);
+    if (s) { const p = JSON.parse(s); if (p && p.username) return p; }
+  } catch (e) {}
+  return { ...DEFAULT_ADMIN };
+}
+function saveAdminCreds(username, password) {
+  const c = { username, password };
+  localStorage.setItem(ADMIN_CREDS_KEY, JSON.stringify(c));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('adminCreds').set(c).catch(()=>{});
+}
+
+function updateSidebarCounts() {
+  const counts = {
+    career: (appData.career?.items || []).length,
+    more: (appData.more?.items || []).length,
+    blog: (appData.blog?.items || []).length,
+    service: (appData.service?.items || []).length,
+    rsr: (appData.rsr?.items || []).length,
+    jobs: jobsData.length,
+    employees: (appData.employees || []).length,
+    files: filesData.length,
+    'files-home': filesMeta.filter(f => f.showOnHome).length
+  };
+  Object.keys(counts).forEach(k => {
+    const el = document.getElementById('count-' + k);
+    if (el) el.textContent = counts[k];
+  });
+  const setStat = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  setStat('statFiles', filesData.length);
+  setStat('statHomeFiles', filesMeta.filter(f => f.showOnHome).length);
+  setStat('statJobs', jobsData.length);
+  setStat('statSlides', (appData.slides || []).length);
+  setStat('statEmployees', (appData.employees || []).length);
+}
+
+// ============================================================
+// WORD EDITOR
+// ============================================================
+function getWordEditorHTML(content) {
+  return `
+    <div class="word-toolbar">
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('undo')"><i class="fas fa-undo"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('redo')"><i class="fas fa-redo"></i></button>
+      </div>
+      <div class="tb-group">
+        <select onchange="weCmd('fontName', this.value)">
+          <option value="Arial">Arial</option>
+          <option value="Times New Roman">Times</option>
+          <option value="Calibri">Calibri</option>
+          <option value="Mangal">Mangal (Hindi)</option>
+          <option value="Nirmala UI">Nirmala (Hindi)</option>
+        </select>
+        <select onchange="weCmd('fontSize', this.value)">
+          <option value="2">10</option><option value="3" selected>12</option>
+          <option value="4">14</option><option value="5">18</option>
+          <option value="6">24</option><option value="7">36</option>
+        </select>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('bold')"><i class="fas fa-bold"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('italic')"><i class="fas fa-italic"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('underline')"><i class="fas fa-underline"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('strikeThrough')"><i class="fas fa-strikethrough"></i></button>
+      </div>
+      <div class="tb-group">
+        <input type="color" class="color-picker" value="#000000" onchange="weCmd('foreColor', this.value)">
+        <input type="color" class="color-picker" value="#ffff00" onchange="weCmd('hiliteColor', this.value)">
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('justifyLeft')"><i class="fas fa-align-left"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('justifyCenter')"><i class="fas fa-align-center"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('justifyRight')"><i class="fas fa-align-right"></i></button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('insertOrderedList')"><i class="fas fa-list-ol"></i></button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn wide" onclick="weOpenInsert()"><i class="fas fa-plus-circle"></i> Insert</button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weInsertLink()"><i class="fas fa-link"></i></button>
+      </div>
+    </div>
+    <div class="word-editor-wrap">
+      <div class="page">
+        <div id="richEditor" contenteditable="true">${content || ''}</div>
+      </div>
+    </div>
+  `;
+}
+
+function weCmd(cmd, val) { document.execCommand(cmd, false, val || null); document.getElementById('richEditor')?.focus(); }
+function weInsertLink() {
+  const url = prompt('Link URL:', 'https://');
+  if (!url) return;
+  const text = prompt('Link Text:', url);
+  if (!text) return;
+  weCmd('insertHTML', `<a href="${url}" target="_blank">${text}</a>`);
+}
+
+function weOpenInsert() {
+  document.getElementById('adminModalTitle').textContent = '➕ Insert';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="insert-modal-grid">
+      <div class="insert-item" onclick="weInsertTable()"><div class="insert-icon">📊</div><div class="insert-label">Table</div></div>
+      <div class="insert-item" onclick="weInsertImage()"><div class="insert-icon">🖼️</div><div class="insert-label">Image</div></div>
+      <div class="insert-item" onclick="weInsertPDF()"><div class="insert-icon">📄</div><div class="insert-label">PDF</div></div>
+      <div class="insert-item" onclick="weInsertWord()"><div class="insert-icon">📝</div><div class="insert-label">MS Word</div></div>
+      <div class="insert-item" onclick="weInsertExcel()"><div class="insert-icon">📊</div><div class="insert-label">MS Excel</div></div>
+      <div class="insert-item" onclick="weInsertLink()"><div class="insert-icon">🔗</div><div class="insert-label">Link</div></div>
+      <div class="insert-item" onclick="weInsertSymbol()"><div class="insert-icon">∞</div><div class="insert-label">Symbol</div></div>
+      <div class="insert-item" onclick="weInsertEmoji()"><div class="insert-icon">😀</div><div class="insert-label">Emoji</div></div>
+      <div class="insert-item" onclick="weInsertHr()"><div class="insert-icon">─</div><div class="insert-label">Line</div></div>
+    </div>
+    <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function weInsertTable() {
+  document.getElementById('adminModalTitle').textContent = '📊 Table';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-row">
+      <div class="form-group"><label>Rows</label><input type="number" id="weTRows" value="3" min="1" max="30"></div>
+      <div class="form-group"><label>Columns</label><input type="number" id="weTCols" value="3" min="1" max="15"></div>
+    </div>
+    <button class="btn-submit" onclick="weDoInsertTable()">Insert</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+}
+function weDoInsertTable() {
+  const r = parseInt(document.getElementById('weTRows').value) || 3;
+  const c = parseInt(document.getElementById('weTCols').value) || 3;
+  let html = '<table>';
+  for (let i = 0; i < r; i++) {
+    html += '<tr>';
+    for (let j = 0; j < c; j++) html += i === 0 ? `<th>H${j+1}</th>` : '<td>Cell</td>';
+    html += '</tr>';
+  }
+  html += '</table><p><br></p>';
+  weCmd('insertHTML', html);
+  closeAdminModal();
+  showToast('✅ Table!', 'success');
+}
+
+function weInsertImage() {
+  document.getElementById('adminModalTitle').textContent = '🖼️ Image';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group"><label>File</label><input type="file" id="weImgFile" accept="image/*"></div>
+    <div class="form-group"><label>या URL</label><input type="url" id="weImgUrl"></div>
+    <button class="btn-submit" onclick="weDoInsertImage()">Insert</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+}
+async function weDoInsertImage() {
+  const file = document.getElementById('weImgFile').files[0];
+  const url = document.getElementById('weImgUrl').value.trim();
+  let final = url;
+  if (file && firebaseStorage) {
+    try {
+      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      final = await ref.getDownloadURL();
+    } catch (e) { return showToast('Upload failed', 'error'); }
+  }
+  if (!final) return showToast('File या URL दें', 'error');
+  weCmd('insertHTML', `<img src="${final}" style="max-width:100%;"><p><br></p>`);
+  closeAdminModal();
+  showToast('✅ Image!', 'success');
+}
+
+function weInsertPDF() {
+  document.getElementById('adminModalTitle').textContent = '📄 PDF';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group"><label>PDF file</label><input type="file" id="wePdfFile" accept=".pdf"></div>
+    <div class="form-group"><label>या URL</label><input type="url" id="wePdfUrl"></div>
+    <button class="btn-submit" onclick="weDoInsertPDF()">Insert</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+}
+async function weDoInsertPDF() {
+  const file = document.getElementById('wePdfFile').files[0];
+  const url = document.getElementById('wePdfUrl').value.trim();
+  let final = url;
+  if (file && firebaseStorage) {
+    try {
+      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      final = await ref.getDownloadURL();
+    } catch (e) { return showToast('Upload failed', 'error'); }
+  }
+  if (!final) return showToast('File या URL दें', 'error');
+  const html = `<div style="border:2px solid #d62839;border-radius:8px;padding:12px;margin:10px 0;background:#fef5f5;">
+    <div style="font-weight:600;margin-bottom:8px;color:#d62839;">📄 PDF</div>
+    <iframe src="${final}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
+    <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#1976d2;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
+  </div><p><br></p>`;
+  weCmd('insertHTML', html);
+  closeAdminModal();
+  showToast('✅ PDF!', 'success');
+}
+
+function weInsertWord() {
+  document.getElementById('adminModalTitle').textContent = '📝 MS Word';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group"><label>Word file</label><input type="file" id="weWordFile" accept=".doc,.docx"></div>
+    <div class="form-group"><label>या Word Online URL</label><input type="url" id="weWordUrl"></div>
+    <button class="btn-submit" onclick="weDoInsertWord()">Insert</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+}
+async function weDoInsertWord() {
+  const file = document.getElementById('weWordFile').files[0];
+  const url = document.getElementById('weWordUrl').value.trim();
+  let final = url;
+  if (file && firebaseStorage) {
+    try {
+      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      final = await ref.getDownloadURL();
+    } catch (e) { return showToast('Upload failed', 'error'); }
+  }
+  if (!final) return showToast('File या URL दें', 'error');
+  const embedUrl = url.includes('cloud.microsoft') ? url : `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(final)}`;
+  const html = `<div style="border:2px solid #2b5797;border-radius:8px;padding:12px;margin:10px 0;background:#f0f4fb;">
+    <div style="font-weight:600;margin-bottom:8px;color:#2b5797;">📝 MS Word</div>
+    <iframe src="${embedUrl}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
+    <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#2b5797;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
+  </div><p><br></p>`;
+  weCmd('insertHTML', html);
+  closeAdminModal();
+  showToast('✅ Word!', 'success');
+}
+
+function weInsertExcel() {
+  document.getElementById('adminModalTitle').textContent = '📊 MS Excel';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group"><label>Excel file</label><input type="file" id="weExcelFile" accept=".xls,.xlsx,.csv"></div>
+    <div class="form-group"><label>या Excel Online URL</label><input type="url" id="weExcelUrl"></div>
+    <button class="btn-submit" onclick="weDoInsertExcel()">Insert</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+}
+async function weDoInsertExcel() {
+  const file = document.getElementById('weExcelFile').files[0];
+  const url = document.getElementById('weExcelUrl').value.trim();
+  let final = url;
+  if (file && firebaseStorage) {
+    try {
+      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      final = await ref.getDownloadURL();
+    } catch (e) { return showToast('Upload failed', 'error'); }
+  }
+  if (!final) return showToast('File या URL दें', 'error');
+  const embedUrl = url.includes('cloud.microsoft') ? url : `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(final)}`;
+  const html = `<div style="border:2px solid #217346;border-radius:8px;padding:12px;margin:10px 0;background:#f0f7f3;">
+    <div style="font-weight:600;margin-bottom:8px;color:#217346;">📊 MS Excel</div>
+    <iframe src="${embedUrl}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
+    <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#217346;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
+  </div><p><br></p>`;
+  weCmd('insertHTML', html);
+  closeAdminModal();
+  showToast('✅ Excel!', 'success');
+}
+
+function weInsertSymbol() {
+  const s = ['©','®','™','°','±','×','÷','≠','≤','≥','∞','∑','∏','√','∫','∂','∆','π','µ','Ω','←','→','↑','↓','★','☆','✓','✗','♥','♦','♣','♠','₹','$','€','£','¥','•','§','¶'];
+  let html = '<div class="color-grid">';
+  s.forEach(x => html += `<div class="color-swatch" style="background:#f0f0f0;font-size:18px;" onclick="wePick('${x}')">${x}</div>`);
+  html += '</div><button class="btn-cancel" onclick="closeAdminModal()">Close</button>';
+  document.getElementById('adminModalTitle').textContent = '∞ Symbols';
+  document.getElementById('adminModalBody').innerHTML = html;
+}
+function wePick(s) { weCmd('insertText', s); closeAdminModal(); }
+
+function weInsertEmoji() {
+  const e = ['😀','😃','😄','😊','😍','🤩','😎','🤔','😴','😢','😡','🥳','👍','🙏','💪','✨','🔥','⭐','❤️','💙','💚','💛','🧡','💜','🏆','🎯','📌','📎','📝','📚','📖','✏️','📊','📈','💼','🏛️','🎓','🏫','🇮🇳','🎉','🎁','💡','✅','❌','⚠️','📢','💰'];
+  let html = '<div class="color-grid">';
+  e.forEach(x => html += `<div class="color-swatch" style="background:#f0f0f0;font-size:22px;" onclick="wePick('${x}')">${x}</div>`);
+  html += '</div><button class="btn-cancel" onclick="closeAdminModal()">Close</button>';
+  document.getElementById('adminModalTitle').textContent = '😀 Emoji';
+  document.getElementById('adminModalBody').innerHTML = html;
+}
+
+function weInsertHr() {
+  weCmd('insertHTML', '<hr><p><br></p>');
+  closeAdminModal();
+  showToast('✅ Line!', 'success');
+}
+
+// ============================================================
+// PAGE EDITOR
+// ============================================================
+function openPageEditor(page) {
+  const content = appData[page]?.content || '';
+  document.getElementById('adminModalTitle').textContent = `✏️ Edit ${page} Page`;
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="pePage" value="${page}">
+    ${getWordEditorHTML(content)}
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="savePageEditorContent()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+  setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
+}
+
+function savePageEditorContent() {
+  const page = document.getElementById('pePage').value;
+  const content = document.getElementById('richEditor').innerHTML;
+  if (!appData[page]) appData[page] = { content: '', items: [] };
+  appData[page].content = content;
+  saveData();
+  logActivity('Page Saved', page);
+  closeAdminModal();
+  renderPageContent(page);
+  showToast('✅ Saved!', 'success');
+}
+
+function renderPageContent(page) {
+  const el = document.getElementById('adminPageContent-' + page);
+  if (!el) return;
+  const c = appData[page]?.content || '';
+  el.innerHTML = `<div style="padding:12px;background:var(--bg-color);border-radius:6px;max-height:250px;overflow-y:auto;border:1px solid var(--border-color);">${c || '<em>No content</em>'}</div>`;
+}
+
+// ============================================================
+// ITEMS
+// ============================================================
+function renderAdminItems(page) {
+  const container = document.getElementById('adminItemsContainer-' + page);
+  if (!container) return;
+  const items = appData[page]?.items || [];
+  if (!items.length) {
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No items yet. Add या Bulk Add करें।</p></div>';
+    return;
+  }
+  container.innerHTML = items.map((item, idx) => `
+    <div class="data-item">
+      <div class="item-sno">${idx + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(item.title || 'Untitled')}</div>
+        <div class="item-meta">${item.category ? `📁 ${escapeHtml(item.category)}` : ''}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openItemEditor('${page}', ${idx})"><i class="fas fa-edit"></i> Edit</button>
+        <button class="btn-i-dup" onclick="duplicateItem('${page}', ${idx})"><i class="fas fa-copy"></i></button>
+        <button class="btn-i-delete" onclick="deleteItem('${page}', ${idx})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openItemEditor(page, index = null) {
+  const isEdit = index !== null;
+  const item = isEdit ? appData[page].items[index] : { title:'', description:'', category:'', link:'' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Item #${index+1}` : '➕ Add Item';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="itemPage" value="${page}">
+    <input type="hidden" id="itemIndex" value="${isEdit?index:-1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${escapeHtml(item.title)}"></div>
+      <div class="form-group"><label>Category</label><input type="text" id="itemCategory" value="${escapeHtml(item.category)}"></div>
+    </div>
+    <div class="form-group"><label>Link</label><input type="url" id="itemLink" value="${escapeHtml(item.link||'')}"></div>
+    <div class="form-group"><label>📝 Description</label>${getWordEditorHTML(item.description || '')}</div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="saveItem(false)"><i class="fas fa-save"></i> ${isEdit?'Update':'Add'}</button>
+      ${!isEdit ? `<button class="btn-submit" style="background:#6c5ce7;" onclick="saveItem(true)"><i class="fas fa-plus-circle"></i> Add & Another</button>` : ''}
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+  setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
+}
+
+function saveItem(addAnother = false) {
+  const page = document.getElementById('itemPage').value;
+  const idx = parseInt(document.getElementById('itemIndex').value);
+  const title = document.getElementById('itemTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+  if (!appData[page]) appData[page] = { content:'', items:[] };
+  if (!appData[page].items) appData[page].items = [];
+  const item = {
+    title,
+    category: document.getElementById('itemCategory').value,
+    description: document.getElementById('richEditor').innerHTML,
+    link: document.getElementById('itemLink').value,
+    createdAt: Date.now()
+  };
+  if (idx >= 0) { appData[page].items[idx] = { ...appData[page].items[idx], ...item }; showToast('✅ Updated!', 'success'); }
+  else { appData[page].items.push(item); showToast('✅ Added!', 'success'); }
+  saveData();
+  renderAdminItems(page);
+  updateSidebarCounts();
+
+  if (addAnother && idx < 0) {
+    document.getElementById('itemTitle').value = '';
+    document.getElementById('itemCategory').value = '';
+    document.getElementById('itemLink').value = '';
+    document.getElementById('richEditor').innerHTML = '';
+    document.getElementById('itemTitle').focus();
+    showToast('✅ Added! अब next.', 'info');
+  } else closeAdminModal();
+}
+
+function duplicateItem(page, index) {
+  const item = { ...appData[page].items[index] };
+  item.title = (item.title || 'Untitled') + ' (Copy)';
+  item.createdAt = Date.now();
+  appData[page].items.splice(index + 1, 0, item);
+  saveData();
+  renderAdminItems(page);
+  updateSidebarCounts();
+  showToast('📋 Duplicated!', 'success');
+}
+
+function deleteItem(page, index) {
+  if (!confirm(`Delete item #${index + 1}?`)) return;
+  appData[page].items.splice(index, 1);
+  saveData();
+  renderAdminItems(page);
+  updateSidebarCounts();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+function openBulkAddModal(page) {
+  document.getElementById('adminModalTitle').textContent = `📦 Bulk Add — ${page}`;
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple items ek saath</div>
+    <div class="form-group">
+      <label>Format: <code>Title | Category | Link</code> (एक line में एक)</label>
+      <textarea id="bulkText" rows="10" placeholder="SSC CGL 2024 | Government | https://ssc.nic.in
+Bank PO | Banking | https://bank.com
+Railway Group D | Railway | https://rrb.com"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Common Description (optional)</label>
+      <textarea id="bulkDesc" rows="2"></textarea>
+    </div>
+    <button class="btn-submit" onclick="doBulkAdd('${page}')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function doBulkAdd(page) {
+  const text = document.getElementById('bulkText').value.trim();
+  if (!text) return showToast('Data दें', 'error');
+  const commonDesc = document.getElementById('bulkDesc').value.trim();
+  if (!appData[page]) appData[page] = { content: '', items: [] };
+  if (!appData[page].items) appData[page].items = [];
+  let count = 0;
+  text.split('\n').filter(l => l.trim()).forEach(line => {
+    const p = line.split('|').map(x => x.trim());
+    if (!p[0]) return;
+    appData[page].items.push({ title: p[0], category: p[1] || '', link: p[2] || '', description: commonDesc, createdAt: Date.now() });
+    count++;
+  });
+  saveData();
+  closeAdminModal();
+  renderAdminItems(page);
+  updateSidebarCounts();
+  showToast(`✅ ${count} items added!`, 'success');
+}
+
+// ============================================================
+// JOBS
+// ============================================================
+function renderJobsTable() {
+  const c = document.getElementById('jobsContainer');
+  if (!c) return;
+  if (!jobsData.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs. Add या Bulk Add करें।</p></div>'; return; }
+  c.innerHTML = jobsData.map((j, i) => `
+    <div class="data-item">
+      <div class="item-sno">${i + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(j.title||'Untitled')}</div>
+        <div class="item-meta">${j.jobType ? `💼 ${escapeHtml(j.jobType)}` : ''}${j.department ? ` • 🏢 ${escapeHtml(j.department)}` : ''}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openJobModal(${i})"><i class="fas fa-edit"></i> Edit</button>
+        <button class="btn-i-dup" onclick="duplicateJob(${i})"><i class="fas fa-copy"></i></button>
+        <button class="btn-i-delete" onclick="deleteJob(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openJobModal(index = null) {
+  const isEdit = index !== null;
+  const job = isEdit ? jobsData[index] : { title:'', jobType:'central', department:'', description:'' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Job #${index+1}` : '💼 Add Job';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="jobIndex" value="${isEdit?index:-1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${escapeHtml(job.title)}"></div>
+      <div class="form-group"><label>Type</label>
+        <select id="jType">
+          <option value="central" ${job.jobType==='central'?'selected':''}>Central</option>
+          <option value="state" ${job.jobType==='state'?'selected':''}>State</option>
+          <option value="private" ${job.jobType==='private'?'selected':''}>Private</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label>Department</label><input type="text" id="jDept" value="${escapeHtml(job.department||'')}"></div>
+    <div class="form-group"><label>📝 Description</label>${getWordEditorHTML(job.description || '')}</div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="saveJob(false)"><i class="fas fa-save"></i> ${isEdit?'Update':'Add'}</button>
+      ${!isEdit ? `<button class="btn-submit" style="background:#6c5ce7;" onclick="saveJob(true)"><i class="fas fa-plus-circle"></i> Add & Another</button>` : ''}
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+  setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
+}
+
+function saveJob(addAnother = false) {
+  const idx = parseInt(document.getElementById('jobIndex').value);
+  const title = document.getElementById('jTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+  const job = {
+    title,
+    jobType: document.getElementById('jType').value,
+    department: document.getElementById('jDept').value,
+    description: document.getElementById('richEditor').innerHTML,
+    createdAt: Date.now()
+  };
+  if (idx >= 0) { jobsData[idx] = { ...jobsData[idx], ...job }; showToast('✅ Updated!', 'success'); }
+  else { jobsData.push(job); showToast('✅ Added!', 'success'); }
+  saveData();
+  renderJobsTable();
+  updateSidebarCounts();
+
+  if (addAnother && idx < 0) {
+    document.getElementById('jTitle').value = '';
+    document.getElementById('jDept').value = '';
+    document.getElementById('richEditor').innerHTML = '';
+    document.getElementById('jTitle').focus();
+    showToast('✅ Added! अब next.', 'info');
+  } else closeAdminModal();
+}
+
+function duplicateJob(i) {
+  const j = { ...jobsData[i] };
+  j.title = (j.title || 'Untitled') + ' (Copy)';
+  j.createdAt = Date.now();
+  jobsData.splice(i + 1, 0, j);
+  saveData();
+  renderJobsTable();
+  updateSidebarCounts();
+  showToast('📋 Duplicated!', 'success');
+}
+
+function deleteJob(i) {
+  if (!confirm(`Delete job #${i+1}?`)) return;
+  jobsData.splice(i, 1);
+  saveData();
+  renderJobsTable();
+  updateSidebarCounts();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+function openBulkJobModal() {
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Add Jobs';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple jobs ek saath</div>
+    <div class="form-group">
+      <label>Format: <code>Title | Type | Department</code></label>
+      <textarea id="bulkJobsText" rows="10" placeholder="SSC CGL 2024 | central | Staff Selection Commission
+Bank PO | central | SBI
+Railway Group D | central | Indian Railways"></textarea>
+    </div>
+    <div class="form-group"><label>Common Description</label><textarea id="bulkJobsDesc" rows="2"></textarea></div>
+    <button class="btn-submit" onclick="doBulkAddJobs()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function doBulkAddJobs() {
+  const text = document.getElementById('bulkJobsText').value.trim();
+  if (!text) return showToast('Data दें', 'error');
+  const commonDesc = document.getElementById('bulkJobsDesc').value.trim();
+  let count = 0;
+  text.split('\n').filter(l => l.trim()).forEach(line => {
+    const p = line.split('|').map(x => x.trim());
+    if (!p[0]) return;
+    jobsData.push({ title: p[0], jobType: p[1] || 'central', department: p[2] || '', description: commonDesc, createdAt: Date.now() });
+    count++;
+  });
+  saveData();
+  closeAdminModal();
+  renderJobsTable();
+  updateSidebarCounts();
+  showToast(`✅ ${count} jobs added!`, 'success');
+}
+
+// ============================================================
+// FILES
+// ============================================================
+function loadFilesMeta() {
+  try { filesMeta = JSON.parse(localStorage.getItem(FILES_META_KEY)) || []; } catch (e) { filesMeta = []; }
+}
+function saveFilesMeta() {
+  localStorage.setItem(FILES_META_KEY, JSON.stringify(filesMeta));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('filesMeta').set({ files: filesMeta }).catch(()=>{});
+}
+async function loadFilesMetaFromCloud() {
+  if (!firebaseDB) return;
+  try {
+    const d = await firebaseDB.collection('dreamjosh').doc('filesMeta').get();
+    if (d.exists && d.data().files) {
+      filesMeta = d.data().files;
+      localStorage.setItem(FILES_META_KEY, JSON.stringify(filesMeta));
+    }
+  } catch (e) {}
+}
+function getFileMeta(path) {
+  return filesMeta.find(f => f.path === path) || { path, customName:'', showOnHome:false, description:'' };
+}
+
+async function loadFilesFromCloud() {
+  const c = document.getElementById('filesGridContainer');
+  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading...</p></div>';
+  await loadFilesMetaFromCloud();
+  if (!firebaseStorage) return;
+  try {
+    const list = await firebaseStorage.ref('dreamjosh-files').listAll();
+    filesData = [];
+    for (const item of list.items) {
+      try {
+        const url = await item.getDownloadURL();
+        const meta = await item.getMetadata();
+        filesData.push({ path: item.fullPath, firebaseName: item.name, url, size: meta.size || 0, time: meta.timeCreated, contentType: meta.contentType || '' });
+      } catch (e) {}
+    }
+    filesData.sort((a, b) => new Date(b.time) - new Date(a.time));
+    updateSidebarCounts();
+    if (document.getElementById('adminPage-files')?.classList.contains('active')) renderFilesGrid('files');
+    if (document.getElementById('adminPage-files-home')?.classList.contains('active')) renderFilesGrid('home');
+  } catch (err) {
+    if (c) c.innerHTML = `<div class="empty-state" style="color:#dc3545;"><p>Error: ${err.message}</p></div>`;
+  }
+}
+
+function getFileType(ct, nm) {
+  ct = (ct||'').toLowerCase(); nm = (nm||'').toLowerCase();
+  if (ct.startsWith('image/') || /\.(jpg|jpeg|png|gif|webp|svg|bmp)$/.test(nm)) return 'image';
+  if (ct.includes('pdf') || nm.endsWith('.pdf')) return 'pdf';
+  if (ct.includes('word') || /\.(doc|docx)$/.test(nm)) return 'word';
+  if (ct.includes('excel') || /\.(xls|xlsx|csv)$/.test(nm)) return 'excel';
+  return 'other';
+}
+function getFileIcon(t) { return { image:'🖼️', pdf:'📄', word:'📝', excel:'📊', other:'📦' }[t] || '📦'; }
+function formatFileSize(b) {
+  if (!b) return '0 B';
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+function escapeHtml(s) {
+  return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderFilesGrid(mode) {
+  const isHome = mode === 'home';
+  const c = document.getElementById(isHome ? 'homeFilesContainer' : 'filesGridContainer');
+  if (!c) return;
+  let items = filesData.map(f => ({ ...f, ...getFileMeta(f.path), type: getFileType(f.contentType, f.firebaseName) }));
+  if (isHome) items = items.filter(f => f.showOnHome);
+  if (!items.length) {
+    c.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><p>${isHome ? 'No home files.' : 'No files.'}</p></div>`;
+    return;
+  }
+  c.innerHTML = items.map(f => {
+    const dn = escapeHtml(f.customName || f.firebaseName);
+    return `
+      <div class="data-item">
+        <div class="item-sno">${getFileIcon(f.type)}</div>
+        <div class="item-content">
+          <div class="item-title">${dn}</div>
+          <div class="item-meta">${formatFileSize(f.size)} • ${new Date(f.time).toLocaleDateString()} ${f.showOnHome ? '• 🏠 Home' : ''}</div>
+        </div>
+        <div class="item-actions">
+          <a href="${f.url}" target="_blank" class="btn-i-edit"><i class="fas fa-eye"></i></a>
+          <a href="${f.url}" download="${dn}" class="btn-i-dup"><i class="fas fa-download"></i></a>
+          <button class="btn-i-edit" onclick="toggleHomeDisplay('${f.path}')" style="${f.showOnHome?'background:#16a34a;color:#fff;':''}"><i class="fas fa-home"></i></button>
+          <button class="btn-i-edit" onclick="openFileEditModal('${f.path}')"><i class="fas fa-edit"></i></button>
+          <button class="btn-i-delete" onclick="deleteFile('${f.path}', '${dn.replace(/'/g,"\\'")}')"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openFileUploadModal() {
+  document.getElementById('adminModalTitle').textContent = '📤 Upload File';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group">
+      <label>File चुनें</label>
+      <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p><strong>Click to browse</strong></p>
+      </div>
+      <input type="file" id="fileInput" style="display:none;" onchange="handleFileSelect(event)">
+      <div id="selectedFile" style="margin-top:10px;font-size:13px;"></div>
+    </div>
+    <div class="form-group"><label>Display Name *</label><input type="text" id="fileCustomName"></div>
+    <div class="form-group"><label>Description</label><textarea id="fileDescription" rows="2"></textarea></div>
+    <div class="form-group">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+        <input type="checkbox" id="fileShowOnHome" style="width:auto;"> 🏠 Home Page पर दिखाएं
+      </label>
+    </div>
+    <div class="upload-progress" id="uploadProgress"><div class="upload-progress-bar" id="uploadProgressBar"></div></div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" id="uploadBtn" onclick="uploadFile()" disabled>Upload</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function openBulkUploadModal() {
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Upload Files';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple files ek saath</div>
+    <div class="form-group"><label>Files चुनें (multiple)</label><input type="file" id="bulkFilesInput" multiple></div>
+    <div class="form-group">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+        <input type="checkbox" id="bulkShowOnHome" style="width:auto;"> 🏠 सब को Home पर दिखाएं
+      </label>
+    </div>
+    <div class="upload-progress" id="bulkUploadProgress"><div class="upload-progress-bar" id="bulkUploadProgressBar"></div></div>
+    <div id="bulkUploadStatus" style="font-size:12px;text-align:center;margin-top:8px;"></div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="doBulkUpload()"><i class="fas fa-upload"></i> Upload All</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+async function doBulkUpload() {
+  const files = document.getElementById('bulkFilesInput').files;
+  if (!files.length) return showToast('Files चुनें', 'error');
+  const showHome = document.getElementById('bulkShowOnHome').checked;
+  const pEl = document.getElementById('bulkUploadProgress');
+  const pBar = document.getElementById('bulkUploadProgressBar');
+  const statusEl = document.getElementById('bulkUploadStatus');
+  pEl.classList.add('active');
+  let done = 0;
+  for (const file of files) {
+    try {
+      const ts = Date.now();
+      const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const path = `dreamjosh-files/${ts}_${safe}`;
+      const ref = firebaseStorage.ref(path);
+      await ref.put(file);
+      await ref.getDownloadURL();
+      filesMeta.push({
+        path,
+        customName: file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
+        description: '',
+        showOnHome: showHome,
+        uploadedAt: Date.now(),
+        size: file.size,
+        contentType: file.type
+      });
+      done++;
+      pBar.style.width = (done/files.length*100) + '%';
+      statusEl.textContent = `${done}/${files.length} uploaded...`;
+    } catch (e) { console.warn('Failed:', file.name, e); }
+  }
+  saveFilesMeta();
+  showToast(`✅ ${done} files uploaded!`, 'success');
+  closeAdminModal();
+  await loadFilesFromCloud();
+  renderFilesGrid('files');
+  updateSidebarCounts();
+}
+
+let selectedUploadFile = null;
+function handleFileSelect(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  selectedUploadFile = f;
+  document.getElementById('selectedFile').innerHTML = `✅ <strong>${escapeHtml(f.name)}</strong> (${formatFileSize(f.size)})`;
+  if (!document.getElementById('fileCustomName').value) {
+    document.getElementById('fileCustomName').value = f.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+  }
+  document.getElementById('uploadBtn').disabled = false;
+}
+
+async function uploadFile() {
+  if (!selectedUploadFile) return;
+  const cn = document.getElementById('fileCustomName').value.trim();
+  if (!cn) return showToast('Display Name required', 'error');
+  const desc = document.getElementById('fileDescription').value.trim();
+  const show = document.getElementById('fileShowOnHome').checked;
+  const btn = document.getElementById('uploadBtn');
+  btn.disabled = true; btn.textContent = 'Uploading...';
+  document.getElementById('uploadProgress').classList.add('active');
+
+  const ts = Date.now();
+  const safe = selectedUploadFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  const path = `dreamjosh-files/${ts}_${safe}`;
+  const ref = firebaseStorage.ref(path);
+  const task = ref.put(selectedUploadFile);
+
+  task.on('state_changed',
+    snap => { document.getElementById('uploadProgressBar').style.width = (snap.bytesTransferred/snap.totalBytes*100) + '%'; },
+    err => { showToast('Upload failed: ' + err.message, 'error'); btn.disabled = false; btn.textContent = 'Upload'; },
+    async () => {
+      await ref.getDownloadURL();
+      filesMeta.push({ path, customName: cn, description: desc, showOnHome: show, uploadedAt: Date.now(), size: selectedUploadFile.size, contentType: selectedUploadFile.type });
+      saveFilesMeta();
+      showToast('✅ Uploaded!', 'success');
+      closeAdminModal();
+      selectedUploadFile = null;
+      await loadFilesFromCloud();
+      renderFilesGrid('files');
+      updateSidebarCounts();
+    }
+  );
+}
+
+function openFileEditModal(path) {
+  const meta = getFileMeta(path);
+  const file = filesData.find(f => f.path === path);
+  if (!file) return;
+  const cn = meta.customName || file.firebaseName;
+  document.getElementById('adminModalTitle').textContent = '✏️ Edit File';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group"><label>Display Name *</label><input type="text" id="editFileName" value="${escapeHtml(cn)}"></div>
+    <div class="form-group"><label>Description</label><textarea id="editFileDesc" rows="2">${escapeHtml(meta.description || '')}</textarea></div>
+    <div class="form-group">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+        <input type="checkbox" id="editFileHome" ${meta.showOnHome?'checked':''} style="width:auto;"> 🏠 Home पर दिखाएं
+      </label>
+    </div>
+    <div class="form-group"><label>🔄 Replace File (optional)</label><input type="file" id="replaceFileInput"></div>
+    <button class="btn-submit" onclick="saveFileEdit('${path}')">Save</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+async function saveFileEdit(path) {
+  const newName = document.getElementById('editFileName').value.trim();
+  if (!newName) return;
+  const desc = document.getElementById('editFileDesc').value.trim();
+  const show = document.getElementById('editFileHome').checked;
+  const rf = document.getElementById('replaceFileInput').files[0];
+  let i = filesMeta.findIndex(f => f.path === path);
+  if (i === -1) filesMeta.push({ path, customName: newName, description: desc, showOnHome: show });
+  else { filesMeta[i].customName = newName; filesMeta[i].description = desc; filesMeta[i].showOnHome = show; }
+  saveFilesMeta();
+  if (rf) {
+    try { await firebaseStorage.ref(path).put(rf); } catch (e) { showToast('Replace failed', 'error'); return; }
+  }
+  closeAdminModal();
+  await loadFilesFromCloud();
+  renderFilesGrid('files'); renderFilesGrid('home');
+  showToast('✅ Saved!', 'success');
+}
+
+function toggleHomeDisplay(path) {
+  let m = filesMeta.find(f => f.path === path);
+  if (!m) { m = { path, customName:'', showOnHome:true }; filesMeta.push(m); }
+  else m.showOnHome = !m.showOnHome;
+  saveFilesMeta();
+  renderFilesGrid('files'); renderFilesGrid('home');
+  updateSidebarCounts();
+}
+
+async function deleteFile(path, name) {
+  if (!confirm(`Delete "${name}"?`)) return;
+  try {
+    await firebaseStorage.ref(path).delete();
+    filesMeta = filesMeta.filter(f => f.path !== path);
+    saveFilesMeta();
+    await loadFilesFromCloud();
+    renderFilesGrid('files'); renderFilesGrid('home');
+    updateSidebarCounts();
+    showToast('🗑️ Deleted!', 'success');
+  } catch (e) { showToast('Delete failed', 'error'); }
+}
+
+// ============================================================
+// SLIDES / EMPLOYEES
+// ============================================================
+function renderSlides() {
+  const c = document.getElementById('adminSlidesContainer');
+  if (!c) return;
+  const s = appData.slides || [];
+  if (!s.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-images"></i><p>No slides.</p></div>'; return; }
+  c.innerHTML = s.map((x, i) => `
+    <div class="data-item">
+      <div class="item-sno">${i+1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(x.title||'Untitled')}</div>
+        <div class="item-meta">${escapeHtml(x.description||'')}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openSlideModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteSlide(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openSlideModal(index = null) {
+  const isEdit = index !== null;
+  const s = isEdit ? appData.slides[index] : { title:'', description:'', image:'' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Slide' : '📸 Add Slide';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="slideIndex" value="${isEdit?index:-1}">
+    <div class="form-group"><label>Title *</label><input type="text" id="slideTitle" value="${escapeHtml(s.title)}"></div>
+    <div class="form-group"><label>Description</label><textarea id="slideDesc" rows="2">${escapeHtml(s.description)}</textarea></div>
+    <div class="form-group"><label>Image URL</label><input type="url" id="slideImage" value="${escapeHtml(s.image)}"></div>
+    <button class="btn-submit" onclick="saveSlide()">${isEdit?'Update':'Add'}</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveSlide() {
+  const i = parseInt(document.getElementById('slideIndex').value);
+  const t = document.getElementById('slideTitle').value.trim();
+  if (!t) return;
+  const s = { title: t, description: document.getElementById('slideDesc').value, image: document.getElementById('slideImage').value };
+  if (!appData.slides) appData.slides = [];
+  if (i >= 0) appData.slides[i] = { ...appData.slides[i], ...s };
+  else appData.slides.push(s);
+  saveData(); closeAdminModal(); renderSlides();
+}
+
+function deleteSlide(i) {
+  if (!confirm('Delete?')) return;
+  appData.slides.splice(i, 1);
+  saveData(); renderSlides();
+}
+
+function renderEmployees() {
+  const c = document.getElementById('employeeListContainer');
+  if (!c) return;
+  const e = appData.employees || [];
+  if (!e.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>No employees.</p></div>'; return; }
+  c.innerHTML = e.map((x, i) => `
+    <div class="data-item">
+      <div class="item-sno">${i+1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(x.name||'Unnamed')}</div>
+        <div class="item-meta">${escapeHtml(x.email||'')}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openEmployeeModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteEmployee(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openEmployeeModal(index = null) {
+  const isEdit = index !== null;
+  const e = isEdit ? appData.employees[index] : { name:'', email:'' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Employee' : '👤 Add Employee';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="empIndex" value="${isEdit?index:-1}">
+    <div class="form-group"><label>Name *</label><input type="text" id="empName" value="${escapeHtml(e.name||'')}"></div>
+    <div class="form-group"><label>Email *</label><input type="email" id="empEmail" value="${escapeHtml(e.email||'')}"></div>
+    <button class="btn-submit" onclick="saveEmployee()">${isEdit?'Update':'Add'}</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveEmployee() {
+  const i = parseInt(document.getElementById('empIndex').value);
+  const n = document.getElementById('empName').value.trim();
+  const e = document.getElementById('empEmail').value.trim();
+  if (!n || !e) return;
+  if (!appData.employees) appData.employees = [];
+  if (i >= 0) appData.employees[i] = { name: n, email: e };
+  else appData.employees.push({ name: n, email: e });
+  saveData(); closeAdminModal(); renderEmployees(); updateSidebarCounts();
+}
+
+function deleteEmployee(i) {
+  if (!confirm('Delete?')) return;
+  appData.employees.splice(i, 1);
+  saveData(); renderEmployees(); updateSidebarCounts();
+}
+
+// ============================================================
+// SETTINGS FUNCTIONS
+// ============================================================
+function loadSettingsForm() {
+  loadSettings();
+  loadActivityLog();
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+  const setC = (id, v) => { const el = document.getElementById(id); if (el) el.checked = !!v; };
+
+  set('setSiteName', settings.siteName);
+  set('setTagline', settings.tagline);
+  set('setSiteDesc', settings.siteDesc);
+  set('setSiteURL', settings.siteURL);
+  set('setContactEmail', settings.contactEmail);
+  set('setContactPhone', settings.contactPhone);
+  set('setAddress', settings.address);
+  set('setLanguage', settings.language);
+  set('setTimezone', settings.timezone);
+  set('setDateFormat', settings.dateFormat);
+
+  set('setPrimaryColor', settings.primaryColor);
+  set('setSecondaryColor', settings.secondaryColor);
+  set('setAccentColor', settings.accentColor);
+  set('setThemeMode', settings.themeMode);
+  set('setFontFamily', settings.fontFamily);
+  set('setBorderRadius', settings.borderRadius);
+
+  const lP = document.getElementById('logoPreview');
+  if (lP && settings.logo) lP.innerHTML = `<img src="${settings.logo}">`;
+  const fP = document.getElementById('faviconPreview');
+  if (fP && settings.favicon) fP.innerHTML = `<img src="${settings.favicon}">`;
+
+  set('setItemsPerPage', settings.itemsPerPage);
+  set('setHomeLimit', settings.homeLimit);
+  set('setItemsPerRow', settings.itemsPerRow);
+  set('setHomeLayout', settings.homeLayout);
+  setC('setEnableComments', settings.enableComments);
+  setC('setEnableRating', settings.enableRating);
+  setC('setEnableLike', settings.enableLike);
+  setC('setEnableShare', settings.enableShare);
+  setC('setEnablePrint', settings.enablePrint);
+  set('setAnnouncementBar', settings.announcementBar);
+  setC('setShowTicker', settings.showTicker);
+  set('setTickerText', settings.tickerText);
+
+  setC('setMaintenanceMode', settings.maintenanceMode);
+  set('setMaintenanceMsg', settings.maintenanceMsg);
+  set('setCurUsername', getAdminCreds().username);
+
+  set('setMetaTitle', settings.metaTitle);
+  set('setMetaDesc', settings.metaDesc);
+  set('setMetaKeywords', settings.metaKeywords);
+  set('setGAId', settings.gaId);
+  set('setGSCode', settings.gsCode);
+  set('setFBPixel', settings.fbPixel);
+
+  set('setInstagram', settings.instagram);
+  set('setYouTube', settings.youtube);
+  set('setFacebook', settings.facebook);
+  set('setWhatsApp', settings.whatsapp);
+  set('setTelegram', settings.telegram);
+  set('setTwitter', settings.twitter);
+  set('setLinkedIn', settings.linkedin);
+  set('setPinterest', settings.pinterest);
+  setC('setShowSocialHome', settings.showSocialHome);
+
+  renderActivityLog();
+  updateSystemInfo();
+}
+
+function switchSettingsTab(tab) {
+  document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
+  document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('settings-tab-' + tab)?.classList.add('active');
+}
+
+function saveSettingsGroup(group) {
+  const g = id => document.getElementById(id)?.value || '';
+  const gc = id => document.getElementById(id)?.checked || false;
+
+  if (group === 'general') {
+    settings.siteName = g('setSiteName');
+    settings.tagline = g('setTagline');
+    settings.siteDesc = g('setSiteDesc');
+    settings.siteURL = g('setSiteURL');
+    settings.contactEmail = g('setContactEmail');
+    settings.contactPhone = g('setContactPhone');
+    settings.address = g('setAddress');
+    settings.language = g('setLanguage');
+    settings.timezone = g('setTimezone');
+    settings.dateFormat = g('setDateFormat');
+  }
+  if (group === 'appearance') {
+    settings.primaryColor = g('setPrimaryColor');
+    settings.secondaryColor = g('setSecondaryColor');
+    settings.accentColor = g('setAccentColor');
+    settings.themeMode = g('setThemeMode');
+    settings.fontFamily = g('setFontFamily');
+    settings.borderRadius = g('setBorderRadius');
+    applyAppearanceSettings();
+  }
+  if (group === 'content') {
+    settings.itemsPerPage = parseInt(g('setItemsPerPage')) || 12;
+    settings.homeLimit = parseInt(g('setHomeLimit')) || 6;
+    settings.itemsPerRow = parseInt(g('setItemsPerRow')) || 3;
+    settings.homeLayout = g('setHomeLayout');
+    settings.enableComments = gc('setEnableComments');
+    settings.enableRating = gc('setEnableRating');
+    settings.enableLike = gc('setEnableLike');
+    settings.enableShare = gc('setEnableShare');
+    settings.enablePrint = gc('setEnablePrint');
+    settings.announcementBar = g('setAnnouncementBar');
+    settings.showTicker = gc('setShowTicker');
+    settings.tickerText = g('setTickerText');
+  }
+  if (group === 'security') {
+    settings.maintenanceMode = gc('setMaintenanceMode');
+    settings.maintenanceMsg = g('setMaintenanceMsg');
+  }
+  if (group === 'seo') {
+    settings.metaTitle = g('setMetaTitle');
+    settings.metaDesc = g('setMetaDesc');
+    settings.metaKeywords = g('setMetaKeywords');
+    settings.gaId = g('setGAId');
+    settings.gsCode = g('setGSCode');
+    settings.fbPixel = g('setFBPixel');
+    applySEOSettings();
+  }
+  if (group === 'social') {
+    settings.instagram = g('setInstagram');
+    settings.youtube = g('setYouTube');
+    settings.facebook = g('setFacebook');
+    settings.whatsapp = g('setWhatsApp');
+    settings.telegram = g('setTelegram');
+    settings.twitter = g('setTwitter');
+    settings.linkedin = g('setLinkedIn');
+    settings.pinterest = g('setPinterest');
+    settings.showSocialHome = gc('setShowSocialHome');
+  }
+
+  saveSettings();
+  logActivity('Settings Saved', group);
+  showToast(`✅ ${group} saved!`, 'success');
+}
+
+// ---- Logo / Favicon ----
+async function handleLogoUpload(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  await uploadBrand(f, 'logo');
+}
+async function handleFaviconUpload(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  await uploadBrand(f, 'favicon');
+}
+async function uploadBrand(file, type) {
+  if (!firebaseStorage) return showToast('Firebase not ready', 'error');
+  try {
+    showToast('⏳ Uploading...', 'info');
+    const ref = firebaseStorage.ref(`branding/${type}_${Date.now()}_${file.name}`);
+    await ref.put(file);
+    const url = await ref.getDownloadURL();
+    settings[type] = url;
+    saveSettings();
+    if (type === 'logo') document.getElementById('logoPreview').innerHTML = `<img src="${url}">`;
+    else document.getElementById('faviconPreview').innerHTML = `<img src="${url}">`;
+    applyAppearanceSettings();
+    showToast('✅ Uploaded!', 'success');
+  } catch (err) { showToast('Upload failed: ' + err.message, 'error'); }
+}
+
+function applyColorPreview() {
+  const p = document.getElementById('setPrimaryColor').value;
+  const s = document.getElementById('setSecondaryColor').value;
+  const a = document.getElementById('setAccentColor').value;
+  document.documentElement.style.setProperty('--primary-blue', p);
+  document.documentElement.style.setProperty('--secondary-blue', s);
+  document.documentElement.style.setProperty('--gold', a);
+}
+
+function applyFontPreview() {
+  const f = document.getElementById('setFontFamily').value;
+  document.body.style.fontFamily = f;
+}
+
+function applyAppearanceSettings() {
+  if (settings.primaryColor) document.documentElement.style.setProperty('--primary-blue', settings.primaryColor);
+  if (settings.secondaryColor) document.documentElement.style.setProperty('--secondary-blue', settings.secondaryColor);
+  if (settings.accentColor) document.documentElement.style.setProperty('--gold', settings.accentColor);
+  if (settings.fontFamily) document.body.style.fontFamily = settings.fontFamily;
+  if (settings.themeMode === 'dark') document.body.classList.add('dark-mode');
+  else if (settings.themeMode === 'light') document.body.classList.remove('dark-mode');
+  else if (settings.themeMode === 'auto') {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) document.body.classList.add('dark-mode');
+    else document.body.classList.remove('dark-mode');
+  }
+  if (settings.siteName) document.title = settings.siteName + ' - Admin Panel';
+  if (settings.favicon) {
+    let l = document.querySelector("link[rel='icon']");
+    if (!l) { l = document.createElement('link'); l.rel = 'icon'; document.head.appendChild(l); }
+    l.href = settings.favicon;
+  }
+}
+
+function applySEOSettings() {
+  const setM = (n, c) => {
+    if (!c) return;
+    let t = document.querySelector(`meta[name="${n}"]`);
+    if (!t) { t = document.createElement('meta'); t.name = n; document.head.appendChild(t); }
+    t.content = c;
+  };
+  setM('description', settings.metaDesc);
+  setM('keywords', settings.metaKeywords);
+}
+
+// ---- Password / Username ----
+function changeAdminPassword() {
+  const cur = document.getElementById('setCurPassword').value;
+  const n1 = document.getElementById('setNewPassword').value;
+  const n2 = document.getElementById('setConfirmPassword').value;
+  if (!cur || !n1 || !n2) return showToast('सभी fields भरें!', 'error');
+  const c = getAdminCreds();
+  if (cur !== c.password) return showToast('❌ Current password गलत!', 'error');
+  if (n1 !== n2) return showToast('❌ Passwords match नहीं!', 'error');
+  if (n1.length < 6) return showToast('⚠️ Password 6+ chars', 'error');
+  saveAdminCreds(c.username, n1);
+  document.getElementById('setCurPassword').value = '';
+  document.getElementById('setNewPassword').value = '';
+  document.getElementById('setConfirmPassword').value = '';
+  logActivity('Password Changed', '');
+  showToast('✅ Password changed!', 'success');
+}
+
+function changeAdminUsername() {
+  const u = document.getElementById('setNewUsername').value.trim();
+  if (!u) return showToast('New username दें', 'error');
+  const c = getAdminCreds();
+  saveAdminCreds(u, c.password);
+  document.getElementById('setCurUsername').value = u;
+  document.getElementById('setNewUsername').value = '';
+  logActivity('Username Changed', `New: ${u}`);
+  showToast('✅ Username changed!', 'success');
+}
+
+// ---- Backup / Restore ----
+function exportAllData() {
+  const data = { appData, jobsData, filesMeta, settings, activityLog, version: '2.0.0', exportedAt: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dreamjosh_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  logActivity('Backup', 'JSON downloaded');
+  showToast('📥 Backup!', 'success');
+}
+
+function exportAllDataCSV() {
+  let csv = '\uFEFF';
+  csv += 'Type,Title,Category,Department,Link\n';
+  jobsData.forEach(j => {
+    csv += `Job,"${(j.title||'').replace(/"/g,'""')}","${(j.jobType||'').replace(/"/g,'""')}","${(j.department||'').replace(/"/g,'""')}",""\n`;
+  });
+  Object.keys(appData).forEach(p => {
+    (appData[p]?.items || []).forEach(it => {
+      csv += `Item-${p},"${(it.title||'').replace(/"/g,'""')}","${(it.category||'').replace(/"/g,'""')}","","${(it.link||'').replace(/"/g,'""')}"\n`;
+    });
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dreamjosh_data_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  showToast('📊 CSV!', 'success');
+}
+
+function importData() {
+  const file = document.getElementById('restoreFileInput').files[0];
+  if (!file) return showToast('Backup file चुनें', 'error');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!confirm('⚠️ Current data replace होगा। Continue?')) return;
+      if (data.appData) appData = data.appData;
+      if (data.jobsData) jobsData = data.jobsData;
+      if (data.filesMeta) { filesMeta = data.filesMeta; localStorage.setItem(FILES_META_KEY, JSON.stringify(filesMeta)); }
+      if (data.settings) { settings = data.settings; localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
+      if (data.activityLog) { activityLog = data.activityLog; localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(activityLog)); }
+      saveData();
+      applyAppearanceSettings();
+      loadSettingsForm();
+      updateSidebarCounts();
+      renderJobsTable();
+      renderFilesGrid('files');
+      logActivity('Restore', 'Backup imported');
+      showToast('✅ Restored!', 'success');
+      setTimeout(() => location.reload(), 1500);
+    } catch (err) { showToast('❌ Invalid file', 'error'); }
+  };
+  reader.readAsText(file);
+}
+
+function clearAllAdminData() {
+  if (!confirm('⚠️ सारा data permanently delete होगा!\n\nContinue?')) return;
+  if (!confirm('आखिरी warning! Sure?')) return;
+  [STORAGE_KEY, FILES_META_KEY, SETTINGS_KEY, ACTIVITY_LOG_KEY].forEach(k => localStorage.removeItem(k));
+  showToast('🗑️ Cleared!', 'success');
+  setTimeout(() => location.reload(), 1500);
+}
+
+function updateSystemInfo() {
+  const el = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+  el('sysFirebaseStatus', firebaseDB ? '✅ Connected' : '❌');
+  el('sysFilesCount', filesData.length);
+  el('sysJobsCount', jobsData.length);
+  let t = 0;
+  ['career', 'more', 'blog', 'service', 'rsr'].forEach(p => { t += (appData[p]?.items || []).length; });
+  el('sysItemsCount', t);
+  let size = 0;
+  try { Object.keys(localStorage).forEach(k => { size += (localStorage[k] || '').length * 2; }); } catch (e) {}
+  el('sysStorageUsed', formatFileSize(size));
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showAdminPage(page) {
+  document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
+  document.querySelector(`.admin-menu a[data-page="${page}"]`)?.classList.add('active');
+  const titles = {
+    'dashboard':'📊 <span>Dashboard</span>', 'files':'📁 <span>All Files</span>',
+    'files-home':'🏠 <span>Home Display</span>', 'home-editor':'🏠 <span>Home Editor</span>',
+    'career-editor':'🎯 <span>Career Editor</span>', 'more-editor':'📚 <span>More Editor</span>',
+    'blog-editor':'📝 <span>Blog Editor</span>', 'service-editor':'🛠️ <span>Service Editor</span>',
+    'rsr-editor':'📜 <span>RSR Editor</span>', 'items-career':'🎯 <span>Career Items</span>',
+    'items-more':'📚 <span>More Items</span>', 'items-blog':'📝 <span>Blog Items</span>',
+    'items-service':'🛠️ <span>Service Items</span>', 'items-rsr':'📜 <span>RSR Items</span>',
+    'jobs':'💼 <span>Jobs</span>', 'slides':'📸 <span>Slides</span>',
+    'employees':'👥 <span>Employees</span>', 'settings':'⚙️ <span>Settings</span>'
+  };
+  document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('adminPage-' + page)?.classList.add('active');
+  if (page === 'files') { renderFilesGrid('files'); if (!filesData.length) loadFilesFromCloud(); }
+  if (page === 'files-home') renderFilesGrid('home');
+  if (page.endsWith('-editor')) renderPageContent(page.replace('-editor',''));
+  if (page.startsWith('items-')) renderAdminItems(page.replace('items-',''));
+  if (page === 'jobs') renderJobsTable();
+  if (page === 'slides') renderSlides();
+  if (page === 'employees') renderEmployees();
+  if (page === 'settings') loadSettingsForm();
+  if (window.innerWidth <= 768) closeSidebar();
+}
+
+function toggleSidebar() {
+  document.getElementById('adminSidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+function closeSidebar() {
+  document.getElementById('adminSidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('active');
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function closeAdminModal() { document.getElementById('adminModalOverlay').classList.remove('active'); }
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  settings.themeMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+  saveSettings();
+}
+function showToast(msg, type = 'info') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s'; setTimeout(() => t.remove(), 300); }, 3000);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', async () => {
+  loadData();
+  loadFilesMeta();
+  loadSettings();
+  loadActivityLog();
+  await loadSettingsFromCloud();
+  applyAppearanceSettings();
+  applySEOSettings();
+  updateSidebarCounts();
+  showAdminPage('dashboard');
+  loadFilesFromCloud();
+  console.log('✅ Admin Panel Ready');
+});
+
+// Expose
+Object.assign(window, {
+  showAdminPage, toggleSidebar,
+  weCmd, weInsertLink, weOpenInsert, weInsertTable, weDoInsertTable,
+  weInsertImage, weDoInsertImage, weInsertPDF, weDoInsertPDF,
+  weInsertWord, weDoInsertWord, weInsertExcel, weDoInsertExcel,
+  weInsertSymbol, wePick, weInsertEmoji, weInsertHr,
+  openPageEditor, savePageEditorContent,
+  openItemEditor, saveItem, duplicateItem, deleteItem, openBulkAddModal, doBulkAdd,
+  openJobModal, saveJob, duplicateJob, deleteJob, openBulkJobModal, doBulkAddJobs,
+  openFileUploadModal, openBulkUploadModal, handleFileSelect, uploadFile, doBulkUpload,
+  openFileEditModal, saveFileEdit, toggleHomeDisplay, deleteFile, loadFilesFromCloud,
+  openSlideModal, saveSlide, deleteSlide,
+  openEmployeeModal, saveEmployee, deleteEmployee,
+  loadSettingsForm, switchSettingsTab, saveSettingsGroup,
+  handleLogoUpload, handleFaviconUpload, applyColorPreview, applyFontPreview,
+  changeAdminPassword, changeAdminUsername,
+  exportAllData, exportAllDataCSV, importData, clearAllAdminData, clearActivityLog,
+  toggleDarkMode, closeAdminModal, showToast
+});
+</script>
+
+</body>
+</html>
