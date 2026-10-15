@@ -6,6 +6,11 @@
     <title>Home – Dream Josh</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+    <!-- 🔥 Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
     <style>
         :root {
             --bg-color: #eef5ff; --card-bg: #ffffff; --text-color: #172033;
@@ -243,182 +248,6 @@
         .social-links a.facebook { background: #1877F2; color: #fff; }
         .social-links a:hover { transform: scale(1.15); }
 
-        /* JOBS */
-        .job-grid-wrapper {
-            margin: 16px 0; padding: 16px; background: var(--card-bg);
-            border-radius: 12px; border: 1px solid var(--border-color);
-            box-shadow: 0 2px 8px var(--shadow-color);
-        }
-        .job-grid-wrapper .jobs-header {
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 10px; margin-bottom: 14px;
-        }
-        .job-grid-wrapper .jobs-header h3 { font-size: 18px; color: var(--primary-blue); }
-        .job-grid-wrapper .jobs-header h3 span { color: var(--gold); }
-        .job-grid-wrapper .jobs-header .total-badge {
-            background: var(--secondary-blue); color: #fff;
-            padding: 3px 12px; border-radius: 20px;
-            font-size: 11px; font-weight: 600;
-        }
-        .job-info-box {
-            background: var(--bg-color); border-radius: 10px;
-            padding: 10px 14px; margin: 8px 0 14px 0;
-            border-left: 4px solid var(--secondary-blue);
-        }
-        .job-info-box .job-count { font-size: 14px; font-weight: bold; color: var(--primary-blue); }
-        .job-info-box .job-detail { font-size: 11px; color: var(--text-color); opacity: 0.7; margin-top: 3px; }
-        .job-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 12px; margin-top: 8px;
-        }
-        .job-card {
-            background: var(--card-bg); padding: 12px 14px;
-            border-radius: 10px; border: 1px solid var(--border-color);
-            transition: 0.3s; cursor: pointer;
-            box-shadow: 0 2px 6px var(--shadow-color);
-            min-height: 100px; display: flex; flex-direction: column;
-            justify-content: center;
-        }
-        .job-card:hover {
-            border-color: var(--secondary-blue); transform: translateY(-3px);
-            box-shadow: 0 6px 20px var(--shadow-color);
-        }
-        .job-card .job-icon { font-size: 24px; margin-bottom: 4px; }
-        .job-card .job-title { font-size: 13px; color: var(--primary-blue); font-weight: 700; }
-        .job-card .job-meta { font-size: 10px; color: var(--text-color); opacity: 0.7; }
-        .sub-cat-filter {
-            display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 10px 0;
-        }
-        .sub-cat-filter .sub-btn {
-            padding: 3px 10px; border-radius: 14px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-color); color: var(--text-color);
-            font-size: 10px; font-weight: 600; cursor: pointer; transition: 0.3s;
-        }
-        .sub-cat-filter .sub-btn:hover,
-        .sub-cat-filter .sub-btn.active {
-            background: var(--secondary-blue); color: #fff;
-            border-color: var(--secondary-blue);
-        }
-
-        /* GENERIC PAGE CONTENT */
-        .generic-page-box {
-            background: var(--card-bg); border-radius: 14px;
-            border: 1px solid var(--border-color);
-            padding: 24px; box-shadow: 0 2px 8px var(--shadow-color);
-        }
-        .generic-page-box h2 {
-            color: var(--primary-blue); margin-bottom: 12px; font-size: 22px;
-        }
-        .generic-page-box h3 {
-            color: var(--primary-blue); margin: 18px 0 8px; font-size: 17px;
-        }
-        .generic-page-box p { margin: 8px 0; line-height: 1.7; font-size: 14px; }
-        .generic-page-box ul, .generic-page-box ol { padding-left: 22px; }
-        .generic-page-box blockquote {
-            border-left: 4px solid var(--secondary-blue);
-            padding: 8px 16px; margin: 10px 0;
-            background: var(--editor-toolbar-bg); border-radius: 0 4px 4px 0;
-        }
-        .generic-page-box .item-list { list-style: none; padding: 0; margin-top: 14px; }
-        .generic-page-box .item-list li {
-            padding: 12px 14px; background: var(--bg-color);
-            border-radius: 8px; margin-bottom: 8px;
-            border-left: 3px solid var(--secondary-blue);
-        }
-        .generic-page-box .item-list li .item-title {
-            font-weight: 700; font-size: 15px; color: var(--text-color);
-        }
-        .generic-page-box .item-list li .item-desc {
-            font-size: 13px; color: var(--text-light); margin-top: 4px;
-        }
-        .generic-page-box .item-list li .item-link {
-            display: inline-block; padding: 2px 10px;
-            background: var(--secondary-blue); color: #fff;
-            border-radius: 4px; font-size: 10px;
-            text-decoration: none; margin-left: 8px; font-weight: 600;
-        }
-        .page-header-line {
-            display: flex; align-items: center; justify-content: space-between;
-            flex-wrap: wrap; gap: 10px;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--border-color);
-        }
-        .page-header-line h2 {
-            font-size: 22px; color: var(--primary-blue); margin: 0;
-        }
-        .page-header-line .item-counter {
-            background: var(--secondary-blue); color: #fff;
-            padding: 4px 14px; border-radius: 20px;
-            font-size: 12px; font-weight: 600;
-        }
-        .page-nav-buttons {
-            display: flex; gap: 8px; margin-top: 16px;
-            padding-top: 14px; border-top: 1px solid var(--border-color);
-            justify-content: space-between; flex-wrap: wrap;
-        }
-        .page-nav-buttons button {
-            padding: 8px 20px; border-radius: 10px;
-            border: none; font-size: 13px; font-weight: 600;
-            cursor: pointer; transition: 0.3s;
-            display: inline-flex; align-items: center; gap: 6px;
-        }
-        .page-nav-buttons .btn-prev {
-            background: var(--card-hover); color: var(--text-color);
-            border: 1px solid var(--border-color);
-        }
-        .page-nav-buttons .btn-prev:hover:not(:disabled) { background: var(--secondary-blue); color: #fff; }
-        .page-nav-buttons .btn-next {
-            background: var(--secondary-blue); color: #fff;
-        }
-        .page-nav-buttons .btn-next:hover:not(:disabled) { background: var(--primary-blue); }
-        .page-nav-buttons button:disabled {
-            opacity: 0.4; cursor: not-allowed;
-        }
-
-        /* DETAIL OVERLAY */
-        .detail-overlay {
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.6); z-index: 2000; backdrop-filter: blur(8px);
-        }
-        .detail-overlay.active { display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .detail-content {
-            background: var(--card-bg); border-radius: 20px; padding: 24px;
-            max-width: 750px; width: 100%; max-height: 85vh; overflow-y: auto;
-            border: 1px solid var(--border-color); position: relative;
-        }
-        .detail-content .close-btn {
-            position: sticky; top: 0; float: right;
-            background: var(--card-hover); border: 1px solid var(--border-color);
-            color: var(--text-color); width: 40px; height: 40px;
-            border-radius: 50%; font-size: 20px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .detail-content .close-btn:hover { background: var(--warning-red); color: #fff; }
-        .detail-content .detail-icon { font-size: 44px; margin-bottom: 10px; }
-        .detail-content h2 { color: var(--primary-blue); font-size: 20px; margin-bottom: 10px; }
-        .detail-content .detail-section {
-            background: var(--bg-color); border-radius: 10px;
-            padding: 12px 16px; margin: 10px 0;
-        }
-        .detail-content .detail-desc {
-            background: var(--highlight-bg); border-left: 4px solid var(--secondary-blue);
-            padding: 12px 16px; border-radius: 6px; margin: 12px 0;
-        }
-        .detail-content .detail-link {
-            display: inline-block; padding: 10px 24px;
-            background: var(--secondary-blue); color: #fff;
-            border-radius: 10px; font-weight: 600; margin: 4px;
-            cursor: pointer; border: none; text-decoration: none;
-            font-size: 13px;
-        }
-        .detail-content .detail-link:hover { background: var(--primary-blue); }
-        .detail-content .detail-link.secondary {
-            background: var(--card-hover); color: var(--text-color);
-            border: 1px solid var(--border-color);
-        }
-
         /* FOOTER */
         .app-footer {
             flex-shrink: 0;
@@ -454,8 +283,6 @@
             .app-header .header-controls { max-width: 70%; gap: 4px; }
             .app-header .header-controls .nav-btn { font-size: 10px; padding: 4px 9px; }
             .dropdown-wrapper .dropdown-btn { font-size: 10px; padding: 4px 9px; }
-            .generic-page-box { padding: 16px; }
-            .page-header-line h2 { font-size: 18px; }
         }
     </style>
 </head>
@@ -550,6 +377,34 @@
 
     <script>
         // ============================================================
+        // 🔥 FIREBASE CONFIG
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
+            authDomain: "dreamjosh-7d9ee.firebaseapp.com",
+            projectId: "dreamjosh-7d9ee",
+            storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
+            messagingSenderId: "461367857074",
+            appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
+        };
+
+        let firebaseApp, firebaseDB, firebaseStorage;
+        try {
+            firebaseApp = firebase.initializeApp(firebaseConfig);
+            firebaseDB = firebase.firestore();
+            firebaseStorage = firebase.storage();
+            console.log("✅ Firebase connected");
+        } catch (err) {
+            console.error("❌ Firebase error:", err);
+        }
+
+        // ============================================================
+        // 📦 STATE
+        // ============================================================
+        let jobsData = [];
+        let appData = {};
+
+        // ============================================================
         // 🔗 EXTERNAL PAGE URLS
         // ============================================================
         const PAGE_URLS = {
@@ -563,6 +418,59 @@
             tools: 'tools.html',
             admin: 'admin.html'
         };
+
+        // ============================================================
+        // 🔥 FIREBASE DATA LOADERS
+        // ============================================================
+        async function loadJobsFromFirebase() {
+            if (!firebaseDB) { console.warn("⚠️ Firebase not ready"); return; }
+            try {
+                const doc = await firebaseDB.collection('dreamjosh').doc('jobsData').get();
+                if (doc.exists && doc.data().jobs) {
+                    jobsData = doc.data().jobs;
+                    console.log(`✅ ${jobsData.length} jobs loaded from Firebase`);
+                    const tj = document.getElementById('totalJobsSidebar');
+                    if (tj) tj.textContent = jobsData.filter(j => j.visibility !== 'private').length + '+';
+                } else {
+                    console.log("ℹ️ No jobs in Firebase yet");
+                    // Fallback: default count
+                    const tj = document.getElementById('totalJobsSidebar');
+                    if (tj) tj.textContent = '150+';
+                }
+            } catch (err) {
+                console.error("❌ Jobs load error:", err);
+                const tj = document.getElementById('totalJobsSidebar');
+                if (tj) tj.textContent = '150+';
+            }
+        }
+
+        async function loadPageDataFromFirebase() {
+            if (!firebaseDB) return;
+            try {
+                const doc = await firebaseDB.collection('dreamjosh').doc('appData').get();
+                if (doc.exists) {
+                    appData = doc.data() || {};
+                    console.log("✅ Page data loaded from Firebase");
+                }
+            } catch (err) {
+                console.error("❌ Page data load error:", err);
+            }
+        }
+
+        async function loadSettingsFromFirebase() {
+            if (!firebaseDB) return;
+            try {
+                const doc = await firebaseDB.collection('dreamjosh').doc('settings').get();
+                if (doc.exists) {
+                    const settings = doc.data();
+                    // Site name / tagline update karo (agar hain)
+                    if (settings.siteName) document.title = settings.siteName + ' – Home';
+                    console.log("✅ Settings loaded from Firebase");
+                }
+            } catch (err) {
+                console.error("❌ Settings load error:", err);
+            }
+        }
 
         // ============================================================
         // 📦 LATEST UPDATES
@@ -583,16 +491,6 @@
         ];
 
         // ============================================================
-        // 📄 PAGE ITEM COUNTS (sirf home sidebar ke liye)
-        // ============================================================
-        const PAGE_ITEM_COUNTS = {
-            career: 14,
-            more: 8,
-            service: 10,
-            blog: 6
-        };
-
-        // ============================================================
         // HEADER NAV
         // ============================================================
         function renderNav() {
@@ -606,18 +504,10 @@
                     <button class="dropdown-btn" onclick="toggleDropdownMobile('govt', event)">💼 Jobs <span class="arrow">▾</span></button>
                     <div class="dropdown-content" id="govtDropdownContent">
                         <div class="dropdown-label">📂 Select Category</div>
-                        <a href="jobs.html?cat=central" onclick="closeDropdownMobile('govt');">
-                            🏛️ Central Govt.
-                        </a>
-                        <a href="jobs.html?cat=state" onclick="closeDropdownMobile('govt');">
-                            🏜️ Rajasthan Govt.
-                        </a>
-                        <a href="jobs.html?cat=private" onclick="closeDropdownMobile('govt');">
-                            💼 Private
-                        </a>
-                        <a href="jobs.html" onclick="closeDropdownMobile('govt');">
-                            📋 All Jobs
-                        </a>
+                        <a href="jobs.html?cat=central" onclick="closeDropdownMobile('govt');">🏛️ Central Govt.</a>
+                        <a href="jobs.html?cat=state" onclick="closeDropdownMobile('govt');">🏜️ Rajasthan Govt.</a>
+                        <a href="jobs.html?cat=private" onclick="closeDropdownMobile('govt');">💼 Private</a>
+                        <a href="jobs.html" onclick="closeDropdownMobile('govt');">📋 All Jobs</a>
                     </div>
                 </div>
             `;
@@ -813,14 +703,16 @@
         // ============================================================
         // INIT
         // ============================================================
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             initLatestUpdates();
             renderNav();
             renderSlidesCarousel();
-            // Total jobs sidebar
-            const tj = document.getElementById('totalJobsSidebar');
-            if (tj) tj.textContent = '150+';
-            console.log('✅ Home page ready — सभी pages linked');
+            console.log('✅ Home page ready');
+
+            // 🔥 Firebase se data load karo
+            await loadJobsFromFirebase();
+            await loadPageDataFromFirebase();
+            await loadSettingsFromFirebase();
         });
 
         // Expose
