@@ -5,14 +5,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>Dream Josh - Admin Panel</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-<!-- Firebase (Storage + Firestore only) -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
@@ -24,7 +20,7 @@
   --success-green:#16a34a; --warning-red:#d62839;
   --border-color:#dce5f0; --shadow-color:rgba(0,0,0,0.1);
   --footer-bg:#123c9b; --gold:#ffd700; --text-light:#6c757d;
-  --secondary:#1a2332; --public-badge:#16a34a; --private-badge:#6c5ce7;
+  --secondary:#1a2332;
 }
 .dark-mode {
   --bg-color:#0a0e1a; --card-bg:#141428; --text-color:#e8e8e8;
@@ -34,65 +30,55 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:var(--bg-color);color:var(--text-color);min-height:100vh;
-  transition:background .3s,color .3s;}
+  background:var(--bg-color);color:var(--text-color);min-height:100vh;transition:background .3s,color .3s;}
 
-/* ============ ADMIN LAYOUT ============ */
 .admin-wrapper{display:flex;min-height:100vh;}
 .admin-sidebar{
   width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;
-  position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;
-  transition:transform .3s;
+  position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;transition:transform .3s;
 }
-.admin-sidebar .admin-logo{
+.admin-logo{
   padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.1);
   margin-bottom:16px;display:flex;align-items:center;gap:10px;
 }
-.admin-sidebar .admin-logo h1{font-size:20px;font-weight:700;color:#fff;}
-.admin-sidebar .admin-logo h1 span{color:var(--gold);}
-.admin-sidebar .admin-logo .badge{
-  background:var(--success-green);font-size:9px;padding:2px 8px;
-  border-radius:20px;font-weight:600;
-}
-.admin-sidebar .admin-user{
+.admin-logo h1{font-size:20px;font-weight:700;color:#fff;}
+.admin-logo h1 span{color:var(--gold);}
+.admin-logo .badge{background:var(--success-green);font-size:9px;padding:2px 8px;border-radius:20px;font-weight:600;}
+.admin-user{
   padding:0 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);
   margin-bottom:12px;display:flex;align-items:center;gap:12px;
 }
-.admin-sidebar .admin-user .avatar{
+.admin-user .avatar{
   width:36px;height:36px;border-radius:50%;background:var(--secondary-blue);
   display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;
 }
-.admin-sidebar .admin-user .name{font-size:13px;font-weight:600;}
-.admin-sidebar .admin-user .role{font-size:10px;opacity:.6;}
-.admin-sidebar .admin-menu{list-style:none;padding:0 10px;}
-.admin-sidebar .admin-menu li{margin-bottom:2px;}
-.admin-sidebar .admin-menu li a{
+.admin-user .name{font-size:13px;font-weight:600;}
+.admin-user .role{font-size:10px;opacity:.6;}
+.admin-menu{list-style:none;padding:0 10px;}
+.admin-menu li{margin-bottom:2px;}
+.admin-menu li a{
   display:flex;align-items:center;gap:12px;padding:10px 14px;
   border-radius:8px;color:rgba(255,255,255,.7);text-decoration:none;
   font-size:13px;font-weight:500;transition:.3s;cursor:pointer;
 }
-.admin-sidebar .admin-menu li a:hover{background:rgba(255,255,255,.08);color:#fff;}
-.admin-sidebar .admin-menu li a.active{background:rgba(255,215,0,.15);color:var(--gold);}
-.admin-sidebar .admin-menu li a i{width:18px;font-size:14px;}
-.admin-sidebar .admin-menu li a .count{
+.admin-menu li a:hover{background:rgba(255,255,255,.08);color:#fff;}
+.admin-menu li a.active{background:rgba(255,215,0,.15);color:var(--gold);}
+.admin-menu li a i{width:18px;font-size:14px;}
+.admin-menu li a .count{
   margin-left:auto;background:rgba(255,255,255,.1);
   padding:0 8px;border-radius:20px;font-size:10px;
 }
-.admin-sidebar .admin-menu .section-title{
+.admin-menu .section-title{
   padding:12px 14px 6px;font-size:9px;text-transform:uppercase;
   letter-spacing:1px;opacity:.4;font-weight:700;
 }
-.admin-sidebar .admin-footer-menu{
-  padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);
-  margin-top:12px;
-}
-.admin-sidebar .admin-footer-menu a{
+.admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
+.admin-footer-menu a{
   display:flex;align-items:center;gap:12px;padding:10px 14px;
   border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;
   font-size:13px;font-weight:500;transition:.3s;cursor:pointer;
 }
-.admin-sidebar .admin-footer-menu a:hover{background:rgba(255,255,255,.08);color:#fff;}
-.admin-sidebar .admin-footer-menu a i{width:18px;}
+.admin-footer-menu a:hover{background:rgba(255,255,255,.08);color:#fff;}
 
 .admin-content{
   flex:1;padding:24px 30px;background:var(--bg-color);
@@ -103,7 +89,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   padding-bottom:16px;border-bottom:1px solid var(--border-color);
   flex-wrap:wrap;gap:12px;
 }
-.admin-top-header h2{font-size:20px;font-weight:700;color:var(--text-color);}
+.admin-top-header h2{font-size:20px;font-weight:700;}
 .admin-top-header h2 span{color:var(--primary-blue);}
 .admin-top-header .admin-actions{display:flex;gap:8px;flex-wrap:wrap;}
 .admin-top-header .admin-actions button{
@@ -112,49 +98,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   display:flex;align-items:center;gap:6px;
 }
 .btn-close-admin{background:#6c757d;color:#fff;}
-.btn-close-admin:hover{background:#5a6268;}
 .btn-dark-admin{background:var(--secondary);color:#fff;}
-.btn-dark-admin:hover{opacity:.8;}
 
-.admin-stats{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:14px;margin:16px 0;
-}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;}
 .admin-stats .stat-item{
   background:var(--card-bg);padding:14px 16px;border-radius:10px;
   border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);
   text-align:center;transition:.3s;
 }
 .admin-stats .stat-item .stat-icon{font-size:22px;}
-.admin-stats .stat-item .stat-label{
-  font-size:11px;color:var(--text-light);font-weight:600;margin-top:4px;
-}
-.admin-stats .stat-item .stat-value{
-  font-size:24px;font-weight:700;color:var(--primary-blue);
-}
+.admin-stats .stat-item .stat-label{font-size:11px;color:var(--text-light);font-weight:600;margin-top:4px;}
+.admin-stats .stat-item .stat-value{font-size:24px;font-weight:700;color:var(--primary-blue);}
 
 .admin-quick-actions{
   background:var(--card-bg);padding:16px 20px;border-radius:10px;
-  border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);
-  margin:16px 0;
+  border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);margin:16px 0;
 }
-.admin-quick-actions h3{font-size:14px;margin-bottom:10px;color:var(--text-color);}
+.admin-quick-actions h3{font-size:14px;margin-bottom:10px;}
 .admin-quick-actions .actions-grid{display:flex;flex-wrap:wrap;gap:8px;}
 .admin-quick-actions .actions-grid button{
   padding:6px 14px;background:var(--secondary-blue);color:#fff;
   border:none;border-radius:6px;cursor:pointer;font-size:11px;
   font-weight:600;transition:.3s;min-height:32px;
 }
-.admin-quick-actions .actions-grid button:hover{
-  background:var(--primary-blue);transform:scale(1.03);
-}
 
 .admin-section{display:none;margin-top:16px;}
 .admin-section.active{display:block;animation:fadeInSection .3s ease;}
-@keyframes fadeInSection{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
-}
+@keyframes fadeInSection{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .admin-card{
   background:var(--card-bg);border-radius:10px;border:1px solid var(--border-color);
   box-shadow:0 2px 8px var(--shadow-color);padding:16px 20px;margin-bottom:16px;
@@ -163,7 +133,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   display:flex;justify-content:space-between;align-items:center;
   flex-wrap:wrap;gap:10px;margin-bottom:12px;
 }
-.admin-card .card-header h4{font-size:15px;font-weight:600;color:var(--text-color);}
+.admin-card .card-header h4{font-size:15px;font-weight:600;}
 .btn-add{
   padding:6px 14px;background:var(--success-green);color:#fff;
   border:none;border-radius:6px;cursor:pointer;font-size:12px;
@@ -171,135 +141,84 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   display:flex;align-items:center;gap:4px;
 }
 .btn-add:hover{background:#15803d;}
+.btn-add.bulk{background:#6c5ce7;}
+.btn-add.bulk:hover{background:#5a4dd1;}
 
 .admin-modal-overlay{
   display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
-  z-index:9999;backdrop-filter:blur(4px);align-items:center;
-  justify-content:center;padding:20px;
+  z-index:9999;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;
 }
 .admin-modal-overlay.active{display:flex;}
 .admin-modal{
-  background:var(--card-bg);border-radius:12px;max-width:95%;width:100%;
-  max-height:90vh;overflow-y:auto;padding:24px 28px;
+  background:var(--card-bg);border-radius:12px;max-width:98%;width:100%;
+  max-height:96vh;overflow-y:auto;padding:20px 24px;
   box-shadow:0 20px 60px rgba(0,0,0,.3);animation:modalIn .3s ease;
   border:1px solid var(--border-color);
 }
-@keyframes modalIn{
-  from{transform:scale(.95) translateY(20px);opacity:0;}
-  to{transform:scale(1) translateY(0);opacity:1;}
-}
+@keyframes modalIn{from{transform:scale(.95) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
 .admin-modal .modal-header{
   display:flex;justify-content:space-between;align-items:center;
   margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);
 }
-.admin-modal .modal-header h3{font-size:18px;font-weight:700;color:var(--text-color);}
+.admin-modal .modal-header h3{font-size:18px;font-weight:700;}
 .admin-modal .modal-header .close-modal{
-  font-size:22px;cursor:pointer;opacity:.5;transition:.3s;
-  background:none;border:none;color:var(--text-color);
+  font-size:22px;cursor:pointer;opacity:.5;background:none;border:none;color:var(--text-color);
 }
-.admin-modal .modal-header .close-modal:hover{opacity:1;}
 .admin-modal .form-group{margin-bottom:12px;}
-.admin-modal .form-group label{
-  display:block;font-size:12px;font-weight:600;
-  color:var(--text-light);margin-bottom:3px;
-}
+.admin-modal .form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:3px;}
 .admin-modal .form-group input,
 .admin-modal .form-group select,
 .admin-modal .form-group textarea{
   width:100%;padding:8px 12px;border:2px solid var(--border-color);
   border-radius:6px;font-size:13px;background:var(--bg-color);
-  color:var(--text-color);transition:.3s;font-family:inherit;
+  color:var(--text-color);font-family:inherit;
 }
-.admin-modal .form-group textarea{min-height:80px;resize:vertical;}
 .admin-modal .form-group input:focus,
 .admin-modal .form-group select:focus,
-.admin-modal .form-group textarea:focus{
-  border-color:var(--primary-blue);outline:none;
-}
+.admin-modal .form-group textarea:focus{border-color:var(--primary-blue);outline:none;}
 .admin-modal .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 @media(max-width:600px){.admin-modal .form-row{grid-template-columns:1fr;}}
 .admin-modal .btn-submit{
   padding:8px 20px;background:var(--success-green);color:#fff;
-  border:none;border-radius:6px;font-size:14px;font-weight:600;
-  cursor:pointer;transition:.3s;min-height:36px;
+  border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;
 }
-.admin-modal .btn-submit:hover{background:#15803d;}
 .admin-modal .btn-cancel{
   padding:8px 20px;background:#6c757d;color:#fff;border:none;
-  border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;
-  transition:.3s;min-height:36px;margin-left:8px;
+  border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;margin-left:8px;
 }
-.admin-modal .btn-cancel:hover{background:#5a6268;}
 
-.visibility-badge{
-  display:inline-block;padding:1px 10px;border-radius:12px;
-  font-size:9px;font-weight:600;
+/* ITEM CARD — with S.No, Edit, Delete, Duplicate */
+.data-item{
+  background:var(--bg-color);border-radius:8px;padding:12px 14px;
+  border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);
+  margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  transition:.3s;
 }
-.visibility-badge.public{background:var(--public-badge);color:#fff;}
-.visibility-badge.private{background:var(--private-badge);color:#fff;}
-
-.table-wrap{overflow-x:auto;margin:10px 0;}
-.table-wrap table{width:100%;border-collapse:collapse;font-size:13px;}
-.table-wrap table th{
-  background:var(--secondary-blue);color:#fff;padding:8px 12px;
-  text-align:left;font-weight:600;
+.data-item:hover{border-left-color:var(--gold);box-shadow:0 2px 8px var(--shadow-color);}
+.data-item .item-sno{
+  width:32px;height:32px;border-radius:50%;background:var(--secondary-blue);
+  color:#fff;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.table-wrap table td{
-  padding:6px 12px;border-bottom:1px solid var(--border-color);
-  vertical-align:middle;
+.data-item .item-content{flex:1;min-width:0;}
+.data-item .item-title{
+  font-weight:600;font-size:14px;color:var(--text-color);
+  margin-bottom:3px;word-break:break-word;
 }
-.table-wrap table tr:hover td{background:var(--card-hover,rgba(0,0,0,.02));}
-
-/* FILE CARDS */
-.files-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:14px;
+.data-item .item-meta{font-size:11px;color:var(--text-light);}
+.data-item .item-actions{display:flex;gap:4px;flex-wrap:wrap;}
+.data-item .item-actions button{
+  padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;
+  border:none;cursor:pointer;transition:.3s;
+  display:inline-flex;align-items:center;gap:4px;
 }
-.file-card{
-  background:var(--bg-color);border-radius:10px;padding:14px;
-  border:1px solid var(--border-color);transition:.3s;
-  display:flex;flex-direction:column;gap:10px;
-}
-.file-card:hover{border-color:var(--secondary-blue);box-shadow:0 4px 16px var(--shadow-color);}
-.file-card .file-preview{
-  width:100%;height:140px;background:var(--card-bg);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;overflow:hidden;
-  position:relative;border:1px solid var(--border-color);
-}
-.file-card .file-preview img{
-  width:100%;height:100%;object-fit:cover;
-}
-.file-card .file-preview .file-icon{font-size:48px;opacity:.8;}
-.file-card .file-preview .badge-type{
-  position:absolute;top:6px;right:6px;background:var(--primary-blue);
-  color:#fff;font-size:9px;font-weight:700;padding:3px 8px;
-  border-radius:20px;text-transform:uppercase;
-}
-.file-card .file-info{flex:1;}
-.file-card .file-name{
-  font-weight:600;font-size:13px;color:var(--text-color);
-  word-break:break-word;margin-bottom:4px;
-}
-.file-card .file-meta{font-size:11px;color:var(--text-light);}
-.file-card .file-actions{
-  display:flex;gap:6px;flex-wrap:wrap;
-}
-.file-card .file-actions button,
-.file-card .file-actions a{
-  padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;
-  border:none;cursor:pointer;text-decoration:none;
-  display:inline-flex;align-items:center;gap:4px;transition:.3s;
-}
-.btn-view{background:var(--secondary-blue);color:#fff;}
-.btn-view:hover{background:var(--primary-blue);}
-.btn-download{background:var(--success-green);color:#fff;}
-.btn-download:hover{background:#15803d;}
-.btn-edit-file{background:#ffc107;color:#333;}
-.btn-edit-file:hover{background:#e0a800;}
-.btn-delete-file{background:var(--warning-red);color:#fff;}
-.btn-delete-file:hover{background:#a71d2a;}
-.btn-home-toggle{background:#6c757d;color:#fff;}
-.btn-home-toggle.on{background:var(--gold);color:#333;}
+.btn-i-edit{background:#ffc107;color:#333;}
+.btn-i-edit:hover{background:#e0a800;}
+.btn-i-delete{background:#dc3545;color:#fff;}
+.btn-i-delete:hover{background:#a71d2a;}
+.btn-i-dup{background:#6c5ce7;color:#fff;}
+.btn-i-dup:hover{background:#5a4dd1;}
+.btn-i-view{background:var(--secondary-blue);color:#fff;}
 
 .empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
 .empty-state i{font-size:36px;margin-bottom:8px;opacity:.4;}
@@ -310,19 +229,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   background:var(--bg-color);
 }
 .upload-zone:hover{border-color:var(--secondary-blue);background:rgba(25,118,210,.05);}
-.upload-zone.drag{border-color:var(--success-green);background:rgba(22,163,74,.1);}
 .upload-zone i{font-size:36px;color:var(--secondary-blue);margin-bottom:8px;}
-.upload-zone p{font-size:13px;color:var(--text-light);}
-.upload-zone .file-types{font-size:11px;margin-top:6px;color:var(--text-light);}
-.upload-progress{
-  margin-top:12px;height:8px;background:var(--border-color);
-  border-radius:4px;overflow:hidden;display:none;
-}
+.upload-progress{margin-top:12px;height:8px;background:var(--border-color);border-radius:4px;overflow:hidden;display:none;}
 .upload-progress.active{display:block;}
-.upload-progress-bar{
-  height:100%;background:var(--success-green);
-  width:0%;transition:width .3s;
-}
+.upload-progress-bar{height:100%;background:var(--success-green);width:0%;transition:width .3s;}
 
 .toast{
   position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
@@ -330,74 +240,115 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   font-weight:600;z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,.3);
   max-width:90%;text-align:center;animation:toastIn .3s ease;
 }
-@keyframes toastIn{
-  from{opacity:0;transform:translateX(-50%) translateY(20px);}
-  to{opacity:1;transform:translateX(-50%) translateY(0);}
-}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
 .toast.success{background:#16a34a;}
 .toast.error{background:#dc3545;}
 .toast.info{background:#1976d2;}
 .toast.warning{background:#f59e0b;}
 
+/* WORD EDITOR */
+.word-toolbar{
+  background:#fafbfc;border:1px solid #d1d9e6;border-radius:8px 8px 0 0;
+  padding:6px 8px;display:flex;flex-wrap:wrap;gap:2px;
+  position:sticky;top:0;z-index:50;
+}
+.dark-mode .word-toolbar{background:#1a1a2e;border-color:#2a2a4a;}
+.word-toolbar .tb-group{
+  display:flex;gap:1px;padding:0 5px;
+  border-right:1px solid #d1d9e6;align-items:center;
+}
+.dark-mode .word-toolbar .tb-group{border-color:#2a2a4a;}
+.word-toolbar .tb-group:last-child{border-right:none;}
+.word-toolbar .tb-btn{
+  width:28px;height:28px;border:1px solid transparent;border-radius:4px;
+  background:transparent;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:12px;color:#2c3e50;transition:.15s;
+}
+.dark-mode .word-toolbar .tb-btn{color:#e8e8e8;}
+.word-toolbar .tb-btn:hover{background:#e8f0fe;border-color:#c2d4f0;}
+.word-toolbar .tb-btn.wide{width:auto;padding:0 8px;gap:4px;font-size:11px;}
+.word-toolbar select{
+  height:28px;border:1px solid #d1d9e6;border-radius:4px;
+  padding:0 4px;font-size:11px;background:#fff;cursor:pointer;color:#2c3e50;
+}
+.dark-mode .word-toolbar select{background:#141428;color:#e8e8e8;border-color:#2a2a4a;}
+.word-toolbar .color-picker{
+  width:28px;height:28px;border:1px solid #d1d9e6;border-radius:4px;
+  cursor:pointer;padding:1px;background:#fff;
+}
+.word-editor-wrap{
+  background:#e8ecf1;padding:16px;min-height:400px;
+  border:1px solid #d1d9e6;border-top:none;border-radius:0 0 8px 8px;
+  overflow-y:auto;max-height:600px;
+}
+.dark-mode .word-editor-wrap{background:#0a0e1a;border-color:#2a2a4a;}
+.word-editor-wrap .page{
+  background:#fff;max-width:850px;margin:0 auto;min-height:500px;
+  padding:40px 50px;box-shadow:0 4px 20px rgba(0,0,0,.1);border-radius:2px;color:#1a1a1a;
+}
+.dark-mode .word-editor-wrap .page{background:#1a1a2e;color:#e8e8e8;}
+#richEditor{min-height:400px;outline:none;font-size:15px;line-height:1.7;}
+#richEditor:empty:before{content:'यहाँ content लिखें... Insert Table, Image, PDF, Word, Excel, Link सब available।';color:#999;font-style:italic;}
+#richEditor h1,#richEditor h2,#richEditor h3{margin:12px 0 8px;font-weight:700;}
+#richEditor h1{font-size:28px;}
+#richEditor h2{font-size:22px;}
+#richEditor h3{font-size:18px;}
+#richEditor p{margin:6px 0;}
+#richEditor ul,#richEditor ol{margin:8px 0 8px 25px;}
+#richEditor blockquote{border-left:4px solid #1976d2;padding:8px 14px;margin:10px 0;background:#f5f8ff;font-style:italic;}
+#richEditor table{border-collapse:collapse;width:100%;margin:10px 0;}
+#richEditor table td,#richEditor table th{border:1px solid #999;padding:8px 10px;min-width:40px;}
+#richEditor table th{background:#f0f0f0;font-weight:600;}
+#richEditor img{max-width:100%;height:auto;margin:8px 0;}
+#richEditor a{color:#1976d2;text-decoration:underline;}
+#richEditor hr{border:none;border-top:2px solid #ccc;margin:16px 0;}
+
+.insert-modal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin:12px 0;}
+.insert-item{
+  padding:14px 10px;border:2px solid var(--border-color);border-radius:8px;
+  background:var(--bg-color);cursor:pointer;text-align:center;transition:.3s;
+}
+.insert-item:hover{border-color:var(--primary-blue);transform:translateY(-2px);background:rgba(25,118,210,.08);}
+.insert-item .insert-icon{font-size:24px;margin-bottom:4px;}
+.insert-item .insert-label{font-size:11px;font-weight:600;}
+.color-grid{display:grid;grid-template-columns:repeat(8, 1fr);gap:4px;margin:8px 0;}
+.color-swatch{
+  width:100%;aspect-ratio:1;border-radius:4px;cursor:pointer;
+  border:1px solid rgba(0,0,0,.1);transition:.2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.color-swatch:hover{transform:scale(1.15);border-color:#000;}
+
+/* BULK MODE INDICATOR */
+.bulk-mode-badge{
+  display:none;background:#6c5ce7;color:#fff;padding:6px 14px;
+  border-radius:20px;font-size:12px;font-weight:600;margin-bottom:10px;
+}
+.bulk-mode-badge.active{display:inline-flex;align-items:center;gap:6px;}
+
 .admin-menu-toggle{
   display:none;background:var(--secondary);color:#fff;
-  border:none;padding:6px 10px;border-radius:6px;
-  font-size:16px;cursor:pointer;
+  border:none;padding:6px 10px;border-radius:6px;font-size:16px;cursor:pointer;
 }
 @media(max-width:768px){
-  .admin-sidebar{
-    position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);
-    z-index:999;width:280px;
-  }
+  .admin-sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);z-index:999;width:280px;}
   .admin-sidebar.open{transform:translateX(0);}
-  .admin-content{padding:16px;margin-left:0;}
+  .admin-content{padding:16px;}
   .admin-stats{grid-template-columns:1fr 1fr;}
-  .admin-modal{padding:16px;margin:10px;}
+  .admin-modal{padding:14px;}
   .admin-modal .form-row{grid-template-columns:1fr;}
   .admin-menu-toggle{display:flex;}
+  .word-toolbar{overflow-x:auto;flex-wrap:nowrap;}
+  .data-item{flex-wrap:wrap;}
 }
-@media(max-width:480px){.admin-stats{grid-template-columns:1fr;}}
-.sidebar-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;
-}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;}
 .sidebar-overlay.active{display:block;}
-
-/* SETTINGS TABS */
-.settings-tab-btn{
-  padding:6px 14px;border:2px solid var(--border-color);border-radius:20px;
-  background:var(--bg-color);color:var(--text-color);font-size:12px;
-  font-weight:600;cursor:pointer;transition:.3s;
-}
-.settings-tab-btn:hover{border-color:var(--secondary-blue);}
-.settings-tab-btn.active{background:var(--secondary-blue);color:#fff;border-color:var(--secondary-blue);}
-.settings-tab-content{display:none;animation:fadeInSection .3s ease;}
-.settings-tab-content.active{display:block;}
-.setting-group{padding:14px 0;border-bottom:1px solid var(--border-color);}
-.setting-group:last-child{border-bottom:none;}
-.setting-group h5{font-size:13px;font-weight:600;color:var(--text-color);margin-bottom:6px;}
-.btn-setting{
-  padding:6px 16px;border:none;border-radius:6px;font-size:12px;
-  font-weight:600;cursor:pointer;transition:.3s;min-height:32px;
-  margin-right:6px;
-}
-.btn-setting.primary{background:var(--secondary-blue);color:#fff;}
-.btn-setting.primary:hover{background:var(--primary-blue);}
-.btn-setting.success{background:var(--success-green);color:#fff;}
-.btn-setting.success:hover{background:#15803d;}
-.btn-setting.danger{background:var(--warning-red);color:#fff;}
-.btn-setting.danger:hover{background:#a71d2a;}
-.setting-group input[type="text"],
-.setting-group input[type="url"],
-.setting-group input[type="number"]{
-  padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;
-  font-size:13px;background:var(--bg-color);color:var(--text-color);
-  margin-right:6px;width:220px;max-width:100%;
-}
 </style>
 </head>
 <body>
 
-<div class="admin-wrapper" id="adminWrapper">
+<div class="admin-wrapper">
+  <!-- SIDEBAR -->
   <div class="admin-sidebar" id="adminSidebar">
     <div class="admin-logo">
       <h1>🚀 <span>Dream</span>Josh</h1>
@@ -449,14 +400,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
+  <!-- CONTENT -->
   <div class="admin-content">
     <div class="admin-top-header">
       <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
       <div class="admin-actions">
         <button class="admin-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-        <button class="btn-dark-admin" id="darkModeBtn" onclick="toggleDarkMode()">
-          <i class="fas fa-moon"></i> Dark
-        </button>
+        <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
         <button class="btn-close-admin" onclick="window.close()"><i class="fas fa-times"></i> Close</button>
       </div>
     </div>
@@ -464,47 +414,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     <!-- DASHBOARD -->
     <div id="adminPage-dashboard" class="admin-section active">
       <div class="admin-stats">
-        <div class="stat-item">
-          <div class="stat-icon">📁</div>
-          <div class="stat-label">Total Files</div>
-          <div class="stat-value" id="statFiles">0</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">🏠</div>
-          <div class="stat-label">Home Display</div>
-          <div class="stat-value" id="statHomeFiles">0</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">💼</div>
-          <div class="stat-label">Jobs</div>
-          <div class="stat-value" id="statJobs">0</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">📸</div>
-          <div class="stat-label">Slides</div>
-          <div class="stat-value" id="statSlides">0</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">👥</div>
-          <div class="stat-label">Employees</div>
-          <div class="stat-value" id="statEmployees">0</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">🔥</div>
-          <div class="stat-label">Firebase</div>
-          <div class="stat-value" style="font-size:14px;color:#16a34a;">✅ OK</div>
-        </div>
+        <div class="stat-item"><div class="stat-icon">📁</div><div class="stat-label">Total Files</div><div class="stat-value" id="statFiles">0</div></div>
+        <div class="stat-item"><div class="stat-icon">🏠</div><div class="stat-label">Home Display</div><div class="stat-value" id="statHomeFiles">0</div></div>
+        <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
+        <div class="stat-item"><div class="stat-icon">📸</div><div class="stat-label">Slides</div><div class="stat-value" id="statSlides">0</div></div>
+        <div class="stat-item"><div class="stat-icon">👥</div><div class="stat-label">Employees</div><div class="stat-value" id="statEmployees">0</div></div>
       </div>
 
       <div class="admin-quick-actions">
         <h3>⚡ Quick Actions</h3>
         <div class="actions-grid">
           <button onclick="showAdminPage('files');openFileUploadModal()"><i class="fas fa-upload"></i> Upload File</button>
-          <button onclick="showAdminPage('files')"><i class="fas fa-folder-open"></i> Manage Files</button>
           <button onclick="showAdminPage('jobs');openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
-          <button onclick="showAdminPage('slides')"><i class="fas fa-images"></i> Slides</button>
           <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
-          <button onclick="exportAllData()" style="background:#6c5ce7;"><i class="fas fa-download"></i> Backup All</button>
         </div>
       </div>
     </div>
@@ -516,40 +438,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <h4>📁 All Files Manager</h4>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <button class="btn-add" onclick="openFileUploadModal()"><i class="fas fa-plus"></i> Upload File</button>
+            <button class="btn-add bulk" onclick="openBulkUploadModal()"><i class="fas fa-layer-group"></i> Bulk Upload</button>
             <button class="btn-add" style="background:var(--primary-blue);" onclick="loadFilesFromCloud()"><i class="fas fa-sync-alt"></i> Refresh</button>
           </div>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
-          <input type="text" id="fileSearchInput" placeholder="🔍 Search by name..." oninput="renderFilesGrid('files')"
-            style="flex:1;min-width:180px;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;background:var(--bg-color);color:var(--text-color);">
-          <select id="fileTypeFilter" onchange="renderFilesGrid('files')"
-            style="padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;background:var(--bg-color);color:var(--text-color);">
-            <option value="">All Types</option>
-            <option value="image">🖼️ Image</option>
-            <option value="pdf">📄 PDF</option>
-            <option value="word">📝 Word</option>
-            <option value="excel">📊 Excel</option>
-            <option value="other">📦 Other</option>
-          </select>
-          <select id="fileSortFilter" onchange="renderFilesGrid('files')"
-            style="padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;background:var(--bg-color);color:var(--text-color);">
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
-            <option value="name">Name A-Z</option>
-            <option value="size">Size (Large)</option>
-          </select>
         </div>
         <div id="filesGridContainer"></div>
       </div>
     </div>
 
-    <!-- HOME DISPLAY FILES -->
+    <!-- HOME DISPLAY -->
     <div id="adminPage-files-home" class="admin-section">
       <div class="admin-card">
-        <div class="card-header">
-          <h4>🏠 Home Page Display Files</h4>
-          <span style="font-size:12px;color:var(--text-light);">ये files home page पर दिखेंगी</span>
-        </div>
+        <div class="card-header"><h4>🏠 Home Page Display Files</h4></div>
         <div id="homeFilesContainer"></div>
       </div>
     </div>
@@ -604,63 +504,79 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- ITEMS -->
+    <!-- ITEMS (with multiple add) -->
     <div id="adminPage-items-career" class="admin-section">
       <div class="admin-card">
-        <div class="card-header"><h4>🎯 Career Items</h4>
-          <button class="btn-add" onclick="openItemEditor('career')"><i class="fas fa-plus"></i> Add Item</button>
+        <div class="card-header">
+          <h4>🎯 Career Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('career')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('career')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
         </div>
         <div id="adminItemsContainer-career"></div>
       </div>
     </div>
     <div id="adminPage-items-more" class="admin-section">
       <div class="admin-card">
-        <div class="card-header"><h4>📚 More Items</h4>
-          <button class="btn-add" onclick="openItemEditor('more')"><i class="fas fa-plus"></i> Add Item</button>
+        <div class="card-header">
+          <h4>📚 More Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('more')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('more')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
         </div>
         <div id="adminItemsContainer-more"></div>
       </div>
     </div>
     <div id="adminPage-items-blog" class="admin-section">
       <div class="admin-card">
-        <div class="card-header"><h4>📝 Blog Items</h4>
-          <button class="btn-add" onclick="openItemEditor('blog')"><i class="fas fa-plus"></i> Add Item</button>
+        <div class="card-header">
+          <h4>📝 Blog Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('blog')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('blog')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
         </div>
         <div id="adminItemsContainer-blog"></div>
       </div>
     </div>
     <div id="adminPage-items-service" class="admin-section">
       <div class="admin-card">
-        <div class="card-header"><h4>🛠️ Service Items</h4>
-          <button class="btn-add" onclick="openItemEditor('service')"><i class="fas fa-plus"></i> Add Item</button>
+        <div class="card-header">
+          <h4>🛠️ Service Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('service')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('service')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
         </div>
         <div id="adminItemsContainer-service"></div>
       </div>
     </div>
     <div id="adminPage-items-rsr" class="admin-section">
       <div class="admin-card">
-        <div class="card-header"><h4>📜 RSR Items</h4>
-          <button class="btn-add" onclick="openItemEditor('rsr')"><i class="fas fa-plus"></i> Add Item</button>
+        <div class="card-header">
+          <h4>📜 RSR Items</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openItemEditor('rsr')"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkAddModal('rsr')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
         </div>
         <div id="adminItemsContainer-rsr"></div>
       </div>
     </div>
 
-    <!-- JOBS -->
+    <!-- JOBS (with multiple add) -->
     <div id="adminPage-jobs" class="admin-section">
       <div class="admin-card">
-        <div class="card-header"><h4>💼 Jobs Manager</h4>
-          <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+        <div class="card-header">
+          <h4>💼 Jobs Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+            <button class="btn-add bulk" onclick="openBulkJobModal()"><i class="fas fa-layer-group"></i> Bulk Add Jobs</button>
+          </div>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr>
-              <th>#</th><th>Title</th><th>Type</th>
-              <th>Visibility</th><th>Dept</th><th>Actions</th>
-            </tr></thead>
-            <tbody id="adminJobsTable"></tbody>
-          </table>
-        </div>
+        <div id="jobsContainer"></div>
       </div>
     </div>
 
@@ -678,7 +594,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     <div id="adminPage-employees" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>👥 Employees</h4>
-          <button class="btn-add" onclick="openEmployeeModal()"><i class="fas fa-user-plus"></i> Add Employee</button>
+          <button class="btn-add" onclick="openEmployeeModal()"><i class="fas fa-user-plus"></i> Add</button>
         </div>
         <div id="employeeListContainer"></div>
       </div>
@@ -696,53 +612,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     <div id="adminPage-settings" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>⚙️ Settings</h4></div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
-          <button class="settings-tab-btn active" data-tab="general" onclick="switchSettingsTab('general')">⚙️ General</button>
-          <button class="settings-tab-btn" data-tab="home" onclick="switchSettingsTab('home')">🏠 Home Files</button>
+        <div class="form-group">
+          <label>🌐 Site Name</label>
+          <input type="text" id="settingSiteName" placeholder="Dream Josh">
         </div>
-
-        <div class="settings-tab-content active" id="settings-general">
-          <div class="setting-group">
-            <h5>🌐 Site Name</h5>
-            <input type="text" id="settingSiteName" placeholder="Dream Josh">
-          </div>
-          <div class="setting-group">
-            <h5>💬 Tagline</h5>
-            <input type="text" id="settingTagline" placeholder="Career & Study Platform">
-          </div>
-          <div class="setting-group">
-            <h5>🔗 Site URL</h5>
-            <input type="url" id="settingSiteURL" placeholder="https://dreamjosh.com">
-          </div>
-          <button class="btn-setting success" onclick="saveAllSettings()" style="margin-top:10px;">
-            <i class="fas fa-save"></i> Save General
-          </button>
+        <div class="form-group">
+          <label>💬 Tagline</label>
+          <input type="text" id="settingTagline" placeholder="Career & Study Platform">
         </div>
-
-        <div class="settings-tab-content" id="settings-home">
-          <div class="setting-group">
-            <h5>🏠 Home Page File Display</h5>
-            <p style="font-size:12px;color:var(--text-light);margin-bottom:8px;">
-              Home page पर कौन सी files दिखेंगी, ये "Home Display" section से control करें।
-            </p>
-            <button class="btn-setting primary" onclick="showAdminPage('files-home')">
-              <i class="fas fa-home"></i> Manage Home Files
-            </button>
-          </div>
-          <div class="setting-group">
-            <h5>📊 Home Display Limit</h5>
-            <input type="number" id="settingHomeLimit" value="6" min="1" max="50">
-            <button class="btn-setting success" onclick="saveAllSettings()">
-              <i class="fas fa-save"></i> Save
-            </button>
-          </div>
-          <div class="setting-group">
-            <h5>🚨 Danger Zone</h5>
-            <button class="btn-setting danger" onclick="clearAllLocalData()">
-              <i class="fas fa-trash"></i> Clear Local Data
-            </button>
-          </div>
-        </div>
+        <button class="btn-submit" onclick="saveAllSettings()">Save</button>
       </div>
     </div>
 
@@ -751,7 +629,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 
 <!-- MODAL -->
 <div class="admin-modal-overlay" id="adminModalOverlay" onclick="if(event.target===this) closeAdminModal()">
-  <div class="admin-modal">
+  <div class="admin-modal" id="adminModalBox">
     <div class="modal-header">
       <h3 id="adminModalTitle">Edit</h3>
       <button class="close-modal" onclick="closeAdminModal()">&times;</button>
@@ -762,7 +640,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 
 <script>
 // ============================================================
-// FIREBASE CONFIG
+// FIREBASE
 // ============================================================
 const firebaseConfig = {
   apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
@@ -770,8 +648,7 @@ const firebaseConfig = {
   projectId: "dreamjosh-7d9ee",
   storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
   messagingSenderId: "461367857074",
-  appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab",
-  measurementId: "G-28W2EBTMQ8"
+  appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
 };
 
 let firebaseApp, firebaseDB, firebaseStorage;
@@ -779,13 +656,10 @@ try {
   firebaseApp = firebase.initializeApp(firebaseConfig);
   firebaseDB = firebase.firestore();
   firebaseStorage = firebase.storage();
-  console.log("✅ Firebase initialized");
-} catch (err) {
-  console.error("❌ Firebase error:", err);
-}
+} catch (err) { console.error(err); }
 
 // ============================================================
-// GLOBAL STATE
+// STATE
 // ============================================================
 let appData = {};
 let jobsData = [];
@@ -796,25 +670,16 @@ const STORAGE_KEY = 'dreamjosh_admin_data';
 const FILES_META_KEY = 'dreamjosh_files_meta';
 
 const DEFAULT_DATA = {
-  home: { content: '<h2>🏠 Welcome to Dream Josh</h2><p>Home page content here.</p>' },
-  career: { content: '<h2>🎯 Career Guidance</h2>', items: [] },
-  more: { content: '<h2>📚 Study & Books</h2>', items: [] },
-  service: { content: '<h2>🛠️ Services</h2>', items: [] },
-  blog: { content: '<h2>📝 Blog</h2>', items: [] },
-  rsr: { content: '<h2>📜 RSR Rules</h2>', items: [] },
-  social: {
-    instagram: 'https://instagram.com/dreamjosh',
-    youtube: 'https://youtube.com/dreamjosh',
-    facebook: 'https://facebook.com/dreamjosh'
-  },
+  home: { content: '' },
+  career: { content: '', items: [] },
+  more: { content: '', items: [] },
+  service: { content: '', items: [] },
+  blog: { content: '', items: [] },
+  rsr: { content: '', items: [] },
+  social: { instagram: '', youtube: '', facebook: '' },
   employees: [],
   slides: [],
-  settings: {
-    siteName: 'Dream Josh',
-    tagline: 'Career & Study Platform',
-    siteURL: '',
-    homeLimit: 6
-  }
+  settings: { siteName: 'Dream Josh', tagline: 'Career & Study Platform' }
 };
 
 // ============================================================
@@ -824,16 +689,14 @@ function loadData() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      const parsed = JSON.parse(saved);
-      appData = parsed.appData || {};
-      jobsData = parsed.jobsData || [];
+      const p = JSON.parse(saved);
+      appData = p.appData || {};
+      jobsData = p.jobsData || [];
     }
-  } catch (e) { console.error('Load error:', e); }
-
-  Object.keys(DEFAULT_DATA).forEach(key => {
-    if (!appData[key]) appData[key] = JSON.parse(JSON.stringify(DEFAULT_DATA[key]));
+  } catch (e) {}
+  Object.keys(DEFAULT_DATA).forEach(k => {
+    if (!appData[k]) appData[k] = JSON.parse(JSON.stringify(DEFAULT_DATA[k]));
   });
-
   if (appData.darkMode) document.body.classList.add('dark-mode');
 }
 
@@ -844,7 +707,7 @@ function saveData() {
       firebaseDB.collection('dreamjosh').doc('appData').set(appData).catch(()=>{});
       firebaseDB.collection('dreamjosh').doc('jobsData').set({ jobs: jobsData }).catch(()=>{});
     }
-  } catch (e) { console.error('Save error:', e); }
+  } catch (e) {}
 }
 
 function updateSidebarCounts() {
@@ -859,12 +722,10 @@ function updateSidebarCounts() {
     files: filesData.length,
     'files-home': filesMeta.filter(f => f.showOnHome).length
   };
-
   Object.keys(counts).forEach(k => {
     const el = document.getElementById('count-' + k);
     if (el) el.textContent = counts[k];
   });
-
   const setStat = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
   setStat('statFiles', filesData.length);
   setStat('statHomeFiles', filesMeta.filter(f => f.showOnHome).length);
@@ -874,450 +735,281 @@ function updateSidebarCounts() {
 }
 
 // ============================================================
-// FILES METADATA
+// WORD EDITOR
 // ============================================================
-function loadFilesMeta() {
-  try {
-    const saved = localStorage.getItem(FILES_META_KEY);
-    filesMeta = saved ? JSON.parse(saved) : [];
-  } catch (e) { filesMeta = []; }
-}
-
-function saveFilesMeta() {
-  localStorage.setItem(FILES_META_KEY, JSON.stringify(filesMeta));
-  if (firebaseDB) {
-    firebaseDB.collection('dreamjosh').doc('filesMeta').set({ files: filesMeta }).catch(()=>{});
-  }
-}
-
-async function loadFilesMetaFromCloud() {
-  if (!firebaseDB) return;
-  try {
-    const doc = await firebaseDB.collection('dreamjosh').doc('filesMeta').get();
-    if (doc.exists && doc.data().files) {
-      filesMeta = doc.data().files;
-      localStorage.setItem(FILES_META_KEY, JSON.stringify(filesMeta));
-    }
-  } catch (e) { console.warn('Meta load failed:', e); }
-}
-
-function getFileMeta(path) {
-  return filesMeta.find(f => f.path === path) || {
-    path, customName: '', showOnHome: false, description: '', uploadedAt: Date.now()
-  };
-}
-
-// ============================================================
-// FILES FROM CLOUD
-// ============================================================
-async function loadFilesFromCloud() {
-  const container = document.getElementById('filesGridContainer');
-  if (container) container.innerHTML = '<div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading files...</p></div>';
-
-  await loadFilesMetaFromCloud();
-
-  if (!firebaseStorage) {
-    if (container) container.innerHTML = '<div class="empty-state" style="color:#dc3545;"><i class="fas fa-exclamation-triangle"></i><p>Firebase Storage not initialized</p></div>';
-    return;
-  }
-
-  try {
-    const list = await firebaseStorage.ref('dreamjosh-files').listAll();
-    filesData = [];
-
-    for (const item of list.items) {
-      try {
-        const url = await item.getDownloadURL();
-        const meta = await item.getMetadata();
-        filesData.push({
-          path: item.fullPath,
-          firebaseName: item.name,
-          url,
-          size: meta.size || 0,
-          time: meta.timeCreated,
-          contentType: meta.contentType || ''
-        });
-      } catch (e) { console.warn('File skip:', e); }
-    }
-
-    filesData.sort((a, b) => new Date(b.time) - new Date(a.time));
-    updateSidebarCounts();
-    if (document.getElementById('adminPage-files')?.classList.contains('active')) renderFilesGrid('files');
-    if (document.getElementById('adminPage-files-home')?.classList.contains('active')) renderFilesGrid('home');
-  } catch (err) {
-    console.error('Load files error:', err);
-    if (container) container.innerHTML = `<div class="empty-state" style="color:#dc3545;"><i class="fas fa-exclamation-circle"></i><p>Error: ${err.message}</p></div>`;
-  }
-}
-
-// ============================================================
-// FILE HELPERS
-// ============================================================
-function getFileType(contentType, name) {
-  const ct = (contentType || '').toLowerCase();
-  const nm = (name || '').toLowerCase();
-  if (ct.startsWith('image/') || /\.(jpg|jpeg|png|gif|webp|svg|bmp|ico)$/.test(nm)) return 'image';
-  if (ct.includes('pdf') || nm.endsWith('.pdf')) return 'pdf';
-  if (ct.includes('word') || /\.(doc|docx)$/.test(nm)) return 'word';
-  if (ct.includes('excel') || ct.includes('spreadsheet') || /\.(xls|xlsx|csv)$/.test(nm)) return 'excel';
-  return 'other';
-}
-
-function getFileIcon(type) {
-  return { image:'🖼️', pdf:'📄', word:'📝', excel:'📊', other:'📦' }[type] || '📦';
-}
-
-function getFileColor(type) {
-  return { image:'#1976d2', pdf:'#d62839', word:'#2b5797', excel:'#217346', other:'#6c757d' }[type] || '#6c757d';
-}
-
-function formatFileSize(bytes) {
-  if (!bytes) return '0 B';
-  if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB';
-  return (bytes/1048576).toFixed(2) + ' MB';
-}
-
-function escapeHtml(str) {
-  return String(str || '').replace(/[&<>"']/g, c => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[c]));
-}
-
-// ============================================================
-// RENDER FILES GRID
-// ============================================================
-function renderFilesGrid(mode) {
-  const isHome = mode === 'home';
-  const container = document.getElementById(isHome ? 'homeFilesContainer' : 'filesGridContainer');
-  if (!container) return;
-
-  const search = (document.getElementById('fileSearchInput')?.value || '').toLowerCase();
-  const typeFilter = document.getElementById('fileTypeFilter')?.value || '';
-  const sortFilter = document.getElementById('fileSortFilter')?.value || 'newest';
-
-  let items = filesData.map(f => {
-    const meta = getFileMeta(f.path);
-    return { ...f, ...meta, type: getFileType(f.contentType, f.firebaseName) };
-  });
-
-  if (isHome) items = items.filter(f => f.showOnHome);
-  if (search) items = items.filter(f => (f.customName || f.firebaseName).toLowerCase().includes(search));
-  if (typeFilter) items = items.filter(f => f.type === typeFilter);
-
-  if (sortFilter === 'oldest') items.sort((a,b) => new Date(a.time) - new Date(b.time));
-  else if (sortFilter === 'name') items.sort((a,b) => (a.customName||a.firebaseName).localeCompare(b.customName||b.firebaseName));
-  else if (sortFilter === 'size') items.sort((a,b) => b.size - a.size);
-  else items.sort((a,b) => new Date(b.time) - new Date(a.time));
-
-  if (items.length === 0) {
-    container.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><p>${isHome ? 'कोई file home पर नहीं है। Files section से "Home" toggle करें।' : 'कोई file नहीं मिली। "Upload File" पर click करें।'}</p></div>`;
-    return;
-  }
-
-  container.innerHTML = `<div class="files-grid">${items.map(f => renderFileCard(f)).join('')}</div>`;
-}
-
-function renderFileCard(f) {
-  const displayName = escapeHtml(f.customName || f.firebaseName);
-  const icon = getFileIcon(f.type);
-  const color = getFileColor(f.type);
-  const isImage = f.type === 'image';
-  const preview = isImage
-    ? `<img src="${f.url}" alt="${displayName}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=&quot;file-icon&quot;>${icon}</div>';">`
-    : `<div class="file-icon">${icon}</div>`;
-
+function getWordEditorHTML(content, editorId) {
+  editorId = editorId || 'richEditor';
   return `
-    <div class="file-card">
-      <div class="file-preview">
-        ${preview}
-        <div class="badge-type" style="background:${color};">${f.type}</div>
-        ${f.showOnHome ? '<div class="badge-type" style="top:auto;bottom:6px;background:#16a34a;">🏠 Home</div>' : ''}
+    <div class="word-toolbar">
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('undo')" title="Undo"><i class="fas fa-undo"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('redo')" title="Redo"><i class="fas fa-redo"></i></button>
       </div>
-      <div class="file-info">
-        <div class="file-name">${displayName}</div>
-        <div class="file-meta">${formatFileSize(f.size)} • ${new Date(f.time).toLocaleDateString()}</div>
-        ${f.description ? `<div class="file-meta" style="margin-top:4px;">${escapeHtml(f.description)}</div>` : ''}
+      <div class="tb-group">
+        <select onchange="weCmd('fontName', this.value)" title="Font">
+          <option value="Arial">Arial</option>
+          <option value="Times New Roman">Times</option>
+          <option value="Calibri">Calibri</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Mangal">Mangal (Hindi)</option>
+          <option value="Nirmala UI">Nirmala (Hindi)</option>
+        </select>
+        <select onchange="weCmd('fontSize', this.value)" title="Size">
+          <option value="2">10</option>
+          <option value="3" selected>12</option>
+          <option value="4">14</option>
+          <option value="5">18</option>
+          <option value="6">24</option>
+          <option value="7">36</option>
+        </select>
       </div>
-      <div class="file-actions">
-        <a href="${f.url}" target="_blank" class="btn-view"><i class="fas fa-eye"></i> View</a>
-        <a href="${f.url}" download="${displayName}" class="btn-download"><i class="fas fa-download"></i></a>
-        <button class="btn-home-toggle ${f.showOnHome?'on':''}" onclick="toggleHomeDisplay('${f.path}')" title="Home Display">
-          <i class="fas fa-home"></i>
-        </button>
-        <button class="btn-edit-file" onclick="openFileEditModal('${f.path}')" title="Edit">
-          <i class="fas fa-edit"></i>
-        </button>
-        <button class="btn-delete-file" onclick="deleteFile('${f.path}', '${displayName.replace(/'/g,"\\'")}')" title="Delete">
-          <i class="fas fa-trash"></i>
-        </button>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('bold')"><i class="fas fa-bold"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('italic')"><i class="fas fa-italic"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('underline')"><i class="fas fa-underline"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('strikeThrough')"><i class="fas fa-strikethrough"></i></button>
+      </div>
+      <div class="tb-group">
+        <input type="color" class="color-picker" value="#000000" onchange="weCmd('foreColor', this.value)" title="Font Color">
+        <input type="color" class="color-picker" value="#ffff00" onchange="weCmd('hiliteColor', this.value)" title="Highlight">
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('justifyLeft')"><i class="fas fa-align-left"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('justifyCenter')"><i class="fas fa-align-center"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('justifyRight')"><i class="fas fa-align-right"></i></button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('insertOrderedList')"><i class="fas fa-list-ol"></i></button>
+      </div>
+      <div class="tb-group">
+        <select onchange="weFormat(this.value)">
+          <option value="p">Normal</option>
+          <option value="h1">H1</option>
+          <option value="h2">H2</option>
+          <option value="h3">H3</option>
+        </select>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn wide" onclick="weOpenInsert()"><i class="fas fa-plus-circle"></i> Insert</button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weInsertLink()" title="Link"><i class="fas fa-link"></i></button>
+      </div>
+    </div>
+    <div class="word-editor-wrap">
+      <div class="page">
+        <div id="${editorId}" contenteditable="true">${content || ''}</div>
       </div>
     </div>
   `;
 }
 
-// ============================================================
-// FILE UPLOAD
-// ============================================================
-function openFileUploadModal() {
-  document.getElementById('adminModalTitle').textContent = '📤 Upload New File';
+function weCmd(cmd, val) {
+  document.execCommand(cmd, false, val || null);
+  document.getElementById('richEditor')?.focus();
+}
+function weFormat(tag) {
+  document.execCommand('formatBlock', false, tag);
+  document.getElementById('richEditor')?.focus();
+}
+function weInsertLink() {
+  const url = prompt('Link URL:', 'https://');
+  if (!url) return;
+  const text = prompt('Link Text:', url);
+  if (!text) return;
+  weCmd('insertHTML', `<a href="${url}" target="_blank">${text}</a>`);
+}
+
+function weOpenInsert() {
+  document.getElementById('adminModalTitle').textContent = '➕ Insert';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group">
-      <label>📎 File चुनें (Image / PDF / Word / Excel / Any)</label>
-      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
-        <i class="fas fa-cloud-upload-alt"></i>
-        <p><strong>Click to browse</strong> या file को यहाँ drag करें</p>
-        <div class="file-types">JPG, PNG, PDF, DOC, DOCX, XLS, XLSX, ZIP, etc.</div>
-      </div>
-      <input type="file" id="fileInput" style="display:none;" onchange="handleFileSelect(event)">
-      <div id="selectedFile" style="margin-top:10px;font-size:13px;color:var(--text-light);"></div>
+    <div class="insert-modal-grid">
+      <div class="insert-item" onclick="weInsertTable()"><div class="insert-icon">📊</div><div class="insert-label">Table</div></div>
+      <div class="insert-item" onclick="weInsertImage()"><div class="insert-icon">🖼️</div><div class="insert-label">Image/PNG</div></div>
+      <div class="insert-item" onclick="weInsertPDF()"><div class="insert-icon">📄</div><div class="insert-label">PDF</div></div>
+      <div class="insert-item" onclick="weInsertWord()"><div class="insert-icon">📝</div><div class="insert-label">MS Word</div></div>
+      <div class="insert-item" onclick="weInsertExcel()"><div class="insert-icon">📊</div><div class="insert-label">MS Excel</div></div>
+      <div class="insert-item" onclick="weInsertLink()"><div class="insert-icon">🔗</div><div class="insert-label">Link</div></div>
+      <div class="insert-item" onclick="weInsertSymbol()"><div class="insert-icon">∞</div><div class="insert-label">Symbol</div></div>
+      <div class="insert-item" onclick="weInsertEmoji()"><div class="insert-icon">😀</div><div class="insert-label">Emoji</div></div>
+      <div class="insert-item" onclick="weInsertHr()"><div class="insert-icon">─</div><div class="insert-label">Line</div></div>
     </div>
-    <div class="form-group">
-      <label>🏷️ Display Name (Home पर यही नाम दिखेगा) *</label>
-      <input type="text" id="fileCustomName" placeholder="e.g., SSC CGL Notification 2024">
-    </div>
-    <div class="form-group">
-      <label>📝 Description (Optional)</label>
-      <textarea id="fileDescription" placeholder="Short description..."></textarea>
-    </div>
-    <div class="form-group">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-        <input type="checkbox" id="fileShowOnHome" style="width:auto;cursor:pointer;">
-        🏠 Home Page पर दिखाएं
-      </label>
-    </div>
-    <div class="upload-progress" id="uploadProgress">
-      <div class="upload-progress-bar" id="uploadProgressBar"></div>
-    </div>
-    <div id="uploadStatus" style="font-size:12px;text-align:center;margin-top:8px;"></div>
-    <div style="margin-top:16px;">
-      <button class="btn-submit" id="uploadBtn" onclick="uploadFile()" disabled>
-        <i class="fas fa-upload"></i> Upload
-      </button>
-      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-    </div>
+    <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
   `;
-
-  const zone = document.getElementById('uploadZone');
-  ['dragenter','dragover'].forEach(ev => zone.addEventListener(ev, e => {
-    e.preventDefault(); zone.classList.add('drag');
-  }));
-  ['dragleave','drop'].forEach(ev => zone.addEventListener(ev, e => {
-    e.preventDefault(); zone.classList.remove('drag');
-  }));
-  zone.addEventListener('drop', e => {
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      document.getElementById('fileInput').files = files;
-      handleFileSelect({ target: { files } });
-    }
-  });
-
   document.getElementById('adminModalOverlay').classList.add('active');
 }
 
-let selectedUploadFile = null;
-
-function handleFileSelect(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  selectedUploadFile = file;
-  document.getElementById('selectedFile').innerHTML =
-    `✅ <strong>${escapeHtml(file.name)}</strong> (${formatFileSize(file.size)})`;
-  if (!document.getElementById('fileCustomName').value) {
-    document.getElementById('fileCustomName').value =
-      file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
-  }
-  document.getElementById('uploadBtn').disabled = false;
-}
-
-async function uploadFile() {
-  if (!selectedUploadFile) {
-    showToast('⚠️ कोई file select नहीं की!', 'error');
-    return;
-  }
-
-  const customName = document.getElementById('fileCustomName').value.trim();
-  if (!customName) {
-    showToast('⚠️ Display Name ज़रूरी है!', 'error');
-    return;
-  }
-
-  const description = document.getElementById('fileDescription').value.trim();
-  const showOnHome = document.getElementById('fileShowOnHome').checked;
-
-  const btn = document.getElementById('uploadBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
-
-  const progressEl = document.getElementById('uploadProgress');
-  const progressBar = document.getElementById('uploadProgressBar');
-  const statusEl = document.getElementById('uploadStatus');
-  progressEl.classList.add('active');
-
-  const timestamp = Date.now();
-  const safeName = selectedUploadFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const storagePath = `dreamjosh-files/${timestamp}_${safeName}`;
-  const ref = firebaseStorage.ref(storagePath);
-  const task = ref.put(selectedUploadFile);
-
-  task.on('state_changed',
-    snap => {
-      const pct = (snap.bytesTransferred / snap.totalBytes) * 100;
-      progressBar.style.width = pct + '%';
-      statusEl.textContent = `${pct.toFixed(0)}% uploaded...`;
-    },
-    err => {
-      console.error('Upload error:', err);
-      showToast('❌ Upload failed: ' + err.message, 'error');
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-upload"></i> Upload';
-      statusEl.textContent = '';
-    },
-    async () => {
-      try {
-        await ref.getDownloadURL();
-        filesMeta.push({
-          path: storagePath,
-          customName,
-          description,
-          showOnHome,
-          uploadedAt: Date.now(),
-          size: selectedUploadFile.size,
-          contentType: selectedUploadFile.type
-        });
-        saveFilesMeta();
-
-        showToast('✅ File uploaded successfully!', 'success');
-        closeAdminModal();
-        selectedUploadFile = null;
-        await loadFilesFromCloud();
-        renderFilesGrid('files');
-        updateSidebarCounts();
-      } catch (err) {
-        showToast('❌ Error: ' + err.message, 'error');
-      }
-    }
-  );
-}
-
-// ============================================================
-// EDIT FILE
-// ============================================================
-function openFileEditModal(path) {
-  const meta = getFileMeta(path);
-  const file = filesData.find(f => f.path === path);
-  if (!file) { showToast('File not found!', 'error'); return; }
-
-  const currentName = meta.customName || file.firebaseName;
-
-  document.getElementById('adminModalTitle').textContent = '✏️ Edit File';
+function weInsertTable() {
+  document.getElementById('adminModalTitle').textContent = '📊 Table';
   document.getElementById('adminModalBody').innerHTML = `
-    <div style="padding:12px;background:var(--bg-color);border-radius:8px;margin-bottom:14px;text-align:center;">
-      <div style="font-size:40px;margin-bottom:6px;">${getFileIcon(getFileType(file.contentType, file.firebaseName))}</div>
-      <div style="font-size:12px;color:var(--text-light);">${escapeHtml(file.firebaseName)}</div>
-      <div style="font-size:11px;color:var(--text-light);">${formatFileSize(file.size)} • ${new Date(file.time).toLocaleString()}</div>
+    <div class="form-row">
+      <div class="form-group"><label>Rows</label><input type="number" id="weTRows" value="3" min="1" max="30"></div>
+      <div class="form-group"><label>Columns</label><input type="number" id="weTCols" value="3" min="1" max="15"></div>
     </div>
-    <div class="form-group">
-      <label>🏷️ Display Name *</label>
-      <input type="text" id="editFileName" value="${escapeHtml(currentName)}">
-    </div>
-    <div class="form-group">
-      <label>📝 Description</label>
-      <textarea id="editFileDesc">${escapeHtml(meta.description || '')}</textarea>
-    </div>
-    <div class="form-group">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-        <input type="checkbox" id="editFileHome" ${meta.showOnHome?'checked':''} style="width:auto;">
-        🏠 Home Page पर दिखाएं
-      </label>
-    </div>
-    <div class="form-group">
-      <label>🔄 Replace File (Optional — नई file upload करें)</label>
-      <input type="file" id="replaceFileInput">
-      <div style="font-size:11px;color:var(--text-light);margin-top:4px;">अगर नई file चुनेंगे तो पुरानी replace हो जाएगी।</div>
-    </div>
-    <button class="btn-submit" onclick="saveFileEdit('${path}')"><i class="fas fa-save"></i> Save Changes</button>
+    <button class="btn-submit" onclick="weDoInsertTable()">Insert</button>
     <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
   `;
-  document.getElementById('adminModalOverlay').classList.add('active');
 }
-
-async function saveFileEdit(path) {
-  const newName = document.getElementById('editFileName').value.trim();
-  if (!newName) { showToast('Name required!', 'error'); return; }
-
-  const desc = document.getElementById('editFileDesc').value.trim();
-  const showOnHome = document.getElementById('editFileHome').checked;
-  const replaceFile = document.getElementById('replaceFileInput').files[0];
-
-  let metaIdx = filesMeta.findIndex(f => f.path === path);
-  if (metaIdx === -1) {
-    filesMeta.push({ path, customName: newName, description: desc, showOnHome, uploadedAt: Date.now() });
-  } else {
-    filesMeta[metaIdx].customName = newName;
-    filesMeta[metaIdx].description = desc;
-    filesMeta[metaIdx].showOnHome = showOnHome;
+function weDoInsertTable() {
+  const rows = parseInt(document.getElementById('weTRows').value) || 3;
+  const cols = parseInt(document.getElementById('weTCols').value) || 3;
+  let html = '<table>';
+  for (let i = 0; i < rows; i++) {
+    html += '<tr>';
+    for (let j = 0; j < cols; j++) html += i === 0 ? `<th>Header ${j+1}</th>` : '<td>Cell</td>';
+    html += '</tr>';
   }
-  saveFilesMeta();
-
-  if (replaceFile) {
-    try {
-      showToast('🔄 Replacing file...', 'info');
-      const ref = firebaseStorage.ref(path);
-      await ref.put(replaceFile);
-      showToast('✅ File replaced!', 'success');
-    } catch (err) {
-      showToast('❌ Replace failed: ' + err.message, 'error');
-      return;
-    }
-  } else {
-    showToast('✅ Changes saved!', 'success');
-  }
-
+  html += '</table><p><br></p>';
+  weCmd('insertHTML', html);
   closeAdminModal();
-  await loadFilesFromCloud();
-  renderFilesGrid('files');
-  renderFilesGrid('home');
-  updateSidebarCounts();
+  showToast('✅ Table!', 'success');
 }
 
-// ============================================================
-// TOGGLE HOME DISPLAY
-// ============================================================
-function toggleHomeDisplay(path) {
-  let meta = filesMeta.find(f => f.path === path);
-  if (!meta) {
-    meta = { path, customName: '', description: '', showOnHome: true, uploadedAt: Date.now() };
-    filesMeta.push(meta);
-  } else {
-    meta.showOnHome = !meta.showOnHome;
+function weInsertImage() {
+  document.getElementById('adminModalTitle').textContent = '🖼️ Image';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group"><label>File (JPG, PNG)</label><input type="file" id="weImgFile" accept="image/*"></div>
+    <div class="form-group"><label>या URL</label><input type="url" id="weImgUrl"></div>
+    <button class="btn-submit" onclick="weDoInsertImage()">Insert</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+}
+async function weDoInsertImage() {
+  const file = document.getElementById('weImgFile').files[0];
+  const url = document.getElementById('weImgUrl').value.trim();
+  let final = url;
+  if (file && firebaseStorage) {
+    try {
+      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      final = await ref.getDownloadURL();
+    } catch (e) { return showToast('Upload failed', 'error'); }
   }
-  saveFilesMeta();
-  showToast(meta.showOnHome ? '🏠 Home पर add किया' : '🚫 Home से हटाया', 'success');
-  renderFilesGrid('files');
-  renderFilesGrid('home');
-  updateSidebarCounts();
+  if (!final) return showToast('File या URL दें', 'error');
+  weCmd('insertHTML', `<img src="${final}" style="max-width:100%;"><p><br></p>`);
+  closeAdminModal();
+  showToast('✅ Image!', 'success');
 }
 
-// ============================================================
-// DELETE FILE
-// ============================================================
-async function deleteFile(path, name) {
-  if (!confirm(`Delete "${name}"?\n\nयह file permanently delete हो जाएगी।`)) return;
-
-  try {
-    await firebaseStorage.ref(path).delete();
-    filesMeta = filesMeta.filter(f => f.path !== path);
-    saveFilesMeta();
-    showToast('🗑️ File deleted!', 'success');
-    await loadFilesFromCloud();
-    renderFilesGrid('files');
-    renderFilesGrid('home');
-    updateSidebarCounts();
-  } catch (err) {
-    showToast('❌ Delete failed: ' + err.message, 'error');
+function weInsertPDF() {
+  document.getElementById('adminModalTitle').textContent = '📄 PDF';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group"><label>PDF file upload</label><input type="file" id="wePdfFile" accept=".pdf"></div>
+    <div class="form-group"><label>या URL</label><input type="url" id="wePdfUrl"></div>
+    <button class="btn-submit" onclick="weDoInsertPDF()">Insert</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+}
+async function weDoInsertPDF() {
+  const file = document.getElementById('wePdfFile').files[0];
+  const url = document.getElementById('wePdfUrl').value.trim();
+  let final = url;
+  if (file && firebaseStorage) {
+    try {
+      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      final = await ref.getDownloadURL();
+    } catch (e) { return showToast('Upload failed', 'error'); }
   }
+  if (!final) return showToast('File या URL दें', 'error');
+  const html = `<div style="border:2px solid #d62839;border-radius:8px;padding:12px;margin:10px 0;background:#fef5f5;">
+    <div style="font-weight:600;margin-bottom:8px;color:#d62839;">📄 PDF</div>
+    <iframe src="${final}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
+    <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#1976d2;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
+  </div><p><br></p>`;
+  weCmd('insertHTML', html);
+  closeAdminModal();
+  showToast('✅ PDF!', 'success');
+}
+
+function weInsertWord() {
+  document.getElementById('adminModalTitle').textContent = '📝 MS Word';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group"><label>Word file (.doc, .docx)</label><input type="file" id="weWordFile" accept=".doc,.docx"></div>
+    <div class="form-group"><label>या Word Online URL (OneDrive/SharePoint)</label><input type="url" id="weWordUrl"></div>
+    <button class="btn-submit" onclick="weDoInsertWord()">Insert</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+}
+async function weDoInsertWord() {
+  const file = document.getElementById('weWordFile').files[0];
+  const url = document.getElementById('weWordUrl').value.trim();
+  let final = url;
+  if (file && firebaseStorage) {
+    try {
+      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      final = await ref.getDownloadURL();
+    } catch (e) { return showToast('Upload failed', 'error'); }
+  }
+  if (!final) return showToast('File या URL दें', 'error');
+  const embedUrl = url.includes('cloud.microsoft') ? url : `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(final)}`;
+  const html = `<div style="border:2px solid #2b5797;border-radius:8px;padding:12px;margin:10px 0;background:#f0f4fb;">
+    <div style="font-weight:600;margin-bottom:8px;color:#2b5797;">📝 MS Word</div>
+    <iframe src="${embedUrl}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
+    <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#2b5797;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
+  </div><p><br></p>`;
+  weCmd('insertHTML', html);
+  closeAdminModal();
+  showToast('✅ Word!', 'success');
+}
+
+function weInsertExcel() {
+  document.getElementById('adminModalTitle').textContent = '📊 MS Excel';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group"><label>Excel file (.xls, .xlsx, .csv)</label><input type="file" id="weExcelFile" accept=".xls,.xlsx,.csv"></div>
+    <div class="form-group"><label>या Excel Online URL</label><input type="url" id="weExcelUrl"></div>
+    <button class="btn-submit" onclick="weDoInsertExcel()">Insert</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+}
+async function weDoInsertExcel() {
+  const file = document.getElementById('weExcelFile').files[0];
+  const url = document.getElementById('weExcelUrl').value.trim();
+  let final = url;
+  if (file && firebaseStorage) {
+    try {
+      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      final = await ref.getDownloadURL();
+    } catch (e) { return showToast('Upload failed', 'error'); }
+  }
+  if (!final) return showToast('File या URL दें', 'error');
+  const embedUrl = url.includes('cloud.microsoft') ? url : `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(final)}`;
+  const html = `<div style="border:2px solid #217346;border-radius:8px;padding:12px;margin:10px 0;background:#f0f7f3;">
+    <div style="font-weight:600;margin-bottom:8px;color:#217346;">📊 MS Excel</div>
+    <iframe src="${embedUrl}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
+    <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#217346;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
+  </div><p><br></p>`;
+  weCmd('insertHTML', html);
+  closeAdminModal();
+  showToast('✅ Excel!', 'success');
+}
+
+function weInsertSymbol() {
+  const symbols = ['©','®','™','°','±','×','÷','≠','≤','≥','∞','∑','∏','√','∫','∂','∆','π','µ','Ω','←','→','↑','↓','★','☆','✓','✗','♥','♦','♣','♠','₹','$','€','£','¥','•','§','¶'];
+  let html = '<div class="color-grid">';
+  symbols.forEach(s => html += `<div class="color-swatch" style="background:#f0f0f0;font-size:18px;" onclick="wePick('${s}')">${s}</div>`);
+  html += '</div><button class="btn-cancel" onclick="closeAdminModal()">Close</button>';
+  document.getElementById('adminModalTitle').textContent = '∞ Symbols';
+  document.getElementById('adminModalBody').innerHTML = html;
+}
+function wePick(s) { weCmd('insertText', s); closeAdminModal(); }
+
+function weInsertEmoji() {
+  const emojis = ['😀','😃','😄','😊','😍','🤩','😎','🤔','😴','😢','😡','🥳','👍','🙏','💪','✨','🔥','⭐','❤️','💙','💚','💛','🧡','💜','🏆','🎯','📌','📎','📝','📚','📖','✏️','📊','📈','💼','🏛️','🎓','🏫','🇮🇳','🎉','🎁','💡','✅','❌','⚠️','📢','💰'];
+  let html = '<div class="color-grid">';
+  emojis.forEach(e => html += `<div class="color-swatch" style="background:#f0f0f0;font-size:22px;" onclick="wePick('${e}')">${e}</div>`);
+  html += '</div><button class="btn-cancel" onclick="closeAdminModal()">Close</button>';
+  document.getElementById('adminModalTitle').textContent = '😀 Emoji';
+  document.getElementById('adminModalBody').innerHTML = html;
+}
+
+function weInsertHr() {
+  weCmd('insertHTML', '<hr><p><br></p>');
+  closeAdminModal();
+  showToast('✅ Line!', 'success');
 }
 
 // ============================================================
@@ -1327,113 +1019,142 @@ function openPageEditor(page) {
   const content = appData[page]?.content || '';
   document.getElementById('adminModalTitle').textContent = `✏️ Edit ${page} Page`;
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="editor-toolbar" style="display:flex;gap:4px;flex-wrap:wrap;padding:6px;background:var(--bg-color);border:2px solid var(--border-color);border-bottom:none;border-radius:6px 6px 0 0;">
-      <button onmousedown="event.preventDefault();document.execCommand('bold')" style="padding:4px 8px;border:1px solid var(--border-color);border-radius:4px;cursor:pointer;background:var(--card-bg);"><b>B</b></button>
-      <button onmousedown="event.preventDefault();document.execCommand('italic')" style="padding:4px 8px;border:1px solid var(--border-color);border-radius:4px;cursor:pointer;background:var(--card-bg);"><i>I</i></button>
-      <button onmousedown="event.preventDefault();document.execCommand('underline')" style="padding:4px 8px;border:1px solid var(--border-color);border-radius:4px;cursor:pointer;background:var(--card-bg);"><u>U</u></button>
-      <button onmousedown="event.preventDefault();document.execCommand('insertUnorderedList')" style="padding:4px 8px;border:1px solid var(--border-color);border-radius:4px;cursor:pointer;background:var(--card-bg);">• List</button>
-      <button onmousedown="event.preventDefault();document.execCommand('insertOrderedList')" style="padding:4px 8px;border:1px solid var(--border-color);border-radius:4px;cursor:pointer;background:var(--card-bg);">1. List</button>
-    </div>
-    <div id="pageEditor" contenteditable="true" style="min-height:250px;padding:12px;border:2px solid var(--border-color);border-radius:0 0 6px 6px;background:var(--bg-color);color:var(--text-color);outline:none;line-height:1.8;font-size:14px;">${content}</div>
-    <div style="margin-top:16px;">
-      <button class="btn-submit" onclick="savePageEditor('${page}')"><i class="fas fa-save"></i> Save</button>
+    <input type="hidden" id="pePage" value="${page}">
+    ${getWordEditorHTML(content)}
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="savePageEditorContent()"><i class="fas fa-save"></i> Save Content</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
     </div>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
+  setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
 }
 
-function savePageEditor(page) {
-  const content = document.getElementById('pageEditor').innerHTML;
+function savePageEditorContent() {
+  const page = document.getElementById('pePage').value;
+  const content = document.getElementById('richEditor').innerHTML;
   if (!appData[page]) appData[page] = { content: '', items: [] };
   appData[page].content = content;
   saveData();
   closeAdminModal();
-  showToast('✅ Page saved!', 'success');
   renderPageContent(page);
+  showToast('✅ Saved!', 'success');
 }
 
 function renderPageContent(page) {
   const el = document.getElementById('adminPageContent-' + page);
   if (!el) return;
-  const content = appData[page]?.content || '';
-  el.innerHTML = `<div style="padding:12px;background:var(--bg-color);border-radius:6px;max-height:250px;overflow-y:auto;font-size:13px;border:1px solid var(--border-color);">${content || '<em style="color:var(--text-light);">No content yet</em>'}</div>`;
+  const c = appData[page]?.content || '';
+  el.innerHTML = `<div style="padding:12px;background:var(--bg-color);border-radius:6px;max-height:250px;overflow-y:auto;border:1px solid var(--border-color);">${c || '<em>No content</em>'}</div>`;
 }
 
 // ============================================================
-// ITEMS
+// ITEMS — with S.No, Edit, Delete, Duplicate, Multiple Add
 // ============================================================
 function renderAdminItems(page) {
   const container = document.getElementById('adminItemsContainer-' + page);
   if (!container) return;
   const items = appData[page]?.items || [];
-  if (items.length === 0) {
-    container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No items yet.</p></div>';
+  if (!items.length) {
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No items yet. "Add Item" या "Bulk Add" click करें।</p></div>';
     return;
   }
-  container.innerHTML = `<div class="files-grid">${items.map((item, idx) => `
-    <div class="file-card">
-      <div class="file-info">
-        <div class="file-name">${escapeHtml(item.title || 'Untitled')}</div>
-        <div class="file-meta">${escapeHtml(item.category || '')}</div>
-        <span class="visibility-badge ${item.visibility==='private'?'private':'public'}">${item.visibility==='private'?'🔒 Private':'🌐 Public'}</span>
+  container.innerHTML = items.map((item, idx) => `
+    <div class="data-item">
+      <div class="item-sno">${idx + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(item.title || 'Untitled')}</div>
+        <div class="item-meta">
+          ${item.category ? `📁 ${escapeHtml(item.category)}` : ''}
+          ${item.link ? ` • 🔗 Link` : ''}
+        </div>
       </div>
-      <div class="file-actions">
-        <button class="btn-edit-file" onclick="openItemEditor('${page}', ${idx})"><i class="fas fa-edit"></i></button>
-        <button class="btn-delete-file" onclick="deleteItem('${page}', ${idx})"><i class="fas fa-trash"></i></button>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openItemEditor('${page}', ${idx})" title="Edit"><i class="fas fa-edit"></i> Edit</button>
+        <button class="btn-i-dup" onclick="duplicateItem('${page}', ${idx})" title="Duplicate"><i class="fas fa-copy"></i></button>
+        <button class="btn-i-delete" onclick="deleteItem('${page}', ${idx})" title="Delete"><i class="fas fa-trash"></i></button>
       </div>
     </div>
-  `).join('')}</div>`;
+  `).join('');
 }
 
 function openItemEditor(page, index = null) {
   const isEdit = index !== null;
-  const item = isEdit ? appData[page].items[index] : { title:'', description:'', category:'', visibility:'public', link:'' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Item' : '➕ Add Item';
+  const item = isEdit ? appData[page].items[index] : { title:'', description:'', category:'', link:'' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Item #${index + 1}` : '➕ Add New Item';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="itemPage" value="${page}">
     <input type="hidden" id="itemIndex" value="${isEdit?index:-1}">
-    <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${escapeHtml(item.title)}"></div>
-    <div class="form-group"><label>Category</label><input type="text" id="itemCategory" value="${escapeHtml(item.category)}"></div>
-    <div class="form-group"><label>Description</label><textarea id="itemDescription">${escapeHtml(item.description)}</textarea></div>
-    <div class="form-group"><label>Link URL</label><input type="url" id="itemLink" value="${escapeHtml(item.link)}"></div>
-    <div class="form-group"><label>Visibility</label>
-      <select id="itemVisibility">
-        <option value="public" ${item.visibility==='public'?'selected':''}>🌐 Public</option>
-        <option value="private" ${item.visibility==='private'?'selected':''}>🔒 Private</option>
-      </select>
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${escapeHtml(item.title)}"></div>
+      <div class="form-group"><label>Category</label><input type="text" id="itemCategory" value="${escapeHtml(item.category)}"></div>
     </div>
-    <button class="btn-submit" onclick="saveItem()"><i class="fas fa-save"></i> ${isEdit?'Update':'Add'}</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    <div class="form-group"><label>Link URL</label><input type="url" id="itemLink" value="${escapeHtml(item.link||'')}"></div>
+    <div class="form-group">
+      <label>📝 Description (Word Editor)</label>
+      ${getWordEditorHTML(item.description || '')}
+    </div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="saveItem(false)"><i class="fas fa-save"></i> ${isEdit?'Update':'Add'}</button>
+      ${!isEdit ? `<button class="btn-submit" style="background:#6c5ce7;" onclick="saveItem(true)"><i class="fas fa-plus-circle"></i> Add & Add Another</button>` : ''}
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
+  setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
 }
 
-function saveItem() {
+function saveItem(addAnother = false) {
   const page = document.getElementById('itemPage').value;
   const idx = parseInt(document.getElementById('itemIndex').value);
   const title = document.getElementById('itemTitle').value.trim();
-  if (!title) { showToast('Title required!', 'error'); return; }
+  if (!title) return showToast('Title required!', 'error');
   if (!appData[page]) appData[page] = { content:'', items:[] };
   if (!appData[page].items) appData[page].items = [];
   const item = {
     title,
     category: document.getElementById('itemCategory').value,
-    description: document.getElementById('itemDescription').value,
+    description: document.getElementById('richEditor').innerHTML,
     link: document.getElementById('itemLink').value,
-    visibility: document.getElementById('itemVisibility').value
+    createdAt: Date.now()
   };
-  if (idx >= 0) appData[page].items[idx] = { ...appData[page].items[idx], ...item };
-  else appData[page].items.push(item);
+  if (idx >= 0) {
+    appData[page].items[idx] = { ...appData[page].items[idx], ...item };
+    showToast('✅ Updated!', 'success');
+  } else {
+    appData[page].items.push(item);
+    showToast('✅ Added!', 'success');
+  }
   saveData();
-  closeAdminModal();
   renderAdminItems(page);
   updateSidebarCounts();
-  showToast('✅ Saved!', 'success');
+
+  if (addAnother && idx < 0) {
+    // Form ko reset karke open rakhein
+    document.getElementById('itemTitle').value = '';
+    document.getElementById('itemCategory').value = '';
+    document.getElementById('itemLink').value = '';
+    document.getElementById('richEditor').innerHTML = '';
+    document.getElementById('itemTitle').focus();
+    showToast('✅ Added! अब next item add करें।', 'info');
+  } else {
+    closeAdminModal();
+  }
+}
+
+function duplicateItem(page, index) {
+  const item = { ...appData[page].items[index] };
+  item.title = (item.title || 'Untitled') + ' (Copy)';
+  item.createdAt = Date.now();
+  appData[page].items.splice(index + 1, 0, item);
+  saveData();
+  renderAdminItems(page);
+  updateSidebarCounts();
+  showToast('📋 Duplicated!', 'success');
 }
 
 function deleteItem(page, index) {
-  if (!confirm('Delete this item?')) return;
+  if (!confirm(`Delete item #${index + 1}?`)) return;
   appData[page].items.splice(index, 1);
   saveData();
   renderAdminItems(page);
@@ -1442,82 +1163,170 @@ function deleteItem(page, index) {
 }
 
 // ============================================================
-// JOBS
+// BULK ADD MODAL — Multiple items in one form
+// ============================================================
+function openBulkAddModal(page) {
+  document.getElementById('adminModalTitle').textContent = `📦 Bulk Add — ${page}`;
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple items ek saath add करें</div>
+    <div class="form-group">
+      <label>एक line में एक item — Format: <code>Title | Category | Link</code></label>
+      <textarea id="bulkText" rows="10" placeholder="SSC CGL 2024 | Government | https://ssc.nic.in
+Bank PO 2024 | Banking | https://bank.com
+Railway Group D | Railway | https://rrb.com
+UPSC CSE | Government | https://upsc.gov.in"></textarea>
+      <div style="font-size:11px;color:var(--text-light);margin-top:6px;">
+        💡 हर line में एक item डालें। <strong>|</strong> से separate करें। सिर्फ Title भी दे सकते हैं।
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description (सब items में same add होगा, optional)</label>
+      <textarea id="bulkDesc" rows="3" placeholder="Optional common description..."></textarea>
+    </div>
+    <button class="btn-submit" onclick="doBulkAdd('${page}')"><i class="fas fa-layer-group"></i> Bulk Add</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function doBulkAdd(page) {
+  const text = document.getElementById('bulkText').value.trim();
+  if (!text) return showToast('Data दें', 'error');
+  const commonDesc = document.getElementById('bulkDesc').value.trim();
+
+  if (!appData[page]) appData[page] = { content: '', items: [] };
+  if (!appData[page].items) appData[page].items = [];
+
+  const lines = text.split('\n').filter(l => l.trim());
+  let count = 0;
+  lines.forEach(line => {
+    const parts = line.split('|').map(p => p.trim());
+    const title = parts[0];
+    if (!title) return;
+    const item = {
+      title,
+      category: parts[1] || '',
+      link: parts[2] || '',
+      description: commonDesc || '',
+      createdAt: Date.now()
+    };
+    appData[page].items.push(item);
+    count++;
+  });
+
+  saveData();
+  closeAdminModal();
+  renderAdminItems(page);
+  updateSidebarCounts();
+  showToast(`✅ ${count} items added!`, 'success');
+}
+
+// ============================================================
+// JOBS — with S.No, Edit, Delete, Duplicate, Bulk
 // ============================================================
 function renderJobsTable() {
-  const tbody = document.getElementById('adminJobsTable');
-  if (!tbody) return;
-  if (jobsData.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-light);">No jobs</td></tr>';
+  const c = document.getElementById('jobsContainer');
+  if (!c) return;
+  if (!jobsData.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs yet. "Add Job" या "Bulk Add" click करें।</p></div>';
     return;
   }
-  tbody.innerHTML = jobsData.map((j, i) => `
-    <tr>
-      <td>${i+1}</td>
-      <td><strong>${escapeHtml(j.title||'-')}</strong></td>
-      <td>${escapeHtml(j.jobType||'-')}</td>
-      <td><span class="visibility-badge ${j.visibility==='private'?'private':'public'}">${j.visibility==='private'?'🔒 Private':'🌐 Public'}</span></td>
-      <td>${escapeHtml(j.department||'-')}</td>
-      <td>
-        <button onclick="openJobModal(${i})" style="background:#ffc107;border:none;border-radius:4px;padding:4px 8px;cursor:pointer;margin-right:4px;"><i class="fas fa-edit"></i></button>
-        <button onclick="deleteJob(${i})" style="background:#dc3545;color:#fff;border:none;border-radius:4px;padding:4px 8px;cursor:pointer;"><i class="fas fa-trash"></i></button>
-      </td>
-    </tr>
+  c.innerHTML = jobsData.map((j, i) => `
+    <div class="data-item">
+      <div class="item-sno">${i + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(j.title||'Untitled')}</div>
+        <div class="item-meta">
+          ${j.jobType ? `💼 ${escapeHtml(j.jobType)}` : ''}
+          ${j.department ? ` • 🏢 ${escapeHtml(j.department)}` : ''}
+        </div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openJobModal(${i})"><i class="fas fa-edit"></i> Edit</button>
+        <button class="btn-i-dup" onclick="duplicateJob(${i})"><i class="fas fa-copy"></i></button>
+        <button class="btn-i-delete" onclick="deleteJob(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
   `).join('');
 }
 
 function openJobModal(index = null) {
   const isEdit = index !== null;
-  const job = isEdit ? jobsData[index] : { title:'', jobType:'central', department:'', visibility:'public' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Job' : '💼 Add Job';
+  const job = isEdit ? jobsData[index] : { title:'', jobType:'central', department:'', description:'' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Job #${index+1}` : '💼 Add New Job';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="jobIndex" value="${isEdit?index:-1}">
-    <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${escapeHtml(job.title)}"></div>
     <div class="form-row">
-      <div class="form-group"><label>Job Type</label>
+      <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${escapeHtml(job.title)}"></div>
+      <div class="form-group"><label>Type</label>
         <select id="jType">
           <option value="central" ${job.jobType==='central'?'selected':''}>Central</option>
           <option value="state" ${job.jobType==='state'?'selected':''}>State</option>
           <option value="private" ${job.jobType==='private'?'selected':''}>Private</option>
         </select>
       </div>
-      <div class="form-group"><label>Department</label><input type="text" id="jDept" value="${escapeHtml(job.department||'')}"></div>
     </div>
-    <div class="form-group"><label>Description</label><textarea id="jDesc">${escapeHtml(job.description||'')}</textarea></div>
-    <div class="form-group"><label>Visibility</label>
-      <select id="jVisibility">
-        <option value="public" ${job.visibility==='public'?'selected':''}>🌐 Public</option>
-        <option value="private" ${job.visibility==='private'?'selected':''}>🔒 Private</option>
-      </select>
+    <div class="form-group"><label>Department</label><input type="text" id="jDept" value="${escapeHtml(job.department||'')}"></div>
+    <div class="form-group">
+      <label>📝 Description (Word Editor)</label>
+      ${getWordEditorHTML(job.description || '')}
     </div>
-    <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit?'Update':'Add'}</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="saveJob(false)"><i class="fas fa-save"></i> ${isEdit?'Update':'Add'}</button>
+      ${!isEdit ? `<button class="btn-submit" style="background:#6c5ce7;" onclick="saveJob(true)"><i class="fas fa-plus-circle"></i> Add & Add Another</button>` : ''}
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
+  setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
 }
 
-function saveJob() {
+function saveJob(addAnother = false) {
   const idx = parseInt(document.getElementById('jobIndex').value);
   const title = document.getElementById('jTitle').value.trim();
-  if (!title) { showToast('Title required!', 'error'); return; }
+  if (!title) return showToast('Title required!', 'error');
   const job = {
     title,
     jobType: document.getElementById('jType').value,
     department: document.getElementById('jDept').value,
-    description: document.getElementById('jDesc').value,
-    visibility: document.getElementById('jVisibility').value
+    description: document.getElementById('richEditor').innerHTML,
+    createdAt: Date.now()
   };
-  if (idx >= 0) jobsData[idx] = { ...jobsData[idx], ...job };
-  else jobsData.push(job);
+  if (idx >= 0) {
+    jobsData[idx] = { ...jobsData[idx], ...job };
+    showToast('✅ Updated!', 'success');
+  } else {
+    jobsData.push(job);
+    showToast('✅ Added!', 'success');
+  }
   saveData();
-  closeAdminModal();
   renderJobsTable();
   updateSidebarCounts();
-  showToast('✅ Job saved!', 'success');
+
+  if (addAnother && idx < 0) {
+    document.getElementById('jTitle').value = '';
+    document.getElementById('jDept').value = '';
+    document.getElementById('richEditor').innerHTML = '';
+    document.getElementById('jTitle').focus();
+    showToast('✅ Added! अब next job add करें।', 'info');
+  } else {
+    closeAdminModal();
+  }
+}
+
+function duplicateJob(i) {
+  const job = { ...jobsData[i] };
+  job.title = (job.title || 'Untitled') + ' (Copy)';
+  job.createdAt = Date.now();
+  jobsData.splice(i + 1, 0, job);
+  saveData();
+  renderJobsTable();
+  updateSidebarCounts();
+  showToast('📋 Duplicated!', 'success');
 }
 
 function deleteJob(i) {
-  if (!confirm('Delete this job?')) return;
+  if (!confirm(`Delete job #${i+1}?`)) return;
   jobsData.splice(i, 1);
   saveData();
   renderJobsTable();
@@ -1525,198 +1334,487 @@ function deleteJob(i) {
   showToast('🗑️ Deleted!', 'success');
 }
 
+function openBulkJobModal() {
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Add Jobs';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple jobs ek saath add करें</div>
+    <div class="form-group">
+      <label>Format: <code>Title | Type | Department</code></label>
+      <textarea id="bulkJobsText" rows="10" placeholder="SSC CGL 2024 | central | Staff Selection Commission
+Bank PO | central | SBI
+Railway Group D | central | Indian Railways
+UP Police | state | UP Police"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Description (common, optional)</label>
+      <textarea id="bulkJobsDesc" rows="3"></textarea>
+    </div>
+    <button class="btn-submit" onclick="doBulkAddJobs()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function doBulkAddJobs() {
+  const text = document.getElementById('bulkJobsText').value.trim();
+  if (!text) return showToast('Data दें', 'error');
+  const commonDesc = document.getElementById('bulkJobsDesc').value.trim();
+
+  const lines = text.split('\n').filter(l => l.trim());
+  let count = 0;
+  lines.forEach(line => {
+    const parts = line.split('|').map(p => p.trim());
+    if (!parts[0]) return;
+    jobsData.push({
+      title: parts[0],
+      jobType: parts[1] || 'central',
+      department: parts[2] || '',
+      description: commonDesc || '',
+      createdAt: Date.now()
+    });
+    count++;
+  });
+
+  saveData();
+  closeAdminModal();
+  renderJobsTable();
+  updateSidebarCounts();
+  showToast(`✅ ${count} jobs added!`, 'success');
+}
+
 // ============================================================
-// SLIDES
+// FILES — with bulk upload
 // ============================================================
-function renderSlides() {
-  const container = document.getElementById('adminSlidesContainer');
-  if (!container) return;
-  const slides = appData.slides || [];
-  if (slides.length === 0) {
-    container.innerHTML = '<div class="empty-state"><i class="fas fa-images"></i><p>No slides yet.</p></div>';
+function loadFilesMeta() {
+  try { filesMeta = JSON.parse(localStorage.getItem(FILES_META_KEY)) || []; } catch (e) { filesMeta = []; }
+}
+function saveFilesMeta() {
+  localStorage.setItem(FILES_META_KEY, JSON.stringify(filesMeta));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('filesMeta').set({ files: filesMeta }).catch(()=>{});
+}
+async function loadFilesMetaFromCloud() {
+  if (!firebaseDB) return;
+  try {
+    const d = await firebaseDB.collection('dreamjosh').doc('filesMeta').get();
+    if (d.exists && d.data().files) {
+      filesMeta = d.data().files;
+      localStorage.setItem(FILES_META_KEY, JSON.stringify(filesMeta));
+    }
+  } catch (e) {}
+}
+function getFileMeta(path) {
+  return filesMeta.find(f => f.path === path) || { path, customName:'', showOnHome:false, description:'' };
+}
+
+async function loadFilesFromCloud() {
+  const c = document.getElementById('filesGridContainer');
+  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading...</p></div>';
+  await loadFilesMetaFromCloud();
+  if (!firebaseStorage) return;
+  try {
+    const list = await firebaseStorage.ref('dreamjosh-files').listAll();
+    filesData = [];
+    for (const item of list.items) {
+      try {
+        const url = await item.getDownloadURL();
+        const meta = await item.getMetadata();
+        filesData.push({ path: item.fullPath, firebaseName: item.name, url, size: meta.size || 0, time: meta.timeCreated, contentType: meta.contentType || '' });
+      } catch (e) {}
+    }
+    filesData.sort((a, b) => new Date(b.time) - new Date(a.time));
+    updateSidebarCounts();
+    if (document.getElementById('adminPage-files')?.classList.contains('active')) renderFilesGrid('files');
+    if (document.getElementById('adminPage-files-home')?.classList.contains('active')) renderFilesGrid('home');
+  } catch (err) {
+    if (c) c.innerHTML = `<div class="empty-state" style="color:#dc3545;"><p>Error: ${err.message}</p></div>`;
+  }
+}
+
+function getFileType(ct, nm) {
+  ct = (ct||'').toLowerCase(); nm = (nm||'').toLowerCase();
+  if (ct.startsWith('image/') || /\.(jpg|jpeg|png|gif|webp|svg|bmp)$/.test(nm)) return 'image';
+  if (ct.includes('pdf') || nm.endsWith('.pdf')) return 'pdf';
+  if (ct.includes('word') || /\.(doc|docx)$/.test(nm)) return 'word';
+  if (ct.includes('excel') || /\.(xls|xlsx|csv)$/.test(nm)) return 'excel';
+  return 'other';
+}
+function getFileIcon(t) { return { image:'🖼️', pdf:'📄', word:'📝', excel:'📊', other:'📦' }[t] || '📦'; }
+function getFileColor(t) { return { image:'#1976d2', pdf:'#d62839', word:'#2b5797', excel:'#217346', other:'#6c757d' }[t] || '#6c757d'; }
+function formatFileSize(b) {
+  if (!b) return '0 B';
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+function escapeHtml(s) {
+  return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderFilesGrid(mode) {
+  const isHome = mode === 'home';
+  const c = document.getElementById(isHome ? 'homeFilesContainer' : 'filesGridContainer');
+  if (!c) return;
+  let items = filesData.map(f => ({ ...f, ...getFileMeta(f.path), type: getFileType(f.contentType, f.firebaseName) }));
+  if (isHome) items = items.filter(f => f.showOnHome);
+  if (!items.length) {
+    c.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><p>${isHome ? 'No home files.' : 'No files. Upload करें।'}</p></div>`;
     return;
   }
-  container.innerHTML = slides.map((s, i) => `
-    <div class="file-card">
-      <div class="file-info">
-        <div class="file-name">${escapeHtml(s.title||'Untitled')}</div>
-        <div class="file-meta">${escapeHtml(s.description||'')}</div>
+  c.innerHTML = items.map(f => {
+    const dn = escapeHtml(f.customName || f.firebaseName);
+    const isImg = f.type === 'image';
+    const prev = isImg ? `<img src="${f.url}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">` : `<div style="font-size:48px;">${getFileIcon(f.type)}</div>`;
+    return `
+      <div class="data-item">
+        <div class="item-sno" style="background:${getFileColor(f.type)};">${getFileIcon(f.type)}</div>
+        <div class="item-content">
+          <div class="item-title">${dn}</div>
+          <div class="item-meta">${formatFileSize(f.size)} • ${new Date(f.time).toLocaleDateString()}</div>
+          ${f.showOnHome ? '<span style="background:#16a34a;color:#fff;font-size:9px;padding:1px 6px;border-radius:8px;">🏠 Home</span>' : ''}
+        </div>
+        <div class="item-actions">
+          <a href="${f.url}" target="_blank" class="btn-i-edit" style="text-decoration:none;"><i class="fas fa-eye"></i></a>
+          <a href="${f.url}" download="${dn}" class="btn-i-dup" style="text-decoration:none;"><i class="fas fa-download"></i></a>
+          <button class="btn-i-edit" onclick="toggleHomeDisplay('${f.path}')" title="Home Toggle" style="${f.showOnHome?'background:#16a34a;color:#fff;':''}"><i class="fas fa-home"></i></button>
+          <button class="btn-i-edit" onclick="openFileEditModal('${f.path}')"><i class="fas fa-edit"></i></button>
+          <button class="btn-i-delete" onclick="deleteFile('${f.path}', '${dn.replace(/'/g,"\\'")}')"><i class="fas fa-trash"></i></button>
+        </div>
       </div>
-      <div class="file-actions">
-        <button class="btn-edit-file" onclick="openSlideModal(${i})"><i class="fas fa-edit"></i></button>
-        <button class="btn-delete-file" onclick="deleteSlide(${i})"><i class="fas fa-trash"></i></button>
+    `;
+  }).join('');
+}
+
+function openFileUploadModal() {
+  document.getElementById('adminModalTitle').textContent = '📤 Upload File';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group">
+      <label>File चुनें (Image, PDF, Word, Excel, Any)</label>
+      <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p><strong>Click to browse</strong></p>
+        <div style="font-size:11px;color:var(--text-light);margin-top:6px;">JPG, PNG, PDF, DOC, DOCX, XLS, XLSX, ZIP</div>
+      </div>
+      <input type="file" id="fileInput" style="display:none;" onchange="handleFileSelect(event)">
+      <div id="selectedFile" style="margin-top:10px;font-size:13px;"></div>
+    </div>
+    <div class="form-group"><label>Display Name *</label><input type="text" id="fileCustomName"></div>
+    <div class="form-group"><label>Description</label><textarea id="fileDescription" rows="2"></textarea></div>
+    <div class="form-group">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+        <input type="checkbox" id="fileShowOnHome" style="width:auto;"> 🏠 Home Page पर दिखाएं
+      </label>
+    </div>
+    <div class="upload-progress" id="uploadProgress"><div class="upload-progress-bar" id="uploadProgressBar"></div></div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" id="uploadBtn" onclick="uploadFile()" disabled>Upload</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function openBulkUploadModal() {
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Upload Files';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple files ek saath upload करें</div>
+    <div class="form-group">
+      <label>Files चुनें (multiple)</label>
+      <input type="file" id="bulkFilesInput" multiple>
+    </div>
+    <div class="form-group">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+        <input type="checkbox" id="bulkShowOnHome" style="width:auto;"> 🏠 सब को Home Page पर दिखाएं
+      </label>
+    </div>
+    <div class="upload-progress" id="bulkUploadProgress"><div class="upload-progress-bar" id="bulkUploadProgressBar"></div></div>
+    <div id="bulkUploadStatus" style="font-size:12px;text-align:center;margin-top:8px;"></div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="doBulkUpload()"><i class="fas fa-upload"></i> Upload All</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+async function doBulkUpload() {
+  const files = document.getElementById('bulkFilesInput').files;
+  if (!files.length) return showToast('Files चुनें', 'error');
+  const showHome = document.getElementById('bulkShowOnHome').checked;
+  const progressEl = document.getElementById('bulkUploadProgress');
+  const progressBar = document.getElementById('bulkUploadProgressBar');
+  const statusEl = document.getElementById('bulkUploadStatus');
+  progressEl.classList.add('active');
+
+  let done = 0;
+  for (const file of files) {
+    try {
+      const ts = Date.now();
+      const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const path = `dreamjosh-files/${ts}_${safe}`;
+      const ref = firebaseStorage.ref(path);
+      await ref.put(file);
+      await ref.getDownloadURL();
+      filesMeta.push({
+        path,
+        customName: file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
+        description: '',
+        showOnHome: showHome,
+        uploadedAt: Date.now(),
+        size: file.size,
+        contentType: file.type
+      });
+      done++;
+      progressBar.style.width = (done/files.length*100) + '%';
+      statusEl.textContent = `${done}/${files.length} uploaded...`;
+    } catch (e) { console.warn('Failed:', file.name, e); }
+  }
+  saveFilesMeta();
+  showToast(`✅ ${done} files uploaded!`, 'success');
+  closeAdminModal();
+  await loadFilesFromCloud();
+  renderFilesGrid('files');
+  updateSidebarCounts();
+}
+
+let selectedUploadFile = null;
+function handleFileSelect(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  selectedUploadFile = f;
+  document.getElementById('selectedFile').innerHTML = `✅ <strong>${escapeHtml(f.name)}</strong> (${formatFileSize(f.size)})`;
+  if (!document.getElementById('fileCustomName').value) {
+    document.getElementById('fileCustomName').value = f.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+  }
+  document.getElementById('uploadBtn').disabled = false;
+}
+
+async function uploadFile() {
+  if (!selectedUploadFile) return;
+  const cn = document.getElementById('fileCustomName').value.trim();
+  if (!cn) return showToast('Display Name required', 'error');
+  const desc = document.getElementById('fileDescription').value.trim();
+  const show = document.getElementById('fileShowOnHome').checked;
+  const btn = document.getElementById('uploadBtn');
+  btn.disabled = true; btn.textContent = 'Uploading...';
+  document.getElementById('uploadProgress').classList.add('active');
+
+  const ts = Date.now();
+  const safe = selectedUploadFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  const path = `dreamjosh-files/${ts}_${safe}`;
+  const ref = firebaseStorage.ref(path);
+  const task = ref.put(selectedUploadFile);
+
+  task.on('state_changed',
+    snap => { document.getElementById('uploadProgressBar').style.width = (snap.bytesTransferred/snap.totalBytes*100) + '%'; },
+    err => { showToast('Upload failed: ' + err.message, 'error'); btn.disabled = false; btn.textContent = 'Upload'; },
+    async () => {
+      await ref.getDownloadURL();
+      filesMeta.push({ path, customName: cn, description: desc, showOnHome: show, uploadedAt: Date.now(), size: selectedUploadFile.size, contentType: selectedUploadFile.type });
+      saveFilesMeta();
+      showToast('✅ Uploaded!', 'success');
+      closeAdminModal();
+      selectedUploadFile = null;
+      await loadFilesFromCloud();
+      renderFilesGrid('files');
+      updateSidebarCounts();
+    }
+  );
+}
+
+function openFileEditModal(path) {
+  const meta = getFileMeta(path);
+  const file = filesData.find(f => f.path === path);
+  if (!file) return;
+  const cn = meta.customName || file.firebaseName;
+  document.getElementById('adminModalTitle').textContent = '✏️ Edit File';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group"><label>Display Name *</label><input type="text" id="editFileName" value="${escapeHtml(cn)}"></div>
+    <div class="form-group"><label>Description</label><textarea id="editFileDesc" rows="2">${escapeHtml(meta.description || '')}</textarea></div>
+    <div class="form-group">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+        <input type="checkbox" id="editFileHome" ${meta.showOnHome?'checked':''} style="width:auto;"> 🏠 Home पर दिखाएं
+      </label>
+    </div>
+    <div class="form-group"><label>🔄 Replace File (optional)</label><input type="file" id="replaceFileInput"></div>
+    <button class="btn-submit" onclick="saveFileEdit('${path}')">Save</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+async function saveFileEdit(path) {
+  const newName = document.getElementById('editFileName').value.trim();
+  if (!newName) return;
+  const desc = document.getElementById('editFileDesc').value.trim();
+  const show = document.getElementById('editFileHome').checked;
+  const rf = document.getElementById('replaceFileInput').files[0];
+
+  let i = filesMeta.findIndex(f => f.path === path);
+  if (i === -1) filesMeta.push({ path, customName: newName, description: desc, showOnHome: show });
+  else { filesMeta[i].customName = newName; filesMeta[i].description = desc; filesMeta[i].showOnHome = show; }
+  saveFilesMeta();
+
+  if (rf) {
+    try { await firebaseStorage.ref(path).put(rf); } catch (e) { showToast('Replace failed', 'error'); return; }
+  }
+  closeAdminModal();
+  await loadFilesFromCloud();
+  renderFilesGrid('files'); renderFilesGrid('home');
+  showToast('✅ Saved!', 'success');
+}
+
+function toggleHomeDisplay(path) {
+  let m = filesMeta.find(f => f.path === path);
+  if (!m) { m = { path, customName:'', showOnHome:true }; filesMeta.push(m); }
+  else m.showOnHome = !m.showOnHome;
+  saveFilesMeta();
+  renderFilesGrid('files'); renderFilesGrid('home');
+  updateSidebarCounts();
+}
+
+async function deleteFile(path, name) {
+  if (!confirm(`Delete "${name}"?`)) return;
+  try {
+    await firebaseStorage.ref(path).delete();
+    filesMeta = filesMeta.filter(f => f.path !== path);
+    saveFilesMeta();
+    await loadFilesFromCloud();
+    renderFilesGrid('files'); renderFilesGrid('home');
+    updateSidebarCounts();
+    showToast('🗑️ Deleted!', 'success');
+  } catch (e) { showToast('Delete failed', 'error'); }
+}
+
+// ============================================================
+// SLIDES / EMPLOYEES / SOCIAL / SETTINGS
+// ============================================================
+function renderSlides() {
+  const c = document.getElementById('adminSlidesContainer');
+  if (!c) return;
+  const s = appData.slides || [];
+  if (!s.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-images"></i><p>No slides.</p></div>'; return; }
+  c.innerHTML = s.map((x, i) => `
+    <div class="data-item">
+      <div class="item-sno">${i+1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(x.title||'Untitled')}</div>
+        <div class="item-meta">${escapeHtml(x.description||'')}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openSlideModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteSlide(${i})"><i class="fas fa-trash"></i></button>
       </div>
     </div>
   `).join('');
 }
-
 function openSlideModal(index = null) {
   const isEdit = index !== null;
-  const slide = isEdit ? appData.slides[index] : { title:'', description:'', image:'' };
+  const s = isEdit ? appData.slides[index] : { title:'', description:'', image:'' };
   document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Slide' : '📸 Add Slide';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="slideIndex" value="${isEdit?index:-1}">
-    <div class="form-group"><label>Title *</label><input type="text" id="slideTitle" value="${escapeHtml(slide.title)}"></div>
-    <div class="form-group"><label>Description</label><textarea id="slideDesc">${escapeHtml(slide.description)}</textarea></div>
-    <div class="form-group"><label>Image URL</label><input type="url" id="slideImage" value="${escapeHtml(slide.image)}"></div>
-    <button class="btn-submit" onclick="saveSlide()"><i class="fas fa-save"></i> ${isEdit?'Update':'Add'}</button>
+    <div class="form-group"><label>Title *</label><input type="text" id="slideTitle" value="${escapeHtml(s.title)}"></div>
+    <div class="form-group"><label>Description</label><textarea id="slideDesc" rows="2">${escapeHtml(s.description)}</textarea></div>
+    <div class="form-group"><label>Image URL</label><input type="url" id="slideImage" value="${escapeHtml(s.image)}"></div>
+    <button class="btn-submit" onclick="saveSlide()">${isEdit?'Update':'Add'}</button>
     <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
-
 function saveSlide() {
-  const idx = parseInt(document.getElementById('slideIndex').value);
-  const title = document.getElementById('slideTitle').value.trim();
-  if (!title) { showToast('Title required!', 'error'); return; }
-  const slide = {
-    title,
-    description: document.getElementById('slideDesc').value,
-    image: document.getElementById('slideImage').value
-  };
+  const i = parseInt(document.getElementById('slideIndex').value);
+  const t = document.getElementById('slideTitle').value.trim();
+  if (!t) return;
+  const s = { title: t, description: document.getElementById('slideDesc').value, image: document.getElementById('slideImage').value };
   if (!appData.slides) appData.slides = [];
-  if (idx >= 0) appData.slides[idx] = { ...appData.slides[idx], ...slide };
-  else appData.slides.push(slide);
-  saveData();
-  closeAdminModal();
-  renderSlides();
-  updateSidebarCounts();
-  showToast('✅ Slide saved!', 'success');
+  if (i >= 0) appData.slides[i] = { ...appData.slides[i], ...s };
+  else appData.slides.push(s);
+  saveData(); closeAdminModal(); renderSlides();
 }
-
 function deleteSlide(i) {
-  if (!confirm('Delete this slide?')) return;
+  if (!confirm('Delete?')) return;
   appData.slides.splice(i, 1);
-  saveData();
-  renderSlides();
-  updateSidebarCounts();
-  showToast('🗑️ Deleted!', 'success');
+  saveData(); renderSlides();
 }
 
-// ============================================================
-// EMPLOYEES
-// ============================================================
 function renderEmployees() {
-  const container = document.getElementById('employeeListContainer');
-  if (!container) return;
-  const emps = appData.employees || [];
-  if (emps.length === 0) {
-    container.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>No employees.</p></div>';
-    return;
-  }
-  container.innerHTML = emps.map((e, i) => `
-    <div class="file-card">
-      <div class="file-info">
-        <div class="file-name">${escapeHtml(e.name||'Unnamed')}</div>
-        <div class="file-meta">${escapeHtml(e.email||'')}</div>
+  const c = document.getElementById('employeeListContainer');
+  if (!c) return;
+  const e = appData.employees || [];
+  if (!e.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>No employees.</p></div>'; return; }
+  c.innerHTML = e.map((x, i) => `
+    <div class="data-item">
+      <div class="item-sno">${i+1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(x.name||'Unnamed')}</div>
+        <div class="item-meta">${escapeHtml(x.email||'')}</div>
       </div>
-      <div class="file-actions">
-        <button class="btn-delete-file" onclick="deleteEmployee(${i})"><i class="fas fa-trash"></i></button>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openEmployeeModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteEmployee(${i})"><i class="fas fa-trash"></i></button>
       </div>
     </div>
   `).join('');
 }
-
-function openEmployeeModal() {
-  document.getElementById('adminModalTitle').textContent = '👤 Add Employee';
+function openEmployeeModal(index = null) {
+  const isEdit = index !== null;
+  const e = isEdit ? appData.employees[index] : { name:'', email:'' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Employee' : '👤 Add Employee';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Name *</label><input type="text" id="empName"></div>
-    <div class="form-group"><label>Email *</label><input type="email" id="empEmail"></div>
-    <button class="btn-submit" onclick="saveEmployee()"><i class="fas fa-save"></i> Add</button>
+    <input type="hidden" id="empIndex" value="${isEdit?index:-1}">
+    <div class="form-group"><label>Name *</label><input type="text" id="empName" value="${escapeHtml(e.name||'')}"></div>
+    <div class="form-group"><label>Email *</label><input type="email" id="empEmail" value="${escapeHtml(e.email||'')}"></div>
+    <button class="btn-submit" onclick="saveEmployee()">${isEdit?'Update':'Add'}</button>
     <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
-
 function saveEmployee() {
-  const name = document.getElementById('empName').value.trim();
-  const email = document.getElementById('empEmail').value.trim();
-  if (!name || !email) { showToast('Both fields required!', 'error'); return; }
+  const i = parseInt(document.getElementById('empIndex').value);
+  const n = document.getElementById('empName').value.trim();
+  const e = document.getElementById('empEmail').value.trim();
+  if (!n || !e) return;
   if (!appData.employees) appData.employees = [];
-  appData.employees.push({ name, email });
-  saveData();
-  closeAdminModal();
-  renderEmployees();
-  updateSidebarCounts();
-  showToast('✅ Employee added!', 'success');
+  if (i >= 0) appData.employees[i] = { name: n, email: e };
+  else appData.employees.push({ name: n, email: e });
+  saveData(); closeAdminModal(); renderEmployees(); updateSidebarCounts();
 }
-
 function deleteEmployee(i) {
   if (!confirm('Delete?')) return;
   appData.employees.splice(i, 1);
-  saveData();
-  renderEmployees();
-  updateSidebarCounts();
-  showToast('🗑️ Deleted!', 'success');
+  saveData(); renderEmployees(); updateSidebarCounts();
 }
 
-// ============================================================
-// SOCIAL
-// ============================================================
 function renderSocial() {
-  const container = document.getElementById('socialLinksForm');
-  if (!container) return;
+  const c = document.getElementById('socialLinksForm');
+  if (!c) return;
   const s = appData.social || {};
-  container.innerHTML = `
-    <div class="form-group" style="margin-bottom:12px;"><label>Instagram</label>
-      <input type="text" id="sInsta" value="${escapeHtml(s.instagram||'')}" style="width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;background:var(--bg-color);color:var(--text-color);">
-    </div>
-    <div class="form-group" style="margin-bottom:12px;"><label>YouTube</label>
-      <input type="text" id="sYt" value="${escapeHtml(s.youtube||'')}" style="width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;background:var(--bg-color);color:var(--text-color);">
-    </div>
-    <div class="form-group" style="margin-bottom:12px;"><label>Facebook</label>
-      <input type="text" id="sFb" value="${escapeHtml(s.facebook||'')}" style="width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;background:var(--bg-color);color:var(--text-color);">
-    </div>
-    <button class="btn-submit" onclick="saveSocial()"><i class="fas fa-save"></i> Save</button>
+  c.innerHTML = `
+    <div class="form-group"><label>Instagram</label><input type="text" id="sInsta" value="${escapeHtml(s.instagram||'')}"></div>
+    <div class="form-group"><label>YouTube</label><input type="text" id="sYt" value="${escapeHtml(s.youtube||'')}"></div>
+    <div class="form-group"><label>Facebook</label><input type="text" id="sFb" value="${escapeHtml(s.facebook||'')}"></div>
+    <button class="btn-submit" onclick="saveSocial()">Save</button>
   `;
 }
-
 function saveSocial() {
   appData.social = {
     instagram: document.getElementById('sInsta').value,
     youtube: document.getElementById('sYt').value,
     facebook: document.getElementById('sFb').value
   };
-  saveData();
-  showToast('✅ Saved!', 'success');
+  saveData(); showToast('✅ Saved!', 'success');
 }
 
-// ============================================================
-// SETTINGS
-// ============================================================
 function loadSettingsForm() {
   const s = appData.settings || {};
   const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
-  set('settingSiteName', s.siteName);
-  set('settingTagline', s.tagline);
-  set('settingSiteURL', s.siteURL);
-  set('settingHomeLimit', s.homeLimit || 6);
+  set('settingSiteName', s.siteName); set('settingTagline', s.tagline);
 }
-
-function switchSettingsTab(tab) {
-  document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
-  document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById('settings-' + tab)?.classList.add('active');
-}
-
 function saveAllSettings() {
   if (!appData.settings) appData.settings = {};
-  const get = id => document.getElementById(id)?.value;
-  appData.settings.siteName = get('settingSiteName') || '';
-  appData.settings.tagline = get('settingTagline') || '';
-  appData.settings.siteURL = get('settingSiteURL') || '';
-  appData.settings.homeLimit = parseInt(get('settingHomeLimit')) || 6;
-  saveData();
-  showToast('✅ Settings saved!', 'success');
-}
-
-function clearAllLocalData() {
-  if (!confirm('सारा local data delete कर दें? (Firebase safe रहेगा)')) return;
-  localStorage.removeItem(STORAGE_KEY);
-  localStorage.removeItem(FILES_META_KEY);
-  showToast('✅ Local data cleared!', 'success');
-  setTimeout(() => location.reload(), 1500);
+  appData.settings.siteName = document.getElementById('settingSiteName').value;
+  appData.settings.tagline = document.getElementById('settingTagline').value;
+  saveData(); showToast('✅ Saved!', 'success');
 }
 
 // ============================================================
@@ -1725,36 +1823,23 @@ function clearAllLocalData() {
 function showAdminPage(page) {
   document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
   document.querySelector(`.admin-menu a[data-page="${page}"]`)?.classList.add('active');
-
   const titles = {
-    'dashboard':'📊 <span>Dashboard</span>',
-    'files':'📁 <span>All Files</span>',
-    'files-home':'🏠 <span>Home Display Files</span>',
-    'home-editor':'🏠 <span>Home Editor</span>',
-    'career-editor':'🎯 <span>Career Editor</span>',
-    'more-editor':'📚 <span>More Editor</span>',
-    'blog-editor':'📝 <span>Blog Editor</span>',
-    'service-editor':'🛠️ <span>Service Editor</span>',
-    'rsr-editor':'📜 <span>RSR Editor</span>',
-    'items-career':'🎯 <span>Career Items</span>',
-    'items-more':'📚 <span>More Items</span>',
-    'items-blog':'📝 <span>Blog Items</span>',
-    'items-service':'🛠️ <span>Service Items</span>',
-    'items-rsr':'📜 <span>RSR Items</span>',
-    'jobs':'💼 <span>Jobs</span>',
-    'slides':'📸 <span>Slides</span>',
-    'employees':'👥 <span>Employees</span>',
-    'social':'🔗 <span>Social Links</span>',
+    'dashboard':'📊 <span>Dashboard</span>', 'files':'📁 <span>All Files</span>',
+    'files-home':'🏠 <span>Home Display</span>', 'home-editor':'🏠 <span>Home Editor</span>',
+    'career-editor':'🎯 <span>Career Editor</span>', 'more-editor':'📚 <span>More Editor</span>',
+    'blog-editor':'📝 <span>Blog Editor</span>', 'service-editor':'🛠️ <span>Service Editor</span>',
+    'rsr-editor':'📜 <span>RSR Editor</span>', 'items-career':'🎯 <span>Career Items</span>',
+    'items-more':'📚 <span>More Items</span>', 'items-blog':'📝 <span>Blog Items</span>',
+    'items-service':'🛠️ <span>Service Items</span>', 'items-rsr':'📜 <span>RSR Items</span>',
+    'jobs':'💼 <span>Jobs</span>', 'slides':'📸 <span>Slides</span>',
+    'employees':'👥 <span>Employees</span>', 'social':'🔗 <span>Social</span>',
     'settings':'⚙️ <span>Settings</span>'
   };
   document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
-
   document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById('adminPage-' + page);
-  if (target) target.classList.add('active');
-
-  if (page === 'files') { renderFilesGrid('files'); if (filesData.length === 0) loadFilesFromCloud(); }
-  if (page === 'files-home') { renderFilesGrid('home'); if (filesData.length === 0) loadFilesFromCloud(); }
+  document.getElementById('adminPage-' + page)?.classList.add('active');
+  if (page === 'files') { renderFilesGrid('files'); if (!filesData.length) loadFilesFromCloud(); }
+  if (page === 'files-home') renderFilesGrid('home');
   if (page.endsWith('-editor')) renderPageContent(page.replace('-editor',''));
   if (page.startsWith('items-')) renderAdminItems(page.replace('items-',''));
   if (page === 'jobs') renderJobsTable();
@@ -1762,7 +1847,6 @@ function showAdminPage(page) {
   if (page === 'employees') renderEmployees();
   if (page === 'social') renderSocial();
   if (page === 'settings') loadSettingsForm();
-
   if (window.innerWidth <= 768) closeSidebar();
 }
 
@@ -1781,15 +1865,11 @@ function closeSidebar() {
 function closeAdminModal() {
   document.getElementById('adminModalOverlay').classList.remove('active');
 }
-
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
   appData.darkMode = document.body.classList.contains('dark-mode');
   saveData();
-  const btn = document.getElementById('darkModeBtn');
-  if (btn) btn.innerHTML = appData.darkMode ? '<i class="fas fa-sun"></i> Light' : '<i class="fas fa-moon"></i> Dark';
 }
-
 function showToast(msg, type = 'info') {
   const t = document.createElement('div');
   t.className = 'toast ' + type;
@@ -1798,50 +1878,63 @@ function showToast(msg, type = 'info') {
   setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s'; setTimeout(() => t.remove(), 300); }, 3000);
 }
 
-function exportAllData() {
-  const blob = new Blob([JSON.stringify({ appData, jobsData, filesMeta }, null, 2)], { type:'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'dreamjosh_backup_' + new Date().toISOString().slice(0,10) + '.json';
-  a.click();
-  showToast('📥 Backup downloaded!', 'success');
-}
-
 // ============================================================
 // INIT
 // ============================================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   loadData();
   loadFilesMeta();
   updateSidebarCounts();
   showAdminPage('dashboard');
   loadFilesFromCloud();
-  if (typeof pdfjsLib !== 'undefined') {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
-  }
   console.log('✅ Admin Panel Ready');
 });
 
-// Expose globally
+// Expose all
 window.showAdminPage = showAdminPage;
 window.toggleSidebar = toggleSidebar;
+window.weCmd = weCmd;
+window.weFormat = weFormat;
+window.weInsertLink = weInsertLink;
+window.weOpenInsert = weOpenInsert;
+window.weInsertTable = weInsertTable;
+window.weDoInsertTable = weDoInsertTable;
+window.weInsertImage = weInsertImage;
+window.weDoInsertImage = weDoInsertImage;
+window.weInsertPDF = weInsertPDF;
+window.weDoInsertPDF = weDoInsertPDF;
+window.weInsertWord = weInsertWord;
+window.weDoInsertWord = weDoInsertWord;
+window.weInsertExcel = weInsertExcel;
+window.weDoInsertExcel = weDoInsertExcel;
+window.weInsertSymbol = weInsertSymbol;
+window.wePick = wePick;
+window.weInsertEmoji = weInsertEmoji;
+window.weInsertHr = weInsertHr;
+window.openPageEditor = openPageEditor;
+window.savePageEditorContent = savePageEditorContent;
+window.openItemEditor = openItemEditor;
+window.saveItem = saveItem;
+window.duplicateItem = duplicateItem;
+window.deleteItem = deleteItem;
+window.openBulkAddModal = openBulkAddModal;
+window.doBulkAdd = doBulkAdd;
+window.openJobModal = openJobModal;
+window.saveJob = saveJob;
+window.duplicateJob = duplicateJob;
+window.deleteJob = deleteJob;
+window.openBulkJobModal = openBulkJobModal;
+window.doBulkAddJobs = doBulkAddJobs;
 window.openFileUploadModal = openFileUploadModal;
+window.openBulkUploadModal = openBulkUploadModal;
 window.handleFileSelect = handleFileSelect;
 window.uploadFile = uploadFile;
+window.doBulkUpload = doBulkUpload;
 window.openFileEditModal = openFileEditModal;
 window.saveFileEdit = saveFileEdit;
 window.toggleHomeDisplay = toggleHomeDisplay;
 window.deleteFile = deleteFile;
 window.loadFilesFromCloud = loadFilesFromCloud;
-window.renderFilesGrid = renderFilesGrid;
-window.openPageEditor = openPageEditor;
-window.savePageEditor = savePageEditor;
-window.openItemEditor = openItemEditor;
-window.saveItem = saveItem;
-window.deleteItem = deleteItem;
-window.openJobModal = openJobModal;
-window.saveJob = saveJob;
-window.deleteJob = deleteJob;
 window.openSlideModal = openSlideModal;
 window.saveSlide = saveSlide;
 window.deleteSlide = deleteSlide;
@@ -1850,12 +1943,9 @@ window.saveEmployee = saveEmployee;
 window.deleteEmployee = deleteEmployee;
 window.saveSocial = saveSocial;
 window.saveAllSettings = saveAllSettings;
-window.switchSettingsTab = switchSettingsTab;
-window.clearAllLocalData = clearAllLocalData;
 window.toggleDarkMode = toggleDarkMode;
 window.closeAdminModal = closeAdminModal;
 window.showToast = showToast;
-window.exportAllData = exportAllData;
 </script>
 
 </body>
