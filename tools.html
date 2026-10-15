@@ -28,6 +28,8 @@
             --yellow: #eab308;
             --teal: #14b8a6;
             --pink: #ec4899;
+            --gold: #ffd700;
+            --footer-bg: #1e3a8a;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -35,19 +37,109 @@
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
+            padding-top: 70px;
+            padding-bottom: 70px;
         }
 
-        /* ========== PAGE HEADER (No navbar, just title) ========== */
+        /* ========== TOP HEADER (Dream Josh + Nav) ========== */
+        .app-header {
+            background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 60px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+            gap: 10px;
+        }
+        .app-header .logo {
+            font-size: 20px;
+            font-weight: 800;
+            cursor: pointer;
+            color: #fff;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .app-header .logo span { color: var(--gold); }
+        .app-header .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        .app-header .nav-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .app-header .nav-btn:hover { background: var(--gold); color: #0a0e1a; }
+        .app-header .nav-btn.active { background: var(--gold); color: #0a0e1a; }
+        .app-header .nav-btn.admin-btn {
+            background: rgba(214, 40, 57, 0.85);
+            border-color: rgba(214, 40, 57, 1);
+        }
+        .app-header .nav-btn.admin-btn:hover { background: #d62839; color: #fff; }
+
+        /* DROPDOWN */
+        .dropdown-wrapper { position: relative; display: inline-block; }
+        .dropdown-wrapper .dropdown-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff; padding: 5px 12px; border-radius: 18px;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+            transition: 0.3s; white-space: nowrap;
+        }
+        .dropdown-wrapper .dropdown-btn:hover { background: var(--gold); color: #0a0e1a; }
+        .dropdown-wrapper .dropdown-btn .arrow { font-size: 10px; margin-left: 3px; }
+        .dropdown-wrapper:hover .dropdown-content,
+        .dropdown-wrapper .dropdown-content.show { display: block; animation: dropdownFade 0.25s ease; }
+        .dropdown-wrapper .dropdown-content {
+            display: none; position: absolute; top: 100%; right: 0;
+            background: #fff; border: 1px solid var(--border);
+            border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            min-width: 240px; z-index: 1001; padding: 6px 0;
+            max-height: 70vh; overflow-y: auto;
+        }
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .dropdown-wrapper .dropdown-content a {
+            display: block; width: 100%; padding: 10px 20px;
+            text-align: left; font-size: 13px; font-weight: 600;
+            color: var(--text); text-decoration: none; transition: 0.2s;
+        }
+        .dropdown-wrapper .dropdown-content a:hover { background: #f1f5f9; }
+
+        /* ========== PAGE HEADER (Tool Title) ========== */
         .page-header {
             background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
             padding: 20px 24px;
             display: flex;
             align-items: center;
             gap: 16px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            margin-bottom: 8px;
         }
         .page-header .title {
             display: flex;
@@ -156,7 +248,7 @@
             border-bottom: 1px solid var(--border);
             padding: 16px 32px;
             display: flex; align-items: center; gap: 16px;
-            position: sticky; top: 0; z-index: 90;
+            position: sticky; top: 60px; z-index: 90;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         .back-btn {
@@ -416,7 +508,7 @@
 
         /* TOAST */
         .toast {
-            position: fixed; bottom: 30px; left: 50%;
+            position: fixed; bottom: 80px; left: 50%;
             transform: translateX(-50%);
             padding: 14px 26px; border-radius: 12px;
             color: white; font-size: 14px;
@@ -443,8 +535,44 @@
         .spinner { animation: spin 1s linear infinite; display: inline-block; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* ========== FOOTER ========== */
+        .app-footer {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
+            background: var(--footer-bg); padding: 8px 16px;
+            display: flex; justify-content: center; align-items: center;
+            height: 55px; box-shadow: 0 -2px 15px rgba(0,0,0,0.2);
+            gap: 8px; flex-wrap: wrap;
+        }
+        .app-footer .footer-text {
+            color: rgba(255, 255, 255, 0.7); font-size: 12px; text-align: center;
+        }
+        .app-footer .footer-text span { color: var(--gold); }
+        .app-footer .footer-nav {
+            display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+        }
+        .app-footer .footer-nav a {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 4px 10px; border-radius: 14px;
+            cursor: pointer; font-size: 11px; font-weight: 500;
+            transition: 0.3s; white-space: nowrap;
+            text-decoration: none;
+        }
+        .app-footer .footer-nav a:hover {
+            background: rgba(255, 215, 0, 0.3); color: #fff;
+            border-color: var(--gold);
+        }
+        .app-footer .footer-nav a.active {
+            background: var(--gold); color: #0a0e1a;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
+            .app-header { padding: 8px 10px; }
+            .app-header .logo { font-size: 16px; }
+            .app-header .nav-btn { font-size: 10px; padding: 4px 8px; }
+            .dropdown-wrapper .dropdown-btn { font-size: 10px; padding: 4px 8px; }
             .page-header { padding: 14px 16px; }
             .page-header .title { font-size: 18px; }
             .page-header .subtitle { display: none; }
@@ -467,17 +595,23 @@
 </head>
 <body>
 
-<!-- ========== PAGE HEADER ========== -->
-<div class="page-header">
-    <div class="title">
-        <i class="fas fa-file-pdf"></i>
-        PDF Utilities
-    </div>
-    <div class="subtitle">Dream Josh Tools</div>
-</div>
+<!-- ========== TOP HEADER (Dream Josh + Nav) ========== -->
+<header class="app-header">
+    <a href="index.html" class="logo">
+        🚀 <span>Dream</span>Josh
+    </a>
+    <div class="header-controls" id="dynamicNav"></div>
+</header>
 
 <!-- ========== HOME VIEW ========== -->
 <div class="view active" id="homeView">
+    <div class="page-header">
+        <div class="title">
+            <i class="fas fa-file-pdf"></i>
+            PDF Utilities
+        </div>
+        <div class="subtitle">Dream Josh Tools</div>
+    </div>
     <div class="container">
         <div class="page-title">
             <i class="fas fa-tools"></i>
@@ -500,7 +634,80 @@
     </div>
 </div>
 
+<!-- ========== FOOTER ========== -->
+<footer class="app-footer">
+    <div class="footer-nav" id="footerNav">
+        <a href="index.html">🏠 Home</a>
+        <a href="jobs.html">💼 Jobs</a>
+        <a href="career.html">🎯 Career</a>
+        <a href="more.html">📚 More</a>
+        <a href="services.html">🛠️ Services</a>
+        <a href="blog.html">📝 Blog</a>
+        <a href="rsr.html">📜 RSR</a>
+        <a href="tools.html" class="active">🛠️ Tools</a>
+        <a href="admin.html" style="background:rgba(214,40,57,0.85);">🔐 Admin</a>
+    </div>
+    <div class="footer-text">© 2026 <span>Dream Josh</span> • PDF Utilities</div>
+</footer>
+
 <script>
+// ============================================================
+// RENDER NAV — Full navigation
+// ============================================================
+function renderNav() {
+    const nav = document.getElementById('dynamicNav');
+    let html = `<a href="index.html" class="nav-btn">🏠 Home</a>`;
+
+    // 💼 Jobs dropdown
+    html += `
+        <div class="dropdown-wrapper" id="govtDropdown">
+            <button class="dropdown-btn" onclick="toggleDropdownMobile('govt', event)">💼 Jobs <span class="arrow">▾</span></button>
+            <div class="dropdown-content" id="govtDropdownContent">
+                <a href="jobs.html?cat=central" onclick="closeDropdownMobile('govt');">🏛️ Central Govt.</a>
+                <a href="jobs.html?cat=state" onclick="closeDropdownMobile('govt');">🏜️ Rajasthan Govt.</a>
+                <a href="jobs.html?cat=private" onclick="closeDropdownMobile('govt');">💼 Private</a>
+                <a href="jobs.html" onclick="closeDropdownMobile('govt');">📋 All Jobs</a>
+            </div>
+        </div>
+    `;
+
+    // 🎯 Career
+    html += `<a href="career.html" class="nav-btn">🎯 Career</a>`;
+    // ⚙️ More
+    html += `<a href="more.html" class="nav-btn">⚙️ More</a>`;
+    // 🛠️ Services
+    html += `<a href="services.html" class="nav-btn">🛠️ Services</a>`;
+    // 📝 Blog
+    html += `<a href="blog.html" class="nav-btn">📝 Blog</a>`;
+    // 📜 RSR
+    html += `<a href="rsr.html" class="nav-btn">📜 RSR</a>`;
+    // 🛠️ Tools (active)
+    html += `<a href="tools.html" class="nav-btn active">🛠️ Tools</a>`;
+    // 🔐 Admin
+    html += `<a href="admin.html" class="nav-btn admin-btn">🔐 Admin</a>`;
+
+    nav.innerHTML = html;
+}
+
+function toggleDropdownMobile(name, event) {
+    if (event) event.stopPropagation();
+    const allDropdowns = ['govt'];
+    allDropdowns.forEach(d => { if (d !== name) closeDropdownMobile(d); });
+    const content = document.getElementById(`${name}DropdownContent`);
+    if (content) content.classList.toggle('show');
+}
+
+function closeDropdownMobile(name) {
+    const content = document.getElementById(`${name}DropdownContent`);
+    if (content) content.classList.remove('show');
+}
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown-wrapper')) {
+        ['govt'].forEach(name => closeDropdownMobile(name));
+    }
+});
+
 // ============================================================
 // TOOLS DATA
 // ============================================================
@@ -615,7 +822,7 @@ function goHome() {
 }
 
 // ============================================================
-// TOOL HTML GENERATOR
+// TOOL HTML GENERATOR (same as original — full code)
 // ============================================================
 function getToolHTML(id) {
     const map = {
@@ -2017,6 +2224,7 @@ function clearCropImg() { files.cropImg = null; document.getElementById('cropImg
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', function () {
+    renderNav();
     renderHome();
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     setTimeout(() => {
@@ -2026,6 +2234,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('❌ PDFLib not loaded!');
         }
     }, 1000);
+    console.log('✅ Dream Josh Tools — सभी pages linked');
 });
 </script>
 </body>
