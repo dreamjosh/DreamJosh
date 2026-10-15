@@ -74,6 +74,15 @@
         .app-header .header-controls .nav-btn:hover { background: var(--gold); color: #0a0e1a; }
         .app-header .header-controls .nav-btn.active { background: var(--gold); color: #0a0e1a; }
 
+        /* ADMIN button — highlighted */
+        .app-header .header-controls .nav-btn.admin-btn {
+            background: rgba(214, 40, 57, 0.85);
+            border-color: rgba(214, 40, 57, 1);
+        }
+        .app-header .header-controls .nav-btn.admin-btn:hover {
+            background: #d62839; color: #fff;
+        }
+
         /* DROPDOWN */
         .dropdown-wrapper { position: relative; display: inline-block; }
         .dropdown-wrapper .dropdown-btn {
@@ -464,7 +473,7 @@
     <div class="main-scroll-area" id="mainScrollArea">
         <div class="section-container">
 
-            <!-- 🏠 HOME PAGE — सिर्फ about, ticker, slides, sidebar (NO JOBS) -->
+            <!-- 🏠 HOME PAGE -->
             <section class="page-view active" id="page-home">
                 <div class="home-original">
                     <header>
@@ -531,7 +540,7 @@
                 </div>
             </section>
 
-            <!-- 💼 JOBS PAGE — अब अलग page, dropdown से click करने पर खुलेगा -->
+            <!-- 💼 JOBS PAGE -->
             <section class="page-view" id="page-jobs">
                 <div class="generic-page-box">
                     <div class="page-header-line">
@@ -670,6 +679,11 @@
     </div>
 
     <script>
+        // ============================================================
+        // 🔗 ADMIN PAGE LINK — यहाँ अपना admin page का नाम डालें
+        // ============================================================
+        const ADMIN_PAGE_URL = 'admin.html';
+
         // ============================================================
         // 📦 LATEST UPDATES
         // ============================================================
@@ -877,19 +891,19 @@
         let jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
         let currentCategory = 'central';
         let currentSubCategory = 'all';
-        let showAllJobsMode = false; // true होने पर All Jobs दिखें
+        let showAllJobsMode = false;
 
         const pageItemIndex = { career: 0, more: 0, service: 0, blog: 0 };
 
         // ============================================================
-        // HEADER NAV — dropdowns वैसे ही
+        // HEADER NAV
         // ============================================================
         function renderNav() {
             const nav = document.getElementById('dynamicNav');
 
             let html = `<button class="nav-btn active" data-page="home" onclick="showPage('home')">🏠 Home</button>`;
 
-            // 💼 Jobs dropdown — click पर Jobs page खुलेगा
+            // 💼 Jobs dropdown
             html += `
                 <div class="dropdown-wrapper" id="govtDropdown">
                     <button class="dropdown-btn" onclick="toggleDropdownMobile('govt', event)">💼 Jobs <span class="arrow">▾</span></button>
@@ -911,16 +925,12 @@
                 </div>
             `;
 
-            // 🎯 Career dropdown
             html += buildDropdown('career', '🎯 Career', 'career');
-            // ⚙️ More dropdown
             html += buildDropdown('more', '⚙️ More', 'more');
-            // 🛠️ Services dropdown
             html += buildDropdown('service', '🛠️ Services', 'service');
-            // 📝 Blog dropdown
             html += buildDropdown('blog', '📝 Blog', 'blog');
 
-            // 📜 RSR dropdown
+            // 📜 RSR
             html += `
                 <div class="dropdown-wrapper" id="rsrDropdown">
                     <button class="dropdown-btn" onclick="toggleDropdownMobile('rsr', event)">📜 RSR <span class="arrow">▾</span></button>
@@ -935,6 +945,9 @@
 
             // 🛠️ Tools
             html += `<button class="nav-btn" data-page="tools" onclick="showPage('tools')">🛠️ Tools</button>`;
+
+            // 🔐 Admin (Tools के पास, highlighted red)
+            html += `<button class="nav-btn admin-btn" data-page="admin" onclick="goToAdmin()">🔐 Admin</button>`;
 
             nav.innerHTML = html;
             updateJobCounts();
@@ -994,6 +1007,13 @@
         }
 
         // ============================================================
+        // 🔐 ADMIN
+        // ============================================================
+        function goToAdmin() {
+            window.location.href = ADMIN_PAGE_URL;
+        }
+
+        // ============================================================
         // SHOW PAGE
         // ============================================================
         function showPage(pageKey) {
@@ -1001,7 +1021,6 @@
             const target = document.getElementById('page-' + pageKey);
             if (target) target.classList.add('active');
 
-            // Nav active state
             document.querySelectorAll('.app-header .nav-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.page === pageKey);
             });
@@ -1014,7 +1033,6 @@
                 if (el) el.classList.add('active');
             }
 
-            // Render specific page content
             if (pageKey === 'career')  renderGenericPage('career');
             if (pageKey === 'more')    renderGenericPage('more');
             if (pageKey === 'service') renderGenericPage('service');
@@ -1033,7 +1051,7 @@
         }
 
         // ============================================================
-        // JOBS PAGE — dropdown से खुलने वाला
+        // JOBS PAGE
         // ============================================================
         function openJobsPage(category) {
             if (category === 'all') {
@@ -1051,7 +1069,6 @@
             const counterEl = document.getElementById('jobsPageCounter');
             const badgeEl = document.getElementById('totalJobsBadge');
             const catLabelEl = document.getElementById('selectedCategoryLabel');
-            const infoBoxEl = document.getElementById('jobInfoBox');
             const subFilterEl = document.getElementById('subCategoryFilter');
             const grid = document.getElementById('jobsGrid');
             const countDisplay = document.getElementById('jobCountDisplay');
@@ -1063,7 +1080,6 @@
             let info;
 
             if (showAllJobsMode) {
-                // All jobs दिखाओ
                 filtered = publicJobs;
                 info = { label: '📋 All Jobs', icon: '📋',
                     detail: 'Central • Rajasthan • Private — All Categories' };
@@ -1071,7 +1087,6 @@
                 if (catLabelEl) catLabelEl.textContent = info.label;
                 if (subFilterEl) subFilterEl.style.display = 'none';
             } else {
-                // Category filter
                 filtered = publicJobs.filter(j => j.jobType === currentCategory);
                 if (currentSubCategory !== 'all') {
                     const subDisplay = SUB_CATEGORIES[currentCategory].find(s => s.toLowerCase() === currentSubCategory);
@@ -1098,7 +1113,6 @@
             if (countDisplay) countDisplay.innerHTML = info.icon + ' ' + (showAllJobsMode ? 'All' : info.label) + ' Jobs: <span id="jobCount">' + filtered.length + '</span>';
             if (detailDisplay) detailDisplay.textContent = info.detail;
 
-            // Sidebar total update
             const sidebarTotal = document.getElementById('totalJobsSidebar');
             if (sidebarTotal) sidebarTotal.textContent = publicJobs.length;
 
@@ -1134,7 +1148,7 @@
         }
 
         // ============================================================
-        // GENERIC PAGE (Career, More, Service, Blog)
+        // GENERIC PAGE
         // ============================================================
         function renderGenericPage(pageKey) {
             const page = PAGE_DATA[pageKey];
@@ -1365,7 +1379,7 @@
             renderNav();
             renderSlidesCarousel();
             showPage('home');
-            console.log('✅ Home page ready — Jobs केवल dropdown click पर');
+            console.log('✅ Home page ready — Admin button added near Tools');
         });
 
         // Expose
@@ -1382,6 +1396,7 @@
         window.goToSlide = goToSlide;
         window.pageItemNext = pageItemNext;
         window.pageItemPrev = pageItemPrev;
+        window.goToAdmin = goToAdmin;
     </script>
 
 </body>
