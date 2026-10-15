@@ -33,7 +33,87 @@
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   background:var(--bg-color);color:var(--text-color);min-height:100vh;transition:background .3s,color .3s;}
 
-.admin-wrapper{display:flex;min-height:100vh;}
+/* ============ LOGIN SCREEN ============ */
+.login-screen{
+  display:none;position:fixed;inset:0;background:var(--bg-color);z-index:99999;
+  align-items:center;justify-content:center;padding:20px;
+}
+.login-screen.active{display:flex;}
+.login-box{
+  background:var(--card-bg);border-radius:16px;padding:40px 36px;max-width:420px;width:100%;
+  box-shadow:0 20px 60px rgba(0,0,0,.15);border:1px solid var(--border-color);
+  animation:loginIn .4s ease;
+}
+@keyframes loginIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.login-box .login-logo{
+  text-align:center;margin-bottom:24px;
+}
+.login-box .login-logo h1{
+  font-size:26px;font-weight:800;color:var(--text-color);
+}
+.login-box .login-logo h1 span{color:var(--gold);}
+.login-box .login-logo .badge{
+  display:inline-block;background:var(--success-green);color:#fff;
+  font-size:10px;padding:3px 12px;border-radius:20px;font-weight:700;
+  margin-top:6px;letter-spacing:.5px;
+}
+.login-box .login-logo .admin-icon{
+  font-size:44px;margin-bottom:8px;color:var(--primary-blue);
+}
+.login-box h2{
+  font-size:18px;font-weight:700;text-align:center;
+  margin-bottom:6px;color:var(--text-color);
+}
+.login-box p.subtitle{
+  text-align:center;font-size:13px;color:var(--text-light);
+  margin-bottom:24px;
+}
+.login-form-group{margin-bottom:16px;}
+.login-form-group label{
+  display:block;font-size:12px;font-weight:600;
+  color:var(--text-light);margin-bottom:6px;
+}
+.login-form-group .input-wrap{position:relative;}
+.login-form-group .input-wrap i{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  color:var(--text-light);font-size:14px;
+}
+.login-form-group input{
+  width:100%;padding:12px 14px 12px 42px;
+  border:2px solid var(--border-color);border-radius:10px;
+  font-size:14px;background:var(--bg-color);color:var(--text-color);
+  font-family:inherit;transition:.2s;
+}
+.login-form-group input:focus{
+  border-color:var(--primary-blue);outline:none;
+  box-shadow:0 0 0 4px rgba(25,118,210,.1);
+}
+.login-btn{
+  width:100%;padding:14px;background:var(--primary-blue);color:#fff;
+  border:none;border-radius:10px;font-size:15px;font-weight:700;
+  cursor:pointer;transition:.2s;font-family:inherit;margin-top:8px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.login-btn:hover{background:var(--secondary-blue);transform:translateY(-1px);}
+.login-btn:disabled{opacity:.6;cursor:not-allowed;}
+.login-error{
+  background:#fee2e2;color:#dc2626;padding:10px 14px;border-radius:8px;
+  font-size:13px;font-weight:600;margin-bottom:14px;display:none;
+  align-items:center;gap:8px;
+}
+.login-error.show{display:flex;}
+.login-hint{
+  margin-top:18px;padding-top:18px;border-top:1px dashed var(--border-color);
+  font-size:11px;color:var(--text-light);text-align:center;line-height:1.7;
+}
+.login-hint code{
+  background:var(--bg-color);padding:2px 8px;border-radius:4px;
+  font-weight:700;color:var(--primary-blue);
+}
+
+/* ============ ADMIN PANEL ============ */
+.admin-wrapper{display:none;min-height:100vh;}
+.admin-wrapper.active{display:flex;}
 .admin-sidebar{
   width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;
   position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;transition:transform .3s;
@@ -76,6 +156,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   font-weight:600;transition:.3s;min-height:34px;display:flex;align-items:center;gap:6px;
 }
 .btn-close-admin{background:#6c757d;color:#fff;}
+.btn-logout{background:#d62839;color:#fff;}
+.btn-logout:hover{background:#a91f2c;}
 .btn-dark-admin{background:var(--secondary);color:#fff;}
 
 .admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;}
@@ -355,7 +437,55 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 </head>
 <body>
 
-<div class="admin-wrapper">
+<!-- ============================================ -->
+<!-- LOGIN SCREEN -->
+<!-- ============================================ -->
+<div class="login-screen active" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="admin-icon">🔐</div>
+      <h1>🚀 <span>Dream</span>Josh</h1>
+      <div class="badge">ADMIN PANEL</div>
+    </div>
+    <h2>Login to Continue</h2>
+    <p class="subtitle">Enter your admin credentials</p>
+
+    <div class="login-error" id="loginError">
+      <i class="fas fa-exclamation-circle"></i>
+      <span id="loginErrorText">Invalid credentials</span>
+    </div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="login-form-group">
+        <label>👤 Username</label>
+        <div class="input-wrap">
+          <i class="fas fa-user"></i>
+          <input type="text" id="loginUsername" placeholder="Enter username" autocomplete="username" required>
+        </div>
+      </div>
+      <div class="login-form-group">
+        <label>🔒 Password</label>
+        <div class="input-wrap">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password" required>
+        </div>
+      </div>
+      <button type="submit" class="login-btn" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+    </form>
+
+    <div class="login-hint">
+      Default credentials:<br>
+      Username: <code>Admin</code> &nbsp; Password: <code>Admin@123</code>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- ADMIN PANEL -->
+<!-- ============================================ -->
+<div class="admin-wrapper" id="adminWrapper">
   <!-- SIDEBAR -->
   <div class="admin-sidebar" id="adminSidebar">
     <div class="admin-logo">
@@ -365,7 +495,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     <div class="admin-user">
       <div class="avatar">A</div>
       <div>
-        <div class="name">Administrator</div>
+        <div class="name" id="loggedInUser">Administrator</div>
         <div class="role">Super Admin</div>
       </div>
     </div>
@@ -404,7 +534,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     </ul>
     <div class="admin-footer-menu">
       <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
-      <a href="index.html"><i class="fas fa-times-circle"></i> Close Panel</a>
+      <a onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
   </div>
 
@@ -417,6 +547,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <div class="admin-actions">
         <button class="admin-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
+        <button class="btn-logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
         <a href="index.html" class="btn-close-admin" style="text-decoration:none;"><i class="fas fa-times"></i> Close</a>
       </div>
     </div>
@@ -833,7 +964,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 
 <script>
 // ============================================================
-// 🔗 HOME URL — Yahan index.html ka path set karein
+// 🔐 LOGIN CREDENTIALS — Set here
+// ============================================================
+const DEFAULT_ADMIN = { username: 'Admin', password: 'Admin@123' };
+const LOGIN_SESSION_KEY = 'dreamjosh_admin_session';
+const SESSION_DURATION = 8 * 60 * 60 * 1000; // 8 hours
+
+// ============================================================
+// 🔗 HOME URL
 // ============================================================
 const HOME_URL = 'index.html';
 
@@ -894,7 +1032,118 @@ const DEFAULT_SETTINGS = {
   showSocialHome:true
 };
 
-const DEFAULT_ADMIN = { username:'Admin', password:'Admin@123' };
+// ============================================================
+// 🔐 AUTH FUNCTIONS
+// ============================================================
+function getAdminCreds() {
+  try {
+    const s = localStorage.getItem(ADMIN_CREDS_KEY);
+    if (s) { const p = JSON.parse(s); if (p && p.username) return p; }
+  } catch (e) {}
+  return { ...DEFAULT_ADMIN };
+}
+
+function saveAdminCreds(username, password) {
+  const c = { username, password };
+  localStorage.setItem(ADMIN_CREDS_KEY, JSON.stringify(c));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('adminCreds').set(c).catch(()=>{});
+}
+
+function isLoggedIn() {
+  try {
+    const s = localStorage.getItem(LOGIN_SESSION_KEY);
+    if (!s) return false;
+    const session = JSON.parse(s);
+    if (!session.loggedIn || !session.loginTime) return false;
+    if (Date.now() - session.loginTime > SESSION_DURATION) {
+      localStorage.removeItem(LOGIN_SESSION_KEY);
+      return false;
+    }
+    return true;
+  } catch (e) { return false; }
+}
+
+function createSession(username) {
+  const session = { loggedIn: true, username, loginTime: Date.now() };
+  localStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify(session));
+}
+
+function destroySession() {
+  localStorage.removeItem(LOGIN_SESSION_KEY);
+}
+
+function handleLogin(event) {
+  event.preventDefault();
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errorEl = document.getElementById('loginError');
+  const errorText = document.getElementById('loginErrorText');
+  const btn = document.getElementById('loginBtn');
+
+  // Validate
+  if (!username || !password) {
+    errorText.textContent = 'Please enter both username and password';
+    errorEl.classList.add('show');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
+  // Simulate slight delay for UX
+  setTimeout(() => {
+    const creds = getAdminCreds();
+
+    if (username === creds.username && password === creds.password) {
+      // ✅ Success
+      errorEl.classList.remove('show');
+      createSession(username);
+      console.log('✅ Login successful:', username);
+      showAdminPanel();
+      showToast('✅ Welcome, ' + username + '!', 'success');
+    } else {
+      // ❌ Failure
+      errorText.textContent = '❌ Invalid username or password';
+      errorEl.classList.add('show');
+      document.getElementById('loginPassword').value = '';
+      console.log('❌ Login failed');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+  }, 500);
+}
+
+function handleLogout() {
+  if (!confirm('Are you sure you want to logout?')) return;
+  destroySession();
+  document.getElementById('loginScreen').classList.add('active');
+  document.getElementById('adminWrapper').classList.remove('active');
+  document.getElementById('loginUsername').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginError').classList.remove('show');
+  console.log('👋 Logged out');
+  showToast('👋 Logged out successfully', 'info');
+}
+
+function showAdminPanel() {
+  document.getElementById('loginScreen').classList.remove('active');
+  document.getElementById('adminWrapper').classList.add('active');
+
+  // Update logged-in username
+  const session = JSON.parse(localStorage.getItem(LOGIN_SESSION_KEY) || '{}');
+  const nameEl = document.getElementById('loggedInUser');
+  if (nameEl && session.username) nameEl.textContent = session.username;
+
+  // Initialize admin panel
+  initAdminPanel();
+}
+
+function showLoginScreen() {
+  document.getElementById('loginScreen').classList.add('active');
+  document.getElementById('adminWrapper').classList.remove('active');
+  setTimeout(() => document.getElementById('loginUsername')?.focus(), 100);
+}
 
 // ============================================================
 // LOAD / SAVE
@@ -970,19 +1219,6 @@ function clearActivityLog() {
   showToast('✅ Cleared!', 'success');
 }
 
-function getAdminCreds() {
-  try {
-    const s = localStorage.getItem(ADMIN_CREDS_KEY);
-    if (s) { const p = JSON.parse(s); if (p && p.username) return p; }
-  } catch (e) {}
-  return { ...DEFAULT_ADMIN };
-}
-function saveAdminCreds(username, password) {
-  const c = { username, password };
-  localStorage.setItem(ADMIN_CREDS_KEY, JSON.stringify(c));
-  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('adminCreds').set(c).catch(()=>{});
-}
-
 function updateSidebarCounts() {
   const counts = {
     career: (appData.career?.items || []).length,
@@ -1009,7 +1245,7 @@ function updateSidebarCounts() {
 }
 
 // ============================================================
-// WORD EDITOR (same as original)
+// WORD EDITOR (unchanged from previous)
 // ============================================================
 let currentWatermark = '';
 
@@ -2517,9 +2753,9 @@ function showToast(msg, type = 'info') {
 }
 
 // ============================================================
-// INIT
+// INIT ADMIN PANEL (called after login)
 // ============================================================
-document.addEventListener('DOMContentLoaded', async () => {
+async function initAdminPanel() {
   loadData();
   loadFilesMeta();
   loadSettings();
@@ -2529,12 +2765,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateSidebarCounts();
   showAdminPage('dashboard');
   loadFilesFromCloud();
-  console.log('✅ Admin Panel v4.0 Ready — Close Panel ab index.html par le jaata hai');
+  console.log('✅ Admin Panel v4.0 Ready');
+}
+
+// ============================================================
+// INIT — Page load par
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  // Check if already logged in
+  if (isLoggedIn()) {
+    showAdminPanel();
+  } else {
+    showLoginScreen();
+  }
+  console.log('🔐 Admin page loaded — awaiting authentication');
 });
 
 // Expose
 Object.assign(window, {
   showAdminPage, toggleSidebar,
+  handleLogin, handleLogout,
   weCmd, weFormat, weChangeCase, weLineHeight, weChecklist, weOpenBoxes, weInsertBox,
   weInsertLink, weFindReplace, weDoFindReplace, wePageBreak, weWatermark, weDoWatermark,
   weExportPDF, wePrint,
