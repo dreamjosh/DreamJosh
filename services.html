@@ -6,6 +6,11 @@
     <title>Services – Dream Josh</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+    <!-- 🔥 Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
     <style>
         :root {
             --bg-color: #eef5ff; --card-bg: #ffffff; --text-color: #172033;
@@ -355,9 +360,31 @@
 
     <script>
         // ============================================================
-        // 📦 SERVICES DATA (only service page)
+        // 🔥 FIREBASE CONFIG
         // ============================================================
-        const appData = {
+        const firebaseConfig = {
+            apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
+            authDomain: "dreamjosh-7d9ee.firebaseapp.com",
+            projectId: "dreamjosh-7d9ee",
+            storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
+            messagingSenderId: "461367857074",
+            appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
+        };
+
+        let firebaseApp, firebaseDB, firebaseStorage;
+        try {
+            firebaseApp = firebase.initializeApp(firebaseConfig);
+            firebaseDB = firebase.firestore();
+            firebaseStorage = firebase.storage();
+            console.log("✅ Firebase connected");
+        } catch (err) {
+            console.error("❌ Firebase error:", err);
+        }
+
+        // ============================================================
+        // 📦 DEFAULT DATA (fallback)
+        // ============================================================
+        const DEFAULT_SERVICE_DATA = {
             service: {
                 content: `
                     <h2>🛠️ Services</h2>
@@ -382,7 +409,45 @@
         // ============================================================
         // STATE
         // ============================================================
+        let appData = JSON.parse(JSON.stringify(DEFAULT_SERVICE_DATA));
         let currentServiceFilter = 'all';
+
+        // ============================================================
+        // 🔥 FIREBASE DATA LOADER
+        // ============================================================
+        async function loadServicesFromFirebase() {
+            if (!firebaseDB) { console.warn("⚠️ Firebase not ready"); return; }
+            try {
+                const doc = await firebaseDB.collection('dreamjosh').doc('appData').get();
+                if (doc.exists) {
+                    const data = doc.data() || {};
+                    if (data.service && (data.service.content || (data.service.items && data.service.items.length))) {
+                        appData.service = data.service;
+                        console.log(`✅ Services loaded from Firebase: ${(data.service.items || []).length} items`);
+                    } else {
+                        console.log("ℹ️ No service data in Firebase — using default");
+                    }
+                } else {
+                    console.log("ℹ️ appData doc not found — using default");
+                }
+            } catch (err) {
+                console.error("❌ Services load error:", err);
+            }
+        }
+
+        async function loadSettingsFromFirebase() {
+            if (!firebaseDB) return;
+            try {
+                const doc = await firebaseDB.collection('dreamjosh').doc('settings').get();
+                if (doc.exists) {
+                    const settings = doc.data();
+                    if (settings.siteName) document.title = settings.siteName + ' – Services';
+                    console.log("✅ Settings loaded");
+                }
+            } catch (err) {
+                console.error("❌ Settings load error:", err);
+            }
+        }
 
         // ============================================================
         // RENDER NAV — Full navigation
@@ -579,10 +644,15 @@
         // ============================================================
         // INIT
         // ============================================================
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 🔥 Pehle Firebase se data load karo
+            await loadServicesFromFirebase();
+            await loadSettingsFromFirebase();
+
+            // Phir render karo
             renderNav();
             renderServicePage('all');
-            console.log('✅ Services page ready — सभी pages linked');
+            console.log('✅ Services page ready — Firebase connected');
         });
 
         // Expose globally
