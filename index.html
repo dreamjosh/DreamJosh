@@ -3,20 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <title>Dream Josh - AI Studio</title>
+    <title>Home – Dream Josh</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
     <style>
         :root {
@@ -30,12 +18,7 @@
             --safe-bottom: env(safe-area-inset-bottom, 0px);
             --safe-top: env(safe-area-inset-top, 0px);
             --text-light: #6c757d; --secondary: #1a2332;
-            --private-color: #6c5ce7; --central-color: #1976d2;
-            --state-color: #16a34a; --public-badge: #16a34a;
-            --private-badge: #6c5ce7;
             --editor-toolbar-bg: #ffffff;
-            --studio-glow: rgba(124, 58, 237, 0.4);
-            --studio-accent: #7c3aed;
         }
         .dark-mode {
             --bg-color: #0a0e1a; --card-bg: #141428; --text-color: #e8e8e8;
@@ -46,19 +29,26 @@
             --editor-toolbar-bg: #141428;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            height: 100%;
+            overflow: hidden; /* पूरा page scroll नहीं होगा */
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background: var(--bg-color); color: var(--text-color);
-            min-height: 100vh; transition: background 0.3s ease, color 0.3s ease;
-            padding-top: 70px; padding-bottom: 70px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
 
+        /* HEADER */
         .app-header {
             background: var(--header-bg); padding: 10px 16px;
             display: flex; justify-content: space-between; align-items: center;
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            flex-shrink: 0;
             height: 60px; box-shadow: 0 2px 20px var(--shadow-color);
             padding-top: calc(10px + var(--safe-top));
+            z-index: 1000;
         }
         .app-header .logo {
             font-size: 20px; font-weight: bold; cursor: pointer;
@@ -68,6 +58,8 @@
         .app-header .logo span { color: var(--gold); }
         .app-header .header-controls {
             display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+            max-width: 75%;
+            justify-content: flex-end;
         }
         .app-header .header-controls .nav-btn {
             background: rgba(255, 255, 255, 0.12);
@@ -75,10 +67,13 @@
             color: #fff; padding: 5px 12px; border-radius: 18px;
             cursor: pointer; font-size: 12px; font-weight: 600;
             transition: 0.3s; white-space: nowrap;
+            text-decoration: none;
+            display: inline-flex; align-items: center;
         }
         .app-header .header-controls .nav-btn:hover { background: var(--gold); color: #0a0e1a; }
         .app-header .header-controls .nav-btn.active { background: var(--gold); color: #0a0e1a; }
 
+        /* DROPDOWN */
         .dropdown-wrapper { position: relative; display: inline-block; }
         .dropdown-wrapper .dropdown-btn {
             background: rgba(255, 255, 255, 0.12);
@@ -92,7 +87,7 @@
         .dropdown-wrapper:hover .dropdown-content,
         .dropdown-wrapper .dropdown-content.show { display: block; animation: dropdownFade 0.25s ease; }
         .dropdown-wrapper .dropdown-content {
-            display: none; position: absolute; top: 100%; left: 0;
+            display: none; position: absolute; top: 100%; right: 0; left: auto;
             background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 12px; box-shadow: 0 8px 30px var(--shadow-color);
             min-width: 260px; z-index: 1001; padding: 6px 0;
@@ -102,93 +97,43 @@
             from { opacity: 0; transform: translateY(-8px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .dropdown-wrapper .dropdown-content button {
+        .dropdown-wrapper .dropdown-content a {
             display: block; width: 100%; padding: 10px 20px;
             background: transparent; border: none; text-align: left;
             font-size: 13px; font-weight: 600; color: var(--text-color);
             cursor: pointer; transition: 0.2s;
+            text-decoration: none;
         }
-        .dropdown-wrapper .dropdown-content button:hover { background: var(--card-hover); }
+        .dropdown-wrapper .dropdown-content a:hover { background: var(--card-hover); }
         .dropdown-wrapper .dropdown-content .dropdown-label {
             padding: 8px 20px; font-size: 11px; text-transform: uppercase;
             color: var(--text-color); opacity: 0.4; font-weight: 700;
         }
         .dropdown-wrapper .dropdown-content .dropdown-item-icon { margin-right: 8px; }
 
-        .app-footer {
-            position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
-            background: var(--footer-bg); padding: 8px 16px;
-            display: flex; justify-content: center; align-items: center;
-            height: 55px; box-shadow: 0 -2px 15px var(--shadow-color);
-            padding-bottom: calc(8px + var(--safe-bottom));
-            gap: 8px; flex-wrap: wrap;
+        /* MAIN CONTENT AREA — यही scroll होगा */
+        .main-scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px;
+            scroll-behavior: smooth;
         }
-        .app-footer .footer-text {
-            color: rgba(255, 255, 255, 0.7); font-size: 12px; text-align: center;
-        }
-        .app-footer .footer-text span { color: var(--gold); }
-        .app-footer .footer-nav {
-            display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
-        }
-        .app-footer .footer-nav .nav-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.8);
-            padding: 4px 10px; border-radius: 14px;
-            cursor: pointer; font-size: 11px; font-weight: 500;
-            transition: 0.3s; white-space: nowrap;
-        }
-        .app-footer .footer-nav .nav-btn:hover {
-            background: rgba(255, 215, 0, 0.3); color: #fff;
-            border-color: var(--gold);
-        }
-        .app-footer .footer-nav .nav-btn.active {
-            background: var(--gold); color: #0a0e1a;
-        }
+        .section-container { max-width: 1200px; margin: 0 auto; }
 
-        .section-container { max-width: 1200px; margin: 0 auto; padding: 20px 24px; }
-        .section { display: none; padding: 20px 0 30px 0; animation: fadeInSection 0.4s ease; }
-        .section.active { display: block; }
-        @keyframes fadeInSection {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .section .section-header {
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 12px; margin-bottom: 16px;
-        }
-        .section .section-header h2 {
-            font-size: 28px; font-weight: 700; color: var(--text-color);
-        }
-        .section .section-header h2 span { color: var(--primary-blue); }
-
-        .page-ticker {
-            margin: 8px auto 16px auto; max-width: 1100px;
-            padding: 8px 10px; border-radius: 8px; color: white;
-            overflow: hidden; white-space: nowrap;
-            background: var(--secondary-blue);
-        }
-        .page-ticker span {
-            display: inline-block; padding-left: 100%;
-            animation: move 18s linear infinite;
-        }
-        @keyframes move {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
-        }
-
+        /* HOME */
         .home-original {
             background: var(--bg-color); color: var(--text-color);
             border-radius: 16px; overflow: hidden;
         }
         .home-original header {
             background: var(--header-bg); color: white;
-            text-align: center; padding: 30px 20px;
+            text-align: center; padding: 20px 20px;
             border-radius: 16px 16px 0 0;
         }
-        .home-original header h1 { margin: 0; font-size: 36px; }
-        .home-original header p { margin: 5px 0 0; font-size: 16px; }
-        .home-original header small { font-size: 13px; opacity: 0.8; }
+        .home-original header h1 { margin: 0; font-size: 28px; }
+        .home-original header p { margin: 5px 0 0; font-size: 14px; }
+        .home-original header small { font-size: 12px; opacity: 0.8; }
         .home-original .ticker {
             margin: 8px auto; max-width: 1100px; padding: 8px 10px;
             border-radius: 8px; color: white;
@@ -200,57 +145,79 @@
             display: inline-block; padding-left: 100%;
             animation: move 18s linear infinite;
         }
-        .home-original .container { max-width: 1100px; margin: auto; padding: 16px 12px; }
-        .home-original .home-layout { display: flex; gap: 24px; align-items: flex-start; }
+        @keyframes move {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+        .home-original .container { max-width: 1100px; margin: auto; padding: 12px; }
+        .home-original .home-layout { display: flex; gap: 20px; align-items: flex-start; }
         .home-original .left-content { flex: 3; }
         .home-original .right-sidebar { flex: 1; }
         .home-original .sidebar-box {
             background: var(--card-bg); border-radius: 10px;
             box-shadow: 0 2px 8px var(--shadow-color);
-            margin-bottom: 16px; overflow: hidden;
+            margin-bottom: 12px; overflow: hidden;
         }
         .home-original .sidebar-box h3 {
-            margin: 0; padding: 10px 14px;
-            background: var(--secondary-blue); color: #fff; font-size: 14px;
+            margin: 0; padding: 8px 14px;
+            background: var(--secondary-blue); color: #fff; font-size: 13px;
         }
-        .home-original .notice { max-height: 220px; overflow-y: auto; }
-        .home-original .notice ul { padding: 8px 20px; list-style: none; }
+
+        /* LATEST UPDATES — vertical auto-scroll */
+        .home-original .notice {
+            height: 140px;
+            overflow: hidden;
+            position: relative;
+        }
+        .home-original .notice ul {
+            padding: 8px 16px;
+            list-style: none;
+            animation: scrollUp 12s linear infinite;
+        }
         .home-original .notice ul li {
-            padding: 6px 0; font-size: 13px;
+            padding: 5px 0; font-size: 12px;
             border-bottom: 1px solid var(--border-color);
         }
         .home-original .notice ul li:last-child { border-bottom: none; }
+        @keyframes scrollUp {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .home-original .notice:hover ul {
+            animation-play-state: paused;
+        }
+
         .home-original .imp-links a {
-            display: block; padding: 8px 14px;
+            display: block; padding: 6px 14px;
             border-bottom: 1px solid var(--border-color);
             color: var(--primary-blue); text-decoration: none;
-            font-size: 13px; cursor: pointer;
+            font-size: 12px; cursor: pointer;
         }
         .home-original .imp-links a:hover { background: var(--card-hover); }
         .home-original .card {
-            background: var(--card-bg); padding: 20px; margin: 10px 0;
+            background: var(--card-bg); padding: 16px; margin: 8px 0;
             border-radius: 10px; border-left: 5px solid var(--secondary-blue);
         }
-        .home-original .card h3 { margin-top: 0; color: var(--primary-blue); font-size: 18px; }
-        .home-original .about-home { line-height: 1.8; font-size: 15px; }
-        .home-original .about-home ul { padding-left: 20px; margin: 6px 0 12px; }
-        .home-original .about-home li { margin: 4px 0; font-size: 14px; }
+        .home-original .card h3 { margin-top: 0; color: var(--primary-blue); font-size: 16px; }
+        .home-original .about-home { line-height: 1.7; font-size: 14px; }
+        .home-original .about-home ul { padding-left: 20px; margin: 6px 0 10px; }
+        .home-original .about-home li { margin: 3px 0; font-size: 13px; }
         .home-original .about-highlight {
-            margin-top: 14px; padding: 16px;
+            margin-top: 12px; padding: 14px;
             border-left: 4px solid var(--success-green);
             background: var(--highlight-bg); border-radius: 8px;
-            text-align: center; font-size: 17px;
+            text-align: center; font-size: 15px;
         }
         .social-links {
-            display: flex; justify-content: center; gap: 16px;
-            padding: 16px 0 20px 0; background: var(--card-bg);
+            display: flex; justify-content: center; gap: 14px;
+            padding: 14px 0 16px 0; background: var(--card-bg);
             border-radius: 0 0 16px 16px;
             border-top: 1px solid var(--border-color);
         }
         .social-links a {
             display: inline-flex; align-items: center; justify-content: center;
-            width: 44px; height: 44px; border-radius: 50%;
-            font-size: 22px; transition: 0.3s; text-decoration: none;
+            width: 40px; height: 40px; border-radius: 50%;
+            font-size: 20px; transition: 0.3s; text-decoration: none;
         }
         .social-links a.instagram { background: #E4405F; color: #fff; }
         .social-links a.youtube { background: #FF0000; color: #fff; }
@@ -260,67 +227,61 @@
         @media (max-width: 768px) {
             .home-original .home-layout { flex-direction: column; }
             .home-original .left-content, .home-original .right-sidebar { width: 100%; }
-            .home-original header h1 { font-size: 26px; }
-            .section .section-header h2 { font-size: 22px; }
-            .section-container { padding: 12px 14px; }
+            .home-original header h1 { font-size: 22px; }
+            .main-scroll-area { padding: 10px; }
         }
 
         /* JOBS */
         .job-grid-wrapper {
-            margin: 20px 0; padding: 20px; background: var(--card-bg);
+            margin: 16px 0; padding: 16px; background: var(--card-bg);
             border-radius: 12px; border: 1px solid var(--border-color);
             box-shadow: 0 2px 8px var(--shadow-color);
         }
         .job-grid-wrapper .jobs-header {
             display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 12px; margin-bottom: 16px;
+            flex-wrap: wrap; gap: 10px; margin-bottom: 14px;
         }
-        .job-grid-wrapper .jobs-header h3 { font-size: 20px; color: var(--primary-blue); }
+        .job-grid-wrapper .jobs-header h3 { font-size: 18px; color: var(--primary-blue); }
         .job-grid-wrapper .jobs-header h3 span { color: var(--gold); }
         .job-grid-wrapper .jobs-header .total-badge {
             background: var(--secondary-blue); color: #fff;
-            padding: 4px 14px; border-radius: 20px;
-            font-size: 12px; font-weight: 600;
+            padding: 3px 12px; border-radius: 20px;
+            font-size: 11px; font-weight: 600;
         }
         .job-info-box {
             background: var(--bg-color); border-radius: 10px;
-            padding: 12px 16px; margin: 8px 0 16px 0;
+            padding: 10px 14px; margin: 8px 0 14px 0;
             border-left: 4px solid var(--secondary-blue);
         }
-        .job-info-box .job-count { font-size: 16px; font-weight: bold; color: var(--primary-blue); }
-        .job-info-box .job-detail { font-size: 12px; color: var(--text-color); opacity: 0.7; margin-top: 3px; }
+        .job-info-box .job-count { font-size: 14px; font-weight: bold; color: var(--primary-blue); }
+        .job-info-box .job-detail { font-size: 11px; color: var(--text-color); opacity: 0.7; margin-top: 3px; }
         .job-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 14px; margin-top: 10px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px; margin-top: 8px;
         }
         .job-card {
-            background: var(--card-bg); padding: 14px 16px;
+            background: var(--card-bg); padding: 12px 14px;
             border-radius: 10px; border: 1px solid var(--border-color);
             transition: 0.3s; cursor: pointer;
             box-shadow: 0 2px 6px var(--shadow-color);
-            min-height: 110px; display: flex; flex-direction: column;
+            min-height: 100px; display: flex; flex-direction: column;
             justify-content: center;
         }
         .job-card:hover {
             border-color: var(--secondary-blue); transform: translateY(-3px);
             box-shadow: 0 6px 20px var(--shadow-color);
         }
-        .job-card .job-icon { font-size: 28px; margin-bottom: 6px; }
-        .job-card .job-title { font-size: 14px; color: var(--primary-blue); font-weight: 700; }
-        .job-card .job-meta { font-size: 11px; color: var(--text-color); opacity: 0.7; }
-        .job-card .job-badge {
-            display: inline-block; padding: 2px 10px; border-radius: 12px;
-            font-size: 9px; font-weight: 600; color: #fff;
-            margin-top: 4px; align-self: flex-start;
-        }
+        .job-card .job-icon { font-size: 24px; margin-bottom: 4px; }
+        .job-card .job-title { font-size: 13px; color: var(--primary-blue); font-weight: 700; }
+        .job-card .job-meta { font-size: 10px; color: var(--text-color); opacity: 0.7; }
         .sub-cat-filter {
-            display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px 0;
+            display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 10px 0;
         }
         .sub-cat-filter .sub-btn {
-            padding: 4px 12px; border-radius: 14px;
+            padding: 3px 10px; border-radius: 14px;
             border: 1px solid var(--border-color);
             background: var(--bg-color); color: var(--text-color);
-            font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.3s;
+            font-size: 10px; font-weight: 600; cursor: pointer; transition: 0.3s;
         }
         .sub-cat-filter .sub-btn:hover,
         .sub-cat-filter .sub-btn.active {
@@ -328,14 +289,14 @@
             border-color: var(--secondary-blue);
         }
 
-        /* DETAIL */
+        /* DETAIL OVERLAY — full page view */
         .detail-overlay {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.6); z-index: 2000; backdrop-filter: blur(8px);
         }
         .detail-overlay.active { display: flex; align-items: center; justify-content: center; padding: 20px; }
         .detail-content {
-            background: var(--card-bg); border-radius: 20px; padding: 30px;
+            background: var(--card-bg); border-radius: 20px; padding: 24px;
             max-width: 750px; width: 100%; max-height: 85vh; overflow-y: auto;
             border: 1px solid var(--border-color); position: relative;
         }
@@ -347,8 +308,8 @@
             display: flex; align-items: center; justify-content: center;
         }
         .detail-content .close-btn:hover { background: var(--warning-red); color: #fff; }
-        .detail-content .detail-icon { font-size: 48px; margin-bottom: 10px; }
-        .detail-content h2 { color: var(--primary-blue); font-size: 22px; margin-bottom: 10px; }
+        .detail-content .detail-icon { font-size: 44px; margin-bottom: 10px; }
+        .detail-content h2 { color: var(--primary-blue); font-size: 20px; margin-bottom: 10px; }
         .detail-content .detail-section {
             background: var(--bg-color); border-radius: 10px;
             padding: 12px 16px; margin: 10px 0;
@@ -370,589 +331,210 @@
             border: 1px solid var(--border-color);
         }
 
+        /* PAGE VIEW — Next/Back navigation */
+        .page-view-overlay {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-color); z-index: 3000;
+            flex-direction: column;
+        }
+        .page-view-overlay.active { display: flex; }
+        .page-view-header {
+            background: var(--header-bg); padding: 10px 16px;
+            display: flex; justify-content: space-between; align-items: center;
+            height: 60px; flex-shrink: 0; color: #fff;
+            padding-top: calc(10px + var(--safe-top));
+        }
+        .page-view-header .page-title {
+            font-size: 16px; font-weight: 700;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .page-view-header .page-controls {
+            display: flex; gap: 8px; align-items: center;
+        }
+        .page-view-header .page-controls button {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff; padding: 6px 14px; border-radius: 18px;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+            transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+        .page-view-header .page-controls button:hover:not(:disabled) {
+            background: var(--gold); color: #0a0e1a;
+        }
+        .page-view-header .page-controls button:disabled {
+            opacity: 0.4; cursor: not-allowed;
+        }
+        .page-view-body {
+            flex: 1; overflow-y: auto; padding: 20px;
+        }
+        .page-view-inner {
+            max-width: 900px; margin: 0 auto;
+            background: var(--card-bg); border-radius: 14px;
+            border: 1px solid var(--border-color); padding: 24px;
+            line-height: 1.8; font-size: 15px;
+        }
+        .page-view-inner h2 { color: var(--primary-blue); margin-bottom: 12px; }
+        .page-view-inner h3 { color: var(--primary-blue); margin: 18px 0 8px; font-size: 17px; }
+        .page-view-inner p { margin: 8px 0; }
+        .page-view-inner ul, .page-view-inner ol { padding-left: 22px; }
+        .page-view-inner blockquote {
+            border-left: 4px solid var(--secondary-blue);
+            padding: 8px 16px; margin: 10px 0;
+            background: var(--editor-toolbar-bg); border-radius: 0 4px 4px 0;
+        }
+        .page-view-inner .item-list { list-style: none; padding: 0; }
+        .page-view-inner .item-list li {
+            padding: 12px 14px; background: var(--bg-color);
+            border-radius: 8px; margin-bottom: 8px;
+            border-left: 3px solid var(--secondary-blue);
+        }
+        .page-view-inner .item-list li .item-title {
+            font-weight: 700; font-size: 15px; color: var(--text-color);
+        }
+        .page-view-inner .item-list li .item-desc {
+            font-size: 13px; color: var(--text-light); margin-top: 4px;
+        }
+        .page-view-inner .item-list li .item-link {
+            display: inline-block; padding: 2px 10px;
+            background: var(--secondary-blue); color: #fff;
+            border-radius: 4px; font-size: 10px;
+            text-decoration: none; margin-left: 8px; font-weight: 600;
+        }
+
+        /* FOOTER — सिर्फ कॉपीराइट */
+        .app-footer {
+            flex-shrink: 0;
+            background: var(--footer-bg); padding: 10px 16px;
+            display: flex; justify-content: center; align-items: center;
+            height: 44px; box-shadow: 0 -2px 15px var(--shadow-color);
+            padding-bottom: calc(10px + var(--safe-bottom));
+        }
+        .app-footer .footer-text {
+            color: rgba(255, 255, 255, 0.8); font-size: 12px; text-align: center;
+        }
+        .app-footer .footer-text span { color: var(--gold); font-weight: 700; }
+
         /* TOAST */
         .toast {
-            position: fixed; bottom: 80px; left: 50%;
+            position: fixed; bottom: 60px; left: 50%;
             transform: translateX(-50%); padding: 12px 24px;
             border-radius: 12px; color: white; font-size: 14px;
             font-weight: 600; z-index: 9999;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             max-width: 90%; text-align: center;
+            transition: opacity 0.3s ease;
         }
         .toast.success { background: #16a34a; }
         .toast.error { background: #dc3545; }
         .toast.info { background: #1976d2; }
-
-        /* PAGES */
-        .page-content-display {
-            background: var(--card-bg); border-radius: 12px; padding: 24px;
-            border: 1px solid var(--border-color); margin-top: 16px;
-            line-height: 1.8; font-size: 15px;
-        }
-        .page-content-display h2 { color: var(--primary-blue); margin-bottom: 12px; }
-        .page-content-display img { max-width: 100%; height: auto; }
-        .page-content-display table { border-collapse: collapse; width: 100%; margin: 10px 0; }
-        .page-content-display table td,
-        .page-content-display table th {
-            border: 1px solid var(--border-color); padding: 8px 12px;
-        }
-        .page-content-display table th { background: var(--editor-toolbar-bg); font-weight: 600; }
-        .page-content-display ul, .page-content-display ol { padding-left: 24px; }
-        .page-content-display blockquote {
-            border-left: 4px solid var(--secondary-blue);
-            padding: 8px 16px; margin: 10px 0;
-            background: var(--editor-toolbar-bg); border-radius: 0 4px 4px 0;
-        }
-        .page-content-display pre {
-            background: var(--editor-toolbar-bg); padding: 12px;
-            border-radius: 4px; overflow-x: auto;
-            border: 1px solid var(--border-color);
-        }
-
-        /* TOOLS */
-        .tools-list {
-            display: flex; flex-wrap: wrap; gap: 12px;
-            margin-bottom: 20px; padding: 16px;
-            background: var(--card-bg); border-radius: 12px;
-            border: 1px solid var(--border-color);
-        }
-        .tools-list .tool-btn {
-            padding: 10px 20px; border: 2px solid var(--border-color);
-            border-radius: 10px; background: var(--bg-color);
-            color: var(--text-color); font-weight: 600; font-size: 14px;
-            cursor: pointer; transition: 0.3s; display: flex;
-            align-items: center; gap: 8px; flex: 1 1 auto;
-            min-width: 180px; justify-content: center;
-        }
-        .tools-list .tool-btn:hover {
-            border-color: var(--secondary-blue); background: var(--card-hover);
-        }
-        .tools-list .tool-btn.active {
-            background: var(--secondary-blue); color: #fff;
-            border-color: var(--secondary-blue);
-        }
-        .tools-list .tool-btn i { font-size: 18px; }
-        .tool-content { display: none; animation: fadeInSection 0.4s ease; }
-        .tool-content.active { display: block; }
-
-        /* UPLOAD */
-        .upload-zone {
-            background: var(--card-bg); border-radius: 20px;
-            border: 2px dashed var(--border-color);
-            padding: 30px 24px; margin-bottom: 20px;
-            transition: all 0.3s ease; cursor: pointer; text-align: center;
-        }
-        .upload-zone:hover, .upload-zone.dragover {
-            border-color: var(--secondary-blue); background: var(--card-hover);
-        }
-        .upload-zone .upload-icon {
-            font-size: 48px; color: var(--secondary-blue); margin-bottom: 12px;
-        }
-        .upload-zone h3 { font-size: 18px; font-weight: 700; color: var(--text-color); margin-bottom: 6px; }
-        .upload-zone p { color: var(--text-light); font-size: 13px; margin-bottom: 14px; }
-        .upload-zone .file-types {
-            display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 12px;
-        }
-        .upload-zone .file-types span {
-            background: var(--bg-color); border: 1px solid var(--border-color);
-            padding: 3px 10px; border-radius: 20px;
-            font-size: 11px; font-weight: 600; color: var(--text-light);
-        }
-        .upload-zone .btn-browse {
-            background: var(--secondary-blue); color: #fff;
-            border: none; padding: 10px 24px; border-radius: 30px;
-            font-size: 14px; font-weight: 600; cursor: pointer;
-            margin-top: 8px; display: inline-flex; align-items: center; gap: 8px;
-        }
-        .upload-zone .btn-browse:hover { background: var(--primary-blue); }
-
-        .upload-item {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 12px; padding: 14px 16px;
-            margin-bottom: 10px; display: flex;
-            align-items: center; gap: 14px; flex-wrap: wrap;
-        }
-        .upload-item .file-icon {
-            width: 48px; height: 48px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px; flex-shrink: 0;
-        }
-        .upload-item .file-icon.pdf { background: rgba(220, 53, 69, 0.15); color: #dc3545; }
-        .upload-item .file-icon.image { background: rgba(25, 118, 210, 0.15); color: #1976d2; }
-        .upload-item .file-icon.excel { background: rgba(22, 163, 74, 0.15); color: #16a34a; }
-        .upload-item .file-icon.word { background: rgba(43, 87, 151, 0.15); color: #2b5797; }
-        .upload-item .file-info { flex: 1; min-width: 150px; }
-        .upload-item .file-info .file-name {
-            font-size: 14px; font-weight: 600; color: var(--text-color); word-break: break-all;
-        }
-        .upload-item .file-info .file-size { font-size: 12px; color: var(--text-light); margin-top: 2px; }
-        .upload-item .file-info .file-progress {
-            width: 100%; height: 6px; background: var(--border-color);
-            border-radius: 3px; margin-top: 8px; overflow: hidden;
-        }
-        .upload-item .file-info .file-progress .progress-fill {
-            height: 100%; background: var(--secondary-blue);
-            width: 0%; transition: width 0.3s ease;
-        }
-        .upload-item .file-status {
-            font-size: 12px; font-weight: 600;
-            padding: 4px 12px; border-radius: 20px; white-space: nowrap;
-        }
-        .upload-item .file-status.pending { background: rgba(108, 117, 125, 0.15); color: #6c757d; }
-        .upload-item .file-status.uploading { background: rgba(25, 118, 210, 0.15); color: #1976d2; }
-        .upload-item .file-status.success { background: rgba(22, 163, 74, 0.15); color: #16a34a; }
-        .upload-item .file-status.error { background: rgba(220, 53, 69, 0.15); color: #dc3545; }
-        .upload-item .file-actions { display: flex; gap: 6px; align-items: center; }
-        .upload-item .file-actions button {
-            background: transparent; border: none;
-            padding: 6px 10px; border-radius: 6px;
-            cursor: pointer; font-size: 14px; color: var(--text-light);
-        }
-        .upload-item .file-actions button:hover { background: var(--card-hover); color: var(--text-color); }
-
-        .cloud-file-card {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 12px; padding: 14px 16px;
-            margin-bottom: 10px; display: flex;
-            align-items: center; gap: 14px; flex-wrap: wrap;
-        }
-        .cloud-file-card:hover { border-color: var(--secondary-blue); }
-        .cloud-file-card .cf-icon {
-            width: 44px; height: 44px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; flex-shrink: 0;
-        }
-        .cloud-file-card .cf-info { flex: 1; min-width: 150px; }
-        .cloud-file-card .cf-info .cf-name {
-            font-size: 14px; font-weight: 600; color: var(--text-color); word-break: break-all;
-        }
-        .cloud-file-card .cf-info .cf-meta { font-size: 11px; color: var(--text-light); margin-top: 2px; }
-        .cloud-file-card .cf-actions { display: flex; gap: 6px; flex-wrap: wrap; }
-        .cloud-file-card .cf-actions button,
-        .cloud-file-card .cf-actions a {
-            padding: 6px 12px; border: none; border-radius: 6px;
-            font-size: 12px; font-weight: 600; cursor: pointer;
-            text-decoration: none; display: inline-flex;
-            align-items: center; gap: 4px;
-        }
-        .cloud-file-card .cf-actions .btn-view { background: var(--secondary-blue); color: #fff; }
-        .cloud-file-card .cf-actions .btn-download { background: var(--success-green); color: #fff; }
-        .cloud-file-card .cf-actions .btn-delete { background: #dc3545; color: #fff; }
-
-        /* OCR */
-        .ocr-section {
-            background: var(--card-bg); border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 8px var(--shadow-color);
-            padding: 24px;
-        }
-        .ocr-header {
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
-            border-bottom: 2px solid var(--border-color); padding-bottom: 12px;
-        }
-        .ocr-header h3 { font-size: 20px; color: var(--primary-blue); }
-        .ocr-tabs { display: flex; gap: 8px; }
-        .ocr-tabs button {
-            padding: 8px 18px; border: 2px solid var(--border-color);
-            border-radius: 8px; background: var(--bg-color);
-            color: var(--text-color); font-weight: 600;
-            font-size: 13px; cursor: pointer; transition: 0.3s;
-        }
-        .ocr-tabs button.active {
-            background: var(--secondary-blue); color: #fff;
-            border-color: var(--secondary-blue);
-        }
-        .ocr-panel { display: none; padding: 16px 0; }
-        .ocr-panel.active { display: block; }
-        .upload-area {
-            border: 2px dashed var(--border-color);
-            border-radius: 10px; padding: 40px 20px;
-            text-align: center; cursor: pointer;
-            transition: 0.3s; background: var(--bg-color);
-        }
-        .upload-area:hover { border-color: var(--secondary-blue); background: var(--card-hover); }
-        .upload-area i { font-size: 48px; color: var(--secondary-blue); margin-bottom: 10px; }
-        .upload-area p { color: var(--text-light); font-size: 14px; }
-        .upload-area .file-name { margin-top: 8px; font-weight: 600; color: var(--primary-blue); }
-        .progress-bar {
-            width: 100%; height: 8px; background: var(--border-color);
-            border-radius: 4px; margin: 16px 0; overflow: hidden; display: none;
-        }
-        .progress-bar .progress-fill {
-            height: 100%; background: var(--secondary-blue);
-            width: 0%; transition: width 0.3s ease;
-        }
-        .result-area { margin-top: 16px; display: none; }
-        .result-area textarea {
-            width: 100%; min-height: 200px; padding: 12px;
-            border: 2px solid var(--border-color); border-radius: 8px;
-            background: var(--bg-color); color: var(--text-color);
-            font-size: 14px; font-family: inherit; resize: vertical;
-        }
-        .result-area textarea:focus { border-color: var(--primary-blue); outline: none; }
-        .action-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-        .action-buttons button {
-            padding: 8px 20px; border: none; border-radius: 6px;
-            font-size: 13px; font-weight: 600; cursor: pointer;
-            transition: 0.3s; min-height: 36px;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .action-buttons .btn-primary { background: var(--secondary-blue); color: #fff; }
-        .action-buttons .btn-success { background: var(--success-green); color: #fff; }
-        .action-buttons .btn-danger { background: #dc3545; color: #fff; }
-        .status-text {
-            font-size: 13px; color: var(--text-light); margin-top: 10px; display: none;
-        }
-        .status-text.show { display: block; }
-        .status-text .spinner { display: inline-block; animation: spin 1s linear infinite; }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* FONT CONVERTER */
-        .font-converter-box {
-            background: var(--card-bg); border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 8px var(--shadow-color); padding: 20px;
-        }
-        .converter-header {
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 10px; margin-bottom: 15px;
-            border-bottom: 2px solid var(--border-color); padding-bottom: 10px;
-        }
-        .converter-header h4 { font-size: 18px; font-weight: 700; color: var(--primary-blue); }
-        .converter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .converter-grid label { font-size: 13px; font-weight: 600; color: var(--text-color); }
-        .converter-grid textarea {
-            width: 100%; min-height: 200px; padding: 12px;
-            border: 2px solid var(--border-color); border-radius: 8px;
-            background: var(--bg-color); color: var(--text-color);
-            font-size: 16px; font-family: inherit; resize: vertical;
-        }
-        .converter-grid textarea:focus { border-color: var(--primary-blue); outline: none; }
-        .converter-grid .output-area textarea {
-            background: var(--editor-toolbar-bg);
-            font-family: "Mangal", "Arial Unicode MS", sans-serif;
-        }
-        .converter-controls {
-            display: flex; flex-wrap: wrap; gap: 10px;
-            margin-top: 10px; padding-top: 15px;
-            border-top: 1px solid var(--border-color); justify-content: center;
-        }
-        .converter-controls button {
-            padding: 8px 20px; border: none; border-radius: 6px;
-            font-size: 14px; font-weight: 600; cursor: pointer;
-            transition: 0.3s; min-height: 36px;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .converter-controls .btn-convert { background: var(--secondary-blue); color: #fff; }
-        .converter-controls .btn-copy { background: var(--success-green); color: #fff; }
-        .converter-controls .btn-clear { background: #dc3545; color: #fff; }
-        .converter-controls .btn-preview { background: var(--secondary); color: #fff; }
-
-        @media (max-width: 768px) {
-            .converter-grid { grid-template-columns: 1fr; }
-        }
     </style>
 </head>
 <body>
 
     <!-- HEADER -->
     <header class="app-header">
-        <div class="logo" onclick="showSection('home')">
+        <div class="logo" onclick="location.reload()">
             🚀 <span>Dream</span>Josh
         </div>
         <div class="header-controls" id="dynamicNav"></div>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <div class="section-container">
-
-        <!-- HOME -->
-        <section class="section active" id="home">
-            <div class="home-original">
-                <header>
-                    <h1>🚀 DREAM JOSH</h1>
-                    <p>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"</p>
-                    <small>Motivation • Study • Govt. Jobs • Career Guide</small>
-                </header>
-                <div class="ticker latest"><span>🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन</span></div>
-                <div class="ticker update"><span>✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी</span></div>
-                <div class="container">
-                    <div class="home-layout">
-                        <div class="left-content">
-                            <h2>🚀 Dream Josh में आपका स्वागत है</h2>
-                            <div class="card about-home">
-                                <h3>🌟 Dream Josh के बारे में</h3>
-                                <p><b>Dream Josh</b> एक educational और career guidance platform है। यहाँ आपको <b>Central Govt., Rajasthan Govt. और Private</b> सेक्टर की <b>150+ नौकरियों</b> की पूरी जानकारी मिलेगी।</p>
-                                <h3>📚 Dream Josh पर क्या मिलेगा?</h3>
-                                <ul>
-                                    <li>📖 Study Notes और अध्ययन सामग्री</li>
-                                    <li>🏛️ Govt. Jobs से संबंधित जानकारी</li>
-                                    <li>🎯 Career Guide और Career Options</li>
-                                    <li>📋 हर नौकरी की पूरी डिटेल</li>
-                                </ul>
-                                <div class="about-highlight">
-                                    <b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br>
-                                    <span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>
-                                </div>
-                            </div>
-
-                            <!-- SLIDES CAROUSEL -->
-                            <div id="slidesCarouselContainer" style="margin:20px 0;"></div>
-
-                            <div class="job-grid-wrapper" id="jobsSectionWrapper">
-                                <div class="jobs-header">
-                                    <h3>💼 <span>Jobs</span></h3>
-                                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-                                        <span class="total-badge" id="totalJobsBadge">Total: 0</span>
-                                        <span style="font-size:12px;color:var(--text-light);" id="selectedCategoryLabel">🏛️ Central Govt.</span>
+    <!-- MAIN SCROLL AREA -->
+    <div class="main-scroll-area">
+        <div class="section-container">
+            <section id="home">
+                <div class="home-original">
+                    <header>
+                        <h1>🚀 DREAM JOSH</h1>
+                        <p>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"</p>
+                        <small>Motivation • Study • Govt. Jobs • Career Guide</small>
+                    </header>
+                    <div class="ticker latest"><span>🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन</span></div>
+                    <div class="ticker update"><span>✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी</span></div>
+                    <div class="container">
+                        <div class="home-layout">
+                            <div class="left-content">
+                                <h2>🚀 Dream Josh में आपका स्वागत है</h2>
+                                <div class="card about-home">
+                                    <h3>🌟 Dream Josh के बारे में</h3>
+                                    <p><b>Dream Josh</b> एक educational और career guidance platform है। यहाँ आपको <b>Central Govt., Rajasthan Govt. और Private</b> सेक्टर की <b>150+ नौकरियों</b> की पूरी जानकारी मिलेगी।</p>
+                                    <h3>📚 Dream Josh पर क्या मिलेगा?</h3>
+                                    <ul>
+                                        <li>📖 Study Notes और अध्ययन सामग्री</li>
+                                        <li>🏛️ Govt. Jobs से संबंधित जानकारी</li>
+                                        <li>🎯 Career Guide और Career Options</li>
+                                        <li>📋 हर नौकरी की पूरी डिटेल</li>
+                                    </ul>
+                                    <div class="about-highlight">
+                                        <b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br>
+                                        <span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>
                                     </div>
                                 </div>
-                                <div class="sub-cat-filter" id="subCategoryFilter">
-                                    <button class="sub-btn active" data-sub="all" onclick="filterSubCategory('all')">📌 All</button>
-                                </div>
-                                <div class="job-info-box">
-                                    <div class="job-count" id="jobCountDisplay">🇮🇳 Central Govt. Jobs: <span id="jobCount">0</span></div>
-                                    <div class="job-detail" id="jobDetailDisplay">UPSC • SSC • Railway • Banking</div>
-                                </div>
-                                <div class="job-grid" id="jobsGrid"></div>
-                            </div>
-                        </div>
 
-                        <div class="right-sidebar">
-                            <div class="sidebar-box">
-                                <h3>📢 Latest Updates</h3>
-                                <div class="notice">
-                                    <ul>
-                                        <li>🔴 SSC CGL 2026 Notification जल्दी आ रही है</li>
-                                        <li>🟢 RPSC RAS 2026 की तैयारी शुरू करें</li>
-                                        <li>🔵 REET 2026 के लिए आवेदन प्रक्रिया शुरू</li>
-                                        <li>🟠 Google India में 500+ नई भर्तियाँ</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sidebar-box">
-                                <h3>📋 Important Forms</h3>
-                                <div class="imp-links">
-                                    <a href="#">🪪 Aadhaar Card</a>
-                                    <a href="#">💳 PAN Card</a>
-                                    <a href="#">🗳️ Voter ID</a>
-                                    <a href="#">🛂 Passport</a>
+                                <!-- SLIDES CAROUSEL -->
+                                <div id="slidesCarouselContainer" style="margin:16px 0;"></div>
+
+                                <div class="job-grid-wrapper" id="jobsSectionWrapper">
+                                    <div class="jobs-header">
+                                        <h3>💼 <span>Jobs</span></h3>
+                                        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                                            <span class="total-badge" id="totalJobsBadge">Total: 0</span>
+                                            <span style="font-size:11px;color:var(--text-light);" id="selectedCategoryLabel">🏛️ Central Govt.</span>
+                                        </div>
+                                    </div>
+                                    <div class="sub-cat-filter" id="subCategoryFilter">
+                                        <button class="sub-btn active" data-sub="all" onclick="filterSubCategory('all')">📌 All</button>
+                                    </div>
+                                    <div class="job-info-box">
+                                        <div class="job-count" id="jobCountDisplay">🇮🇳 Central Govt. Jobs: <span id="jobCount">0</span></div>
+                                        <div class="job-detail" id="jobDetailDisplay">UPSC • SSC • Railway • Banking</div>
+                                    </div>
+                                    <div class="job-grid" id="jobsGrid"></div>
                                 </div>
                             </div>
-                            <div class="sidebar-box">
-                                <h3>📊 Total Jobs</h3>
-                                <div style="padding:12px 14px;text-align:center;">
-                                    <div style="font-size:28px;font-weight:700;color:var(--primary-blue);" id="totalJobsSidebar">0</div>
-                                    <div style="font-size:12px;color:var(--text-light);">Available Jobs</div>
+
+                            <div class="right-sidebar">
+                                <div class="sidebar-box">
+                                    <h3>📢 Latest Updates</h3>
+                                    <div class="notice" id="latestUpdatesBox">
+                                        <ul id="latestUpdatesList">
+                                            <!-- items JS से भरेंगे -->
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="social-links">
-                    <a href="https://instagram.com/dreamjosh" class="instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://youtube.com/dreamjosh" class="youtube" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://facebook.com/dreamjosh" class="facebook" target="_blank"><i class="fab fa-facebook"></i></a>
-                </div>
-            </div>
-        </section>
-
-        <!-- CAREER -->
-        <section class="section" id="career">
-            <div class="page-ticker" id="careerTicker"><span id="careerTickerText">🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs</span></div>
-            <div class="section-header">
-                <h2>🎯 <span>Career</span></h2>
-                <div id="careerSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('career', 'all')">📌 All</button>
-                </div>
-            </div>
-            <div id="careerContent" class="page-content-display"></div>
-        </section>
-
-        <!-- MORE -->
-        <section class="section" id="more">
-            <div class="page-ticker" id="moreTicker"><span id="moreTickerText">📚 Study • Books</span></div>
-            <div class="section-header">
-                <h2>📚 <span>Study & Books</span></h2>
-                <div id="moreSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('more', 'all')">📌 All</button>
-                    <button class="sub-btn" data-sub="Study" onclick="filterGenericCategory('more', 'Study')">📝 Study</button>
-                    <button class="sub-btn" data-sub="Books" onclick="filterGenericCategory('more', 'Books')">📖 Books</button>
-                </div>
-            </div>
-            <div id="moreContent" class="page-content-display"></div>
-        </section>
-
-        <!-- SERVICE -->
-        <section class="section" id="service">
-            <div class="page-ticker" id="serviceTicker"><span id="serviceTickerText">🛠️ Services • Government • Private • Education</span></div>
-            <div class="section-header">
-                <h2>🛠️ <span>Services</span></h2>
-                <div id="serviceSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterServiceCategory('all')">📌 All</button>
-                    <button class="sub-btn" data-sub="government" onclick="filterServiceCategory('government')">🏛️ Government</button>
-                    <button class="sub-btn" data-sub="private" onclick="filterServiceCategory('private')">💼 Private</button>
-                    <button class="sub-btn" data-sub="education" onclick="filterServiceCategory('education')">📚 Education</button>
-                </div>
-            </div>
-            <div id="serviceContent" class="page-content-display"></div>
-        </section>
-
-        <!-- BLOG -->
-        <section class="section" id="blog">
-            <div class="page-ticker" id="blogTicker"><span id="blogTickerText">📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio</span></div>
-            <div class="section-header">
-                <h2>📝 <span>Blog</span></h2>
-                <div id="blogSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('blog', 'all')">📌 All</button>
-                </div>
-            </div>
-            <div id="blogContent" class="page-content-display"></div>
-        </section>
-
-        <!-- RSR -->
-        <section class="section" id="rsr">
-            <div class="page-ticker"><span>📜 Rajasthan Service Rules (RSR) – Earned Leave Rules</span></div>
-            <div class="section-header">
-                <h2>📜 <span>RSR</span></h2>
-                <div id="rsrSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('rsr', 'all')">📌 All</button>
-                </div>
-            </div>
-            <div id="rsrContent" class="page-content-display"></div>
-        </section>
-
-        <!-- TOOLS -->
-        <section class="section" id="tools">
-            <div style="margin-bottom:24px;">
-                <h2 style="font-size:28px;font-weight:700;margin-bottom:6px;">🛠️ <span style="color:var(--primary-blue);">Tools</span></h2>
-                <p style="color:var(--text-light);font-size:15px;">Upload files to Firebase • OCR • Font Converter</p>
-            </div>
-
-            <div class="tools-list">
-                <button class="tool-btn active" data-tool="cloud-upload" onclick="switchTool('cloud-upload')">
-                    <i class="fas fa-cloud-upload-alt"></i> 📤 Cloud Upload (Firebase)
-                </button>
-                <button class="tool-btn" data-tool="ocr" onclick="switchTool('ocr')">
-                    <i class="fas fa-eye"></i> OCR (Image to Text)
-                </button>
-                <button class="tool-btn" data-tool="font-converter" onclick="switchTool('font-converter')">
-                    <i class="fas fa-language"></i> Font Converter
-                </button>
-            </div>
-
-            <!-- CLOUD UPLOAD -->
-            <div class="tool-content active" id="tool-cloud-upload">
-                <div class="upload-zone" id="uploadZone">
-                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <h3>📤 Upload Files to Firebase Storage</h3>
-                    <p>Drag & drop files here or click to browse</p>
-                    <button class="btn-browse" onclick="document.getElementById('cloudFileInput').click()">
-                        <i class="fas fa-folder-open"></i> Browse Files
-                    </button>
-                    <input type="file" id="cloudFileInput" multiple
-                           accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,image/*"
-                           style="display:none" onchange="handleCloudFiles(event)">
-                    <div class="file-types">
-                        <span>📄 PDF</span>
-                        <span>📝 Word</span>
-                        <span>📊 Excel</span>
-                        <span>🖼️ Images</span>
-                    </div>
-                </div>
-
-                <div id="uploadQueue" style="display:none;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
-                        <h4 style="font-size:15px;font-weight:700;">📋 Upload Queue (<span id="queueCount">0</span>)</h4>
-                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                            <button onclick="uploadAllToFirebase()" style="padding:6px 14px;background:var(--success-green);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">
-                                <i class="fas fa-cloud-upload-alt"></i> Upload All
-                            </button>
-                            <button onclick="clearUploadQueue()" style="padding:6px 14px;background:#6c757d;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">
-                                <i class="fas fa-trash"></i> Clear All
-                            </button>
-                        </div>
-                    </div>
-                    <div id="uploadItemsContainer"></div>
-                </div>
-
-                <div style="margin-top:30px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
-                        <h4 style="font-size:15px;font-weight:700;"><i class="fas fa-cloud"></i> ☁️ Files in Firebase Cloud</h4>
-                        <button onclick="loadCloudFiles()" style="padding:6px 14px;background:var(--secondary-blue);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">
-                            <i class="fas fa-sync-alt"></i> Refresh
-                        </button>
-                    </div>
-                    <div id="cloudFilesContainer">
-                        <p style="text-align:center;padding:20px;color:var(--text-light);">
-                            <i class="fas fa-cloud"></i> Loading cloud files...
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- OCR -->
-            <div class="tool-content" id="tool-ocr">
-                <div class="ocr-section">
-                    <div class="ocr-header">
-                        <h3><i class="fas fa-eye"></i> Image to Text (OCR)</h3>
-                    </div>
-                    <div class="ocr-panel active" id="image-tab">
-                        <div class="upload-area" onclick="document.getElementById('imageFileInput').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to upload an image (JPG, PNG, WEBP)</p>
-                            <div class="file-name" id="imageFileName">No file selected</div>
-                            <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageOCR(event)">
-                        </div>
-                        <div class="progress-bar" id="imageProgressBar"><div class="progress-fill" id="imageProgressFill"></div></div>
-                        <div class="status-text" id="imageStatusText"><i class="fas fa-spinner spinner"></i> Processing OCR...</div>
-                        <div class="result-area" id="imageResultArea">
-                            <textarea id="imageResultText" placeholder="Extracted text will appear here..."></textarea>
-                            <div class="action-buttons">
-                                <button class="btn-success" onclick="copyOCRResult('imageResultText')"><i class="fas fa-copy"></i> Copy</button>
-                                <button class="btn-primary" onclick="downloadOCRResult('imageResultText', 'ocr_text')"><i class="fas fa-download"></i> Download</button>
-                                <button class="btn-danger" onclick="clearOCRResult('imageResultText','imageResultArea','imageFileName','imageFileInput')"><i class="fas fa-trash"></i> Clear</button>
+                                <div class="sidebar-box">
+                                    <h3>📋 Important Forms</h3>
+                                    <div class="imp-links">
+                                        <a href="#">🪪 Aadhaar Card</a>
+                                        <a href="#">💳 PAN Card</a>
+                                        <a href="#">🗳️ Voter ID</a>
+                                        <a href="#">🛂 Passport</a>
+                                    </div>
+                                </div>
+                                <div class="sidebar-box">
+                                    <h3>📊 Total Jobs</h3>
+                                    <div style="padding:12px 14px;text-align:center;">
+                                        <div style="font-size:26px;font-weight:700;color:var(--primary-blue);" id="totalJobsSidebar">0</div>
+                                        <div style="font-size:11px;color:var(--text-light);">Available Jobs</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- FONT CONVERTER -->
-            <div class="tool-content" id="tool-font-converter">
-                <div class="font-converter-box">
-                    <div class="converter-header">
-                        <h4><i class="fas fa-language"></i> Font Converter (DevLys/Kruti → Unicode)</h4>
-                    </div>
-                    <div class="converter-grid">
-                        <div>
-                            <label>📥 Input</label>
-                            <textarea id="fontInput" placeholder="DevLys या Kruti Dev font में टाइप करें..."></textarea>
-                        </div>
-                        <div class="output-area">
-                            <label>📤 Unicode Output</label>
-                            <textarea id="fontOutput" readonly placeholder="Converted text..."></textarea>
-                        </div>
-                    </div>
-                    <div class="converter-controls">
-                        <button class="btn-convert" onclick="convertFonts()"><i class="fas fa-sync-alt"></i> Convert</button>
-                        <button class="btn-copy" onclick="copyFontOutput()"><i class="fas fa-copy"></i> Copy</button>
-                        <button class="btn-clear" onclick="clearFontConverter()"><i class="fas fa-trash-alt"></i> Clear</button>
-                        <button class="btn-preview" onclick="previewFontOutput()"><i class="fas fa-eye"></i> Preview</button>
+                    <div class="social-links">
+                        <a href="https://instagram.com/dreamjosh" class="instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/dreamjosh" class="youtube" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://facebook.com/dreamjosh" class="facebook" target="_blank"><i class="fab fa-facebook"></i></a>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 
-    <!-- FOOTER -->
+    <!-- FOOTER — सिर्फ कॉपीराइट -->
     <footer class="app-footer">
-        <div class="footer-nav" id="footerNav"></div>
-        <div class="footer-text">© 2026 <span>Dream Josh</span> • Firebase Powered</div>
+        <div class="footer-text">© 2026 <span>Dream Josh</span> Powered</div>
     </footer>
 
     <!-- DETAIL OVERLAY -->
@@ -963,181 +545,166 @@
         </div>
     </div>
 
+    <!-- PAGE VIEW OVERLAY (Next/Back navigation) -->
+    <div class="page-view-overlay" id="pageViewOverlay">
+        <div class="page-view-header">
+            <div class="page-title" id="pageViewTitle">📄 Page</div>
+            <div class="page-controls">
+                <button id="pageBackBtn" onclick="pageViewBack()" disabled>
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <button id="pageNextBtn" onclick="pageViewNext()">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button onclick="closePageView()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+        <div class="page-view-body">
+            <div class="page-view-inner" id="pageViewInner"></div>
+        </div>
+    </div>
+
     <script>
         // ============================================================
-        // 🔥 FIREBASE
+        // 🔗 PAGE LINKS — Admin panel se change kar sakte hain
         // ============================================================
-        const firebaseConfig = {
-            apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
-            authDomain: "dreamjosh-7d9ee.firebaseapp.com",
-            projectId: "dreamjosh-7d9ee",
-            storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
-            messagingSenderId: "461367857074",
-            appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab",
-            measurementId: "G-28W2EBTMQ8"
+        const PAGE_LINKS = {
+            home:    'index.html',
+            career:  'career.html',
+            more:    'more.html',
+            service: 'services.html',
+            blog:    'blog.html',
+            rsr:     'rsr.html',
+            tools:   'tools.html'
         };
 
-        let firebaseApp, firebaseAuth, firebaseDB, firebaseStorage;
-
-        try {
-            firebaseApp = firebase.initializeApp(firebaseConfig);
-            firebaseAuth = firebase.auth();
-            firebaseDB = firebase.firestore();
-            firebaseStorage = firebase.storage();
-            console.log("✅ Firebase initialized");
-        } catch (err) {
-            console.error("❌ Firebase error:", err);
-        }
+        // ============================================================
+        // 📦 LATEST UPDATES — यहाँ updates add करें
+        // ============================================================
+        const LATEST_UPDATES = [
+            '🔴 SSC CGL 2026 Notification जल्दी आ रही है',
+            '🟢 RPSC RAS 2026 की तैयारी शुरू करें',
+            '🔵 REET 2026 के लिए आवेदन प्रक्रिया शुरू',
+            '🟠 Google India में 500+ नई भर्तियाँ',
+            '🟣 UPSC 2026 का नोटिफिकेशन जारी',
+            '🟡 Railway RRB NTPC की तैयारी करें',
+            '🟤 SBI PO 2026 की भर्ती शुरू',
+            '⚫ Rajasthan Police Constable भर्ती',
+            '⚪ IBPS Clerk 2026 Notification',
+            '🔶 State PSC Exams की तैयारी करें',
+            '🔷 SSC CHSL 2026 Notification जल्द',
+            '🔸 केंद्रीय बजट 2026 की मुख्य बातें'
+        ];
 
         // ============================================================
-        // 📦 DATA - All Pages, Items, Jobs, Slides, Dropdowns
+        // 📄 PAGE CONTENT DATA — हर page का content
         // ============================================================
-        const DEFAULT_DATA = {
-            home: {
-                title: '🚀 DREAM JOSH', subtitle: '"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"',
-                tagline: 'Motivation • Study • Govt. Jobs • Career Guide',
-                ticker1: '🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन',
-                ticker2: '✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी',
-                heading: '🚀 Dream Josh में आपका स्वागत है',
-                aboutTitle: '🌟 Dream Josh के बारे में',
-                aboutText: '<b>Dream Josh</b> एक educational और career guidance platform है। यहाँ आपको <b>Central Govt., Rajasthan Govt. और Private</b> सेक्टर की <b>150+ नौकरियों</b> की पूरी जानकारी मिलेगी।',
-                featuresTitle: '📚 Dream Josh पर क्या मिलेगा?',
-                features: ['📖 Study Notes और अध्ययन सामग्री', '🏛️ Govt. Jobs से संबंधित जानकारी', '🎯 Career Guide और Career Options', '📋 हर नौकरी की पूरी डिटेल'],
-                highlight: '<b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br><span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>',
-                pageTaglines: {
-                    career: '🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs',
-                    more: '📚 Study Materials • Books',
-                    blog: '📝 Blog • Technology • Business • Design • Lifestyle • Education • News • Portfolio',
-                    service: '🛠️ Services • Government Services • Private Services • Education Services'
-                }
-            },
+        const PAGE_DATA = {
             career: {
-                content: '<h2>🎯 Career Guidance</h2><p>Explore various career options and find the right path for your future.</p><p><strong>🔹 Get expert guidance:</strong> Our career counselors help you choose the right career path.</p>',
+                title: '🎯 Career',
+                content: `
+                    <h2>🎯 Career Guidance</h2>
+                    <p>Explore various career options and find the right path for your future.</p>
+                    <p><strong>🔹 Get expert guidance:</strong> Our career counselors help you choose the right career path.</p>
+                    <p>नीचे दिए गए विभिन्न करियर विकल्पों में से अपने रुचि के अनुसार चुनें।</p>
+                `,
                 items: [
-                    { id: 'c1', title: '🏛️ Government Jobs', description: 'UPSC, SSC, Banking, Railway, Defence, Police', visibility: 'public', category: 'Government Jobs' },
-                    { id: 'c2', title: '💼 Private Jobs', description: 'IT, Finance, Marketing, HR, Healthcare', visibility: 'public', category: 'Private Jobs' },
-                    { id: 'c3', title: '📚 Teaching & Education', description: 'CTET, REET, B.Ed, M.Ed career paths', visibility: 'public', category: 'Teaching' }
+                    { title: '🏛️ Government Jobs', description: 'UPSC, SSC, Banking, Railway, Defence, Police' },
+                    { title: '💼 Private Jobs', description: 'IT, Finance, Marketing, HR, Healthcare' },
+                    { title: '📚 Teaching & Education', description: 'CTET, REET, B.Ed, M.Ed career paths' },
+                    { title: '🏦 Banking & Finance', description: 'IBPS, SBI, RBI, SEBI, NABARD' },
+                    { title: '📄 SSC & Staff Selection', description: 'SSC CGL, CHSL, MTS, JE, CPO' },
+                    { title: '🚂 Railway Recruitment', description: 'RRB NTPC, Group D, ALP, JE' },
+                    { title: '🛡️ Defence Services', description: 'NDA, CDS, AFCAT, Indian Army, Navy, Air Force' },
+                    { title: '👮 Police & Paramilitary', description: 'State Police, CAPF, BSF, CRPF, CISF' },
+                    { title: '⚙️ Engineering & Technology', description: 'GATE, PSU, ISRO, DRDO, BARC' },
+                    { title: '🏥 Medical & Healthcare', description: 'NEET, AIIMS, Nursing, Pharmacy' },
+                    { title: '⚖️ Law & Judiciary', description: 'CLAT, Judicial Services, LLB, LLM' },
+                    { title: '💻 IT & Software', description: 'Software Engineer, Data Science, AI/ML' }
                 ]
             },
             more: {
-                content: '<h2>📚 Study & Books</h2><p>All study materials and books in one place. Find everything you need for your preparation.</p>',
+                title: '⚙️ More',
+                content: `
+                    <h2>📚 Study & Books</h2>
+                    <p>All study materials and books in one place.</p>
+                `,
                 items: [
-                    { id: 's1', title: '📝 Complete UPSC Notes', description: 'Detailed Subject-wise notes for UPSC Prelims and Mains.', visibility: 'public', category: 'Study' },
-                    { id: 's2', title: '📄 SSC CGL Practice Set', description: '20 Practice sets with answer keys and explanations for SSC CGL.', visibility: 'public', category: 'Study' },
-                    { id: 's3', title: '📑 RBI Grade B Previous Papers', description: 'Previous year papers with detailed solutions for RBI Grade B.', visibility: 'public', category: 'Study' },
-                    { id: 's4', title: '🔁 Quick Revision Notes: Maths', description: 'Short revision notes for formula and concepts.', visibility: 'public', category: 'Study' },
-                    { id: 'b1', title: '📚 Competitive Exam Books', description: 'Best books for UPSC, SSC, Banking, Railway', visibility: 'public', category: 'Books' },
-                    { id: 'b2', title: '🏜️ Rajasthan GK', description: 'Rajasthan General Knowledge books', visibility: 'public', category: 'Books' },
-                    { id: 'b3', title: '🧠 General Knowledge', description: 'GK books for all competitive exams', visibility: 'public', category: 'Books' },
-                    { id: 'b4', title: '🔥 Motivation Books', description: 'Top motivational and self-help books', visibility: 'public', category: 'Books' }
+                    { title: '📝 Complete UPSC Notes', description: 'Detailed Subject-wise notes for UPSC Prelims and Mains.' },
+                    { title: '📄 SSC CGL Practice Set', description: '20 Practice sets with answer keys and explanations.' },
+                    { title: '📑 RBI Grade B Previous Papers', description: 'Previous year papers with detailed solutions.' },
+                    { title: '🔁 Quick Revision Notes: Maths', description: 'Short revision notes for formula and concepts.' },
+                    { title: '📚 Competitive Exam Books', description: 'Best books for UPSC, SSC, Banking, Railway' },
+                    { title: '🏜️ Rajasthan GK', description: 'Rajasthan General Knowledge books' },
+                    { title: '🧠 General Knowledge', description: 'GK books for all competitive exams' },
+                    { title: '🔥 Motivation Books', description: 'Top motivational and self-help books' }
                 ]
             },
             service: {
-                content: '<h2>🛠️ Services</h2><p>Welcome to Dream Josh Services. Find all types of services here with direct links.</p>',
+                title: '🛠️ Services',
+                content: `
+                    <h2>🛠️ Services</h2>
+                    <p>Welcome to Dream Josh Services. Find all types of services here with direct links.</p>
+                `,
                 items: [
-                    { id: 'sv1', title: '📝 Resume Writing Service', description: 'Professional resume writing for all career levels.', visibility: 'public', category: 'private', link: 'https://dreamjosh.com/resume' },
-                    { id: 'sv2', title: '🏛️ Passport Services', description: 'Complete passport assistance and verification.', visibility: 'public', category: 'government', link: 'https://passport.gov.in' },
-                    { id: 'sv3', title: '📚 Online Tutoring', description: 'One-on-one tutoring for competitive exams.', visibility: 'public', category: 'education', link: 'https://dreamjosh.com/tutoring' },
-                    { id: 'sv4', title: '💼 Career Counseling', description: 'Expert career guidance and counseling services.', visibility: 'public', category: 'private', link: 'https://dreamjosh.com/counseling' },
-                    { id: 'sv5', title: '🪪 Aadhar Services', description: 'Aadhar card update and enrollment assistance.', visibility: 'public', category: 'government', link: 'https://uidai.gov.in' },
-                    { id: 'sv6', title: '🎯 Mock Test Series', description: 'Online mock tests for all competitive exams.', visibility: 'public', category: 'education', link: 'https://dreamjosh.com/tests' },
-                    { id: 'sv7', title: '📄 Document Verification', description: 'Document attestation and verification services.', visibility: 'public', category: 'government', link: 'https://dreamjosh.com/verify' },
-                    { id: 'sv8', title: '💻 IT Services', description: 'Web development and digital marketing services.', visibility: 'public', category: 'private', link: 'https://dreamjosh.com/it' },
-                    { id: 'sv9', title: '🎓 Scholarship Assistance', description: 'Help with scholarship applications and guidance.', visibility: 'public', category: 'education', link: 'https://dreamjosh.com/scholarship' },
-                    { id: 'sv10', title: '🏦 Banking Services', description: 'Bank account opening and financial services.', visibility: 'public', category: 'private', link: 'https://dreamjosh.com/banking' }
+                    { title: '📝 Resume Writing Service', description: 'Professional resume writing for all career levels.', link: 'https://dreamjosh.com/resume' },
+                    { title: '🏛️ Passport Services', description: 'Complete passport assistance and verification.', link: 'https://passport.gov.in' },
+                    { title: '📚 Online Tutoring', description: 'One-on-one tutoring for competitive exams.', link: 'https://dreamjosh.com/tutoring' },
+                    { title: '💼 Career Counseling', description: 'Expert career guidance and counseling services.', link: 'https://dreamjosh.com/counseling' },
+                    { title: '🪪 Aadhar Services', description: 'Aadhar card update and enrollment assistance.', link: 'https://uidai.gov.in' },
+                    { title: '🎯 Mock Test Series', description: 'Online mock tests for all competitive exams.', link: 'https://dreamjosh.com/tests' },
+                    { title: '📄 Document Verification', description: 'Document attestation and verification services.', link: 'https://dreamjosh.com/verify' },
+                    { title: '💻 IT Services', description: 'Web development and digital marketing services.', link: 'https://dreamjosh.com/it' },
+                    { title: '🎓 Scholarship Assistance', description: 'Help with scholarship applications and guidance.', link: 'https://dreamjosh.com/scholarship' },
+                    { title: '🏦 Banking Services', description: 'Bank account opening and financial services.', link: 'https://dreamjosh.com/banking' }
                 ]
             },
             blog: {
-                content: '<h2>📝 Blog</h2><p>Read our latest blog posts on various topics.</p>',
+                title: '📝 Blog',
+                content: `
+                    <h2>📝 Blog</h2>
+                    <p>Read our latest blog posts on various topics.</p>
+                `,
                 items: [
-                    { id: 'bl1', title: '💻 Technology', description: 'Latest tech news and updates', visibility: 'public', category: 'Technology' },
-                    { id: 'bl2', title: '📊 Business', description: 'Business and finance articles', visibility: 'public', category: 'Business' },
-                    { id: 'bl3', title: '❤️ Lifestyle', description: 'Lifestyle and wellness tips', visibility: 'public', category: 'Lifestyle' }
+                    { title: '💻 Technology', description: 'Latest tech news and updates' },
+                    { title: '📊 Business', description: 'Business and finance articles' },
+                    { title: '❤️ Lifestyle', description: 'Lifestyle and wellness tips' },
+                    { title: '🎨 Design', description: 'Design trends and tutorials' },
+                    { title: '📚 Education', description: 'Education tips and resources' },
+                    { title: '📰 News', description: 'Latest news and current affairs' }
                 ]
             },
             rsr: {
-                content: `<h2>📜 उपार्जित अवकाश एवं उनकी देयता-नियम 91</h2>
-                <h3>उपार्जित अवकाश</h3>
-                <p>उपार्जित अवकाश एवं उनकी देयताः नियम 91(1)(क) के अनुसार राज्य कर्मचारी जो स्थायी या अस्थायी है, को एक कलेण्डर वर्ष में 30 दिन का उपार्जित अवकाश देय होगा लेकिन भारतीय पुलिस सेवा के अधिकारियों को छोडकर राजस्थान सशस्त्र पुलिस के सदस्य जो भारतीय रिजर्व बटालियन में तैनात है, को कलेण्डर वर्ष में 42 दिन का उपार्जित अवकाश देय होगा।</p>
-                <p>नियम 91(1)(ग) के अनुसार कर्मचारी अपने लेखों में 1 जनवरी 1998 से अधिकतम 300 दिनों का उपार्जित अवकाश जमा रख सकता है।</p>
-                <p>नियम 91(2)(a) (i) के अनुसार प्रत्येक राज्य कर्मचारी के उपार्जित अवकाश लेखों में प्रत्येक कलैण्डर वर्ष में दो बार, 1 जनवरी को 15 तथा 1 जुलाई को 15 दिन के उपार्जित अवकाश, अग्रिम के रूप में जमा किये जायेंगे।</p>
-                <h3>Privilege leave</h3>
-                <p><strong>Admissibility of privilege leave —</strong></p>
-                <p>(1) (a) A Government servant whether temporary or permanent shall be entitled to privilege leave of 30 days in a calendar year.</p>
-                <p>(2) The maximum privilege leave that may be granted at a time to a Government servant shall be 120 days.</p>
-                <div style="margin-top:20px;padding:16px;background:var(--highlight-bg);border-radius:8px;border-left:4px solid var(--secondary-blue);">
-                    <p><strong>Source:</strong> Rajasthan Service Rules (RSR) - Rule 91</p>
-                </div>`,
+                title: '📜 RSR',
+                content: `
+                    <h2>📜 उपार्जित अवकाश एवं उनकी देयता-नियम 91</h2>
+                    <h3>उपार्जित अवकाश</h3>
+                    <p>उपार्जित अवकाश एवं उनकी देयताः नियम 91(1)(क) के अनुसार राज्य कर्मचारी जो स्थायी या अस्थायी है, को एक कलेण्डर वर्ष में 30 दिन का उपार्जित अवकाश देय होगा।</p>
+                    <p>नियम 91(1)(ग) के अनुसार कर्मचारी अपने लेखों में 1 जनवरी 1998 से अधिकतम 300 दिनों का उपार्जित अवकाश जमा रख सकता है।</p>
+                    <p>नियम 91(2)(a)(i) के अनुसार प्रत्येक राज्य कर्मचारी के उपार्जित अवकाश लेखों में प्रत्येक कलैण्डर वर्ष में दो बार, 1 जनवरी को 15 तथा 1 जुलाई को 15 दिन के उपार्जित अवकाश, अग्रिम के रूप में जमा किये जायेंगे।</p>
+                    <h3>Privilege leave</h3>
+                    <p><strong>Admissibility of privilege leave —</strong></p>
+                    <p>(1)(a) A Government servant whether temporary or permanent shall be entitled to privilege leave of 30 days in a calendar year.</p>
+                    <p>(2) The maximum privilege leave that may be granted at a time to a Government servant shall be 120 days.</p>
+                `,
                 items: []
             },
-            social: {
-                instagram: 'https://instagram.com/dreamjosh',
-                youtube: 'https://youtube.com/dreamjosh',
-                facebook: 'https://facebook.com/dreamjosh'
-            },
-            slides: [
-                { id: 'slide1', title: '🚀 Welcome to Dream Josh', description: 'Your ultimate career and study platform', image: '', link: '#', active: true },
-                { id: 'slide2', title: '📚 Study Materials', description: 'Get access to premium study resources', image: '', link: '#', active: true },
-                { id: 'slide3', title: '🏛️ Govt. Jobs', description: 'Find the latest government job updates', image: '', link: '#', active: true }
-            ],
-            dropdownMenus: {
-                jobs: { label: '💼 Jobs', items: [
-                    { label: '🏛️ Central Govt.', action: 'central' },
-                    { label: '🏜️ Rajasthan Govt.', action: 'state' },
-                    { label: '💼 Private', action: 'private' }
-                ]},
-                career: { label: '🎯 Career', items: [
-                    { label: '📋 All Careers', action: 'all' },
-                    { label: '🏛️ Government Jobs', action: 'Government Jobs' },
-                    { label: '🏦 Banking', action: 'Banking' },
-                    { label: '📄 SSC', action: 'SSC' },
-                    { label: '🚂 Railway', action: 'Railway' },
-                    { label: '🛡️ Defence', action: 'Defence' },
-                    { label: '👮 Police', action: 'Police' },
-                    { label: '📚 Teaching', action: 'Teaching' },
-                    { label: '⚙️ Engineering', action: 'Engineering' },
-                    { label: '🏥 Medical', action: 'Medical' },
-                    { label: '📊 Management', action: 'Management' },
-                    { label: '⚖️ Law', action: 'Law' },
-                    { label: '💻 IT', action: 'IT' },
-                    { label: '🏴 UPSC', action: 'UPSC' },
-                    { label: '💼 Private Jobs', action: 'Private Jobs' }
-                ]},
-                more: { label: '⚙️ More', items: [
-                    { label: '📚 All Study & Books', action: 'all' },
-                    { label: '📝 Study Materials', action: 'Study' },
-                    { label: '📖 Books', action: 'Books' }
-                ]},
-                service: { label: '🛠️ Services', items: [
-                    { label: '📋 All Services', action: 'all' },
-                    { label: '🏛️ Government', action: 'government' },
-                    { label: '💼 Private', action: 'private' },
-                    { label: '📚 Education', action: 'education' }
-                ]},
-                blog: { label: '📝 Blog', items: [
-                    { label: '📚 All Blog Posts', action: 'all' },
-                    { label: '💻 Technology', action: 'Technology' },
-                    { label: '📊 Business', action: 'Business' },
-                    { label: '🎨 Design', action: 'Design' },
-                    { label: '❤️ Lifestyle', action: 'Lifestyle' },
-                    { label: '📚 Education', action: 'Education' },
-                    { label: '📰 News', action: 'News' },
-                    { label: '💼 Portfolio', action: 'Portfolio' }
-                ]},
-                rsr: { label: '📜 RSR', items: [
-                    { label: '📜 All Rules', action: 'all' }
-                ]}
-            },
-            customPages: [
-                { id: 'career', label: 'Career', icon: 'fa-briefcase', visible: true, public: true },
-                { id: 'more', label: 'More', icon: 'fa-book', visible: true, public: true },
-                { id: 'service', label: 'Services', icon: 'fa-cogs', visible: true, public: true },
-                { id: 'blog', label: 'Blog', icon: 'fa-blog', visible: true, public: true },
-                { id: 'tools', label: 'Tools', icon: 'fa-wrench', visible: true, public: true },
-                { id: 'rsr', label: 'RSR', icon: 'fa-gavel', visible: true, public: true }
-            ]
+            tools: {
+                title: '🛠️ Tools',
+                content: `
+                    <h2>🛠️ Tools</h2>
+                    <p>All tools will be available here soon.</p>
+                    <p>यहाँ सभी टूल्स जल्द उपलब्ध होंगे।</p>
+                `,
+                items: []
+            }
         };
 
+        // ============================================================
+        // 📦 JOBS DATA
+        // ============================================================
         const DEFAULT_JOBS = [
             { id: 1, title: 'IAS (Indian Administrative Service)', jobType: 'central', subCat: 'Administrative',
                 department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate (Any Discipline)', age: '21-32 Years',
@@ -1217,93 +784,93 @@
         // ============================================================
         // STATE
         // ============================================================
-        let appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
         let jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
         let currentCategory = 'central';
         let currentSubCategory = 'all';
-        const genericFilters = { career: 'all', more: 'all', blog: 'all', service: 'all', rsr: 'all' };
+
+        // Page view state
+        let currentPageKey = null;
+        let currentPageItems = [];
+        let currentPageIndex = 0;
 
         // ============================================================
-        // RENDER NAV
+        // LATEST UPDATES SCROLL
+        // ============================================================
+        function initLatestUpdates() {
+            const list = document.getElementById('latestUpdatesList');
+            if (!list) return;
+            // Duplicate items for seamless infinite scroll
+            const doubled = [...LATEST_UPDATES, ...LATEST_UPDATES];
+            list.innerHTML = doubled.map(txt => `<li>${txt}</li>`).join('');
+        }
+
+        // ============================================================
+        // RENDER HEADER NAV
         // ============================================================
         function renderNav() {
             const nav = document.getElementById('dynamicNav');
-            const dropdowns = appData.dropdownMenus;
-            const customPages = appData.customPages;
 
-            let html = `<button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>`;
+            let html = `<a class="nav-btn active" href="javascript:void(0)" data-section="home">🏠 Home</a>`;
 
             // Jobs dropdown
-            const jobsDropdown = dropdowns.jobs;
             html += `
                 <div class="dropdown-wrapper" id="govtDropdown">
-                    <button class="dropdown-btn" onclick="toggleDropdownMobile('govt', event)">${jobsDropdown.label} <span class="arrow">▾</span></button>
+                    <button class="dropdown-btn" onclick="toggleDropdownMobile('govt', event)">💼 Jobs <span class="arrow">▾</span></button>
                     <div class="dropdown-content" id="govtDropdownContent">
                         <div class="dropdown-label">📂 Select Category</div>
-                        ${jobsDropdown.items.map(item => `
-                            <button onclick="showJobsCategory('${item.action}'); closeDropdownMobile('govt');">
-                                ${item.label} <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="${item.action}Count">0</span>
-                            </button>
-                        `).join('')}
+                        <a href="javascript:void(0)" onclick="showJobsCategory('central'); closeDropdownMobile('govt');">
+                            🏛️ Central Govt. <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="centralCount">0</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="showJobsCategory('state'); closeDropdownMobile('govt');">
+                            🏜️ Rajasthan Govt. <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="stateCount">0</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="showJobsCategory('private'); closeDropdownMobile('govt');">
+                            💼 Private <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="privateCount">0</span>
+                        </a>
                     </div>
                 </div>
             `;
 
-            // Other dropdowns
-            const dropdownKeys = ['career', 'more', 'service', 'blog', 'rsr'];
-            dropdownKeys.forEach(key => {
-                const pageConfig = customPages.find(p => p.id === key);
-                if (!pageConfig || !pageConfig.visible) return;
-                const menu = dropdowns[key] || { label: pageConfig.label, items: [] };
+            // Career, More, Service, Blog, RSR dropdowns — open in page view
+            const pages = [
+                { key: 'career', label: '🎯 Career' },
+                { key: 'more', label: '⚙️ More' },
+                { key: 'service', label: '🛠️ Services' },
+                { key: 'blog', label: '📝 Blog' },
+                { key: 'rsr', label: '📜 RSR' }
+            ];
+            pages.forEach(p => {
                 html += `
-                    <div class="dropdown-wrapper" id="${key}Dropdown">
-                        <button class="dropdown-btn" onclick="toggleDropdownMobile('${key}', event)">${menu.label} <span class="arrow">▾</span></button>
-                        <div class="dropdown-content" id="${key}DropdownContent">
-                            <div class="dropdown-label">📂 ${menu.label}</div>
-                            ${menu.items.map(item => `
-                                <button onclick="handleDropdownAction('${key}', '${item.action}'); closeDropdownMobile('${key}');">
-                                    <i class="fas fa-th-list dropdown-item-icon"></i> ${item.label}
-                                </button>
+                    <div class="dropdown-wrapper" id="${p.key}Dropdown">
+                        <button class="dropdown-btn" onclick="toggleDropdownMobile('${p.key}', event)">${p.label} <span class="arrow">▾</span></button>
+                        <div class="dropdown-content" id="${p.key}DropdownContent">
+                            <div class="dropdown-label">📂 ${p.label}</div>
+                            <a href="javascript:void(0)" onclick="openPageView('${p.key}', 0); closeDropdownMobile('${p.key}');">
+                                <i class="fas fa-th-list dropdown-item-icon"></i> 📋 All
+                            </a>
+                            ${(PAGE_DATA[p.key]?.items || []).map((item, idx) => `
+                                <a href="javascript:void(0)" onclick="openPageView('${p.key}', ${idx}); closeDropdownMobile('${p.key}');">
+                                    <i class="fas fa-angle-right dropdown-item-icon"></i> ${item.title}
+                                </a>
                             `).join('')}
                         </div>
                     </div>
                 `;
             });
 
-            html += `<button class="nav-btn" onclick="showSection('tools')" data-section="tools">🛠️ Tools</button>`;
+            // Tools
+            html += `<a class="nav-btn" href="javascript:void(0)" onclick="openPageView('tools', 0)">🛠️ Tools</a>`;
 
             nav.innerHTML = html;
             updateJobCounts();
         }
 
-        function renderFooterNav() {
-            const footer = document.getElementById('footerNav');
-            const visiblePages = appData.customPages.filter(p => p.visible);
-            let html = `<button class="nav-btn active" onclick="showSection('home')" data-section="home">🏠 Home</button>`;
-            visiblePages.forEach(p => {
-                html += `<button class="nav-btn" onclick="showSection('${p.id}')" data-section="${p.id}">${p.label}</button>`;
-            });
-            footer.innerHTML = html;
-        }
-
-        function handleDropdownAction(key, action) {
-            if (key === 'career' || key === 'more' || key === 'blog' || key === 'rsr') {
-                filterGenericCategory(key, action);
-                showSection(key);
-            } else if (key === 'service') {
-                filterServiceCategory(action);
-                showSection('service');
-            }
-        }
-
         function toggleDropdownMobile(name, event) {
             if (event) event.stopPropagation();
-            if (window.innerWidth <= 768) {
-                const allDropdowns = ['govt', 'career', 'more', 'service', 'blog', 'rsr'];
-                allDropdowns.forEach(d => { if (d !== name) closeDropdownMobile(d); });
-                const content = document.getElementById(`${name}DropdownContent`);
-                if (content) content.classList.toggle('show');
-            }
+            const allDropdowns = ['govt', 'career', 'more', 'service', 'blog', 'rsr'];
+            allDropdowns.forEach(d => { if (d !== name) closeDropdownMobile(d); });
+            const content = document.getElementById(`${name}DropdownContent`);
+            if (content) content.classList.toggle('show');
         }
 
         function closeDropdownMobile(name) {
@@ -1312,10 +879,8 @@
         }
 
         document.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                if (!e.target.closest('.dropdown-wrapper')) {
-                    ['govt', 'career', 'more', 'service', 'blog', 'rsr'].forEach(name => closeDropdownMobile(name));
-                }
+            if (!e.target.closest('.dropdown-wrapper')) {
+                ['govt', 'career', 'more', 'service', 'blog', 'rsr'].forEach(name => closeDropdownMobile(name));
             }
         });
 
@@ -1330,146 +895,113 @@
         }
 
         // ============================================================
-        // SECTION NAVIGATION
+        // PAGE VIEW (Next/Back navigation)
         // ============================================================
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            const section = document.getElementById(sectionId);
-            if (section) section.classList.add('active');
-            document.querySelectorAll('.app-header .nav-btn[data-section]').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.section === sectionId);
-            });
-            document.querySelectorAll('.app-footer .nav-btn[data-section]').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.section === sectionId);
-            });
-            if (window.innerWidth <= 768) {
-                ['govt', 'career', 'more', 'service', 'blog', 'rsr'].forEach(name => closeDropdownMobile(name));
+        function openPageView(pageKey, itemIndex = 0) {
+            const page = PAGE_DATA[pageKey];
+            if (!page) {
+                showToast('Page not found', 'error');
+                return;
             }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            currentPageKey = pageKey;
+            currentPageItems = page.items || [];
+            currentPageIndex = itemIndex;
 
-            // Render page content
-            if (sectionId === 'career') renderGenericPage('career');
-            if (sectionId === 'more') renderGenericPage('more');
-            if (sectionId === 'service') renderServicePage('all');
-            if (sectionId === 'blog') renderGenericPage('blog');
-            if (sectionId === 'rsr') renderGenericPage('rsr');
+            document.getElementById('pageViewTitle').textContent = page.title;
+
+            renderPageViewContent();
+
+            document.getElementById('pageViewOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Scroll to top of page body
+            setTimeout(() => {
+                const body = document.querySelector('.page-view-body');
+                if (body) body.scrollTop = 0;
+            }, 50);
         }
 
-        // ============================================================
-        // GENERIC PAGE RENDER (Career, More, Blog, RSR)
-        // ============================================================
-        function renderGenericPage(page) {
-            const container = document.getElementById(`${page}Content`);
-            if (!container) return;
-            const items = (appData[page]?.items || []).filter(i => i.visibility !== 'private');
-            updateGenericSubFilter(page, items);
+        function renderPageViewContent() {
+            const page = PAGE_DATA[currentPageKey];
+            if (!page) return;
+            const inner = document.getElementById('pageViewInner');
 
-            let filtered = items;
-            const currentCat = genericFilters[page];
-            if (currentCat !== 'all') {
-                filtered = items.filter(i => i.category === currentCat);
+            // Base content
+            let html = page.content || '';
+
+            // If items exist, show current item only
+            if (currentPageItems.length > 0) {
+                const item = currentPageItems[currentPageIndex];
+                const linkHtml = item.link ?
+                    `<a href="${item.link}" target="_blank" class="item-link"><i class="fas fa-external-link-alt"></i> Visit</a>` : '';
+                html += `
+                    <div style="margin-top:20px;border-top:2px solid var(--border-color);padding-top:16px;">
+                        <h3 style="color:var(--primary-blue);margin-bottom:12px;">
+                            📂 Item ${currentPageIndex + 1} of ${currentPageItems.length}
+                        </h3>
+                        <ul class="item-list">
+                            <li>
+                                <div class="item-title">${item.title || 'Untitled'}</div>
+                                ${item.description ? `<div class="item-desc">${item.description}</div>` : ''}
+                                ${linkHtml}
+                            </li>
+                        </ul>
+                    </div>
+                `;
             }
 
-            let html = appData[page]?.content || '';
-            if (filtered.length > 0) {
-                html += `<div style="margin-top:20px;border-top:2px solid var(--border-color);padding-top:16px;">
-                    <h3 style="color:var(--primary-blue);margin-bottom:10px;">📂 Category: ${currentCat === 'all' ? 'All' : currentCat}</h3>
-                    <ul style="list-style:none;padding:0;">`;
-                filtered.forEach(item => {
-                    html += `<li style="padding:8px 12px;background:var(--bg-color);border-radius:6px;margin-bottom:6px;border-left:3px solid var(--secondary-blue);">
-                        <strong>${item.title || 'Untitled'}</strong>
-                        ${item.description ? `<div style="font-size:13px;color:var(--text-light);margin-top:2px;">${item.description}</div>` : ''}
-                    </li>`;
-                });
-                html += `</ul></div>`;
+            inner.innerHTML = html;
+
+            // Update buttons
+            const backBtn = document.getElementById('pageBackBtn');
+            const nextBtn = document.getElementById('pageNextBtn');
+
+            if (currentPageItems.length <= 1) {
+                backBtn.disabled = true;
+                nextBtn.disabled = true;
+                backBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
             } else {
-                html += `<p style="color:var(--text-light);margin-top:16px;">No items available in this category yet.</p>`;
-            }
-            container.innerHTML = html;
-        }
-
-        function updateGenericSubFilter(page, items) {
-            const container = document.getElementById(`${page}SubFilter`);
-            if (!container) return;
-            let categories = ['all'];
-            items.forEach(i => {
-                if (i.category && !categories.includes(i.category)) categories.push(i.category);
-            });
-            container.innerHTML = categories.map(cat =>
-                `<button class="sub-btn ${cat === genericFilters[page] ? 'active' : ''}" data-sub="${cat}" onclick="filterGenericCategory('${page}', '${cat}')">${cat === 'all' ? '📌 All' : cat}</button>`
-            ).join('');
-        }
-
-        function filterGenericCategory(page, category) {
-            genericFilters[page] = category;
-            renderGenericPage(page);
-            const section = document.getElementById(page);
-            if (section) {
-                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                section.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                backBtn.style.display = 'inline-flex';
+                nextBtn.style.display = 'inline-flex';
+                backBtn.disabled = currentPageIndex === 0;
+                nextBtn.disabled = currentPageIndex === currentPageItems.length - 1;
             }
         }
 
-        function filterServiceCategory(category) {
-            genericFilters.service = category;
-            renderServicePage(category);
-            const section = document.getElementById('service');
-            if (section) {
-                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                section.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+        function pageViewNext() {
+            if (currentPageIndex < currentPageItems.length - 1) {
+                currentPageIndex++;
+                renderPageViewContent();
+                document.querySelector('.page-view-body').scrollTop = 0;
             }
         }
 
-        function renderServicePage(category = 'all') {
-            const container = document.getElementById('serviceContent');
-            const items = (appData.service?.items || []).filter(i => i.visibility !== 'private');
-
-            document.querySelectorAll('#serviceSubFilter .sub-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.sub === category);
-            });
-
-            let filtered = items;
-            if (category !== 'all') {
-                filtered = items.filter(i => i.category === category);
+        function pageViewBack() {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                renderPageViewContent();
+                document.querySelector('.page-view-body').scrollTop = 0;
             }
+        }
 
-            let html = appData.service?.content || '';
-
-            if (filtered.length > 0) {
-                html += `<div style="margin-top:20px;border-top:2px solid var(--border-color);padding-top:16px;">
-                    <h3 style="color:var(--primary-blue);margin-bottom:10px;">📂 ${category === 'all' ? 'All Services' : category.charAt(0).toUpperCase() + category.slice(1) + ' Services'}</h3>
-                    <ul style="list-style:none;padding:0;">`;
-                filtered.forEach(item => {
-                    const linkHtml = item.link ?
-                        `<a href="${item.link}" target="_blank" style="display:inline-block;padding:2px 10px;background:var(--secondary-blue);color:#fff;border-radius:4px;font-size:10px;text-decoration:none;margin-left:8px;"><i class="fas fa-external-link-alt"></i> Visit</a>` :
-                        '';
-                    html += `<li style="padding:12px 14px;background:var(--bg-color);border-radius:8px;margin-bottom:8px;border-left:3px solid var(--secondary-blue);">
-                        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
-                            <strong style="font-size:15px;">${item.title || 'Untitled'}</strong>
-                            ${linkHtml}
-                            ${item.category ? `<span style="font-size:10px;background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;">${item.category}</span>` : ''}
-                        </div>
-                        ${item.description ? `<div style="font-size:13px;color:var(--text-light);margin-top:4px;">${item.description}</div>` : ''}
-                    </li>`;
-                });
-                html += `</ul></div>`;
-            } else {
-                html += `<p style="color:var(--text-light);margin-top:16px;">No services available in this category yet.</p>`;
-            }
-            container.innerHTML = html;
+        function closePageView() {
+            document.getElementById('pageViewOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+            currentPageKey = null;
+            currentPageItems = [];
+            currentPageIndex = 0;
         }
 
         // ============================================================
         // JOBS
         // ============================================================
         function showJobsCategory(category) {
-            showSection('home');
             selectCategory(category);
             setTimeout(() => {
-                document.getElementById('jobsSectionWrapper').scrollIntoView({ behavior: 'smooth' });
-            }, 300);
+                const el = document.getElementById('jobsSectionWrapper');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
 
         function selectCategory(category) {
@@ -1505,7 +1037,6 @@
             document.getElementById('totalJobsSidebar').textContent = publicJobs.length;
             renderJobs(filtered);
 
-            // Update sub-category buttons
             const subContainer = document.getElementById('subCategoryFilter');
             const subs = SUB_CATEGORIES[currentCategory] || ['All'];
             subContainer.innerHTML = subs.map(s =>
@@ -1546,7 +1077,6 @@
                     <div class="job-meta" style="font-size:10px;opacity:0.5;">${job.eligibility || ''}</div>
                     <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;">
                         <span style="background:${subColor};color:#fff;padding:1px 8px;border-radius:10px;font-size:9px;font-weight:600;">${job.subCat || 'Other'}</span>
-                        <span class="job-badge ${job.jobType}" style="background:${job.jobType === 'central' ? '#1976d2' : job.jobType === 'state' ? '#16a34a' : '#6c5ce7'};color:#fff;padding:1px 8px;border-radius:10px;font-size:9px;">${job.lastDate || 'Open'}</span>
                     </div>
                     ${shortDesc ? `<div style="font-size:10px;color:var(--text-light);margin-top:4px;opacity:0.7;">${shortDesc}</div>` : ''}
                 `;
@@ -1566,34 +1096,24 @@
             const body = document.getElementById('detailBody');
             const typeLabels = { central: '🇮🇳 Central Govt.', state: '🏜️ Rajasthan Govt.', private: '💼 Private' };
             const iconMap = { central: '🏛️', state: '🏜️', private: '💼' };
-            const subColorMap = {
-                'Administrative': '#4a6cf7', 'Banking': '#f7b731', 'Railway': '#e74c3c',
-                'Defence': '#2ecc71', 'Teaching': '#9b59b6', 'Medical': '#e67e22',
-                'PSU': '#1abc9c', 'Police': '#2c3e50', 'Revenue': '#27ae60',
-                'Forest': '#27ae60', 'Technical': '#3498db', 'Judicial': '#8e44ad',
-                'IT/Software': '#6c5ce7', 'Finance': '#00b894', 'Marketing': '#fd79a8',
-                'HR': '#0984e3', 'Manufacturing': '#fdcb6e', 'Healthcare': '#e17055',
-                'Education': '#6c5ce7', 'Hospitality': '#00cec9', 'Other': '#636e72'
-            };
             body.innerHTML = `
                 <div class="detail-icon">${iconMap[job.jobType] || '💼'}</div>
                 <h2>${job.title || 'Untitled'}</h2>
-                <span style="background:${subColorMap[job.subCat] || '#636e72'};color:#fff;padding:2px 14px;border-radius:20px;font-size:12px;font-weight:600;display:inline-block;margin-bottom:10px;">${job.subCat || 'Other'}</span>
                 <div class="detail-section">
                     <p style="margin:4px 0;"><strong>🏢 Department:</strong> ${job.department || '-'}</p>
                     <p style="margin:4px 0;"><strong>📌 Post:</strong> ${job.post || '-'}</p>
                     <p style="margin:4px 0;"><strong>📂 Job Type:</strong> ${typeLabels[job.jobType] || job.jobType}</p>
                 </div>
-                <div class="detail-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;margin:10px 0;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;margin:10px 0;">
                     <p><strong>🎓 Eligibility:</strong> ${job.eligibility || '-'}</p>
                     <p><strong>📅 Age Limit:</strong> ${job.age || '-'}</p>
                     <p><strong>⏳ Last Date:</strong> ${job.lastDate || '-'}</p>
-                    <p><strong>💼 Experience:</strong> ${job.experience || 'Freshers can apply'}</p>
+                    <p><strong>💼 Experience:</strong> ${job.experience || 'Freshers'}</p>
                 </div>
                 ${job.description ? `<div class="detail-desc"><p><strong>📝 Description:</strong></p><div>${job.description}</div></div>` : ''}
                 <div style="margin:12px 0;">
-                    ${job.website ? `<p><strong>🌐 Official Website:</strong> <a href="${job.website}" target="_blank" style="color:var(--secondary-blue);text-decoration:underline;font-weight:600;">${job.website}</a></p>` : ''}
-                    ${job.applyLink ? `<p><strong>📝 Apply Link:</strong> <a href="${job.applyLink}" target="_blank" style="color:var(--secondary-blue);text-decoration:underline;font-weight:600;">${job.applyLink}</a></p>` : ''}
+                    ${job.website ? `<p><strong>🌐 Website:</strong> <a href="${job.website}" target="_blank" style="color:var(--secondary-blue);text-decoration:underline;font-weight:600;">${job.website}</a></p>` : ''}
+                    ${job.applyLink ? `<p><strong>📝 Apply:</strong> <a href="${job.applyLink}" target="_blank" style="color:var(--secondary-blue);text-decoration:underline;font-weight:600;">${job.applyLink}</a></p>` : ''}
                 </div>
                 <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
                     <span class="detail-link secondary" onclick="closeDetail()">✕ Close</span>
@@ -1615,33 +1135,33 @@
         // ============================================================
         let slideIndex = 0;
         let slideInterval = null;
+        const SLIDES = [
+            { title: '🚀 Welcome to Dream Josh', description: 'Your ultimate career and study platform' },
+            { title: '📚 Study Materials', description: 'Get access to premium study resources' },
+            { title: '🏛️ Govt. Jobs', description: 'Find the latest government job updates' }
+        ];
 
         function renderSlidesCarousel() {
             const container = document.getElementById('slidesCarouselContainer');
             if (!container) return;
-            const slides = appData.slides || [];
-            const activeSlides = slides.filter(s => s.active !== false);
-            if (activeSlides.length === 0) { container.innerHTML = ''; return; }
+            if (SLIDES.length === 0) { container.innerHTML = ''; return; }
 
             let html = `
                 <div style="position:relative;overflow:hidden;border-radius:12px;background:var(--bg-color);border:1px solid var(--border-color);">
                     <div id="slideTrack" style="display:flex;transition:transform 0.5s ease;">
-                        ${activeSlides.map((slide) => `
+                        ${SLIDES.map((slide) => `
                             <div style="min-width:100%;padding:20px;text-align:center;background:var(--card-bg);">
-                                ${slide.image ? `<img src="${slide.image}" style="max-width:100%;max-height:300px;border-radius:8px;">` : `<div style="height:200px;background:var(--secondary-blue);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:48px;">🚀</div>`}
-                                ${slide.title ? `<div style="font-size:20px;font-weight:700;color:var(--primary-blue);margin:8px 0 4px;">${slide.title}</div>` : ''}
-                                ${slide.description ? `<div style="font-size:14px;color:var(--text-light);">${slide.description}</div>` : ''}
-                                ${slide.link && slide.link !== '#' ? `<a href="${slide.link}" target="_blank" style="display:inline-block;margin-top:8px;padding:6px 16px;background:var(--secondary-blue);color:#fff;border-radius:6px;text-decoration:none;font-size:13px;">Learn More →</a>` : ''}
+                                <div style="height:160px;background:var(--secondary-blue);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:44px;">🚀</div>
+                                <div style="font-size:18px;font-weight:700;color:var(--primary-blue);margin:8px 0 4px;">${slide.title}</div>
+                                <div style="font-size:13px;color:var(--text-light);">${slide.description}</div>
                             </div>
                         `).join('')}
                     </div>
-                    ${activeSlides.length > 1 ? `
-                        <button onclick="changeSlide(-1)" style="position:absolute;top:50%;left:10px;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;padding:8px 14px;border-radius:50%;cursor:pointer;font-size:18px;">‹</button>
-                        <button onclick="changeSlide(1)" style="position:absolute;top:50%;right:10px;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;padding:8px 14px;border-radius:50%;cursor:pointer;font-size:18px;">›</button>
-                        <div id="slideDots" style="display:flex;justify-content:center;gap:6px;padding:10px 0;">
-                            ${activeSlides.map((_, idx) => `<button onclick="goToSlide(${idx})" style="width:10px;height:10px;border-radius:50%;background:${idx === 0 ? 'var(--secondary-blue)' : 'var(--border-color)'};cursor:pointer;border:none;padding:0;" class="slide-dot"></button>`).join('')}
-                        </div>
-                    ` : ''}
+                    <button onclick="changeSlide(-1)" style="position:absolute;top:50%;left:10px;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;padding:8px 14px;border-radius:50%;cursor:pointer;font-size:18px;">‹</button>
+                    <button onclick="changeSlide(1)" style="position:absolute;top:50%;right:10px;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;padding:8px 14px;border-radius:50%;cursor:pointer;font-size:18px;">›</button>
+                    <div id="slideDots" style="display:flex;justify-content:center;gap:6px;padding:10px 0;">
+                        ${SLIDES.map((_, idx) => `<button onclick="goToSlide(${idx})" style="width:10px;height:10px;border-radius:50%;background:${idx === 0 ? 'var(--secondary-blue)' : 'var(--border-color)'};cursor:pointer;border:none;padding:0;" class="slide-dot"></button>`).join('')}
+                    </div>
                 </div>
             `;
             container.innerHTML = html;
@@ -1658,371 +1178,30 @@
             if (slideIndex >= slides.length) slideIndex = 0;
             if (slideIndex < 0) slideIndex = slides.length - 1;
             track.style.transform = `translateX(-${slideIndex * 100}%)`;
-            const dots = document.querySelectorAll('.slide-dot');
-            dots.forEach((dot, idx) => {
+            document.querySelectorAll('.slide-dot').forEach((dot, idx) => {
                 dot.style.background = idx === slideIndex ? 'var(--secondary-blue)' : 'var(--border-color)';
                 dot.style.transform = idx === slideIndex ? 'scale(1.2)' : 'scale(1)';
             });
         }
 
         function changeSlide(dir) {
-            const track = document.getElementById('slideTrack');
-            if (!track) return;
-            const slides = track.querySelectorAll(':scope > div');
-            if (slides.length === 0) return;
             slideIndex += dir;
-            if (slideIndex >= slides.length) slideIndex = 0;
-            if (slideIndex < 0) slideIndex = slides.length - 1;
             updateSlidePosition();
         }
-
         function goToSlide(idx) {
             slideIndex = idx;
             updateSlidePosition();
         }
-
         function startSlideAutoPlay() {
             if (slideInterval) clearInterval(slideInterval);
             slideInterval = setInterval(() => {
                 const track = document.getElementById('slideTrack');
                 if (!track) { clearInterval(slideInterval); return; }
                 const slides = track.querySelectorAll(':scope > div');
-                if (slides.length <= 1) { clearInterval(slideInterval); return; }
+                if (slides.length <= 1) return;
                 slideIndex = (slideIndex + 1) % slides.length;
                 updateSlidePosition();
             }, 5000);
-        }
-
-        // ============================================================
-        // CLOUD UPLOAD
-        // ============================================================
-        let uploadQueue = [];
-        let uploadIdCounter = 0;
-
-        function getFileType(name) {
-            const ext = name.split('.').pop().toLowerCase();
-            if (ext === 'pdf') return 'pdf';
-            if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'].includes(ext)) return 'image';
-            if (['xls', 'xlsx', 'csv'].includes(ext)) return 'excel';
-            if (['doc', 'docx'].includes(ext)) return 'word';
-            return 'other';
-        }
-
-        function getFileIcon(type) {
-            return { pdf: 'fa-file-pdf', image: 'fa-file-image', excel: 'fa-file-excel', word: 'fa-file-word', other: 'fa-file' }[type] || 'fa-file';
-        }
-
-        function formatSize(bytes) {
-            if (bytes < 1024) return bytes + ' B';
-            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-            if (bytes < 1073741824) return (bytes / 1048576).toFixed(2) + ' MB';
-            return (bytes / 1073741824).toFixed(2) + ' GB';
-        }
-
-        function handleCloudFiles(event) {
-            const files = event.target.files;
-            if (!files || files.length === 0) return;
-            for (const file of files) {
-                uploadQueue.push({
-                    id: ++uploadIdCounter, file: file, name: file.name, size: file.size,
-                    type: getFileType(file.name), status: 'pending', progress: 0, url: null
-                });
-            }
-            renderUploadQueue();
-            showToast(`✅ ${files.length} file(s) added to queue`, 'success');
-            event.target.value = '';
-        }
-
-        function renderUploadQueue() {
-            const container = document.getElementById('uploadQueue');
-            const items = document.getElementById('uploadItemsContainer');
-            if (uploadQueue.length === 0) { container.style.display = 'none'; return; }
-            container.style.display = 'block';
-            document.getElementById('queueCount').textContent = uploadQueue.length;
-            items.innerHTML = uploadQueue.map(item => {
-                const statusMap = {
-                    pending: { text: '⏳ Pending', cls: 'pending' },
-                    uploading: { text: '⬆️ Uploading...', cls: 'uploading' },
-                    success: { text: '✅ Uploaded', cls: 'success' },
-                    error: { text: '❌ Failed', cls: 'error' }
-                };
-                const s = statusMap[item.status];
-                return `
-                    <div class="upload-item">
-                        <div class="file-icon ${item.type}"><i class="fas ${getFileIcon(item.type)}"></i></div>
-                        <div class="file-info">
-                            <div class="file-name">${item.name}</div>
-                            <div class="file-size">${formatSize(item.size)}</div>
-                            ${item.status === 'uploading' ? `<div class="file-progress"><div class="progress-fill" style="width:${item.progress}%"></div></div>` : ''}
-                        </div>
-                        <div class="file-status ${s.cls}">${s.text}</div>
-                        <div class="file-actions">
-                            ${item.url ? `<a href="${item.url}" target="_blank" style="background:var(--secondary-blue);color:#fff;padding:6px 10px;border-radius:6px;text-decoration:none;font-size:12px;"><i class="fas fa-external-link-alt"></i></a>` : ''}
-                            <button onclick="removeFromQueue(${item.id})" style="color:#dc3545;"><i class="fas fa-times"></i></button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function removeFromQueue(id) {
-            uploadQueue = uploadQueue.filter(i => i.id !== id);
-            renderUploadQueue();
-        }
-
-        function clearUploadQueue() {
-            if (!confirm('Clear all files from queue?')) return;
-            uploadQueue = [];
-            renderUploadQueue();
-        }
-
-        async function uploadAllToFirebase() {
-            if (!firebaseStorage) { showToast('Firebase not ready', 'error'); return; }
-            const pending = uploadQueue.filter(i => i.status === 'pending' || i.status === 'error');
-            if (pending.length === 0) { showToast('No pending files', 'info'); return; }
-            showToast(`📤 Uploading ${pending.length} file(s)...`, 'info');
-            for (const item of pending) {
-                item.status = 'uploading';
-                renderUploadQueue();
-                try {
-                    const timestamp = Date.now();
-                    const safeName = item.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-                    const path = `uploads/${timestamp}_${safeName}`;
-                    const ref = firebaseStorage.ref(path);
-                    const task = ref.put(item.file, {
-                        contentType: item.file.type,
-                        customMetadata: { originalName: item.name }
-                    });
-                    await new Promise((resolve, reject) => {
-                        task.on('state_changed',
-                            (snap) => {
-                                item.progress = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-                                renderUploadQueue();
-                            },
-                            reject,
-                            async () => {
-                                try {
-                                    const url = await task.snapshot.ref.getDownloadURL();
-                                    item.url = url;
-                                    item.status = 'success';
-                                    item.progress = 100;
-                                    if (firebaseDB) {
-                                        await firebaseDB.collection('uploads').add({
-                                            name: item.name, size: item.size, type: item.type,
-                                            url: url, path: path,
-                                            uploadedAt: firebase.firestore.FieldValue.serverTimestamp()
-                                        });
-                                    }
-                                    renderUploadQueue();
-                                    resolve();
-                                } catch (e) { reject(e); }
-                            }
-                        );
-                    });
-                } catch (err) {
-                    console.error('Upload error:', err);
-                    item.status = 'error';
-                    renderUploadQueue();
-                }
-            }
-            showToast('✅ All uploads complete!', 'success');
-            loadCloudFiles();
-        }
-
-        async function loadCloudFiles() {
-            const container = document.getElementById('cloudFilesContainer');
-            if (!container) return;
-            if (!firebaseStorage) {
-                container.innerHTML = `<p style="text-align:center;padding:20px;color:var(--warning-red);">Firebase not ready</p>`;
-                return;
-            }
-            container.innerHTML = `<p style="text-align:center;padding:20px;color:var(--text-light);"><i class="fas fa-spinner fa-spin"></i> Loading...</p>`;
-            try {
-                const list = await firebaseStorage.ref('uploads').listAll();
-                if (list.items.length === 0) {
-                    container.innerHTML = `<p style="text-align:center;padding:20px;color:var(--text-light);"><i class="fas fa-inbox"></i> No files uploaded yet. Upload your first file above!</p>`;
-                    return;
-                }
-                const files = [];
-                for (const item of list.items) {
-                    try {
-                        const url = await item.getDownloadURL();
-                        const meta = await item.getMetadata();
-                        files.push({ name: item.name, url, size: meta.size, time: meta.timeCreated, path: item.fullPath });
-                    } catch (e) {}
-                }
-                files.sort((a, b) => new Date(b.time) - new Date(a.time));
-                container.innerHTML = files.map(f => {
-                    const type = getFileType(f.name);
-                    const colors = { pdf: '#dc3545', image: '#1976d2', excel: '#16a34a', word: '#2b5797', other: '#6c757d' };
-                    const color = colors[type];
-                    return `
-                        <div class="cloud-file-card">
-                            <div class="cf-icon" style="background:${color}15;color:${color};"><i class="fas ${getFileIcon(type)}"></i></div>
-                            <div class="cf-info">
-                                <div class="cf-name">${f.name}</div>
-                                <div class="cf-meta">${formatSize(f.size)} • ${new Date(f.time).toLocaleString()}</div>
-                            </div>
-                            <div class="cf-actions">
-                                <a href="${f.url}" target="_blank" class="btn-view"><i class="fas fa-external-link-alt"></i> View</a>
-                                <a href="${f.url}" download class="btn-download"><i class="fas fa-download"></i> Download</a>
-                                <button class="btn-delete" onclick="deleteCloudFile('${f.path}', '${f.name}')"><i class="fas fa-trash"></i> Delete</button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            } catch (err) {
-                container.innerHTML = `<p style="text-align:center;padding:20px;color:var(--warning-red);">Error: ${err.message}</p>`;
-            }
-        }
-
-        async function deleteCloudFile(path, name) {
-            if (!confirm(`Delete "${name}"?`)) return;
-            try {
-                await firebaseStorage.ref(path).delete();
-                showToast('🗑️ File deleted!', 'success');
-                loadCloudFiles();
-            } catch (err) {
-                showToast('❌ ' + err.message, 'error');
-            }
-        }
-
-        // Drag & drop setup
-        document.addEventListener('DOMContentLoaded', () => {
-            const zone = document.getElementById('uploadZone');
-            if (zone) {
-                ['dragenter', 'dragover'].forEach(e => zone.addEventListener(e, ev => {
-                    ev.preventDefault(); zone.classList.add('dragover');
-                }));
-                ['dragleave', 'drop'].forEach(e => zone.addEventListener(e, ev => {
-                    ev.preventDefault(); zone.classList.remove('dragover');
-                }));
-                zone.addEventListener('drop', ev => {
-                    const files = ev.dataTransfer.files;
-                    if (files && files.length) {
-                        for (const file of files) {
-                            uploadQueue.push({
-                                id: ++uploadIdCounter, file, name: file.name, size: file.size,
-                                type: getFileType(file.name), status: 'pending', progress: 0, url: null
-                            });
-                        }
-                        renderUploadQueue();
-                        showToast(`✅ ${files.length} file(s) added`, 'success');
-                    }
-                });
-            }
-        });
-
-        // ============================================================
-        // TOOLS SWITCH
-        // ============================================================
-        function switchTool(toolId) {
-            document.querySelectorAll('.tools-list .tool-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.tool === toolId);
-            });
-            document.querySelectorAll('.tool-content').forEach(c => {
-                c.classList.toggle('active', c.id === 'tool-' + toolId);
-            });
-        }
-
-        // ============================================================
-        // OCR
-        // ============================================================
-        async function handleImageOCR(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            document.getElementById('imageFileName').textContent = file.name;
-            document.getElementById('imageProgressBar').style.display = 'block';
-            document.getElementById('imageStatusText').classList.add('show');
-            try {
-                const reader = new FileReader();
-                reader.onload = async (e) => {
-                    const { data: { text } } = await Tesseract.recognize(e.target.result, 'hin+eng', {
-                        logger: m => {
-                            if (m.status === 'recognizing text') {
-                                document.getElementById('imageProgressFill').style.width = (m.progress * 100) + '%';
-                            }
-                        }
-                    });
-                    document.getElementById('imageResultText').value = text;
-                    document.getElementById('imageResultArea').style.display = 'block';
-                    document.getElementById('imageProgressBar').style.display = 'none';
-                    document.getElementById('imageStatusText').classList.remove('show');
-                    showToast('✅ OCR complete!', 'success');
-                };
-                reader.readAsDataURL(file);
-            } catch (err) {
-                document.getElementById('imageStatusText').classList.remove('show');
-                document.getElementById('imageProgressBar').style.display = 'none';
-                showToast('❌ OCR failed', 'error');
-            }
-        }
-
-        function copyOCRResult(id) {
-            const el = document.getElementById(id);
-            if (el.value) { navigator.clipboard.writeText(el.value); showToast('✅ Copied!', 'success'); }
-        }
-
-        function downloadOCRResult(id, filename) {
-            const el = document.getElementById(id);
-            if (!el.value) return;
-            const blob = new Blob([el.value], { type: 'text/plain;charset=utf-8' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = filename + '.txt';
-            a.click();
-            showToast('📥 Downloaded!', 'success');
-        }
-
-        function clearOCRResult(textId, areaId, nameId, inputId) {
-            document.getElementById(textId).value = '';
-            document.getElementById(areaId).style.display = 'none';
-            document.getElementById(nameId).textContent = 'No file selected';
-            document.getElementById(inputId).value = '';
-        }
-
-        // ============================================================
-        // FONT CONVERTER
-        // ============================================================
-        function convertFonts() {
-            const input = document.getElementById('fontInput').value;
-            if (!input) { showToast('Enter text first', 'error'); return; }
-            document.getElementById('fontOutput').value = devlysToUnicode(input);
-            showToast('✅ Converted!', 'success');
-        }
-
-        function devlysToUnicode(text) {
-            const map = { 'a':'अ','b':'आ','c':'इ','d':'ई','e':'उ','f':'ऊ','g':'ऋ','h':'ए','i':'ऐ','j':'ओ','k':'औ',
-                'l':'क','m':'ख','n':'ग','o':'घ','p':'ङ','q':'च','r':'छ','s':'ज','t':'झ','u':'ञ','v':'ट','w':'ठ',
-                'x':'ड','y':'ढ','z':'ण','A':'त','B':'थ','C':'द','D':'ध','E':'न','F':'प','G':'फ','H':'ब','I':'भ',
-                'J':'म','K':'य','L':'र','M':'ल','N':'व','O':'श','P':'ष','Q':'स','R':'ह','S':'क्ष','T':'त्र','U':'ज्ञ',' ':' ' };
-            return text.split('').map(c => map[c] || c).join('');
-        }
-
-        function copyFontOutput() {
-            const out = document.getElementById('fontOutput');
-            if (out.value) { navigator.clipboard.writeText(out.value); showToast('✅ Copied!', 'success'); }
-        }
-
-        function clearFontConverter() {
-            document.getElementById('fontInput').value = '';
-            document.getElementById('fontOutput').value = '';
-        }
-
-        function previewFontOutput() {
-            const out = document.getElementById('fontOutput');
-            if (!out.value) { showToast('Convert text first', 'error'); return; }
-            const overlay = document.createElement('div');
-            overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
-            overlay.innerHTML = `
-                <div style="background:#fff;padding:30px;border-radius:12px;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;font-family:'Mangal','Arial Unicode MS',sans-serif;font-size:18px;line-height:1.8;color:#333;">
-                    <h3 style="margin-top:0;color:#123c9b;">📄 Preview</h3>
-                    <p>${out.value.replace(/\n/g,'<br>')}</p>
-                    <button onclick="this.closest('div[style]').parentElement.remove()" style="padding:8px 20px;background:#dc3545;color:#fff;border:none;border-radius:6px;cursor:pointer;margin-top:15px;">Close</button>
-                </div>
-            `;
-            overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
-            document.body.appendChild(overlay);
         }
 
         // ============================================================
@@ -2033,59 +1212,35 @@
             t.className = 'toast ' + type;
             t.textContent = msg;
             document.body.appendChild(t);
-            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
+            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2500);
         }
 
         // ============================================================
         // INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', () => {
+            initLatestUpdates();
             renderNav();
-            renderFooterNav();
             renderSlidesCarousel();
             updateJobsUI();
-            renderGenericPage('career');
-            renderGenericPage('more');
-            renderGenericPage('blog');
-            renderGenericPage('rsr');
-            renderServicePage('all');
-            showSection('home');
-            console.log('✅ Dream Josh Website Ready - Public Site with ALL Sub-Sections');
-            setTimeout(() => loadCloudFiles(), 1500);
+            console.log('✅ Home page ready');
         });
 
-        // Expose globally
-        window.showSection = showSection;
+        // Expose
         window.showJobsCategory = showJobsCategory;
         window.selectCategory = selectCategory;
         window.filterSubCategory = filterSubCategory;
         window.openDetail = openDetail;
         window.closeDetail = closeDetail;
-        window.switchTool = switchTool;
-        window.handleCloudFiles = handleCloudFiles;
-        window.uploadAllToFirebase = uploadAllToFirebase;
-        window.clearUploadQueue = clearUploadQueue;
-        window.removeFromQueue = removeFromQueue;
-        window.loadCloudFiles = loadCloudFiles;
-        window.deleteCloudFile = deleteCloudFile;
-        window.handleImageOCR = handleImageOCR;
-        window.copyOCRResult = copyOCRResult;
-        window.downloadOCRResult = downloadOCRResult;
-        window.clearOCRResult = clearOCRResult;
-        window.convertFonts = convertFonts;
-        window.copyFontOutput = copyFontOutput;
-        window.clearFontConverter = clearFontConverter;
-        window.previewFontOutput = previewFontOutput;
         window.showToast = showToast;
-        window.filterGenericCategory = filterGenericCategory;
-        window.filterServiceCategory = filterServiceCategory;
-        window.handleDropdownAction = handleDropdownAction;
         window.toggleDropdownMobile = toggleDropdownMobile;
         window.closeDropdownMobile = closeDropdownMobile;
         window.changeSlide = changeSlide;
         window.goToSlide = goToSlide;
-
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+        window.openPageView = openPageView;
+        window.closePageView = closePageView;
+        window.pageViewNext = pageViewNext;
+        window.pageViewBack = pageViewBack;
     </script>
 
 </body>
