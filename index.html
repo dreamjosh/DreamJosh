@@ -31,7 +31,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body {
             height: 100%;
-            overflow: hidden; /* पूरा page scroll नहीं होगा */
+            overflow: hidden;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -54,12 +54,13 @@
             font-size: 20px; font-weight: bold; cursor: pointer;
             color: #fff; user-select: none;
             display: flex; align-items: center; gap: 8px;
+            white-space: nowrap;
         }
         .app-header .logo span { color: var(--gold); }
         .app-header .header-controls {
             display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-            max-width: 75%;
             justify-content: flex-end;
+            max-width: 78%;
         }
         .app-header .header-controls .nav-btn {
             background: rgba(255, 255, 255, 0.12);
@@ -83,6 +84,7 @@
             transition: 0.3s; white-space: nowrap;
         }
         .dropdown-wrapper .dropdown-btn:hover { background: var(--gold); color: #0a0e1a; }
+        .dropdown-wrapper .dropdown-btn.active { background: var(--gold); color: #0a0e1a; }
         .dropdown-wrapper .dropdown-btn .arrow { font-size: 10px; margin-left: 3px; }
         .dropdown-wrapper:hover .dropdown-content,
         .dropdown-wrapper .dropdown-content.show { display: block; animation: dropdownFade 0.25s ease; }
@@ -111,7 +113,7 @@
         }
         .dropdown-wrapper .dropdown-content .dropdown-item-icon { margin-right: 8px; }
 
-        /* MAIN CONTENT AREA — यही scroll होगा */
+        /* MAIN SCROLL AREA */
         .main-scroll-area {
             flex: 1;
             overflow-y: auto;
@@ -120,6 +122,14 @@
             scroll-behavior: smooth;
         }
         .section-container { max-width: 1200px; margin: 0 auto; }
+
+        /* PAGE VIEWS */
+        .page-view { display: none; animation: fadeInSection 0.35s ease; }
+        .page-view.active { display: block; }
+        @keyframes fadeInSection {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* HOME */
         .home-original {
@@ -163,7 +173,7 @@
             background: var(--secondary-blue); color: #fff; font-size: 13px;
         }
 
-        /* LATEST UPDATES — vertical auto-scroll */
+        /* LATEST UPDATES auto-scroll */
         .home-original .notice {
             height: 140px;
             overflow: hidden;
@@ -224,13 +234,6 @@
         .social-links a.facebook { background: #1877F2; color: #fff; }
         .social-links a:hover { transform: scale(1.15); }
 
-        @media (max-width: 768px) {
-            .home-original .home-layout { flex-direction: column; }
-            .home-original .left-content, .home-original .right-sidebar { width: 100%; }
-            .home-original header h1 { font-size: 22px; }
-            .main-scroll-area { padding: 10px; }
-        }
-
         /* JOBS */
         .job-grid-wrapper {
             margin: 16px 0; padding: 16px; background: var(--card-bg);
@@ -289,7 +292,83 @@
             border-color: var(--secondary-blue);
         }
 
-        /* DETAIL OVERLAY — full page view */
+        /* GENERIC PAGE CONTENT */
+        .generic-page-box {
+            background: var(--card-bg); border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 24px; box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        .generic-page-box h2 {
+            color: var(--primary-blue); margin-bottom: 12px; font-size: 22px;
+        }
+        .generic-page-box h3 {
+            color: var(--primary-blue); margin: 18px 0 8px; font-size: 17px;
+        }
+        .generic-page-box p { margin: 8px 0; line-height: 1.7; font-size: 14px; }
+        .generic-page-box ul, .generic-page-box ol { padding-left: 22px; }
+        .generic-page-box blockquote {
+            border-left: 4px solid var(--secondary-blue);
+            padding: 8px 16px; margin: 10px 0;
+            background: var(--editor-toolbar-bg); border-radius: 0 4px 4px 0;
+        }
+        .generic-page-box .item-list { list-style: none; padding: 0; margin-top: 14px; }
+        .generic-page-box .item-list li {
+            padding: 12px 14px; background: var(--bg-color);
+            border-radius: 8px; margin-bottom: 8px;
+            border-left: 3px solid var(--secondary-blue);
+        }
+        .generic-page-box .item-list li .item-title {
+            font-weight: 700; font-size: 15px; color: var(--text-color);
+        }
+        .generic-page-box .item-list li .item-desc {
+            font-size: 13px; color: var(--text-light); margin-top: 4px;
+        }
+        .generic-page-box .item-list li .item-link {
+            display: inline-block; padding: 2px 10px;
+            background: var(--secondary-blue); color: #fff;
+            border-radius: 4px; font-size: 10px;
+            text-decoration: none; margin-left: 8px; font-weight: 600;
+        }
+        .page-header-line {
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .page-header-line h2 {
+            font-size: 22px; color: var(--primary-blue); margin: 0;
+        }
+        .page-header-line .item-counter {
+            background: var(--secondary-blue); color: #fff;
+            padding: 4px 14px; border-radius: 20px;
+            font-size: 12px; font-weight: 600;
+        }
+        .page-nav-buttons {
+            display: flex; gap: 8px; margin-top: 16px;
+            padding-top: 14px; border-top: 1px solid var(--border-color);
+            justify-content: space-between; flex-wrap: wrap;
+        }
+        .page-nav-buttons button {
+            padding: 8px 20px; border-radius: 10px;
+            border: none; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .page-nav-buttons .btn-prev {
+            background: var(--card-hover); color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+        .page-nav-buttons .btn-prev:hover:not(:disabled) { background: var(--secondary-blue); color: #fff; }
+        .page-nav-buttons .btn-next {
+            background: var(--secondary-blue); color: #fff;
+        }
+        .page-nav-buttons .btn-next:hover:not(:disabled) { background: var(--primary-blue); }
+        .page-nav-buttons button:disabled {
+            opacity: 0.4; cursor: not-allowed;
+        }
+
+        /* DETAIL OVERLAY */
         .detail-overlay {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.6); z-index: 2000; backdrop-filter: blur(8px);
@@ -331,78 +410,7 @@
             border: 1px solid var(--border-color);
         }
 
-        /* PAGE VIEW — Next/Back navigation */
-        .page-view-overlay {
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--bg-color); z-index: 3000;
-            flex-direction: column;
-        }
-        .page-view-overlay.active { display: flex; }
-        .page-view-header {
-            background: var(--header-bg); padding: 10px 16px;
-            display: flex; justify-content: space-between; align-items: center;
-            height: 60px; flex-shrink: 0; color: #fff;
-            padding-top: calc(10px + var(--safe-top));
-        }
-        .page-view-header .page-title {
-            font-size: 16px; font-weight: 700;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .page-view-header .page-controls {
-            display: flex; gap: 8px; align-items: center;
-        }
-        .page-view-header .page-controls button {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff; padding: 6px 14px; border-radius: 18px;
-            cursor: pointer; font-size: 12px; font-weight: 600;
-            transition: 0.3s;
-            display: inline-flex; align-items: center; gap: 5px;
-        }
-        .page-view-header .page-controls button:hover:not(:disabled) {
-            background: var(--gold); color: #0a0e1a;
-        }
-        .page-view-header .page-controls button:disabled {
-            opacity: 0.4; cursor: not-allowed;
-        }
-        .page-view-body {
-            flex: 1; overflow-y: auto; padding: 20px;
-        }
-        .page-view-inner {
-            max-width: 900px; margin: 0 auto;
-            background: var(--card-bg); border-radius: 14px;
-            border: 1px solid var(--border-color); padding: 24px;
-            line-height: 1.8; font-size: 15px;
-        }
-        .page-view-inner h2 { color: var(--primary-blue); margin-bottom: 12px; }
-        .page-view-inner h3 { color: var(--primary-blue); margin: 18px 0 8px; font-size: 17px; }
-        .page-view-inner p { margin: 8px 0; }
-        .page-view-inner ul, .page-view-inner ol { padding-left: 22px; }
-        .page-view-inner blockquote {
-            border-left: 4px solid var(--secondary-blue);
-            padding: 8px 16px; margin: 10px 0;
-            background: var(--editor-toolbar-bg); border-radius: 0 4px 4px 0;
-        }
-        .page-view-inner .item-list { list-style: none; padding: 0; }
-        .page-view-inner .item-list li {
-            padding: 12px 14px; background: var(--bg-color);
-            border-radius: 8px; margin-bottom: 8px;
-            border-left: 3px solid var(--secondary-blue);
-        }
-        .page-view-inner .item-list li .item-title {
-            font-weight: 700; font-size: 15px; color: var(--text-color);
-        }
-        .page-view-inner .item-list li .item-desc {
-            font-size: 13px; color: var(--text-light); margin-top: 4px;
-        }
-        .page-view-inner .item-list li .item-link {
-            display: inline-block; padding: 2px 10px;
-            background: var(--secondary-blue); color: #fff;
-            border-radius: 4px; font-size: 10px;
-            text-decoration: none; margin-left: 8px; font-weight: 600;
-        }
-
-        /* FOOTER — सिर्फ कॉपीराइट */
+        /* FOOTER */
         .app-footer {
             flex-shrink: 0;
             background: var(--footer-bg); padding: 10px 16px;
@@ -428,22 +436,36 @@
         .toast.success { background: #16a34a; }
         .toast.error { background: #dc3545; }
         .toast.info { background: #1976d2; }
+
+        @media (max-width: 768px) {
+            .home-original .home-layout { flex-direction: column; }
+            .home-original .left-content, .home-original .right-sidebar { width: 100%; }
+            .home-original header h1 { font-size: 22px; }
+            .main-scroll-area { padding: 10px; }
+            .app-header .header-controls { max-width: 70%; gap: 4px; }
+            .app-header .header-controls .nav-btn { font-size: 10px; padding: 4px 9px; }
+            .dropdown-wrapper .dropdown-btn { font-size: 10px; padding: 4px 9px; }
+            .generic-page-box { padding: 16px; }
+            .page-header-line h2 { font-size: 18px; }
+        }
     </style>
 </head>
 <body>
 
     <!-- HEADER -->
     <header class="app-header">
-        <div class="logo" onclick="location.reload()">
+        <div class="logo" onclick="showPage('home')">
             🚀 <span>Dream</span>Josh
         </div>
         <div class="header-controls" id="dynamicNav"></div>
     </header>
 
     <!-- MAIN SCROLL AREA -->
-    <div class="main-scroll-area">
+    <div class="main-scroll-area" id="mainScrollArea">
         <div class="section-container">
-            <section id="home">
+
+            <!-- 🏠 HOME PAGE — सिर्फ about, ticker, slides, sidebar (NO JOBS) -->
+            <section class="page-view active" id="page-home">
                 <div class="home-original">
                     <header>
                         <h1>🚀 DREAM JOSH</h1>
@@ -472,35 +494,14 @@
                                     </div>
                                 </div>
 
-                                <!-- SLIDES CAROUSEL -->
                                 <div id="slidesCarouselContainer" style="margin:16px 0;"></div>
-
-                                <div class="job-grid-wrapper" id="jobsSectionWrapper">
-                                    <div class="jobs-header">
-                                        <h3>💼 <span>Jobs</span></h3>
-                                        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-                                            <span class="total-badge" id="totalJobsBadge">Total: 0</span>
-                                            <span style="font-size:11px;color:var(--text-light);" id="selectedCategoryLabel">🏛️ Central Govt.</span>
-                                        </div>
-                                    </div>
-                                    <div class="sub-cat-filter" id="subCategoryFilter">
-                                        <button class="sub-btn active" data-sub="all" onclick="filterSubCategory('all')">📌 All</button>
-                                    </div>
-                                    <div class="job-info-box">
-                                        <div class="job-count" id="jobCountDisplay">🇮🇳 Central Govt. Jobs: <span id="jobCount">0</span></div>
-                                        <div class="job-detail" id="jobDetailDisplay">UPSC • SSC • Railway • Banking</div>
-                                    </div>
-                                    <div class="job-grid" id="jobsGrid"></div>
-                                </div>
                             </div>
 
                             <div class="right-sidebar">
                                 <div class="sidebar-box">
                                     <h3>📢 Latest Updates</h3>
                                     <div class="notice" id="latestUpdatesBox">
-                                        <ul id="latestUpdatesList">
-                                            <!-- items JS से भरेंगे -->
-                                        </ul>
+                                        <ul id="latestUpdatesList"></ul>
                                     </div>
                                 </div>
                                 <div class="sidebar-box">
@@ -529,10 +530,133 @@
                     </div>
                 </div>
             </section>
+
+            <!-- 💼 JOBS PAGE — अब अलग page, dropdown से click करने पर खुलेगा -->
+            <section class="page-view" id="page-jobs">
+                <div class="generic-page-box">
+                    <div class="page-header-line">
+                        <h2 id="jobsPageTitle">💼 All Jobs</h2>
+                        <span class="item-counter" id="jobsPageCounter">0 jobs</span>
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+                        <span class="total-badge" id="totalJobsBadge" style="background:var(--secondary-blue);color:#fff;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:600;">Total: 0</span>
+                        <span style="font-size:11px;color:var(--text-light);" id="selectedCategoryLabel">🏛️ Central Govt.</span>
+                    </div>
+
+                    <div class="sub-cat-filter" id="subCategoryFilter">
+                        <button class="sub-btn active" data-sub="all" onclick="filterSubCategory('all')">📌 All</button>
+                    </div>
+
+                    <div class="job-info-box">
+                        <div class="job-count" id="jobCountDisplay">🇮🇳 Central Govt. Jobs: <span id="jobCount">0</span></div>
+                        <div class="job-detail" id="jobDetailDisplay">UPSC • SSC • Railway • Banking</div>
+                    </div>
+
+                    <div class="job-grid" id="jobsGrid"></div>
+                </div>
+            </section>
+
+            <!-- 🎯 CAREER PAGE -->
+            <section class="page-view" id="page-career">
+                <div class="generic-page-box">
+                    <div class="page-header-line">
+                        <h2>🎯 Career</h2>
+                        <span class="item-counter" id="careerCounter">0 items</span>
+                    </div>
+                    <div id="careerContent"></div>
+                    <div class="page-nav-buttons">
+                        <button class="btn-prev" id="careerPrev" onclick="pageItemPrev('career')">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn-next" id="careerNext" onclick="pageItemNext('career')">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ⚙️ MORE PAGE -->
+            <section class="page-view" id="page-more">
+                <div class="generic-page-box">
+                    <div class="page-header-line">
+                        <h2>⚙️ More – Study & Books</h2>
+                        <span class="item-counter" id="moreCounter">0 items</span>
+                    </div>
+                    <div id="moreContent"></div>
+                    <div class="page-nav-buttons">
+                        <button class="btn-prev" id="morePrev" onclick="pageItemPrev('more')">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn-next" id="moreNext" onclick="pageItemNext('more')">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 🛠️ SERVICES PAGE -->
+            <section class="page-view" id="page-service">
+                <div class="generic-page-box">
+                    <div class="page-header-line">
+                        <h2>🛠️ Services</h2>
+                        <span class="item-counter" id="serviceCounter">0 items</span>
+                    </div>
+                    <div id="serviceContent"></div>
+                    <div class="page-nav-buttons">
+                        <button class="btn-prev" id="servicePrev" onclick="pageItemPrev('service')">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn-next" id="serviceNext" onclick="pageItemNext('service')">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 📝 BLOG PAGE -->
+            <section class="page-view" id="page-blog">
+                <div class="generic-page-box">
+                    <div class="page-header-line">
+                        <h2>📝 Blog</h2>
+                        <span class="item-counter" id="blogCounter">0 items</span>
+                    </div>
+                    <div id="blogContent"></div>
+                    <div class="page-nav-buttons">
+                        <button class="btn-prev" id="blogPrev" onclick="pageItemPrev('blog')">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn-next" id="blogNext" onclick="pageItemNext('blog')">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 📜 RSR PAGE -->
+            <section class="page-view" id="page-rsr">
+                <div class="generic-page-box">
+                    <div class="page-header-line">
+                        <h2>📜 RSR – Rajasthan Service Rules</h2>
+                    </div>
+                    <div id="rsrContent"></div>
+                </div>
+            </section>
+
+            <!-- 🛠️ TOOLS PAGE -->
+            <section class="page-view" id="page-tools">
+                <div class="generic-page-box">
+                    <div class="page-header-line">
+                        <h2>🛠️ Tools</h2>
+                    </div>
+                    <div id="toolsContent"></div>
+                </div>
+            </section>
+
         </div>
     </div>
 
-    <!-- FOOTER — सिर्फ कॉपीराइट -->
+    <!-- FOOTER -->
     <footer class="app-footer">
         <div class="footer-text">© 2026 <span>Dream Josh</span> Powered</div>
     </footer>
@@ -545,45 +669,9 @@
         </div>
     </div>
 
-    <!-- PAGE VIEW OVERLAY (Next/Back navigation) -->
-    <div class="page-view-overlay" id="pageViewOverlay">
-        <div class="page-view-header">
-            <div class="page-title" id="pageViewTitle">📄 Page</div>
-            <div class="page-controls">
-                <button id="pageBackBtn" onclick="pageViewBack()" disabled>
-                    <i class="fas fa-arrow-left"></i> Back
-                </button>
-                <button id="pageNextBtn" onclick="pageViewNext()">
-                    Next <i class="fas fa-arrow-right"></i>
-                </button>
-                <button onclick="closePageView()">
-                    <i class="fas fa-times"></i> Close
-                </button>
-            </div>
-        </div>
-        <div class="page-view-body">
-            <div class="page-view-inner" id="pageViewInner"></div>
-        </div>
-    </div>
-
     <script>
         // ============================================================
-        // 🔗 PAGE LINKS — Admin panel se change kar sakte hain
-        // ============================================================
-        const PAGE_LINKS = {
-    home:    'index.html',          // ✅ सही
-    career:  'career.html',          // ✅ सही
-    more:    'more.html',            // ✅ सही
-    service: 'services.html',        // ✅ सही
-    blog:    'blog.html',            // ✅ सही
-    rsr:     'rsr.html',             // ✅ सही
-    tools:   'tools.html',           // ✅ सही
-    jobs:    'jobs.html',            // 🆕 नया जोड़ें
-    admin:   'admin.html'            // 🆕 नया जोड़ें
-};
-
-        // ============================================================
-        // 📦 LATEST UPDATES — यहाँ updates add करें
+        // 📦 LATEST UPDATES
         // ============================================================
         const LATEST_UPDATES = [
             '🔴 SSC CGL 2026 Notification जल्दी आ रही है',
@@ -601,7 +689,7 @@
         ];
 
         // ============================================================
-        // 📄 PAGE CONTENT DATA — हर page का content
+        // 📄 PAGE DATA
         // ============================================================
         const PAGE_DATA = {
             career: {
@@ -711,21 +799,21 @@
             { id: 1, title: 'IAS (Indian Administrative Service)', jobType: 'central', subCat: 'Administrative',
                 department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate (Any Discipline)', age: '21-32 Years',
                 lastDate: '2026-06-01', experience: 'Freshers can apply',
-                description: '<b>IAS</b> is the premier civil service of India. <ul><li>🔹 All India Service</li><li>🔹 Top Administrative Post</li><li>🔹 Prestigious Career</li></ul>',
+                description: '<b>IAS</b> is the premier civil service of India.',
                 website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', visibility: 'public' },
             { id: 2, title: 'IPS (Indian Police Service)', jobType: 'central', subCat: 'Administrative', department: 'UPSC',
                 post: 'IPS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01',
                 experience: 'Freshers',
-                description: '<b>IPS</b> maintains law and order. <ul><li>🔹 Police Service</li><li>🔹 Law Enforcement</li><li>🔹 National Security</li></ul>',
+                description: '<b>IPS</b> maintains law and order.',
                 website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', visibility: 'public' },
             { id: 3, title: 'RBI Grade B Officer', jobType: 'central', subCat: 'Banking', department: 'RBI',
                 post: 'Grade B Officer', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-10',
                 experience: 'Freshers',
-                description: '<b>RBI Grade B</b> is the most prestigious banking exam. <ul><li>🔹 Central Banking</li><li>🔹 Monetary Policy</li><li>🔹 Financial Stability</li></ul>',
+                description: '<b>RBI Grade B</b> is the most prestigious banking exam.',
                 website: 'https://rbi.org.in', applyLink: 'https://rbi.org.in/apply', visibility: 'public' },
             { id: 4, title: 'SBI PO (Probationary Officer)', jobType: 'central', subCat: 'Banking', department: 'SBI',
                 post: 'PO', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-15', experience: 'Freshers',
-                description: '<b>SBI PO</b> is the top banking job in India. <ul><li>🔹 Largest Bank</li><li>🔹 Fast Career Growth</li><li>🔹 Attractive Salary</li></ul>',
+                description: '<b>SBI PO</b> is the top banking job in India.',
                 website: 'https://sbi.co.in', applyLink: 'https://sbi.co.in/apply', visibility: 'public' },
             { id: 5, title: 'RRB NTPC (Non-Technical)', jobType: 'central', subCat: 'Railway', department: 'RRB',
                 post: 'Various NTPC Posts', eligibility: '12th/Graduate', age: '18-33 Years', lastDate: '2026-05-30',
@@ -789,82 +877,91 @@
         let jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
         let currentCategory = 'central';
         let currentSubCategory = 'all';
+        let showAllJobsMode = false; // true होने पर All Jobs दिखें
 
-        // Page view state
-        let currentPageKey = null;
-        let currentPageItems = [];
-        let currentPageIndex = 0;
+        const pageItemIndex = { career: 0, more: 0, service: 0, blog: 0 };
 
         // ============================================================
-        // LATEST UPDATES SCROLL
-        // ============================================================
-        function initLatestUpdates() {
-            const list = document.getElementById('latestUpdatesList');
-            if (!list) return;
-            // Duplicate items for seamless infinite scroll
-            const doubled = [...LATEST_UPDATES, ...LATEST_UPDATES];
-            list.innerHTML = doubled.map(txt => `<li>${txt}</li>`).join('');
-        }
-
-        // ============================================================
-        // RENDER HEADER NAV
+        // HEADER NAV — dropdowns वैसे ही
         // ============================================================
         function renderNav() {
             const nav = document.getElementById('dynamicNav');
 
-            let html = `<a class="nav-btn active" href="javascript:void(0)" data-section="home">🏠 Home</a>`;
+            let html = `<button class="nav-btn active" data-page="home" onclick="showPage('home')">🏠 Home</button>`;
 
-            // Jobs dropdown
+            // 💼 Jobs dropdown — click पर Jobs page खुलेगा
             html += `
                 <div class="dropdown-wrapper" id="govtDropdown">
                     <button class="dropdown-btn" onclick="toggleDropdownMobile('govt', event)">💼 Jobs <span class="arrow">▾</span></button>
                     <div class="dropdown-content" id="govtDropdownContent">
                         <div class="dropdown-label">📂 Select Category</div>
-                        <a href="javascript:void(0)" onclick="showJobsCategory('central'); closeDropdownMobile('govt');">
+                        <a href="javascript:void(0)" onclick="openJobsPage('central'); closeDropdownMobile('govt');">
                             🏛️ Central Govt. <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="centralCount">0</span>
                         </a>
-                        <a href="javascript:void(0)" onclick="showJobsCategory('state'); closeDropdownMobile('govt');">
+                        <a href="javascript:void(0)" onclick="openJobsPage('state'); closeDropdownMobile('govt');">
                             🏜️ Rajasthan Govt. <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="stateCount">0</span>
                         </a>
-                        <a href="javascript:void(0)" onclick="showJobsCategory('private'); closeDropdownMobile('govt');">
+                        <a href="javascript:void(0)" onclick="openJobsPage('private'); closeDropdownMobile('govt');">
                             💼 Private <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="privateCount">0</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="openJobsPage('all'); closeDropdownMobile('govt');">
+                            📋 All Jobs
                         </a>
                     </div>
                 </div>
             `;
 
-            // Career, More, Service, Blog, RSR dropdowns — open in page view
-            const pages = [
-                { key: 'career', label: '🎯 Career' },
-                { key: 'more', label: '⚙️ More' },
-                { key: 'service', label: '🛠️ Services' },
-                { key: 'blog', label: '📝 Blog' },
-                { key: 'rsr', label: '📜 RSR' }
-            ];
-            pages.forEach(p => {
-                html += `
-                    <div class="dropdown-wrapper" id="${p.key}Dropdown">
-                        <button class="dropdown-btn" onclick="toggleDropdownMobile('${p.key}', event)">${p.label} <span class="arrow">▾</span></button>
-                        <div class="dropdown-content" id="${p.key}DropdownContent">
-                            <div class="dropdown-label">📂 ${p.label}</div>
-                            <a href="javascript:void(0)" onclick="openPageView('${p.key}', 0); closeDropdownMobile('${p.key}');">
-                                <i class="fas fa-th-list dropdown-item-icon"></i> 📋 All
-                            </a>
-                            ${(PAGE_DATA[p.key]?.items || []).map((item, idx) => `
-                                <a href="javascript:void(0)" onclick="openPageView('${p.key}', ${idx}); closeDropdownMobile('${p.key}');">
-                                    <i class="fas fa-angle-right dropdown-item-icon"></i> ${item.title}
-                                </a>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            });
+            // 🎯 Career dropdown
+            html += buildDropdown('career', '🎯 Career', 'career');
+            // ⚙️ More dropdown
+            html += buildDropdown('more', '⚙️ More', 'more');
+            // 🛠️ Services dropdown
+            html += buildDropdown('service', '🛠️ Services', 'service');
+            // 📝 Blog dropdown
+            html += buildDropdown('blog', '📝 Blog', 'blog');
 
-            // Tools
-            html += `<a class="nav-btn" href="javascript:void(0)" onclick="openPageView('tools', 0)">🛠️ Tools</a>`;
+            // 📜 RSR dropdown
+            html += `
+                <div class="dropdown-wrapper" id="rsrDropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdownMobile('rsr', event)">📜 RSR <span class="arrow">▾</span></button>
+                    <div class="dropdown-content" id="rsrDropdownContent">
+                        <div class="dropdown-label">📂 RSR</div>
+                        <a href="javascript:void(0)" onclick="showPage('rsr'); closeDropdownMobile('rsr');">
+                            <i class="fas fa-gavel dropdown-item-icon"></i> 📜 All Rules
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            // 🛠️ Tools
+            html += `<button class="nav-btn" data-page="tools" onclick="showPage('tools')">🛠️ Tools</button>`;
 
             nav.innerHTML = html;
             updateJobCounts();
+        }
+
+        function buildDropdown(key, label, pageKey) {
+            const items = PAGE_DATA[pageKey]?.items || [];
+            const itemsHtml = items.length > 0
+                ? items.map((item, idx) => `
+                    <a href="javascript:void(0)" onclick="showPage('${pageKey}'); setPageItem('${pageKey}', ${idx}); closeDropdownMobile('${key}');">
+                        <i class="fas fa-angle-right dropdown-item-icon"></i> ${item.title}
+                    </a>
+                `).join('')
+                : '';
+
+            return `
+                <div class="dropdown-wrapper" id="${key}Dropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdownMobile('${key}', event)">${label} <span class="arrow">▾</span></button>
+                    <div class="dropdown-content" id="${key}DropdownContent">
+                        <div class="dropdown-label">📂 ${label}</div>
+                        <a href="javascript:void(0)" onclick="showPage('${pageKey}'); setPageItem('${pageKey}', 0); closeDropdownMobile('${key}');">
+                            <i class="fas fa-th-list dropdown-item-icon"></i> 📋 Open All
+                        </a>
+                        ${itemsHtml}
+                    </div>
+                </div>
+            `;
         }
 
         function toggleDropdownMobile(name, event) {
@@ -897,49 +994,175 @@
         }
 
         // ============================================================
-        // PAGE VIEW (Next/Back navigation)
+        // SHOW PAGE
         // ============================================================
-        function openPageView(pageKey, itemIndex = 0) {
-            const page = PAGE_DATA[pageKey];
-            if (!page) {
-                showToast('Page not found', 'error');
-                return;
+        function showPage(pageKey) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById('page-' + pageKey);
+            if (target) target.classList.add('active');
+
+            // Nav active state
+            document.querySelectorAll('.app-header .nav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.page === pageKey);
+            });
+            document.querySelectorAll('.app-header .dropdown-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const map = { career: 'career', more: 'more', service: 'service', blog: 'blog', rsr: 'rsr', jobs: 'govt' };
+            if (map[pageKey]) {
+                const el = document.querySelector(`#${map[pageKey]}Dropdown .dropdown-btn`);
+                if (el) el.classList.add('active');
             }
-            currentPageKey = pageKey;
-            currentPageItems = page.items || [];
-            currentPageIndex = itemIndex;
 
-            document.getElementById('pageViewTitle').textContent = page.title;
+            // Render specific page content
+            if (pageKey === 'career')  renderGenericPage('career');
+            if (pageKey === 'more')    renderGenericPage('more');
+            if (pageKey === 'service') renderGenericPage('service');
+            if (pageKey === 'blog')    renderGenericPage('blog');
+            if (pageKey === 'rsr')     renderRsrPage();
+            if (pageKey === 'tools')   renderToolsPage();
+            if (pageKey === 'jobs')    renderJobsPage();
+            if (pageKey === 'home')    renderSlidesCarousel();
 
-            renderPageViewContent();
-
-            document.getElementById('pageViewOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-
-            // Scroll to top of page body
-            setTimeout(() => {
-                const body = document.querySelector('.page-view-body');
-                if (body) body.scrollTop = 0;
-            }, 50);
+            const scrollArea = document.getElementById('mainScrollArea');
+            if (scrollArea) scrollArea.scrollTop = 0;
         }
 
-        function renderPageViewContent() {
-            const page = PAGE_DATA[currentPageKey];
-            if (!page) return;
-            const inner = document.getElementById('pageViewInner');
+        function setPageItem(pageKey, idx) {
+            pageItemIndex[pageKey] = idx;
+        }
 
-            // Base content
+        // ============================================================
+        // JOBS PAGE — dropdown से खुलने वाला
+        // ============================================================
+        function openJobsPage(category) {
+            if (category === 'all') {
+                showAllJobsMode = true;
+            } else {
+                showAllJobsMode = false;
+                currentCategory = category;
+                currentSubCategory = 'all';
+            }
+            showPage('jobs');
+        }
+
+        function renderJobsPage() {
+            const titleEl = document.getElementById('jobsPageTitle');
+            const counterEl = document.getElementById('jobsPageCounter');
+            const badgeEl = document.getElementById('totalJobsBadge');
+            const catLabelEl = document.getElementById('selectedCategoryLabel');
+            const infoBoxEl = document.getElementById('jobInfoBox');
+            const subFilterEl = document.getElementById('subCategoryFilter');
+            const grid = document.getElementById('jobsGrid');
+            const countDisplay = document.getElementById('jobCountDisplay');
+            const detailDisplay = document.getElementById('jobDetailDisplay');
+
+            const publicJobs = jobsData.filter(j => j.visibility !== 'private');
+
+            let filtered;
+            let info;
+
+            if (showAllJobsMode) {
+                // All jobs दिखाओ
+                filtered = publicJobs;
+                info = { label: '📋 All Jobs', icon: '📋',
+                    detail: 'Central • Rajasthan • Private — All Categories' };
+                if (titleEl) titleEl.textContent = '💼 All Jobs';
+                if (catLabelEl) catLabelEl.textContent = info.label;
+                if (subFilterEl) subFilterEl.style.display = 'none';
+            } else {
+                // Category filter
+                filtered = publicJobs.filter(j => j.jobType === currentCategory);
+                if (currentSubCategory !== 'all') {
+                    const subDisplay = SUB_CATEGORIES[currentCategory].find(s => s.toLowerCase() === currentSubCategory);
+                    if (subDisplay && subDisplay !== 'All') {
+                        filtered = filtered.filter(j => j.subCat === subDisplay);
+                    }
+                }
+                info = CATEGORY_INFO[currentCategory];
+                const total = publicJobs.filter(j => j.jobType === currentCategory).length;
+                if (titleEl) titleEl.textContent = info.icon + ' ' + info.label + ' Jobs';
+                if (catLabelEl) catLabelEl.textContent = info.label;
+                if (badgeEl) badgeEl.textContent = `Total: ${total}`;
+                if (subFilterEl) {
+                    subFilterEl.style.display = 'flex';
+                    const subs = SUB_CATEGORIES[currentCategory] || ['All'];
+                    subFilterEl.innerHTML = subs.map(s =>
+                        `<button class="sub-btn ${(s === 'All' && currentSubCategory === 'all') || s.toLowerCase() === currentSubCategory ? 'active' : ''}" onclick="filterSubCategory('${s.toLowerCase()}')">${s === 'All' ? '📌 All' : s}</button>`
+                    ).join('');
+                }
+            }
+
+            if (counterEl) counterEl.textContent = `${filtered.length} jobs`;
+            if (badgeEl && showAllJobsMode) badgeEl.textContent = `Total: ${publicJobs.length}`;
+            if (countDisplay) countDisplay.innerHTML = info.icon + ' ' + (showAllJobsMode ? 'All' : info.label) + ' Jobs: <span id="jobCount">' + filtered.length + '</span>';
+            if (detailDisplay) detailDisplay.textContent = info.detail;
+
+            // Sidebar total update
+            const sidebarTotal = document.getElementById('totalJobsSidebar');
+            if (sidebarTotal) sidebarTotal.textContent = publicJobs.length;
+
+            renderJobsGrid(filtered, grid);
+        }
+
+        function filterSubCategory(sub) {
+            currentSubCategory = sub;
+            renderJobsPage();
+        }
+
+        function renderJobsGrid(jobs, grid) {
+            if (!grid) return;
+            grid.innerHTML = '';
+            if (jobs.length === 0) {
+                grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text-light);font-size:14px;">No jobs available in this category</div>`;
+                return;
+            }
+            const iconMap = { central: '🏛️', state: '🏜️', private: '💼' };
+            jobs.forEach((job) => {
+                const card = document.createElement('div');
+                card.className = 'job-card';
+                card.innerHTML = `
+                    <div class="job-icon">${iconMap[job.jobType] || '📌'}</div>
+                    <div class="job-title">${job.title || 'Untitled'}</div>
+                    <div class="job-meta">${job.department || ''} | ${job.post || ''}</div>
+                    <div class="job-meta" style="font-size:10px;opacity:0.5;">${job.eligibility || ''}</div>
+                `;
+                const idx = jobsData.indexOf(job);
+                card.addEventListener('click', () => openDetail(idx));
+                grid.appendChild(card);
+            });
+        }
+
+        // ============================================================
+        // GENERIC PAGE (Career, More, Service, Blog)
+        // ============================================================
+        function renderGenericPage(pageKey) {
+            const page = PAGE_DATA[pageKey];
+            if (!page) return;
+
+            const container = document.getElementById(`${pageKey}Content`);
+            const counter   = document.getElementById(`${pageKey}Counter`);
+            const prevBtn   = document.getElementById(`${pageKey}Prev`);
+            const nextBtn   = document.getElementById(`${pageKey}Next`);
+
+            if (!container) return;
+
+            const items = page.items || [];
+            if (counter) counter.textContent = `${items.length} items`;
+
             let html = page.content || '';
 
-            // If items exist, show current item only
-            if (currentPageItems.length > 0) {
-                const item = currentPageItems[currentPageIndex];
-                const linkHtml = item.link ?
-                    `<a href="${item.link}" target="_blank" class="item-link"><i class="fas fa-external-link-alt"></i> Visit</a>` : '';
+            if (items.length > 0) {
+                const idx = pageItemIndex[pageKey] || 0;
+                const item = items[idx];
+                const linkHtml = item.link
+                    ? `<a href="${item.link}" target="_blank" class="item-link"><i class="fas fa-external-link-alt"></i> Visit</a>`
+                    : '';
+
                 html += `
                     <div style="margin-top:20px;border-top:2px solid var(--border-color);padding-top:16px;">
                         <h3 style="color:var(--primary-blue);margin-bottom:12px;">
-                            📂 Item ${currentPageIndex + 1} of ${currentPageItems.length}
+                            📂 Item ${idx + 1} of ${items.length}
                         </h3>
                         <ul class="item-list">
                             <li>
@@ -952,140 +1175,47 @@
                 `;
             }
 
-            inner.innerHTML = html;
+            container.innerHTML = html;
 
-            // Update buttons
-            const backBtn = document.getElementById('pageBackBtn');
-            const nextBtn = document.getElementById('pageNextBtn');
-
-            if (currentPageItems.length <= 1) {
-                backBtn.disabled = true;
-                nextBtn.disabled = true;
-                backBtn.style.display = 'none';
-                nextBtn.style.display = 'none';
+            if (items.length <= 1) {
+                if (prevBtn) prevBtn.disabled = true;
+                if (nextBtn) nextBtn.disabled = true;
             } else {
-                backBtn.style.display = 'inline-flex';
-                nextBtn.style.display = 'inline-flex';
-                backBtn.disabled = currentPageIndex === 0;
-                nextBtn.disabled = currentPageIndex === currentPageItems.length - 1;
+                if (prevBtn) prevBtn.disabled = (pageItemIndex[pageKey] === 0);
+                if (nextBtn) nextBtn.disabled = (pageItemIndex[pageKey] === items.length - 1);
             }
         }
 
-        function pageViewNext() {
-            if (currentPageIndex < currentPageItems.length - 1) {
-                currentPageIndex++;
-                renderPageViewContent();
-                document.querySelector('.page-view-body').scrollTop = 0;
+        function pageItemNext(pageKey) {
+            const items = PAGE_DATA[pageKey]?.items || [];
+            if (pageItemIndex[pageKey] < items.length - 1) {
+                pageItemIndex[pageKey]++;
+                renderGenericPage(pageKey);
+                document.getElementById('mainScrollArea').scrollTop = 0;
             }
         }
 
-        function pageViewBack() {
-            if (currentPageIndex > 0) {
-                currentPageIndex--;
-                renderPageViewContent();
-                document.querySelector('.page-view-body').scrollTop = 0;
+        function pageItemPrev(pageKey) {
+            if (pageItemIndex[pageKey] > 0) {
+                pageItemIndex[pageKey]--;
+                renderGenericPage(pageKey);
+                document.getElementById('mainScrollArea').scrollTop = 0;
             }
-        }
-
-        function closePageView() {
-            document.getElementById('pageViewOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-            currentPageKey = null;
-            currentPageItems = [];
-            currentPageIndex = 0;
         }
 
         // ============================================================
-        // JOBS
+        // RSR / TOOLS
         // ============================================================
-        function showJobsCategory(category) {
-            selectCategory(category);
-            setTimeout(() => {
-                const el = document.getElementById('jobsSectionWrapper');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
+        function renderRsrPage() {
+            const container = document.getElementById('rsrContent');
+            if (!container) return;
+            container.innerHTML = PAGE_DATA.rsr?.content || '';
         }
 
-        function selectCategory(category) {
-            currentCategory = category;
-            currentSubCategory = 'all';
-            updateJobsUI();
-        }
-
-        function filterSubCategory(sub) {
-            currentSubCategory = sub;
-            updateJobsUI();
-        }
-
-        function updateJobsUI() {
-            const publicJobs = jobsData.filter(j => j.visibility !== 'private');
-            let filtered = publicJobs.filter(j => j.jobType === currentCategory);
-            if (currentSubCategory !== 'all') {
-                const subDisplay = SUB_CATEGORIES[currentCategory].find(s => s.toLowerCase() === currentSubCategory);
-                if (subDisplay && subDisplay !== 'All') {
-                    filtered = filtered.filter(j => j.subCat === subDisplay);
-                }
-            }
-            const info = CATEGORY_INFO[currentCategory];
-            const totalJobs = publicJobs.filter(j => j.jobType === currentCategory).length;
-
-            updateJobCounts();
-
-            document.getElementById('selectedCategoryLabel').textContent = info.label;
-            document.getElementById('jobCount').textContent = filtered.length;
-            document.getElementById('totalJobsBadge').textContent = `Total: ${totalJobs}`;
-            document.getElementById('jobCountDisplay').innerHTML = info.icon + ' ' + info.label + ' Jobs: <span id="jobCount">' + filtered.length + '</span>';
-            document.getElementById('jobDetailDisplay').textContent = info.detail;
-            document.getElementById('totalJobsSidebar').textContent = publicJobs.length;
-            renderJobs(filtered);
-
-            const subContainer = document.getElementById('subCategoryFilter');
-            const subs = SUB_CATEGORIES[currentCategory] || ['All'];
-            subContainer.innerHTML = subs.map(s =>
-                `<button class="sub-btn ${(s === 'All' && currentSubCategory === 'all') || s.toLowerCase() === currentSubCategory ? 'active' : ''}" onclick="filterSubCategory('${s.toLowerCase()}')">${s === 'All' ? '📌 All' : s}</button>`
-            ).join('');
-        }
-
-        function renderJobs(jobs) {
-            const grid = document.getElementById('jobsGrid');
-            if (!grid) return;
-            grid.innerHTML = '';
-            if (jobs.length === 0) {
-                grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text-light);font-size:14px;">No jobs available in this category</div>`;
-                return;
-            }
-            const iconMap = { central: '🏛️', state: '🏜️', private: '💼' };
-            const subColorMap = {
-                'Administrative': '#4a6cf7', 'Banking': '#f7b731', 'Railway': '#e74c3c',
-                'Defence': '#2ecc71', 'Teaching': '#9b59b6', 'Medical': '#e67e22',
-                'PSU': '#1abc9c', 'Police': '#2c3e50', 'Revenue': '#27ae60',
-                'Forest': '#27ae60', 'Technical': '#3498db', 'Judicial': '#8e44ad',
-                'IT/Software': '#6c5ce7', 'Finance': '#00b894', 'Marketing': '#fd79a8',
-                'HR': '#0984e3', 'Manufacturing': '#fdcb6e', 'Healthcare': '#e17055',
-                'Education': '#6c5ce7', 'Hospitality': '#00cec9', 'Other': '#636e72'
-            };
-            jobs.forEach((job) => {
-                const card = document.createElement('div');
-                card.className = 'job-card';
-                const subColor = subColorMap[job.subCat] || '#636e72';
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = job.description || '';
-                const plainDesc = tempDiv.textContent || tempDiv.innerText || '';
-                const shortDesc = plainDesc.length > 60 ? plainDesc.substring(0, 60) + '...' : plainDesc;
-                card.innerHTML = `
-                    <div class="job-icon">${iconMap[job.jobType] || '📌'}</div>
-                    <div class="job-title">${job.title || 'Untitled'}</div>
-                    <div class="job-meta">${job.department || ''} | ${job.post || ''}</div>
-                    <div class="job-meta" style="font-size:10px;opacity:0.5;">${job.eligibility || ''}</div>
-                    <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;">
-                        <span style="background:${subColor};color:#fff;padding:1px 8px;border-radius:10px;font-size:9px;font-weight:600;">${job.subCat || 'Other'}</span>
-                    </div>
-                    ${shortDesc ? `<div style="font-size:10px;color:var(--text-light);margin-top:4px;opacity:0.7;">${shortDesc}</div>` : ''}
-                `;
-                const idx = jobsData.indexOf(job);
-                card.addEventListener('click', () => openDetail(idx));
-                grid.appendChild(card);
-            });
+        function renderToolsPage() {
+            const container = document.getElementById('toolsContent');
+            if (!container) return;
+            container.innerHTML = PAGE_DATA.tools?.content || '';
         }
 
         // ============================================================
@@ -1207,6 +1337,16 @@
         }
 
         // ============================================================
+        // LATEST UPDATES
+        // ============================================================
+        function initLatestUpdates() {
+            const list = document.getElementById('latestUpdatesList');
+            if (!list) return;
+            const doubled = [...LATEST_UPDATES, ...LATEST_UPDATES];
+            list.innerHTML = doubled.map(txt => `<li>${txt}</li>`).join('');
+        }
+
+        // ============================================================
         // TOAST
         // ============================================================
         function showToast(msg, type = 'info') {
@@ -1224,13 +1364,14 @@
             initLatestUpdates();
             renderNav();
             renderSlidesCarousel();
-            updateJobsUI();
-            console.log('✅ Home page ready');
+            showPage('home');
+            console.log('✅ Home page ready — Jobs केवल dropdown click पर');
         });
 
         // Expose
-        window.showJobsCategory = showJobsCategory;
-        window.selectCategory = selectCategory;
+        window.showPage = showPage;
+        window.setPageItem = setPageItem;
+        window.openJobsPage = openJobsPage;
         window.filterSubCategory = filterSubCategory;
         window.openDetail = openDetail;
         window.closeDetail = closeDetail;
@@ -1239,10 +1380,8 @@
         window.closeDropdownMobile = closeDropdownMobile;
         window.changeSlide = changeSlide;
         window.goToSlide = goToSlide;
-        window.openPageView = openPageView;
-        window.closePageView = closePageView;
-        window.pageViewNext = pageViewNext;
-        window.pageViewBack = pageViewBack;
+        window.pageItemNext = pageItemNext;
+        window.pageItemPrev = pageItemPrev;
     </script>
 
 </body>
