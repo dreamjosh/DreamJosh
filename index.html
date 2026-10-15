@@ -463,7 +463,7 @@
 
     <!-- HEADER -->
     <header class="app-header">
-        <div class="logo" onclick="showPage('home')">
+        <div class="logo" onclick="window.location.href='index.html'">
             🚀 <span>Dream</span>Josh
         </div>
         <div class="header-controls" id="dynamicNav"></div>
@@ -540,128 +540,6 @@
                 </div>
             </section>
 
-            <!-- 💼 JOBS PAGE -->
-            <section class="page-view" id="page-jobs">
-                <div class="generic-page-box">
-                    <div class="page-header-line">
-                        <h2 id="jobsPageTitle">💼 All Jobs</h2>
-                        <span class="item-counter" id="jobsPageCounter">0 jobs</span>
-                    </div>
-
-                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
-                        <span class="total-badge" id="totalJobsBadge" style="background:var(--secondary-blue);color:#fff;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:600;">Total: 0</span>
-                        <span style="font-size:11px;color:var(--text-light);" id="selectedCategoryLabel">🏛️ Central Govt.</span>
-                    </div>
-
-                    <div class="sub-cat-filter" id="subCategoryFilter">
-                        <button class="sub-btn active" data-sub="all" onclick="filterSubCategory('all')">📌 All</button>
-                    </div>
-
-                    <div class="job-info-box">
-                        <div class="job-count" id="jobCountDisplay">🇮🇳 Central Govt. Jobs: <span id="jobCount">0</span></div>
-                        <div class="job-detail" id="jobDetailDisplay">UPSC • SSC • Railway • Banking</div>
-                    </div>
-
-                    <div class="job-grid" id="jobsGrid"></div>
-                </div>
-            </section>
-
-            <!-- 🎯 CAREER PAGE -->
-            <section class="page-view" id="page-career">
-                <div class="generic-page-box">
-                    <div class="page-header-line">
-                        <h2>🎯 Career</h2>
-                        <span class="item-counter" id="careerCounter">0 items</span>
-                    </div>
-                    <div id="careerContent"></div>
-                    <div class="page-nav-buttons">
-                        <button class="btn-prev" id="careerPrev" onclick="pageItemPrev('career')">
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </button>
-                        <button class="btn-next" id="careerNext" onclick="pageItemNext('career')">
-                            Next <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ⚙️ MORE PAGE -->
-            <section class="page-view" id="page-more">
-                <div class="generic-page-box">
-                    <div class="page-header-line">
-                        <h2>⚙️ More – Study & Books</h2>
-                        <span class="item-counter" id="moreCounter">0 items</span>
-                    </div>
-                    <div id="moreContent"></div>
-                    <div class="page-nav-buttons">
-                        <button class="btn-prev" id="morePrev" onclick="pageItemPrev('more')">
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </button>
-                        <button class="btn-next" id="moreNext" onclick="pageItemNext('more')">
-                            Next <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 🛠️ SERVICES PAGE -->
-            <section class="page-view" id="page-service">
-                <div class="generic-page-box">
-                    <div class="page-header-line">
-                        <h2>🛠️ Services</h2>
-                        <span class="item-counter" id="serviceCounter">0 items</span>
-                    </div>
-                    <div id="serviceContent"></div>
-                    <div class="page-nav-buttons">
-                        <button class="btn-prev" id="servicePrev" onclick="pageItemPrev('service')">
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </button>
-                        <button class="btn-next" id="serviceNext" onclick="pageItemNext('service')">
-                            Next <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 📝 BLOG PAGE -->
-            <section class="page-view" id="page-blog">
-                <div class="generic-page-box">
-                    <div class="page-header-line">
-                        <h2>📝 Blog</h2>
-                        <span class="item-counter" id="blogCounter">0 items</span>
-                    </div>
-                    <div id="blogContent"></div>
-                    <div class="page-nav-buttons">
-                        <button class="btn-prev" id="blogPrev" onclick="pageItemPrev('blog')">
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </button>
-                        <button class="btn-next" id="blogNext" onclick="pageItemNext('blog')">
-                            Next <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 📜 RSR PAGE -->
-            <section class="page-view" id="page-rsr">
-                <div class="generic-page-box">
-                    <div class="page-header-line">
-                        <h2>📜 RSR – Rajasthan Service Rules</h2>
-                    </div>
-                    <div id="rsrContent"></div>
-                </div>
-            </section>
-
-            <!-- 🛠️ TOOLS PAGE -->
-            <section class="page-view" id="page-tools">
-                <div class="generic-page-box">
-                    <div class="page-header-line">
-                        <h2>🛠️ Tools</h2>
-                    </div>
-                    <div id="toolsContent"></div>
-                </div>
-            </section>
-
         </div>
     </div>
 
@@ -670,19 +548,21 @@
         <div class="footer-text">© 2026 <span>Dream Josh</span> Powered</div>
     </footer>
 
-    <!-- DETAIL OVERLAY -->
-    <div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
-        <div class="detail-content" onclick="event.stopPropagation()">
-            <button class="close-btn" onclick="closeDetail()">✕</button>
-            <div id="detailBody"></div>
-        </div>
-    </div>
-
     <script>
         // ============================================================
-        // 🔗 ADMIN PAGE LINK — यहाँ अपना admin page का नाम डालें
+        // 🔗 EXTERNAL PAGE URLS
         // ============================================================
-        const ADMIN_PAGE_URL = 'admin.html';
+        const PAGE_URLS = {
+            home: 'index.html',
+            jobs: 'jobs.html',
+            career: 'career.html',
+            more: 'more.html',
+            service: 'services.html',
+            blog: 'blog.html',
+            rsr: 'rsr.html',
+            tools: 'tools.html',
+            admin: 'admin.html'
+        };
 
         // ============================================================
         // 📦 LATEST UPDATES
@@ -703,197 +583,14 @@
         ];
 
         // ============================================================
-        // 📄 PAGE DATA
+        // 📄 PAGE ITEM COUNTS (sirf home sidebar ke liye)
         // ============================================================
-        const PAGE_DATA = {
-            career: {
-                title: '🎯 Career',
-                content: `
-                    <h2>🎯 Career Guidance</h2>
-                    <p>Explore various career options and find the right path for your future.</p>
-                    <p><strong>🔹 Get expert guidance:</strong> Our career counselors help you choose the right career path.</p>
-                    <p>नीचे दिए गए विभिन्न करियर विकल्पों में से अपने रुचि के अनुसार चुनें।</p>
-                `,
-                items: [
-                    { title: '🏛️ Government Jobs', description: 'UPSC, SSC, Banking, Railway, Defence, Police' },
-                    { title: '💼 Private Jobs', description: 'IT, Finance, Marketing, HR, Healthcare' },
-                    { title: '📚 Teaching & Education', description: 'CTET, REET, B.Ed, M.Ed career paths' },
-                    { title: '🏦 Banking & Finance', description: 'IBPS, SBI, RBI, SEBI, NABARD' },
-                    { title: '📄 SSC & Staff Selection', description: 'SSC CGL, CHSL, MTS, JE, CPO' },
-                    { title: '🚂 Railway Recruitment', description: 'RRB NTPC, Group D, ALP, JE' },
-                    { title: '🛡️ Defence Services', description: 'NDA, CDS, AFCAT, Indian Army, Navy, Air Force' },
-                    { title: '👮 Police & Paramilitary', description: 'State Police, CAPF, BSF, CRPF, CISF' },
-                    { title: '⚙️ Engineering & Technology', description: 'GATE, PSU, ISRO, DRDO, BARC' },
-                    { title: '🏥 Medical & Healthcare', description: 'NEET, AIIMS, Nursing, Pharmacy' },
-                    { title: '⚖️ Law & Judiciary', description: 'CLAT, Judicial Services, LLB, LLM' },
-                    { title: '💻 IT & Software', description: 'Software Engineer, Data Science, AI/ML' }
-                ]
-            },
-            more: {
-                title: '⚙️ More',
-                content: `
-                    <h2>📚 Study & Books</h2>
-                    <p>All study materials and books in one place.</p>
-                `,
-                items: [
-                    { title: '📝 Complete UPSC Notes', description: 'Detailed Subject-wise notes for UPSC Prelims and Mains.' },
-                    { title: '📄 SSC CGL Practice Set', description: '20 Practice sets with answer keys and explanations.' },
-                    { title: '📑 RBI Grade B Previous Papers', description: 'Previous year papers with detailed solutions.' },
-                    { title: '🔁 Quick Revision Notes: Maths', description: 'Short revision notes for formula and concepts.' },
-                    { title: '📚 Competitive Exam Books', description: 'Best books for UPSC, SSC, Banking, Railway' },
-                    { title: '🏜️ Rajasthan GK', description: 'Rajasthan General Knowledge books' },
-                    { title: '🧠 General Knowledge', description: 'GK books for all competitive exams' },
-                    { title: '🔥 Motivation Books', description: 'Top motivational and self-help books' }
-                ]
-            },
-            service: {
-                title: '🛠️ Services',
-                content: `
-                    <h2>🛠️ Services</h2>
-                    <p>Welcome to Dream Josh Services. Find all types of services here with direct links.</p>
-                `,
-                items: [
-                    { title: '📝 Resume Writing Service', description: 'Professional resume writing for all career levels.', link: 'https://dreamjosh.com/resume' },
-                    { title: '🏛️ Passport Services', description: 'Complete passport assistance and verification.', link: 'https://passport.gov.in' },
-                    { title: '📚 Online Tutoring', description: 'One-on-one tutoring for competitive exams.', link: 'https://dreamjosh.com/tutoring' },
-                    { title: '💼 Career Counseling', description: 'Expert career guidance and counseling services.', link: 'https://dreamjosh.com/counseling' },
-                    { title: '🪪 Aadhar Services', description: 'Aadhar card update and enrollment assistance.', link: 'https://uidai.gov.in' },
-                    { title: '🎯 Mock Test Series', description: 'Online mock tests for all competitive exams.', link: 'https://dreamjosh.com/tests' },
-                    { title: '📄 Document Verification', description: 'Document attestation and verification services.', link: 'https://dreamjosh.com/verify' },
-                    { title: '💻 IT Services', description: 'Web development and digital marketing services.', link: 'https://dreamjosh.com/it' },
-                    { title: '🎓 Scholarship Assistance', description: 'Help with scholarship applications and guidance.', link: 'https://dreamjosh.com/scholarship' },
-                    { title: '🏦 Banking Services', description: 'Bank account opening and financial services.', link: 'https://dreamjosh.com/banking' }
-                ]
-            },
-            blog: {
-                title: '📝 Blog',
-                content: `
-                    <h2>📝 Blog</h2>
-                    <p>Read our latest blog posts on various topics.</p>
-                `,
-                items: [
-                    { title: '💻 Technology', description: 'Latest tech news and updates' },
-                    { title: '📊 Business', description: 'Business and finance articles' },
-                    { title: '❤️ Lifestyle', description: 'Lifestyle and wellness tips' },
-                    { title: '🎨 Design', description: 'Design trends and tutorials' },
-                    { title: '📚 Education', description: 'Education tips and resources' },
-                    { title: '📰 News', description: 'Latest news and current affairs' }
-                ]
-            },
-            rsr: {
-                title: '📜 RSR',
-                content: `
-                    <h2>📜 उपार्जित अवकाश एवं उनकी देयता-नियम 91</h2>
-                    <h3>उपार्जित अवकाश</h3>
-                    <p>उपार्जित अवकाश एवं उनकी देयताः नियम 91(1)(क) के अनुसार राज्य कर्मचारी जो स्थायी या अस्थायी है, को एक कलेण्डर वर्ष में 30 दिन का उपार्जित अवकाश देय होगा।</p>
-                    <p>नियम 91(1)(ग) के अनुसार कर्मचारी अपने लेखों में 1 जनवरी 1998 से अधिकतम 300 दिनों का उपार्जित अवकाश जमा रख सकता है।</p>
-                    <p>नियम 91(2)(a)(i) के अनुसार प्रत्येक राज्य कर्मचारी के उपार्जित अवकाश लेखों में प्रत्येक कलैण्डर वर्ष में दो बार, 1 जनवरी को 15 तथा 1 जुलाई को 15 दिन के उपार्जित अवकाश, अग्रिम के रूप में जमा किये जायेंगे।</p>
-                    <h3>Privilege leave</h3>
-                    <p><strong>Admissibility of privilege leave —</strong></p>
-                    <p>(1)(a) A Government servant whether temporary or permanent shall be entitled to privilege leave of 30 days in a calendar year.</p>
-                    <p>(2) The maximum privilege leave that may be granted at a time to a Government servant shall be 120 days.</p>
-                `,
-                items: []
-            },
-            tools: {
-                title: '🛠️ Tools',
-                content: `
-                    <h2>🛠️ Tools</h2>
-                    <p>All tools will be available here soon.</p>
-                    <p>यहाँ सभी टूल्स जल्द उपलब्ध होंगे।</p>
-                `,
-                items: []
-            }
+        const PAGE_ITEM_COUNTS = {
+            career: 14,
+            more: 8,
+            service: 10,
+            blog: 6
         };
-
-        // ============================================================
-        // 📦 JOBS DATA
-        // ============================================================
-        const DEFAULT_JOBS = [
-            { id: 1, title: 'IAS (Indian Administrative Service)', jobType: 'central', subCat: 'Administrative',
-                department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate (Any Discipline)', age: '21-32 Years',
-                lastDate: '2026-06-01', experience: 'Freshers can apply',
-                description: '<b>IAS</b> is the premier civil service of India.',
-                website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', visibility: 'public' },
-            { id: 2, title: 'IPS (Indian Police Service)', jobType: 'central', subCat: 'Administrative', department: 'UPSC',
-                post: 'IPS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01',
-                experience: 'Freshers',
-                description: '<b>IPS</b> maintains law and order.',
-                website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', visibility: 'public' },
-            { id: 3, title: 'RBI Grade B Officer', jobType: 'central', subCat: 'Banking', department: 'RBI',
-                post: 'Grade B Officer', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-10',
-                experience: 'Freshers',
-                description: '<b>RBI Grade B</b> is the most prestigious banking exam.',
-                website: 'https://rbi.org.in', applyLink: 'https://rbi.org.in/apply', visibility: 'public' },
-            { id: 4, title: 'SBI PO (Probationary Officer)', jobType: 'central', subCat: 'Banking', department: 'SBI',
-                post: 'PO', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-15', experience: 'Freshers',
-                description: '<b>SBI PO</b> is the top banking job in India.',
-                website: 'https://sbi.co.in', applyLink: 'https://sbi.co.in/apply', visibility: 'public' },
-            { id: 5, title: 'RRB NTPC (Non-Technical)', jobType: 'central', subCat: 'Railway', department: 'RRB',
-                post: 'Various NTPC Posts', eligibility: '12th/Graduate', age: '18-33 Years', lastDate: '2026-05-30',
-                experience: 'Freshers',
-                description: '<b>RRB NTPC</b> covers posts like Station Master, Goods Guard, Clerk.',
-                website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply', visibility: 'public' },
-            { id: 6, title: 'RAS (Rajasthan Administrative Service)', jobType: 'state', subCat: 'Administrative',
-                department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40 Years',
-                lastDate: '2026-07-20', experience: 'Freshers',
-                description: '<b>RAS</b> is the state civil service of Rajasthan.',
-                website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply',
-                visibility: 'public' },
-            { id: 7, title: 'Rajasthan Police Constable', jobType: 'state', subCat: 'Police',
-                department: 'Rajasthan Police', post: 'Constable', eligibility: '10+2', age: '18-28 Years',
-                lastDate: '2026-09-01', experience: 'Freshers',
-                description: '<b>Rajasthan Police Constable</b> entry-level post.',
-                website: 'https://police.rajasthan.gov.in', applyLink: 'https://police.rajasthan.gov.in/apply',
-                visibility: 'public' },
-            { id: 8, title: 'REET (Rajasthan Eligibility Exam)', jobType: 'state', subCat: 'Teaching',
-                department: 'RBSE', post: 'Teacher', eligibility: 'Graduate + B.Ed', age: '18-40 Years',
-                lastDate: '2026-08-15', experience: 'Freshers',
-                description: '<b>REET</b> for Rajasthan teacher recruitment.',
-                website: 'https://rajeduboard.rajasthan.gov.in', applyLink: 'https://rajeduboard.rajasthan.gov.in/apply',
-                visibility: 'public' },
-            { id: 9, title: 'Software Engineer – Google India', jobType: 'private', subCat: 'IT/Software',
-                department: 'IT/Software', post: 'Software Engineer', eligibility: 'B.Tech/BE', age: '22-35 Years',
-                lastDate: '2026-04-15', experience: '2-5 Years',
-                description: '<b>Google India</b> hiring SDEs for Bangalore and Hyderabad.',
-                website: 'https://careers.google.com', applyLink: 'https://careers.google.com/apply', visibility: 'public' },
-            { id: 10, title: 'Finance Manager – HSBC India', jobType: 'private', subCat: 'Finance',
-                department: 'Finance/Banking', post: 'Finance Manager', eligibility: 'CA/CFA/MBA', age: '25-40 Years',
-                lastDate: '2026-05-10', experience: '3-7 Years',
-                description: '<b>HSBC India</b> hiring Finance Managers for corporate banking.',
-                website: 'https://www.hsbc.com/careers', applyLink: 'https://www.hsbc.com/careers/apply',
-                visibility: 'public' },
-            { id: 11, title: 'Marketing Executive – Amazon India', jobType: 'private', subCat: 'Marketing',
-                department: 'Marketing/Sales', post: 'Marketing Executive', eligibility: 'MBA/BBA', age: '22-30 Years',
-                lastDate: '2026-06-01', experience: '1-3 Years',
-                description: '<b>Amazon India</b> hiring Marketing Executives.',
-                website: 'https://amazon.jobs', applyLink: 'https://amazon.jobs/apply', visibility: 'public' }
-        ];
-
-        const CATEGORY_INFO = {
-            central: { label: '🏛️ Central Govt.', icon: '🇮🇳',
-                detail: 'UPSC • SSC • Railway • Banking • Defence • Police • Post • Teaching • Medical • PSU • Technical • Court' },
-            state: { label: '🏜️ Rajasthan Govt.', icon: '🏜️',
-                detail: 'RPSC • RSMSSB • Police • Revenue • Education • Forest • Health • Technical • Judicial • Agriculture' },
-            private: { label: '💼 Private', icon: '💼',
-                detail: 'IT • Finance • Marketing • HR • Manufacturing • Healthcare • Education • Hospitality • Logistics' }
-        };
-
-        const SUB_CATEGORIES = {
-            central: ['All', 'Administrative', 'Banking', 'Railway', 'Defence', 'Teaching', 'Medical', 'PSU', 'Police', 'Other'],
-            state: ['All', 'Administrative', 'Police', 'Revenue', 'Teaching', 'Forest', 'Technical', 'Medical', 'Judicial', 'Other'],
-            private: ['All', 'IT/Software', 'Finance', 'Marketing', 'HR', 'Manufacturing', 'Healthcare', 'Education', 'Hospitality', 'Other']
-        };
-
-        // ============================================================
-        // STATE
-        // ============================================================
-        let jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
-        let currentCategory = 'central';
-        let currentSubCategory = 'all';
-        let showAllJobsMode = false;
-
-        const pageItemIndex = { career: 0, more: 0, service: 0, blog: 0 };
 
         // ============================================================
         // HEADER NAV
@@ -901,7 +598,7 @@
         function renderNav() {
             const nav = document.getElementById('dynamicNav');
 
-            let html = `<button class="nav-btn active" data-page="home" onclick="showPage('home')">🏠 Home</button>`;
+            let html = `<a href="index.html" class="nav-btn active">🏠 Home</a>`;
 
             // 💼 Jobs dropdown
             html += `
@@ -909,34 +606,81 @@
                     <button class="dropdown-btn" onclick="toggleDropdownMobile('govt', event)">💼 Jobs <span class="arrow">▾</span></button>
                     <div class="dropdown-content" id="govtDropdownContent">
                         <div class="dropdown-label">📂 Select Category</div>
-                        <a href="javascript:void(0)" onclick="openJobsPage('central'); closeDropdownMobile('govt');">
-                            🏛️ Central Govt. <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="centralCount">0</span>
+                        <a href="jobs.html?cat=central" onclick="closeDropdownMobile('govt');">
+                            🏛️ Central Govt.
                         </a>
-                        <a href="javascript:void(0)" onclick="openJobsPage('state'); closeDropdownMobile('govt');">
-                            🏜️ Rajasthan Govt. <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="stateCount">0</span>
+                        <a href="jobs.html?cat=state" onclick="closeDropdownMobile('govt');">
+                            🏜️ Rajasthan Govt.
                         </a>
-                        <a href="javascript:void(0)" onclick="openJobsPage('private'); closeDropdownMobile('govt');">
-                            💼 Private <span style="background:var(--secondary-blue);color:#fff;padding:1px 10px;border-radius:12px;font-size:9px;margin-left:8px;" id="privateCount">0</span>
+                        <a href="jobs.html?cat=private" onclick="closeDropdownMobile('govt');">
+                            💼 Private
                         </a>
-                        <a href="javascript:void(0)" onclick="openJobsPage('all'); closeDropdownMobile('govt');">
+                        <a href="jobs.html" onclick="closeDropdownMobile('govt');">
                             📋 All Jobs
                         </a>
                     </div>
                 </div>
             `;
 
-            html += buildDropdown('career', '🎯 Career', 'career');
-            html += buildDropdown('more', '⚙️ More', 'more');
-            html += buildDropdown('service', '🛠️ Services', 'service');
-            html += buildDropdown('blog', '📝 Blog', 'blog');
+            // 🎯 Career dropdown
+            html += `
+                <div class="dropdown-wrapper" id="careerDropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdownMobile('career', event)">🎯 Career <span class="arrow">▾</span></button>
+                    <div class="dropdown-content" id="careerDropdownContent">
+                        <div class="dropdown-label">📂 Career</div>
+                        <a href="career.html" onclick="closeDropdownMobile('career');">
+                            <i class="fas fa-th-list dropdown-item-icon"></i> 📋 Open All
+                        </a>
+                    </div>
+                </div>
+            `;
 
-            // 📜 RSR
+            // ⚙️ More dropdown
+            html += `
+                <div class="dropdown-wrapper" id="moreDropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdownMobile('more', event)">⚙️ More <span class="arrow">▾</span></button>
+                    <div class="dropdown-content" id="moreDropdownContent">
+                        <div class="dropdown-label">📂 More</div>
+                        <a href="more.html" onclick="closeDropdownMobile('more');">
+                            <i class="fas fa-th-list dropdown-item-icon"></i> 📋 Open All
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            // 🛠️ Services dropdown
+            html += `
+                <div class="dropdown-wrapper" id="serviceDropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdownMobile('service', event)">🛠️ Services <span class="arrow">▾</span></button>
+                    <div class="dropdown-content" id="serviceDropdownContent">
+                        <div class="dropdown-label">📂 Services</div>
+                        <a href="services.html" onclick="closeDropdownMobile('service');">
+                            <i class="fas fa-th-list dropdown-item-icon"></i> 📋 Open All
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            // 📝 Blog dropdown
+            html += `
+                <div class="dropdown-wrapper" id="blogDropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdownMobile('blog', event)">📝 Blog <span class="arrow">▾</span></button>
+                    <div class="dropdown-content" id="blogDropdownContent">
+                        <div class="dropdown-label">📂 Blog</div>
+                        <a href="blog.html" onclick="closeDropdownMobile('blog');">
+                            <i class="fas fa-th-list dropdown-item-icon"></i> 📋 Open All
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            // 📜 RSR dropdown
             html += `
                 <div class="dropdown-wrapper" id="rsrDropdown">
                     <button class="dropdown-btn" onclick="toggleDropdownMobile('rsr', event)">📜 RSR <span class="arrow">▾</span></button>
                     <div class="dropdown-content" id="rsrDropdownContent">
                         <div class="dropdown-label">📂 RSR</div>
-                        <a href="javascript:void(0)" onclick="showPage('rsr'); closeDropdownMobile('rsr');">
+                        <a href="rsr.html" onclick="closeDropdownMobile('rsr');">
                             <i class="fas fa-gavel dropdown-item-icon"></i> 📜 All Rules
                         </a>
                     </div>
@@ -944,37 +688,12 @@
             `;
 
             // 🛠️ Tools
-            html += `<button class="nav-btn" data-page="tools" onclick="showPage('tools')">🛠️ Tools</button>`;
+            html += `<a href="tools.html" class="nav-btn">🛠️ Tools</a>`;
 
-            // 🔐 Admin (Tools के पास, highlighted red)
-            html += `<button class="nav-btn admin-btn" data-page="admin" onclick="goToAdmin()">🔐 Admin</button>`;
+            // 🔐 Admin
+            html += `<a href="admin.html" class="nav-btn admin-btn">🔐 Admin</a>`;
 
             nav.innerHTML = html;
-            updateJobCounts();
-        }
-
-        function buildDropdown(key, label, pageKey) {
-            const items = PAGE_DATA[pageKey]?.items || [];
-            const itemsHtml = items.length > 0
-                ? items.map((item, idx) => `
-                    <a href="javascript:void(0)" onclick="showPage('${pageKey}'); setPageItem('${pageKey}', ${idx}); closeDropdownMobile('${key}');">
-                        <i class="fas fa-angle-right dropdown-item-icon"></i> ${item.title}
-                    </a>
-                `).join('')
-                : '';
-
-            return `
-                <div class="dropdown-wrapper" id="${key}Dropdown">
-                    <button class="dropdown-btn" onclick="toggleDropdownMobile('${key}', event)">${label} <span class="arrow">▾</span></button>
-                    <div class="dropdown-content" id="${key}DropdownContent">
-                        <div class="dropdown-label">📂 ${label}</div>
-                        <a href="javascript:void(0)" onclick="showPage('${pageKey}'); setPageItem('${pageKey}', 0); closeDropdownMobile('${key}');">
-                            <i class="fas fa-th-list dropdown-item-icon"></i> 📋 Open All
-                        </a>
-                        ${itemsHtml}
-                    </div>
-                </div>
-            `;
         }
 
         function toggleDropdownMobile(name, event) {
@@ -995,286 +714,6 @@
                 ['govt', 'career', 'more', 'service', 'blog', 'rsr'].forEach(name => closeDropdownMobile(name));
             }
         });
-
-        function updateJobCounts() {
-            const publicJobs = jobsData.filter(j => j.visibility !== 'private');
-            const centralEl = document.getElementById('centralCount');
-            const stateEl = document.getElementById('stateCount');
-            const privateEl = document.getElementById('privateCount');
-            if (centralEl) centralEl.textContent = publicJobs.filter(j => j.jobType === 'central').length;
-            if (stateEl) stateEl.textContent = publicJobs.filter(j => j.jobType === 'state').length;
-            if (privateEl) privateEl.textContent = publicJobs.filter(j => j.jobType === 'private').length;
-        }
-
-        // ============================================================
-        // 🔐 ADMIN
-        // ============================================================
-        function goToAdmin() {
-            window.location.href = ADMIN_PAGE_URL;
-        }
-
-        // ============================================================
-        // SHOW PAGE
-        // ============================================================
-        function showPage(pageKey) {
-            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById('page-' + pageKey);
-            if (target) target.classList.add('active');
-
-            document.querySelectorAll('.app-header .nav-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.page === pageKey);
-            });
-            document.querySelectorAll('.app-header .dropdown-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const map = { career: 'career', more: 'more', service: 'service', blog: 'blog', rsr: 'rsr', jobs: 'govt' };
-            if (map[pageKey]) {
-                const el = document.querySelector(`#${map[pageKey]}Dropdown .dropdown-btn`);
-                if (el) el.classList.add('active');
-            }
-
-            if (pageKey === 'career')  renderGenericPage('career');
-            if (pageKey === 'more')    renderGenericPage('more');
-            if (pageKey === 'service') renderGenericPage('service');
-            if (pageKey === 'blog')    renderGenericPage('blog');
-            if (pageKey === 'rsr')     renderRsrPage();
-            if (pageKey === 'tools')   renderToolsPage();
-            if (pageKey === 'jobs')    renderJobsPage();
-            if (pageKey === 'home')    renderSlidesCarousel();
-
-            const scrollArea = document.getElementById('mainScrollArea');
-            if (scrollArea) scrollArea.scrollTop = 0;
-        }
-
-        function setPageItem(pageKey, idx) {
-            pageItemIndex[pageKey] = idx;
-        }
-
-        // ============================================================
-        // JOBS PAGE
-        // ============================================================
-        function openJobsPage(category) {
-            if (category === 'all') {
-                showAllJobsMode = true;
-            } else {
-                showAllJobsMode = false;
-                currentCategory = category;
-                currentSubCategory = 'all';
-            }
-            showPage('jobs');
-        }
-
-        function renderJobsPage() {
-            const titleEl = document.getElementById('jobsPageTitle');
-            const counterEl = document.getElementById('jobsPageCounter');
-            const badgeEl = document.getElementById('totalJobsBadge');
-            const catLabelEl = document.getElementById('selectedCategoryLabel');
-            const subFilterEl = document.getElementById('subCategoryFilter');
-            const grid = document.getElementById('jobsGrid');
-            const countDisplay = document.getElementById('jobCountDisplay');
-            const detailDisplay = document.getElementById('jobDetailDisplay');
-
-            const publicJobs = jobsData.filter(j => j.visibility !== 'private');
-
-            let filtered;
-            let info;
-
-            if (showAllJobsMode) {
-                filtered = publicJobs;
-                info = { label: '📋 All Jobs', icon: '📋',
-                    detail: 'Central • Rajasthan • Private — All Categories' };
-                if (titleEl) titleEl.textContent = '💼 All Jobs';
-                if (catLabelEl) catLabelEl.textContent = info.label;
-                if (subFilterEl) subFilterEl.style.display = 'none';
-            } else {
-                filtered = publicJobs.filter(j => j.jobType === currentCategory);
-                if (currentSubCategory !== 'all') {
-                    const subDisplay = SUB_CATEGORIES[currentCategory].find(s => s.toLowerCase() === currentSubCategory);
-                    if (subDisplay && subDisplay !== 'All') {
-                        filtered = filtered.filter(j => j.subCat === subDisplay);
-                    }
-                }
-                info = CATEGORY_INFO[currentCategory];
-                const total = publicJobs.filter(j => j.jobType === currentCategory).length;
-                if (titleEl) titleEl.textContent = info.icon + ' ' + info.label + ' Jobs';
-                if (catLabelEl) catLabelEl.textContent = info.label;
-                if (badgeEl) badgeEl.textContent = `Total: ${total}`;
-                if (subFilterEl) {
-                    subFilterEl.style.display = 'flex';
-                    const subs = SUB_CATEGORIES[currentCategory] || ['All'];
-                    subFilterEl.innerHTML = subs.map(s =>
-                        `<button class="sub-btn ${(s === 'All' && currentSubCategory === 'all') || s.toLowerCase() === currentSubCategory ? 'active' : ''}" onclick="filterSubCategory('${s.toLowerCase()}')">${s === 'All' ? '📌 All' : s}</button>`
-                    ).join('');
-                }
-            }
-
-            if (counterEl) counterEl.textContent = `${filtered.length} jobs`;
-            if (badgeEl && showAllJobsMode) badgeEl.textContent = `Total: ${publicJobs.length}`;
-            if (countDisplay) countDisplay.innerHTML = info.icon + ' ' + (showAllJobsMode ? 'All' : info.label) + ' Jobs: <span id="jobCount">' + filtered.length + '</span>';
-            if (detailDisplay) detailDisplay.textContent = info.detail;
-
-            const sidebarTotal = document.getElementById('totalJobsSidebar');
-            if (sidebarTotal) sidebarTotal.textContent = publicJobs.length;
-
-            renderJobsGrid(filtered, grid);
-        }
-
-        function filterSubCategory(sub) {
-            currentSubCategory = sub;
-            renderJobsPage();
-        }
-
-        function renderJobsGrid(jobs, grid) {
-            if (!grid) return;
-            grid.innerHTML = '';
-            if (jobs.length === 0) {
-                grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text-light);font-size:14px;">No jobs available in this category</div>`;
-                return;
-            }
-            const iconMap = { central: '🏛️', state: '🏜️', private: '💼' };
-            jobs.forEach((job) => {
-                const card = document.createElement('div');
-                card.className = 'job-card';
-                card.innerHTML = `
-                    <div class="job-icon">${iconMap[job.jobType] || '📌'}</div>
-                    <div class="job-title">${job.title || 'Untitled'}</div>
-                    <div class="job-meta">${job.department || ''} | ${job.post || ''}</div>
-                    <div class="job-meta" style="font-size:10px;opacity:0.5;">${job.eligibility || ''}</div>
-                `;
-                const idx = jobsData.indexOf(job);
-                card.addEventListener('click', () => openDetail(idx));
-                grid.appendChild(card);
-            });
-        }
-
-        // ============================================================
-        // GENERIC PAGE
-        // ============================================================
-        function renderGenericPage(pageKey) {
-            const page = PAGE_DATA[pageKey];
-            if (!page) return;
-
-            const container = document.getElementById(`${pageKey}Content`);
-            const counter   = document.getElementById(`${pageKey}Counter`);
-            const prevBtn   = document.getElementById(`${pageKey}Prev`);
-            const nextBtn   = document.getElementById(`${pageKey}Next`);
-
-            if (!container) return;
-
-            const items = page.items || [];
-            if (counter) counter.textContent = `${items.length} items`;
-
-            let html = page.content || '';
-
-            if (items.length > 0) {
-                const idx = pageItemIndex[pageKey] || 0;
-                const item = items[idx];
-                const linkHtml = item.link
-                    ? `<a href="${item.link}" target="_blank" class="item-link"><i class="fas fa-external-link-alt"></i> Visit</a>`
-                    : '';
-
-                html += `
-                    <div style="margin-top:20px;border-top:2px solid var(--border-color);padding-top:16px;">
-                        <h3 style="color:var(--primary-blue);margin-bottom:12px;">
-                            📂 Item ${idx + 1} of ${items.length}
-                        </h3>
-                        <ul class="item-list">
-                            <li>
-                                <div class="item-title">${item.title || 'Untitled'}</div>
-                                ${item.description ? `<div class="item-desc">${item.description}</div>` : ''}
-                                ${linkHtml}
-                            </li>
-                        </ul>
-                    </div>
-                `;
-            }
-
-            container.innerHTML = html;
-
-            if (items.length <= 1) {
-                if (prevBtn) prevBtn.disabled = true;
-                if (nextBtn) nextBtn.disabled = true;
-            } else {
-                if (prevBtn) prevBtn.disabled = (pageItemIndex[pageKey] === 0);
-                if (nextBtn) nextBtn.disabled = (pageItemIndex[pageKey] === items.length - 1);
-            }
-        }
-
-        function pageItemNext(pageKey) {
-            const items = PAGE_DATA[pageKey]?.items || [];
-            if (pageItemIndex[pageKey] < items.length - 1) {
-                pageItemIndex[pageKey]++;
-                renderGenericPage(pageKey);
-                document.getElementById('mainScrollArea').scrollTop = 0;
-            }
-        }
-
-        function pageItemPrev(pageKey) {
-            if (pageItemIndex[pageKey] > 0) {
-                pageItemIndex[pageKey]--;
-                renderGenericPage(pageKey);
-                document.getElementById('mainScrollArea').scrollTop = 0;
-            }
-        }
-
-        // ============================================================
-        // RSR / TOOLS
-        // ============================================================
-        function renderRsrPage() {
-            const container = document.getElementById('rsrContent');
-            if (!container) return;
-            container.innerHTML = PAGE_DATA.rsr?.content || '';
-        }
-
-        function renderToolsPage() {
-            const container = document.getElementById('toolsContent');
-            if (!container) return;
-            container.innerHTML = PAGE_DATA.tools?.content || '';
-        }
-
-        // ============================================================
-        // DETAIL OVERLAY
-        // ============================================================
-        function openDetail(index) {
-            const job = jobsData[index];
-            if (!job) return;
-            const overlay = document.getElementById('detailOverlay');
-            const body = document.getElementById('detailBody');
-            const typeLabels = { central: '🇮🇳 Central Govt.', state: '🏜️ Rajasthan Govt.', private: '💼 Private' };
-            const iconMap = { central: '🏛️', state: '🏜️', private: '💼' };
-            body.innerHTML = `
-                <div class="detail-icon">${iconMap[job.jobType] || '💼'}</div>
-                <h2>${job.title || 'Untitled'}</h2>
-                <div class="detail-section">
-                    <p style="margin:4px 0;"><strong>🏢 Department:</strong> ${job.department || '-'}</p>
-                    <p style="margin:4px 0;"><strong>📌 Post:</strong> ${job.post || '-'}</p>
-                    <p style="margin:4px 0;"><strong>📂 Job Type:</strong> ${typeLabels[job.jobType] || job.jobType}</p>
-                </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;margin:10px 0;">
-                    <p><strong>🎓 Eligibility:</strong> ${job.eligibility || '-'}</p>
-                    <p><strong>📅 Age Limit:</strong> ${job.age || '-'}</p>
-                    <p><strong>⏳ Last Date:</strong> ${job.lastDate || '-'}</p>
-                    <p><strong>💼 Experience:</strong> ${job.experience || 'Freshers'}</p>
-                </div>
-                ${job.description ? `<div class="detail-desc"><p><strong>📝 Description:</strong></p><div>${job.description}</div></div>` : ''}
-                <div style="margin:12px 0;">
-                    ${job.website ? `<p><strong>🌐 Website:</strong> <a href="${job.website}" target="_blank" style="color:var(--secondary-blue);text-decoration:underline;font-weight:600;">${job.website}</a></p>` : ''}
-                    ${job.applyLink ? `<p><strong>📝 Apply:</strong> <a href="${job.applyLink}" target="_blank" style="color:var(--secondary-blue);text-decoration:underline;font-weight:600;">${job.applyLink}</a></p>` : ''}
-                </div>
-                <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
-                    <span class="detail-link secondary" onclick="closeDetail()">✕ Close</span>
-                    ${job.applyLink ? `<a href="${job.applyLink}" target="_blank" class="detail-link"><i class="fas fa-external-link-alt"></i> Apply Now</a>` : ''}
-                </div>
-            `;
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeDetail(e) {
-            if (e && e.target !== e.currentTarget) return;
-            document.getElementById('detailOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-        }
 
         // ============================================================
         // SLIDES CAROUSEL
@@ -1378,25 +817,18 @@
             initLatestUpdates();
             renderNav();
             renderSlidesCarousel();
-            showPage('home');
-            console.log('✅ Home page ready — Admin button added near Tools');
+            // Total jobs sidebar
+            const tj = document.getElementById('totalJobsSidebar');
+            if (tj) tj.textContent = '150+';
+            console.log('✅ Home page ready — सभी pages linked');
         });
 
         // Expose
-        window.showPage = showPage;
-        window.setPageItem = setPageItem;
-        window.openJobsPage = openJobsPage;
-        window.filterSubCategory = filterSubCategory;
-        window.openDetail = openDetail;
-        window.closeDetail = closeDetail;
-        window.showToast = showToast;
         window.toggleDropdownMobile = toggleDropdownMobile;
         window.closeDropdownMobile = closeDropdownMobile;
         window.changeSlide = changeSlide;
         window.goToSlide = goToSlide;
-        window.pageItemNext = pageItemNext;
-        window.pageItemPrev = pageItemPrev;
-        window.goToAdmin = goToAdmin;
+        window.showToast = showToast;
     </script>
 
 </body>
