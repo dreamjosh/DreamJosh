@@ -1,0 +1,35 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "*.md",
+      "README.md"
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+      { "source": "/career",   "destination": "/career.html" },
+      { "source": "/tools",    "destination": "/tools.html" },
+      { "source": "/more",     "destination": "/more.html" },
+      { "source": "/blog",     "destination": "/blog.html" },
+      { "source": "/services", "destination": "/services.html" },
+      { "source": "/jobs",     "destination": "/jobs.html" },
+      { "source": "/rsr",      "destination": "/rsr.html" },
+      { "source": "/admin",    "destination": "/admin.html" },
+      { "source": "**",        "destination": "/404.html" }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|ico)",
+        "headers": [{ "key": "Cache-Control", "value": "max-age=31536000" }]
+      },
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [{ "key": "Cache-Control", "value": "max-age=604800" }]
+      }
+    ]
+  }
+}
