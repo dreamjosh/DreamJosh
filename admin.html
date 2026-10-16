@@ -97,11 +97,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-user .name{font-size:13px;font-weight:600;}
 .admin-user .role{font-size:10px;opacity:.6;}
 
-/* ============ SIDEBAR MENU — DROPDOWN STYLE ============ */
+/* ============ SIDEBAR MENU — ACCORDION ============ */
 .admin-menu{list-style:none;padding:0 10px;}
 .admin-menu > li{margin-bottom:2px;}
 
-/* Top-level direct link (Dashboard, Jobs, Back to Home) */
 .admin-menu .menu-link{
   display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
   color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;
@@ -112,7 +111,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-menu .menu-link i.menu-icon{width:18px;font-size:14px;text-align:center;}
 .admin-menu .menu-link .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 8px;border-radius:20px;font-size:10px;}
 
-/* Dropdown toggle (section title) */
 .admin-menu .menu-toggle{
   display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
   color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:600;
@@ -128,7 +126,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 }
 .admin-menu .menu-toggle.open .arrow{transform:rotate(90deg);opacity:1;}
 
-/* Submenu */
 .admin-menu .submenu{
   list-style:none;
   max-height:0;
@@ -533,14 +530,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     </div>
 
     <ul class="admin-menu">
-      <!-- Dashboard (direct link) -->
+      <!-- Dashboard -->
       <li>
         <a class="menu-link active" data-page="dashboard" onclick="showAdminPage('dashboard')">
           <i class="fas fa-chart-pie menu-icon"></i> Dashboard
         </a>
       </li>
 
-      <!-- 📁 FILE MANAGER (dropdown) -->
+      <!-- File Manager -->
       <li>
         <div class="menu-toggle" data-section="file-manager" onclick="toggleMenuSection('file-manager')">
           <i class="fas fa-folder-open menu-icon"></i> File Manager
@@ -556,7 +553,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         </ul>
       </li>
 
-      <!-- 📝 PAGE EDITOR (dropdown) -->
+      <!-- Page Editor -->
       <li>
         <div class="menu-toggle" data-section="page-editor" onclick="toggleMenuSection('page-editor')">
           <i class="fas fa-edit menu-icon"></i> Page Editor
@@ -587,7 +584,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         </ul>
       </li>
 
-      <!-- 📊 DATA ITEMS (dropdown) -->
+      <!-- Data Items -->
       <li>
         <div class="menu-toggle" data-section="data-items" onclick="toggleMenuSection('data-items')">
           <i class="fas fa-list menu-icon"></i> Data Items
@@ -615,14 +612,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         </ul>
       </li>
 
-      <!-- 💼 JOBS (direct link) -->
+      <!-- Jobs (direct link) -->
       <li>
         <a class="menu-link" data-page="jobs" onclick="showAdminPage('jobs')">
           <i class="fas fa-briefcase menu-icon"></i> Jobs Manager <span class="count" id="count-jobs">0</span>
         </a>
       </li>
 
-      <!-- ⚙️ SYSTEM (dropdown) -->
+      <!-- System -->
       <li>
         <div class="menu-toggle" data-section="system" onclick="toggleMenuSection('system')">
           <i class="fas fa-cog menu-icon"></i> System
@@ -686,10 +683,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- ALL OTHER PAGES (same as before) -->
-    <!-- ============================================ -->
-
+    <!-- FILES -->
     <div id="adminPage-files" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
@@ -704,6 +698,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
+    <!-- HOME DISPLAY -->
     <div id="adminPage-files-home" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>🏠 Home Page Display Files</h4></div>
@@ -711,6 +706,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
+    <!-- PAGE EDITORS -->
     <div id="adminPage-home-editor" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>🏠 Home Page Editor</h4>
@@ -768,6 +764,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
+    <!-- ITEMS -->
     <div id="adminPage-items-career" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
@@ -841,6 +838,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
+    <!-- JOBS -->
     <div id="adminPage-jobs" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
@@ -854,6 +852,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
+    <!-- SLIDES -->
     <div id="adminPage-slides" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>📸 Slides Manager</h4>
@@ -863,6 +862,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
+    <!-- EMPLOYEES -->
     <div id="adminPage-employees" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>👥 Employees</h4>
@@ -872,7 +872,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- SETTINGS (same as before) -->
+    <!-- SETTINGS -->
     <div id="adminPage-settings" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>⚙️ Settings</h4>
@@ -1144,9 +1144,8 @@ const DEFAULT_SETTINGS = {
 };
 
 // ============================================================
-// 📂 SIDEBAR DROPDOWN — SECTION MAP
+// 📂 PAGE → SECTION MAP (for auto-open)
 // ============================================================
-// Which top-level section each page belongs to (for auto-open)
 const PAGE_TO_SECTION = {
   'files': 'file-manager',
   'files-home': 'file-manager',
@@ -1168,28 +1167,45 @@ const PAGE_TO_SECTION = {
   'settings': 'system'
 };
 
-// Toggle a section open/close
+// ============================================================
+// 🎯 ACCORDION SIDEBAR — Only one section open at a time
+// ============================================================
+function closeAllMenuSections() {
+  document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.menu-toggle').forEach(t => {
+    t.classList.remove('open');
+    t.classList.remove('has-active');
+  });
+}
+
 function toggleMenuSection(sectionId) {
   const submenu = document.getElementById('submenu-' + sectionId);
   const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
   if (!submenu || !toggle) return;
-  submenu.classList.toggle('open');
-  toggle.classList.toggle('open');
+
+  const isCurrentlyOpen = submenu.classList.contains('open');
+
+  // 🔒 Close ALL sections first (accordion behaviour)
+  closeAllMenuSections();
+
+  // ✅ If it was closed, open only this one
+  if (!isCurrentlyOpen) {
+    submenu.classList.add('open');
+    toggle.classList.add('open');
+  }
 }
 
-// Open a specific section
 function openMenuSection(sectionId) {
+  // Close all first
+  closeAllMenuSections();
+
+  // Open only the requested one
   const submenu = document.getElementById('submenu-' + sectionId);
   const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
-  if (!submenu || !toggle) return;
-  submenu.classList.add('open');
-  toggle.classList.add('open');
-}
-
-// Close all sections
-function closeAllMenuSections() {
-  document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
-  document.querySelectorAll('.menu-toggle').forEach(t => t.classList.remove('open'));
+  if (submenu && toggle) {
+    submenu.classList.add('open');
+    toggle.classList.add('open');
+  }
 }
 
 // ============================================================
@@ -1396,7 +1412,7 @@ function updateSidebarCounts() {
 }
 
 // ============================================================
-// WORD EDITOR (same as before)
+// WORD EDITOR
 // ============================================================
 let currentWatermark = '';
 
@@ -2846,24 +2862,23 @@ function updateSystemInfo() {
 }
 
 // ============================================================
-// NAVIGATION
+// NAVIGATION — showAdminPage (with accordion auto-open)
 // ============================================================
 function showAdminPage(page) {
   // Update active state in menu
   document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
-  document.querySelectorAll('.admin-menu .menu-toggle').forEach(t => t.classList.remove('has-active'));
 
   const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
   if (activeLink) {
     activeLink.classList.add('active');
+  }
 
-    // Auto-open the section this page belongs to
-    const section = PAGE_TO_SECTION[page];
-    if (section) {
-      openMenuSection(section);
-      const toggle = document.querySelector(`.menu-toggle[data-section="${section}"]`);
-      if (toggle) toggle.classList.add('has-active');
-    }
+  // 🔒 Close ALL sections first, then open only this page's section
+  closeAllMenuSections();
+
+  const section = PAGE_TO_SECTION[page];
+  if (section) {
+    openMenuSection(section);
   }
 
   const titles = {
@@ -2931,7 +2946,7 @@ async function initAdminPanel() {
   updateSidebarCounts();
   showAdminPage('dashboard');
   loadFilesFromCloud();
-  console.log('✅ Admin Panel v4.1 Ready — Sidebar dropdown enabled');
+  console.log('✅ Admin Panel v4.2 Ready — Accordion Sidebar');
 }
 
 // ============================================================
@@ -2948,7 +2963,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Expose
 Object.assign(window, {
-  showAdminPage, toggleSidebar, toggleMenuSection, openMenuSection, closeAllMenuSections,
+  showAdminPage, toggleSidebar,
+  toggleMenuSection, openMenuSection, closeAllMenuSections,
   handleLogin, handleLogout,
   weCmd, weFormat, weChangeCase, weLineHeight, weChecklist, weOpenBoxes, weInsertBox,
   weInsertLink, weFindReplace, weDoFindReplace, wePageBreak, weWatermark, weDoWatermark,
