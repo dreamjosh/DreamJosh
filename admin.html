@@ -96,34 +96,101 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-user .avatar{width:36px;height:36px;border-radius:50%;background:var(--secondary-blue);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;}
 .admin-user .name{font-size:13px;font-weight:600;}
 .admin-user .role{font-size:10px;opacity:.6;}
+
+/* ============ SIDEBAR MENU — DROPDOWN STYLE ============ */
 .admin-menu{list-style:none;padding:0 10px;}
-.admin-menu li{margin-bottom:2px;}
-.admin-menu li a{
+.admin-menu > li{margin-bottom:2px;}
+
+/* Top-level direct link (Dashboard, Jobs, Back to Home) */
+.admin-menu .menu-link{
   display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
-  color:rgba(255,255,255,.7);text-decoration:none;font-size:13px;font-weight:500;
+  color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;
   transition:.3s;cursor:pointer;
 }
-.admin-menu li a:hover{background:rgba(255,255,255,.08);color:#fff;}
-.admin-menu li a.active{background:rgba(255,215,0,.15);color:var(--gold);}
-.admin-menu li a i{width:18px;font-size:14px;}
-.admin-menu li a .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 8px;border-radius:20px;font-size:10px;}
-.admin-menu .section-title{padding:12px 14px 6px;font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.4;font-weight:700;}
+.admin-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
+.admin-menu .menu-link.active{background:rgba(255,215,0,.15);color:var(--gold);}
+.admin-menu .menu-link i.menu-icon{width:18px;font-size:14px;text-align:center;}
+.admin-menu .menu-link .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 8px;border-radius:20px;font-size:10px;}
+
+/* Dropdown toggle (section title) */
+.admin-menu .menu-toggle{
+  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
+  color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:600;
+  transition:.3s;cursor:pointer;
+}
+.admin-menu .menu-toggle:hover{background:rgba(255,255,255,.08);color:#fff;}
+.admin-menu .menu-toggle.open{background:rgba(255,255,255,.06);color:#fff;}
+.admin-menu .menu-toggle.has-active{color:var(--gold);}
+.admin-menu .menu-toggle i.menu-icon{width:18px;font-size:14px;text-align:center;}
+.admin-menu .menu-toggle .arrow{
+  margin-left:auto;font-size:10px;opacity:.6;
+  transition:transform .25s ease;
+}
+.admin-menu .menu-toggle.open .arrow{transform:rotate(90deg);opacity:1;}
+
+/* Submenu */
+.admin-menu .submenu{
+  list-style:none;
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .3s ease, opacity .3s ease;
+  opacity:0;
+  margin:0;
+  padding-left:8px;
+}
+.admin-menu .submenu.open{
+  max-height:800px;
+  opacity:1;
+  margin-top:2px;
+  margin-bottom:4px;
+}
+.admin-menu .submenu li{margin-bottom:1px;}
+.admin-menu .submenu a{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 12px 8px 28px;
+  border-radius:6px;
+  color:rgba(255,255,255,.6);
+  text-decoration:none;
+  font-size:12.5px;
+  font-weight:500;
+  transition:.2s;
+  cursor:pointer;
+  position:relative;
+}
+.admin-menu .submenu a:hover{background:rgba(255,255,255,.06);color:#fff;}
+.admin-menu .submenu a.active{
+  background:rgba(255,215,0,.15);
+  color:var(--gold);
+  font-weight:600;
+}
+.admin-menu .submenu a.active::before{
+  content:'';
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:3px;height:14px;background:var(--gold);border-radius:2px;
+}
+.admin-menu .submenu a i{font-size:11px;opacity:.7;width:14px;text-align:center;}
+.admin-menu .submenu a .count{
+  margin-left:auto;background:rgba(255,255,255,.1);
+  padding:0 7px;border-radius:20px;font-size:9.5px;
+}
+
 .admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
-.admin-footer-menu a{
+.admin-footer-menu .menu-link{
   display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
   color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;font-weight:500;
   transition:.3s;cursor:pointer;
 }
-.admin-footer-menu a:hover{background:rgba(255,255,255,.08);color:#fff;}
+.admin-footer-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
 
 .admin-content{flex:1;padding:24px 30px;background:var(--bg-color);min-height:100vh;overflow-y:auto;}
 .admin-top-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--border-color);flex-wrap:wrap;gap:12px;}
 .admin-top-header h2{font-size:20px;font-weight:700;}
 .admin-top-header h2 span{color:var(--primary-blue);}
 .admin-top-header .admin-actions{display:flex;gap:8px;flex-wrap:wrap;}
-.admin-top-header .admin-actions button{
+.admin-top-header .admin-actions button,.admin-top-header .admin-actions a{
   padding:6px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;
   font-weight:600;transition:.3s;min-height:34px;display:flex;align-items:center;gap:6px;
+  text-decoration:none;
 }
 .btn-close-admin{background:#6c757d;color:#fff;}
 .btn-logout{background:#d62839;color:#fff;}
@@ -464,42 +531,124 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         <div class="role">Super Admin</div>
       </div>
     </div>
+
     <ul class="admin-menu">
-      <li class="section-title">Dashboard</li>
-      <li><a class="active" data-page="dashboard" onclick="showAdminPage('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+      <!-- Dashboard (direct link) -->
+      <li>
+        <a class="menu-link active" data-page="dashboard" onclick="showAdminPage('dashboard')">
+          <i class="fas fa-chart-pie menu-icon"></i> Dashboard
+        </a>
+      </li>
 
-      <li class="section-title">📁 File Manager</li>
-      <li><a data-page="files" onclick="showAdminPage('files')"><i class="fas fa-folder-open"></i> All Files <span class="count" id="count-files">0</span></a></li>
-      <li><a data-page="files-home" onclick="showAdminPage('files-home')"><i class="fas fa-home"></i> Home Display <span class="count" id="count-files-home">0</span></a></li>
+      <!-- 📁 FILE MANAGER (dropdown) -->
+      <li>
+        <div class="menu-toggle" data-section="file-manager" onclick="toggleMenuSection('file-manager')">
+          <i class="fas fa-folder-open menu-icon"></i> File Manager
+          <i class="fas fa-chevron-right arrow"></i>
+        </div>
+        <ul class="submenu" id="submenu-file-manager">
+          <li><a data-page="files" onclick="showAdminPage('files')">
+            <i class="fas fa-folder"></i> All Files <span class="count" id="count-files">0</span>
+          </a></li>
+          <li><a data-page="files-home" onclick="showAdminPage('files-home')">
+            <i class="fas fa-home"></i> Home Display <span class="count" id="count-files-home">0</span>
+          </a></li>
+        </ul>
+      </li>
 
-      <li class="section-title">Page Editor</li>
-      <li><a data-page="home-editor" onclick="showAdminPage('home-editor')"><i class="fas fa-home"></i> Home Page</a></li>
-      <li><a data-page="career-editor" onclick="showAdminPage('career-editor')"><i class="fas fa-briefcase"></i> Career Page</a></li>
-      <li><a data-page="more-editor" onclick="showAdminPage('more-editor')"><i class="fas fa-book"></i> More Page</a></li>
-      <li><a data-page="blog-editor" onclick="showAdminPage('blog-editor')"><i class="fas fa-blog"></i> Blog Page</a></li>
-      <li><a data-page="service-editor" onclick="showAdminPage('service-editor')"><i class="fas fa-cogs"></i> Service Page</a></li>
-      <li><a data-page="tools-editor" onclick="showAdminPage('tools-editor')"><i class="fas fa-tools"></i> Tools Page</a></li>
-      <li><a data-page="rsr-editor" onclick="showAdminPage('rsr-editor')"><i class="fas fa-gavel"></i> RSR Page</a></li>
+      <!-- 📝 PAGE EDITOR (dropdown) -->
+      <li>
+        <div class="menu-toggle" data-section="page-editor" onclick="toggleMenuSection('page-editor')">
+          <i class="fas fa-edit menu-icon"></i> Page Editor
+          <i class="fas fa-chevron-right arrow"></i>
+        </div>
+        <ul class="submenu" id="submenu-page-editor">
+          <li><a data-page="home-editor" onclick="showAdminPage('home-editor')">
+            <i class="fas fa-home"></i> Home Page
+          </a></li>
+          <li><a data-page="career-editor" onclick="showAdminPage('career-editor')">
+            <i class="fas fa-briefcase"></i> Career Page
+          </a></li>
+          <li><a data-page="more-editor" onclick="showAdminPage('more-editor')">
+            <i class="fas fa-book"></i> More Page
+          </a></li>
+          <li><a data-page="blog-editor" onclick="showAdminPage('blog-editor')">
+            <i class="fas fa-blog"></i> Blog Page
+          </a></li>
+          <li><a data-page="service-editor" onclick="showAdminPage('service-editor')">
+            <i class="fas fa-cogs"></i> Service Page
+          </a></li>
+          <li><a data-page="tools-editor" onclick="showAdminPage('tools-editor')">
+            <i class="fas fa-tools"></i> Tools Page
+          </a></li>
+          <li><a data-page="rsr-editor" onclick="showAdminPage('rsr-editor')">
+            <i class="fas fa-gavel"></i> RSR Page
+          </a></li>
+        </ul>
+      </li>
 
-      <li class="section-title">Data Items</li>
-      <li><a data-page="items-career" onclick="showAdminPage('items-career')"><i class="fas fa-list"></i> Career Items <span class="count" id="count-career">0</span></a></li>
-      <li><a data-page="items-more" onclick="showAdminPage('items-more')"><i class="fas fa-list"></i> More Items <span class="count" id="count-more">0</span></a></li>
-      <li><a data-page="items-blog" onclick="showAdminPage('items-blog')"><i class="fas fa-list"></i> Blog Items <span class="count" id="count-blog">0</span></a></li>
-      <li><a data-page="items-service" onclick="showAdminPage('items-service')"><i class="fas fa-list"></i> Service Items <span class="count" id="count-service">0</span></a></li>
-      <li><a data-page="items-tools" onclick="showAdminPage('items-tools')"><i class="fas fa-list"></i> Tools Items <span class="count" id="count-tools">0</span></a></li>
-      <li><a data-page="items-rsr" onclick="showAdminPage('items-rsr')"><i class="fas fa-list"></i> RSR Items <span class="count" id="count-rsr">0</span></a></li>
+      <!-- 📊 DATA ITEMS (dropdown) -->
+      <li>
+        <div class="menu-toggle" data-section="data-items" onclick="toggleMenuSection('data-items')">
+          <i class="fas fa-list menu-icon"></i> Data Items
+          <i class="fas fa-chevron-right arrow"></i>
+        </div>
+        <ul class="submenu" id="submenu-data-items">
+          <li><a data-page="items-career" onclick="showAdminPage('items-career')">
+            <i class="fas fa-briefcase"></i> Career Items <span class="count" id="count-career">0</span>
+          </a></li>
+          <li><a data-page="items-more" onclick="showAdminPage('items-more')">
+            <i class="fas fa-book"></i> More Items <span class="count" id="count-more">0</span>
+          </a></li>
+          <li><a data-page="items-blog" onclick="showAdminPage('items-blog')">
+            <i class="fas fa-blog"></i> Blog Items <span class="count" id="count-blog">0</span>
+          </a></li>
+          <li><a data-page="items-service" onclick="showAdminPage('items-service')">
+            <i class="fas fa-cogs"></i> Service Items <span class="count" id="count-service">0</span>
+          </a></li>
+          <li><a data-page="items-tools" onclick="showAdminPage('items-tools')">
+            <i class="fas fa-tools"></i> Tools Items <span class="count" id="count-tools">0</span>
+          </a></li>
+          <li><a data-page="items-rsr" onclick="showAdminPage('items-rsr')">
+            <i class="fas fa-gavel"></i> RSR Items <span class="count" id="count-rsr">0</span>
+          </a></li>
+        </ul>
+      </li>
 
-      <li class="section-title">Jobs</li>
-      <li><a data-page="jobs" onclick="showAdminPage('jobs')"><i class="fas fa-briefcase"></i> Jobs Manager <span class="count" id="count-jobs">0</span></a></li>
+      <!-- 💼 JOBS (direct link) -->
+      <li>
+        <a class="menu-link" data-page="jobs" onclick="showAdminPage('jobs')">
+          <i class="fas fa-briefcase menu-icon"></i> Jobs Manager <span class="count" id="count-jobs">0</span>
+        </a>
+      </li>
 
-      <li class="section-title">System</li>
-      <li><a data-page="slides" onclick="showAdminPage('slides')"><i class="fas fa-images"></i> Slides</a></li>
-      <li><a data-page="employees" onclick="showAdminPage('employees')"><i class="fas fa-users"></i> Employees <span class="count" id="count-employees">0</span></a></li>
-      <li><a data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</a></li>
+      <!-- ⚙️ SYSTEM (dropdown) -->
+      <li>
+        <div class="menu-toggle" data-section="system" onclick="toggleMenuSection('system')">
+          <i class="fas fa-cog menu-icon"></i> System
+          <i class="fas fa-chevron-right arrow"></i>
+        </div>
+        <ul class="submenu" id="submenu-system">
+          <li><a data-page="slides" onclick="showAdminPage('slides')">
+            <i class="fas fa-images"></i> Slides
+          </a></li>
+          <li><a data-page="employees" onclick="showAdminPage('employees')">
+            <i class="fas fa-users"></i> Employees <span class="count" id="count-employees">0</span>
+          </a></li>
+          <li><a data-page="settings" onclick="showAdminPage('settings')">
+            <i class="fas fa-sliders-h"></i> Settings
+          </a></li>
+        </ul>
+      </li>
     </ul>
+
     <div class="admin-footer-menu">
-      <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
-      <a onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      <a class="menu-link" href="index.html">
+        <i class="fas fa-home menu-icon"></i> Back to Home
+      </a>
+      <a class="menu-link" onclick="handleLogout()">
+        <i class="fas fa-sign-out-alt menu-icon"></i> Logout
+      </a>
     </div>
   </div>
 
@@ -513,7 +662,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         <button class="admin-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
         <button class="btn-logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        <a href="index.html" class="btn-close-admin" style="text-decoration:none;"><i class="fas fa-times"></i> Close</a>
+        <a href="index.html" class="btn-close-admin"><i class="fas fa-times"></i> Close</a>
       </div>
     </div>
 
@@ -537,7 +686,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- FILES -->
+    <!-- ============================================ -->
+    <!-- ALL OTHER PAGES (same as before) -->
+    <!-- ============================================ -->
+
     <div id="adminPage-files" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
@@ -552,7 +704,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- HOME DISPLAY -->
     <div id="adminPage-files-home" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>🏠 Home Page Display Files</h4></div>
@@ -560,7 +711,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- PAGE EDITORS -->
     <div id="adminPage-home-editor" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>🏠 Home Page Editor</h4>
@@ -618,7 +768,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- ITEMS -->
     <div id="adminPage-items-career" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
@@ -692,7 +841,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- JOBS -->
     <div id="adminPage-jobs" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
@@ -706,7 +854,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- SLIDES -->
     <div id="adminPage-slides" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>📸 Slides Manager</h4>
@@ -716,7 +863,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- EMPLOYEES -->
     <div id="adminPage-employees" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>👥 Employees</h4>
@@ -726,7 +872,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- SETTINGS -->
+    <!-- SETTINGS (same as before) -->
     <div id="adminPage-settings" class="admin-section">
       <div class="admin-card">
         <div class="card-header"><h4>⚙️ Settings</h4>
@@ -998,6 +1144,55 @@ const DEFAULT_SETTINGS = {
 };
 
 // ============================================================
+// 📂 SIDEBAR DROPDOWN — SECTION MAP
+// ============================================================
+// Which top-level section each page belongs to (for auto-open)
+const PAGE_TO_SECTION = {
+  'files': 'file-manager',
+  'files-home': 'file-manager',
+  'home-editor': 'page-editor',
+  'career-editor': 'page-editor',
+  'more-editor': 'page-editor',
+  'blog-editor': 'page-editor',
+  'service-editor': 'page-editor',
+  'tools-editor': 'page-editor',
+  'rsr-editor': 'page-editor',
+  'items-career': 'data-items',
+  'items-more': 'data-items',
+  'items-blog': 'data-items',
+  'items-service': 'data-items',
+  'items-tools': 'data-items',
+  'items-rsr': 'data-items',
+  'slides': 'system',
+  'employees': 'system',
+  'settings': 'system'
+};
+
+// Toggle a section open/close
+function toggleMenuSection(sectionId) {
+  const submenu = document.getElementById('submenu-' + sectionId);
+  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
+  if (!submenu || !toggle) return;
+  submenu.classList.toggle('open');
+  toggle.classList.toggle('open');
+}
+
+// Open a specific section
+function openMenuSection(sectionId) {
+  const submenu = document.getElementById('submenu-' + sectionId);
+  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
+  if (!submenu || !toggle) return;
+  submenu.classList.add('open');
+  toggle.classList.add('open');
+}
+
+// Close all sections
+function closeAllMenuSections() {
+  document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.menu-toggle').forEach(t => t.classList.remove('open'));
+}
+
+// ============================================================
 // 🔐 AUTH FUNCTIONS
 // ============================================================
 function getAdminCreds() {
@@ -1060,14 +1255,12 @@ function handleLogin(event) {
     if (username === creds.username && password === creds.password) {
       errorEl.classList.remove('show');
       createSession(username);
-      console.log('✅ Login successful:', username);
       showAdminPanel();
       showToast('✅ Welcome, ' + username + '!', 'success');
     } else {
       errorText.textContent = '❌ Invalid username or password';
       errorEl.classList.add('show');
       document.getElementById('loginPassword').value = '';
-      console.log('❌ Login failed');
     }
 
     btn.disabled = false;
@@ -1083,7 +1276,6 @@ function handleLogout() {
   document.getElementById('loginUsername').value = '';
   document.getElementById('loginPassword').value = '';
   document.getElementById('loginError').classList.remove('show');
-  console.log('👋 Logged out');
   showToast('👋 Logged out successfully', 'info');
 }
 
@@ -1204,7 +1396,7 @@ function updateSidebarCounts() {
 }
 
 // ============================================================
-// WORD EDITOR
+// WORD EDITOR (same as before)
 // ============================================================
 let currentWatermark = '';
 
@@ -2657,8 +2849,23 @@ function updateSystemInfo() {
 // NAVIGATION
 // ============================================================
 function showAdminPage(page) {
+  // Update active state in menu
   document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
-  document.querySelector(`.admin-menu a[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.admin-menu .menu-toggle').forEach(t => t.classList.remove('has-active'));
+
+  const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
+  if (activeLink) {
+    activeLink.classList.add('active');
+
+    // Auto-open the section this page belongs to
+    const section = PAGE_TO_SECTION[page];
+    if (section) {
+      openMenuSection(section);
+      const toggle = document.querySelector(`.menu-toggle[data-section="${section}"]`);
+      if (toggle) toggle.classList.add('has-active');
+    }
+  }
+
   const titles = {
     'dashboard':'📊 <span>Dashboard</span>', 'files':'📁 <span>All Files</span>',
     'files-home':'🏠 <span>Home Display</span>', 'home-editor':'🏠 <span>Home Editor</span>',
@@ -2724,7 +2931,7 @@ async function initAdminPanel() {
   updateSidebarCounts();
   showAdminPage('dashboard');
   loadFilesFromCloud();
-  console.log('✅ Admin Panel v4.0 Ready');
+  console.log('✅ Admin Panel v4.1 Ready — Sidebar dropdown enabled');
 }
 
 // ============================================================
@@ -2741,7 +2948,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Expose
 Object.assign(window, {
-  showAdminPage, toggleSidebar,
+  showAdminPage, toggleSidebar, toggleMenuSection, openMenuSection, closeAllMenuSections,
   handleLogin, handleLogout,
   weCmd, weFormat, weChangeCase, weLineHeight, weChecklist, weOpenBoxes, weInsertBox,
   weInsertLink, weFindReplace, weDoFindReplace, wePageBreak, weWatermark, weDoWatermark,
