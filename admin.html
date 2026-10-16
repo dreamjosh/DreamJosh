@@ -100,7 +100,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 /* ============ SIDEBAR MENU — ACCORDION ============ */
 .admin-menu{list-style:none;padding:0 10px;}
 .admin-menu > li{margin-bottom:2px;}
-
 .admin-menu .menu-link{
   display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
   color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;
@@ -110,7 +109,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-menu .menu-link.active{background:rgba(255,215,0,.15);color:var(--gold);}
 .admin-menu .menu-link i.menu-icon{width:18px;font-size:14px;text-align:center;}
 .admin-menu .menu-link .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 8px;border-radius:20px;font-size:10px;}
-
 .admin-menu .menu-toggle{
   display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
   color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:600;
@@ -120,56 +118,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-menu .menu-toggle.open{background:rgba(255,255,255,.06);color:#fff;}
 .admin-menu .menu-toggle.has-active{color:var(--gold);}
 .admin-menu .menu-toggle i.menu-icon{width:18px;font-size:14px;text-align:center;}
-.admin-menu .menu-toggle .arrow{
-  margin-left:auto;font-size:10px;opacity:.6;
-  transition:transform .25s ease;
-}
+.admin-menu .menu-toggle .arrow{margin-left:auto;font-size:10px;opacity:.6;transition:transform .25s ease;}
 .admin-menu .menu-toggle.open .arrow{transform:rotate(90deg);opacity:1;}
-
 .admin-menu .submenu{
-  list-style:none;
-  max-height:0;
-  overflow:hidden;
+  list-style:none;max-height:0;overflow:hidden;
   transition:max-height .3s ease, opacity .3s ease;
-  opacity:0;
-  margin:0;
-  padding-left:8px;
+  opacity:0;margin:0;padding-left:8px;
 }
-.admin-menu .submenu.open{
-  max-height:800px;
-  opacity:1;
-  margin-top:2px;
-  margin-bottom:4px;
-}
+.admin-menu .submenu.open{max-height:800px;opacity:1;margin-top:2px;margin-bottom:4px;}
 .admin-menu .submenu li{margin-bottom:1px;}
 .admin-menu .submenu a{
-  display:flex;align-items:center;gap:10px;
-  padding:8px 12px 8px 28px;
-  border-radius:6px;
-  color:rgba(255,255,255,.6);
-  text-decoration:none;
-  font-size:12.5px;
-  font-weight:500;
-  transition:.2s;
-  cursor:pointer;
-  position:relative;
+  display:flex;align-items:center;gap:10px;padding:8px 12px 8px 28px;
+  border-radius:6px;color:rgba(255,255,255,.6);text-decoration:none;
+  font-size:12.5px;font-weight:500;transition:.2s;cursor:pointer;position:relative;
 }
 .admin-menu .submenu a:hover{background:rgba(255,255,255,.06);color:#fff;}
-.admin-menu .submenu a.active{
-  background:rgba(255,215,0,.15);
-  color:var(--gold);
-  font-weight:600;
-}
+.admin-menu .submenu a.active{background:rgba(255,215,0,.15);color:var(--gold);font-weight:600;}
 .admin-menu .submenu a.active::before{
-  content:'';
-  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);
   width:3px;height:14px;background:var(--gold);border-radius:2px;
 }
 .admin-menu .submenu a i{font-size:11px;opacity:.7;width:14px;text-align:center;}
-.admin-menu .submenu a .count{
-  margin-left:auto;background:rgba(255,255,255,.1);
-  padding:0 7px;border-radius:20px;font-size:9.5px;
-}
+.admin-menu .submenu a .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 7px;border-radius:20px;font-size:9.5px;}
 
 .admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
 .admin-footer-menu .menu-link{
@@ -183,7 +153,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-top-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--border-color);flex-wrap:wrap;gap:12px;}
 .admin-top-header h2{font-size:20px;font-weight:700;}
 .admin-top-header h2 span{color:var(--primary-blue);}
-.admin-top-header .admin-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.admin-top-header .admin-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 .admin-top-header .admin-actions button,.admin-top-header .admin-actions a{
   padding:6px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;
   font-weight:600;transition:.3s;min-height:34px;display:flex;align-items:center;gap:6px;
@@ -193,6 +163,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .btn-logout{background:#d62839;color:#fff;}
 .btn-logout:hover{background:#a91f2c;}
 .btn-dark-admin{background:var(--secondary);color:#fff;}
+
+/* VIP CLOCK */
+#vipClock {
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 2px; padding: 6px 16px; border-radius: 10px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  margin-right: 10px;
+}
+#vipClock .vip-greeting {
+  font-size: 12px; font-weight: 700; color: var(--gold);
+  white-space: nowrap;
+}
+#vipClock .vip-time {
+  font-size: 11px; color: var(--text-light);
+  white-space: nowrap;
+}
+#vipClock .vip-idle {
+  font-size: 10px; color: #f59e0b; font-weight: 600;
+  white-space: nowrap;
+}
 
 .admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;}
 .admin-stats .stat-item{
@@ -464,9 +455,171 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   .admin-menu-toggle{display:flex;}
   .word-toolbar{overflow-x:auto;flex-wrap:nowrap;}
   .data-item{flex-wrap:wrap;}
+  #vipClock { padding: 4px 10px; }
+  #vipClock .vip-greeting { font-size: 10px; }
+  #vipClock .vip-time { font-size: 9px; }
 }
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;}
 .sidebar-overlay.active{display:block;}
+
+/* ============ VIP PREMIUM STYLES ============ */
+
+/* 1. Animated Gradient Background */
+@keyframes vipGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.admin-wrapper.active {
+  background: linear-gradient(-45deg, #eef5ff, #dbeafe, #e0e7ff, #f0f9ff);
+  background-size: 400% 400%;
+  animation: vipGradient 15s ease infinite;
+}
+.dark-mode .admin-wrapper.active {
+  background: linear-gradient(-45deg, #0a0e1a, #141428, #1a1a3a, #0d1b3e);
+  background-size: 400% 400%;
+  animation: vipGradient 15s ease infinite;
+}
+
+/* 2. Glassmorphism Sidebar */
+.admin-sidebar {
+  backdrop-filter: blur(20px);
+  background: rgba(18, 60, 155, 0.92) !important;
+  border-right: 1px solid rgba(255, 215, 0, 0.15);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15);
+}
+.dark-mode .admin-sidebar {
+  background: rgba(13, 27, 62, 0.92) !important;
+}
+
+/* 3. Glassmorphism Cards */
+.admin-card, .admin-stats .stat-item, .admin-quick-actions {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+}
+.dark-mode .admin-card,
+.dark-mode .admin-stats .stat-item,
+.dark-mode .admin-quick-actions {
+  background: rgba(20, 20, 40, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 4. Stat Cards — 3D Tilt on Hover */
+.admin-stats .stat-item {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.admin-stats .stat-item:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(18, 60, 155, 0.25);
+  border-color: var(--gold) !important;
+}
+
+/* 5. Gold Glow on Buttons */
+.btn-add:hover, .btn-submit:hover, .btn-setting.success:hover {
+  box-shadow: 0 0 20px rgba(22, 163, 74, 0.6),
+              0 0 40px rgba(22, 163, 74, 0.3);
+  transform: translateY(-2px);
+}
+
+/* 6. Sidebar Menu Item Glow */
+.admin-menu .menu-link.active,
+.admin-menu .menu-toggle.has-active {
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+  box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+/* 7. Login Box VIP */
+.login-box {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid rgba(255, 215, 0, 0.3) !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2),
+              0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+  position: relative;
+  overflow: hidden;
+}
+.login-box::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: conic-gradient(
+    transparent, rgba(255, 215, 0, 0.1),
+    transparent, rgba(25, 118, 210, 0.1),
+    transparent
+  );
+  animation: vipRotate 8s linear infinite;
+  pointer-events: none;
+}
+@keyframes vipRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.dark-mode .login-box {
+  background: rgba(20, 20, 40, 0.9) !important;
+}
+
+/* 8. Shimmer Effect on Admin Logo */
+@keyframes vipShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.admin-logo h1 {
+  background: linear-gradient(90deg, #fff 0%, #ffd700 25%, #fff 50%, #ffd700 75%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: vipShimmer 3s linear infinite;
+}
+.admin-logo h1 span {
+  -webkit-text-fill-color: #ffd700;
+}
+
+/* 9. Toast VIP */
+.toast {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3),
+              0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+/* 10. VIP Cursor (Desktop) */
+@media (pointer: fine) and (min-width: 900px) {
+  #vipCursor {
+    position: fixed; pointer-events: none; z-index: 999999;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,0,0.8), transparent 70%);
+    transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease;
+    mix-blend-mode: screen;
+    transform: translate(-50%, -50%);
+    left: -100px; top: -100px;
+  }
+}
+
+/* 11. Idle Warning Pulse */
+@keyframes idlePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.idle-warning {
+  animation: idlePulse 1.5s ease infinite;
+}
+
+/* 12. VIP Scrollbar */
+.admin-sidebar::-webkit-scrollbar,
+.admin-content::-webkit-scrollbar {
+  width: 8px;
+}
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ffd700, #1976d2);
+  border-radius: 10px;
+}
+.admin-sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
 </style>
 </head>
 <body>
@@ -530,14 +683,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     </div>
 
     <ul class="admin-menu">
-      <!-- Dashboard -->
       <li>
         <a class="menu-link active" data-page="dashboard" onclick="showAdminPage('dashboard')">
           <i class="fas fa-chart-pie menu-icon"></i> Dashboard
         </a>
       </li>
 
-      <!-- File Manager -->
       <li>
         <div class="menu-toggle" data-section="file-manager" onclick="toggleMenuSection('file-manager')">
           <i class="fas fa-folder-open menu-icon"></i> File Manager
@@ -553,7 +704,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         </ul>
       </li>
 
-      <!-- Page Editor -->
       <li>
         <div class="menu-toggle" data-section="page-editor" onclick="toggleMenuSection('page-editor')">
           <i class="fas fa-edit menu-icon"></i> Page Editor
@@ -584,7 +734,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         </ul>
       </li>
 
-      <!-- Data Items -->
       <li>
         <div class="menu-toggle" data-section="data-items" onclick="toggleMenuSection('data-items')">
           <i class="fas fa-list menu-icon"></i> Data Items
@@ -612,14 +761,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         </ul>
       </li>
 
-      <!-- Jobs (direct link) -->
       <li>
         <a class="menu-link" data-page="jobs" onclick="showAdminPage('jobs')">
           <i class="fas fa-briefcase menu-icon"></i> Jobs Manager <span class="count" id="count-jobs">0</span>
         </a>
       </li>
 
-      <!-- System -->
       <li>
         <div class="menu-toggle" data-section="system" onclick="toggleMenuSection('system')">
           <i class="fas fa-cog menu-icon"></i> System
@@ -655,7 +802,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   <div class="admin-content">
     <div class="admin-top-header">
       <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
-      <div class="admin-actions">
+      <div class="admin-actions" id="adminActions">
+        <!-- VIP Clock will be inserted here -->
         <button class="admin-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
         <button class="btn-logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
@@ -1046,7 +1194,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <div class="setting-group">
             <h5>ℹ️ System Info</h5>
             <div style="background:var(--bg-color);border-radius:6px;padding:12px;font-size:12px;">
-              <div><strong>Version:</strong> 4.0.0</div>
+              <div><strong>Version:</strong> 4.0.0 VIP</div>
               <div><strong>Firebase:</strong> <span id="sysFirebaseStatus">✅</span></div>
               <div><strong>Storage:</strong> <span id="sysStorageUsed">-</span></div>
               <div><strong>Files:</strong> <span id="sysFilesCount">0</span></div>
@@ -1079,7 +1227,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 // ============================================================
 const DEFAULT_ADMIN = { username: 'Admin', password: 'Admin@123' };
 const LOGIN_SESSION_KEY = 'dreamjosh_admin_session';
-const SESSION_DURATION = 8 * 60 * 60 * 1000; // 8 hours
+const SESSION_DURATION = 8 * 60 * 60 * 1000;       // 8 hours
+const IDLE_TIMEOUT = 10 * 60 * 1000;               // 10 minutes
+const IDLE_WARNING_TIME = 60 * 1000;               // warn at 1 min remaining
 
 // ============================================================
 // 🔗 HOME URL
@@ -1144,31 +1294,22 @@ const DEFAULT_SETTINGS = {
 };
 
 // ============================================================
-// 📂 PAGE → SECTION MAP (for auto-open)
+// 📂 PAGE → SECTION MAP
 // ============================================================
 const PAGE_TO_SECTION = {
-  'files': 'file-manager',
-  'files-home': 'file-manager',
-  'home-editor': 'page-editor',
-  'career-editor': 'page-editor',
-  'more-editor': 'page-editor',
-  'blog-editor': 'page-editor',
-  'service-editor': 'page-editor',
-  'tools-editor': 'page-editor',
+  'files': 'file-manager', 'files-home': 'file-manager',
+  'home-editor': 'page-editor', 'career-editor': 'page-editor',
+  'more-editor': 'page-editor', 'blog-editor': 'page-editor',
+  'service-editor': 'page-editor', 'tools-editor': 'page-editor',
   'rsr-editor': 'page-editor',
-  'items-career': 'data-items',
-  'items-more': 'data-items',
-  'items-blog': 'data-items',
-  'items-service': 'data-items',
-  'items-tools': 'data-items',
-  'items-rsr': 'data-items',
-  'slides': 'system',
-  'employees': 'system',
-  'settings': 'system'
+  'items-career': 'data-items', 'items-more': 'data-items',
+  'items-blog': 'data-items', 'items-service': 'data-items',
+  'items-tools': 'data-items', 'items-rsr': 'data-items',
+  'slides': 'system', 'employees': 'system', 'settings': 'system'
 };
 
 // ============================================================
-// 🎯 ACCORDION SIDEBAR — Only one section open at a time
+// 🎯 ACCORDION SIDEBAR
 // ============================================================
 function closeAllMenuSections() {
   document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
@@ -1182,13 +1323,8 @@ function toggleMenuSection(sectionId) {
   const submenu = document.getElementById('submenu-' + sectionId);
   const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
   if (!submenu || !toggle) return;
-
   const isCurrentlyOpen = submenu.classList.contains('open');
-
-  // 🔒 Close ALL sections first (accordion behaviour)
   closeAllMenuSections();
-
-  // ✅ If it was closed, open only this one
   if (!isCurrentlyOpen) {
     submenu.classList.add('open');
     toggle.classList.add('open');
@@ -1196,10 +1332,7 @@ function toggleMenuSection(sectionId) {
 }
 
 function openMenuSection(sectionId) {
-  // Close all first
   closeAllMenuSections();
-
-  // Open only the requested one
   const submenu = document.getElementById('submenu-' + sectionId);
   const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
   if (submenu && toggle) {
@@ -1207,6 +1340,170 @@ function openMenuSection(sectionId) {
     toggle.classList.add('open');
   }
 }
+
+// ============================================================
+// 👑 VIP EFFECTS
+// ============================================================
+
+// ---- 1. VIP Sound ----
+function playVipSound(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    if (type === 'success') {
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime);       // C5
+      osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+      osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2); // G5
+    } else if (type === 'error') {
+      osc.frequency.setValueAtTime(329.63, ctx.currentTime);       // E4
+      osc.frequency.setValueAtTime(261.63, ctx.currentTime + 0.15);// C4
+    } else if (type === 'warning') {
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+      osc.frequency.setValueAtTime(440, ctx.currentTime + 0.15);
+    } else {
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+    }
+
+    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.4);
+  } catch (e) {}
+}
+
+// ---- 2. VIP Cursor ----
+function initVipCursor() {
+  if (window.innerWidth < 900) return;
+  if (matchMedia('(pointer: coarse)').matches) return;
+  if (document.getElementById('vipCursor')) return;
+
+  const cursor = document.createElement('div');
+  cursor.id = 'vipCursor';
+  document.body.appendChild(cursor);
+
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.addEventListener('mousedown', () => {
+    cursor.style.width = '40px';
+    cursor.style.height = '40px';
+  });
+  document.addEventListener('mouseup', () => {
+    cursor.style.width = '20px';
+    cursor.style.height = '20px';
+  });
+}
+
+// ---- 3. VIP Clock + Idle Countdown ----
+let vipClockInterval = null;
+
+function initVipClock() {
+  const header = document.getElementById('adminActions');
+  if (!header) return;
+
+  document.getElementById('vipClock')?.remove();
+
+  const clockEl = document.createElement('div');
+  clockEl.id = 'vipClock';
+  header.prepend(clockEl);
+
+  function update() {
+    const now = new Date();
+    const h = now.getHours();
+    const greeting = h < 12 ? '🌅 Good Morning' :
+                     h < 17 ? '☀️ Good Afternoon' :
+                     h < 21 ? '🌆 Good Evening' : '🌙 Good Night';
+    const time = now.toLocaleTimeString('en-IN', {
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+    });
+    const date = now.toLocaleDateString('en-IN', {
+      weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+    });
+
+    // Idle countdown
+    let idleText = '';
+    if (lastActivityTime) {
+      const idleFor = Date.now() - lastActivityTime;
+      const remaining = Math.max(0, IDLE_TIMEOUT - idleFor);
+      if (remaining <= 60 * 1000) {
+        const secs = Math.ceil(remaining / 1000);
+        idleText = `<div class="vip-idle idle-warning">⚠️ Auto logout in ${secs}s</div>`;
+      } else if (remaining <= 5 * 60 * 1000) {
+        const mins = Math.ceil(remaining / 60000);
+        idleText = `<div class="vip-idle">⏳ Idle: ${mins} min left</div>`;
+      }
+    }
+
+    clockEl.innerHTML = `
+      <div class="vip-greeting">${greeting}, Admin 👑</div>
+      <div class="vip-time">${time} • ${date}</div>
+      ${idleText}
+    `;
+  }
+  update();
+  if (vipClockInterval) clearInterval(vipClockInterval);
+  vipClockInterval = setInterval(update, 1000);
+}
+
+// ---- 4. Auto Logout on Idle (10 minutes) ----
+let lastActivityTime = Date.now();
+let idleCheckInterval = null;
+let idleWarningShown = false;
+
+function markActivity() {
+  lastActivityTime = Date.now();
+  idleWarningShown = false;
+}
+
+function initIdleLogout() {
+  // Activity events
+  const events = ['mousemove', 'mousedown', 'click', 'keypress', 'scroll', 'touchstart', 'touchmove'];
+  events.forEach(evt => document.addEventListener(evt, markActivity, { passive: true }));
+
+  markActivity();
+
+  if (idleCheckInterval) clearInterval(idleCheckInterval);
+  idleCheckInterval = setInterval(() => {
+    if (!isLoggedIn()) return;
+    const idleFor = Date.now() - lastActivityTime;
+
+    // Warning at 1 min remaining
+    if (!idleWarningShown && idleFor >= IDLE_TIMEOUT - IDLE_WARNING_TIME) {
+      idleWarningShown = true;
+      showToast('⚠️ 1 minute mein auto-logout ho jayega!', 'warning');
+      playVipSound('warning');
+    }
+
+    // Auto logout
+    if (idleFor >= IDLE_TIMEOUT) {
+      clearInterval(idleCheckInterval);
+      console.log('🔒 Auto logout — 10 min inactivity');
+      destroySession();
+      document.getElementById('loginScreen').classList.add('active');
+      document.getElementById('adminWrapper').classList.remove('active');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      setTimeout(() => {
+        alert('🔒 10 minute tak koi activity nahi thi — Auto logout ho gaya.');
+      }, 100);
+      window._pendingIdleMsg = true;
+    }
+  }, 1000);
+}
+
+// ---- 5. Override showToast to play sounds ----
+const _origShowToast = showToast;
+window.showToast = function(msg, type = 'info') {
+  _origShowToast(msg, type);
+  if (type === 'success') playVipSound('success');
+  else if (type === 'error') playVipSound('error');
+  else if (type === 'warning') playVipSound('warning');
+};
 
 // ============================================================
 // 🔐 AUTH FUNCTIONS
@@ -1267,18 +1564,16 @@ function handleLogin(event) {
 
   setTimeout(() => {
     const creds = getAdminCreds();
-
     if (username === creds.username && password === creds.password) {
       errorEl.classList.remove('show');
       createSession(username);
       showAdminPanel();
-      showToast('✅ Welcome, ' + username + '!', 'success');
+      showToast('✅ Welcome, ' + username + '! 👑', 'success');
     } else {
       errorText.textContent = '❌ Invalid username or password';
       errorEl.classList.add('show');
       document.getElementById('loginPassword').value = '';
     }
-
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
   }, 500);
@@ -2784,7 +3079,7 @@ function changeAdminUsername() {
 }
 
 function exportAllData() {
-  const data = { appData, jobsData, filesMeta, settings, activityLog, version: '4.0.0', exportedAt: new Date().toISOString() };
+  const data = { appData, jobsData, filesMeta, settings, activityLog, version: '4.0.0 VIP', exportedAt: new Date().toISOString() };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -2862,24 +3157,17 @@ function updateSystemInfo() {
 }
 
 // ============================================================
-// NAVIGATION — showAdminPage (with accordion auto-open)
+// NAVIGATION — showAdminPage
 // ============================================================
 function showAdminPage(page) {
-  // Update active state in menu
+  markActivity();
   document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
-
   const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
-  if (activeLink) {
-    activeLink.classList.add('active');
-  }
+  if (activeLink) activeLink.classList.add('active');
 
-  // 🔒 Close ALL sections first, then open only this page's section
   closeAllMenuSections();
-
   const section = PAGE_TO_SECTION[page];
-  if (section) {
-    openMenuSection(section);
-  }
+  if (section) openMenuSection(section);
 
   const titles = {
     'dashboard':'📊 <span>Dashboard</span>', 'files':'📁 <span>All Files</span>',
@@ -2934,7 +3222,7 @@ function showToast(msg, type = 'info') {
 }
 
 // ============================================================
-// INIT ADMIN PANEL
+// INIT ADMIN PANEL — with VIP effects
 // ============================================================
 async function initAdminPanel() {
   loadData();
@@ -2946,7 +3234,16 @@ async function initAdminPanel() {
   updateSidebarCounts();
   showAdminPage('dashboard');
   loadFilesFromCloud();
-  console.log('✅ Admin Panel v4.2 Ready — Accordion Sidebar');
+
+  // 👑 VIP Effects
+  setTimeout(() => {
+    initVipClock();
+    initVipCursor();
+    initIdleLogout();
+    console.log('👑 VIP Effects Loaded — Clock, Cursor, Sounds, Idle Logout (10 min)');
+  }, 200);
+
+  console.log('✅ Admin Panel v4.0 VIP Ready');
 }
 
 // ============================================================
