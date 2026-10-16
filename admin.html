@@ -97,7 +97,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-user .name{font-size:13px;font-weight:600;}
 .admin-user .role{font-size:10px;opacity:.6;}
 
-/* ============ SIDEBAR MENU — ACCORDION ============ */
+/* ============ SIDEBAR MENU ============ */
 .admin-menu{list-style:none;padding:0 10px;}
 .admin-menu > li{margin-bottom:2px;}
 .admin-menu .menu-link{
@@ -125,7 +125,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   transition:max-height .3s ease, opacity .3s ease;
   opacity:0;margin:0;padding-left:8px;
 }
-.admin-menu .submenu.open{max-height:800px;opacity:1;margin-top:2px;margin-bottom:4px;}
+.admin-menu .submenu.open{max-height:2000px;opacity:1;margin-top:2px;margin-bottom:4px;}
 .admin-menu .submenu li{margin-bottom:1px;}
 .admin-menu .submenu a{
   display:flex;align-items:center;gap:10px;padding:8px 12px 8px 28px;
@@ -140,6 +140,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 }
 .admin-menu .submenu a i{font-size:11px;opacity:.7;width:14px;text-align:center;}
 .admin-menu .submenu a .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 7px;border-radius:20px;font-size:9.5px;}
+.admin-menu .submenu a .privacy-badge{
+  margin-left:auto;font-size:9px;padding:1px 6px;border-radius:10px;font-weight:700;
+}
+.admin-menu .submenu a .privacy-badge.public{background:rgba(22,163,74,.3);color:#86efac;}
+.admin-menu .submenu a .privacy-badge.private{background:rgba(214,40,57,.3);color:#fca5a5;}
 
 .admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
 .admin-footer-menu .menu-link{
@@ -164,7 +169,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .btn-logout:hover{background:#a91f2c;}
 .btn-dark-admin{background:var(--secondary);color:#fff;}
 
-/* VIP CLOCK */
 #vipClock {
   display: flex; flex-direction: column; align-items: flex-end;
   gap: 2px; padding: 6px 16px; border-radius: 10px;
@@ -172,18 +176,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   border: 1px solid rgba(255, 215, 0, 0.3);
   margin-right: 10px;
 }
-#vipClock .vip-greeting {
-  font-size: 12px; font-weight: 700; color: var(--gold);
-  white-space: nowrap;
-}
-#vipClock .vip-time {
-  font-size: 11px; color: var(--text-light);
-  white-space: nowrap;
-}
-#vipClock .vip-idle {
-  font-size: 10px; color: #f59e0b; font-weight: 600;
-  white-space: nowrap;
-}
+#vipClock .vip-greeting { font-size: 12px; font-weight: 700; color: var(--gold); white-space: nowrap; }
+#vipClock .vip-time { font-size: 11px; color: var(--text-light); white-space: nowrap; }
+#vipClock .vip-idle { font-size: 10px; color: #f59e0b; font-weight: 600; white-space: nowrap; }
 
 .admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;}
 .admin-stats .stat-item{
@@ -221,6 +216,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   min-height:32px;display:flex;align-items:center;gap:4px;
 }
 .btn-add.bulk{background:#6c5ce7;}
+.btn-add.primary{background:var(--secondary-blue);}
 
 .admin-modal-overlay{
   display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;
@@ -275,6 +271,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .btn-i-edit{background:#ffc107;color:#333;}
 .btn-i-delete{background:#dc3545;color:#fff;}
 .btn-i-dup{background:#6c5ce7;color:#fff;}
+.btn-i-public{background:#16a34a;color:#fff;}
+.btn-i-private{background:#dc3545;color:#fff;}
 
 .empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
 .empty-state i{font-size:36px;margin-bottom:8px;opacity:.4;}
@@ -318,7 +316,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .dark-mode .word-toolbar .tb-btn{color:#e8e8e8;}
 .word-toolbar .tb-btn:hover{background:#e8f0fe;border-color:#c2d4f0;}
 .word-toolbar .tb-btn.wide{width:auto;font-size:11px;font-weight:600;}
-.word-toolbar .tb-btn.text-btn{font-weight:700;}
 .word-toolbar select{
   height:28px;border:1px solid #d1d9e6;border-radius:4px;padding:0 4px;font-size:11px;
   background:#fff;cursor:pointer;color:#2c3e50;
@@ -337,48 +334,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   color:#1a1a1a;position:relative;
 }
 .dark-mode .word-editor-wrap .page{background:#1a1a2e;color:#e8e8e8;}
-.word-editor-wrap .page.watermark::before{
-  content:attr(data-watermark);position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%) rotate(-30deg);
-  font-size:80px;color:rgba(0,0,0,.05);font-weight:900;
-  pointer-events:none;white-space:nowrap;z-index:0;
-}
-.dark-mode .word-editor-wrap .page.watermark::before{color:rgba(255,255,255,.05);}
 #richEditor{min-height:400px;outline:none;font-size:15px;line-height:1.7;position:relative;z-index:1;}
-#richEditor:empty:before{content:'यहाँ content लिखें... Insert Table, Image, PDF, Word, Excel, H1-H6, Highlight सब available।';color:#999;font-style:italic;}
-#richEditor h1{font-size:32px;margin:16px 0 10px;font-weight:800;}
-#richEditor h2{font-size:26px;margin:14px 0 8px;font-weight:700;}
-#richEditor h3{font-size:22px;margin:12px 0 6px;font-weight:700;}
-#richEditor h4{font-size:18px;margin:10px 0 4px;font-weight:600;}
-#richEditor h5{font-size:16px;margin:8px 0 4px;font-weight:600;}
-#richEditor h6{font-size:14px;margin:8px 0 4px;font-weight:600;}
-#richEditor p{margin:6px 0;}
-#richEditor ul,#richEditor ol{margin:8px 0 8px 25px;}
-#richEditor blockquote{border-left:4px solid #1976d2;padding:8px 14px;margin:10px 0;background:#f5f8ff;font-style:italic;}
-#richEditor pre{background:#2c3e50;color:#fff;padding:12px 16px;border-radius:6px;overflow-x:auto;font-family:monospace;font-size:13px;margin:10px 0;}
-#richEditor code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-family:monospace;font-size:13px;}
-#richEditor pre code{background:transparent;padding:0;}
-#richEditor table{border-collapse:collapse;width:100%;margin:10px 0;}
-#richEditor table td,#richEditor table th{border:1px solid #999;padding:8px 10px;min-width:40px;}
-#richEditor table th{background:#f0f0f0;font-weight:600;}
-#richEditor img{max-width:100%;height:auto;margin:8px 0;border-radius:4px;}
-#richEditor img.img-resizable{resize:both;overflow:auto;cursor:pointer;}
-#richEditor a{color:#1976d2;text-decoration:underline;}
-#richEditor hr{border:none;border-top:2px solid #ccc;margin:16px 0;}
+#richEditor:empty:before{content:'यहाँ content लिखें...';color:#999;font-style:italic;}
 
 .info-box,.warning-box,.success-box,.tip-box{padding:12px 16px;border-radius:8px;margin:10px 0;border-left:5px solid;display:flex;gap:10px;align-items:flex-start;}
 .info-box{background:#eff6ff;border-color:#1976d2;color:#0c4a6e;}
 .warning-box{background:#fef3c7;border-color:#f59e0b;color:#78350f;}
 .success-box{background:#f0fdf4;border-color:#16a34a;color:#14532d;}
 .tip-box{background:#fef9c3;border-color:#eab308;color:#713f12;}
-.dark-mode .info-box{background:rgba(25,118,210,.15);color:#93c5fd;}
-.dark-mode .warning-box{background:rgba(245,158,11,.15);color:#fcd34d;}
-.dark-mode .success-box{background:rgba(22,163,74,.15);color:#86efac;}
-.dark-mode .tip-box{background:rgba(234,179,8,.15);color:#fde047;}
-
-.checklist{list-style:none;margin:10px 0;padding:0;}
-.checklist li{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:14px;}
-.checklist li input[type="checkbox"]{width:18px;height:18px;cursor:pointer;accent-color:#1976d2;}
 
 .insert-modal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0;}
 .insert-item{
@@ -425,11 +388,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;
   font-size:13px;background:var(--card-bg);color:var(--text-color);font-family:inherit;
 }
-.setting-row textarea{resize:vertical;min-height:60px;}
-.setting-row input[type="file"]{padding:6px;border:2px dashed var(--border-color);border-radius:6px;background:var(--bg-color);cursor:pointer;}
-.setting-row.checkbox-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg-color);border-radius:6px;cursor:pointer;}
-.setting-row.checkbox-row input[type="checkbox"]{width:auto;margin:0;transform:scale(1.2);}
-.setting-row.checkbox-row label{cursor:pointer;margin:0;}
 .btn-setting{
   padding:8px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;
   cursor:pointer;min-height:38px;margin-right:8px;margin-top:8px;
@@ -438,33 +396,74 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .btn-setting.primary{background:var(--secondary-blue);color:#fff;}
 .btn-setting.success{background:var(--success-green);color:#fff;}
 .btn-setting.danger{background:var(--warning-red);color:#fff;}
-#logoPreview img{max-height:60px;border-radius:6px;border:1px solid var(--border-color);padding:4px;}
-#faviconPreview img{width:32px;height:32px;border-radius:4px;border:1px solid var(--border-color);}
 .activity-log-item{padding:6px 10px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;font-size:11.5px;}
 .activity-log-item:last-child{border-bottom:none;}
 .activity-log-item .log-time{color:var(--text-light);font-size:10px;}
 
 .admin-menu-toggle{display:none;background:var(--secondary);color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:16px;cursor:pointer;}
-@media(max-width:768px){
-  .admin-sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);z-index:999;width:280px;}
-  .admin-sidebar.open{transform:translateX(0);}
-  .admin-content{padding:16px;}
-  .admin-stats{grid-template-columns:1fr 1fr;}
-  .admin-modal{padding:14px;}
-  .admin-modal .form-row{grid-template-columns:1fr;}
-  .admin-menu-toggle{display:flex;}
-  .word-toolbar{overflow-x:auto;flex-wrap:nowrap;}
-  .data-item{flex-wrap:wrap;}
-  #vipClock { padding: 4px 10px; }
-  #vipClock .vip-greeting { font-size: 10px; }
-  #vipClock .vip-time { font-size: 9px; }
+
+/* Page Manager specific */
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
 }
-.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;}
-.sidebar-overlay.active{display:block;}
+.page-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  transition: 0.3s;
+  position: relative;
+}
+.page-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px var(--shadow-color);
+  border-color: var(--gold);
+}
+.page-card .page-card-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+.page-card h4 {
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: var(--text-color);
+}
+.page-card .page-card-meta {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+.page-card .page-card-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  margin-right: 4px;
+}
+.page-card .page-card-badge.public { background: #16a34a; color: #fff; }
+.page-card .page-card-badge.private { background: #dc3545; color: #fff; }
+.page-card .page-card-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.page-card .page-card-actions button {
+  padding: 4px 10px;
+  font-size: 11px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
 
-/* ============ VIP PREMIUM STYLES ============ */
-
-/* 1. Animated Gradient Background */
+/* VIP STYLES */
 @keyframes vipGradient {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -480,19 +479,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   background-size: 400% 400%;
   animation: vipGradient 15s ease infinite;
 }
-
-/* 2. Glassmorphism Sidebar */
 .admin-sidebar {
   backdrop-filter: blur(20px);
   background: rgba(18, 60, 155, 0.92) !important;
   border-right: 1px solid rgba(255, 215, 0, 0.15);
   box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15);
 }
-.dark-mode .admin-sidebar {
-  background: rgba(13, 27, 62, 0.92) !important;
-}
-
-/* 3. Glassmorphism Cards */
+.dark-mode .admin-sidebar { background: rgba(13, 27, 62, 0.92) !important; }
 .admin-card, .admin-stats .stat-item, .admin-quick-actions {
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.75) !important;
@@ -505,63 +498,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   background: rgba(20, 20, 40, 0.75) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
-
-/* 4. Stat Cards — 3D Tilt on Hover */
-.admin-stats .stat-item {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+.admin-stats .stat-item { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .admin-stats .stat-item:hover {
   transform: translateY(-8px) scale(1.03);
   box-shadow: 0 20px 40px rgba(18, 60, 155, 0.25);
   border-color: var(--gold) !important;
 }
-
-/* 5. Gold Glow on Buttons */
 .btn-add:hover, .btn-submit:hover, .btn-setting.success:hover {
-  box-shadow: 0 0 20px rgba(22, 163, 74, 0.6),
-              0 0 40px rgba(22, 163, 74, 0.3);
+  box-shadow: 0 0 20px rgba(22, 163, 74, 0.6), 0 0 40px rgba(22, 163, 74, 0.3);
   transform: translateY(-2px);
 }
-
-/* 6. Sidebar Menu Item Glow */
 .admin-menu .menu-link.active,
 .admin-menu .menu-toggle.has-active {
   text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
   box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.1);
 }
-
-/* 7. Login Box VIP */
 .login-box {
   backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.9) !important;
   border: 2px solid rgba(255, 215, 0, 0.3) !important;
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2),
-              0 0 0 1px rgba(255, 215, 0, 0.1) inset;
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
 }
-.login-box::before {
-  content: '';
-  position: absolute;
-  top: -50%; left: -50%;
-  width: 200%; height: 200%;
-  background: conic-gradient(
-    transparent, rgba(255, 215, 0, 0.1),
-    transparent, rgba(25, 118, 210, 0.1),
-    transparent
-  );
-  animation: vipRotate 8s linear infinite;
-  pointer-events: none;
-}
-@keyframes vipRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.dark-mode .login-box {
-  background: rgba(20, 20, 40, 0.9) !important;
-}
-
-/* 8. Shimmer Effect on Admin Logo */
+.dark-mode .login-box { background: rgba(20, 20, 40, 0.9) !important; }
 @keyframes vipShimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
@@ -574,19 +532,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   background-clip: text;
   animation: vipShimmer 3s linear infinite;
 }
-.admin-logo h1 span {
-  -webkit-text-fill-color: #ffd700;
-}
-
-/* 9. Toast VIP */
+.admin-logo h1 span { -webkit-text-fill-color: #ffd700; }
 .toast {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3),
-              0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
 }
-
-/* 10. VIP Cursor (Desktop) */
 @media (pointer: fine) and (min-width: 900px) {
   #vipCursor {
     position: fixed; pointer-events: none; z-index: 999999;
@@ -598,35 +549,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     left: -100px; top: -100px;
   }
 }
+@keyframes idlePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.idle-warning { animation: idlePulse 1.5s ease infinite; }
+.admin-sidebar::-webkit-scrollbar, .admin-content::-webkit-scrollbar { width: 8px; }
+.admin-sidebar::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #ffd700, #1976d2); border-radius: 10px; }
+.admin-sidebar::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
 
-/* 11. Idle Warning Pulse */
-@keyframes idlePulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+@media(max-width:768px){
+  .admin-sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);z-index:999;width:280px;}
+  .admin-sidebar.open{transform:translateX(0);}
+  .admin-content{padding:16px;}
+  .admin-stats{grid-template-columns:1fr 1fr;}
+  .admin-menu-toggle{display:flex;}
+  #vipClock { padding: 4px 10px; }
+  #vipClock .vip-greeting { font-size: 10px; }
+  #vipClock .vip-time { font-size: 9px; }
 }
-.idle-warning {
-  animation: idlePulse 1.5s ease infinite;
-}
-
-/* 12. VIP Scrollbar */
-.admin-sidebar::-webkit-scrollbar,
-.admin-content::-webkit-scrollbar {
-  width: 8px;
-}
-.admin-sidebar::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ffd700, #1976d2);
-  border-radius: 10px;
-}
-.admin-sidebar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;}
+.sidebar-overlay.active{display:block;}
 </style>
 </head>
 <body>
 
-<!-- ============================================ -->
 <!-- LOGIN SCREEN -->
-<!-- ============================================ -->
 <div class="login-screen active" id="loginScreen">
   <div class="login-box">
     <div class="login-logo">
@@ -664,11 +609,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   </div>
 </div>
 
-<!-- ============================================ -->
 <!-- ADMIN PANEL -->
-<!-- ============================================ -->
 <div class="admin-wrapper" id="adminWrapper">
-  <!-- SIDEBAR -->
   <div class="admin-sidebar" id="adminSidebar">
     <div class="admin-logo">
       <h1>🚀 <span>Dream</span>Josh</h1>
@@ -682,108 +624,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <ul class="admin-menu">
-      <li>
-        <a class="menu-link active" data-page="dashboard" onclick="showAdminPage('dashboard')">
-          <i class="fas fa-chart-pie menu-icon"></i> Dashboard
-        </a>
-      </li>
-
-      <li>
-        <div class="menu-toggle" data-section="file-manager" onclick="toggleMenuSection('file-manager')">
-          <i class="fas fa-folder-open menu-icon"></i> File Manager
-          <i class="fas fa-chevron-right arrow"></i>
-        </div>
-        <ul class="submenu" id="submenu-file-manager">
-          <li><a data-page="files" onclick="showAdminPage('files')">
-            <i class="fas fa-folder"></i> All Files <span class="count" id="count-files">0</span>
-          </a></li>
-          <li><a data-page="files-home" onclick="showAdminPage('files-home')">
-            <i class="fas fa-home"></i> Home Display <span class="count" id="count-files-home">0</span>
-          </a></li>
-        </ul>
-      </li>
-
-      <li>
-        <div class="menu-toggle" data-section="page-editor" onclick="toggleMenuSection('page-editor')">
-          <i class="fas fa-edit menu-icon"></i> Page Editor
-          <i class="fas fa-chevron-right arrow"></i>
-        </div>
-        <ul class="submenu" id="submenu-page-editor">
-          <li><a data-page="home-editor" onclick="showAdminPage('home-editor')">
-            <i class="fas fa-home"></i> Home Page
-          </a></li>
-          <li><a data-page="career-editor" onclick="showAdminPage('career-editor')">
-            <i class="fas fa-briefcase"></i> Career Page
-          </a></li>
-          <li><a data-page="more-editor" onclick="showAdminPage('more-editor')">
-            <i class="fas fa-book"></i> More Page
-          </a></li>
-          <li><a data-page="blog-editor" onclick="showAdminPage('blog-editor')">
-            <i class="fas fa-blog"></i> Blog Page
-          </a></li>
-          <li><a data-page="service-editor" onclick="showAdminPage('service-editor')">
-            <i class="fas fa-cogs"></i> Service Page
-          </a></li>
-          <li><a data-page="tools-editor" onclick="showAdminPage('tools-editor')">
-            <i class="fas fa-tools"></i> Tools Page
-          </a></li>
-          <li><a data-page="rsr-editor" onclick="showAdminPage('rsr-editor')">
-            <i class="fas fa-gavel"></i> RSR Page
-          </a></li>
-        </ul>
-      </li>
-
-      <li>
-        <div class="menu-toggle" data-section="data-items" onclick="toggleMenuSection('data-items')">
-          <i class="fas fa-list menu-icon"></i> Data Items
-          <i class="fas fa-chevron-right arrow"></i>
-        </div>
-        <ul class="submenu" id="submenu-data-items">
-          <li><a data-page="items-career" onclick="showAdminPage('items-career')">
-            <i class="fas fa-briefcase"></i> Career Items <span class="count" id="count-career">0</span>
-          </a></li>
-          <li><a data-page="items-more" onclick="showAdminPage('items-more')">
-            <i class="fas fa-book"></i> More Items <span class="count" id="count-more">0</span>
-          </a></li>
-          <li><a data-page="items-blog" onclick="showAdminPage('items-blog')">
-            <i class="fas fa-blog"></i> Blog Items <span class="count" id="count-blog">0</span>
-          </a></li>
-          <li><a data-page="items-service" onclick="showAdminPage('items-service')">
-            <i class="fas fa-cogs"></i> Service Items <span class="count" id="count-service">0</span>
-          </a></li>
-          <li><a data-page="items-tools" onclick="showAdminPage('items-tools')">
-            <i class="fas fa-tools"></i> Tools Items <span class="count" id="count-tools">0</span>
-          </a></li>
-          <li><a data-page="items-rsr" onclick="showAdminPage('items-rsr')">
-            <i class="fas fa-gavel"></i> RSR Items <span class="count" id="count-rsr">0</span>
-          </a></li>
-        </ul>
-      </li>
-
-      <li>
-        <a class="menu-link" data-page="jobs" onclick="showAdminPage('jobs')">
-          <i class="fas fa-briefcase menu-icon"></i> Jobs Manager <span class="count" id="count-jobs">0</span>
-        </a>
-      </li>
-
-      <li>
-        <div class="menu-toggle" data-section="system" onclick="toggleMenuSection('system')">
-          <i class="fas fa-cog menu-icon"></i> System
-          <i class="fas fa-chevron-right arrow"></i>
-        </div>
-        <ul class="submenu" id="submenu-system">
-          <li><a data-page="slides" onclick="showAdminPage('slides')">
-            <i class="fas fa-images"></i> Slides
-          </a></li>
-          <li><a data-page="employees" onclick="showAdminPage('employees')">
-            <i class="fas fa-users"></i> Employees <span class="count" id="count-employees">0</span>
-          </a></li>
-          <li><a data-page="settings" onclick="showAdminPage('settings')">
-            <i class="fas fa-sliders-h"></i> Settings
-          </a></li>
-        </ul>
-      </li>
+    <ul class="admin-menu" id="dynamicSidebar">
+      <!-- Dynamically generated by JS -->
     </ul>
 
     <div class="admin-footer-menu">
@@ -798,12 +640,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-  <!-- CONTENT -->
   <div class="admin-content">
     <div class="admin-top-header">
       <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
       <div class="admin-actions" id="adminActions">
-        <!-- VIP Clock will be inserted here -->
         <button class="admin-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
         <button class="btn-logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
@@ -814,8 +654,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     <!-- DASHBOARD -->
     <div id="adminPage-dashboard" class="admin-section active">
       <div class="admin-stats">
+        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value" id="statPages">0</div></div>
         <div class="stat-item"><div class="stat-icon">📁</div><div class="stat-label">Total Files</div><div class="stat-value" id="statFiles">0</div></div>
-        <div class="stat-item"><div class="stat-icon">🏠</div><div class="stat-label">Home Display</div><div class="stat-value" id="statHomeFiles">0</div></div>
         <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
         <div class="stat-item"><div class="stat-icon">📸</div><div class="stat-label">Slides</div><div class="stat-value" id="statSlides">0</div></div>
         <div class="stat-item"><div class="stat-icon">👥</div><div class="stat-label">Employees</div><div class="stat-value" id="statEmployees">0</div></div>
@@ -823,11 +663,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <div class="admin-quick-actions">
         <h3>⚡ Quick Actions</h3>
         <div class="actions-grid">
+          <button onclick="showAdminPage('pages');openPageManager()"><i class="fas fa-plus"></i> Manage Pages</button>
           <button onclick="showAdminPage('files');openFileUploadModal()"><i class="fas fa-upload"></i> Upload File</button>
           <button onclick="showAdminPage('jobs');openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
           <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
-          <button onclick="window.location.href='index.html'"><i class="fas fa-home"></i> Home</button>
         </div>
+      </div>
+    </div>
+
+    <!-- PAGES MANAGER (NEW!) -->
+    <div id="adminPage-pages" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📄 Pages Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openPageModal()"><i class="fas fa-plus"></i> Add New Page</button>
+            <button class="btn-add primary" onclick="resetPagesToDefault()"><i class="fas fa-sync-alt"></i> Reset to Default</button>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">
+          Yahan se saare pages aur sub-pages add, edit, delete, public/private kar sakte hain.
+        </p>
+        <div class="page-grid" id="pagesGrid"></div>
       </div>
     </div>
 
@@ -839,7 +696,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <button class="btn-add" onclick="openFileUploadModal()"><i class="fas fa-plus"></i> Upload File</button>
             <button class="btn-add bulk" onclick="openBulkUploadModal()"><i class="fas fa-layer-group"></i> Bulk Upload</button>
-            <button class="btn-add" style="background:var(--primary-blue);" onclick="loadFilesFromCloud()"><i class="fas fa-sync-alt"></i> Refresh</button>
+            <button class="btn-add primary" onclick="loadFilesFromCloud()"><i class="fas fa-sync-alt"></i> Refresh</button>
           </div>
         </div>
         <div id="filesGridContainer"></div>
@@ -851,138 +708,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <div class="admin-card">
         <div class="card-header"><h4>🏠 Home Page Display Files</h4></div>
         <div id="homeFilesContainer"></div>
-      </div>
-    </div>
-
-    <!-- PAGE EDITORS -->
-    <div id="adminPage-home-editor" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header"><h4>🏠 Home Page Editor</h4>
-          <button class="btn-add" onclick="openPageEditor('home')"><i class="fas fa-edit"></i> Edit Content</button>
-        </div>
-        <div id="adminPageContent-home"></div>
-      </div>
-    </div>
-    <div id="adminPage-career-editor" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header"><h4>🎯 Career Page Editor</h4>
-          <button class="btn-add" onclick="openPageEditor('career')"><i class="fas fa-edit"></i> Edit Content</button>
-        </div>
-        <div id="adminPageContent-career"></div>
-      </div>
-    </div>
-    <div id="adminPage-more-editor" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header"><h4>📚 More Page Editor</h4>
-          <button class="btn-add" onclick="openPageEditor('more')"><i class="fas fa-edit"></i> Edit Content</button>
-        </div>
-        <div id="adminPageContent-more"></div>
-      </div>
-    </div>
-    <div id="adminPage-blog-editor" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header"><h4>📝 Blog Page Editor</h4>
-          <button class="btn-add" onclick="openPageEditor('blog')"><i class="fas fa-edit"></i> Edit Content</button>
-        </div>
-        <div id="adminPageContent-blog"></div>
-      </div>
-    </div>
-    <div id="adminPage-service-editor" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header"><h4>🛠️ Service Page Editor</h4>
-          <button class="btn-add" onclick="openPageEditor('service')"><i class="fas fa-edit"></i> Edit Content</button>
-        </div>
-        <div id="adminPageContent-service"></div>
-      </div>
-    </div>
-    <div id="adminPage-tools-editor" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header"><h4>🛠️ Tools Page Editor</h4>
-          <button class="btn-add" onclick="openPageEditor('tools')"><i class="fas fa-edit"></i> Edit Content</button>
-        </div>
-        <div id="adminPageContent-tools"></div>
-      </div>
-    </div>
-    <div id="adminPage-rsr-editor" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header"><h4>📜 RSR Page Editor</h4>
-          <button class="btn-add" onclick="openPageEditor('rsr')"><i class="fas fa-edit"></i> Edit Content</button>
-        </div>
-        <div id="adminPageContent-rsr"></div>
-      </div>
-    </div>
-
-    <!-- ITEMS -->
-    <div id="adminPage-items-career" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>🎯 Career Items</h4>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openItemEditor('career')"><i class="fas fa-plus"></i> Add Item</button>
-            <button class="btn-add bulk" onclick="openBulkAddModal('career')"><i class="fas fa-layer-group"></i> Bulk Add</button>
-          </div>
-        </div>
-        <div id="adminItemsContainer-career"></div>
-      </div>
-    </div>
-    <div id="adminPage-items-more" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>📚 More Items</h4>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openItemEditor('more')"><i class="fas fa-plus"></i> Add Item</button>
-            <button class="btn-add bulk" onclick="openBulkAddModal('more')"><i class="fas fa-layer-group"></i> Bulk Add</button>
-          </div>
-        </div>
-        <div id="adminItemsContainer-more"></div>
-      </div>
-    </div>
-    <div id="adminPage-items-blog" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>📝 Blog Items</h4>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openItemEditor('blog')"><i class="fas fa-plus"></i> Add Item</button>
-            <button class="btn-add bulk" onclick="openBulkAddModal('blog')"><i class="fas fa-layer-group"></i> Bulk Add</button>
-          </div>
-        </div>
-        <div id="adminItemsContainer-blog"></div>
-      </div>
-    </div>
-    <div id="adminPage-items-service" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>🛠️ Service Items</h4>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openItemEditor('service')"><i class="fas fa-plus"></i> Add Item</button>
-            <button class="btn-add bulk" onclick="openBulkAddModal('service')"><i class="fas fa-layer-group"></i> Bulk Add</button>
-          </div>
-        </div>
-        <div id="adminItemsContainer-service"></div>
-      </div>
-    </div>
-    <div id="adminPage-items-tools" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>🛠️ Tools Items</h4>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openItemEditor('tools')"><i class="fas fa-plus"></i> Add Item</button>
-            <button class="btn-add bulk" onclick="openBulkAddModal('tools')"><i class="fas fa-layer-group"></i> Bulk Add</button>
-          </div>
-        </div>
-        <div id="adminItemsContainer-tools"></div>
-      </div>
-    </div>
-    <div id="adminPage-items-rsr" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>📜 RSR Items</h4>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openItemEditor('rsr')"><i class="fas fa-plus"></i> Add Item</button>
-            <button class="btn-add bulk" onclick="openBulkAddModal('rsr')"><i class="fas fa-layer-group"></i> Bulk Add</button>
-          </div>
-        </div>
-        <div id="adminItemsContainer-rsr"></div>
       </div>
     </div>
 
@@ -1051,18 +776,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
             <div class="setting-row"><label>Phone</label><input type="tel" id="setContactPhone"></div>
             <div class="setting-row"><label>Address</label><textarea id="setAddress" rows="2"></textarea></div>
           </div>
-          <div class="setting-group">
-            <h5>🌍 Regional</h5>
-            <div class="setting-row"><label>Language</label>
-              <select id="setLanguage"><option value="hi">हिंदी</option><option value="en">English</option><option value="both">दोनों</option></select>
-            </div>
-            <div class="setting-row"><label>Timezone</label>
-              <select id="setTimezone"><option value="Asia/Kolkata">IST</option><option value="UTC">UTC</option></select>
-            </div>
-            <div class="setting-row"><label>Date Format</label>
-              <select id="setDateFormat"><option value="DD-MM-YYYY">DD-MM-YYYY</option><option value="YYYY-MM-DD">YYYY-MM-DD</option></select>
-            </div>
-          </div>
           <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save General</button>
         </div>
 
@@ -1080,20 +793,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
             <div class="setting-row"><label>Secondary</label><input type="color" id="setSecondaryColor" value="#1976d2" onchange="applyColorPreview()"></div>
             <div class="setting-row"><label>Accent</label><input type="color" id="setAccentColor" value="#ffd700" onchange="applyColorPreview()"></div>
           </div>
-          <div class="setting-group">
-            <h5>🎭 Theme</h5>
-            <div class="setting-row"><label>Theme Mode</label>
-              <select id="setThemeMode"><option value="light">☀️ Light</option><option value="dark">🌙 Dark</option><option value="auto">🌓 Auto</option></select>
-            </div>
-            <div class="setting-row"><label>Font</label>
-              <select id="setFontFamily" onchange="applyFontPreview()">
-                <option value="Arial, sans-serif">Arial</option>
-                <option value="'Segoe UI', sans-serif">Segoe UI</option>
-                <option value="Roboto, sans-serif">Roboto</option>
-                <option value="'Nirmala UI', sans-serif">Nirmala UI</option>
-              </select>
-            </div>
-          </div>
           <button class="btn-setting success" onclick="saveSettingsGroup('appearance')"><i class="fas fa-save"></i> Save Appearance</button>
         </div>
 
@@ -1102,15 +801,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
             <h5>📊 Display Settings</h5>
             <div class="setting-row"><label>Items Per Page</label><input type="number" id="setItemsPerPage" value="12" min="1" max="100"></div>
             <div class="setting-row"><label>Home Limit</label><input type="number" id="setHomeLimit" value="6" min="1" max="50"></div>
-            <div class="setting-row"><label>Home Layout</label>
-              <select id="setHomeLayout"><option value="grid">Grid</option><option value="list">List</option><option value="card">Card</option></select>
-            </div>
           </div>
           <div class="setting-group">
             <h5>📢 Announcements</h5>
             <div class="setting-row"><label>Announcement Bar</label><input type="text" id="setAnnouncementBar"></div>
             <div class="setting-row checkbox-row"><input type="checkbox" id="setShowTicker"><label for="setShowTicker">Show Ticker</label></div>
-            <div class="setting-row"><label>Ticker Text</label><input type="text" id="setTickerText"></div>
           </div>
           <button class="btn-setting success" onclick="saveSettingsGroup('content')"><i class="fas fa-save"></i> Save Content</button>
         </div>
@@ -1122,18 +817,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
             <div class="setting-row"><label>New</label><input type="password" id="setNewPassword"></div>
             <div class="setting-row"><label>Confirm</label><input type="password" id="setConfirmPassword"></div>
             <button class="btn-setting danger" onclick="changeAdminPassword()" style="margin-top:8px;"><i class="fas fa-key"></i> Change Password</button>
-          </div>
-          <div class="setting-group">
-            <h5>👤 Change Username</h5>
-            <div class="setting-row"><label>Current</label><input type="text" id="setCurUsername" readonly></div>
-            <div class="setting-row"><label>New</label><input type="text" id="setNewUsername"></div>
-            <button class="btn-setting primary" onclick="changeAdminUsername()" style="margin-top:8px;"><i class="fas fa-user-edit"></i> Change Username</button>
-          </div>
-          <div class="setting-group">
-            <h5>🛠️ Maintenance Mode</h5>
-            <div class="setting-row checkbox-row"><input type="checkbox" id="setMaintenanceMode"><label for="setMaintenanceMode">Enable Maintenance</label></div>
-            <div class="setting-row"><label>Message</label><textarea id="setMaintenanceMsg" rows="2"></textarea></div>
-            <button class="btn-setting success" onclick="saveSettingsGroup('security')" style="margin-top:8px;"><i class="fas fa-save"></i> Save</button>
           </div>
           <div class="setting-group">
             <h5>📋 Activity Log</h5>
@@ -1151,11 +834,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
             <div class="setting-row"><label>Description</label><textarea id="setMetaDesc" rows="2"></textarea></div>
             <div class="setting-row"><label>Keywords</label><input type="text" id="setMetaKeywords"></div>
           </div>
-          <div class="setting-group">
-            <h5>📊 Analytics</h5>
-            <div class="setting-row"><label>Google Analytics ID</label><input type="text" id="setGAId" placeholder="G-XXXXXXXXXX"></div>
-            <div class="setting-row"><label>Search Console</label><input type="text" id="setGSCode"></div>
-          </div>
           <button class="btn-setting success" onclick="saveSettingsGroup('seo')"><i class="fas fa-save"></i> Save SEO</button>
         </div>
 
@@ -1169,9 +847,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
             <div class="setting-row"><label>✈️ Telegram</label><input type="url" id="setTelegram"></div>
             <div class="setting-row"><label>🐦 Twitter/X</label><input type="url" id="setTwitter"></div>
             <div class="setting-row"><label>💼 LinkedIn</label><input type="url" id="setLinkedIn"></div>
-          </div>
-          <div class="setting-group">
-            <div class="setting-row checkbox-row"><input type="checkbox" id="setShowSocialHome" checked><label for="setShowSocialHome">Home पर दिखाएं</label></div>
           </div>
           <button class="btn-setting success" onclick="saveSettingsGroup('social')"><i class="fas fa-save"></i> Save Social</button>
         </div>
@@ -1194,12 +869,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <div class="setting-group">
             <h5>ℹ️ System Info</h5>
             <div style="background:var(--bg-color);border-radius:6px;padding:12px;font-size:12px;">
-              <div><strong>Version:</strong> 4.0.0 VIP</div>
+              <div><strong>Version:</strong> 5.0 VIP Dynamic</div>
               <div><strong>Firebase:</strong> <span id="sysFirebaseStatus">✅</span></div>
-              <div><strong>Storage:</strong> <span id="sysStorageUsed">-</span></div>
+              <div><strong>Pages:</strong> <span id="sysPagesCount">0</span></div>
               <div><strong>Files:</strong> <span id="sysFilesCount">0</span></div>
               <div><strong>Jobs:</strong> <span id="sysJobsCount">0</span></div>
-              <div><strong>Items:</strong> <span id="sysItemsCount">0</span></div>
             </div>
           </div>
         </div>
@@ -1227,18 +901,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 // ============================================================
 const DEFAULT_ADMIN = { username: 'Admin', password: 'Admin@123' };
 const LOGIN_SESSION_KEY = 'dreamjosh_admin_session';
-const SESSION_DURATION = 8 * 60 * 60 * 1000;       // 8 hours
-const IDLE_TIMEOUT = 10 * 60 * 1000;               // 10 minutes
-const IDLE_WARNING_TIME = 60 * 1000;               // warn at 1 min remaining
+const SESSION_DURATION = 8 * 60 * 60 * 1000;
+const IDLE_TIMEOUT = 10 * 60 * 1000;
+const IDLE_WARNING_TIME = 60 * 1000;
 
-// ============================================================
-// 🔗 HOME URL
-// ============================================================
-const HOME_URL = 'index.html';
-
-// ============================================================
-// FIREBASE
-// ============================================================
 const firebaseConfig = {
   apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
   authDomain: "dreamjosh-7d9ee.firebaseapp.com",
@@ -1259,6 +925,7 @@ try {
 // STATE
 // ============================================================
 let appData = {};
+let pagesData = [];   // 👈 All dynamic pages
 let jobsData = [];
 let filesData = [];
 let filesMeta = [];
@@ -1266,247 +933,130 @@ let settings = {};
 let activityLog = [];
 
 const STORAGE_KEY = 'dreamjosh_admin_data';
+const PAGES_KEY = 'dreamjosh_pages_data';
 const FILES_META_KEY = 'dreamjosh_files_meta';
 const SETTINGS_KEY = 'dreamjosh_settings';
 const ACTIVITY_LOG_KEY = 'dreamjosh_activity_log';
 const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
 
-const PAGE_KEYS = ['career', 'more', 'blog', 'service', 'tools', 'rsr'];
-
-const DEFAULT_DATA = {
-  home:{content:''}, career:{content:'',items:[]}, more:{content:'',items:[]},
-  service:{content:'',items:[]}, blog:{content:'',items:[]}, tools:{content:'',items:[]},
-  rsr:{content:'',items:[]}, slides:[], employees:[]
-};
+// ============================================================
+// DEFAULT PAGES (agar pehli baar khul raha ho)
+// ============================================================
+const DEFAULT_PAGES = [
+  { id: 'file-manager', name: 'File Manager', icon: 'fa-folder-open', isPublic: true, subPages: [
+    { id: 'files', name: 'All Files', icon: 'fa-folder', isPublic: true },
+    { id: 'files-home', name: 'Home Display', icon: 'fa-home', isPublic: true }
+  ]},
+  { id: 'jobs-manager', name: 'Jobs Manager', icon: 'fa-briefcase', isPublic: true, subPages: [] },
+  { id: 'blog', name: 'Blog', icon: 'fa-blog', isPublic: true, subPages: [] },
+  { id: 'career', name: 'Career', icon: 'fa-briefcase', isPublic: true, subPages: [] },
+  { id: 'services', name: 'Services', icon: 'fa-cogs', isPublic: true, subPages: [] },
+  { id: 'more', name: 'More', icon: 'fa-book', isPublic: true, subPages: [] },
+  { id: 'tools', name: 'Tools', icon: 'fa-tools', isPublic: true, subPages: [] },
+  { id: 'rsr', name: 'RSR', icon: 'fa-gavel', isPublic: true, subPages: [] },
+  { id: 'system', name: 'System', icon: 'fa-cog', isPublic: false, subPages: [
+    { id: 'slides', name: 'Slides', icon: 'fa-images', isPublic: true },
+    { id: 'employees', name: 'Employees', icon: 'fa-users', isPublic: false },
+    { id: 'settings', name: 'Settings', icon: 'fa-sliders-h', isPublic: false }
+  ]}
+];
 
 const DEFAULT_SETTINGS = {
   siteName:'Dream Josh', tagline:'Career & Study Platform', siteDesc:'', siteURL:'',
-  contactEmail:'', contactPhone:'', address:'', language:'both', timezone:'Asia/Kolkata', dateFormat:'DD-MM-YYYY',
+  contactEmail:'', contactPhone:'', address:'',
   logo:'', favicon:'', primaryColor:'#123c9b', secondaryColor:'#1976d2', accentColor:'#ffd700',
-  themeMode:'light', fontFamily:'Arial, sans-serif',
-  itemsPerPage:12, homeLimit:6, homeLayout:'grid',
-  announcementBar:'', showTicker:false, tickerText:'',
-  maintenanceMode:false, maintenanceMsg:'We will be back soon!',
-  metaTitle:'Dream Josh - Career & Study Platform', metaDesc:'', metaKeywords:'',
-  gaId:'', gsCode:'',
-  instagram:'', youtube:'', facebook:'', whatsapp:'', telegram:'', twitter:'', linkedin:'',
-  showSocialHome:true
+  themeMode:'light',
+  itemsPerPage:12, homeLimit:6,
+  announcementBar:'', showTicker:false,
+  metaTitle:'Dream Josh', metaDesc:'', metaKeywords:'',
+  instagram:'', youtube:'', facebook:'', whatsapp:'', telegram:'', twitter:'', linkedin:''
 };
 
 // ============================================================
-// 📂 PAGE → SECTION MAP
+// LOAD / SAVE
 // ============================================================
-const PAGE_TO_SECTION = {
-  'files': 'file-manager', 'files-home': 'file-manager',
-  'home-editor': 'page-editor', 'career-editor': 'page-editor',
-  'more-editor': 'page-editor', 'blog-editor': 'page-editor',
-  'service-editor': 'page-editor', 'tools-editor': 'page-editor',
-  'rsr-editor': 'page-editor',
-  'items-career': 'data-items', 'items-more': 'data-items',
-  'items-blog': 'data-items', 'items-service': 'data-items',
-  'items-tools': 'data-items', 'items-rsr': 'data-items',
-  'slides': 'system', 'employees': 'system', 'settings': 'system'
-};
-
-// ============================================================
-// 🎯 ACCORDION SIDEBAR
-// ============================================================
-function closeAllMenuSections() {
-  document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
-  document.querySelectorAll('.menu-toggle').forEach(t => {
-    t.classList.remove('open');
-    t.classList.remove('has-active');
-  });
-}
-
-function toggleMenuSection(sectionId) {
-  const submenu = document.getElementById('submenu-' + sectionId);
-  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
-  if (!submenu || !toggle) return;
-  const isCurrentlyOpen = submenu.classList.contains('open');
-  closeAllMenuSections();
-  if (!isCurrentlyOpen) {
-    submenu.classList.add('open');
-    toggle.classList.add('open');
-  }
-}
-
-function openMenuSection(sectionId) {
-  closeAllMenuSections();
-  const submenu = document.getElementById('submenu-' + sectionId);
-  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
-  if (submenu && toggle) {
-    submenu.classList.add('open');
-    toggle.classList.add('open');
-  }
-}
-
-// ============================================================
-// 👑 VIP EFFECTS
-// ============================================================
-
-// ---- 1. VIP Sound ----
-function playVipSound(type) {
+function loadData() {
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    if (type === 'success') {
-      osc.frequency.setValueAtTime(523.25, ctx.currentTime);       // C5
-      osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
-      osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2); // G5
-    } else if (type === 'error') {
-      osc.frequency.setValueAtTime(329.63, ctx.currentTime);       // E4
-      osc.frequency.setValueAtTime(261.63, ctx.currentTime + 0.15);// C4
-    } else if (type === 'warning') {
-      osc.frequency.setValueAtTime(440, ctx.currentTime);
-      osc.frequency.setValueAtTime(440, ctx.currentTime + 0.15);
-    } else {
-      osc.frequency.setValueAtTime(440, ctx.currentTime);
-    }
-
-    gain.gain.setValueAtTime(0.1, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.4);
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) { const p = JSON.parse(s); appData = p.appData || {}; jobsData = p.jobsData || []; }
   } catch (e) {}
 }
 
-// ---- 2. VIP Cursor ----
-function initVipCursor() {
-  if (window.innerWidth < 900) return;
-  if (matchMedia('(pointer: coarse)').matches) return;
-  if (document.getElementById('vipCursor')) return;
-
-  const cursor = document.createElement('div');
-  cursor.id = 'vipCursor';
-  document.body.appendChild(cursor);
-
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-  });
-  document.addEventListener('mousedown', () => {
-    cursor.style.width = '40px';
-    cursor.style.height = '40px';
-  });
-  document.addEventListener('mouseup', () => {
-    cursor.style.width = '20px';
-    cursor.style.height = '20px';
-  });
+function loadPages() {
+  try {
+    const s = localStorage.getItem(PAGES_KEY);
+    if (s) { pagesData = JSON.parse(s); }
+    if (!pagesData || !pagesData.length) pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES));
+  } catch (e) { pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES)); }
 }
 
-// ---- 3. VIP Clock + Idle Countdown ----
-let vipClockInterval = null;
+function savePages() {
+  localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('pagesData').set({ pages: pagesData }).catch(()=>{});
+}
 
-function initVipClock() {
-  const header = document.getElementById('adminActions');
-  if (!header) return;
-
-  document.getElementById('vipClock')?.remove();
-
-  const clockEl = document.createElement('div');
-  clockEl.id = 'vipClock';
-  header.prepend(clockEl);
-
-  function update() {
-    const now = new Date();
-    const h = now.getHours();
-    const greeting = h < 12 ? '🌅 Good Morning' :
-                     h < 17 ? '☀️ Good Afternoon' :
-                     h < 21 ? '🌆 Good Evening' : '🌙 Good Night';
-    const time = now.toLocaleTimeString('en-IN', {
-      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
-    });
-    const date = now.toLocaleDateString('en-IN', {
-      weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
-    });
-
-    // Idle countdown
-    let idleText = '';
-    if (lastActivityTime) {
-      const idleFor = Date.now() - lastActivityTime;
-      const remaining = Math.max(0, IDLE_TIMEOUT - idleFor);
-      if (remaining <= 60 * 1000) {
-        const secs = Math.ceil(remaining / 1000);
-        idleText = `<div class="vip-idle idle-warning">⚠️ Auto logout in ${secs}s</div>`;
-      } else if (remaining <= 5 * 60 * 1000) {
-        const mins = Math.ceil(remaining / 60000);
-        idleText = `<div class="vip-idle">⏳ Idle: ${mins} min left</div>`;
-      }
+async function loadPagesFromCloud() {
+  if (!firebaseDB) return;
+  try {
+    const d = await firebaseDB.collection('dreamjosh').doc('pagesData').get();
+    if (d.exists && d.data().pages) {
+      pagesData = d.data().pages;
+      localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
     }
-
-    clockEl.innerHTML = `
-      <div class="vip-greeting">${greeting}, Admin 👑</div>
-      <div class="vip-time">${time} • ${date}</div>
-      ${idleText}
-    `;
-  }
-  update();
-  if (vipClockInterval) clearInterval(vipClockInterval);
-  vipClockInterval = setInterval(update, 1000);
+  } catch (e) {}
 }
 
-// ---- 4. Auto Logout on Idle (10 minutes) ----
-let lastActivityTime = Date.now();
-let idleCheckInterval = null;
-let idleWarningShown = false;
-
-function markActivity() {
-  lastActivityTime = Date.now();
-  idleWarningShown = false;
-}
-
-function initIdleLogout() {
-  // Activity events
-  const events = ['mousemove', 'mousedown', 'click', 'keypress', 'scroll', 'touchstart', 'touchmove'];
-  events.forEach(evt => document.addEventListener(evt, markActivity, { passive: true }));
-
-  markActivity();
-
-  if (idleCheckInterval) clearInterval(idleCheckInterval);
-  idleCheckInterval = setInterval(() => {
-    if (!isLoggedIn()) return;
-    const idleFor = Date.now() - lastActivityTime;
-
-    // Warning at 1 min remaining
-    if (!idleWarningShown && idleFor >= IDLE_TIMEOUT - IDLE_WARNING_TIME) {
-      idleWarningShown = true;
-      showToast('⚠️ 1 minute mein auto-logout ho jayega!', 'warning');
-      playVipSound('warning');
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData, jobsData }));
+    if (firebaseDB) {
+      firebaseDB.collection('dreamjosh').doc('appData').set(appData).catch(()=>{});
+      firebaseDB.collection('dreamjosh').doc('jobsData').set({ jobs: jobsData }).catch(()=>{});
     }
-
-    // Auto logout
-    if (idleFor >= IDLE_TIMEOUT) {
-      clearInterval(idleCheckInterval);
-      console.log('🔒 Auto logout — 10 min inactivity');
-      destroySession();
-      document.getElementById('loginScreen').classList.add('active');
-      document.getElementById('adminWrapper').classList.remove('active');
-      document.getElementById('loginUsername').value = '';
-      document.getElementById('loginPassword').value = '';
-      setTimeout(() => {
-        alert('🔒 10 minute tak koi activity nahi thi — Auto logout ho gaya.');
-      }, 100);
-      window._pendingIdleMsg = true;
-    }
-  }, 1000);
+  } catch (e) {}
 }
 
-// ---- 5. Override showToast to play sounds ----
-const _origShowToast = showToast;
-window.showToast = function(msg, type = 'info') {
-  _origShowToast(msg, type);
-  if (type === 'success') playVipSound('success');
-  else if (type === 'error') playVipSound('error');
-  else if (type === 'warning') playVipSound('warning');
-};
+function loadSettings() {
+  try { settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch (e) { settings = {}; }
+  Object.keys(DEFAULT_SETTINGS).forEach(k => {
+    if (settings[k] === undefined) settings[k] = DEFAULT_SETTINGS[k];
+  });
+}
+function saveSettings() {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('settings').set(settings).catch(()=>{});
+}
+
+function loadActivityLog() {
+  try { activityLog = JSON.parse(localStorage.getItem(ACTIVITY_LOG_KEY)) || []; } catch (e) { activityLog = []; }
+}
+function logActivity(action, details) {
+  activityLog.unshift({ action, details, time: new Date().toISOString() });
+  if (activityLog.length > 100) activityLog = activityLog.slice(0, 100);
+  localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(activityLog));
+  renderActivityLog();
+}
+function renderActivityLog() {
+  const c = document.getElementById('activityLogContainer');
+  if (!c) return;
+  if (!activityLog.length) { c.innerHTML = '<em style="color:var(--text-light);">No activity yet</em>'; return; }
+  c.innerHTML = activityLog.slice(0, 20).map(l => `
+    <div class="activity-log-item">
+      <span><strong>${escapeHtml(l.action)}</strong> — ${escapeHtml(l.details || '')}</span>
+      <span class="log-time">${new Date(l.time).toLocaleString()}</span>
+    </div>
+  `).join('');
+}
+function clearActivityLog() {
+  if (!confirm('Clear log?')) return;
+  activityLog = [];
+  localStorage.removeItem(ACTIVITY_LOG_KEY);
+  renderActivityLog();
+  showToast('✅ Cleared!', 'success');
+}
 
 // ============================================================
-// 🔐 AUTH FUNCTIONS
+// 🔐 AUTH
 // ============================================================
 function getAdminCreds() {
   try {
@@ -1515,13 +1065,11 @@ function getAdminCreds() {
   } catch (e) {}
   return { ...DEFAULT_ADMIN };
 }
-
 function saveAdminCreds(username, password) {
   const c = { username, password };
   localStorage.setItem(ADMIN_CREDS_KEY, JSON.stringify(c));
   if (firebaseDB) firebaseDB.collection('dreamjosh').doc('adminCreds').set(c).catch(()=>{});
 }
-
 function isLoggedIn() {
   try {
     const s = localStorage.getItem(LOGIN_SESSION_KEY);
@@ -1535,15 +1083,11 @@ function isLoggedIn() {
     return true;
   } catch (e) { return false; }
 }
-
 function createSession(username) {
   const session = { loggedIn: true, username, loginTime: Date.now() };
   localStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify(session));
 }
-
-function destroySession() {
-  localStorage.removeItem(LOGIN_SESSION_KEY);
-}
+function destroySession() { localStorage.removeItem(LOGIN_SESSION_KEY); }
 
 function handleLogin(event) {
   event.preventDefault();
@@ -1558,7 +1102,6 @@ function handleLogin(event) {
     errorEl.classList.add('show');
     return;
   }
-
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
 
@@ -1593,11 +1136,9 @@ function handleLogout() {
 function showAdminPanel() {
   document.getElementById('loginScreen').classList.remove('active');
   document.getElementById('adminWrapper').classList.add('active');
-
   const session = JSON.parse(localStorage.getItem(LOGIN_SESSION_KEY) || '{}');
   const nameEl = document.getElementById('loggedInUser');
   if (nameEl && session.username) nameEl.textContent = session.username;
-
   initAdminPanel();
 }
 
@@ -1608,196 +1149,402 @@ function showLoginScreen() {
 }
 
 // ============================================================
-// LOAD / SAVE
+// 🎯 SIDEBAR RENDERING (Dynamic)
 // ============================================================
-function loadData() {
-  try {
-    const s = localStorage.getItem(STORAGE_KEY);
-    if (s) { const p = JSON.parse(s); appData = p.appData || {}; jobsData = p.jobsData || []; }
-  } catch (e) {}
-  Object.keys(DEFAULT_DATA).forEach(k => {
-    if (!appData[k]) appData[k] = JSON.parse(JSON.stringify(DEFAULT_DATA[k]));
-  });
-}
+function renderSidebar() {
+  const menu = document.getElementById('dynamicSidebar');
+  if (!menu) return;
 
-function saveData() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData, jobsData }));
-    if (firebaseDB) {
-      firebaseDB.collection('dreamjosh').doc('appData').set(appData).catch(()=>{});
-      firebaseDB.collection('dreamjosh').doc('jobsData').set({ jobs: jobsData }).catch(()=>{});
+  let html = '';
+
+  // Dashboard (always first)
+  html += `
+    <li>
+      <a class="menu-link" data-page="dashboard" onclick="showAdminPage('dashboard')">
+        <i class="fas fa-chart-pie menu-icon"></i> Dashboard
+      </a>
+    </li>
+  `;
+
+  // Pages Manager (always)
+  html += `
+    <li>
+      <a class="menu-link" data-page="pages" onclick="showAdminPage('pages')">
+        <i class="fas fa-file-alt menu-icon"></i> Pages Manager
+      </a>
+    </li>
+  `;
+
+  // Dynamic pages
+  pagesData.forEach(page => {
+    const hasSub = page.subPages && page.subPages.length > 0;
+    const privacyBadge = page.isPublic
+      ? '<span class="privacy-badge public">PUBLIC</span>'
+      : '<span class="privacy-badge private">PRIVATE</span>';
+
+    if (hasSub) {
+      // With sub-pages — dropdown
+      html += `
+        <li>
+          <div class="menu-toggle" data-section="${page.id}" onclick="toggleMenuSection('${page.id}')">
+            <i class="fas ${page.icon} menu-icon"></i> ${escapeHtml(page.name)}
+            <i class="fas fa-chevron-right arrow"></i>
+          </div>
+          <ul class="submenu" id="submenu-${page.id}">
+            ${page.subPages.map(sub => {
+              const subPrivacy = sub.isPublic
+                ? '<span class="privacy-badge public">PUBLIC</span>'
+                : '<span class="privacy-badge private">PRIVATE</span>';
+              return `
+                <li>
+                  <a data-page="${sub.id}" onclick="showAdminPage('${sub.id}')">
+                    <i class="fas ${sub.icon || 'fa-circle'}"></i>
+                    ${escapeHtml(sub.name)}
+                    ${subPrivacy}
+                  </a>
+                </li>
+              `;
+            }).join('')}
+            <li style="padding-left:20px;margin-top:4px;">
+              <a onclick="openPageModal('${page.id}')" style="color:var(--gold);font-size:11px;">
+                <i class="fas fa-plus"></i> Add Sub-Page
+              </a>
+            </li>
+          </ul>
+        </li>
+      `;
+    } else {
+      // Without sub-pages — direct link
+      html += `
+        <li>
+          <a class="menu-link" data-page="${page.id}" onclick="showAdminPage('${page.id}')">
+            <i class="fas ${page.icon} menu-icon"></i> ${escapeHtml(page.name)}
+            ${privacyBadge}
+          </a>
+        </li>
+      `;
     }
-  } catch (e) {}
-}
-
-function loadSettings() {
-  try { settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch (e) { settings = {}; }
-  Object.keys(DEFAULT_SETTINGS).forEach(k => {
-    if (settings[k] === undefined) settings[k] = DEFAULT_SETTINGS[k];
   });
+
+  menu.innerHTML = html;
 }
 
-function saveSettings() {
-  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
-  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('settings').set(settings).catch(()=>{});
+function toggleMenuSection(sectionId) {
+  const submenu = document.getElementById('submenu-' + sectionId);
+  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
+  if (!submenu || !toggle) return;
+  const isOpen = submenu.classList.contains('open');
+  closeAllMenuSections();
+  if (!isOpen) {
+    submenu.classList.add('open');
+    toggle.classList.add('open');
+  }
+}
+function closeAllMenuSections() {
+  document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.menu-toggle').forEach(t => t.classList.remove('open', 'has-active'));
+}
+function openMenuSection(sectionId) {
+  closeAllMenuSections();
+  const submenu = document.getElementById('submenu-' + sectionId);
+  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
+  if (submenu && toggle) {
+    submenu.classList.add('open');
+    toggle.classList.add('open');
+  }
 }
 
-async function loadSettingsFromCloud() {
-  if (!firebaseDB) return;
-  try {
-    const d = await firebaseDB.collection('dreamjosh').doc('settings').get();
-    if (d.exists) { settings = { ...settings, ...d.data() }; localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
-  } catch (e) {}
+// ============================================================
+// 📄 PAGE MANAGER
+// ============================================================
+function renderPagesGrid() {
+  const grid = document.getElementById('pagesGrid');
+  if (!grid) return;
+
+  let html = '';
+
+  pagesData.forEach(page => {
+    const subCount = page.subPages ? page.subPages.length : 0;
+    const privacyBadge = page.isPublic
+      ? '<span class="page-card-badge public">PUBLIC</span>'
+      : '<span class="page-card-badge private">PRIVATE</span>';
+
+    html += `
+      <div class="page-card">
+        <div class="page-card-icon"><i class="fas ${page.icon}"></i></div>
+        <h4>${escapeHtml(page.name)}</h4>
+        <div class="page-card-meta">
+          ${privacyBadge}
+          <span style="margin-left:6px;">${subCount} sub-page${subCount !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="page-card-actions">
+          <button class="btn-i-edit" onclick="openPageModal('${page.id}')"><i class="fas fa-edit"></i> Edit</button>
+          <button class="${page.isPublic ? 'btn-i-private' : 'btn-i-public'}" onclick="togglePagePrivacy('${page.id}')">
+            <i class="fas fa-${page.isPublic ? 'lock' : 'unlock'}"></i>
+            ${page.isPublic ? 'Make Private' : 'Make Public'}
+          </button>
+          <button class="btn-i-delete" onclick="deletePage('${page.id}')"><i class="fas fa-trash"></i></button>
+        </div>
+        ${subCount > 0 ? `
+          <div style="margin-top:10px;border-top:1px solid var(--border-color);padding-top:10px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-light);margin-bottom:6px;">SUB-PAGES:</div>
+            ${page.subPages.map(sub => `
+              <div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;">
+                <i class="fas ${sub.icon || 'fa-circle'}" style="width:14px;color:var(--secondary-blue);"></i>
+                <span style="flex:1;">${escapeHtml(sub.name)}</span>
+                <button class="btn-i-edit" style="padding:2px 8px;font-size:10px;" onclick="openPageModal('${page.id}', '${sub.id}')">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="${sub.isPublic ? 'btn-i-private' : 'btn-i-public'}" style="padding:2px 8px;font-size:10px;" onclick="toggleSubPagePrivacy('${page.id}', '${sub.id}')">
+                  <i class="fas fa-${sub.isPublic ? 'lock' : 'unlock'}"></i>
+                </button>
+                <button class="btn-i-delete" style="padding:2px 8px;font-size:10px;" onclick="deleteSubPage('${page.id}', '${sub.id}')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  });
+
+  grid.innerHTML = html;
 }
 
-function loadActivityLog() {
-  try { activityLog = JSON.parse(localStorage.getItem(ACTIVITY_LOG_KEY)) || []; } catch (e) { activityLog = []; }
-}
+function openPageModal(parentId = null, subId = null) {
+  const isSubEdit = parentId && subId;
+  const isParentEdit = parentId && !subId;
+  const isNew = !parentId;
 
-function logActivity(action, details) {
-  activityLog.unshift({ action, details, time: new Date().toISOString() });
-  if (activityLog.length > 100) activityLog = activityLog.slice(0, 100);
-  localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(activityLog));
-  renderActivityLog();
-}
+  let page = null;
+  let parent = null;
 
-function renderActivityLog() {
-  const c = document.getElementById('activityLogContainer');
-  if (!c) return;
-  if (!activityLog.length) { c.innerHTML = '<em style="color:var(--text-light);">No activity yet</em>'; return; }
-  c.innerHTML = activityLog.slice(0, 20).map(l => `
-    <div class="activity-log-item">
-      <span><strong>${escapeHtml(l.action)}</strong> — ${escapeHtml(l.details || '')}</span>
-      <span class="log-time">${new Date(l.time).toLocaleString()}</span>
+  if (isSubEdit) {
+    parent = pagesData.find(p => p.id === parentId);
+    if (parent) page = parent.subPages.find(s => s.id === subId);
+  } else if (isParentEdit) {
+    page = pagesData.find(p => p.id === parentId);
+  }
+
+  const title = isSubEdit ? '✏️ Edit Sub-Page'
+              : isParentEdit ? '✏️ Edit Page'
+              : '➕ Add New Page';
+
+  document.getElementById('adminModalTitle').textContent = title;
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="pmParentId" value="${parentId || ''}">
+    <input type="hidden" id="pmSubId" value="${subId || ''}">
+    <input type="hidden" id="pmIsSub" value="${isSubEdit ? '1' : '0'}">
+
+    <div class="form-row">
+      <div class="form-group"><label>Page Name *</label>
+        <input type="text" id="pmName" value="${page ? escapeHtml(page.name) : ''}" placeholder="e.g. About Us">
+      </div>
+      <div class="form-group"><label>Icon (FontAwesome) *</label>
+        <input type="text" id="pmIcon" value="${page ? page.icon : 'fa-file-alt'}" placeholder="e.g. fa-home">
+      </div>
     </div>
-  `).join('');
+
+    <div class="form-group">
+      <label>Icon Preview</label>
+      <div style="padding:10px;background:var(--bg-color);border-radius:8px;font-size:24px;">
+        <i id="pmIconPreview" class="fas ${page ? page.icon : 'fa-file-alt'}"></i>
+        <span style="font-size:12px;color:var(--text-light);margin-left:10px;">
+          Available icons: fa-home, fa-blog, fa-briefcase, fa-cogs, fa-book, fa-tools, fa-gavel, fa-images, fa-users, fa-sliders-h, fa-file-alt, fa-star, fa-heart, fa-bell
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Privacy</label>
+      <select id="pmPrivacy">
+        <option value="public" ${(!page || page.isPublic) ? 'selected' : ''}>🌐 Public — Sab dekh sakte hain</option>
+        <option value="private" ${(page && !page.isPublic) ? 'selected' : ''}>🔒 Private — Sirf admin dekh sakta hai</option>
+      </select>
+    </div>
+
+    ${!isSubEdit ? `
+      <div class="form-group">
+        <label>Parent Page (agar sub-page banana hai)</label>
+        <select id="pmParentSelect">
+          <option value="">-- None (Ye ek Top-Level Page hoga) --</option>
+          ${pagesData.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('')}
+        </select>
+        <small style="font-size:11px;color:var(--text-light);">Agar aap chahte hain ye kisi existing page ka sub-page ho, toh yahan select karein.</small>
+      </div>
+    ` : ''}
+
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="savePage()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+
+  // Live icon preview
+  setTimeout(() => {
+    const iconInput = document.getElementById('pmIcon');
+    const preview = document.getElementById('pmIconPreview');
+    if (iconInput && preview) {
+      iconInput.addEventListener('input', e => {
+        preview.className = 'fas ' + e.target.value;
+      });
+    }
+  }, 50);
 }
 
-function clearActivityLog() {
-  if (!confirm('Clear log?')) return;
-  activityLog = [];
-  localStorage.removeItem(ACTIVITY_LOG_KEY);
-  renderActivityLog();
-  showToast('✅ Cleared!', 'success');
+function savePage() {
+  const parentId = document.getElementById('pmParentId')?.value || '';
+  const subId = document.getElementById('pmSubId')?.value || '';
+  const isSub = document.getElementById('pmIsSub')?.value === '1';
+  const name = document.getElementById('pmName').value.trim();
+  const icon = document.getElementById('pmIcon').value.trim() || 'fa-file-alt';
+  const isPublic = document.getElementById('pmPrivacy').value === 'public';
+  const newParentId = document.getElementById('pmParentSelect')?.value || '';
+
+  if (!name) return showToast('Name required!', 'error');
+
+  if (isSub) {
+    // Edit existing sub-page
+    const parent = pagesData.find(p => p.id === parentId);
+    if (!parent) return showToast('Parent not found', 'error');
+    const sub = parent.subPages.find(s => s.id === subId);
+    if (!sub) return showToast('Sub-page not found', 'error');
+    sub.name = name;
+    sub.icon = icon;
+    sub.isPublic = isPublic;
+    showToast('✅ Sub-page updated!', 'success');
+  } else if (parentId) {
+    // Edit existing parent page
+    const page = pagesData.find(p => p.id === parentId);
+    if (!page) return showToast('Page not found', 'error');
+    page.name = name;
+    page.icon = icon;
+    page.isPublic = isPublic;
+
+    // If parent changed — move
+    if (newParentId && newParentId !== parentId) {
+      const newParent = pagesData.find(p => p.id === newParentId);
+      if (newParent) {
+        pagesData = pagesData.filter(p => p.id !== parentId);
+        if (!newParent.subPages) newParent.subPages = [];
+        newParent.subPages.push({ id: parentId, name, icon, isPublic });
+      }
+    }
+    showToast('✅ Page updated!', 'success');
+  } else {
+    // Create new page
+    const newId = 'page-' + Date.now();
+    const newPage = { id: newId, name, icon, isPublic, subPages: [] };
+
+    if (newParentId) {
+      // Add as sub-page
+      const parent = pagesData.find(p => p.id === newParentId);
+      if (parent) {
+        if (!parent.subPages) parent.subPages = [];
+        parent.subPages.push(newPage);
+        showToast('✅ Sub-page added!', 'success');
+      }
+    } else {
+      // Add as top-level page
+      pagesData.push(newPage);
+      showToast('✅ Page added!', 'success');
+    }
+  }
+
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  updateStats();
+  logActivity('Page Saved', name);
+  closeAdminModal();
 }
 
-function updateSidebarCounts() {
-  const counts = {
-    career: (appData.career?.items || []).length,
-    more: (appData.more?.items || []).length,
-    blog: (appData.blog?.items || []).length,
-    service: (appData.service?.items || []).length,
-    tools: (appData.tools?.items || []).length,
-    rsr: (appData.rsr?.items || []).length,
-    jobs: jobsData.length,
-    employees: (appData.employees || []).length,
-    files: filesData.length,
-    'files-home': filesMeta.filter(f => f.showOnHome).length
-  };
-  Object.keys(counts).forEach(k => {
-    const el = document.getElementById('count-' + k);
-    if (el) el.textContent = counts[k];
-  });
-  const setStat = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-  setStat('statFiles', filesData.length);
-  setStat('statHomeFiles', filesMeta.filter(f => f.showOnHome).length);
-  setStat('statJobs', jobsData.length);
-  setStat('statSlides', (appData.slides || []).length);
-  setStat('statEmployees', (appData.employees || []).length);
+function togglePagePrivacy(pageId) {
+  const page = pagesData.find(p => p.id === pageId);
+  if (!page) return;
+  page.isPublic = !page.isPublic;
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  showToast(`✅ Page is now ${page.isPublic ? 'PUBLIC 🌐' : 'PRIVATE 🔒'}`, 'success');
+}
+
+function toggleSubPagePrivacy(parentId, subId) {
+  const parent = pagesData.find(p => p.id === parentId);
+  if (!parent) return;
+  const sub = parent.subPages.find(s => s.id === subId);
+  if (!sub) return;
+  sub.isPublic = !sub.isPublic;
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  showToast(`✅ Sub-page is now ${sub.isPublic ? 'PUBLIC 🌐' : 'PRIVATE 🔒'}`, 'success');
+}
+
+function deletePage(pageId) {
+  const page = pagesData.find(p => p.id === pageId);
+  if (!page) return;
+  if (!confirm(`Delete "${page.name}" aur uske ${page.subPages?.length || 0} sub-pages?`)) return;
+  pagesData = pagesData.filter(p => p.id !== pageId);
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  updateStats();
+  logActivity('Page Deleted', page.name);
+  showToast('🗑️ Page deleted!', 'success');
+}
+
+function deleteSubPage(parentId, subId) {
+  const parent = pagesData.find(p => p.id === parentId);
+  if (!parent) return;
+  const sub = parent.subPages.find(s => s.id === subId);
+  if (!sub) return;
+  if (!confirm(`Delete sub-page "${sub.name}"?`)) return;
+  parent.subPages = parent.subPages.filter(s => s.id !== subId);
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  logActivity('Sub-Page Deleted', sub.name);
+  showToast('🗑️ Sub-page deleted!', 'success');
+}
+
+function resetPagesToDefault() {
+  if (!confirm('⚠️ Saare custom pages delete ho jayenge aur default pages wapas aa jayenge. Continue?')) return;
+  pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES));
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  updateStats();
+  showToast('🔄 Reset to default!', 'success');
 }
 
 // ============================================================
-// WORD EDITOR
+// WORD EDITOR (Content editors for dynamic pages)
 // ============================================================
-let currentWatermark = '';
-
 function getWordEditorHTML(content) {
   return `
     <div class="word-toolbar">
       <div class="tb-group">
-        <button type="button" class="tb-btn" onclick="weCmd('undo')" title="Undo"><i class="fas fa-undo"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('redo')" title="Redo"><i class="fas fa-redo"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('bold')"><i class="fas fa-bold"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('italic')"><i class="fas fa-italic"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('underline')"><i class="fas fa-underline"></i></button>
       </div>
       <div class="tb-group">
-        <select onchange="weFormat(this.value)" title="Style">
+        <select onchange="weFormat(this.value)">
           <option value="p">Normal</option>
           <option value="h1">H1</option><option value="h2">H2</option><option value="h3">H3</option>
-          <option value="h4">H4</option><option value="h5">H5</option><option value="h6">H6</option>
-          <option value="blockquote">Quote</option><option value="pre">Code</option>
+          <option value="blockquote">Quote</option>
         </select>
       </div>
       <div class="tb-group">
-        <select onchange="weCmd('fontName', this.value)" title="Font">
-          <option value="Arial">Arial</option>
-          <option value="Times New Roman">Times</option>
-          <option value="Calibri">Calibri</option>
-          <option value="Georgia">Georgia</option>
-          <option value="Mangal">Mangal (Hindi)</option>
-          <option value="Nirmala UI">Nirmala (Hindi)</option>
-        </select>
-        <select onchange="weCmd('fontSize', this.value)" title="Size">
-          <option value="1">8</option><option value="2">10</option>
-          <option value="3" selected>12</option><option value="4">14</option>
-          <option value="5">18</option><option value="6">24</option><option value="7">36</option>
-        </select>
+        <button type="button" class="tb-btn" onclick="weCmd('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('insertOrderedList')"><i class="fas fa-list-ol"></i></button>
       </div>
       <div class="tb-group">
-        <button type="button" class="tb-btn" onclick="weCmd('bold')" title="Bold"><i class="fas fa-bold"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('italic')" title="Italic"><i class="fas fa-italic"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('underline')" title="Underline"><i class="fas fa-underline"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('strikeThrough')" title="Strike"><i class="fas fa-strikethrough"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('superscript')" title="Super"><i class="fas fa-superscript"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('subscript')" title="Sub"><i class="fas fa-subscript"></i></button>
-      </div>
-      <div class="tb-group">
-        <button type="button" class="tb-btn text-btn" onclick="weChangeCase('upper')" title="UPPERCASE">AA</button>
-        <button type="button" class="tb-btn text-btn" onclick="weChangeCase('lower')" title="lowercase">aa</button>
-        <button type="button" class="tb-btn text-btn" onclick="weChangeCase('title')" title="Title">Aa</button>
-      </div>
-      <div class="tb-group">
-        <input type="color" class="color-picker" value="#000000" onchange="weCmd('foreColor', this.value)" title="Font Color">
-        <input type="color" class="color-picker" value="#ffff00" onchange="weCmd('hiliteColor', this.value)" title="Highlight">
-      </div>
-      <div class="tb-group">
-        <button type="button" class="tb-btn" onclick="weCmd('justifyLeft')" title="Left"><i class="fas fa-align-left"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('justifyCenter')" title="Center"><i class="fas fa-align-center"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('justifyRight')" title="Right"><i class="fas fa-align-right"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('justifyFull')" title="Justify"><i class="fas fa-align-justify"></i></button>
-      </div>
-      <div class="tb-group">
-        <select onchange="weLineHeight(this.value)" title="Line Height">
-          <option value="1">Line 1.0</option>
-          <option value="1.5">Line 1.5</option>
-          <option value="2">Line 2.0</option>
-          <option value="2.5">Line 2.5</option>
-          <option value="3">Line 3.0</option>
-        </select>
-      </div>
-      <div class="tb-group">
-        <button type="button" class="tb-btn" onclick="weCmd('insertUnorderedList')" title="Bullet"><i class="fas fa-list-ul"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('insertOrderedList')" title="Numbered"><i class="fas fa-list-ol"></i></button>
-        <button type="button" class="tb-btn" onclick="weChecklist()" title="Checklist"><i class="fas fa-tasks"></i></button>
-      </div>
-      <div class="tb-group">
-        <button type="button" class="tb-btn wide" onclick="weOpenInsert()" title="Insert"><i class="fas fa-plus-circle"></i> Insert</button>
-      </div>
-      <div class="tb-group">
-        <button type="button" class="tb-btn wide" onclick="weOpenBoxes()" title="Boxes"><i class="fas fa-square"></i> Boxes</button>
-      </div>
-      <div class="tb-group">
-        <button type="button" class="tb-btn" onclick="weInsertLink()" title="Link"><i class="fas fa-link"></i></button>
-      </div>
-      <div class="tb-group">
-        <button type="button" class="tb-btn" onclick="weFindReplace()" title="Find & Replace"><i class="fas fa-search"></i></button>
-      </div>
-      <div class="tb-group">
-        <button type="button" class="tb-btn" onclick="wePageBreak()" title="Page Break"><i class="fas fa-file"></i></button>
-        <button type="button" class="tb-btn" onclick="weCmd('removeFormat')" title="Clear"><i class="fas fa-eraser"></i></button>
-      </div>
-      <div class="tb-group">
-        <button type="button" class="tb-btn wide" onclick="weExportPDF()" title="PDF"><i class="fas fa-file-pdf"></i> PDF</button>
-        <button type="button" class="tb-btn wide" onclick="wePrint()" title="Print"><i class="fas fa-print"></i> Print</button>
-        <button type="button" class="tb-btn wide" onclick="weWatermark()" title="Watermark"><i class="fas fa-tint"></i> WM</button>
+        <button type="button" class="tb-btn" onclick="weInsertLink()"><i class="fas fa-link"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('removeFormat')"><i class="fas fa-eraser"></i></button>
       </div>
     </div>
     <div class="word-editor-wrap">
@@ -1810,390 +1557,36 @@ function getWordEditorHTML(content) {
 
 function weCmd(cmd, val) { document.execCommand(cmd, false, val || null); document.getElementById('richEditor')?.focus(); }
 function weFormat(tag) { document.execCommand('formatBlock', false, tag); document.getElementById('richEditor')?.focus(); }
-
-function weChangeCase(type) {
-  const sel = window.getSelection();
-  if (!sel.rangeCount) return;
-  const text = sel.toString();
-  if (!text) return;
-  let newText;
-  if (type === 'upper') newText = text.toUpperCase();
-  else if (type === 'lower') newText = text.toLowerCase();
-  else if (type === 'title') newText = text.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substr(1).toLowerCase());
-  document.execCommand('insertText', false, newText);
-}
-
-function weLineHeight(val) {
-  const sel = window.getSelection();
-  if (!sel.rangeCount) return;
-  let node = sel.anchorNode;
-  while (node && node.nodeType !== 1) node = node.parentNode;
-  while (node && !['P','DIV','H1','H2','H3','H4','H5','H6','LI','BLOCKQUOTE'].includes(node.tagName)) {
-    node = node.parentNode;
-  }
-  if (node) node.style.lineHeight = val;
-}
-
-function weChecklist() {
-  const html = `<ul class="checklist">
-    <li><input type="checkbox"> Item 1</li>
-    <li><input type="checkbox"> Item 2</li>
-    <li><input type="checkbox"> Item 3</li>
-  </ul><p><br></p>`;
-  document.execCommand('insertHTML', false, html);
-  document.getElementById('richEditor')?.focus();
-}
-
-function weOpenBoxes() {
-  document.getElementById('adminModalTitle').textContent = '📦 Insert Box';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="insert-modal-grid">
-      <div class="insert-item" onclick="weInsertBox('info')"><div class="insert-icon">ℹ️</div><div class="insert-label">Info</div></div>
-      <div class="insert-item" onclick="weInsertBox('warning')"><div class="insert-icon">⚠️</div><div class="insert-label">Warning</div></div>
-      <div class="insert-item" onclick="weInsertBox('success')"><div class="insert-icon">✅</div><div class="insert-label">Success</div></div>
-      <div class="insert-item" onclick="weInsertBox('tip')"><div class="insert-icon">💡</div><div class="insert-label">Tip</div></div>
-    </div>
-    <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function weInsertBox(type) {
-  const cfg = {
-    info: { icon: 'ℹ️', title: 'Information', cls: 'info-box' },
-    warning: { icon: '⚠️', title: 'Warning', cls: 'warning-box' },
-    success: { icon: '✅', title: 'Success', cls: 'success-box' },
-    tip: { icon: '💡', title: 'Tip', cls: 'tip-box' }
-  };
-  const c = cfg[type];
-  const text = prompt(`${c.title} - text:`, '');
-  if (!text) return;
-  const html = `<div class="${c.cls}"><span style="font-size:20px;">${c.icon}</span><div><strong>${c.title}:</strong> ${text}</div></div><p><br></p>`;
-  document.execCommand('insertHTML', false, html);
-  closeAdminModal();
-  showToast('✅ Box inserted!', 'success');
-}
-
 function weInsertLink() {
   const url = prompt('Link URL:', 'https://');
   if (!url) return;
-  const text = prompt('Link Text:', url);
-  if (!text) return;
-  weCmd('insertHTML', `<a href="${url}" target="_blank">${text}</a>`);
-}
-
-function weFindReplace() {
-  document.getElementById('adminModalTitle').textContent = '🔍 Find & Replace';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Find</label><input type="text" id="weFindText"></div>
-    <div class="form-group"><label>Replace</label><input type="text" id="weReplaceText"></div>
-    <button class="btn-submit" onclick="weDoFindReplace()">Replace All</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function weDoFindReplace() {
-  const find = document.getElementById('weFindText').value;
-  const replace = document.getElementById('weReplaceText').value;
-  if (!find) return showToast('Enter text', 'error');
-  const editor = document.getElementById('richEditor');
-  editor.innerHTML = editor.innerHTML.split(find).join(replace);
-  closeAdminModal();
-  showToast('✅ Replaced!', 'success');
-}
-
-function wePageBreak() {
-  const html = `<div style="page-break-after:always;border-top:2px dashed #ccc;margin:20px 0;text-align:center;color:#999;font-size:11px;">— Page Break —</div><p><br></p>`;
-  document.execCommand('insertHTML', false, html);
-  showToast('✅ Page break!', 'success');
-}
-
-function weWatermark() {
-  document.getElementById('adminModalTitle').textContent = '💧 Watermark';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Text</label><input type="text" id="weWatermarkText" value="${currentWatermark}" placeholder="CONFIDENTIAL"></div>
-    <button class="btn-submit" onclick="weDoWatermark()">Apply</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function weDoWatermark() {
-  const text = document.getElementById('weWatermarkText').value;
-  currentWatermark = text;
-  const page = document.getElementById('wordPage');
-  if (text) {
-    page.classList.add('watermark');
-    page.setAttribute('data-watermark', text);
-    showToast('✅ Watermark!', 'success');
-  } else {
-    page.classList.remove('watermark');
-    page.removeAttribute('data-watermark');
-    showToast('Watermark removed', 'info');
-  }
-  closeAdminModal();
-}
-
-function weExportPDF() {
-  const content = document.getElementById('richEditor').innerHTML;
-  const win = window.open('', '_blank');
-  win.document.write(`
-    <html><head><title>Export</title>
-    <style>
-      body{font-family:Arial;padding:40px;max-width:900px;margin:auto;line-height:1.8;}
-      table{border-collapse:collapse;width:100%;} td,th{border:1px solid #999;padding:8px;}
-      img{max-width:100%;}
-      .info-box,.warning-box,.success-box,.tip-box{padding:12px;margin:10px 0;border-radius:6px;border-left:5px solid;}
-      .info-box{background:#eff6ff;border-color:#1976d2;}
-      .warning-box{background:#fef3c7;border-color:#f59e0b;}
-      .success-box{background:#f0fdf4;border-color:#16a34a;}
-      .tip-box{background:#fef9c3;border-color:#eab308;}
-      pre{background:#2c3e50;color:#fff;padding:12px;border-radius:6px;}
-      .checklist{list-style:none;padding:0;}
-    </style></head>
-    <body>${content}</body></html>
-  `);
-  win.document.close();
-  setTimeout(() => { win.print(); showToast('💡 Save as PDF', 'info'); }, 500);
-}
-
-function wePrint() {
-  const content = document.getElementById('richEditor').innerHTML;
-  const win = window.open('', '_blank');
-  win.document.write(`
-    <html><head><title>Print</title>
-    <style>
-      body{font-family:Arial;padding:40px;max-width:900px;margin:auto;line-height:1.8;}
-      table{border-collapse:collapse;width:100%;} td,th{border:1px solid #999;padding:8px;}
-      img{max-width:100%;}
-      .info-box,.warning-box,.success-box,.tip-box{padding:12px;margin:10px 0;border-radius:6px;}
-      .info-box{background:#eff6ff;border-left:5px solid #1976d2;}
-      .warning-box{background:#fef3c7;border-left:5px solid #f59e0b;}
-      .success-box{background:#f0fdf4;border-left:5px solid #16a34a;}
-      .tip-box{background:#fef9c3;border-left:5px solid #eab308;}
-    </style></head>
-    <body>${content}</body></html>
-  `);
-  win.document.close();
-  setTimeout(() => win.print(), 500);
-}
-
-function weOpenInsert() {
-  document.getElementById('adminModalTitle').textContent = '➕ Insert';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="insert-modal-grid">
-      <div class="insert-item" onclick="weInsertTable()"><div class="insert-icon">📊</div><div class="insert-label">Table</div></div>
-      <div class="insert-item" onclick="weInsertImage()"><div class="insert-icon">🖼️</div><div class="insert-label">Image</div></div>
-      <div class="insert-item" onclick="weInsertPDF()"><div class="insert-icon">📄</div><div class="insert-label">PDF</div></div>
-      <div class="insert-item" onclick="weInsertWord()"><div class="insert-icon">📝</div><div class="insert-label">MS Word</div></div>
-      <div class="insert-item" onclick="weInsertExcel()"><div class="insert-icon">📊</div><div class="insert-label">MS Excel</div></div>
-      <div class="insert-item" onclick="weInsertLink()"><div class="insert-icon">🔗</div><div class="insert-label">Link</div></div>
-      <div class="insert-item" onclick="weInsertSymbol()"><div class="insert-icon">∞</div><div class="insert-label">Symbol</div></div>
-      <div class="insert-item" onclick="weInsertEmoji()"><div class="insert-icon">😀</div><div class="insert-label">Emoji</div></div>
-      <div class="insert-item" onclick="weInsertHr()"><div class="insert-icon">─</div><div class="insert-label">Line</div></div>
-    </div>
-    <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function weInsertTable() {
-  document.getElementById('adminModalTitle').textContent = '📊 Table';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-row">
-      <div class="form-group"><label>Rows</label><input type="number" id="weTRows" value="3" min="1" max="30"></div>
-      <div class="form-group"><label>Columns</label><input type="number" id="weTCols" value="3" min="1" max="15"></div>
-    </div>
-    <div class="form-group">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-        <input type="checkbox" id="weTHeader" checked style="width:auto;"> Header row
-      </label>
-    </div>
-    <button class="btn-submit" onclick="weDoInsertTable()">Insert</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-}
-function weDoInsertTable() {
-  const r = parseInt(document.getElementById('weTRows').value) || 3;
-  const c = parseInt(document.getElementById('weTCols').value) || 3;
-  const h = document.getElementById('weTHeader').checked;
-  let html = '<table>';
-  for (let i = 0; i < r; i++) {
-    html += '<tr>';
-    for (let j = 0; j < c; j++) html += (i === 0 && h) ? `<th>Header ${j+1}</th>` : '<td>Cell</td>';
-    html += '</tr>';
-  }
-  html += '</table><p><br></p>';
-  weCmd('insertHTML', html);
-  closeAdminModal();
-  showToast('✅ Table!', 'success');
-}
-
-function weInsertImage() {
-  document.getElementById('adminModalTitle').textContent = '🖼️ Image';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>File</label><input type="file" id="weImgFile" accept="image/*"></div>
-    <div class="form-group"><label>या URL</label><input type="url" id="weImgUrl"></div>
-    <div class="form-group">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-        <input type="checkbox" id="weImgResize" style="width:auto;"> Resizable
-      </label>
-    </div>
-    <button class="btn-submit" onclick="weDoInsertImage()">Insert</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-}
-async function weDoInsertImage() {
-  const file = document.getElementById('weImgFile').files[0];
-  const url = document.getElementById('weImgUrl').value.trim();
-  const resizable = document.getElementById('weImgResize').checked;
-  let final = url;
-  if (file && firebaseStorage) {
-    try {
-      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
-      await ref.put(file);
-      final = await ref.getDownloadURL();
-    } catch (e) { return showToast('Upload failed', 'error'); }
-  }
-  if (!final) return showToast('File या URL दें', 'error');
-  const cls = resizable ? ' class="img-resizable"' : '';
-  weCmd('insertHTML', `<img src="${final}"${cls}><p><br></p>`);
-  closeAdminModal();
-  showToast('✅ Image!', 'success');
-}
-
-function weInsertPDF() {
-  document.getElementById('adminModalTitle').textContent = '📄 PDF';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>PDF file</label><input type="file" id="wePdfFile" accept=".pdf"></div>
-    <div class="form-group"><label>या URL</label><input type="url" id="wePdfUrl"></div>
-    <button class="btn-submit" onclick="weDoInsertPDF()">Insert</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-}
-async function weDoInsertPDF() {
-  const file = document.getElementById('wePdfFile').files[0];
-  const url = document.getElementById('wePdfUrl').value.trim();
-  let final = url;
-  if (file && firebaseStorage) {
-    try {
-      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
-      await ref.put(file);
-      final = await ref.getDownloadURL();
-    } catch (e) { return showToast('Upload failed', 'error'); }
-  }
-  if (!final) return showToast('File या URL दें', 'error');
-  const html = `<div style="border:2px solid #d62839;border-radius:8px;padding:12px;margin:10px 0;background:#fef5f5;">
-    <div style="font-weight:600;margin-bottom:8px;color:#d62839;">📄 PDF Document</div>
-    <iframe src="${final}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
-    <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#1976d2;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
-  </div><p><br></p>`;
-  weCmd('insertHTML', html);
-  closeAdminModal();
-  showToast('✅ PDF!', 'success');
-}
-
-function weInsertWord() {
-  document.getElementById('adminModalTitle').textContent = '📝 MS Word';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Word file (.doc/.docx)</label><input type="file" id="weWordFile" accept=".doc,.docx"></div>
-    <div class="form-group"><label>या Word Online URL</label><input type="url" id="weWordUrl"></div>
-    <button class="btn-submit" onclick="weDoInsertWord()">Insert</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-}
-async function weDoInsertWord() {
-  const file = document.getElementById('weWordFile').files[0];
-  const url = document.getElementById('weWordUrl').value.trim();
-  let final = url;
-  if (file && firebaseStorage) {
-    try {
-      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
-      await ref.put(file);
-      final = await ref.getDownloadURL();
-    } catch (e) { return showToast('Upload failed', 'error'); }
-  }
-  if (!final) return showToast('File या URL दें', 'error');
-  const embedUrl = url.includes('cloud.microsoft') ? url : `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(final)}`;
-  const html = `<div style="border:2px solid #2b5797;border-radius:8px;padding:12px;margin:10px 0;background:#f0f4fb;">
-    <div style="font-weight:600;margin-bottom:8px;color:#2b5797;">📝 MS Word</div>
-    <iframe src="${embedUrl}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
-    <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#2b5797;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
-  </div><p><br></p>`;
-  weCmd('insertHTML', html);
-  closeAdminModal();
-  showToast('✅ Word!', 'success');
-}
-
-function weInsertExcel() {
-  document.getElementById('adminModalTitle').textContent = '📊 MS Excel';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Excel file (.xls/.xlsx/.csv)</label><input type="file" id="weExcelFile" accept=".xls,.xlsx,.csv"></div>
-    <div class="form-group"><label>या Excel Online URL</label><input type="url" id="weExcelUrl"></div>
-    <button class="btn-submit" onclick="weDoInsertExcel()">Insert</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-}
-async function weDoInsertExcel() {
-  const file = document.getElementById('weExcelFile').files[0];
-  const url = document.getElementById('weExcelUrl').value.trim();
-  let final = url;
-  if (file && firebaseStorage) {
-    try {
-      const ref = firebaseStorage.ref(`editor-uploads/${Date.now()}_${file.name}`);
-      await ref.put(file);
-      final = await ref.getDownloadURL();
-    } catch (e) { return showToast('Upload failed', 'error'); }
-  }
-  if (!final) return showToast('File या URL दें', 'error');
-  const embedUrl = url.includes('cloud.microsoft') ? url : `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(final)}`;
-  const html = `<div style="border:2px solid #217346;border-radius:8px;padding:12px;margin:10px 0;background:#f0f7f3;">
-    <div style="font-weight:600;margin-bottom:8px;color:#217346;">📊 MS Excel</div>
-    <iframe src="${embedUrl}" style="width:100%;height:500px;border:none;border-radius:6px;background:#fff;"></iframe>
-    <div style="margin-top:8px;"><a href="${final}" target="_blank" style="color:#217346;font-weight:600;margin-right:12px;">🔗 Open</a><a href="${final}" download style="color:#16a34a;font-weight:600;">⬇️ Download</a></div>
-  </div><p><br></p>`;
-  weCmd('insertHTML', html);
-  closeAdminModal();
-  showToast('✅ Excel!', 'success');
-}
-
-function weInsertSymbol() {
-  const s = ['©','®','™','°','±','×','÷','≠','≤','≥','∞','∑','∏','√','∫','∂','∆','π','µ','Ω','←','→','↑','↓','↔','⇒','⇔','★','☆','✓','✗','♥','♦','♣','♠','₹','$','€','£','¥','•','§','¶','†','‡'];
-  let html = '<div class="color-grid">';
-  s.forEach(x => html += `<div class="color-swatch" style="background:#f0f0f0;font-size:18px;" onclick="wePick('${x}')">${x}</div>`);
-  html += '</div><button class="btn-cancel" onclick="closeAdminModal()">Close</button>';
-  document.getElementById('adminModalTitle').textContent = '∞ Symbols';
-  document.getElementById('adminModalBody').innerHTML = html;
-}
-function wePick(s) { weCmd('insertText', s); closeAdminModal(); }
-
-function weInsertEmoji() {
-  const e = ['😀','😃','😄','😁','😊','😍','🤩','😎','🤔','😐','😴','😢','😡','🥳','🤗','😇','👍','👎','👏','🙏','💪','✌️','👋','✨','🔥','⭐','🌟','💫','❤️','💙','💚','💛','🧡','💜','🖤','🤍','🏆','🎯','📌','📎','📝','📚','📖','✏️','📊','📈','💼','🏛️','🎓','🏫','🇮🇳','🎉','🎊','🎁','💡','✅','❌','⚠️','ℹ️','📢','💰','💯'];
-  let html = '<div class="color-grid">';
-  e.forEach(x => html += `<div class="color-swatch" style="background:#f0f0f0;font-size:22px;" onclick="wePick('${x}')">${x}</div>`);
-  html += '</div><button class="btn-cancel" onclick="closeAdminModal()">Close</button>';
-  document.getElementById('adminModalTitle').textContent = '😀 Emoji';
-  document.getElementById('adminModalBody').innerHTML = html;
-}
-
-function weInsertHr() {
-  weCmd('insertHTML', '<hr><p><br></p>');
-  closeAdminModal();
-  showToast('✅ Line!', 'success');
+  document.execCommand('insertHTML', false, `<a href="${url}" target="_blank">${url}</a>`);
 }
 
 // ============================================================
-// PAGE EDITOR
+// PAGE CONTENT EDITOR (for any dynamic page)
 // ============================================================
-function openPageEditor(page) {
-  const content = appData[page]?.content || '';
-  document.getElementById('adminModalTitle').textContent = `✏️ Edit ${page} Page`;
+function openPageContentEditor(pageId) {
+  // Check if it's a top-level page or sub-page
+  let page = pagesData.find(p => p.id === pageId);
+  let subPage = null;
+  if (!page) {
+    for (const p of pagesData) {
+      if (p.subPages) {
+        const s = p.subPages.find(sp => sp.id === pageId);
+        if (s) { subPage = s; page = p; break; }
+      }
+    }
+  }
+  if (!page) return;
+
+  const content = (appData[pageId]?.content) || '';
+  document.getElementById('adminModalTitle').textContent = `✏️ Edit Content — ${subPage ? subPage.name : page.name}`;
   document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="pePage" value="${page}">
+    <input type="hidden" id="contentPageId" value="${pageId}">
     ${getWordEditorHTML(content)}
     <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn-submit" onclick="savePageEditorContent()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-submit" onclick="savePageContent()"><i class="fas fa-save"></i> Save Content</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
     </div>
   `;
@@ -2201,34 +1594,89 @@ function openPageEditor(page) {
   setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
 }
 
-function savePageEditorContent() {
-  const page = document.getElementById('pePage').value;
+function savePageContent() {
+  const pageId = document.getElementById('contentPageId').value;
   const content = document.getElementById('richEditor').innerHTML;
-  if (!appData[page]) appData[page] = { content: '', items: [] };
-  appData[page].content = content;
+  if (!appData[pageId]) appData[pageId] = {};
+  appData[pageId].content = content;
   saveData();
-  logActivity('Page Saved', page);
+  logActivity('Content Saved', pageId);
   closeAdminModal();
-  renderPageContent(page);
-  showToast('✅ Saved!', 'success');
-}
-
-function renderPageContent(page) {
-  const el = document.getElementById('adminPageContent-' + page);
-  if (!el) return;
-  const c = appData[page]?.content || '';
-  el.innerHTML = `<div style="padding:12px;background:var(--bg-color);border-radius:6px;max-height:250px;overflow-y:auto;border:1px solid var(--border-color);">${c || '<em>No content</em>'}</div>`;
+  showToast('✅ Content saved!', 'success');
 }
 
 // ============================================================
-// ITEMS
+// ITEM EDITOR (for any dynamic page)
 // ============================================================
-function renderAdminItems(page) {
-  const container = document.getElementById('adminItemsContainer-' + page);
+function openItemEditorForPage(pageId, index = null) {
+  const isEdit = index !== null;
+  if (!appData[pageId]) appData[pageId] = { content: '', items: [] };
+  if (!appData[pageId].items) appData[pageId].items = [];
+  const item = isEdit ? appData[pageId].items[index] : { title: '', description: '', category: '', link: '' };
+
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Item #${index+1}` : '➕ Add Item';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="itemPage" value="${pageId}">
+    <input type="hidden" id="itemIndex" value="${isEdit ? index : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${escapeHtml(item.title)}"></div>
+      <div class="form-group"><label>Category</label><input type="text" id="itemCategory" value="${escapeHtml(item.category)}"></div>
+    </div>
+    <div class="form-group"><label>Link URL</label><input type="url" id="itemLink" value="${escapeHtml(item.link || '')}"></div>
+    <div class="form-group"><label>📝 Description</label>${getWordEditorHTML(item.description || '')}</div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="saveItemForPage(false)"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+      ${!isEdit ? `<button class="btn-submit" style="background:#6c5ce7;" onclick="saveItemForPage(true)"><i class="fas fa-plus-circle"></i> Add & Another</button>` : ''}
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveItemForPage(addAnother = false) {
+  const pageId = document.getElementById('itemPage').value;
+  const idx = parseInt(document.getElementById('itemIndex').value);
+  const title = document.getElementById('itemTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+
+  if (!appData[pageId]) appData[pageId] = { content: '', items: [] };
+  if (!appData[pageId].items) appData[pageId].items = [];
+
+  const item = {
+    title,
+    category: document.getElementById('itemCategory').value,
+    description: document.getElementById('richEditor').innerHTML,
+    link: document.getElementById('itemLink').value,
+    createdAt: Date.now()
+  };
+
+  if (idx >= 0) {
+    appData[pageId].items[idx] = { ...appData[pageId].items[idx], ...item };
+    showToast('✅ Updated!', 'success');
+  } else {
+    appData[pageId].items.push(item);
+    showToast('✅ Added!', 'success');
+  }
+  saveData();
+  renderItemsForPage(pageId);
+  updateStats();
+
+  if (addAnother && idx < 0) {
+    document.getElementById('itemTitle').value = '';
+    document.getElementById('itemCategory').value = '';
+    document.getElementById('itemLink').value = '';
+    document.getElementById('richEditor').innerHTML = '';
+    document.getElementById('itemTitle').focus();
+    showToast('✅ Added! Add next.', 'info');
+  } else closeAdminModal();
+}
+
+function renderItemsForPage(pageId) {
+  const container = document.getElementById('items-container-' + pageId);
   if (!container) return;
-  const items = appData[page]?.items || [];
+  const items = appData[pageId]?.items || [];
   if (!items.length) {
-    container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No items yet.</p></div>';
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No items yet. "Add Item" button se add karein.</p></div>';
     return;
   }
   container.innerHTML = items.map((item, idx) => `
@@ -2239,925 +1687,36 @@ function renderAdminItems(page) {
         <div class="item-meta">${item.category ? `📁 ${escapeHtml(item.category)}` : ''}</div>
       </div>
       <div class="item-actions">
-        <button class="btn-i-edit" onclick="openItemEditor('${page}', ${idx})"><i class="fas fa-edit"></i> Edit</button>
-        <button class="btn-i-dup" onclick="duplicateItem('${page}', ${idx})"><i class="fas fa-copy"></i></button>
-        <button class="btn-i-delete" onclick="deleteItem('${page}', ${idx})"><i class="fas fa-trash"></i></button>
+        <button class="btn-i-edit" onclick="openItemEditorForPage('${pageId}', ${idx})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-dup" onclick="duplicateItemForPage('${pageId}', ${idx})"><i class="fas fa-copy"></i></button>
+        <button class="btn-i-delete" onclick="deleteItemForPage('${pageId}', ${idx})"><i class="fas fa-trash"></i></button>
       </div>
     </div>
   `).join('');
 }
 
-function openItemEditor(page, index = null) {
-  const isEdit = index !== null;
-  const item = isEdit ? appData[page].items[index] : { title:'', description:'', category:'', link:'' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Item #${index+1}` : '➕ Add Item';
-  document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="itemPage" value="${page}">
-    <input type="hidden" id="itemIndex" value="${isEdit?index:-1}">
-    <div class="form-row">
-      <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${escapeHtml(item.title)}"></div>
-      <div class="form-group"><label>Category</label><input type="text" id="itemCategory" value="${escapeHtml(item.category)}"></div>
-    </div>
-    <div class="form-group"><label>Link URL</label><input type="url" id="itemLink" value="${escapeHtml(item.link||'')}"></div>
-    <div class="form-group"><label>📝 Description (Word Editor)</label>${getWordEditorHTML(item.description || '')}</div>
-    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn-submit" onclick="saveItem(false)"><i class="fas fa-save"></i> ${isEdit?'Update':'Add'}</button>
-      ${!isEdit ? `<button class="btn-submit" style="background:#6c5ce7;" onclick="saveItem(true)"><i class="fas fa-plus-circle"></i> Add & Another</button>` : ''}
-      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-    </div>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-  setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
-}
-
-function saveItem(addAnother = false) {
-  const page = document.getElementById('itemPage').value;
-  const idx = parseInt(document.getElementById('itemIndex').value);
-  const title = document.getElementById('itemTitle').value.trim();
-  if (!title) return showToast('Title required!', 'error');
-  if (!appData[page]) appData[page] = { content:'', items:[] };
-  if (!appData[page].items) appData[page].items = [];
-  const item = {
-    title,
-    category: document.getElementById('itemCategory').value,
-    description: document.getElementById('richEditor').innerHTML,
-    link: document.getElementById('itemLink').value,
-    createdAt: Date.now()
-  };
-  if (idx >= 0) { appData[page].items[idx] = { ...appData[page].items[idx], ...item }; showToast('✅ Updated!', 'success'); }
-  else { appData[page].items.push(item); showToast('✅ Added!', 'success'); }
-  saveData();
-  renderAdminItems(page);
-  updateSidebarCounts();
-
-  if (addAnother && idx < 0) {
-    document.getElementById('itemTitle').value = '';
-    document.getElementById('itemCategory').value = '';
-    document.getElementById('itemLink').value = '';
-    document.getElementById('richEditor').innerHTML = '';
-    document.getElementById('itemTitle').focus();
-    showToast('✅ Added! अब next.', 'info');
-  } else closeAdminModal();
-}
-
-function duplicateItem(page, index) {
-  const item = { ...appData[page].items[index] };
+function duplicateItemForPage(pageId, index) {
+  const item = { ...appData[pageId].items[index] };
   item.title = (item.title || 'Untitled') + ' (Copy)';
   item.createdAt = Date.now();
-  appData[page].items.splice(index + 1, 0, item);
+  appData[pageId].items.splice(index + 1, 0, item);
   saveData();
-  renderAdminItems(page);
-  updateSidebarCounts();
+  renderItemsForPage(pageId);
+  updateStats();
   showToast('📋 Duplicated!', 'success');
 }
 
-function deleteItem(page, index) {
+function deleteItemForPage(pageId, index) {
   if (!confirm(`Delete item #${index + 1}?`)) return;
-  appData[page].items.splice(index, 1);
+  appData[pageId].items.splice(index, 1);
   saveData();
-  renderAdminItems(page);
-  updateSidebarCounts();
+  renderItemsForPage(pageId);
+  updateStats();
   showToast('🗑️ Deleted!', 'success');
 }
 
-function openBulkAddModal(page) {
-  document.getElementById('adminModalTitle').textContent = `📦 Bulk Add — ${page}`;
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple items</div>
-    <div class="form-group">
-      <label>Format: <code>Title | Category | Link</code></label>
-      <textarea id="bulkText" rows="10" placeholder="Item 1 | Category | https://example.com
-Item 2 | Category2 | https://example2.com"></textarea>
-    </div>
-    <div class="form-group"><label>Common Description</label><textarea id="bulkDesc" rows="2"></textarea></div>
-    <button class="btn-submit" onclick="doBulkAdd('${page}')"><i class="fas fa-layer-group"></i> Bulk Add</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function doBulkAdd(page) {
-  const text = document.getElementById('bulkText').value.trim();
-  if (!text) return showToast('Data दें', 'error');
-  const commonDesc = document.getElementById('bulkDesc').value.trim();
-  if (!appData[page]) appData[page] = { content: '', items: [] };
-  if (!appData[page].items) appData[page].items = [];
-  let count = 0;
-  text.split('\n').filter(l => l.trim()).forEach(line => {
-    const p = line.split('|').map(x => x.trim());
-    if (!p[0]) return;
-    appData[page].items.push({ title: p[0], category: p[1] || '', link: p[2] || '', description: commonDesc, createdAt: Date.now() });
-    count++;
-  });
-  saveData();
-  closeAdminModal();
-  renderAdminItems(page);
-  updateSidebarCounts();
-  showToast(`✅ ${count} items added!`, 'success');
-}
-
 // ============================================================
-// JOBS
-// ============================================================
-function renderJobsTable() {
-  const c = document.getElementById('jobsContainer');
-  if (!c) return;
-  if (!jobsData.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs.</p></div>'; return; }
-  c.innerHTML = jobsData.map((j, i) => `
-    <div class="data-item">
-      <div class="item-sno">${i + 1}</div>
-      <div class="item-content">
-        <div class="item-title">${escapeHtml(j.title||'Untitled')}</div>
-        <div class="item-meta">${j.jobType ? `💼 ${escapeHtml(j.jobType)}` : ''}${j.department ? ` • 🏢 ${escapeHtml(j.department)}` : ''}</div>
-      </div>
-      <div class="item-actions">
-        <button class="btn-i-edit" onclick="openJobModal(${i})"><i class="fas fa-edit"></i> Edit</button>
-        <button class="btn-i-dup" onclick="duplicateJob(${i})"><i class="fas fa-copy"></i></button>
-        <button class="btn-i-delete" onclick="deleteJob(${i})"><i class="fas fa-trash"></i></button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function openJobModal(index = null) {
-  const isEdit = index !== null;
-  const job = isEdit ? jobsData[index] : { title:'', jobType:'central', department:'', description:'' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Job #${index+1}` : '💼 Add Job';
-  document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="jobIndex" value="${isEdit?index:-1}">
-    <div class="form-row">
-      <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${escapeHtml(job.title)}"></div>
-      <div class="form-group"><label>Type</label>
-        <select id="jType">
-          <option value="central" ${job.jobType==='central'?'selected':''}>Central</option>
-          <option value="state" ${job.jobType==='state'?'selected':''}>State</option>
-          <option value="private" ${job.jobType==='private'?'selected':''}>Private</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group"><label>Department</label><input type="text" id="jDept" value="${escapeHtml(job.department||'')}"></div>
-    <div class="form-group"><label>📝 Description (Word Editor)</label>${getWordEditorHTML(job.description || '')}</div>
-    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn-submit" onclick="saveJob(false)"><i class="fas fa-save"></i> ${isEdit?'Update':'Add'}</button>
-      ${!isEdit ? `<button class="btn-submit" style="background:#6c5ce7;" onclick="saveJob(true)"><i class="fas fa-plus-circle"></i> Add & Another</button>` : ''}
-      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-    </div>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-  setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
-}
-
-function saveJob(addAnother = false) {
-  const idx = parseInt(document.getElementById('jobIndex').value);
-  const title = document.getElementById('jTitle').value.trim();
-  if (!title) return showToast('Title required!', 'error');
-  const job = {
-    title,
-    jobType: document.getElementById('jType').value,
-    department: document.getElementById('jDept').value,
-    description: document.getElementById('richEditor').innerHTML,
-    createdAt: Date.now()
-  };
-  if (idx >= 0) { jobsData[idx] = { ...jobsData[idx], ...job }; showToast('✅ Updated!', 'success'); }
-  else { jobsData.push(job); showToast('✅ Added!', 'success'); }
-  saveData();
-  renderJobsTable();
-  updateSidebarCounts();
-
-  if (addAnother && idx < 0) {
-    document.getElementById('jTitle').value = '';
-    document.getElementById('jDept').value = '';
-    document.getElementById('richEditor').innerHTML = '';
-    document.getElementById('jTitle').focus();
-    showToast('✅ Added! अब next.', 'info');
-  } else closeAdminModal();
-}
-
-function duplicateJob(i) {
-  const j = { ...jobsData[i] };
-  j.title = (j.title || 'Untitled') + ' (Copy)';
-  j.createdAt = Date.now();
-  jobsData.splice(i + 1, 0, j);
-  saveData();
-  renderJobsTable();
-  updateSidebarCounts();
-  showToast('📋 Duplicated!', 'success');
-}
-
-function deleteJob(i) {
-  if (!confirm(`Delete job #${i+1}?`)) return;
-  jobsData.splice(i, 1);
-  saveData();
-  renderJobsTable();
-  updateSidebarCounts();
-  showToast('🗑️ Deleted!', 'success');
-}
-
-function openBulkJobModal() {
-  document.getElementById('adminModalTitle').textContent = '📦 Bulk Add Jobs';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple jobs</div>
-    <div class="form-group">
-      <label>Format: <code>Title | Type | Department</code></label>
-      <textarea id="bulkJobsText" rows="10" placeholder="SSC CGL 2024 | central | Staff Selection Commission
-Bank PO | central | SBI"></textarea>
-    </div>
-    <div class="form-group"><label>Common Description</label><textarea id="bulkJobsDesc" rows="2"></textarea></div>
-    <button class="btn-submit" onclick="doBulkAddJobs()"><i class="fas fa-layer-group"></i> Bulk Add</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function doBulkAddJobs() {
-  const text = document.getElementById('bulkJobsText').value.trim();
-  if (!text) return showToast('Data दें', 'error');
-  const commonDesc = document.getElementById('bulkJobsDesc').value.trim();
-  let count = 0;
-  text.split('\n').filter(l => l.trim()).forEach(line => {
-    const p = line.split('|').map(x => x.trim());
-    if (!p[0]) return;
-    jobsData.push({ title: p[0], jobType: p[1] || 'central', department: p[2] || '', description: commonDesc, createdAt: Date.now() });
-    count++;
-  });
-  saveData();
-  closeAdminModal();
-  renderJobsTable();
-  updateSidebarCounts();
-  showToast(`✅ ${count} jobs added!`, 'success');
-}
-
-// ============================================================
-// FILES
-// ============================================================
-function loadFilesMeta() {
-  try { filesMeta = JSON.parse(localStorage.getItem(FILES_META_KEY)) || []; } catch (e) { filesMeta = []; }
-}
-function saveFilesMeta() {
-  localStorage.setItem(FILES_META_KEY, JSON.stringify(filesMeta));
-  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('filesMeta').set({ files: filesMeta }).catch(()=>{});
-}
-async function loadFilesMetaFromCloud() {
-  if (!firebaseDB) return;
-  try {
-    const d = await firebaseDB.collection('dreamjosh').doc('filesMeta').get();
-    if (d.exists && d.data().files) {
-      filesMeta = d.data().files;
-      localStorage.setItem(FILES_META_KEY, JSON.stringify(filesMeta));
-    }
-  } catch (e) {}
-}
-function getFileMeta(path) {
-  return filesMeta.find(f => f.path === path) || { path, customName:'', showOnHome:false, description:'' };
-}
-
-async function loadFilesFromCloud() {
-  const c = document.getElementById('filesGridContainer');
-  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading...</p></div>';
-  await loadFilesMetaFromCloud();
-  if (!firebaseStorage) return;
-  try {
-    const list = await firebaseStorage.ref('dreamjosh-files').listAll();
-    filesData = [];
-    for (const item of list.items) {
-      try {
-        const url = await item.getDownloadURL();
-        const meta = await item.getMetadata();
-        filesData.push({ path: item.fullPath, firebaseName: item.name, url, size: meta.size || 0, time: meta.timeCreated, contentType: meta.contentType || '' });
-      } catch (e) {}
-    }
-    filesData.sort((a, b) => new Date(b.time) - new Date(a.time));
-    updateSidebarCounts();
-    if (document.getElementById('adminPage-files')?.classList.contains('active')) renderFilesGrid('files');
-    if (document.getElementById('adminPage-files-home')?.classList.contains('active')) renderFilesGrid('home');
-  } catch (err) {
-    if (c) c.innerHTML = `<div class="empty-state" style="color:#dc3545;"><p>Error: ${err.message}</p></div>`;
-  }
-}
-
-function getFileType(ct, nm) {
-  ct = (ct||'').toLowerCase(); nm = (nm||'').toLowerCase();
-  if (ct.startsWith('image/') || /\.(jpg|jpeg|png|gif|webp|svg|bmp)$/.test(nm)) return 'image';
-  if (ct.includes('pdf') || nm.endsWith('.pdf')) return 'pdf';
-  if (ct.includes('word') || /\.(doc|docx)$/.test(nm)) return 'word';
-  if (ct.includes('excel') || /\.(xls|xlsx|csv)$/.test(nm)) return 'excel';
-  return 'other';
-}
-function getFileIcon(t) { return { image:'🖼️', pdf:'📄', word:'📝', excel:'📊', other:'📦' }[t] || '📦'; }
-function formatFileSize(b) {
-  if (!b) return '0 B';
-  if (b < 1024) return b + ' B';
-  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
-  return (b/1048576).toFixed(2) + ' MB';
-}
-function escapeHtml(s) {
-  return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-function renderFilesGrid(mode) {
-  const isHome = mode === 'home';
-  const c = document.getElementById(isHome ? 'homeFilesContainer' : 'filesGridContainer');
-  if (!c) return;
-  let items = filesData.map(f => ({ ...f, ...getFileMeta(f.path), type: getFileType(f.contentType, f.firebaseName) }));
-  if (isHome) items = items.filter(f => f.showOnHome);
-  if (!items.length) {
-    c.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><p>${isHome ? 'No home files.' : 'No files.'}</p></div>`;
-    return;
-  }
-  c.innerHTML = items.map(f => {
-    const dn = escapeHtml(f.customName || f.firebaseName);
-    return `
-      <div class="data-item">
-        <div class="item-sno">${getFileIcon(f.type)}</div>
-        <div class="item-content">
-          <div class="item-title">${dn}</div>
-          <div class="item-meta">${formatFileSize(f.size)} • ${new Date(f.time).toLocaleDateString()} ${f.showOnHome ? '• 🏠 Home' : ''}</div>
-        </div>
-        <div class="item-actions">
-          <a href="${f.url}" target="_blank" class="btn-i-edit"><i class="fas fa-eye"></i></a>
-          <a href="${f.url}" download="${dn}" class="btn-i-dup"><i class="fas fa-download"></i></a>
-          <button class="btn-i-edit" onclick="toggleHomeDisplay('${f.path}')" style="${f.showOnHome?'background:#16a34a;color:#fff;':''}"><i class="fas fa-home"></i></button>
-          <button class="btn-i-edit" onclick="openFileEditModal('${f.path}')"><i class="fas fa-edit"></i></button>
-          <button class="btn-i-delete" onclick="deleteFile('${f.path}', '${dn.replace(/'/g,"\\'")}')"><i class="fas fa-trash"></i></button>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function openFileUploadModal() {
-  document.getElementById('adminModalTitle').textContent = '📤 Upload File';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group">
-      <label>File चुनें</label>
-      <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
-        <i class="fas fa-cloud-upload-alt"></i>
-        <p><strong>Click to browse</strong></p>
-      </div>
-      <input type="file" id="fileInput" style="display:none;" onchange="handleFileSelect(event)">
-      <div id="selectedFile" style="margin-top:10px;font-size:13px;"></div>
-    </div>
-    <div class="form-group"><label>Display Name *</label><input type="text" id="fileCustomName"></div>
-    <div class="form-group"><label>Description</label><textarea id="fileDescription" rows="2"></textarea></div>
-    <div class="form-group">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-        <input type="checkbox" id="fileShowOnHome" style="width:auto;"> 🏠 Home Page पर दिखाएं
-      </label>
-    </div>
-    <div class="upload-progress" id="uploadProgress"><div class="upload-progress-bar" id="uploadProgressBar"></div></div>
-    <div style="margin-top:16px;">
-      <button class="btn-submit" id="uploadBtn" onclick="uploadFile()" disabled>Upload</button>
-      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-    </div>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function openBulkUploadModal() {
-  document.getElementById('adminModalTitle').textContent = '📦 Bulk Upload';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="bulk-mode-badge active"><i class="fas fa-layer-group"></i> Multiple files</div>
-    <div class="form-group"><label>Files चुनें</label><input type="file" id="bulkFilesInput" multiple></div>
-    <div class="form-group">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-        <input type="checkbox" id="bulkShowOnHome" style="width:auto;"> 🏠 Home पर दिखाएं
-      </label>
-    </div>
-    <div class="upload-progress" id="bulkUploadProgress"><div class="upload-progress-bar" id="bulkUploadProgressBar"></div></div>
-    <div id="bulkUploadStatus" style="font-size:12px;text-align:center;margin-top:8px;"></div>
-    <div style="margin-top:16px;">
-      <button class="btn-submit" onclick="doBulkUpload()"><i class="fas fa-upload"></i> Upload All</button>
-      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-    </div>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-async function doBulkUpload() {
-  const files = document.getElementById('bulkFilesInput').files;
-  if (!files.length) return showToast('Files चुनें', 'error');
-  const showHome = document.getElementById('bulkShowOnHome').checked;
-  const pEl = document.getElementById('bulkUploadProgress');
-  const pBar = document.getElementById('bulkUploadProgressBar');
-  const statusEl = document.getElementById('bulkUploadStatus');
-  pEl.classList.add('active');
-  let done = 0;
-  for (const file of files) {
-    try {
-      const ts = Date.now();
-      const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-      const path = `dreamjosh-files/${ts}_${safe}`;
-      const ref = firebaseStorage.ref(path);
-      await ref.put(file);
-      await ref.getDownloadURL();
-      filesMeta.push({ path, customName: file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '), description:'', showOnHome: showHome, uploadedAt: Date.now(), size: file.size, contentType: file.type });
-      done++;
-      pBar.style.width = (done/files.length*100) + '%';
-      statusEl.textContent = `${done}/${files.length} uploaded...`;
-    } catch (e) { console.warn('Failed:', file.name, e); }
-  }
-  saveFilesMeta();
-  showToast(`✅ ${done} files uploaded!`, 'success');
-  closeAdminModal();
-  await loadFilesFromCloud();
-  renderFilesGrid('files');
-  updateSidebarCounts();
-}
-
-let selectedUploadFile = null;
-function handleFileSelect(e) {
-  const f = e.target.files[0];
-  if (!f) return;
-  selectedUploadFile = f;
-  document.getElementById('selectedFile').innerHTML = `✅ <strong>${escapeHtml(f.name)}</strong> (${formatFileSize(f.size)})`;
-  if (!document.getElementById('fileCustomName').value) {
-    document.getElementById('fileCustomName').value = f.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
-  }
-  document.getElementById('uploadBtn').disabled = false;
-}
-
-async function uploadFile() {
-  if (!selectedUploadFile) return;
-  const cn = document.getElementById('fileCustomName').value.trim();
-  if (!cn) return showToast('Display Name required', 'error');
-  const desc = document.getElementById('fileDescription').value.trim();
-  const show = document.getElementById('fileShowOnHome').checked;
-  const btn = document.getElementById('uploadBtn');
-  btn.disabled = true; btn.textContent = 'Uploading...';
-  document.getElementById('uploadProgress').classList.add('active');
-
-  const ts = Date.now();
-  const safe = selectedUploadFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const path = `dreamjosh-files/${ts}_${safe}`;
-  const ref = firebaseStorage.ref(path);
-  const task = ref.put(selectedUploadFile);
-
-  task.on('state_changed',
-    snap => { document.getElementById('uploadProgressBar').style.width = (snap.bytesTransferred/snap.totalBytes*100) + '%'; },
-    err => { showToast('Upload failed: ' + err.message, 'error'); btn.disabled = false; btn.textContent = 'Upload'; },
-    async () => {
-      await ref.getDownloadURL();
-      filesMeta.push({ path, customName: cn, description: desc, showOnHome: show, uploadedAt: Date.now(), size: selectedUploadFile.size, contentType: selectedUploadFile.type });
-      saveFilesMeta();
-      showToast('✅ Uploaded!', 'success');
-      closeAdminModal();
-      selectedUploadFile = null;
-      await loadFilesFromCloud();
-      renderFilesGrid('files');
-      updateSidebarCounts();
-    }
-  );
-}
-
-function openFileEditModal(path) {
-  const meta = getFileMeta(path);
-  const file = filesData.find(f => f.path === path);
-  if (!file) return;
-  const cn = meta.customName || file.firebaseName;
-  document.getElementById('adminModalTitle').textContent = '✏️ Edit File';
-  document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Display Name *</label><input type="text" id="editFileName" value="${escapeHtml(cn)}"></div>
-    <div class="form-group"><label>Description</label><textarea id="editFileDesc" rows="2">${escapeHtml(meta.description || '')}</textarea></div>
-    <div class="form-group">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-        <input type="checkbox" id="editFileHome" ${meta.showOnHome?'checked':''} style="width:auto;"> 🏠 Home पर दिखाएं
-      </label>
-    </div>
-    <div class="form-group"><label>🔄 Replace File</label><input type="file" id="replaceFileInput"></div>
-    <button class="btn-submit" onclick="saveFileEdit('${path}')">Save</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-async function saveFileEdit(path) {
-  const newName = document.getElementById('editFileName').value.trim();
-  if (!newName) return;
-  const desc = document.getElementById('editFileDesc').value.trim();
-  const show = document.getElementById('editFileHome').checked;
-  const rf = document.getElementById('replaceFileInput').files[0];
-  let i = filesMeta.findIndex(f => f.path === path);
-  if (i === -1) filesMeta.push({ path, customName: newName, description: desc, showOnHome: show });
-  else { filesMeta[i].customName = newName; filesMeta[i].description = desc; filesMeta[i].showOnHome = show; }
-  saveFilesMeta();
-  if (rf) {
-    try { await firebaseStorage.ref(path).put(rf); } catch (e) { showToast('Replace failed', 'error'); return; }
-  }
-  closeAdminModal();
-  await loadFilesFromCloud();
-  renderFilesGrid('files'); renderFilesGrid('home');
-  showToast('✅ Saved!', 'success');
-}
-
-function toggleHomeDisplay(path) {
-  let m = filesMeta.find(f => f.path === path);
-  if (!m) { m = { path, customName:'', showOnHome:true }; filesMeta.push(m); }
-  else m.showOnHome = !m.showOnHome;
-  saveFilesMeta();
-  renderFilesGrid('files'); renderFilesGrid('home');
-  updateSidebarCounts();
-}
-
-async function deleteFile(path, name) {
-  if (!confirm(`Delete "${name}"?`)) return;
-  try {
-    await firebaseStorage.ref(path).delete();
-    filesMeta = filesMeta.filter(f => f.path !== path);
-    saveFilesMeta();
-    await loadFilesFromCloud();
-    renderFilesGrid('files'); renderFilesGrid('home');
-    updateSidebarCounts();
-    showToast('🗑️ Deleted!', 'success');
-  } catch (e) { showToast('Delete failed', 'error'); }
-}
-
-// ============================================================
-// SLIDES / EMPLOYEES
-// ============================================================
-function renderSlides() {
-  const c = document.getElementById('adminSlidesContainer');
-  if (!c) return;
-  const s = appData.slides || [];
-  if (!s.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-images"></i><p>No slides.</p></div>'; return; }
-  c.innerHTML = s.map((x, i) => `
-    <div class="data-item">
-      <div class="item-sno">${i+1}</div>
-      <div class="item-content">
-        <div class="item-title">${escapeHtml(x.title||'Untitled')}</div>
-        <div class="item-meta">${escapeHtml(x.description||'')}</div>
-      </div>
-      <div class="item-actions">
-        <button class="btn-i-edit" onclick="openSlideModal(${i})"><i class="fas fa-edit"></i></button>
-        <button class="btn-i-delete" onclick="deleteSlide(${i})"><i class="fas fa-trash"></i></button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function openSlideModal(index = null) {
-  const isEdit = index !== null;
-  const s = isEdit ? appData.slides[index] : { title:'', description:'', image:'' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Slide' : '📸 Add Slide';
-  document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="slideIndex" value="${isEdit?index:-1}">
-    <div class="form-group"><label>Title *</label><input type="text" id="slideTitle" value="${escapeHtml(s.title)}"></div>
-    <div class="form-group"><label>Description</label><textarea id="slideDesc" rows="2">${escapeHtml(s.description)}</textarea></div>
-    <div class="form-group"><label>Image URL</label><input type="url" id="slideImage" value="${escapeHtml(s.image)}"></div>
-    <button class="btn-submit" onclick="saveSlide()">${isEdit?'Update':'Add'}</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function saveSlide() {
-  const i = parseInt(document.getElementById('slideIndex').value);
-  const t = document.getElementById('slideTitle').value.trim();
-  if (!t) return;
-  const s = { title: t, description: document.getElementById('slideDesc').value, image: document.getElementById('slideImage').value };
-  if (!appData.slides) appData.slides = [];
-  if (i >= 0) appData.slides[i] = { ...appData.slides[i], ...s };
-  else appData.slides.push(s);
-  saveData(); closeAdminModal(); renderSlides();
-}
-
-function deleteSlide(i) {
-  if (!confirm('Delete?')) return;
-  appData.slides.splice(i, 1);
-  saveData(); renderSlides();
-}
-
-function renderEmployees() {
-  const c = document.getElementById('employeeListContainer');
-  if (!c) return;
-  const e = appData.employees || [];
-  if (!e.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>No employees.</p></div>'; return; }
-  c.innerHTML = e.map((x, i) => `
-    <div class="data-item">
-      <div class="item-sno">${i+1}</div>
-      <div class="item-content">
-        <div class="item-title">${escapeHtml(x.name||'Unnamed')}</div>
-        <div class="item-meta">${escapeHtml(x.email||'')}</div>
-      </div>
-      <div class="item-actions">
-        <button class="btn-i-edit" onclick="openEmployeeModal(${i})"><i class="fas fa-edit"></i></button>
-        <button class="btn-i-delete" onclick="deleteEmployee(${i})"><i class="fas fa-trash"></i></button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function openEmployeeModal(index = null) {
-  const isEdit = index !== null;
-  const e = isEdit ? appData.employees[index] : { name:'', email:'' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Employee' : '👤 Add Employee';
-  document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="empIndex" value="${isEdit?index:-1}">
-    <div class="form-group"><label>Name *</label><input type="text" id="empName" value="${escapeHtml(e.name||'')}"></div>
-    <div class="form-group"><label>Email *</label><input type="email" id="empEmail" value="${escapeHtml(e.email||'')}"></div>
-    <button class="btn-submit" onclick="saveEmployee()">${isEdit?'Update':'Add'}</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function saveEmployee() {
-  const i = parseInt(document.getElementById('empIndex').value);
-  const n = document.getElementById('empName').value.trim();
-  const e = document.getElementById('empEmail').value.trim();
-  if (!n || !e) return;
-  if (!appData.employees) appData.employees = [];
-  if (i >= 0) appData.employees[i] = { name: n, email: e };
-  else appData.employees.push({ name: n, email: e });
-  saveData(); closeAdminModal(); renderEmployees(); updateSidebarCounts();
-}
-
-function deleteEmployee(i) {
-  if (!confirm('Delete?')) return;
-  appData.employees.splice(i, 1);
-  saveData(); renderEmployees(); updateSidebarCounts();
-}
-
-// ============================================================
-// SETTINGS
-// ============================================================
-function loadSettingsForm() {
-  loadSettings();
-  loadActivityLog();
-  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
-  const setC = (id, v) => { const el = document.getElementById(id); if (el) el.checked = !!v; };
-
-  set('setSiteName', settings.siteName);
-  set('setTagline', settings.tagline);
-  set('setSiteDesc', settings.siteDesc);
-  set('setSiteURL', settings.siteURL);
-  set('setContactEmail', settings.contactEmail);
-  set('setContactPhone', settings.contactPhone);
-  set('setAddress', settings.address);
-  set('setLanguage', settings.language);
-  set('setTimezone', settings.timezone);
-  set('setDateFormat', settings.dateFormat);
-  set('setPrimaryColor', settings.primaryColor);
-  set('setSecondaryColor', settings.secondaryColor);
-  set('setAccentColor', settings.accentColor);
-  set('setThemeMode', settings.themeMode);
-  set('setFontFamily', settings.fontFamily);
-
-  const lP = document.getElementById('logoPreview');
-  if (lP && settings.logo) lP.innerHTML = `<img src="${settings.logo}">`;
-  const fP = document.getElementById('faviconPreview');
-  if (fP && settings.favicon) fP.innerHTML = `<img src="${settings.favicon}">`;
-
-  set('setItemsPerPage', settings.itemsPerPage);
-  set('setHomeLimit', settings.homeLimit);
-  set('setHomeLayout', settings.homeLayout);
-  set('setAnnouncementBar', settings.announcementBar);
-  setC('setShowTicker', settings.showTicker);
-  set('setTickerText', settings.tickerText);
-  setC('setMaintenanceMode', settings.maintenanceMode);
-  set('setMaintenanceMsg', settings.maintenanceMsg);
-  set('setCurUsername', getAdminCreds().username);
-  set('setMetaTitle', settings.metaTitle);
-  set('setMetaDesc', settings.metaDesc);
-  set('setMetaKeywords', settings.metaKeywords);
-  set('setGAId', settings.gaId);
-  set('setGSCode', settings.gsCode);
-  set('setInstagram', settings.instagram);
-  set('setYouTube', settings.youtube);
-  set('setFacebook', settings.facebook);
-  set('setWhatsApp', settings.whatsapp);
-  set('setTelegram', settings.telegram);
-  set('setTwitter', settings.twitter);
-  set('setLinkedIn', settings.linkedin);
-  setC('setShowSocialHome', settings.showSocialHome);
-
-  renderActivityLog();
-  updateSystemInfo();
-}
-
-function switchSettingsTab(tab) {
-  document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
-  document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById('settings-tab-' + tab)?.classList.add('active');
-}
-
-function saveSettingsGroup(group) {
-  const g = id => document.getElementById(id)?.value || '';
-  const gc = id => document.getElementById(id)?.checked || false;
-  if (group === 'general') {
-    settings.siteName = g('setSiteName');
-    settings.tagline = g('setTagline');
-    settings.siteDesc = g('setSiteDesc');
-    settings.siteURL = g('setSiteURL');
-    settings.contactEmail = g('setContactEmail');
-    settings.contactPhone = g('setContactPhone');
-    settings.address = g('setAddress');
-    settings.language = g('setLanguage');
-    settings.timezone = g('setTimezone');
-    settings.dateFormat = g('setDateFormat');
-  }
-  if (group === 'appearance') {
-    settings.primaryColor = g('setPrimaryColor');
-    settings.secondaryColor = g('setSecondaryColor');
-    settings.accentColor = g('setAccentColor');
-    settings.themeMode = g('setThemeMode');
-    settings.fontFamily = g('setFontFamily');
-    applyAppearanceSettings();
-  }
-  if (group === 'content') {
-    settings.itemsPerPage = parseInt(g('setItemsPerPage')) || 12;
-    settings.homeLimit = parseInt(g('setHomeLimit')) || 6;
-    settings.homeLayout = g('setHomeLayout');
-    settings.announcementBar = g('setAnnouncementBar');
-    settings.showTicker = gc('setShowTicker');
-    settings.tickerText = g('setTickerText');
-  }
-  if (group === 'security') {
-    settings.maintenanceMode = gc('setMaintenanceMode');
-    settings.maintenanceMsg = g('setMaintenanceMsg');
-  }
-  if (group === 'seo') {
-    settings.metaTitle = g('setMetaTitle');
-    settings.metaDesc = g('setMetaDesc');
-    settings.metaKeywords = g('setMetaKeywords');
-    settings.gaId = g('setGAId');
-    settings.gsCode = g('setGSCode');
-  }
-  if (group === 'social') {
-    settings.instagram = g('setInstagram');
-    settings.youtube = g('setYouTube');
-    settings.facebook = g('setFacebook');
-    settings.whatsapp = g('setWhatsApp');
-    settings.telegram = g('setTelegram');
-    settings.twitter = g('setTwitter');
-    settings.linkedin = g('setLinkedIn');
-    settings.showSocialHome = gc('setShowSocialHome');
-  }
-  saveSettings();
-  logActivity('Settings Saved', group);
-  showToast(`✅ ${group} saved!`, 'success');
-}
-
-async function handleLogoUpload(e) {
-  const f = e.target.files[0];
-  if (!f) return;
-  await uploadBrand(f, 'logo');
-}
-async function handleFaviconUpload(e) {
-  const f = e.target.files[0];
-  if (!f) return;
-  await uploadBrand(f, 'favicon');
-}
-async function uploadBrand(file, type) {
-  if (!firebaseStorage) return showToast('Firebase not ready', 'error');
-  try {
-    showToast('⏳ Uploading...', 'info');
-    const ref = firebaseStorage.ref(`branding/${type}_${Date.now()}_${file.name}`);
-    await ref.put(file);
-    const url = await ref.getDownloadURL();
-    settings[type] = url;
-    saveSettings();
-    if (type === 'logo') document.getElementById('logoPreview').innerHTML = `<img src="${url}">`;
-    else document.getElementById('faviconPreview').innerHTML = `<img src="${url}">`;
-    applyAppearanceSettings();
-    showToast('✅ Uploaded!', 'success');
-  } catch (err) { showToast('Upload failed: ' + err.message, 'error'); }
-}
-
-function applyColorPreview() {
-  document.documentElement.style.setProperty('--primary-blue', document.getElementById('setPrimaryColor').value);
-  document.documentElement.style.setProperty('--secondary-blue', document.getElementById('setSecondaryColor').value);
-  document.documentElement.style.setProperty('--gold', document.getElementById('setAccentColor').value);
-}
-function applyFontPreview() {
-  document.body.style.fontFamily = document.getElementById('setFontFamily').value;
-}
-function applyAppearanceSettings() {
-  if (settings.primaryColor) document.documentElement.style.setProperty('--primary-blue', settings.primaryColor);
-  if (settings.secondaryColor) document.documentElement.style.setProperty('--secondary-blue', settings.secondaryColor);
-  if (settings.accentColor) document.documentElement.style.setProperty('--gold', settings.accentColor);
-  if (settings.fontFamily) document.body.style.fontFamily = settings.fontFamily;
-  if (settings.themeMode === 'dark') document.body.classList.add('dark-mode');
-  else if (settings.themeMode === 'light') document.body.classList.remove('dark-mode');
-  else if (settings.themeMode === 'auto') {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) document.body.classList.add('dark-mode');
-    else document.body.classList.remove('dark-mode');
-  }
-  if (settings.siteName) document.title = settings.siteName + ' - Admin Panel';
-  if (settings.favicon) {
-    let l = document.querySelector("link[rel='icon']");
-    if (!l) { l = document.createElement('link'); l.rel = 'icon'; document.head.appendChild(l); }
-    l.href = settings.favicon;
-  }
-}
-
-function changeAdminPassword() {
-  const cur = document.getElementById('setCurPassword').value;
-  const n1 = document.getElementById('setNewPassword').value;
-  const n2 = document.getElementById('setConfirmPassword').value;
-  if (!cur || !n1 || !n2) return showToast('सभी fields भरें!', 'error');
-  const c = getAdminCreds();
-  if (cur !== c.password) return showToast('❌ Current password गलत!', 'error');
-  if (n1 !== n2) return showToast('❌ Passwords match नहीं!', 'error');
-  if (n1.length < 6) return showToast('⚠️ Password 6+ chars', 'error');
-  saveAdminCreds(c.username, n1);
-  document.getElementById('setCurPassword').value = '';
-  document.getElementById('setNewPassword').value = '';
-  document.getElementById('setConfirmPassword').value = '';
-  logActivity('Password Changed', '');
-  showToast('✅ Password changed!', 'success');
-}
-function changeAdminUsername() {
-  const u = document.getElementById('setNewUsername').value.trim();
-  if (!u) return showToast('New username दें', 'error');
-  const c = getAdminCreds();
-  saveAdminCreds(u, c.password);
-  document.getElementById('setCurUsername').value = u;
-  document.getElementById('setNewUsername').value = '';
-  logActivity('Username Changed', u);
-  showToast('✅ Username changed!', 'success');
-}
-
-function exportAllData() {
-  const data = { appData, jobsData, filesMeta, settings, activityLog, version: '4.0.0 VIP', exportedAt: new Date().toISOString() };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `dreamjosh_backup_${new Date().toISOString().slice(0, 10)}.json`;
-  a.click();
-  logActivity('Backup', 'JSON');
-  showToast('📥 Backup!', 'success');
-}
-
-function exportAllDataCSV() {
-  let csv = '\uFEFF';
-  csv += 'Type,Title,Category,Department,Link\n';
-  jobsData.forEach(j => {
-    csv += `Job,"${(j.title||'').replace(/"/g,'""')}","${(j.jobType||'').replace(/"/g,'""')}","${(j.department||'').replace(/"/g,'""')}",""\n`;
-  });
-  PAGE_KEYS.forEach(p => {
-    (appData[p]?.items || []).forEach(it => {
-      csv += `Item-${p},"${(it.title||'').replace(/"/g,'""')}","${(it.category||'').replace(/"/g,'""')}","","${(it.link||'').replace(/"/g,'""')}"\n`;
-    });
-  });
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `dreamjosh_data_${new Date().toISOString().slice(0, 10)}.csv`;
-  a.click();
-  showToast('📊 CSV!', 'success');
-}
-
-function importData() {
-  const file = document.getElementById('restoreFileInput').files[0];
-  if (!file) return showToast('Backup file चुनें', 'error');
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    try {
-      const data = JSON.parse(e.target.result);
-      if (!confirm('⚠️ Current data replace होगा। Continue?')) return;
-      if (data.appData) appData = data.appData;
-      if (data.jobsData) jobsData = data.jobsData;
-      if (data.filesMeta) { filesMeta = data.filesMeta; localStorage.setItem(FILES_META_KEY, JSON.stringify(filesMeta)); }
-      if (data.settings) { settings = data.settings; localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
-      if (data.activityLog) { activityLog = data.activityLog; localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(activityLog)); }
-      saveData();
-      applyAppearanceSettings();
-      loadSettingsForm();
-      updateSidebarCounts();
-      renderJobsTable();
-      renderFilesGrid('files');
-      logActivity('Restore', 'Backup');
-      showToast('✅ Restored!', 'success');
-      setTimeout(() => location.reload(), 1500);
-    } catch (err) { showToast('❌ Invalid file', 'error'); }
-  };
-  reader.readAsText(file);
-}
-
-function clearAllAdminData() {
-  if (!confirm('⚠️ सारा data permanently delete होगा!')) return;
-  if (!confirm('Sure?')) return;
-  [STORAGE_KEY, FILES_META_KEY, SETTINGS_KEY, ACTIVITY_LOG_KEY].forEach(k => localStorage.removeItem(k));
-  showToast('🗑️ Cleared!', 'success');
-  setTimeout(() => location.reload(), 1500);
-}
-
-function updateSystemInfo() {
-  const el = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
-  el('sysFirebaseStatus', firebaseDB ? '✅ Connected' : '❌');
-  el('sysFilesCount', filesData.length);
-  el('sysJobsCount', jobsData.length);
-  let t = 0;
-  PAGE_KEYS.forEach(p => { t += (appData[p]?.items || []).length; });
-  el('sysItemsCount', t);
-  let size = 0;
-  try { Object.keys(localStorage).forEach(k => { size += (localStorage[k] || '').length * 2; }); } catch (e) {}
-  el('sysStorageUsed', formatFileSize(size));
-}
-
-// ============================================================
-// NAVIGATION — showAdminPage
+// 🎯 SHOW ADMIN PAGE (Dynamic)
 // ============================================================
 function showAdminPage(page) {
   markActivity();
@@ -3165,47 +1724,264 @@ function showAdminPage(page) {
   const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
   if (activeLink) activeLink.classList.add('active');
 
+  // Auto-open parent section
   closeAllMenuSections();
-  const section = PAGE_TO_SECTION[page];
-  if (section) openMenuSection(section);
+  const parent = pagesData.find(p => p.id === page || (p.subPages && p.subPages.some(s => s.id === page)));
+  if (parent && parent.subPages && parent.subPages.length) {
+    openMenuSection(parent.id);
+  }
 
   const titles = {
-    'dashboard':'📊 <span>Dashboard</span>', 'files':'📁 <span>All Files</span>',
-    'files-home':'🏠 <span>Home Display</span>', 'home-editor':'🏠 <span>Home Editor</span>',
-    'career-editor':'🎯 <span>Career Editor</span>', 'more-editor':'📚 <span>More Editor</span>',
-    'blog-editor':'📝 <span>Blog Editor</span>', 'service-editor':'🛠️ <span>Service Editor</span>',
-    'tools-editor':'🛠️ <span>Tools Editor</span>', 'rsr-editor':'📜 <span>RSR Editor</span>',
-    'items-career':'🎯 <span>Career Items</span>', 'items-more':'📚 <span>More Items</span>',
-    'items-blog':'📝 <span>Blog Items</span>', 'items-service':'🛠️ <span>Service Items</span>',
-    'items-tools':'🛠️ <span>Tools Items</span>', 'items-rsr':'📜 <span>RSR Items</span>',
-    'jobs':'💼 <span>Jobs</span>', 'slides':'📸 <span>Slides</span>',
-    'employees':'👥 <span>Employees</span>', 'settings':'⚙️ <span>Settings</span>'
+    'dashboard': '📊 <span>Dashboard</span>',
+    'pages': '📄 <span>Pages Manager</span>'
   };
-  document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
+
+  const pageInfo = findPageById(page);
+  if (pageInfo) {
+    document.getElementById('adminPageTitle').innerHTML = `<i class="fas ${pageInfo.icon}" style="color:var(--primary-blue);margin-right:8px;"></i> <span>${escapeHtml(pageInfo.name)}</span>`;
+  } else {
+    document.getElementById('adminPageTitle').innerHTML = titles[page] || '📄 <span>Page</span>';
+  }
+
+  // Hide all sections
   document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-  document.getElementById('adminPage-' + page)?.classList.add('active');
-  if (page === 'files') { renderFilesGrid('files'); if (!filesData.length) loadFilesFromCloud(); }
-  if (page === 'files-home') renderFilesGrid('home');
-  if (page.endsWith('-editor')) renderPageContent(page.replace('-editor',''));
-  if (page.startsWith('items-')) renderAdminItems(page.replace('items-',''));
-  if (page === 'jobs') renderJobsTable();
-  if (page === 'slides') renderSlides();
-  if (page === 'employees') renderEmployees();
-  if (page === 'settings') loadSettingsForm();
+
+  // Check if it's a built-in section
+  const existing = document.getElementById('adminPage-' + page);
+  if (existing) {
+    existing.classList.add('active');
+    // Call the original render for that page
+    if (page === 'dashboard') updateStats();
+    if (page === 'pages') renderPagesGrid();
+    if (page === 'files') { renderFilesGrid('files'); if (!filesData.length) loadFilesFromCloud(); }
+    if (page === 'files-home') renderFilesGrid('home');
+    if (page === 'jobs') renderJobsTable();
+    if (page === 'slides') renderSlides();
+    if (page === 'employees') renderEmployees();
+    if (page === 'settings') loadSettingsForm();
+    if (window.innerWidth <= 768) closeSidebar();
+    return;
+  }
+
+  // Dynamic page — create section on the fly
+  renderDynamicPage(page);
   if (window.innerWidth <= 768) closeSidebar();
 }
 
-function toggleSidebar() {
-  document.getElementById('adminSidebar').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('active');
+function findPageById(pageId) {
+  for (const p of pagesData) {
+    if (p.id === pageId) return { ...p, isParent: true };
+    if (p.subPages) {
+      const s = p.subPages.find(sp => sp.id === pageId);
+      if (s) return { ...s, isSub: true, parent: p };
+    }
+  }
+  return null;
 }
-function closeSidebar() {
-  document.getElementById('adminSidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('active');
+
+function renderDynamicPage(pageId) {
+  const info = findPageById(pageId);
+  if (!info) {
+    showToast('Page not found', 'error');
+    return;
+  }
+
+  const items = appData[pageId]?.items || [];
+  const content = appData[pageId]?.content || '';
+
+  const contentEl = document.getElementById('adminContentArea');
+  const sectionId = 'adminPage-' + pageId;
+
+  // Remove old section if exists
+  document.getElementById(sectionId)?.remove();
+
+  const section = document.createElement('div');
+  section.id = sectionId;
+  section.className = 'admin-section active';
+  section.innerHTML = `
+    <div class="admin-card">
+      <div class="card-header">
+        <h4><i class="fas ${info.icon}"></i> ${escapeHtml(info.name)}</h4>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-add" onclick="openPageContentEditor('${pageId}')"><i class="fas fa-edit"></i> Edit Content</button>
+          <button class="btn-add primary" onclick="openItemEditorForPage('${pageId}')"><i class="fas fa-plus"></i> Add Item</button>
+          <button class="btn-add bulk" onclick="togglePagePrivacy('${pageId}')">
+            <i class="fas fa-${info.isPublic ? 'lock' : 'unlock'}"></i>
+            ${info.isPublic ? 'Make Private' : 'Make Public'}
+          </button>
+          <button class="btn-add" style="background:#dc3545;" onclick="${info.isSub ? `deleteSubPage('${info.parent.id}', '${pageId}')` : `deletePage('${pageId}')`}">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+
+      ${content ? `
+        <div style="margin-bottom:16px;padding:14px;background:var(--bg-color);border-radius:8px;border-left:4px solid var(--secondary-blue);max-height:200px;overflow-y:auto;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-light);margin-bottom:6px;">📄 PAGE CONTENT:</div>
+          <div>${content}</div>
+        </div>
+      ` : `
+        <div style="margin-bottom:16px;padding:14px;background:var(--bg-color);border-radius:8px;text-align:center;color:var(--text-light);font-size:13px;">
+          <i class="fas fa-file-alt" style="font-size:24px;opacity:.4;"></i>
+          <p style="margin-top:6px;">Abhi koi content nahi hai. "Edit Content" dabayein.</p>
+        </div>
+      `}
+
+      <div style="margin-top:12px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">
+          📋 Items (${items.length})
+        </div>
+        <div id="items-container-${pageId}"></div>
+      </div>
+    </div>
+  `;
+
+  // Insert into admin content
+  const contentArea = document.querySelector('.admin-content');
+  contentArea.appendChild(section);
+
+  renderItemsForPage(pageId);
 }
 
 // ============================================================
-// UTILS
+// DASHBOARD STATS
+// ============================================================
+function updateStats() {
+  const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  let totalPages = 0;
+  pagesData.forEach(p => { totalPages++; if (p.subPages) totalPages += p.subPages.length; });
+  setEl('statPages', totalPages);
+  setEl('statFiles', filesData.length);
+  setEl('statJobs', jobsData.length);
+  setEl('statSlides', (appData.slides?.items || []).length);
+  setEl('statEmployees', (appData.employees?.items || []).length);
+  setEl('sysPagesCount', totalPages);
+  setEl('sysFilesCount', filesData.length);
+  setEl('sysJobsCount', jobsData.length);
+}
+
+// ============================================================
+// VIP EFFECTS
+// ============================================================
+function playVipSound(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    if (type === 'success') {
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+      osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2);
+    } else if (type === 'error') {
+      osc.frequency.setValueAtTime(329.63, ctx.currentTime);
+      osc.frequency.setValueAtTime(261.63, ctx.currentTime + 0.15);
+    } else if (type === 'warning') {
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+      osc.frequency.setValueAtTime(440, ctx.currentTime + 0.15);
+    } else {
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+    }
+    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.4);
+  } catch (e) {}
+}
+
+function initVipCursor() {
+  if (window.innerWidth < 900) return;
+  if (matchMedia('(pointer: coarse)').matches) return;
+  if (document.getElementById('vipCursor')) return;
+  const cursor = document.createElement('div');
+  cursor.id = 'vipCursor';
+  document.body.appendChild(cursor);
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+}
+
+let vipClockInterval = null;
+function initVipClock() {
+  const header = document.getElementById('adminActions');
+  if (!header) return;
+  document.getElementById('vipClock')?.remove();
+  const clockEl = document.createElement('div');
+  clockEl.id = 'vipClock';
+  header.prepend(clockEl);
+  function update() {
+    const now = new Date();
+    const h = now.getHours();
+    const greeting = h < 12 ? '🌅 Good Morning' : h < 17 ? '☀️ Good Afternoon' : h < 21 ? '🌆 Good Evening' : '🌙 Good Night';
+    const time = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+    const date = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    let idleText = '';
+    if (lastActivityTime) {
+      const idleFor = Date.now() - lastActivityTime;
+      const remaining = Math.max(0, IDLE_TIMEOUT - idleFor);
+      if (remaining <= 60 * 1000) {
+        idleText = `<div class="vip-idle idle-warning">⚠️ Auto logout in ${Math.ceil(remaining/1000)}s</div>`;
+      } else if (remaining <= 5 * 60 * 1000) {
+        idleText = `<div class="vip-idle">⏳ Idle: ${Math.ceil(remaining/60000)} min left</div>`;
+      }
+    }
+    clockEl.innerHTML = `
+      <div class="vip-greeting">${greeting}, Admin 👑</div>
+      <div class="vip-time">${time} • ${date}</div>
+      ${idleText}
+    `;
+  }
+  update();
+  if (vipClockInterval) clearInterval(vipClockInterval);
+  vipClockInterval = setInterval(update, 1000);
+}
+
+let lastActivityTime = Date.now();
+let idleCheckInterval = null;
+let idleWarningShown = false;
+
+function markActivity() {
+  lastActivityTime = Date.now();
+  idleWarningShown = false;
+}
+
+function initIdleLogout() {
+  const events = ['mousemove', 'mousedown', 'click', 'keypress', 'scroll', 'touchstart', 'touchmove'];
+  events.forEach(evt => document.addEventListener(evt, markActivity, { passive: true }));
+  markActivity();
+  if (idleCheckInterval) clearInterval(idleCheckInterval);
+  idleCheckInterval = setInterval(() => {
+    if (!isLoggedIn()) return;
+    const idleFor = Date.now() - lastActivityTime;
+    if (!idleWarningShown && idleFor >= IDLE_TIMEOUT - IDLE_WARNING_TIME) {
+      idleWarningShown = true;
+      showToast('⚠️ 1 minute mein auto-logout ho jayega!', 'warning');
+      playVipSound('warning');
+    }
+    if (idleFor >= IDLE_TIMEOUT) {
+      clearInterval(idleCheckInterval);
+      destroySession();
+      document.getElementById('loginScreen').classList.add('active');
+      document.getElementById('adminWrapper').classList.remove('active');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      setTimeout(() => alert('🔒 10 minute inactivity — Auto logout ho gaya.'), 100);
+    }
+  }, 1000);
+}
+
+const _origShowToast = showToast;
+window.showToast = function(msg, type = 'info') {
+  _origShowToast(msg, type);
+  if (type === 'success') playVipSound('success');
+  else if (type === 'error') playVipSound('error');
+  else if (type === 'warning') playVipSound('warning');
+};
+
+// ============================================================
+// UI HELPERS
 // ============================================================
 function closeAdminModal() { document.getElementById('adminModalOverlay').classList.remove('active'); }
 function toggleDarkMode() {
@@ -3220,67 +1996,160 @@ function showToast(msg, type = 'info') {
   document.body.appendChild(t);
   setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s'; setTimeout(() => t.remove(), 300); }, 3000);
 }
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function toggleSidebar() {
+  document.getElementById('adminSidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+function closeSidebar() {
+  document.getElementById('adminSidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('active');
+}
 
 // ============================================================
-// INIT ADMIN PANEL — with VIP effects
+// FILE / JOB / SETTINGS functions (simplified but working)
 // ============================================================
-async function initAdminPanel() {
-  loadData();
-  loadFilesMeta();
+function renderFilesGrid() {
+  const c = document.getElementById('filesGridContainer');
+  if (!c) return;
+  c.innerHTML = '<div class="empty-state"><i class="fas fa-folder-open"></i><p>Files upload feature — pehle Storage enable karein</p></div>';
+}
+async function loadFilesFromCloud() {
+  renderFilesGrid();
+  updateStats();
+}
+function renderJobsTable() {
+  const c = document.getElementById('jobsContainer');
+  if (!c) return;
+  if (!jobsData.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs. Add karein.</p></div>'; return; }
+  c.innerHTML = jobsData.map((j, i) => `
+    <div class="data-item">
+      <div class="item-sno">${i + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(j.title || 'Untitled')}</div>
+        <div class="item-meta">${j.jobType || ''} ${j.department ? '• ' + j.department : ''}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openJobModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteJob(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+function openJobModal(index = null) {
+  const isEdit = index !== null;
+  const job = isEdit ? jobsData[index] : { title: '', jobType: 'central', department: '' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Job' : '💼 Add Job';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="jobIndex" value="${isEdit ? index : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${escapeHtml(job.title)}"></div>
+      <div class="form-group"><label>Type</label>
+        <select id="jType">
+          <option value="central" ${job.jobType === 'central' ? 'selected' : ''}>Central</option>
+          <option value="state" ${job.jobType === 'state' ? 'selected' : ''}>State</option>
+          <option value="private" ${job.jobType === 'private' ? 'selected' : ''}>Private</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label>Department</label><input type="text" id="jDept" value="${escapeHtml(job.department || '')}"></div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+function saveJob() {
+  const idx = parseInt(document.getElementById('jobIndex').value);
+  const title = document.getElementById('jTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+  const job = { title, jobType: document.getElementById('jType').value, department: document.getElementById('jDept').value, createdAt: Date.now() };
+  if (idx >= 0) jobsData[idx] = { ...jobsData[idx], ...job };
+  else jobsData.push(job);
+  saveData();
+  renderJobsTable();
+  updateStats();
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
+}
+function deleteJob(i) {
+  if (!confirm('Delete?')) return;
+  jobsData.splice(i, 1);
+  saveData();
+  renderJobsTable();
+  updateStats();
+  showToast('🗑️ Deleted!', 'success');
+}
+function renderSlides() {
+  const c = document.getElementById('adminSlidesContainer');
+  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-images"></i><p>Slides feature coming soon</p></div>';
+}
+function renderEmployees() {
+  const c = document.getElementById('employeeListContainer');
+  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>Employees feature coming soon</p></div>';
+}
+function switchSettingsTab(tab) {
+  document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
+  document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('settings-tab-' + tab)?.classList.add('active');
+}
+function loadSettingsForm() {
   loadSettings();
   loadActivityLog();
-  await loadSettingsFromCloud();
-  applyAppearanceSettings();
-  updateSidebarCounts();
-  showAdminPage('dashboard');
-  loadFilesFromCloud();
-
-  // 👑 VIP Effects
-  setTimeout(() => {
-    initVipClock();
-    initVipCursor();
-    initIdleLogout();
-    console.log('👑 VIP Effects Loaded — Clock, Cursor, Sounds, Idle Logout (10 min)');
-  }, 200);
-
-  console.log('✅ Admin Panel v4.0 VIP Ready');
+  renderActivityLog();
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+  set('setSiteName', settings.siteName);
+  set('setTagline', settings.tagline);
+}
+function saveSettingsGroup(g) {
+  const gv = id => document.getElementById(id)?.value || '';
+  if (g === 'general') { settings.siteName = gv('setSiteName'); settings.tagline = gv('setTagline'); }
+  saveSettings();
+  showToast('✅ Saved!', 'success');
 }
 
 // ============================================================
 // INIT
 // ============================================================
+async function initAdminPanel() {
+  loadData();
+  loadPages();
+  await loadPagesFromCloud();
+  loadSettings();
+  loadActivityLog();
+  renderSidebar();
+  renderPagesGrid();
+  updateStats();
+  showAdminPage('dashboard');
+
+  setTimeout(() => {
+    initVipClock();
+    initVipCursor();
+    initIdleLogout();
+    console.log('👑 VIP Dynamic Admin Loaded');
+  }, 200);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  if (isLoggedIn()) {
-    showAdminPanel();
-  } else {
-    showLoginScreen();
-  }
-  console.log('🔐 Admin page loaded — awaiting authentication');
+  if (isLoggedIn()) showAdminPanel();
+  else showLoginScreen();
 });
 
 // Expose
 Object.assign(window, {
-  showAdminPage, toggleSidebar,
-  toggleMenuSection, openMenuSection, closeAllMenuSections,
-  handleLogin, handleLogout,
-  weCmd, weFormat, weChangeCase, weLineHeight, weChecklist, weOpenBoxes, weInsertBox,
-  weInsertLink, weFindReplace, weDoFindReplace, wePageBreak, weWatermark, weDoWatermark,
-  weExportPDF, wePrint,
-  weOpenInsert, weInsertTable, weDoInsertTable, weInsertImage, weDoInsertImage,
-  weInsertPDF, weDoInsertPDF, weInsertWord, weDoInsertWord, weInsertExcel, weDoInsertExcel,
-  weInsertSymbol, wePick, weInsertEmoji, weInsertHr,
-  openPageEditor, savePageEditorContent,
-  openItemEditor, saveItem, duplicateItem, deleteItem, openBulkAddModal, doBulkAdd,
-  openJobModal, saveJob, duplicateJob, deleteJob, openBulkJobModal, doBulkAddJobs,
-  openFileUploadModal, openBulkUploadModal, handleFileSelect, uploadFile, doBulkUpload,
-  openFileEditModal, saveFileEdit, toggleHomeDisplay, deleteFile, loadFilesFromCloud,
-  openSlideModal, saveSlide, deleteSlide,
-  openEmployeeModal, saveEmployee, deleteEmployee,
-  loadSettingsForm, switchSettingsTab, saveSettingsGroup,
-  handleLogoUpload, handleFaviconUpload, applyColorPreview, applyFontPreview,
-  changeAdminPassword, changeAdminUsername,
-  exportAllData, exportAllDataCSV, importData, clearAllAdminData, clearActivityLog,
-  toggleDarkMode, closeAdminModal, showToast
+  handleLogin, handleLogout, showAdminPage, toggleSidebar,
+  toggleMenuSection, closeAllMenuSections, openMenuSection,
+  openPageModal, savePage, togglePagePrivacy, toggleSubPagePrivacy,
+  deletePage, deleteSubPage, resetPagesToDefault,
+  openPageContentEditor, savePageContent,
+  openItemEditorForPage, saveItemForPage, duplicateItemForPage, deleteItemForPage,
+  closeAdminModal, toggleDarkMode, showToast,
+  openJobModal, saveJob, deleteJob,
+  switchSettingsTab, saveSettingsGroup
 });
 </script>
 
