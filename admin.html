@@ -97,7 +97,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-user .name{font-size:13px;font-weight:600;}
 .admin-user .role{font-size:10px;opacity:.6;}
 
-/* ============ SIDEBAR MENU ============ */
+/* SIDEBAR MENU */
 .admin-menu{list-style:none;padding:0 10px;}
 .admin-menu > li{margin-bottom:2px;}
 .admin-menu .menu-link{
@@ -277,16 +277,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
 .empty-state i{font-size:36px;margin-bottom:8px;opacity:.4;}
 
-.upload-zone{
-  border:2px dashed var(--border-color);border-radius:10px;padding:30px;
-  text-align:center;cursor:pointer;transition:.3s;background:var(--bg-color);
-}
-.upload-zone:hover{border-color:var(--secondary-blue);background:rgba(25,118,210,.05);}
-.upload-zone i{font-size:36px;color:var(--secondary-blue);margin-bottom:8px;}
-.upload-progress{margin-top:12px;height:8px;background:var(--border-color);border-radius:4px;overflow:hidden;display:none;}
-.upload-progress.active{display:block;}
-.upload-progress-bar{height:100%;background:var(--success-green);width:0%;transition:width .3s;}
-
 .toast{
   position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
   padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;
@@ -304,63 +294,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   background:#fafbfc;border:1px solid #d1d9e6;border-radius:8px 8px 0 0;
   padding:6px 8px;display:flex;flex-wrap:wrap;gap:2px;position:sticky;top:0;z-index:50;
 }
-.dark-mode .word-toolbar{background:#1a1a2e;border-color:#2a2a4a;}
 .word-toolbar .tb-group{display:flex;gap:1px;padding:0 4px;border-right:1px solid #d1d9e6;align-items:center;}
-.dark-mode .word-toolbar .tb-group{border-color:#2a2a4a;}
 .word-toolbar .tb-group:last-child{border-right:none;}
 .word-toolbar .tb-btn{
   min-width:28px;height:28px;padding:0 6px;border:1px solid transparent;border-radius:4px;
   background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;
   font-size:12px;color:#2c3e50;transition:.15s;gap:4px;
 }
-.dark-mode .word-toolbar .tb-btn{color:#e8e8e8;}
 .word-toolbar .tb-btn:hover{background:#e8f0fe;border-color:#c2d4f0;}
-.word-toolbar .tb-btn.wide{width:auto;font-size:11px;font-weight:600;}
 .word-toolbar select{
   height:28px;border:1px solid #d1d9e6;border-radius:4px;padding:0 4px;font-size:11px;
   background:#fff;cursor:pointer;color:#2c3e50;
 }
-.dark-mode .word-toolbar select{background:#141428;color:#e8e8e8;border-color:#2a2a4a;}
-.word-toolbar .color-picker{width:28px;height:28px;border:1px solid #d1d9e6;border-radius:4px;cursor:pointer;padding:1px;background:#fff;}
-
 .word-editor-wrap{
   background:#e8ecf1;padding:16px;min-height:400px;border:1px solid #d1d9e6;
   border-top:none;border-radius:0 0 8px 8px;overflow-y:auto;max-height:600px;position:relative;
 }
-.dark-mode .word-editor-wrap{background:#0a0e1a;border-color:#2a2a4a;}
 .word-editor-wrap .page{
   background:#fff;max-width:850px;margin:0 auto;min-height:500px;
   padding:40px 50px;box-shadow:0 4px 20px rgba(0,0,0,.1);border-radius:2px;
   color:#1a1a1a;position:relative;
 }
-.dark-mode .word-editor-wrap .page{background:#1a1a2e;color:#e8e8e8;}
 #richEditor{min-height:400px;outline:none;font-size:15px;line-height:1.7;position:relative;z-index:1;}
 #richEditor:empty:before{content:'यहाँ content लिखें...';color:#999;font-style:italic;}
-
-.info-box,.warning-box,.success-box,.tip-box{padding:12px 16px;border-radius:8px;margin:10px 0;border-left:5px solid;display:flex;gap:10px;align-items:flex-start;}
-.info-box{background:#eff6ff;border-color:#1976d2;color:#0c4a6e;}
-.warning-box{background:#fef3c7;border-color:#f59e0b;color:#78350f;}
-.success-box{background:#f0fdf4;border-color:#16a34a;color:#14532d;}
-.tip-box{background:#fef9c3;border-color:#eab308;color:#713f12;}
-
-.insert-modal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0;}
-.insert-item{
-  padding:12px 8px;border:2px solid var(--border-color);border-radius:8px;
-  background:var(--bg-color);cursor:pointer;text-align:center;transition:.3s;
-}
-.insert-item:hover{border-color:var(--primary-blue);transform:translateY(-2px);background:rgba(25,118,210,.08);}
-.insert-item .insert-icon{font-size:22px;margin-bottom:4px;}
-.insert-item .insert-label{font-size:10px;font-weight:600;}
-.color-grid{display:grid;grid-template-columns:repeat(8, 1fr);gap:4px;margin:8px 0;}
-.color-swatch{
-  width:100%;aspect-ratio:1;border-radius:4px;cursor:pointer;
-  border:1px solid rgba(0,0,0,.1);transition:.2s;
-  display:flex;align-items:center;justify-content:center;
-}
-.color-swatch:hover{transform:scale(1.15);border-color:#000;}
-
-.bulk-mode-badge{display:none;background:#6c5ce7;color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:10px;}
-.bulk-mode-badge.active{display:inline-flex;align-items:center;gap:6px;}
 
 /* SETTINGS */
 .settings-tab-btn{
@@ -402,7 +358,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 
 .admin-menu-toggle{display:none;background:var(--secondary);color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:16px;cursor:pointer;}
 
-/* Page Manager specific */
+/* Page Manager */
 .page-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -423,44 +379,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   box-shadow: 0 8px 24px var(--shadow-color);
   border-color: var(--gold);
 }
-.page-card .page-card-icon {
-  font-size: 32px;
-  margin-bottom: 8px;
-}
-.page-card h4 {
-  font-size: 15px;
-  margin-bottom: 6px;
-  color: var(--text-color);
-}
-.page-card .page-card-meta {
-  font-size: 11px;
-  color: var(--text-light);
-  margin-bottom: 10px;
-}
+.page-card .page-card-icon { font-size: 32px; margin-bottom: 8px; }
+.page-card h4 { font-size: 15px; margin-bottom: 6px; color: var(--text-color); }
+.page-card .page-card-meta { font-size: 11px; color: var(--text-light); margin-bottom: 10px; }
 .page-card .page-card-badge {
-  display: inline-block;
-  padding: 2px 10px;
-  border-radius: 12px;
-  font-size: 10px;
-  font-weight: 700;
-  margin-right: 4px;
+  display: inline-block; padding: 2px 10px; border-radius: 12px;
+  font-size: 10px; font-weight: 700; margin-right: 4px;
 }
 .page-card .page-card-badge.public { background: #16a34a; color: #fff; }
 .page-card .page-card-badge.private { background: #dc3545; color: #fff; }
-.page-card .page-card-actions {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
+.page-card .page-card-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
 .page-card .page-card-actions button {
-  padding: 4px 10px;
-  font-size: 11px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.2s;
+  padding: 4px 10px; font-size: 11px; border-radius: 5px;
+  border: none; cursor: pointer; font-weight: 600; transition: 0.2s;
 }
 
 /* VIP STYLES */
@@ -624,9 +555,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <ul class="admin-menu" id="dynamicSidebar">
-      <!-- Dynamically generated by JS -->
-    </ul>
+    <ul class="admin-menu" id="dynamicSidebar"></ul>
 
     <div class="admin-footer-menu">
       <a class="menu-link" href="index.html">
@@ -655,7 +584,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     <div id="adminPage-dashboard" class="admin-section active">
       <div class="admin-stats">
         <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value" id="statPages">0</div></div>
-        <div class="stat-item"><div class="stat-icon">📁</div><div class="stat-label">Total Files</div><div class="stat-value" id="statFiles">0</div></div>
         <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
         <div class="stat-item"><div class="stat-icon">📸</div><div class="stat-label">Slides</div><div class="stat-value" id="statSlides">0</div></div>
         <div class="stat-item"><div class="stat-icon">👥</div><div class="stat-label">Employees</div><div class="stat-value" id="statEmployees">0</div></div>
@@ -663,15 +591,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <div class="admin-quick-actions">
         <h3>⚡ Quick Actions</h3>
         <div class="actions-grid">
-          <button onclick="showAdminPage('pages');openPageManager()"><i class="fas fa-plus"></i> Manage Pages</button>
-          <button onclick="showAdminPage('files');openFileUploadModal()"><i class="fas fa-upload"></i> Upload File</button>
-          <button onclick="showAdminPage('jobs');openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+          <button onclick="showAdminPage('pages')"><i class="fas fa-plus"></i> Manage Pages</button>
+          <button onclick="showAdminPage('jobs-manager');openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
           <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
         </div>
       </div>
     </div>
 
-    <!-- PAGES MANAGER (NEW!) -->
+    <!-- PAGES MANAGER -->
     <div id="adminPage-pages" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
@@ -688,39 +615,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- FILES -->
-    <div id="adminPage-files" class="admin-section">
+    <!-- JOBS MANAGER -->
+    <div id="adminPage-jobs-manager" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
-          <h4>📁 All Files Manager</h4>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openFileUploadModal()"><i class="fas fa-plus"></i> Upload File</button>
-            <button class="btn-add bulk" onclick="openBulkUploadModal()"><i class="fas fa-layer-group"></i> Bulk Upload</button>
-            <button class="btn-add primary" onclick="loadFilesFromCloud()"><i class="fas fa-sync-alt"></i> Refresh</button>
-          </div>
-        </div>
-        <div id="filesGridContainer"></div>
-      </div>
-    </div>
-
-    <!-- HOME DISPLAY -->
-    <div id="adminPage-files-home" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header"><h4>🏠 Home Page Display Files</h4></div>
-        <div id="homeFilesContainer"></div>
-      </div>
-    </div>
-
-    <!-- JOBS -->
-    <div id="adminPage-jobs" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>💼 Jobs Manager</h4>
+          <h4>💼 Jobs Manager <span id="jobsCountBadge" style="background:var(--primary-blue);color:#fff;padding:2px 12px;border-radius:20px;font-size:12px;margin-left:8px;">0</span></h4>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
             <button class="btn-add bulk" onclick="openBulkJobModal()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+            <button class="btn-add primary" onclick="reloadDefaultJobs()"><i class="fas fa-sync-alt"></i> Reload Default</button>
           </div>
         </div>
+        
+        <!-- Filter Tabs -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
+          <button class="settings-tab-btn active" onclick="filterJobs('all')" id="jobFilter-all">📋 All Jobs</button>
+          <button class="settings-tab-btn" onclick="filterJobs('central')" id="jobFilter-central">🏛️ Central Govt.</button>
+          <button class="settings-tab-btn" onclick="filterJobs('state')" id="jobFilter-state">🏜️ Rajasthan Govt.</button>
+          <button class="settings-tab-btn" onclick="filterJobs('private')" id="jobFilter-private">💼 Private</button>
+        </div>
+        
         <div id="jobsContainer"></div>
       </div>
     </div>
@@ -754,11 +668,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
           <button class="settings-tab-btn active" data-tab="general" onclick="switchSettingsTab('general')">🏠 General</button>
-          <button class="settings-tab-btn" data-tab="appearance" onclick="switchSettingsTab('appearance')">🎨 Appearance</button>
-          <button class="settings-tab-btn" data-tab="content" onclick="switchSettingsTab('content')">📄 Content</button>
           <button class="settings-tab-btn" data-tab="security" onclick="switchSettingsTab('security')">🔐 Security</button>
-          <button class="settings-tab-btn" data-tab="seo" onclick="switchSettingsTab('seo')">🔍 SEO</button>
-          <button class="settings-tab-btn" data-tab="social" onclick="switchSettingsTab('social')">🔗 Social</button>
           <button class="settings-tab-btn" data-tab="backup" onclick="switchSettingsTab('backup')">💾 Backup</button>
         </div>
 
@@ -767,47 +677,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
             <h5>🌐 Site Information</h5>
             <div class="setting-row"><label>Site Name</label><input type="text" id="setSiteName"></div>
             <div class="setting-row"><label>Tagline</label><input type="text" id="setTagline"></div>
-            <div class="setting-row"><label>Description</label><textarea id="setSiteDesc" rows="2"></textarea></div>
-            <div class="setting-row"><label>Site URL</label><input type="url" id="setSiteURL"></div>
-          </div>
-          <div class="setting-group">
-            <h5>📞 Contact Info</h5>
-            <div class="setting-row"><label>Email</label><input type="email" id="setContactEmail"></div>
-            <div class="setting-row"><label>Phone</label><input type="tel" id="setContactPhone"></div>
-            <div class="setting-row"><label>Address</label><textarea id="setAddress" rows="2"></textarea></div>
           </div>
           <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save General</button>
-        </div>
-
-        <div class="settings-tab-content" id="settings-tab-appearance">
-          <div class="setting-group">
-            <h5>🖼️ Logo & Favicon</h5>
-            <div class="setting-row"><label>Logo Upload</label><input type="file" id="setLogoFile" accept="image/*" onchange="handleLogoUpload(event)"></div>
-            <div id="logoPreview" style="margin-left:212px;"></div>
-            <div class="setting-row"><label>Favicon Upload</label><input type="file" id="setFaviconFile" accept="image/*" onchange="handleFaviconUpload(event)"></div>
-            <div id="faviconPreview" style="margin-left:212px;"></div>
-          </div>
-          <div class="setting-group">
-            <h5>🎨 Colors (Live Preview)</h5>
-            <div class="setting-row"><label>Primary</label><input type="color" id="setPrimaryColor" value="#123c9b" onchange="applyColorPreview()"></div>
-            <div class="setting-row"><label>Secondary</label><input type="color" id="setSecondaryColor" value="#1976d2" onchange="applyColorPreview()"></div>
-            <div class="setting-row"><label>Accent</label><input type="color" id="setAccentColor" value="#ffd700" onchange="applyColorPreview()"></div>
-          </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('appearance')"><i class="fas fa-save"></i> Save Appearance</button>
-        </div>
-
-        <div class="settings-tab-content" id="settings-tab-content">
-          <div class="setting-group">
-            <h5>📊 Display Settings</h5>
-            <div class="setting-row"><label>Items Per Page</label><input type="number" id="setItemsPerPage" value="12" min="1" max="100"></div>
-            <div class="setting-row"><label>Home Limit</label><input type="number" id="setHomeLimit" value="6" min="1" max="50"></div>
-          </div>
-          <div class="setting-group">
-            <h5>📢 Announcements</h5>
-            <div class="setting-row"><label>Announcement Bar</label><input type="text" id="setAnnouncementBar"></div>
-            <div class="setting-row checkbox-row"><input type="checkbox" id="setShowTicker"><label for="setShowTicker">Show Ticker</label></div>
-          </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('content')"><i class="fas fa-save"></i> Save Content</button>
         </div>
 
         <div class="settings-tab-content" id="settings-tab-security">
@@ -827,35 +698,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           </div>
         </div>
 
-        <div class="settings-tab-content" id="settings-tab-seo">
-          <div class="setting-group">
-            <h5>🔍 Meta Tags</h5>
-            <div class="setting-row"><label>Meta Title</label><input type="text" id="setMetaTitle"></div>
-            <div class="setting-row"><label>Description</label><textarea id="setMetaDesc" rows="2"></textarea></div>
-            <div class="setting-row"><label>Keywords</label><input type="text" id="setMetaKeywords"></div>
-          </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('seo')"><i class="fas fa-save"></i> Save SEO</button>
-        </div>
-
-        <div class="settings-tab-content" id="settings-tab-social">
-          <div class="setting-group">
-            <h5>📱 Social Media Links</h5>
-            <div class="setting-row"><label>📷 Instagram</label><input type="url" id="setInstagram"></div>
-            <div class="setting-row"><label>▶️ YouTube</label><input type="url" id="setYouTube"></div>
-            <div class="setting-row"><label>📘 Facebook</label><input type="url" id="setFacebook"></div>
-            <div class="setting-row"><label>💬 WhatsApp</label><input type="tel" id="setWhatsApp"></div>
-            <div class="setting-row"><label>✈️ Telegram</label><input type="url" id="setTelegram"></div>
-            <div class="setting-row"><label>🐦 Twitter/X</label><input type="url" id="setTwitter"></div>
-            <div class="setting-row"><label>💼 LinkedIn</label><input type="url" id="setLinkedIn"></div>
-          </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('social')"><i class="fas fa-save"></i> Save Social</button>
-        </div>
-
         <div class="settings-tab-content" id="settings-tab-backup">
           <div class="setting-group">
             <h5>💾 Manual Backup</h5>
             <button class="btn-setting success" onclick="exportAllData()"><i class="fas fa-download"></i> Backup JSON</button>
-            <button class="btn-setting primary" onclick="exportAllDataCSV()"><i class="fas fa-file-csv"></i> Export CSV</button>
           </div>
           <div class="setting-group">
             <h5>📥 Restore</h5>
@@ -865,16 +711,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <div class="setting-group">
             <h5>🗑️ Clear All</h5>
             <button class="btn-setting danger" onclick="clearAllAdminData()"><i class="fas fa-trash"></i> Clear Everything</button>
-          </div>
-          <div class="setting-group">
-            <h5>ℹ️ System Info</h5>
-            <div style="background:var(--bg-color);border-radius:6px;padding:12px;font-size:12px;">
-              <div><strong>Version:</strong> 5.0 VIP Dynamic</div>
-              <div><strong>Firebase:</strong> <span id="sysFirebaseStatus">✅</span></div>
-              <div><strong>Pages:</strong> <span id="sysPagesCount">0</span></div>
-              <div><strong>Files:</strong> <span id="sysFilesCount">0</span></div>
-              <div><strong>Jobs:</strong> <span id="sysJobsCount">0</span></div>
-            </div>
           </div>
         </div>
 
@@ -925,28 +761,88 @@ try {
 // STATE
 // ============================================================
 let appData = {};
-let pagesData = [];   // 👈 All dynamic pages
+let pagesData = [];
 let jobsData = [];
-let filesData = [];
-let filesMeta = [];
 let settings = {};
 let activityLog = [];
+let currentJobFilter = 'all';
 
 const STORAGE_KEY = 'dreamjosh_admin_data';
 const PAGES_KEY = 'dreamjosh_pages_data';
-const FILES_META_KEY = 'dreamjosh_files_meta';
 const SETTINGS_KEY = 'dreamjosh_settings';
 const ACTIVITY_LOG_KEY = 'dreamjosh_activity_log';
 const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
 
 // ============================================================
-// DEFAULT PAGES (agar pehli baar khul raha ho)
+// 💼 DEFAULT JOBS — 55+ Jobs Pre-Loaded
+// ============================================================
+const DEFAULT_JOBS = [
+  // 🏛️ CENTRAL GOVERNMENT JOBS (25)
+  { title: 'IAS (Indian Administrative Service)', jobType: 'central', department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', description: 'Premier civil service of India.' },
+  { title: 'IPS (Indian Police Service)', jobType: 'central', department: 'UPSC', post: 'IPS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', description: 'Maintains law and order.' },
+  { title: 'IFS (Indian Foreign Service)', jobType: 'central', department: 'UPSC', post: 'IFS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', description: 'Diplomatic service of India.' },
+  { title: 'IRS (Indian Revenue Service)', jobType: 'central', department: 'UPSC', post: 'IRS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', description: 'Revenue and taxation department.' },
+  { title: 'SSC CGL (Combined Graduate Level)', jobType: 'central', department: 'SSC', post: 'Various Group B & C', eligibility: 'Graduate', age: '18-32 Years', lastDate: '2026-07-15', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'Group B and C posts in various ministries.' },
+  { title: 'SSC CHSL (10+2 Level)', jobType: 'central', department: 'SSC', post: 'LDC, DEO, Postal Assistant', eligibility: '12th Pass', age: '18-27 Years', lastDate: '2026-08-01', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'Lower Division Clerk and Data Entry Operator.' },
+  { title: 'SSC MTS (Multi Tasking Staff)', jobType: 'central', department: 'SSC', post: 'MTS', eligibility: '10th Pass', age: '18-25 Years', lastDate: '2026-09-01', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'Multi Tasking Staff in government offices.' },
+  { title: 'SSC GD Constable', jobType: 'central', department: 'SSC', post: 'GD Constable', eligibility: '10th Pass', age: '18-23 Years', lastDate: '2026-09-15', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'General Duty Constable in CAPF.' },
+  { title: 'SSC JE (Junior Engineer)', jobType: 'central', department: 'SSC', post: 'Junior Engineer', eligibility: 'Diploma/BE', age: '18-32 Years', lastDate: '2026-10-01', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'Junior Engineer in various departments.' },
+  { title: 'SSC CPO (Central Police Organization)', jobType: 'central', department: 'SSC', post: 'Sub Inspector', eligibility: 'Graduate', age: '20-25 Years', lastDate: '2026-10-15', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'Sub Inspector in Delhi Police and CAPF.' },
+  { title: 'RRB NTPC (Non-Technical)', jobType: 'central', department: 'Railway (RRB)', post: 'Station Master, Clerk, Goods Guard', eligibility: '12th/Graduate', age: '18-33 Years', lastDate: '2026-05-30', website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply', description: 'Non-technical posts in Indian Railways.' },
+  { title: 'RRB Group D', jobType: 'central', department: 'Railway (RRB)', post: 'Track Maintainer, Helper', eligibility: '10th Pass', age: '18-33 Years', lastDate: '2026-06-15', website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply', description: 'Group D posts in Indian Railways.' },
+  { title: 'RRB ALP (Assistant Loco Pilot)', jobType: 'central', department: 'Railway (RRB)', post: 'ALP', eligibility: '10th + ITI', age: '18-30 Years', lastDate: '2026-07-01', website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply', description: 'Assistant Loco Pilot in Railways.' },
+  { title: 'RRB JE (Junior Engineer)', jobType: 'central', department: 'Railway (RRB)', post: 'Junior Engineer', eligibility: 'Diploma/BE', age: '18-33 Years', lastDate: '2026-07-15', website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply', description: 'Junior Engineer in Railways.' },
+  { title: 'IBPS PO (Probationary Officer)', jobType: 'central', department: 'Banking (IBPS)', post: 'PO', eligibility: 'Graduate', age: '20-30 Years', lastDate: '2026-08-01', website: 'https://ibps.in', applyLink: 'https://ibps.in/apply', description: 'Probationary Officer in Public Sector Banks.' },
+  { title: 'IBPS Clerk', jobType: 'central', department: 'Banking (IBPS)', post: 'Clerk', eligibility: 'Graduate', age: '20-28 Years', lastDate: '2026-08-15', website: 'https://ibps.in', applyLink: 'https://ibps.in/apply', description: 'Clerical posts in Public Sector Banks.' },
+  { title: 'IBPS SO (Specialist Officer)', jobType: 'central', department: 'Banking (IBPS)', post: 'IT/Agriculture/Law Officer', eligibility: 'Graduate/PG', age: '20-30 Years', lastDate: '2026-09-01', website: 'https://ibps.in', applyLink: 'https://ibps.in/apply', description: 'Specialist Officer posts in banks.' },
+  { title: 'SBI PO (Probationary Officer)', jobType: 'central', department: 'Banking (SBI)', post: 'PO', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-15', website: 'https://sbi.co.in', applyLink: 'https://sbi.co.in/apply', description: 'Top banking job in India.' },
+  { title: 'SBI Clerk', jobType: 'central', department: 'Banking (SBI)', post: 'Clerk', eligibility: 'Graduate', age: '20-28 Years', lastDate: '2026-08-20', website: 'https://sbi.co.in', applyLink: 'https://sbi.co.in/apply', description: 'Clerk in State Bank of India.' },
+  { title: 'RBI Grade B Officer', jobType: 'central', department: 'Banking (RBI)', post: 'Grade B Officer', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-10', website: 'https://rbi.org.in', applyLink: 'https://rbi.org.in/apply', description: 'Prestigious banking exam.' },
+  { title: 'NDA (National Defence Academy)', jobType: 'central', department: 'Defence (NDA)', post: 'Army/Navy/Air Force Cadet', eligibility: '12th Pass', age: '16.5-19.5 Years', lastDate: '2026-06-20', website: 'https://nda.nic.in', applyLink: 'https://nda.nic.in/apply', description: 'Entry to Defence services.' },
+  { title: 'CDS (Combined Defence Services)', jobType: 'central', department: 'Defence (CDS)', post: 'Officer', eligibility: 'Graduate', age: '19-25 Years', lastDate: '2026-07-05', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', description: 'Officer entry in Defence.' },
+  { title: 'Indian Army Agniveer', jobType: 'central', department: 'Defence (Army)', post: 'Agniveer', eligibility: '10th/12th Pass', age: '17.5-21 Years', lastDate: '2026-08-10', website: 'https://joinindianarmy.nic.in', applyLink: 'https://joinindianarmy.nic.in/apply', description: 'Short-term Army recruitment.' },
+  { title: 'Indian Navy Agniveer', jobType: 'central', department: 'Defence (Navy)', post: 'Agniveer', eligibility: '10th/12th Pass', age: '17.5-21 Years', lastDate: '2026-08-15', website: 'https://joinindiannavy.gov.in', applyLink: 'https://joinindiannavy.gov.in/apply', description: 'Short-term Navy recruitment.' },
+  { title: 'Indian Air Force Agniveer', jobType: 'central', department: 'Defence (Air Force)', post: 'Agniveer', eligibility: '12th Pass', age: '17.5-21 Years', lastDate: '2026-08-20', website: 'https://agnipathvayu.cdac.in', applyLink: 'https://agnipathvayu.cdac.in/apply', description: 'Short-term Air Force recruitment.' },
+
+  // 🏜️ RAJASTHAN STATE JOBS (20)
+  { title: 'RAS (Rajasthan Administrative Service)', jobType: 'state', department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-07-20', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'State civil service of Rajasthan.' },
+  { title: 'RPS (Rajasthan Police Service)', jobType: 'state', department: 'RPSC', post: 'RPS Officer', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-07-25', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'Police service of Rajasthan.' },
+  { title: 'Rajasthan Police Constable', jobType: 'state', department: 'Rajasthan Police', post: 'Constable', eligibility: '10+2', age: '18-28 Years', lastDate: '2026-09-01', website: 'https://police.rajasthan.gov.in', applyLink: 'https://police.rajasthan.gov.in/apply', description: 'Entry-level police post.' },
+  { title: 'Rajasthan Police Sub Inspector', jobType: 'state', department: 'Rajasthan Police', post: 'Sub Inspector', eligibility: 'Graduate', age: '20-25 Years', lastDate: '2026-08-15', website: 'https://police.rajasthan.gov.in', applyLink: 'https://police.rajasthan.gov.in/apply', description: 'Sub Inspector in Rajasthan Police.' },
+  { title: 'REET (Rajasthan Eligibility Exam)', jobType: 'state', department: 'Education (RBSE)', post: 'Teacher', eligibility: 'Graduate + B.Ed', age: '18-40 Years', lastDate: '2026-08-15', website: 'https://rajeduboard.rajasthan.gov.in', applyLink: 'https://rajeduboard.rajasthan.gov.in/apply', description: 'Teacher recruitment in Rajasthan.' },
+  { title: 'RSMSSB Rajasthan Teacher', jobType: 'state', department: 'Education (RSMSSB)', post: 'Teacher (Grade 3)', eligibility: 'Graduate + B.Ed', age: '18-40 Years', lastDate: '2026-09-10', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Teacher in government schools.' },
+  { title: 'RSMSSB LDC (Lower Division Clerk)', jobType: 'state', department: 'RSMSSB', post: 'LDC', eligibility: '12th Pass', age: '18-40 Years', lastDate: '2026-08-25', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'LDC posts in Rajasthan govt.' },
+  { title: 'RSMSSB Junior Assistant', jobType: 'state', department: 'RSMSSB', post: 'Junior Assistant', eligibility: '12th Pass', age: '18-40 Years', lastDate: '2026-09-05', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Junior Assistant posts.' },
+  { title: 'RSMSSB Rajasthan Patwari', jobType: 'state', department: 'Revenue (RSMSSB)', post: 'Patwari', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-10-01', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Patwari in Revenue Department.' },
+  { title: 'RSMSSB Rajasthan CHO', jobType: 'state', department: 'Health (RSMSSB)', post: 'Community Health Officer', eligibility: 'BSc Nursing', age: '21-40 Years', lastDate: '2026-10-10', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Community Health Officer.' },
+  { title: 'RPSC Rajasthan Lecturer', jobType: 'state', department: 'Education (RPSC)', post: 'Lecturer', eligibility: 'PG + NET', age: '21-40 Years', lastDate: '2026-11-01', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'Lecturer in colleges.' },
+  { title: 'RPSC Rajasthan School Lecturer', jobType: 'state', department: 'Education (RPSC)', post: 'School Lecturer', eligibility: 'PG + B.Ed', age: '21-40 Years', lastDate: '2026-11-15', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'School Lecturer posts.' },
+  { title: 'RPSC Rajasthan ACF (Assistant Conservator of Forest)', jobType: 'state', department: 'Forest (RPSC)', post: 'ACF', eligibility: 'Graduate/BSc', age: '21-40 Years', lastDate: '2026-08-20', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'Forest service of Rajasthan.' },
+  { title: 'RPSC Rajasthan Forest Range Officer', jobType: 'state', department: 'Forest (RPSC)', post: 'RFO', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-09-01', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'Range Officer in Forest.' },
+  { title: 'Rajasthan High Court Assistant', jobType: 'state', department: 'Judiciary (High Court)', post: 'Assistant', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-09-20', website: 'https://hcraj.nic.in', applyLink: 'https://hcraj.nic.in/apply', description: 'Assistant in Rajasthan High Court.' },
+  { title: 'Rajasthan High Court Junior Assistant', jobType: 'state', department: 'Judiciary (High Court)', post: 'Junior Assistant', eligibility: '12th Pass', age: '18-40 Years', lastDate: '2026-10-05', website: 'https://hcraj.nic.in', applyLink: 'https://hcraj.nic.in/apply', description: 'Junior Assistant in High Court.' },
+  { title: 'Rajasthan High Court Clerk', jobType: 'state', department: 'Judiciary (High Court)', post: 'Clerk', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-10-15', website: 'https://hcraj.nic.in', applyLink: 'https://hcraj.nic.in/apply', description: 'Clerk in Rajasthan High Court.' },
+  { title: 'RSMSSB Rajasthan Lab Assistant', jobType: 'state', department: 'Technical (RSMSSB)', post: 'Lab Assistant', eligibility: 'BSc', age: '18-40 Years', lastDate: '2026-11-01', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Lab Assistant in Rajasthan.' },
+  { title: 'RSMSSB Rajasthan Junior Engineer', jobType: 'state', department: 'Technical (RSMSSB)', post: 'Junior Engineer', eligibility: 'Diploma/BE', age: '18-40 Years', lastDate: '2026-11-10', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Junior Engineer in Rajasthan.' },
+  { title: 'RSMSSB Rajasthan Agriculture Supervisor', jobType: 'state', department: 'Agriculture (RSMSSB)', post: 'Agriculture Supervisor', eligibility: 'BSc Agriculture', age: '18-40 Years', lastDate: '2026-12-01', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Agriculture Supervisor.' },
+
+  // 💼 PRIVATE SECTOR JOBS (10)
+  { title: 'Software Engineer – Google India', jobType: 'private', department: 'IT/Software', post: 'Software Engineer', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-04-15', website: 'https://careers.google.com', applyLink: 'https://careers.google.com/apply', description: 'Google India hiring SDEs.' },
+  { title: 'Software Developer – Microsoft India', jobType: 'private', department: 'IT/Software', post: 'Software Developer', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-05-01', website: 'https://careers.microsoft.com', applyLink: 'https://careers.microsoft.com/apply', description: 'Microsoft hiring developers.' },
+  { title: 'Data Analyst – Amazon India', jobType: 'private', department: 'IT/Software', post: 'Data Analyst', eligibility: 'B.Tech/MBA', age: '22-35 Years', lastDate: '2026-05-15', website: 'https://amazon.jobs', applyLink: 'https://amazon.jobs/apply', description: 'Data Analyst role at Amazon.' },
+  { title: 'Finance Manager – HSBC India', jobType: 'private', department: 'Finance/Banking', post: 'Finance Manager', eligibility: 'CA/CFA/MBA', age: '25-40 Years', lastDate: '2026-05-10', website: 'https://www.hsbc.com/careers', applyLink: 'https://www.hsbc.com/careers/apply', description: 'Finance Manager at HSBC.' },
+  { title: 'Relationship Manager – ICICI Bank', jobType: 'private', department: 'Finance/Banking', post: 'Relationship Manager', eligibility: 'Graduate/MBA', age: '22-35 Years', lastDate: '2026-06-01', website: 'https://www.icicibank.com/careers', applyLink: 'https://www.icicibank.com/careers/apply', description: 'Relationship Manager at ICICI.' },
+  { title: 'Marketing Executive – Amazon India', jobType: 'private', department: 'Marketing/Sales', post: 'Marketing Executive', eligibility: 'MBA/BBA', age: '22-30 Years', lastDate: '2026-06-01', website: 'https://amazon.jobs', applyLink: 'https://amazon.jobs/apply', description: 'Marketing Executive at Amazon.' },
+  { title: 'Sales Manager – Reliance Retail', jobType: 'private', department: 'Marketing/Sales', post: 'Sales Manager', eligibility: 'Graduate/MBA', age: '25-40 Years', lastDate: '2026-06-15', website: 'https://careers.ril.com', applyLink: 'https://careers.ril.com/apply', description: 'Sales Manager at Reliance.' },
+  { title: 'HR Executive – Infosys', jobType: 'private', department: 'HR/Management', post: 'HR Executive', eligibility: 'MBA HR', age: '22-30 Years', lastDate: '2026-07-01', website: 'https://www.infosys.com/careers', applyLink: 'https://www.infosys.com/careers/apply', description: 'HR Executive at Infosys.' },
+  { title: 'Mechanical Engineer – Tata Motors', jobType: 'private', department: 'Manufacturing/Engineering', post: 'Mechanical Engineer', eligibility: 'B.Tech/M.Tech', age: '22-35 Years', lastDate: '2026-07-15', website: 'https://www.tatamotors.com/careers', applyLink: 'https://www.tatamotors.com/careers/apply', description: 'Mechanical Engineer at Tata Motors.' },
+  { title: 'Civil Engineer – L&T Construction', jobType: 'private', department: 'Manufacturing/Engineering', post: 'Civil Engineer', eligibility: 'B.Tech Civil', age: '22-35 Years', lastDate: '2026-08-01', website: 'https://www.larsentoubro.com/careers', applyLink: 'https://www.larsentoubro.com/careers/apply', description: 'Civil Engineer at L&T.' }
+];
+
+// ============================================================
+// DEFAULT PAGES
 // ============================================================
 const DEFAULT_PAGES = [
-  { id: 'file-manager', name: 'File Manager', icon: 'fa-folder-open', isPublic: true, subPages: [
-    { id: 'files', name: 'All Files', icon: 'fa-folder', isPublic: true },
-    { id: 'files-home', name: 'Home Display', icon: 'fa-home', isPublic: true }
-  ]},
   { id: 'jobs-manager', name: 'Jobs Manager', icon: 'fa-briefcase', isPublic: true, subPages: [] },
   { id: 'blog', name: 'Blog', icon: 'fa-blog', isPublic: true, subPages: [] },
   { id: 'career', name: 'Career', icon: 'fa-briefcase', isPublic: true, subPages: [] },
@@ -964,12 +860,7 @@ const DEFAULT_PAGES = [
 const DEFAULT_SETTINGS = {
   siteName:'Dream Josh', tagline:'Career & Study Platform', siteDesc:'', siteURL:'',
   contactEmail:'', contactPhone:'', address:'',
-  logo:'', favicon:'', primaryColor:'#123c9b', secondaryColor:'#1976d2', accentColor:'#ffd700',
-  themeMode:'light',
-  itemsPerPage:12, homeLimit:6,
-  announcementBar:'', showTicker:false,
-  metaTitle:'Dream Josh', metaDesc:'', metaKeywords:'',
-  instagram:'', youtube:'', facebook:'', whatsapp:'', telegram:'', twitter:'', linkedin:''
+  themeMode:'light', itemsPerPage:12, homeLimit:6
 };
 
 // ============================================================
@@ -978,8 +869,20 @@ const DEFAULT_SETTINGS = {
 function loadData() {
   try {
     const s = localStorage.getItem(STORAGE_KEY);
-    if (s) { const p = JSON.parse(s); appData = p.appData || {}; jobsData = p.jobsData || []; }
+    if (s) { 
+      const p = JSON.parse(s); 
+      appData = p.appData || {}; 
+      jobsData = p.jobsData || []; 
+    }
   } catch (e) {}
+  
+  // ✅ Agar koi jobs nahi hain toh DEFAULT_JOBS load karo
+  if (!jobsData || jobsData.length === 0) {
+    jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
+    console.log('✅ Default jobs loaded:', jobsData.length);
+    // Save karo taaki next time se load ho
+    setTimeout(() => saveData(), 100);
+  }
 }
 
 function loadPages() {
@@ -1149,7 +1052,7 @@ function showLoginScreen() {
 }
 
 // ============================================================
-// 🎯 SIDEBAR RENDERING (Dynamic)
+// 🎯 SIDEBAR RENDERING
 // ============================================================
 function renderSidebar() {
   const menu = document.getElementById('dynamicSidebar');
@@ -1157,7 +1060,6 @@ function renderSidebar() {
 
   let html = '';
 
-  // Dashboard (always first)
   html += `
     <li>
       <a class="menu-link" data-page="dashboard" onclick="showAdminPage('dashboard')">
@@ -1166,7 +1068,6 @@ function renderSidebar() {
     </li>
   `;
 
-  // Pages Manager (always)
   html += `
     <li>
       <a class="menu-link" data-page="pages" onclick="showAdminPage('pages')">
@@ -1175,7 +1076,6 @@ function renderSidebar() {
     </li>
   `;
 
-  // Dynamic pages
   pagesData.forEach(page => {
     const hasSub = page.subPages && page.subPages.length > 0;
     const privacyBadge = page.isPublic
@@ -1183,7 +1083,6 @@ function renderSidebar() {
       : '<span class="privacy-badge private">PRIVATE</span>';
 
     if (hasSub) {
-      // With sub-pages — dropdown
       html += `
         <li>
           <div class="menu-toggle" data-section="${page.id}" onclick="toggleMenuSection('${page.id}')">
@@ -1214,7 +1113,6 @@ function renderSidebar() {
         </li>
       `;
     } else {
-      // Without sub-pages — direct link
       html += `
         <li>
           <a class="menu-link" data-page="${page.id}" onclick="showAdminPage('${page.id}')">
@@ -1281,7 +1179,7 @@ function renderPagesGrid() {
           <button class="btn-i-edit" onclick="openPageModal('${page.id}')"><i class="fas fa-edit"></i> Edit</button>
           <button class="${page.isPublic ? 'btn-i-private' : 'btn-i-public'}" onclick="togglePagePrivacy('${page.id}')">
             <i class="fas fa-${page.isPublic ? 'lock' : 'unlock'}"></i>
-            ${page.isPublic ? 'Make Private' : 'Make Public'}
+            ${page.isPublic ? 'Private' : 'Public'}
           </button>
           <button class="btn-i-delete" onclick="deletePage('${page.id}')"><i class="fas fa-trash"></i></button>
         </div>
@@ -1382,7 +1280,6 @@ function openPageModal(parentId = null, subId = null) {
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 
-  // Live icon preview
   setTimeout(() => {
     const iconInput = document.getElementById('pmIcon');
     const preview = document.getElementById('pmIconPreview');
@@ -1406,7 +1303,6 @@ function savePage() {
   if (!name) return showToast('Name required!', 'error');
 
   if (isSub) {
-    // Edit existing sub-page
     const parent = pagesData.find(p => p.id === parentId);
     if (!parent) return showToast('Parent not found', 'error');
     const sub = parent.subPages.find(s => s.id === subId);
@@ -1416,14 +1312,12 @@ function savePage() {
     sub.isPublic = isPublic;
     showToast('✅ Sub-page updated!', 'success');
   } else if (parentId) {
-    // Edit existing parent page
     const page = pagesData.find(p => p.id === parentId);
     if (!page) return showToast('Page not found', 'error');
     page.name = name;
     page.icon = icon;
     page.isPublic = isPublic;
 
-    // If parent changed — move
     if (newParentId && newParentId !== parentId) {
       const newParent = pagesData.find(p => p.id === newParentId);
       if (newParent) {
@@ -1434,12 +1328,10 @@ function savePage() {
     }
     showToast('✅ Page updated!', 'success');
   } else {
-    // Create new page
     const newId = 'page-' + Date.now();
     const newPage = { id: newId, name, icon, isPublic, subPages: [] };
 
     if (newParentId) {
-      // Add as sub-page
       const parent = pagesData.find(p => p.id === newParentId);
       if (parent) {
         if (!parent.subPages) parent.subPages = [];
@@ -1447,7 +1339,6 @@ function savePage() {
         showToast('✅ Sub-page added!', 'success');
       }
     } else {
-      // Add as top-level page
       pagesData.push(newPage);
       showToast('✅ Page added!', 'success');
     }
@@ -1521,7 +1412,7 @@ function resetPagesToDefault() {
 }
 
 // ============================================================
-// WORD EDITOR (Content editors for dynamic pages)
+// WORD EDITOR
 // ============================================================
 function getWordEditorHTML(content) {
   return `
@@ -1564,10 +1455,9 @@ function weInsertLink() {
 }
 
 // ============================================================
-// PAGE CONTENT EDITOR (for any dynamic page)
+// PAGE CONTENT EDITOR
 // ============================================================
 function openPageContentEditor(pageId) {
-  // Check if it's a top-level page or sub-page
   let page = pagesData.find(p => p.id === pageId);
   let subPage = null;
   if (!page) {
@@ -1606,7 +1496,7 @@ function savePageContent() {
 }
 
 // ============================================================
-// ITEM EDITOR (for any dynamic page)
+// ITEM EDITOR
 // ============================================================
 function openItemEditorForPage(pageId, index = null) {
   const isEdit = index !== null;
@@ -1716,131 +1606,187 @@ function deleteItemForPage(pageId, index) {
 }
 
 // ============================================================
-// 🎯 SHOW ADMIN PAGE (Dynamic)
+// 💼 JOBS MANAGER
 // ============================================================
-function showAdminPage(page) {
-  markActivity();
-  document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
-  const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
-  if (activeLink) activeLink.classList.add('active');
+function filterJobs(type) {
+  currentJobFilter = type;
+  document.querySelectorAll('#adminPage-jobs-manager .settings-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('jobFilter-' + type)?.classList.add('active');
+  renderJobsTable();
+}
 
-  // Auto-open parent section
-  closeAllMenuSections();
-  const parent = pagesData.find(p => p.id === page || (p.subPages && p.subPages.some(s => s.id === page)));
-  if (parent && parent.subPages && parent.subPages.length) {
-    openMenuSection(parent.id);
+function renderJobsTable() {
+  const c = document.getElementById('jobsContainer');
+  if (!c) return;
+
+  const badge = document.getElementById('jobsCountBadge');
+  if (badge) badge.textContent = jobsData.length;
+
+  let filtered = jobsData;
+  if (currentJobFilter !== 'all') {
+    filtered = jobsData.filter(j => j.jobType === currentJobFilter);
   }
 
-  const titles = {
-    'dashboard': '📊 <span>Dashboard</span>',
-    'pages': '📄 <span>Pages Manager</span>'
+  if (!filtered.length) {
+    c.innerHTML = `<div class="empty-state"><i class="fas fa-briefcase"></i><p>No ${currentJobFilter === 'all' ? '' : currentJobFilter} jobs. "Add Job" ya "Reload Default" dabayein.</p></div>`;
+    return;
+  }
+
+  const typeLabels = {
+    central: '🏛️ Central',
+    state: '🏜️ Rajasthan',
+    private: '💼 Private'
+  };
+  const typeColors = {
+    central: '#1976d2',
+    state: '#16a34a',
+    private: '#6c5ce7'
   };
 
-  const pageInfo = findPageById(page);
-  if (pageInfo) {
-    document.getElementById('adminPageTitle').innerHTML = `<i class="fas ${pageInfo.icon}" style="color:var(--primary-blue);margin-right:8px;"></i> <span>${escapeHtml(pageInfo.name)}</span>`;
-  } else {
-    document.getElementById('adminPageTitle').innerHTML = titles[page] || '📄 <span>Page</span>';
-  }
-
-  // Hide all sections
-  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-
-  // Check if it's a built-in section
-  const existing = document.getElementById('adminPage-' + page);
-  if (existing) {
-    existing.classList.add('active');
-    // Call the original render for that page
-    if (page === 'dashboard') updateStats();
-    if (page === 'pages') renderPagesGrid();
-    if (page === 'files') { renderFilesGrid('files'); if (!filesData.length) loadFilesFromCloud(); }
-    if (page === 'files-home') renderFilesGrid('home');
-    if (page === 'jobs') renderJobsTable();
-    if (page === 'slides') renderSlides();
-    if (page === 'employees') renderEmployees();
-    if (page === 'settings') loadSettingsForm();
-    if (window.innerWidth <= 768) closeSidebar();
-    return;
-  }
-
-  // Dynamic page — create section on the fly
-  renderDynamicPage(page);
-  if (window.innerWidth <= 768) closeSidebar();
-}
-
-function findPageById(pageId) {
-  for (const p of pagesData) {
-    if (p.id === pageId) return { ...p, isParent: true };
-    if (p.subPages) {
-      const s = p.subPages.find(sp => sp.id === pageId);
-      if (s) return { ...s, isSub: true, parent: p };
-    }
-  }
-  return null;
-}
-
-function renderDynamicPage(pageId) {
-  const info = findPageById(pageId);
-  if (!info) {
-    showToast('Page not found', 'error');
-    return;
-  }
-
-  const items = appData[pageId]?.items || [];
-  const content = appData[pageId]?.content || '';
-
-  const contentEl = document.getElementById('adminContentArea');
-  const sectionId = 'adminPage-' + pageId;
-
-  // Remove old section if exists
-  document.getElementById(sectionId)?.remove();
-
-  const section = document.createElement('div');
-  section.id = sectionId;
-  section.className = 'admin-section active';
-  section.innerHTML = `
-    <div class="admin-card">
-      <div class="card-header">
-        <h4><i class="fas ${info.icon}"></i> ${escapeHtml(info.name)}</h4>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="btn-add" onclick="openPageContentEditor('${pageId}')"><i class="fas fa-edit"></i> Edit Content</button>
-          <button class="btn-add primary" onclick="openItemEditorForPage('${pageId}')"><i class="fas fa-plus"></i> Add Item</button>
-          <button class="btn-add bulk" onclick="togglePagePrivacy('${pageId}')">
-            <i class="fas fa-${info.isPublic ? 'lock' : 'unlock'}"></i>
-            ${info.isPublic ? 'Make Private' : 'Make Public'}
-          </button>
-          <button class="btn-add" style="background:#dc3545;" onclick="${info.isSub ? `deleteSubPage('${info.parent.id}', '${pageId}')` : `deletePage('${pageId}')`}">
-            <i class="fas fa-trash"></i> Delete
-          </button>
+  c.innerHTML = filtered.map((j, i) => {
+    const realIdx = jobsData.indexOf(j);
+    return `
+    <div class="data-item">
+      <div class="item-sno">${i + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(j.title || 'Untitled')}</div>
+        <div class="item-meta">
+          <span style="background:${typeColors[j.jobType] || '#666'};color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:600;">
+            ${typeLabels[j.jobType] || j.jobType}
+          </span>
+          ${j.department ? ` 📁 ${escapeHtml(j.department)}` : ''}
+          ${j.post ? ` • 📌 ${escapeHtml(j.post)}` : ''}
         </div>
       </div>
-
-      ${content ? `
-        <div style="margin-bottom:16px;padding:14px;background:var(--bg-color);border-radius:8px;border-left:4px solid var(--secondary-blue);max-height:200px;overflow-y:auto;">
-          <div style="font-size:11px;font-weight:700;color:var(--text-light);margin-bottom:6px;">📄 PAGE CONTENT:</div>
-          <div>${content}</div>
-        </div>
-      ` : `
-        <div style="margin-bottom:16px;padding:14px;background:var(--bg-color);border-radius:8px;text-align:center;color:var(--text-light);font-size:13px;">
-          <i class="fas fa-file-alt" style="font-size:24px;opacity:.4;"></i>
-          <p style="margin-top:6px;">Abhi koi content nahi hai. "Edit Content" dabayein.</p>
-        </div>
-      `}
-
-      <div style="margin-top:12px;">
-        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">
-          📋 Items (${items.length})
-        </div>
-        <div id="items-container-${pageId}"></div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openJobModal(${realIdx})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteJob(${realIdx})"><i class="fas fa-trash"></i></button>
       </div>
     </div>
   `;
+  }).join('');
+}
 
-  // Insert into admin content
-  const contentArea = document.querySelector('.admin-content');
-  contentArea.appendChild(section);
+function openJobModal(index = null) {
+  const isEdit = index !== null;
+  const job = isEdit ? jobsData[index] : { 
+    title: '', jobType: 'central', department: '', post: '', 
+    eligibility: '', age: '', lastDate: '', website: '', applyLink: '', description: '' 
+  };
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Job #${index+1}` : '💼 Add Job';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="jobIndex" value="${isEdit ? index : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${escapeHtml(job.title)}"></div>
+      <div class="form-group"><label>Type</label>
+        <select id="jType">
+          <option value="central" ${job.jobType === 'central' ? 'selected' : ''}>🏛️ Central Govt.</option>
+          <option value="state" ${job.jobType === 'state' ? 'selected' : ''}>🏜️ Rajasthan Govt.</option>
+          <option value="private" ${job.jobType === 'private' ? 'selected' : ''}>💼 Private</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Department</label><input type="text" id="jDept" value="${escapeHtml(job.department || '')}"></div>
+      <div class="form-group"><label>Post</label><input type="text" id="jPost" value="${escapeHtml(job.post || '')}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Eligibility</label><input type="text" id="jElig" value="${escapeHtml(job.eligibility || '')}"></div>
+      <div class="form-group"><label>Age Limit</label><input type="text" id="jAge" value="${escapeHtml(job.age || '')}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Last Date</label><input type="date" id="jLastDate" value="${job.lastDate || ''}"></div>
+      <div class="form-group"><label>Website</label><input type="url" id="jWebsite" value="${escapeHtml(job.website || '')}"></div>
+    </div>
+    <div class="form-group"><label>Apply Link</label><input type="url" id="jApply" value="${escapeHtml(job.applyLink || '')}"></div>
+    <div class="form-group"><label>Description</label><textarea id="jDesc" rows="3">${escapeHtml(job.description || '')}</textarea></div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
 
-  renderItemsForPage(pageId);
+function saveJob() {
+  const idx = parseInt(document.getElementById('jobIndex').value);
+  const title = document.getElementById('jTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+  const job = {
+    title,
+    jobType: document.getElementById('jType').value,
+    department: document.getElementById('jDept').value,
+    post: document.getElementById('jPost').value,
+    eligibility: document.getElementById('jElig').value,
+    age: document.getElementById('jAge').value,
+    lastDate: document.getElementById('jLastDate').value,
+    website: document.getElementById('jWebsite').value,
+    applyLink: document.getElementById('jApply').value,
+    description: document.getElementById('jDesc').value,
+    createdAt: Date.now()
+  };
+  if (idx >= 0) jobsData[idx] = { ...jobsData[idx], ...job };
+  else jobsData.push(job);
+  saveData();
+  renderJobsTable();
+  updateStats();
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
+}
+
+function deleteJob(i) {
+  if (!confirm('Delete this job?')) return;
+  jobsData.splice(i, 1);
+  saveData();
+  renderJobsTable();
+  updateStats();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+function openBulkJobModal() {
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Add Jobs';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group">
+      <label>Format: <code>Title | Type | Department</code></label>
+      <textarea id="bulkJobsText" rows="10" placeholder="SSC CGL 2026 | central | Staff Selection Commission
+Bank PO | central | SBI
+RAS 2026 | state | RPSC"></textarea>
+    </div>
+    <button class="btn-submit" onclick="doBulkAddJobs()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function doBulkAddJobs() {
+  const text = document.getElementById('bulkJobsText').value.trim();
+  if (!text) return showToast('Data दें', 'error');
+  let count = 0;
+  text.split('\n').filter(l => l.trim()).forEach(line => {
+    const p = line.split('|').map(x => x.trim());
+    if (!p[0]) return;
+    jobsData.push({ 
+      title: p[0], 
+      jobType: p[1] || 'central', 
+      department: p[2] || '', 
+      createdAt: Date.now() 
+    });
+    count++;
+  });
+  saveData();
+  closeAdminModal();
+  renderJobsTable();
+  updateStats();
+  showToast(`✅ ${count} jobs added!`, 'success');
+}
+
+function reloadDefaultJobs() {
+  if (!confirm('⚠️ Saare custom jobs delete ho jayenge aur 55+ default jobs load ho jayenge. Continue?')) return;
+  jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
+  saveData();
+  renderJobsTable();
+  updateStats();
+  showToast('🔄 55+ default jobs loaded!', 'success');
 }
 
 // ============================================================
@@ -1851,13 +1797,9 @@ function updateStats() {
   let totalPages = 0;
   pagesData.forEach(p => { totalPages++; if (p.subPages) totalPages += p.subPages.length; });
   setEl('statPages', totalPages);
-  setEl('statFiles', filesData.length);
   setEl('statJobs', jobsData.length);
   setEl('statSlides', (appData.slides?.items || []).length);
   setEl('statEmployees', (appData.employees?.items || []).length);
-  setEl('sysPagesCount', totalPages);
-  setEl('sysFilesCount', filesData.length);
-  setEl('sysJobsCount', jobsData.length);
 }
 
 // ============================================================
@@ -2009,94 +1951,15 @@ function closeSidebar() {
 }
 
 // ============================================================
-// FILE / JOB / SETTINGS functions (simplified but working)
+// SETTINGS
 // ============================================================
-function renderFilesGrid() {
-  const c = document.getElementById('filesGridContainer');
-  if (!c) return;
-  c.innerHTML = '<div class="empty-state"><i class="fas fa-folder-open"></i><p>Files upload feature — pehle Storage enable karein</p></div>';
-}
-async function loadFilesFromCloud() {
-  renderFilesGrid();
-  updateStats();
-}
-function renderJobsTable() {
-  const c = document.getElementById('jobsContainer');
-  if (!c) return;
-  if (!jobsData.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs. Add karein.</p></div>'; return; }
-  c.innerHTML = jobsData.map((j, i) => `
-    <div class="data-item">
-      <div class="item-sno">${i + 1}</div>
-      <div class="item-content">
-        <div class="item-title">${escapeHtml(j.title || 'Untitled')}</div>
-        <div class="item-meta">${j.jobType || ''} ${j.department ? '• ' + j.department : ''}</div>
-      </div>
-      <div class="item-actions">
-        <button class="btn-i-edit" onclick="openJobModal(${i})"><i class="fas fa-edit"></i></button>
-        <button class="btn-i-delete" onclick="deleteJob(${i})"><i class="fas fa-trash"></i></button>
-      </div>
-    </div>
-  `).join('');
-}
-function openJobModal(index = null) {
-  const isEdit = index !== null;
-  const job = isEdit ? jobsData[index] : { title: '', jobType: 'central', department: '' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Job' : '💼 Add Job';
-  document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="jobIndex" value="${isEdit ? index : -1}">
-    <div class="form-row">
-      <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${escapeHtml(job.title)}"></div>
-      <div class="form-group"><label>Type</label>
-        <select id="jType">
-          <option value="central" ${job.jobType === 'central' ? 'selected' : ''}>Central</option>
-          <option value="state" ${job.jobType === 'state' ? 'selected' : ''}>State</option>
-          <option value="private" ${job.jobType === 'private' ? 'selected' : ''}>Private</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group"><label>Department</label><input type="text" id="jDept" value="${escapeHtml(job.department || '')}"></div>
-    <div style="margin-top:16px;">
-      <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
-      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-    </div>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-function saveJob() {
-  const idx = parseInt(document.getElementById('jobIndex').value);
-  const title = document.getElementById('jTitle').value.trim();
-  if (!title) return showToast('Title required!', 'error');
-  const job = { title, jobType: document.getElementById('jType').value, department: document.getElementById('jDept').value, createdAt: Date.now() };
-  if (idx >= 0) jobsData[idx] = { ...jobsData[idx], ...job };
-  else jobsData.push(job);
-  saveData();
-  renderJobsTable();
-  updateStats();
-  closeAdminModal();
-  showToast('✅ Saved!', 'success');
-}
-function deleteJob(i) {
-  if (!confirm('Delete?')) return;
-  jobsData.splice(i, 1);
-  saveData();
-  renderJobsTable();
-  updateStats();
-  showToast('🗑️ Deleted!', 'success');
-}
-function renderSlides() {
-  const c = document.getElementById('adminSlidesContainer');
-  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-images"></i><p>Slides feature coming soon</p></div>';
-}
-function renderEmployees() {
-  const c = document.getElementById('employeeListContainer');
-  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>Employees feature coming soon</p></div>';
-}
 function switchSettingsTab(tab) {
   document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
   document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
   document.getElementById('settings-tab-' + tab)?.classList.add('active');
 }
+
 function loadSettingsForm() {
   loadSettings();
   loadActivityLog();
@@ -2105,11 +1968,209 @@ function loadSettingsForm() {
   set('setSiteName', settings.siteName);
   set('setTagline', settings.tagline);
 }
+
 function saveSettingsGroup(g) {
   const gv = id => document.getElementById(id)?.value || '';
-  if (g === 'general') { settings.siteName = gv('setSiteName'); settings.tagline = gv('setTagline'); }
+  if (g === 'general') { 
+    settings.siteName = gv('setSiteName'); 
+    settings.tagline = gv('setTagline'); 
+  }
   saveSettings();
   showToast('✅ Saved!', 'success');
+}
+
+function changeAdminPassword() {
+  const cur = document.getElementById('setCurPassword').value;
+  const n1 = document.getElementById('setNewPassword').value;
+  const n2 = document.getElementById('setConfirmPassword').value;
+  if (!cur || !n1 || !n2) return showToast('सभी fields भरें!', 'error');
+  const c = getAdminCreds();
+  if (cur !== c.password) return showToast('❌ Current password गलत!', 'error');
+  if (n1 !== n2) return showToast('❌ Passwords match नहीं!', 'error');
+  if (n1.length < 6) return showToast('⚠️ Password 6+ chars', 'error');
+  saveAdminCreds(c.username, n1);
+  document.getElementById('setCurPassword').value = '';
+  document.getElementById('setNewPassword').value = '';
+  document.getElementById('setConfirmPassword').value = '';
+  logActivity('Password Changed', '');
+  showToast('✅ Password changed!', 'success');
+}
+
+function exportAllData() {
+  const data = { appData, jobsData, pagesData, settings, activityLog, version: '6.0', exportedAt: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dreamjosh_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  logActivity('Backup', 'JSON');
+  showToast('📥 Backup!', 'success');
+}
+
+function importData() {
+  const file = document.getElementById('restoreFileInput').files[0];
+  if (!file) return showToast('Backup file चुनें', 'error');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!confirm('⚠️ Current data replace होगा। Continue?')) return;
+      if (data.appData) appData = data.appData;
+      if (data.jobsData) jobsData = data.jobsData;
+      if (data.pagesData) pagesData = data.pagesData;
+      if (data.settings) settings = data.settings;
+      if (data.activityLog) activityLog = data.activityLog;
+      saveData();
+      savePages();
+      saveSettings();
+      loadSettingsForm();
+      renderSidebar();
+      renderPagesGrid();
+      renderJobsTable();
+      updateStats();
+      logActivity('Restore', 'Backup');
+      showToast('✅ Restored!', 'success');
+      setTimeout(() => location.reload(), 1500);
+    } catch (err) { showToast('❌ Invalid file', 'error'); }
+  };
+  reader.readAsText(file);
+}
+
+function clearAllAdminData() {
+  if (!confirm('⚠️ सारा data permanently delete होगा!')) return;
+  if (!confirm('Sure?')) return;
+  [STORAGE_KEY, PAGES_KEY, SETTINGS_KEY, ACTIVITY_LOG_KEY].forEach(k => localStorage.removeItem(k));
+  showToast('🗑️ Cleared!', 'success');
+  setTimeout(() => location.reload(), 1500);
+}
+
+// ============================================================
+// 🎯 SHOW ADMIN PAGE
+// ============================================================
+function showAdminPage(page) {
+  markActivity();
+  document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
+  const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
+  if (activeLink) activeLink.classList.add('active');
+
+  closeAllMenuSections();
+  const parent = pagesData.find(p => p.id === page || (p.subPages && p.subPages.some(s => s.id === page)));
+  if (parent && parent.subPages && parent.subPages.length) {
+    openMenuSection(parent.id);
+  }
+
+  const titles = {
+    'dashboard': '📊 <span>Dashboard</span>',
+    'pages': '📄 <span>Pages Manager</span>'
+  };
+
+  const pageInfo = findPageById(page);
+  if (pageInfo) {
+    document.getElementById('adminPageTitle').innerHTML = `<i class="fas ${pageInfo.icon}" style="color:var(--primary-blue);margin-right:8px;"></i> <span>${escapeHtml(pageInfo.name)}</span>`;
+  } else {
+    document.getElementById('adminPageTitle').innerHTML = titles[page] || '📄 <span>Page</span>';
+  }
+
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+
+  const existing = document.getElementById('adminPage-' + page);
+  if (existing) {
+    existing.classList.add('active');
+    if (page === 'dashboard') updateStats();
+    if (page === 'pages') renderPagesGrid();
+    if (page === 'jobs-manager') renderJobsTable();
+    if (page === 'slides') renderSlides();
+    if (page === 'employees') renderEmployees();
+    if (page === 'settings') loadSettingsForm();
+    if (window.innerWidth <= 768) closeSidebar();
+    return;
+  }
+
+  renderDynamicPage(page);
+  if (window.innerWidth <= 768) closeSidebar();
+}
+
+function findPageById(pageId) {
+  for (const p of pagesData) {
+    if (p.id === pageId) return { ...p, isParent: true };
+    if (p.subPages) {
+      const s = p.subPages.find(sp => sp.id === pageId);
+      if (s) return { ...s, isSub: true, parent: p };
+    }
+  }
+  return null;
+}
+
+function renderDynamicPage(pageId) {
+  const info = findPageById(pageId);
+  if (!info) {
+    showToast('Page not found', 'error');
+    return;
+  }
+
+  const items = appData[pageId]?.items || [];
+  const content = appData[pageId]?.content || '';
+
+  const sectionId = 'adminPage-' + pageId;
+  document.getElementById(sectionId)?.remove();
+
+  const section = document.createElement('div');
+  section.id = sectionId;
+  section.className = 'admin-section active';
+  section.innerHTML = `
+    <div class="admin-card">
+      <div class="card-header">
+        <h4><i class="fas ${info.icon}"></i> ${escapeHtml(info.name)}</h4>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-add" onclick="openPageContentEditor('${pageId}')"><i class="fas fa-edit"></i> Edit Content</button>
+          <button class="btn-add primary" onclick="openItemEditorForPage('${pageId}')"><i class="fas fa-plus"></i> Add Item</button>
+          <button class="btn-add bulk" onclick="togglePagePrivacy('${pageId}')">
+            <i class="fas fa-${info.isPublic ? 'lock' : 'unlock'}"></i>
+            ${info.isPublic ? 'Private' : 'Public'}
+          </button>
+          <button class="btn-add" style="background:#dc3545;" onclick="${info.isSub ? `deleteSubPage('${info.parent.id}', '${pageId}')` : `deletePage('${pageId}')`}">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+
+      ${content ? `
+        <div style="margin-bottom:16px;padding:14px;background:var(--bg-color);border-radius:8px;border-left:4px solid var(--secondary-blue);max-height:200px;overflow-y:auto;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-light);margin-bottom:6px;">📄 PAGE CONTENT:</div>
+          <div>${content}</div>
+        </div>
+      ` : `
+        <div style="margin-bottom:16px;padding:14px;background:var(--bg-color);border-radius:8px;text-align:center;color:var(--text-light);font-size:13px;">
+          <i class="fas fa-file-alt" style="font-size:24px;opacity:.4;"></i>
+          <p style="margin-top:6px;">Abhi koi content nahi hai. "Edit Content" dabayein.</p>
+        </div>
+      `}
+
+      <div style="margin-top:12px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">
+          📋 Items (${items.length})
+        </div>
+        <div id="items-container-${pageId}"></div>
+      </div>
+    </div>
+  `;
+
+  const contentArea = document.querySelector('.admin-content');
+  contentArea.appendChild(section);
+
+  renderItemsForPage(pageId);
+}
+
+// ============================================================
+// SLIDES / EMPLOYEES (Placeholder)
+// ============================================================
+function renderSlides() {
+  const c = document.getElementById('adminSlidesContainer');
+  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-images"></i><p>Slides feature coming soon</p></div>';
+}
+function renderEmployees() {
+  const c = document.getElementById('employeeListContainer');
+  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>Employees feature coming soon</p></div>';
 }
 
 // ============================================================
@@ -2130,7 +2191,8 @@ async function initAdminPanel() {
     initVipClock();
     initVipCursor();
     initIdleLogout();
-    console.log('👑 VIP Dynamic Admin Loaded');
+    console.log('👑 VIP Dynamic Admin v6.0 Loaded');
+    console.log('💼 Jobs loaded:', jobsData.length);
   }, 200);
 }
 
@@ -2148,8 +2210,10 @@ Object.assign(window, {
   openPageContentEditor, savePageContent,
   openItemEditorForPage, saveItemForPage, duplicateItemForPage, deleteItemForPage,
   closeAdminModal, toggleDarkMode, showToast,
-  openJobModal, saveJob, deleteJob,
-  switchSettingsTab, saveSettingsGroup
+  openJobModal, saveJob, deleteJob, openBulkJobModal, doBulkAddJobs, reloadDefaultJobs,
+  filterJobs,
+  switchSettingsTab, saveSettingsGroup, changeAdminPassword,
+  exportAllData, importData, clearAllAdminData, clearActivityLog
 });
 </script>
 
