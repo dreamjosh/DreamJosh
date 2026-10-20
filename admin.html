@@ -1,745 +1,2221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <title>Home – Dream Josh</title>
-    <meta name="theme-color" content="#123c9b" />
-    <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>Dream Josh - Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-    <style>
-        :root {
-            --bg-color: #eef5ff; --card-bg: #ffffff; --text-color: #172033;
-            --primary-blue: #123c9b; --secondary-blue: #1976d2;
-            --success-green: #16a34a; --warning-red: #d62839;
-            --highlight-bg: #eefaf4; --border-color: #dce5f0;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --header-bg: linear-gradient(135deg, #123c9b, #1976d2);
-            --footer-bg: #123c9b; --card-hover: #f4f8ff; --gold: #ffd700;
-            --text-light: #6c757d;
-            --whatsapp-green: #25D366;
-            --telegram-blue: #0088cc;
-            --youtube-red: #FF0000;
-            --instagram-pink: #E4405F;
-        }
-        .dark-mode {
-            --bg-color: #0a0e1a; --card-bg: #141428; --text-color: #e8e8e8;
-            --text-light: #a0a0b8; --primary-blue: #1a3a8a;
-            --secondary-blue: #2a5ac8; --border-color: #2a2a4a;
-            --shadow-color: rgba(0, 0, 0, 0.3); --footer-bg: #0d1b3e;
-            --card-hover: #1a1a3a;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background: var(--bg-color); color: var(--text-color);
-            min-height: 100vh; padding-top: 70px; padding-bottom: 55px;
-        }
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
-        /* HEADER */
-        .app-header {
-            background: var(--header-bg); padding: 10px 16px;
-            display: flex; justify-content: space-between; align-items: center;
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            height: 60px; box-shadow: 0 2px 20px var(--shadow-color);
-        }
-        .app-header .logo { font-size: 20px; font-weight: bold; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-        .app-header .logo span { color: var(--gold); }
-        .app-header .header-controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-        .app-header .nav-btn {
-            background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #fff; padding: 5px 12px; border-radius: 18px; cursor: pointer;
-            font-size: 12px; font-weight: 600; transition: 0.3s; white-space: nowrap;
-            text-decoration: none; display: inline-flex; align-items: center;
-        }
-        .app-header .nav-btn:hover, .app-header .nav-btn.active { background: var(--gold); color: #0a0e1a; }
-        .app-header .nav-btn.admin-btn { background: rgba(214, 40, 57, 0.85); border-color: rgba(214, 40, 57, 1); }
-        .app-header .nav-btn.admin-btn:hover { background: #d62839; color: #fff; }
+<style>
+:root{
+  --bg-color:#eef5ff; --card-bg:#fff; --text-color:#172033;
+  --primary-blue:#123c9b; --secondary-blue:#1976d2;
+  --success-green:#16a34a; --warning-red:#d62839;
+  --border-color:#dce5f0; --shadow-color:rgba(0,0,0,.1);
+  --footer-bg:#123c9b; --gold:#ffd700; --text-light:#6c757d;
+  --secondary:#1a2332;
+}
+.dark-mode{
+  --bg-color:#0a0e1a; --card-bg:#141428; --text-color:#e8e8e8;
+  --text-light:#a0a0b8; --primary-blue:#1a3a8a; --secondary-blue:#2a5ac8;
+  --border-color:#2a2a4a; --shadow-color:rgba(0,0,0,.3);
+  --footer-bg:#0d1b3e; --secondary:#1a1a2e;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg-color);color:var(--text-color);min-height:100vh;transition:background .3s,color .3s;}
 
-        .main-scroll-area { padding: 16px; }
-        .section-container { max-width: 1200px; margin: 0 auto; }
+/* ============ LOGIN SCREEN ============ */
+.login-screen{
+  display:none;position:fixed;inset:0;background:var(--bg-color);z-index:99999;
+  align-items:center;justify-content:center;padding:20px;
+}
+.login-screen.active{display:flex;}
+.login-box{
+  background:var(--card-bg);border-radius:16px;padding:40px 36px;max-width:420px;width:100%;
+  box-shadow:0 20px 60px rgba(0,0,0,.15);border:1px solid var(--border-color);
+  animation:loginIn .4s ease;
+}
+@keyframes loginIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.login-box .login-logo{text-align:center;margin-bottom:24px;}
+.login-box .login-logo h1{font-size:26px;font-weight:800;color:var(--text-color);}
+.login-box .login-logo h1 span{color:var(--gold);}
+.login-box .login-logo .badge{
+  display:inline-block;background:var(--success-green);color:#fff;
+  font-size:10px;padding:3px 12px;border-radius:20px;font-weight:700;
+  margin-top:6px;letter-spacing:.5px;
+}
+.login-box .login-logo .admin-icon{font-size:44px;margin-bottom:8px;color:var(--primary-blue);}
+.login-box h2{font-size:18px;font-weight:700;text-align:center;margin-bottom:6px;color:var(--text-color);}
+.login-box p.subtitle{text-align:center;font-size:13px;color:var(--text-light);margin-bottom:24px;}
+.login-form-group{margin-bottom:16px;}
+.login-form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:6px;}
+.login-form-group .input-wrap{position:relative;}
+.login-form-group .input-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-light);font-size:14px;}
+.login-form-group input{
+  width:100%;padding:12px 14px 12px 42px;
+  border:2px solid var(--border-color);border-radius:10px;
+  font-size:14px;background:var(--bg-color);color:var(--text-color);
+  font-family:inherit;transition:.2s;
+}
+.login-form-group input:focus{border-color:var(--primary-blue);outline:none;box-shadow:0 0 0 4px rgba(25,118,210,.1);}
+.login-btn{
+  width:100%;padding:14px;background:var(--primary-blue);color:#fff;
+  border:none;border-radius:10px;font-size:15px;font-weight:700;
+  cursor:pointer;transition:.2s;font-family:inherit;margin-top:8px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.login-btn:hover{background:var(--secondary-blue);transform:translateY(-1px);}
+.login-btn:disabled{opacity:.6;cursor:not-allowed;}
+.login-error{
+  background:#fee2e2;color:#dc2626;padding:10px 14px;border-radius:8px;
+  font-size:13px;font-weight:600;margin-bottom:14px;display:none;align-items:center;gap:8px;
+}
+.login-error.show{display:flex;}
 
-        /* ============ HOME (PURANA — NO CHANGE) ============ */
-        .home-original { background: var(--bg-color); color: var(--text-color); border-radius: 16px; overflow: hidden; }
-        .home-original header { background: var(--header-bg); color: white; text-align: center; padding: 20px; border-radius: 16px 16px 0 0; }
-        .home-original header h1 { margin: 0; font-size: 28px; }
-        .home-original header p { margin: 5px 0 0; font-size: 14px; }
-        .home-original header small { font-size: 12px; opacity: 0.8; }
-        .home-original .ticker { margin: 8px auto; max-width: 1100px; padding: 8px 10px; border-radius: 8px; color: white; overflow: hidden; white-space: nowrap; }
-        .home-original .latest { background: #d62839; }
-        .home-original .update { background: #079455; }
-        .home-original .ticker span { display: inline-block; padding-left: 100%; animation: move 18s linear infinite; }
-        @keyframes move { from { transform: translateX(0); } to { transform: translateX(-100%); } }
-        .home-original .container { max-width: 1100px; margin: auto; padding: 12px; }
-        .home-original .home-layout { display: flex; gap: 20px; align-items: flex-start; }
-        .home-original .left-content { flex: 3; }
-        .home-original .right-sidebar { flex: 1; }
-        .home-original .sidebar-box { background: var(--card-bg); border-radius: 10px; box-shadow: 0 2px 8px var(--shadow-color); margin-bottom: 12px; overflow: hidden; }
-        .home-original .sidebar-box h3 { margin: 0; padding: 8px 14px; background: var(--secondary-blue); color: #fff; font-size: 13px; }
-        .home-original .notice { height: 140px; overflow: hidden; position: relative; }
-        .home-original .notice ul { padding: 8px 16px; list-style: none; animation: scrollUp 12s linear infinite; }
-        .home-original .notice ul li { padding: 5px 0; font-size: 12px; border-bottom: 1px solid var(--border-color); }
-        .home-original .notice ul li:last-child { border-bottom: none; }
-        @keyframes scrollUp { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
-        .home-original .notice:hover ul { animation-play-state: paused; }
-        .home-original .imp-links a { display: block; padding: 6px 14px; border-bottom: 1px solid var(--border-color); color: var(--primary-blue); text-decoration: none; font-size: 12px; cursor: pointer; }
-        .home-original .imp-links a:hover { background: var(--card-hover); }
-        .home-original .card { background: var(--card-bg); padding: 16px; margin: 8px 0; border-radius: 10px; border-left: 5px solid var(--secondary-blue); }
-        .home-original .card h3 { margin-top: 0; color: var(--primary-blue); font-size: 16px; }
-        .home-original .about-home { line-height: 1.7; font-size: 14px; }
-        .home-original .about-home ul { padding-left: 20px; margin: 6px 0 10px; }
-        .home-original .about-home li { margin: 3px 0; font-size: 13px; }
-        .home-original .about-highlight { margin-top: 12px; padding: 14px; border-left: 4px solid var(--success-green); background: var(--highlight-bg); border-radius: 8px; text-align: center; font-size: 15px; }
+/* ============ ADMIN PANEL ============ */
+.admin-wrapper{display:none;min-height:100vh;}
+.admin-wrapper.active{display:flex;}
+.admin-sidebar{
+  width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;
+  position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;transition:transform .3s;
+}
+.admin-logo{padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.admin-logo h1{font-size:20px;font-weight:700;color:#fff;}
+.admin-logo h1 span{color:var(--gold);}
+.admin-logo .badge{background:var(--success-green);font-size:9px;padding:2px 8px;border-radius:20px;font-weight:600;}
+.admin-user{padding:0 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:12px;display:flex;align-items:center;gap:12px;}
+.admin-user .avatar{width:36px;height:36px;border-radius:50%;background:var(--secondary-blue);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;}
+.admin-user .name{font-size:13px;font-weight:600;}
+.admin-user .role{font-size:10px;opacity:.6;}
 
-        /* ============ NEW SECTIONS ============ */
-        .section-block { background: var(--card-bg); border-radius: 14px; padding: 24px; margin: 20px 0; border: 1px solid var(--border-color); box-shadow: 0 4px 12px var(--shadow-color); }
-        .section-block .section-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--border-color); }
-        .section-block .section-header h2 { font-size: 20px; display: flex; align-items: center; gap: 10px; color: var(--primary-blue); }
+/* SIDEBAR MENU */
+.admin-menu{list-style:none;padding:0 10px;}
+.admin-menu > li{margin-bottom:2px;}
+.admin-menu .menu-link{
+  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
+  color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;
+  transition:.3s;cursor:pointer;
+}
+.admin-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
+.admin-menu .menu-link.active{background:rgba(255,215,0,.15);color:var(--gold);}
+.admin-menu .menu-link i.menu-icon{width:18px;font-size:14px;text-align:center;}
+.admin-menu .menu-link .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 8px;border-radius:20px;font-size:10px;}
+.admin-menu .menu-toggle{
+  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
+  color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:600;
+  transition:.3s;cursor:pointer;
+}
+.admin-menu .menu-toggle:hover{background:rgba(255,255,255,.08);color:#fff;}
+.admin-menu .menu-toggle.open{background:rgba(255,255,255,.06);color:#fff;}
+.admin-menu .menu-toggle.has-active{color:var(--gold);}
+.admin-menu .menu-toggle i.menu-icon{width:18px;font-size:14px;text-align:center;}
+.admin-menu .menu-toggle .arrow{margin-left:auto;font-size:10px;opacity:.6;transition:transform .25s ease;}
+.admin-menu .menu-toggle.open .arrow{transform:rotate(90deg);opacity:1;}
+.admin-menu .submenu{
+  list-style:none;max-height:0;overflow:hidden;
+  transition:max-height .3s ease, opacity .3s ease;
+  opacity:0;margin:0;padding-left:8px;
+}
+.admin-menu .submenu.open{max-height:2000px;opacity:1;margin-top:2px;margin-bottom:4px;}
+.admin-menu .submenu li{margin-bottom:1px;}
+.admin-menu .submenu a{
+  display:flex;align-items:center;gap:10px;padding:8px 12px 8px 28px;
+  border-radius:6px;color:rgba(255,255,255,.6);text-decoration:none;
+  font-size:12.5px;font-weight:500;transition:.2s;cursor:pointer;position:relative;
+}
+.admin-menu .submenu a:hover{background:rgba(255,255,255,.06);color:#fff;}
+.admin-menu .submenu a.active{background:rgba(255,215,0,.15);color:var(--gold);font-weight:600;}
+.admin-menu .submenu a.active::before{
+  content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:3px;height:14px;background:var(--gold);border-radius:2px;
+}
+.admin-menu .submenu a i{font-size:11px;opacity:.7;width:14px;text-align:center;}
+.admin-menu .submenu a .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 7px;border-radius:20px;font-size:9.5px;}
+.admin-menu .submenu a .privacy-badge{
+  margin-left:auto;font-size:9px;padding:1px 6px;border-radius:10px;font-weight:700;
+}
+.admin-menu .submenu a .privacy-badge.public{background:rgba(22,163,74,.3);color:#86efac;}
+.admin-menu .submenu a .privacy-badge.private{background:rgba(214,40,57,.3);color:#fca5a5;}
 
-        /* STORIES */
-        .story-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-        .story-card { background: var(--bg-color); border-radius: 12px; padding: 20px; border: 1px solid var(--border-color); transition: 0.3s; }
-        .story-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px var(--shadow-color); border-color: var(--gold); }
-        .story-card .story-quote { font-size: 36px; color: var(--secondary-blue); opacity: 0.3; line-height: 1; margin-bottom: 4px; }
-        .story-card .story-text { font-size: 13px; line-height: 1.6; color: var(--text-color); margin-bottom: 14px; font-style: italic; }
-        .story-card .story-user { display: flex; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px solid var(--border-color); }
-        .story-card .story-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--secondary-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
-        .story-card .story-name { font-size: 13px; font-weight: 700; }
-        .story-card .story-role { font-size: 11px; color: var(--text-light); }
-        .story-card .story-badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 10px; background: var(--success-green); color: #fff; font-weight: 700; margin-top: 8px; }
-        .story-card .story-stars { color: var(--gold); font-size: 14px; margin-top: 6px; }
+.admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
+.admin-footer-menu .menu-link{
+  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
+  color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;font-weight:500;
+  transition:.3s;cursor:pointer;
+}
+.admin-footer-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
 
-        /* VIDEOS */
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-        .video-card { background: var(--bg-color); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); transition: 0.3s; }
-        .video-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px var(--shadow-color); border-color: var(--youtube-red); }
-        .video-card .video-thumb { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
-        .video-card .video-thumb iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .video-card .video-info { padding: 12px; }
-        .video-card .video-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; line-height: 1.4; }
-        .video-card .video-meta { font-size: 11px; color: var(--text-light); }
+.admin-content{flex:1;padding:24px 30px;background:var(--bg-color);min-height:100vh;overflow-y:auto;}
+.admin-top-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--border-color);flex-wrap:wrap;gap:12px;}
+.admin-top-header h2{font-size:20px;font-weight:700;}
+.admin-top-header h2 span{color:var(--primary-blue);}
+.admin-top-header .admin-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.admin-top-header .admin-actions button,.admin-top-header .admin-actions a{
+  padding:6px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;
+  font-weight:600;transition:.3s;min-height:34px;display:flex;align-items:center;gap:6px;
+  text-decoration:none;
+}
+.btn-close-admin{background:#6c757d;color:#fff;}
+.btn-logout{background:#d62839;color:#fff;}
+.btn-logout:hover{background:#a91f2c;}
+.btn-dark-admin{background:var(--secondary);color:#fff;}
 
-        /* ADS */
-        .ad-slot { background: linear-gradient(135deg, rgba(25,118,210,0.05), rgba(255,215,0,0.05)); border: 2px dashed var(--border-color); border-radius: 12px; padding: 20px; text-align: center; margin: 16px 0; min-height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .ad-slot .ad-label { font-size: 10px; color: var(--text-light); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-        .ad-slot .ad-text { font-size: 13px; color: var(--text-light); font-style: italic; }
-        .ad-slot.banner { min-height: 120px; }
+#vipClock {
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 2px; padding: 6px 16px; border-radius: 10px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  margin-right: 10px;
+}
+#vipClock .vip-greeting { font-size: 12px; font-weight: 700; color: var(--gold); white-space: nowrap; }
+#vipClock .vip-time { font-size: 11px; color: var(--text-light); white-space: nowrap; }
+#vipClock .vip-idle { font-size: 10px; color: #f59e0b; font-weight: 600; white-space: nowrap; }
 
-        /* INSTAGRAM */
-        .insta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-        .insta-item { position: relative; padding-bottom: 100%; height: 0; overflow: hidden; border-radius: 10px; border: 2px solid transparent; transition: 0.3s; cursor: pointer; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .insta-item:hover { border-color: var(--gold); transform: scale(1.03); }
-        .insta-item .insta-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; text-align: center; padding: 12px; }
-        .insta-item:hover .insta-overlay { opacity: 1; }
-        .insta-item .insta-overlay i { font-size: 28px; margin-bottom: 8px; }
-        .insta-item .insta-overlay span { font-size: 12px; font-weight: 600; }
-        .insta-item .insta-content { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;}
+.admin-stats .stat-item{
+  background:var(--card-bg);padding:14px 16px;border-radius:10px;
+  border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);
+  text-align:center;transition:.3s;
+}
+.admin-stats .stat-item .stat-icon{font-size:22px;}
+.admin-stats .stat-item .stat-label{font-size:11px;color:var(--text-light);font-weight:600;margin-top:4px;}
+.admin-stats .stat-item .stat-value{font-size:24px;font-weight:700;color:var(--primary-blue);}
 
-        /* COLLEGES */
-        .college-search { width: 100%; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 14px; background: var(--bg-color); color: var(--text-color); margin-bottom: 14px; font-family: inherit; }
-        .college-search:focus { border-color: var(--primary-blue); outline: none; }
-        .college-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
-        .college-card { background: var(--bg-color); border-radius: 10px; padding: 16px; border: 1px solid var(--border-color); transition: 0.3s; }
-        .college-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px var(--shadow-color); border-color: var(--secondary-blue); }
-        .college-card .college-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .college-card .college-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--primary-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-        .college-card .college-name { font-size: 14px; font-weight: 700; line-height: 1.3; }
-        .college-card .college-type { font-size: 10px; color: var(--text-light); font-weight: 600; text-transform: uppercase; }
-        .college-card .college-info { font-size: 12px; color: var(--text-light); margin-top: 6px; line-height: 1.5; }
-        .college-card .college-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
-        .college-card .college-tag { font-size: 9px; padding: 2px 8px; border-radius: 10px; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--secondary-blue); font-weight: 600; }
+.admin-quick-actions{
+  background:var(--card-bg);padding:16px 20px;border-radius:10px;
+  border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);margin:16px 0;
+}
+.admin-quick-actions h3{font-size:14px;margin-bottom:10px;}
+.admin-quick-actions .actions-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.admin-quick-actions .actions-grid button{
+  padding:6px 14px;background:var(--secondary-blue);color:#fff;border:none;
+  border-radius:6px;cursor:pointer;font-size:11px;font-weight:600;transition:.3s;min-height:32px;
+}
 
-        /* AGE CALC */
-        .age-calc-wrapper { background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); border-radius: 14px; padding: 24px; color: #fff; }
-        .age-calc-wrapper h3 { font-size: 18px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-        .age-calc-wrapper p { font-size: 12px; opacity: 0.85; margin-bottom: 16px; }
-        .age-calc-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 14px; }
-        .age-calc-form input { padding: 10px 12px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.15); color: #fff; font-size: 14px; font-family: inherit; width: 100%; }
-        .age-calc-form input::placeholder { color: rgba(255,255,255,0.7); }
-        .age-calc-form input:focus { border-color: var(--gold); outline: none; }
-        .age-calc-btn { padding: 12px 24px; border-radius: 8px; background: var(--gold); color: #0a0e1a; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
-        .age-calc-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,215,0,0.4); }
-        .age-result { margin-top: 16px; padding: 16px; background: rgba(255,255,255,0.15); border-radius: 10px; border-left: 4px solid var(--gold); display: none; }
-        .age-result.show { display: block; }
-        .age-result .result-main { font-size: 20px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
-        .age-result .result-detail { font-size: 12px; opacity: 0.9; margin-bottom: 6px; }
-        .age-result .result-status { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 6px; }
-        .age-result .result-status.eligible { background: var(--success-green); color: #fff; }
-        .age-result .result-status.not-eligible { background: var(--warning-red); color: #fff; }
+.admin-section{display:none;margin-top:16px;}
+.admin-section.active{display:block;animation:fadeInSection .3s ease;}
+@keyframes fadeInSection{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.admin-card{
+  background:var(--card-bg);border-radius:10px;border:1px solid var(--border-color);
+  box-shadow:0 2px 8px var(--shadow-color);padding:16px 20px;margin-bottom:16px;
+}
+.admin-card .card-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+.admin-card .card-header h4{font-size:15px;font-weight:600;}
+.btn-add{
+  padding:6px 14px;background:var(--success-green);color:#fff;border:none;
+  border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:.3s;
+  min-height:32px;display:flex;align-items:center;gap:4px;
+}
+.btn-add.bulk{background:#6c5ce7;}
+.btn-add.primary{background:var(--secondary-blue);}
 
-        /* CONTACT */
-        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-        .contact-card { background: var(--bg-color); border-radius: 12px; padding: 18px; text-align: center; border: 1px solid var(--border-color); transition: 0.3s; text-decoration: none; color: inherit; display: block; }
-        .contact-card:hover { transform: translateY(-5px); border-color: var(--secondary-blue); box-shadow: 0 8px 20px var(--shadow-color); }
-        .contact-card .contact-icon { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; margin: 0 auto 10px; background: var(--primary-blue); color: #fff; }
-        .contact-card .contact-label { font-size: 12px; color: var(--text-light); font-weight: 600; margin-bottom: 4px; }
-        .contact-card .contact-value { font-size: 14px; font-weight: 700; color: var(--text-color); word-break: break-word; }
+.admin-modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;
+  backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;
+}
+.admin-modal-overlay.active{display:flex;}
+.admin-modal{
+  background:var(--card-bg);border-radius:12px;max-width:98%;width:100%;
+  max-height:96vh;overflow-y:auto;padding:20px 24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);animation:modalIn .3s ease;
+  border:1px solid var(--border-color);
+}
+@keyframes modalIn{from{transform:scale(.95) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.admin-modal .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);}
+.admin-modal .modal-header h3{font-size:18px;font-weight:700;}
+.admin-modal .modal-header .close-modal{font-size:22px;cursor:pointer;opacity:.5;background:none;border:none;color:var(--text-color);}
+.admin-modal .form-group{margin-bottom:12px;}
+.admin-modal .form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:3px;}
+.admin-modal .form-group input,
+.admin-modal .form-group select,
+.admin-modal .form-group textarea{
+  width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;
+  font-size:13px;background:var(--bg-color);color:var(--text-color);font-family:inherit;
+}
+.admin-modal .form-group input:focus,
+.admin-modal .form-group select:focus,
+.admin-modal .form-group textarea:focus{border-color:var(--primary-blue);outline:none;}
+.admin-modal .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:600px){.admin-modal .form-row{grid-template-columns:1fr;}}
+.admin-modal .btn-submit{padding:8px 20px;background:var(--success-green);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;}
+.admin-modal .btn-cancel{padding:8px 20px;background:#6c757d;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;margin-left:8px;}
 
-        /* SOCIAL */
-        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
-        .social-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; text-decoration: none; color: #fff; transition: 0.3s; font-weight: 600; box-shadow: 0 4px 12px var(--shadow-color); }
-        .social-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 12px 25px rgba(0,0,0,0.2); }
-        .social-card i { font-size: 24px; }
-        .social-card .social-info { display: flex; flex-direction: column; line-height: 1.3; }
-        .social-card .social-name { font-size: 14px; }
-        .social-card .social-sub { font-size: 10px; opacity: 0.85; font-weight: 500; }
-        .social-card.whatsapp { background: var(--whatsapp-green); }
-        .social-card.telegram { background: var(--telegram-blue); }
-        .social-card.youtube { background: var(--youtube-red); }
-        .social-card.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.data-item{
+  background:var(--bg-color);border-radius:8px;padding:12px 14px;
+  border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);
+  margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:.3s;
+}
+.data-item:hover{border-left-color:var(--gold);box-shadow:0 2px 8px var(--shadow-color);}
+.data-item .item-sno{
+  width:32px;height:32px;border-radius:50%;background:var(--secondary-blue);color:#fff;
+  font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.data-item .item-content{flex:1;min-width:0;}
+.data-item .item-title{font-weight:600;font-size:14px;color:var(--text-color);margin-bottom:3px;word-break:break-word;}
+.data-item .item-meta{font-size:11px;color:var(--text-light);}
+.data-item .item-actions{display:flex;gap:4px;flex-wrap:wrap;}
+.data-item .item-actions button,.data-item .item-actions a{
+  padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;
+  border:none;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:4px;
+  text-decoration:none;
+}
+.btn-i-edit{background:#ffc107;color:#333;}
+.btn-i-delete{background:#dc3545;color:#fff;}
+.btn-i-dup{background:#6c5ce7;color:#fff;}
+.btn-i-public{background:#16a34a;color:#fff;}
+.btn-i-private{background:#dc3545;color:#fff;}
 
-        /* FLOATING */
-        .whatsapp-float { position: fixed; bottom: 70px; right: 16px; width: 54px; height: 54px; border-radius: 50%; background: var(--whatsapp-green); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 26px; z-index: 998; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5); cursor: pointer; text-decoration: none; transition: 0.3s; animation: whatsappPulse 2s infinite; }
-        .whatsapp-float:hover { transform: scale(1.1) rotate(5deg); }
-        @keyframes whatsappPulse { 0%, 100% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5); } 50% { box-shadow: 0 6px 30px rgba(37, 211, 102, 0.9); } }
+.empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
+.empty-state i{font-size:36px;margin-bottom:8px;opacity:.4;}
 
-        .pwa-install-btn { position: fixed; bottom: 70px; left: 16px; background: var(--primary-blue); color: #fff; padding: 10px 18px; border-radius: 30px; border: none; cursor: pointer; font-size: 13px; font-weight: 700; display: none; align-items: center; gap: 8px; z-index: 998; box-shadow: 0 6px 20px rgba(18, 60, 155, 0.4); }
-        .pwa-install-btn.show { display: flex; }
-        .pwa-install-btn:hover { background: var(--secondary-blue); transform: translateY(-3px); }
+.toast{
+  position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
+  padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;
+  z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:90%;text-align:center;
+  animation:toastIn .3s ease;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.toast.success{background:#16a34a;}
+.toast.error{background:#dc3545;}
+.toast.info{background:#1976d2;}
+.toast.warning{background:#f59e0b;}
 
-        .back-to-top { position: fixed; bottom: 140px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: var(--primary-blue); color: #fff; display: none; align-items: center; justify-content: center; font-size: 18px; z-index: 997; cursor: pointer; border: none; box-shadow: 0 4px 15px rgba(18, 60, 155, 0.4); transition: 0.3s; }
-        .back-to-top.show { display: flex; }
-        .back-to-top:hover { background: var(--secondary-blue); transform: translateY(-5px); }
+/* WORD EDITOR */
+.word-toolbar{
+  background:#fafbfc;border:1px solid #d1d9e6;border-radius:8px 8px 0 0;
+  padding:6px 8px;display:flex;flex-wrap:wrap;gap:2px;position:sticky;top:0;z-index:50;
+}
+.word-toolbar .tb-group{display:flex;gap:1px;padding:0 4px;border-right:1px solid #d1d9e6;align-items:center;}
+.word-toolbar .tb-group:last-child{border-right:none;}
+.word-toolbar .tb-btn{
+  min-width:28px;height:28px;padding:0 6px;border:1px solid transparent;border-radius:4px;
+  background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:#2c3e50;transition:.15s;gap:4px;
+}
+.word-toolbar .tb-btn:hover{background:#e8f0fe;border-color:#c2d4f0;}
+.word-toolbar select{
+  height:28px;border:1px solid #d1d9e6;border-radius:4px;padding:0 4px;font-size:11px;
+  background:#fff;cursor:pointer;color:#2c3e50;
+}
+.word-editor-wrap{
+  background:#e8ecf1;padding:16px;min-height:400px;border:1px solid #d1d9e6;
+  border-top:none;border-radius:0 0 8px 8px;overflow-y:auto;max-height:600px;position:relative;
+}
+.word-editor-wrap .page{
+  background:#fff;max-width:850px;margin:0 auto;min-height:500px;
+  padding:40px 50px;box-shadow:0 4px 20px rgba(0,0,0,.1);border-radius:2px;
+  color:#1a1a1a;position:relative;
+}
+#richEditor{min-height:400px;outline:none;font-size:15px;line-height:1.7;position:relative;z-index:1;}
+#richEditor:empty:before{content:'यहाँ content लिखें...';color:#999;font-style:italic;}
 
-        /* FOOTER */
-        .app-footer { background: var(--footer-bg); color: #fff; padding: 12px 16px; text-align: center; position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; box-shadow: 0 -2px 15px var(--shadow-color); }
-        .app-footer .footer-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
-        .app-footer .footer-links a { color: rgba(255,255,255,0.85); font-size: 11px; text-decoration: none; cursor: pointer; transition: 0.2s; padding: 3px 8px; border-radius: 6px; }
-        .app-footer .footer-links a:hover { background: rgba(255,215,0,0.2); color: var(--gold); }
-        .app-footer .footer-copy { font-size: 11px; color: rgba(255,255,255,0.6); }
-        .app-footer .footer-copy span { color: var(--gold); }
+/* SETTINGS */
+.settings-tab-btn{
+  padding:8px 16px;border:2px solid var(--border-color);border-radius:20px;
+  background:var(--bg-color);color:var(--text-color);font-size:12px;font-weight:600;
+  cursor:pointer;transition:.3s;
+}
+.settings-tab-btn.active{background:var(--secondary-blue);color:#fff;border-color:var(--secondary-blue);}
+.settings-tab-content{display:none;}
+.settings-tab-content.active{display:block;}
+.setting-group{padding:16px 0;border-bottom:1px solid var(--border-color);}
+.setting-group:last-child{border-bottom:none;}
+.setting-group h5{font-size:14px;font-weight:700;color:var(--primary-blue);margin-bottom:12px;}
+.setting-row{display:grid;grid-template-columns:200px 1fr;gap:12px;align-items:center;margin-bottom:10px;}
+@media(max-width:600px){.setting-row{grid-template-columns:1fr;gap:6px;}}
+.setting-row label{font-size:12.5px;font-weight:600;color:var(--text-color);}
+.setting-row input[type="text"],
+.setting-row input[type="email"],
+.setting-row input[type="tel"],
+.setting-row input[type="url"],
+.setting-row input[type="number"],
+.setting-row input[type="password"],
+.setting-row select,
+.setting-row textarea{
+  width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;
+  font-size:13px;background:var(--card-bg);color:var(--text-color);font-family:inherit;
+}
+.btn-setting{
+  padding:8px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;
+  cursor:pointer;min-height:38px;margin-right:8px;margin-top:8px;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-setting.primary{background:var(--secondary-blue);color:#fff;}
+.btn-setting.success{background:var(--success-green);color:#fff;}
+.btn-setting.danger{background:var(--warning-red);color:#fff;}
+.activity-log-item{padding:6px 10px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;font-size:11.5px;}
+.activity-log-item:last-child{border-bottom:none;}
+.activity-log-item .log-time{color:var(--text-light);font-size:10px;}
 
-        /* MODAL */
-        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-overlay.active { display: flex; }
-        .modal-box { background: var(--card-bg); border-radius: 14px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 24px; border: 1px solid var(--border-color); }
-        .modal-box .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; margin-bottom: 16px; border-bottom: 2px solid var(--border-color); }
-        .modal-box .modal-header h3 { font-size: 20px; color: var(--primary-blue); }
-        .modal-box .modal-close { background: var(--bg-color); border: 1px solid var(--border-color); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px; color: var(--text-color); display: flex; align-items: center; justify-content: center; }
-        .modal-box .modal-close:hover { background: var(--warning-red); color: #fff; }
-        .modal-box .modal-content { font-size: 13.5px; line-height: 1.8; }
-        .modal-box .modal-content h4 { color: var(--primary-blue); margin: 16px 0 8px; font-size: 15px; }
-        .modal-box .modal-content p { margin-bottom: 10px; }
-        .modal-box .modal-content ul { padding-left: 24px; margin-bottom: 10px; }
+.admin-menu-toggle{display:none;background:var(--secondary);color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:16px;cursor:pointer;}
 
-        .toast { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); padding: 12px 24px; border-radius: 12px; color: white; font-size: 14px; font-weight: 600; z-index: 99999; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); max-width: 90%; text-align: center; }
-        .toast.success { background: #16a34a; }
-        .toast.error { background: #dc3545; }
-        .toast.info { background: #1976d2; }
+/* Page Manager */
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+.page-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  transition: 0.3s;
+  position: relative;
+}
+.page-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px var(--shadow-color);
+  border-color: var(--gold);
+}
+.page-card .page-card-icon { font-size: 32px; margin-bottom: 8px; }
+.page-card h4 { font-size: 15px; margin-bottom: 6px; color: var(--text-color); }
+.page-card .page-card-meta { font-size: 11px; color: var(--text-light); margin-bottom: 10px; }
+.page-card .page-card-badge {
+  display: inline-block; padding: 2px 10px; border-radius: 12px;
+  font-size: 10px; font-weight: 700; margin-right: 4px;
+}
+.page-card .page-card-badge.public { background: #16a34a; color: #fff; }
+.page-card .page-card-badge.private { background: #dc3545; color: #fff; }
+.page-card .page-card-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.page-card .page-card-actions button {
+  padding: 4px 10px; font-size: 11px; border-radius: 5px;
+  border: none; cursor: pointer; font-weight: 600; transition: 0.2s;
+}
 
-        @media (max-width: 768px) {
-            .home-original .home-layout { flex-direction: column; }
-            .home-original .left-content, .home-original .right-sidebar { width: 100%; }
-            .home-original header h1 { font-size: 22px; }
-            .main-scroll-area { padding: 10px; }
-            .section-block { padding: 16px; }
-            .section-block .section-header h2 { font-size: 17px; }
-            .contact-grid { grid-template-columns: 1fr 1fr; }
-            .whatsapp-float { width: 48px; height: 48px; font-size: 22px; }
-            .story-grid, .video-grid, .college-grid { grid-template-columns: 1fr; }
-            .insta-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 480px) {
-            .contact-grid { grid-template-columns: 1fr; }
-            .social-grid { grid-template-columns: 1fr 1fr; }
-        }
-    </style>
+/* VIP STYLES */
+@keyframes vipGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.admin-wrapper.active {
+  background: linear-gradient(-45deg, #eef5ff, #dbeafe, #e0e7ff, #f0f9ff);
+  background-size: 400% 400%;
+  animation: vipGradient 15s ease infinite;
+}
+.dark-mode .admin-wrapper.active {
+  background: linear-gradient(-45deg, #0a0e1a, #141428, #1a1a3a, #0d1b3e);
+  background-size: 400% 400%;
+  animation: vipGradient 15s ease infinite;
+}
+.admin-sidebar {
+  backdrop-filter: blur(20px);
+  background: rgba(18, 60, 155, 0.92) !important;
+  border-right: 1px solid rgba(255, 215, 0, 0.15);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15);
+}
+.dark-mode .admin-sidebar { background: rgba(13, 27, 62, 0.92) !important; }
+.admin-card, .admin-stats .stat-item, .admin-quick-actions {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+}
+.dark-mode .admin-card,
+.dark-mode .admin-stats .stat-item,
+.dark-mode .admin-quick-actions {
+  background: rgba(20, 20, 40, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.admin-stats .stat-item { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.admin-stats .stat-item:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(18, 60, 155, 0.25);
+  border-color: var(--gold) !important;
+}
+.btn-add:hover, .btn-submit:hover, .btn-setting.success:hover {
+  box-shadow: 0 0 20px rgba(22, 163, 74, 0.6), 0 0 40px rgba(22, 163, 74, 0.3);
+  transform: translateY(-2px);
+}
+.admin-menu .menu-link.active,
+.admin-menu .menu-toggle.has-active {
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+  box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.1);
+}
+.login-box {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid rgba(255, 215, 0, 0.3) !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+}
+.dark-mode .login-box { background: rgba(20, 20, 40, 0.9) !important; }
+@keyframes vipShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.admin-logo h1 {
+  background: linear-gradient(90deg, #fff 0%, #ffd700 25%, #fff 50%, #ffd700 75%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: vipShimmer 3s linear infinite;
+}
+.admin-logo h1 span { -webkit-text-fill-color: #ffd700; }
+.toast {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+@media (pointer: fine) and (min-width: 900px) {
+  #vipCursor {
+    position: fixed; pointer-events: none; z-index: 999999;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,0,0.8), transparent 70%);
+    transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease;
+    mix-blend-mode: screen;
+    transform: translate(-50%, -50%);
+    left: -100px; top: -100px;
+  }
+}
+@keyframes idlePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.idle-warning { animation: idlePulse 1.5s ease infinite; }
+.admin-sidebar::-webkit-scrollbar, .admin-content::-webkit-scrollbar { width: 8px; }
+.admin-sidebar::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #ffd700, #1976d2); border-radius: 10px; }
+.admin-sidebar::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+
+@media(max-width:768px){
+  .admin-sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);z-index:999;width:280px;}
+  .admin-sidebar.open{transform:translateX(0);}
+  .admin-content{padding:16px;}
+  .admin-stats{grid-template-columns:1fr 1fr;}
+  .admin-menu-toggle{display:flex;}
+  #vipClock { padding: 4px 10px; }
+  #vipClock .vip-greeting { font-size: 10px; }
+  #vipClock .vip-time { font-size: 9px; }
+}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;}
+.sidebar-overlay.active{display:block;}
+</style>
 </head>
 <body>
 
-    <header class="app-header">
-        <a href="index.html" class="logo">🚀 <span>Dream</span>Josh</a>
-        <div class="header-controls">
-            <a href="index.html" class="nav-btn active">🏠 Home</a>
-            <a href="jobs.html" class="nav-btn">💼 Jobs</a>
-            <a href="career.html" class="nav-btn">🎯 Career</a>
-            <a href="blog.html" class="nav-btn">📝 Blog</a>
-            <a href="admin.html" class="nav-btn admin-btn">🔐 Admin</a>
-        </div>
-    </header>
+<!-- LOGIN SCREEN -->
+<div class="login-screen active" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="admin-icon">🔐</div>
+      <h1>🚀 <span>Dream</span>Josh</h1>
+      <div class="badge">ADMIN PANEL</div>
+    </div>
+    <h2>Login to Continue</h2>
+    <p class="subtitle">Enter your admin credentials</p>
 
-    <div class="main-scroll-area">
-        <div class="section-container">
-
-            <!-- ============ HOME (PURANA) ============ -->
-            <section class="page-view active" id="page-home">
-                <div class="home-original">
-                    <header>
-                        <h1>🚀 DREAM JOSH</h1>
-                        <p>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"</p>
-                        <small>Motivation • Study • Govt. Jobs • Career Guide</small>
-                    </header>
-                    <div class="ticker latest"><span>🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन</span></div>
-                    <div class="ticker update"><span>✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी</span></div>
-                    <div class="container">
-                        <div class="home-layout">
-                            <div class="left-content">
-                                <h2>🚀 Dream Josh में आपका स्वागत है</h2>
-                                <div class="card about-home">
-                                    <h3>🌟 Dream Josh के बारे में</h3>
-                                    <p><b>Dream Josh</b> एक educational और career guidance platform है। यहाँ आपको <b>Central Govt., Rajasthan Govt. और Private</b> सेक्टर की <b>150+ नौकरियों</b> की पूरी जानकारी मिलेगी।</p>
-                                    <h3>📚 Dream Josh पर क्या मिलेगा?</h3>
-                                    <ul>
-                                        <li>📖 Study Notes और अध्ययन सामग्री</li>
-                                        <li>🏛️ Govt. Jobs से संबंधित जानकारी</li>
-                                        <li>🎯 Career Guide और Career Options</li>
-                                        <li>📋 हर नौकरी की पूरी डिटेल</li>
-                                    </ul>
-                                    <div class="about-highlight">
-                                        <b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br>
-                                        <span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right-sidebar">
-                                <div class="sidebar-box">
-                                    <h3>📢 Latest Updates</h3>
-                                    <div class="notice"><ul id="latestUpdatesList"></ul></div>
-                                </div>
-                                <div class="sidebar-box">
-                                    <h3>📋 Important Forms</h3>
-                                    <div class="imp-links">
-                                        <a href="#">🪪 Aadhaar Card</a>
-                                        <a href="#">💳 PAN Card</a>
-                                        <a href="#">🗳️ Voter ID</a>
-                                        <a href="#">🛂 Passport</a>
-                                    </div>
-                                </div>
-                                <div class="sidebar-box">
-                                    <h3>📊 Total Jobs</h3>
-                                    <div style="padding:12px 14px;text-align:center;">
-                                        <div style="font-size:26px;font-weight:700;color:var(--primary-blue);" id="totalJobsSidebar">0</div>
-                                        <div style="font-size:11px;color:var(--text-light);">Available Jobs</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ============ NEW SECTIONS (NICHE ADD) ============ -->
-
-            <!-- TOP AD -->
-            <div class="ad-slot banner" id="adTop">
-                <div class="ad-label">Advertisement</div>
-                <div class="ad-text">📢 Your Ad Here — Contact us</div>
-            </div>
-
-            <!-- AGE CALCULATOR -->
-            <section class="section-block">
-                <div class="section-header"><h2><i class="fas fa-calculator"></i> Age Calculator</h2></div>
-                <div class="age-calc-wrapper">
-                    <h3>🧮 Check Your Age Eligibility</h3>
-                    <p>Apni date of birth daalein aur jaanein ki aap eligible hain ya nahi</p>
-                    <div class="age-calc-form">
-                        <input type="date" id="ageDob">
-                        <input type="number" id="ageMinAge" value="18" min="0" max="100" placeholder="Min Age">
-                        <input type="number" id="ageMaxAge" value="32" min="0" max="100" placeholder="Max Age">
-                    </div>
-                    <button class="age-calc-btn" onclick="calculateAge()"><i class="fas fa-search"></i> Check Eligibility</button>
-                    <div class="age-result" id="ageResult"></div>
-                </div>
-            </section>
-
-            <!-- SUCCESS STORIES -->
-            <section class="section-block">
-                <div class="section-header"><h2><i class="fas fa-trophy"></i> Success Stories</h2></div>
-                <div class="story-grid" id="storyGrid"></div>
-            </section>
-
-            <!-- YOUTUBE VIDEOS -->
-            <section class="section-block">
-                <div class="section-header">
-                    <h2><i class="fab fa-youtube" style="color:var(--youtube-red);"></i> Latest Videos</h2>
-                </div>
-                <div class="video-grid" id="videoGrid"></div>
-            </section>
-
-            <!-- COLLEGE DIRECTORY -->
-            <section class="section-block">
-                <div class="section-header"><h2><i class="fas fa-school"></i> College / Coaching Directory</h2></div>
-                <input type="text" class="college-search" id="collegeSearch" placeholder="🔍 Search colleges..." oninput="filterColleges()">
-                <div class="college-grid" id="collegeGrid"></div>
-            </section>
-
-            <!-- INSTAGRAM -->
-            <section class="section-block">
-                <div class="section-header">
-                    <h2><i class="fab fa-instagram" style="color:var(--instagram-pink);"></i> Follow on Instagram</h2>
-                </div>
-                <div class="insta-grid" id="instaGrid"></div>
-            </section>
-
-            <!-- MIDDLE AD -->
-            <div class="ad-slot" id="adMiddle">
-                <div class="ad-label">Advertisement</div>
-                <div class="ad-text">📢 Sponsored Content</div>
-            </div>
-
-            <!-- CONTACT US -->
-            <section class="section-block">
-                <div class="section-header"><h2><i class="fas fa-address-book"></i> Contact Us</h2></div>
-                <div class="contact-grid">
-                    <a href="tel:+919999999999" class="contact-card">
-                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                        <div class="contact-label">📞 Phone</div>
-                        <div class="contact-value">+91 99999 99999</div>
-                    </a>
-                    <a href="mailto:info@dreamjosh.com" class="contact-card">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="contact-label">📧 Email</div>
-                        <div class="contact-value">info@dreamjosh.com</div>
-                    </a>
-                    <a href="https://wa.me/919999999999" target="_blank" class="contact-card">
-                        <div class="contact-icon" style="background:var(--whatsapp-green);"><i class="fab fa-whatsapp"></i></div>
-                        <div class="contact-label">💬 WhatsApp</div>
-                        <div class="contact-value">Chat Now</div>
-                    </a>
-                    <div class="contact-card">
-                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="contact-label">📍 Address</div>
-                        <div class="contact-value">Jaipur, Rajasthan</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FOLLOW US -->
-            <section class="section-block">
-                <div class="section-header"><h2><i class="fas fa-share-alt"></i> Follow Us</h2></div>
-                <div class="social-grid">
-                    <a href="https://wa.me/919999999999" target="_blank" class="social-card whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <div class="social-info"><span class="social-name">WhatsApp</span><span class="social-sub">Join Channel</span></div>
-                    </a>
-                    <a href="https://t.me/dreamjosh" target="_blank" class="social-card telegram">
-                        <i class="fab fa-telegram"></i>
-                        <div class="social-info"><span class="social-name">Telegram</span><span class="social-sub">Join Group</span></div>
-                    </a>
-                    <a href="https://youtube.com/@dreamjosh" target="_blank" class="social-card youtube">
-                        <i class="fab fa-youtube"></i>
-                        <div class="social-info"><span class="social-name">YouTube</span><span class="social-sub">Subscribe</span></div>
-                    </a>
-                    <a href="https://instagram.com/dreamjosh" target="_blank" class="social-card instagram">
-                        <i class="fab fa-instagram"></i>
-                        <div class="social-info"><span class="social-name">Instagram</span><span class="social-sub">Follow</span></div>
-                    </a>
-                </div>
-            </section>
-
-        </div>
+    <div class="login-error" id="loginError">
+      <i class="fas fa-exclamation-circle"></i>
+      <span id="loginErrorText">Invalid credentials</span>
     </div>
 
-    <footer class="app-footer">
-        <div class="footer-links">
-            <a onclick="openPolicyModal('privacy')">📜 Privacy Policy</a>
-            <a onclick="openPolicyModal('terms')">📄 Terms of Service</a>
-            <a onclick="openPolicyModal('disclaimer')">⚠️ Disclaimer</a>
-            <a href="mailto:info@dreamjosh.com">📧 Contact</a>
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="login-form-group">
+        <label>👤 Username</label>
+        <div class="input-wrap">
+          <i class="fas fa-user"></i>
+          <input type="text" id="loginUsername" placeholder="Enter username" autocomplete="username" required>
         </div>
-        <div class="footer-copy">© 2026 <span>Dream Josh</span> • Made with ❤️ in India</div>
-    </footer>
-
-    <a href="https://wa.me/919999999999" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
-    <button class="pwa-install-btn" id="pwaInstallBtn" onclick="installPWA()"><i class="fas fa-download"></i> Install</button>
-    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
-
-    <div class="modal-overlay" id="policyModal" onclick="if(event.target===this) closeModal('policyModal')">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3 id="policyTitle">Privacy Policy</h3>
-                <button class="modal-close" onclick="closeModal('policyModal')">&times;</button>
-            </div>
-            <div class="modal-content" id="policyContent"></div>
+      </div>
+      <div class="login-form-group">
+        <label>🔒 Password</label>
+        <div class="input-wrap">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password" required>
         </div>
+      </div>
+      <button type="submit" class="login-btn" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-wrapper" id="adminWrapper">
+  <div class="admin-sidebar" id="adminSidebar">
+    <div class="admin-logo">
+      <h1>🚀 <span>Dream</span>Josh</h1>
+      <span class="badge">Admin</span>
+    </div>
+    <div class="admin-user">
+      <div class="avatar">A</div>
+      <div>
+        <div class="name" id="loggedInUser">Administrator</div>
+        <div class="role">Super Admin</div>
+      </div>
     </div>
 
-    <script>
-        // FIREBASE
-        const firebaseConfig = {
-            apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
-            authDomain: "dreamjosh-7d9ee.firebaseapp.com",
-            projectId: "dreamjosh-7d9ee",
-            storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
-            messagingSenderId: "461367857074",
-            appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
-        };
-        let firebaseApp, firebaseDB;
-        try {
-            firebaseApp = firebase.initializeApp(firebaseConfig);
-            firebaseDB = firebase.firestore();
-        } catch (err) { console.error(err); }
+    <ul class="admin-menu" id="dynamicSidebar"></ul>
 
-        let contentData = { stories: [], videos: [], ads: [], instaPosts: [], colleges: [] };
+    <div class="admin-footer-menu">
+      <a class="menu-link" href="index.html">
+        <i class="fas fa-home menu-icon"></i> Back to Home
+      </a>
+      <a class="menu-link" onclick="handleLogout()">
+        <i class="fas fa-sign-out-alt menu-icon"></i> Logout
+      </a>
+    </div>
+  </div>
 
-        // LATEST UPDATES (PURANA)
-        const LATEST_UPDATES = [
-            '🔴 SSC CGL 2026 Notification जल्दी आ रही है',
-            '🟢 RPSC RAS 2026 की तैयारी शुरू करें',
-            '🔵 REET 2026 के लिए आवेदन प्रक्रिया शुरू',
-            '🟠 Google India में 500+ नई भर्तियाँ',
-            '🟣 UPSC 2026 का नोटिफिकेशन जारी',
-            '🟡 Railway RRB NTPC की तैयारी करें',
-            '🟤 SBI PO 2026 की भर्ती शुरू',
-            '⚫ Rajasthan Police Constable भर्ती',
-            '⚪ IBPS Clerk 2026 Notification',
-            '🔶 State PSC Exams की तैयारी करें'
-        ];
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-        function initLatestUpdates() {
-            const list = document.getElementById('latestUpdatesList');
-            if (!list) return;
-            const doubled = [...LATEST_UPDATES, ...LATEST_UPDATES];
-            list.innerHTML = doubled.map(txt => `<li>${txt}</li>`).join('');
-        }
+  <div class="admin-content">
+    <div class="admin-top-header">
+      <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
+      <div class="admin-actions" id="adminActions">
+        <button class="admin-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
+        <button class="btn-logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        <a href="index.html" class="btn-close-admin"><i class="fas fa-times"></i> Close</a>
+      </div>
+    </div>
 
-        // AGE CALCULATOR
-        function calculateAge() {
-            const dobInput = document.getElementById('ageDob').value;
-            const minAge = parseInt(document.getElementById('ageMinAge').value) || 18;
-            const maxAge = parseInt(document.getElementById('ageMaxAge').value) || 32;
-            const resultEl = document.getElementById('ageResult');
+    <!-- DASHBOARD -->
+    <div id="adminPage-dashboard" class="admin-section active">
+      <div class="admin-stats">
+        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value" id="statPages">0</div></div>
+        <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
+        <div class="stat-item"><div class="stat-icon">📸</div><div class="stat-label">Slides</div><div class="stat-value" id="statSlides">0</div></div>
+        <div class="stat-item"><div class="stat-icon">👥</div><div class="stat-label">Employees</div><div class="stat-value" id="statEmployees">0</div></div>
+      </div>
+      <div class="admin-quick-actions">
+        <h3>⚡ Quick Actions</h3>
+        <div class="actions-grid">
+          <button onclick="showAdminPage('pages')"><i class="fas fa-plus"></i> Manage Pages</button>
+          <button onclick="showAdminPage('jobs-manager');openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+          <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
+        </div>
+      </div>
+    </div>
 
-            if (!dobInput) { showToast('Enter DOB', 'error'); return; }
+    <!-- PAGES MANAGER -->
+    <div id="adminPage-pages" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📄 Pages Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openPageModal()"><i class="fas fa-plus"></i> Add New Page</button>
+            <button class="btn-add primary" onclick="resetPagesToDefault()"><i class="fas fa-sync-alt"></i> Reset to Default</button>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">
+          Yahan se saare pages aur sub-pages add, edit, delete, public/private kar sakte hain.
+        </p>
+        <div class="page-grid" id="pagesGrid"></div>
+      </div>
+    </div>
 
-            const dob = new Date(dobInput);
-            const today = new Date();
-            if (dob > today) { showToast('DOB cannot be future', 'error'); return; }
+    <!-- JOBS MANAGER -->
+    <div id="adminPage-jobs-manager" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>💼 Jobs Manager <span id="jobsCountBadge" style="background:var(--primary-blue);color:#fff;padding:2px 12px;border-radius:20px;font-size:12px;margin-left:8px;">0</span></h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+            <button class="btn-add bulk" onclick="openBulkJobModal()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+            <button class="btn-add primary" onclick="reloadDefaultJobs()"><i class="fas fa-sync-alt"></i> Reload Default</button>
+          </div>
+        </div>
+        
+        <!-- Filter Tabs -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
+          <button class="settings-tab-btn active" onclick="filterJobs('all')" id="jobFilter-all">📋 All Jobs</button>
+          <button class="settings-tab-btn" onclick="filterJobs('central')" id="jobFilter-central">🏛️ Central Govt.</button>
+          <button class="settings-tab-btn" onclick="filterJobs('state')" id="jobFilter-state">🏜️ Rajasthan Govt.</button>
+          <button class="settings-tab-btn" onclick="filterJobs('private')" id="jobFilter-private">💼 Private</button>
+        </div>
+        
+        <div id="jobsContainer"></div>
+      </div>
+    </div>
 
-            let years = today.getFullYear() - dob.getFullYear();
-            let months = today.getMonth() - dob.getMonth();
-            let days = today.getDate() - dob.getDate();
+    <!-- SLIDES -->
+    <div id="adminPage-slides" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>📸 Slides Manager</h4>
+          <button class="btn-add" onclick="openSlideModal()"><i class="fas fa-plus"></i> Add Slide</button>
+        </div>
+        <div id="adminSlidesContainer"></div>
+      </div>
+    </div>
 
-            if (days < 0) { months--; days += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
-            if (months < 0) { years--; months += 12; }
+    <!-- EMPLOYEES -->
+    <div id="adminPage-employees" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>👥 Employees</h4>
+          <button class="btn-add" onclick="openEmployeeModal()"><i class="fas fa-user-plus"></i> Add</button>
+        </div>
+        <div id="employeeListContainer"></div>
+      </div>
+    </div>
 
-            const isEligible = years >= minAge && years <= maxAge;
-            let detail = '';
-            if (years < minAge) detail = `${minAge - years} saal chhote hain. Min ${minAge} years.`;
-            else if (years > maxAge) detail = `${years - maxAge} saal bade hain. Max ${maxAge} years.`;
-            else detail = `Age ${minAge}-${maxAge} range mein hai. Apply kar sakte hain!`;
+    <!-- SETTINGS -->
+    <div id="adminPage-settings" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>⚙️ Settings</h4>
+          <span style="font-size:12px;color:var(--text-light);">सभी settings यहाँ से manage करें</span>
+        </div>
 
-            resultEl.innerHTML = `
-                <div class="result-main">${years} years, ${months} months, ${days} days</div>
-                <div class="result-detail">Your age</div>
-                <div class="result-status ${isEligible ? 'eligible' : 'not-eligible'}">${isEligible ? '✅ ELIGIBLE' : '❌ NOT ELIGIBLE'}</div>
-                <div class="result-detail" style="margin-top:8px;">${detail}</div>
-            `;
-            resultEl.classList.add('show');
-            showToast(isEligible ? '✅ Eligible!' : '❌ Not eligible', isEligible ? 'success' : 'error');
-        }
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
+          <button class="settings-tab-btn active" data-tab="general" onclick="switchSettingsTab('general')">🏠 General</button>
+          <button class="settings-tab-btn" data-tab="security" onclick="switchSettingsTab('security')">🔐 Security</button>
+          <button class="settings-tab-btn" data-tab="backup" onclick="switchSettingsTab('backup')">💾 Backup</button>
+        </div>
 
-        // RENDER STORIES
-        function renderStories() {
-            const grid = document.getElementById('storyGrid');
-            if (!grid) return;
-            const items = contentData.stories || [];
-            if (!items.length) { grid.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-light);">No stories yet</div>'; return; }
-            grid.innerHTML = items.map(s => `
-                <div class="story-card">
-                    <div class="story-quote">"</div>
-                    <div class="story-text">${escapeHtml(s.text)}</div>
-                    <div class="story-user">
-                        <div class="story-avatar">${escapeHtml(s.initial || s.name?.charAt(0) || '?')}</div>
-                        <div class="story-info">
-                            <div class="story-name">${escapeHtml(s.name)}</div>
-                            <div class="story-role">${escapeHtml(s.role || '')}</div>
-                        </div>
-                    </div>
-                    ${s.badge ? `<div class="story-badge">${escapeHtml(s.badge)}</div>` : ''}
-                    <div class="story-stars">${'⭐'.repeat(s.stars || 5)}</div>
-                </div>
-            `).join('');
-        }
+        <div class="settings-tab-content active" id="settings-tab-general">
+          <div class="setting-group">
+            <h5>🌐 Site Information</h5>
+            <div class="setting-row"><label>Site Name</label><input type="text" id="setSiteName"></div>
+            <div class="setting-row"><label>Tagline</label><input type="text" id="setTagline"></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save General</button>
+        </div>
 
-        // RENDER VIDEOS
-        function renderVideos() {
-            const grid = document.getElementById('videoGrid');
-            if (!grid) return;
-            const items = contentData.videos || [];
-            if (!items.length) { grid.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-light);">No videos yet</div>'; return; }
-            grid.innerHTML = items.map(v => `
-                <div class="video-card">
-                    <div class="video-thumb">
-                        <iframe src="https://www.youtube.com/embed/${v.id}" title="${escapeHtml(v.title)}" allowfullscreen loading="lazy"></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">${escapeHtml(v.title)}</div>
-                        <div class="video-meta">${escapeHtml(v.channel || 'Dream Josh')} • ${escapeHtml(v.views || '')}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
+        <div class="settings-tab-content" id="settings-tab-security">
+          <div class="setting-group">
+            <h5>🔑 Change Password</h5>
+            <div class="setting-row"><label>Current</label><input type="password" id="setCurPassword"></div>
+            <div class="setting-row"><label>New</label><input type="password" id="setNewPassword"></div>
+            <div class="setting-row"><label>Confirm</label><input type="password" id="setConfirmPassword"></div>
+            <button class="btn-setting danger" onclick="changeAdminPassword()" style="margin-top:8px;"><i class="fas fa-key"></i> Change Password</button>
+          </div>
+          <div class="setting-group">
+            <h5>📋 Activity Log</h5>
+            <div style="background:var(--bg-color);border-radius:6px;padding:12px;max-height:200px;overflow-y:auto;font-size:12px;font-family:monospace;">
+              <div id="activityLogContainer">No activity yet</div>
+            </div>
+            <button class="btn-setting danger" onclick="clearActivityLog()" style="margin-top:8px;"><i class="fas fa-trash"></i> Clear Log</button>
+          </div>
+        </div>
 
-        // RENDER ADS
-        function renderAds() {
-            const ads = contentData.ads || [];
-            ads.forEach(ad => {
-                let slot;
-                if (ad.position === 'top') slot = document.getElementById('adTop');
-                else if (ad.position === 'middle') slot = document.getElementById('adMiddle');
-                if (slot && ad.code) slot.innerHTML = ad.code;
-                else if (slot && ad.text) {
-                    const textEl = slot.querySelector('.ad-text');
-                    const labelEl = slot.querySelector('.ad-label');
-                    if (textEl) textEl.textContent = ad.text;
-                    if (labelEl && ad.label) labelEl.textContent = ad.label;
-                }
-            });
-        }
+        <div class="settings-tab-content" id="settings-tab-backup">
+          <div class="setting-group">
+            <h5>💾 Manual Backup</h5>
+            <button class="btn-setting success" onclick="exportAllData()"><i class="fas fa-download"></i> Backup JSON</button>
+          </div>
+          <div class="setting-group">
+            <h5>📥 Restore</h5>
+            <input type="file" id="restoreFileInput" accept=".json" style="padding:6px;border:2px dashed var(--border-color);border-radius:6px;width:100%;">
+            <button class="btn-setting primary" onclick="importData()" style="margin-top:8px;"><i class="fas fa-upload"></i> Restore</button>
+          </div>
+          <div class="setting-group">
+            <h5>🗑️ Clear All</h5>
+            <button class="btn-setting danger" onclick="clearAllAdminData()"><i class="fas fa-trash"></i> Clear Everything</button>
+          </div>
+        </div>
 
-        // RENDER INSTAGRAM
-        function renderInsta() {
-            const grid = document.getElementById('instaGrid');
-            if (!grid) return;
-            const items = contentData.instaPosts || [];
-            if (!items.length) { grid.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-light);">No posts yet</div>'; return; }
-            grid.innerHTML = items.map(p => `
-                <a href="${p.link || 'https://instagram.com/dreamjosh'}" target="_blank" class="insta-item">
-                    <div class="insta-content">${p.emoji || '📷'}</div>
-                    <div class="insta-overlay">
-                        <i class="fab fa-instagram"></i>
-                        <span>${escapeHtml(p.label)}</span>
-                    </div>
-                </a>
-            `).join('');
-        }
+      </div>
+    </div>
 
-        // RENDER COLLEGES
-        function renderColleges(filter = '') {
-            const grid = document.getElementById('collegeGrid');
-            if (!grid) return;
-            const items = contentData.colleges || [];
-            const filtered = items.filter(c => {
-                if (!filter) return true;
-                const s = filter.toLowerCase();
-                return c.name?.toLowerCase().includes(s) || c.city?.toLowerCase().includes(s) || c.type?.toLowerCase().includes(s) || (c.courses || []).some(course => course.toLowerCase().includes(s));
-            });
-            if (!filtered.length) { grid.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-light);">No colleges found</div>'; return; }
-            grid.innerHTML = filtered.map(c => `
-                <div class="college-card">
-                    <div class="college-head">
-                        <div class="college-icon"><i class="fas fa-${c.type === 'College' ? 'university' : 'chalkboard-teacher'}"></i></div>
-                        <div>
-                            <div class="college-name">${escapeHtml(c.name)}</div>
-                            <div class="college-type">${escapeHtml(c.type)} • ${escapeHtml(c.city)}</div>
-                        </div>
-                    </div>
-                    ${c.info ? `<div class="college-info">${escapeHtml(c.info)}</div>` : ''}
-                    ${c.courses?.length ? `<div class="college-tags">${c.courses.map(course => `<span class="college-tag">${escapeHtml(course)}</span>`).join('')}</div>` : ''}
-                </div>
-            `).join('');
-        }
+  </div>
+</div>
 
-        function filterColleges() {
-            renderColleges(document.getElementById('collegeSearch').value);
-        }
+<!-- MODAL -->
+<div class="admin-modal-overlay" id="adminModalOverlay" onclick="if(event.target===this) closeAdminModal()">
+  <div class="admin-modal" id="adminModalBox">
+    <div class="modal-header">
+      <h3 id="adminModalTitle">Edit</h3>
+      <button class="close-modal" onclick="closeAdminModal()">&times;</button>
+    </div>
+    <div id="adminModalBody"></div>
+  </div>
+</div>
 
-        // LOAD JOBS FROM FIREBASE
-        async function loadJobsFromFirebase() {
-            if (!firebaseDB) { document.getElementById('totalJobsSidebar').textContent = '25+'; return; }
-            try {
-                const doc = await firebaseDB.collection('dreamjosh').doc('jobsData').get();
-                if (doc.exists && doc.data().jobs) {
-                    const jobs = doc.data().jobs;
-                    document.getElementById('totalJobsSidebar').textContent = jobs.length + '+';
-                } else { document.getElementById('totalJobsSidebar').textContent = '25+'; }
-            } catch (err) { document.getElementById('totalJobsSidebar').textContent = '25+'; }
-        }
+<script>
+// ============================================================
+// 🔐 LOGIN CREDENTIALS
+// ============================================================
+const DEFAULT_ADMIN = { username: 'Admin', password: 'Admin@123' };
+const LOGIN_SESSION_KEY = 'dreamjosh_admin_session';
+const SESSION_DURATION = 8 * 60 * 60 * 1000;
+const IDLE_TIMEOUT = 10 * 60 * 1000;
+const IDLE_WARNING_TIME = 60 * 1000;
 
-        // LOAD CONTENT FROM FIREBASE
-        async function loadContentFromFirebase() {
-            if (!firebaseDB) {
-                renderStories(); renderVideos(); renderAds(); renderInsta(); renderColleges();
-                return;
-            }
-            try {
-                const doc = await firebaseDB.collection('dreamjosh').doc('homeContent').get();
-                if (doc.exists) contentData = { ...contentData, ...doc.data() };
-            } catch (err) { console.warn(err); }
-            renderStories();
-            renderVideos();
-            renderAds();
-            renderInsta();
-            renderColleges();
-        }
+const firebaseConfig = {
+  apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
+  authDomain: "dreamjosh-7d9ee.firebaseapp.com",
+  projectId: "dreamjosh-7d9ee",
+  storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
+  messagingSenderId: "461367857074",
+  appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
+};
 
-        // POLICY MODAL
-        const POLICY_CONTENT = {
-            privacy: `<h4>Privacy Policy</h4><p>Dream Josh aapki privacy ko respect karta hai.</p><h4>1. Information</h4><ul><li>Basic info: Naam, email</li><li>Usage data</li></ul><h4>2. Contact</h4><p>info@dreamjosh.com</p>`,
-            terms: `<h4>Terms of Service</h4><h4>1. Acceptance</h4><p>Website use = terms accept</p><h4>2. Content</h4><ul><li>Personal use only</li></ul><h4>3. Job Info</h4><p>Official website verify karein</p>`,
-            disclaimer: `<h4>Disclaimer</h4><h4>1. Job Info</h4><p>Different sources se collect. Verify karein.</p><h4>2. No Guarantee</h4><p>Kisi bhi job ki guarantee nahi.</p><h4>3. Copyright</h4><p>Issue ho toh contact karein.</p>`
-        };
+let firebaseApp, firebaseDB, firebaseStorage;
+try {
+  firebaseApp = firebase.initializeApp(firebaseConfig);
+  firebaseDB = firebase.firestore();
+  firebaseStorage = firebase.storage();
+} catch (err) { console.error(err); }
 
-        function openPolicyModal(type) {
-            const titles = { privacy: '📜 Privacy Policy', terms: '📄 Terms of Service', disclaimer: '⚠️ Disclaimer' };
-            document.getElementById('policyTitle').textContent = titles[type] || 'Policy';
-            document.getElementById('policyContent').innerHTML = POLICY_CONTENT[type] || '';
-            document.getElementById('policyModal').classList.add('active');
-        }
+// ============================================================
+// STATE
+// ============================================================
+let appData = {};
+let pagesData = [];
+let jobsData = [];
+let settings = {};
+let activityLog = [];
+let currentJobFilter = 'all';
 
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+const STORAGE_KEY = 'dreamjosh_admin_data';
+const PAGES_KEY = 'dreamjosh_pages_data';
+const SETTINGS_KEY = 'dreamjosh_settings';
+const ACTIVITY_LOG_KEY = 'dreamjosh_activity_log';
+const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
 
-        // PWA
-        let deferredPrompt = null;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            setTimeout(() => document.getElementById('pwaInstallBtn').classList.add('show'), 3000);
-        });
+// ============================================================
+// 💼 DEFAULT JOBS — 55+ Jobs Pre-Loaded
+// ============================================================
+const DEFAULT_JOBS = [
+  // 🏛️ CENTRAL GOVERNMENT JOBS (25)
+  { title: 'IAS (Indian Administrative Service)', jobType: 'central', department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', description: 'Premier civil service of India.' },
+  { title: 'IPS (Indian Police Service)', jobType: 'central', department: 'UPSC', post: 'IPS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', description: 'Maintains law and order.' },
+  { title: 'IFS (Indian Foreign Service)', jobType: 'central', department: 'UPSC', post: 'IFS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', description: 'Diplomatic service of India.' },
+  { title: 'IRS (Indian Revenue Service)', jobType: 'central', department: 'UPSC', post: 'IRS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', description: 'Revenue and taxation department.' },
+  { title: 'SSC CGL (Combined Graduate Level)', jobType: 'central', department: 'SSC', post: 'Various Group B & C', eligibility: 'Graduate', age: '18-32 Years', lastDate: '2026-07-15', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'Group B and C posts in various ministries.' },
+  { title: 'SSC CHSL (10+2 Level)', jobType: 'central', department: 'SSC', post: 'LDC, DEO, Postal Assistant', eligibility: '12th Pass', age: '18-27 Years', lastDate: '2026-08-01', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'Lower Division Clerk and Data Entry Operator.' },
+  { title: 'SSC MTS (Multi Tasking Staff)', jobType: 'central', department: 'SSC', post: 'MTS', eligibility: '10th Pass', age: '18-25 Years', lastDate: '2026-09-01', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'Multi Tasking Staff in government offices.' },
+  { title: 'SSC GD Constable', jobType: 'central', department: 'SSC', post: 'GD Constable', eligibility: '10th Pass', age: '18-23 Years', lastDate: '2026-09-15', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'General Duty Constable in CAPF.' },
+  { title: 'SSC JE (Junior Engineer)', jobType: 'central', department: 'SSC', post: 'Junior Engineer', eligibility: 'Diploma/BE', age: '18-32 Years', lastDate: '2026-10-01', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'Junior Engineer in various departments.' },
+  { title: 'SSC CPO (Central Police Organization)', jobType: 'central', department: 'SSC', post: 'Sub Inspector', eligibility: 'Graduate', age: '20-25 Years', lastDate: '2026-10-15', website: 'https://ssc.nic.in', applyLink: 'https://ssc.nic.in/apply', description: 'Sub Inspector in Delhi Police and CAPF.' },
+  { title: 'RRB NTPC (Non-Technical)', jobType: 'central', department: 'Railway (RRB)', post: 'Station Master, Clerk, Goods Guard', eligibility: '12th/Graduate', age: '18-33 Years', lastDate: '2026-05-30', website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply', description: 'Non-technical posts in Indian Railways.' },
+  { title: 'RRB Group D', jobType: 'central', department: 'Railway (RRB)', post: 'Track Maintainer, Helper', eligibility: '10th Pass', age: '18-33 Years', lastDate: '2026-06-15', website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply', description: 'Group D posts in Indian Railways.' },
+  { title: 'RRB ALP (Assistant Loco Pilot)', jobType: 'central', department: 'Railway (RRB)', post: 'ALP', eligibility: '10th + ITI', age: '18-30 Years', lastDate: '2026-07-01', website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply', description: 'Assistant Loco Pilot in Railways.' },
+  { title: 'RRB JE (Junior Engineer)', jobType: 'central', department: 'Railway (RRB)', post: 'Junior Engineer', eligibility: 'Diploma/BE', age: '18-33 Years', lastDate: '2026-07-15', website: 'https://rrb.gov.in', applyLink: 'https://rrb.gov.in/apply', description: 'Junior Engineer in Railways.' },
+  { title: 'IBPS PO (Probationary Officer)', jobType: 'central', department: 'Banking (IBPS)', post: 'PO', eligibility: 'Graduate', age: '20-30 Years', lastDate: '2026-08-01', website: 'https://ibps.in', applyLink: 'https://ibps.in/apply', description: 'Probationary Officer in Public Sector Banks.' },
+  { title: 'IBPS Clerk', jobType: 'central', department: 'Banking (IBPS)', post: 'Clerk', eligibility: 'Graduate', age: '20-28 Years', lastDate: '2026-08-15', website: 'https://ibps.in', applyLink: 'https://ibps.in/apply', description: 'Clerical posts in Public Sector Banks.' },
+  { title: 'IBPS SO (Specialist Officer)', jobType: 'central', department: 'Banking (IBPS)', post: 'IT/Agriculture/Law Officer', eligibility: 'Graduate/PG', age: '20-30 Years', lastDate: '2026-09-01', website: 'https://ibps.in', applyLink: 'https://ibps.in/apply', description: 'Specialist Officer posts in banks.' },
+  { title: 'SBI PO (Probationary Officer)', jobType: 'central', department: 'Banking (SBI)', post: 'PO', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-15', website: 'https://sbi.co.in', applyLink: 'https://sbi.co.in/apply', description: 'Top banking job in India.' },
+  { title: 'SBI Clerk', jobType: 'central', department: 'Banking (SBI)', post: 'Clerk', eligibility: 'Graduate', age: '20-28 Years', lastDate: '2026-08-20', website: 'https://sbi.co.in', applyLink: 'https://sbi.co.in/apply', description: 'Clerk in State Bank of India.' },
+  { title: 'RBI Grade B Officer', jobType: 'central', department: 'Banking (RBI)', post: 'Grade B Officer', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-10', website: 'https://rbi.org.in', applyLink: 'https://rbi.org.in/apply', description: 'Prestigious banking exam.' },
+  { title: 'NDA (National Defence Academy)', jobType: 'central', department: 'Defence (NDA)', post: 'Army/Navy/Air Force Cadet', eligibility: '12th Pass', age: '16.5-19.5 Years', lastDate: '2026-06-20', website: 'https://nda.nic.in', applyLink: 'https://nda.nic.in/apply', description: 'Entry to Defence services.' },
+  { title: 'CDS (Combined Defence Services)', jobType: 'central', department: 'Defence (CDS)', post: 'Officer', eligibility: 'Graduate', age: '19-25 Years', lastDate: '2026-07-05', website: 'https://upsc.gov.in', applyLink: 'https://upsc.gov.in/apply', description: 'Officer entry in Defence.' },
+  { title: 'Indian Army Agniveer', jobType: 'central', department: 'Defence (Army)', post: 'Agniveer', eligibility: '10th/12th Pass', age: '17.5-21 Years', lastDate: '2026-08-10', website: 'https://joinindianarmy.nic.in', applyLink: 'https://joinindianarmy.nic.in/apply', description: 'Short-term Army recruitment.' },
+  { title: 'Indian Navy Agniveer', jobType: 'central', department: 'Defence (Navy)', post: 'Agniveer', eligibility: '10th/12th Pass', age: '17.5-21 Years', lastDate: '2026-08-15', website: 'https://joinindiannavy.gov.in', applyLink: 'https://joinindiannavy.gov.in/apply', description: 'Short-term Navy recruitment.' },
+  { title: 'Indian Air Force Agniveer', jobType: 'central', department: 'Defence (Air Force)', post: 'Agniveer', eligibility: '12th Pass', age: '17.5-21 Years', lastDate: '2026-08-20', website: 'https://agnipathvayu.cdac.in', applyLink: 'https://agnipathvayu.cdac.in/apply', description: 'Short-term Air Force recruitment.' },
 
-        function installPWA() {
-            if (!deferredPrompt) { showToast('Install not supported', 'info'); return; }
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then(choice => {
-                if (choice.outcome === 'accepted') {
-                    showToast('✅ Installed!', 'success');
-                    document.getElementById('pwaInstallBtn').classList.remove('show');
-                }
-                deferredPrompt = null;
-            });
-        }
+  // 🏜️ RAJASTHAN STATE JOBS (20)
+  { title: 'RAS (Rajasthan Administrative Service)', jobType: 'state', department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-07-20', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'State civil service of Rajasthan.' },
+  { title: 'RPS (Rajasthan Police Service)', jobType: 'state', department: 'RPSC', post: 'RPS Officer', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-07-25', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'Police service of Rajasthan.' },
+  { title: 'Rajasthan Police Constable', jobType: 'state', department: 'Rajasthan Police', post: 'Constable', eligibility: '10+2', age: '18-28 Years', lastDate: '2026-09-01', website: 'https://police.rajasthan.gov.in', applyLink: 'https://police.rajasthan.gov.in/apply', description: 'Entry-level police post.' },
+  { title: 'Rajasthan Police Sub Inspector', jobType: 'state', department: 'Rajasthan Police', post: 'Sub Inspector', eligibility: 'Graduate', age: '20-25 Years', lastDate: '2026-08-15', website: 'https://police.rajasthan.gov.in', applyLink: 'https://police.rajasthan.gov.in/apply', description: 'Sub Inspector in Rajasthan Police.' },
+  { title: 'REET (Rajasthan Eligibility Exam)', jobType: 'state', department: 'Education (RBSE)', post: 'Teacher', eligibility: 'Graduate + B.Ed', age: '18-40 Years', lastDate: '2026-08-15', website: 'https://rajeduboard.rajasthan.gov.in', applyLink: 'https://rajeduboard.rajasthan.gov.in/apply', description: 'Teacher recruitment in Rajasthan.' },
+  { title: 'RSMSSB Rajasthan Teacher', jobType: 'state', department: 'Education (RSMSSB)', post: 'Teacher (Grade 3)', eligibility: 'Graduate + B.Ed', age: '18-40 Years', lastDate: '2026-09-10', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Teacher in government schools.' },
+  { title: 'RSMSSB LDC (Lower Division Clerk)', jobType: 'state', department: 'RSMSSB', post: 'LDC', eligibility: '12th Pass', age: '18-40 Years', lastDate: '2026-08-25', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'LDC posts in Rajasthan govt.' },
+  { title: 'RSMSSB Junior Assistant', jobType: 'state', department: 'RSMSSB', post: 'Junior Assistant', eligibility: '12th Pass', age: '18-40 Years', lastDate: '2026-09-05', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Junior Assistant posts.' },
+  { title: 'RSMSSB Rajasthan Patwari', jobType: 'state', department: 'Revenue (RSMSSB)', post: 'Patwari', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-10-01', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Patwari in Revenue Department.' },
+  { title: 'RSMSSB Rajasthan CHO', jobType: 'state', department: 'Health (RSMSSB)', post: 'Community Health Officer', eligibility: 'BSc Nursing', age: '21-40 Years', lastDate: '2026-10-10', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Community Health Officer.' },
+  { title: 'RPSC Rajasthan Lecturer', jobType: 'state', department: 'Education (RPSC)', post: 'Lecturer', eligibility: 'PG + NET', age: '21-40 Years', lastDate: '2026-11-01', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'Lecturer in colleges.' },
+  { title: 'RPSC Rajasthan School Lecturer', jobType: 'state', department: 'Education (RPSC)', post: 'School Lecturer', eligibility: 'PG + B.Ed', age: '21-40 Years', lastDate: '2026-11-15', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'School Lecturer posts.' },
+  { title: 'RPSC Rajasthan ACF (Assistant Conservator of Forest)', jobType: 'state', department: 'Forest (RPSC)', post: 'ACF', eligibility: 'Graduate/BSc', age: '21-40 Years', lastDate: '2026-08-20', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'Forest service of Rajasthan.' },
+  { title: 'RPSC Rajasthan Forest Range Officer', jobType: 'state', department: 'Forest (RPSC)', post: 'RFO', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-09-01', website: 'https://rpsc.rajasthan.gov.in', applyLink: 'https://rpsc.rajasthan.gov.in/apply', description: 'Range Officer in Forest.' },
+  { title: 'Rajasthan High Court Assistant', jobType: 'state', department: 'Judiciary (High Court)', post: 'Assistant', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-09-20', website: 'https://hcraj.nic.in', applyLink: 'https://hcraj.nic.in/apply', description: 'Assistant in Rajasthan High Court.' },
+  { title: 'Rajasthan High Court Junior Assistant', jobType: 'state', department: 'Judiciary (High Court)', post: 'Junior Assistant', eligibility: '12th Pass', age: '18-40 Years', lastDate: '2026-10-05', website: 'https://hcraj.nic.in', applyLink: 'https://hcraj.nic.in/apply', description: 'Junior Assistant in High Court.' },
+  { title: 'Rajasthan High Court Clerk', jobType: 'state', department: 'Judiciary (High Court)', post: 'Clerk', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-10-15', website: 'https://hcraj.nic.in', applyLink: 'https://hcraj.nic.in/apply', description: 'Clerk in Rajasthan High Court.' },
+  { title: 'RSMSSB Rajasthan Lab Assistant', jobType: 'state', department: 'Technical (RSMSSB)', post: 'Lab Assistant', eligibility: 'BSc', age: '18-40 Years', lastDate: '2026-11-01', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Lab Assistant in Rajasthan.' },
+  { title: 'RSMSSB Rajasthan Junior Engineer', jobType: 'state', department: 'Technical (RSMSSB)', post: 'Junior Engineer', eligibility: 'Diploma/BE', age: '18-40 Years', lastDate: '2026-11-10', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Junior Engineer in Rajasthan.' },
+  { title: 'RSMSSB Rajasthan Agriculture Supervisor', jobType: 'state', department: 'Agriculture (RSMSSB)', post: 'Agriculture Supervisor', eligibility: 'BSc Agriculture', age: '18-40 Years', lastDate: '2026-12-01', website: 'https://rsmssb.rajasthan.gov.in', applyLink: 'https://rsmssb.rajasthan.gov.in/apply', description: 'Agriculture Supervisor.' },
 
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('backToTop');
-            if (window.scrollY > 400) btn.classList.add('show');
-            else btn.classList.remove('show');
-        });
+  // 💼 PRIVATE SECTOR JOBS (10)
+  { title: 'Software Engineer – Google India', jobType: 'private', department: 'IT/Software', post: 'Software Engineer', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-04-15', website: 'https://careers.google.com', applyLink: 'https://careers.google.com/apply', description: 'Google India hiring SDEs.' },
+  { title: 'Software Developer – Microsoft India', jobType: 'private', department: 'IT/Software', post: 'Software Developer', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-05-01', website: 'https://careers.microsoft.com', applyLink: 'https://careers.microsoft.com/apply', description: 'Microsoft hiring developers.' },
+  { title: 'Data Analyst – Amazon India', jobType: 'private', department: 'IT/Software', post: 'Data Analyst', eligibility: 'B.Tech/MBA', age: '22-35 Years', lastDate: '2026-05-15', website: 'https://amazon.jobs', applyLink: 'https://amazon.jobs/apply', description: 'Data Analyst role at Amazon.' },
+  { title: 'Finance Manager – HSBC India', jobType: 'private', department: 'Finance/Banking', post: 'Finance Manager', eligibility: 'CA/CFA/MBA', age: '25-40 Years', lastDate: '2026-05-10', website: 'https://www.hsbc.com/careers', applyLink: 'https://www.hsbc.com/careers/apply', description: 'Finance Manager at HSBC.' },
+  { title: 'Relationship Manager – ICICI Bank', jobType: 'private', department: 'Finance/Banking', post: 'Relationship Manager', eligibility: 'Graduate/MBA', age: '22-35 Years', lastDate: '2026-06-01', website: 'https://www.icicibank.com/careers', applyLink: 'https://www.icicibank.com/careers/apply', description: 'Relationship Manager at ICICI.' },
+  { title: 'Marketing Executive – Amazon India', jobType: 'private', department: 'Marketing/Sales', post: 'Marketing Executive', eligibility: 'MBA/BBA', age: '22-30 Years', lastDate: '2026-06-01', website: 'https://amazon.jobs', applyLink: 'https://amazon.jobs/apply', description: 'Marketing Executive at Amazon.' },
+  { title: 'Sales Manager – Reliance Retail', jobType: 'private', department: 'Marketing/Sales', post: 'Sales Manager', eligibility: 'Graduate/MBA', age: '25-40 Years', lastDate: '2026-06-15', website: 'https://careers.ril.com', applyLink: 'https://careers.ril.com/apply', description: 'Sales Manager at Reliance.' },
+  { title: 'HR Executive – Infosys', jobType: 'private', department: 'HR/Management', post: 'HR Executive', eligibility: 'MBA HR', age: '22-30 Years', lastDate: '2026-07-01', website: 'https://www.infosys.com/careers', applyLink: 'https://www.infosys.com/careers/apply', description: 'HR Executive at Infosys.' },
+  { title: 'Mechanical Engineer – Tata Motors', jobType: 'private', department: 'Manufacturing/Engineering', post: 'Mechanical Engineer', eligibility: 'B.Tech/M.Tech', age: '22-35 Years', lastDate: '2026-07-15', website: 'https://www.tatamotors.com/careers', applyLink: 'https://www.tatamotors.com/careers/apply', description: 'Mechanical Engineer at Tata Motors.' },
+  { title: 'Civil Engineer – L&T Construction', jobType: 'private', department: 'Manufacturing/Engineering', post: 'Civil Engineer', eligibility: 'B.Tech Civil', age: '22-35 Years', lastDate: '2026-08-01', website: 'https://www.larsentoubro.com/careers', applyLink: 'https://www.larsentoubro.com/careers/apply', description: 'Civil Engineer at L&T.' }
+];
 
-        function showToast(msg, type = 'info') {
-            const t = document.createElement('div');
-            t.className = 'toast ' + type;
-            t.textContent = msg;
-            document.body.appendChild(t);
-            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2500);
-        }
+// ============================================================
+// DEFAULT PAGES
+// ============================================================
+const DEFAULT_PAGES = [
+  { id: 'jobs-manager', name: 'Jobs Manager', icon: 'fa-briefcase', isPublic: true, subPages: [] },
+  { id: 'blog', name: 'Blog', icon: 'fa-blog', isPublic: true, subPages: [] },
+  { id: 'career', name: 'Career', icon: 'fa-briefcase', isPublic: true, subPages: [] },
+  { id: 'services', name: 'Services', icon: 'fa-cogs', isPublic: true, subPages: [] },
+  { id: 'more', name: 'More', icon: 'fa-book', isPublic: true, subPages: [] },
+  { id: 'tools', name: 'Tools', icon: 'fa-tools', isPublic: true, subPages: [] },
+  { id: 'rsr', name: 'RSR', icon: 'fa-gavel', isPublic: true, subPages: [] },
+  { id: 'system', name: 'System', icon: 'fa-cog', isPublic: false, subPages: [
+    { id: 'slides', name: 'Slides', icon: 'fa-images', isPublic: true },
+    { id: 'employees', name: 'Employees', icon: 'fa-users', isPublic: false },
+    { id: 'settings', name: 'Settings', icon: 'fa-sliders-h', isPublic: false }
+  ]}
+];
 
-        function escapeHtml(s) {
-            return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-        }
+const DEFAULT_SETTINGS = {
+  siteName:'Dream Josh', tagline:'Career & Study Platform', siteDesc:'', siteURL:'',
+  contactEmail:'', contactPhone:'', address:'',
+  themeMode:'light', itemsPerPage:12, homeLimit:6
+};
 
-        // INIT
-        document.addEventListener('DOMContentLoaded', async () => {
-            initLatestUpdates();
-            await loadJobsFromFirebase();
-            await loadContentFromFirebase();
-            console.log('✅ Home Loaded');
-        });
+// ============================================================
+// LOAD / SAVE
+// ============================================================
+function loadData() {
+  try {
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) { 
+      const p = JSON.parse(s); 
+      appData = p.appData || {}; 
+      jobsData = p.jobsData || []; 
+    }
+  } catch (e) {}
+  
+  // ✅ Agar koi jobs nahi hain toh DEFAULT_JOBS load karo
+  if (!jobsData || jobsData.length === 0) {
+    jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
+    console.log('✅ Default jobs loaded:', jobsData.length);
+    // Save karo taaki next time se load ho
+    setTimeout(() => saveData(), 100);
+  }
+}
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(() => {});
-        }
+function loadPages() {
+  try {
+    const s = localStorage.getItem(PAGES_KEY);
+    if (s) { pagesData = JSON.parse(s); }
+    if (!pagesData || !pagesData.length) pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES));
+  } catch (e) { pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES)); }
+}
 
-        window.calculateAge = calculateAge;
-        window.filterColleges = filterColleges;
-        window.openPolicyModal = openPolicyModal;
-        window.closeModal = closeModal;
-        window.installPWA = installPWA;
-        window.showToast = showToast;
-    </script>
+function savePages() {
+  localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('pagesData').set({ pages: pagesData }).catch(()=>{});
+}
+
+async function loadPagesFromCloud() {
+  if (!firebaseDB) return;
+  try {
+    const d = await firebaseDB.collection('dreamjosh').doc('pagesData').get();
+    if (d.exists && d.data().pages) {
+      pagesData = d.data().pages;
+      localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
+    }
+  } catch (e) {}
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData, jobsData }));
+    if (firebaseDB) {
+      firebaseDB.collection('dreamjosh').doc('appData').set(appData).catch(()=>{});
+      firebaseDB.collection('dreamjosh').doc('jobsData').set({ jobs: jobsData }).catch(()=>{});
+    }
+  } catch (e) {}
+}
+
+function loadSettings() {
+  try { settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch (e) { settings = {}; }
+  Object.keys(DEFAULT_SETTINGS).forEach(k => {
+    if (settings[k] === undefined) settings[k] = DEFAULT_SETTINGS[k];
+  });
+}
+function saveSettings() {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('settings').set(settings).catch(()=>{});
+}
+
+function loadActivityLog() {
+  try { activityLog = JSON.parse(localStorage.getItem(ACTIVITY_LOG_KEY)) || []; } catch (e) { activityLog = []; }
+}
+function logActivity(action, details) {
+  activityLog.unshift({ action, details, time: new Date().toISOString() });
+  if (activityLog.length > 100) activityLog = activityLog.slice(0, 100);
+  localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(activityLog));
+  renderActivityLog();
+}
+function renderActivityLog() {
+  const c = document.getElementById('activityLogContainer');
+  if (!c) return;
+  if (!activityLog.length) { c.innerHTML = '<em style="color:var(--text-light);">No activity yet</em>'; return; }
+  c.innerHTML = activityLog.slice(0, 20).map(l => `
+    <div class="activity-log-item">
+      <span><strong>${escapeHtml(l.action)}</strong> — ${escapeHtml(l.details || '')}</span>
+      <span class="log-time">${new Date(l.time).toLocaleString()}</span>
+    </div>
+  `).join('');
+}
+function clearActivityLog() {
+  if (!confirm('Clear log?')) return;
+  activityLog = [];
+  localStorage.removeItem(ACTIVITY_LOG_KEY);
+  renderActivityLog();
+  showToast('✅ Cleared!', 'success');
+}
+
+// ============================================================
+// 🔐 AUTH
+// ============================================================
+function getAdminCreds() {
+  try {
+    const s = localStorage.getItem(ADMIN_CREDS_KEY);
+    if (s) { const p = JSON.parse(s); if (p && p.username) return p; }
+  } catch (e) {}
+  return { ...DEFAULT_ADMIN };
+}
+function saveAdminCreds(username, password) {
+  const c = { username, password };
+  localStorage.setItem(ADMIN_CREDS_KEY, JSON.stringify(c));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('adminCreds').set(c).catch(()=>{});
+}
+function isLoggedIn() {
+  try {
+    const s = localStorage.getItem(LOGIN_SESSION_KEY);
+    if (!s) return false;
+    const session = JSON.parse(s);
+    if (!session.loggedIn || !session.loginTime) return false;
+    if (Date.now() - session.loginTime > SESSION_DURATION) {
+      localStorage.removeItem(LOGIN_SESSION_KEY);
+      return false;
+    }
+    return true;
+  } catch (e) { return false; }
+}
+function createSession(username) {
+  const session = { loggedIn: true, username, loginTime: Date.now() };
+  localStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify(session));
+}
+function destroySession() { localStorage.removeItem(LOGIN_SESSION_KEY); }
+
+function handleLogin(event) {
+  event.preventDefault();
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errorEl = document.getElementById('loginError');
+  const errorText = document.getElementById('loginErrorText');
+  const btn = document.getElementById('loginBtn');
+
+  if (!username || !password) {
+    errorText.textContent = 'Please enter both username and password';
+    errorEl.classList.add('show');
+    return;
+  }
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
+  setTimeout(() => {
+    const creds = getAdminCreds();
+    if (username === creds.username && password === creds.password) {
+      errorEl.classList.remove('show');
+      createSession(username);
+      showAdminPanel();
+      showToast('✅ Welcome, ' + username + '! 👑', 'success');
+    } else {
+      errorText.textContent = '❌ Invalid username or password';
+      errorEl.classList.add('show');
+      document.getElementById('loginPassword').value = '';
+    }
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+  }, 500);
+}
+
+function handleLogout() {
+  if (!confirm('Are you sure you want to logout?')) return;
+  destroySession();
+  document.getElementById('loginScreen').classList.add('active');
+  document.getElementById('adminWrapper').classList.remove('active');
+  document.getElementById('loginUsername').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginError').classList.remove('show');
+  showToast('👋 Logged out successfully', 'info');
+}
+
+function showAdminPanel() {
+  document.getElementById('loginScreen').classList.remove('active');
+  document.getElementById('adminWrapper').classList.add('active');
+  const session = JSON.parse(localStorage.getItem(LOGIN_SESSION_KEY) || '{}');
+  const nameEl = document.getElementById('loggedInUser');
+  if (nameEl && session.username) nameEl.textContent = session.username;
+  initAdminPanel();
+}
+
+function showLoginScreen() {
+  document.getElementById('loginScreen').classList.add('active');
+  document.getElementById('adminWrapper').classList.remove('active');
+  setTimeout(() => document.getElementById('loginUsername')?.focus(), 100);
+}
+
+// ============================================================
+// 🎯 SIDEBAR RENDERING
+// ============================================================
+function renderSidebar() {
+  const menu = document.getElementById('dynamicSidebar');
+  if (!menu) return;
+
+  let html = '';
+
+  html += `
+    <li>
+      <a class="menu-link" data-page="dashboard" onclick="showAdminPage('dashboard')">
+        <i class="fas fa-chart-pie menu-icon"></i> Dashboard
+      </a>
+    </li>
+  `;
+
+  html += `
+    <li>
+      <a class="menu-link" data-page="pages" onclick="showAdminPage('pages')">
+        <i class="fas fa-file-alt menu-icon"></i> Pages Manager
+      </a>
+    </li>
+  `;
+
+  pagesData.forEach(page => {
+    const hasSub = page.subPages && page.subPages.length > 0;
+    const privacyBadge = page.isPublic
+      ? '<span class="privacy-badge public">PUBLIC</span>'
+      : '<span class="privacy-badge private">PRIVATE</span>';
+
+    if (hasSub) {
+      html += `
+        <li>
+          <div class="menu-toggle" data-section="${page.id}" onclick="toggleMenuSection('${page.id}')">
+            <i class="fas ${page.icon} menu-icon"></i> ${escapeHtml(page.name)}
+            <i class="fas fa-chevron-right arrow"></i>
+          </div>
+          <ul class="submenu" id="submenu-${page.id}">
+            ${page.subPages.map(sub => {
+              const subPrivacy = sub.isPublic
+                ? '<span class="privacy-badge public">PUBLIC</span>'
+                : '<span class="privacy-badge private">PRIVATE</span>';
+              return `
+                <li>
+                  <a data-page="${sub.id}" onclick="showAdminPage('${sub.id}')">
+                    <i class="fas ${sub.icon || 'fa-circle'}"></i>
+                    ${escapeHtml(sub.name)}
+                    ${subPrivacy}
+                  </a>
+                </li>
+              `;
+            }).join('')}
+            <li style="padding-left:20px;margin-top:4px;">
+              <a onclick="openPageModal('${page.id}')" style="color:var(--gold);font-size:11px;">
+                <i class="fas fa-plus"></i> Add Sub-Page
+              </a>
+            </li>
+          </ul>
+        </li>
+      `;
+    } else {
+      html += `
+        <li>
+          <a class="menu-link" data-page="${page.id}" onclick="showAdminPage('${page.id}')">
+            <i class="fas ${page.icon} menu-icon"></i> ${escapeHtml(page.name)}
+            ${privacyBadge}
+          </a>
+        </li>
+      `;
+    }
+  });
+
+  menu.innerHTML = html;
+}
+
+function toggleMenuSection(sectionId) {
+  const submenu = document.getElementById('submenu-' + sectionId);
+  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
+  if (!submenu || !toggle) return;
+  const isOpen = submenu.classList.contains('open');
+  closeAllMenuSections();
+  if (!isOpen) {
+    submenu.classList.add('open');
+    toggle.classList.add('open');
+  }
+}
+function closeAllMenuSections() {
+  document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.menu-toggle').forEach(t => t.classList.remove('open', 'has-active'));
+}
+function openMenuSection(sectionId) {
+  closeAllMenuSections();
+  const submenu = document.getElementById('submenu-' + sectionId);
+  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
+  if (submenu && toggle) {
+    submenu.classList.add('open');
+    toggle.classList.add('open');
+  }
+}
+
+// ============================================================
+// 📄 PAGE MANAGER
+// ============================================================
+function renderPagesGrid() {
+  const grid = document.getElementById('pagesGrid');
+  if (!grid) return;
+
+  let html = '';
+
+  pagesData.forEach(page => {
+    const subCount = page.subPages ? page.subPages.length : 0;
+    const privacyBadge = page.isPublic
+      ? '<span class="page-card-badge public">PUBLIC</span>'
+      : '<span class="page-card-badge private">PRIVATE</span>';
+
+    html += `
+      <div class="page-card">
+        <div class="page-card-icon"><i class="fas ${page.icon}"></i></div>
+        <h4>${escapeHtml(page.name)}</h4>
+        <div class="page-card-meta">
+          ${privacyBadge}
+          <span style="margin-left:6px;">${subCount} sub-page${subCount !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="page-card-actions">
+          <button class="btn-i-edit" onclick="openPageModal('${page.id}')"><i class="fas fa-edit"></i> Edit</button>
+          <button class="${page.isPublic ? 'btn-i-private' : 'btn-i-public'}" onclick="togglePagePrivacy('${page.id}')">
+            <i class="fas fa-${page.isPublic ? 'lock' : 'unlock'}"></i>
+            ${page.isPublic ? 'Private' : 'Public'}
+          </button>
+          <button class="btn-i-delete" onclick="deletePage('${page.id}')"><i class="fas fa-trash"></i></button>
+        </div>
+        ${subCount > 0 ? `
+          <div style="margin-top:10px;border-top:1px solid var(--border-color);padding-top:10px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-light);margin-bottom:6px;">SUB-PAGES:</div>
+            ${page.subPages.map(sub => `
+              <div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;">
+                <i class="fas ${sub.icon || 'fa-circle'}" style="width:14px;color:var(--secondary-blue);"></i>
+                <span style="flex:1;">${escapeHtml(sub.name)}</span>
+                <button class="btn-i-edit" style="padding:2px 8px;font-size:10px;" onclick="openPageModal('${page.id}', '${sub.id}')">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="${sub.isPublic ? 'btn-i-private' : 'btn-i-public'}" style="padding:2px 8px;font-size:10px;" onclick="toggleSubPagePrivacy('${page.id}', '${sub.id}')">
+                  <i class="fas fa-${sub.isPublic ? 'lock' : 'unlock'}"></i>
+                </button>
+                <button class="btn-i-delete" style="padding:2px 8px;font-size:10px;" onclick="deleteSubPage('${page.id}', '${sub.id}')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  });
+
+  grid.innerHTML = html;
+}
+
+function openPageModal(parentId = null, subId = null) {
+  const isSubEdit = parentId && subId;
+  const isParentEdit = parentId && !subId;
+  const isNew = !parentId;
+
+  let page = null;
+  let parent = null;
+
+  if (isSubEdit) {
+    parent = pagesData.find(p => p.id === parentId);
+    if (parent) page = parent.subPages.find(s => s.id === subId);
+  } else if (isParentEdit) {
+    page = pagesData.find(p => p.id === parentId);
+  }
+
+  const title = isSubEdit ? '✏️ Edit Sub-Page'
+              : isParentEdit ? '✏️ Edit Page'
+              : '➕ Add New Page';
+
+  document.getElementById('adminModalTitle').textContent = title;
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="pmParentId" value="${parentId || ''}">
+    <input type="hidden" id="pmSubId" value="${subId || ''}">
+    <input type="hidden" id="pmIsSub" value="${isSubEdit ? '1' : '0'}">
+
+    <div class="form-row">
+      <div class="form-group"><label>Page Name *</label>
+        <input type="text" id="pmName" value="${page ? escapeHtml(page.name) : ''}" placeholder="e.g. About Us">
+      </div>
+      <div class="form-group"><label>Icon (FontAwesome) *</label>
+        <input type="text" id="pmIcon" value="${page ? page.icon : 'fa-file-alt'}" placeholder="e.g. fa-home">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Icon Preview</label>
+      <div style="padding:10px;background:var(--bg-color);border-radius:8px;font-size:24px;">
+        <i id="pmIconPreview" class="fas ${page ? page.icon : 'fa-file-alt'}"></i>
+        <span style="font-size:12px;color:var(--text-light);margin-left:10px;">
+          Available icons: fa-home, fa-blog, fa-briefcase, fa-cogs, fa-book, fa-tools, fa-gavel, fa-images, fa-users, fa-sliders-h, fa-file-alt, fa-star, fa-heart, fa-bell
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Privacy</label>
+      <select id="pmPrivacy">
+        <option value="public" ${(!page || page.isPublic) ? 'selected' : ''}>🌐 Public — Sab dekh sakte hain</option>
+        <option value="private" ${(page && !page.isPublic) ? 'selected' : ''}>🔒 Private — Sirf admin dekh sakta hai</option>
+      </select>
+    </div>
+
+    ${!isSubEdit ? `
+      <div class="form-group">
+        <label>Parent Page (agar sub-page banana hai)</label>
+        <select id="pmParentSelect">
+          <option value="">-- None (Ye ek Top-Level Page hoga) --</option>
+          ${pagesData.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('')}
+        </select>
+        <small style="font-size:11px;color:var(--text-light);">Agar aap chahte hain ye kisi existing page ka sub-page ho, toh yahan select karein.</small>
+      </div>
+    ` : ''}
+
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="savePage()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+
+  setTimeout(() => {
+    const iconInput = document.getElementById('pmIcon');
+    const preview = document.getElementById('pmIconPreview');
+    if (iconInput && preview) {
+      iconInput.addEventListener('input', e => {
+        preview.className = 'fas ' + e.target.value;
+      });
+    }
+  }, 50);
+}
+
+function savePage() {
+  const parentId = document.getElementById('pmParentId')?.value || '';
+  const subId = document.getElementById('pmSubId')?.value || '';
+  const isSub = document.getElementById('pmIsSub')?.value === '1';
+  const name = document.getElementById('pmName').value.trim();
+  const icon = document.getElementById('pmIcon').value.trim() || 'fa-file-alt';
+  const isPublic = document.getElementById('pmPrivacy').value === 'public';
+  const newParentId = document.getElementById('pmParentSelect')?.value || '';
+
+  if (!name) return showToast('Name required!', 'error');
+
+  if (isSub) {
+    const parent = pagesData.find(p => p.id === parentId);
+    if (!parent) return showToast('Parent not found', 'error');
+    const sub = parent.subPages.find(s => s.id === subId);
+    if (!sub) return showToast('Sub-page not found', 'error');
+    sub.name = name;
+    sub.icon = icon;
+    sub.isPublic = isPublic;
+    showToast('✅ Sub-page updated!', 'success');
+  } else if (parentId) {
+    const page = pagesData.find(p => p.id === parentId);
+    if (!page) return showToast('Page not found', 'error');
+    page.name = name;
+    page.icon = icon;
+    page.isPublic = isPublic;
+
+    if (newParentId && newParentId !== parentId) {
+      const newParent = pagesData.find(p => p.id === newParentId);
+      if (newParent) {
+        pagesData = pagesData.filter(p => p.id !== parentId);
+        if (!newParent.subPages) newParent.subPages = [];
+        newParent.subPages.push({ id: parentId, name, icon, isPublic });
+      }
+    }
+    showToast('✅ Page updated!', 'success');
+  } else {
+    const newId = 'page-' + Date.now();
+    const newPage = { id: newId, name, icon, isPublic, subPages: [] };
+
+    if (newParentId) {
+      const parent = pagesData.find(p => p.id === newParentId);
+      if (parent) {
+        if (!parent.subPages) parent.subPages = [];
+        parent.subPages.push(newPage);
+        showToast('✅ Sub-page added!', 'success');
+      }
+    } else {
+      pagesData.push(newPage);
+      showToast('✅ Page added!', 'success');
+    }
+  }
+
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  updateStats();
+  logActivity('Page Saved', name);
+  closeAdminModal();
+}
+
+function togglePagePrivacy(pageId) {
+  const page = pagesData.find(p => p.id === pageId);
+  if (!page) return;
+  page.isPublic = !page.isPublic;
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  showToast(`✅ Page is now ${page.isPublic ? 'PUBLIC 🌐' : 'PRIVATE 🔒'}`, 'success');
+}
+
+function toggleSubPagePrivacy(parentId, subId) {
+  const parent = pagesData.find(p => p.id === parentId);
+  if (!parent) return;
+  const sub = parent.subPages.find(s => s.id === subId);
+  if (!sub) return;
+  sub.isPublic = !sub.isPublic;
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  showToast(`✅ Sub-page is now ${sub.isPublic ? 'PUBLIC 🌐' : 'PRIVATE 🔒'}`, 'success');
+}
+
+function deletePage(pageId) {
+  const page = pagesData.find(p => p.id === pageId);
+  if (!page) return;
+  if (!confirm(`Delete "${page.name}" aur uske ${page.subPages?.length || 0} sub-pages?`)) return;
+  pagesData = pagesData.filter(p => p.id !== pageId);
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  updateStats();
+  logActivity('Page Deleted', page.name);
+  showToast('🗑️ Page deleted!', 'success');
+}
+
+function deleteSubPage(parentId, subId) {
+  const parent = pagesData.find(p => p.id === parentId);
+  if (!parent) return;
+  const sub = parent.subPages.find(s => s.id === subId);
+  if (!sub) return;
+  if (!confirm(`Delete sub-page "${sub.name}"?`)) return;
+  parent.subPages = parent.subPages.filter(s => s.id !== subId);
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  logActivity('Sub-Page Deleted', sub.name);
+  showToast('🗑️ Sub-page deleted!', 'success');
+}
+
+function resetPagesToDefault() {
+  if (!confirm('⚠️ Saare custom pages delete ho jayenge aur default pages wapas aa jayenge. Continue?')) return;
+  pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES));
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  updateStats();
+  showToast('🔄 Reset to default!', 'success');
+}
+
+// ============================================================
+// WORD EDITOR
+// ============================================================
+function getWordEditorHTML(content) {
+  return `
+    <div class="word-toolbar">
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('bold')"><i class="fas fa-bold"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('italic')"><i class="fas fa-italic"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('underline')"><i class="fas fa-underline"></i></button>
+      </div>
+      <div class="tb-group">
+        <select onchange="weFormat(this.value)">
+          <option value="p">Normal</option>
+          <option value="h1">H1</option><option value="h2">H2</option><option value="h3">H3</option>
+          <option value="blockquote">Quote</option>
+        </select>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('insertOrderedList')"><i class="fas fa-list-ol"></i></button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weInsertLink()"><i class="fas fa-link"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('removeFormat')"><i class="fas fa-eraser"></i></button>
+      </div>
+    </div>
+    <div class="word-editor-wrap">
+      <div class="page" id="wordPage">
+        <div id="richEditor" contenteditable="true">${content || ''}</div>
+      </div>
+    </div>
+  `;
+}
+
+function weCmd(cmd, val) { document.execCommand(cmd, false, val || null); document.getElementById('richEditor')?.focus(); }
+function weFormat(tag) { document.execCommand('formatBlock', false, tag); document.getElementById('richEditor')?.focus(); }
+function weInsertLink() {
+  const url = prompt('Link URL:', 'https://');
+  if (!url) return;
+  document.execCommand('insertHTML', false, `<a href="${url}" target="_blank">${url}</a>`);
+}
+
+// ============================================================
+// PAGE CONTENT EDITOR
+// ============================================================
+function openPageContentEditor(pageId) {
+  let page = pagesData.find(p => p.id === pageId);
+  let subPage = null;
+  if (!page) {
+    for (const p of pagesData) {
+      if (p.subPages) {
+        const s = p.subPages.find(sp => sp.id === pageId);
+        if (s) { subPage = s; page = p; break; }
+      }
+    }
+  }
+  if (!page) return;
+
+  const content = (appData[pageId]?.content) || '';
+  document.getElementById('adminModalTitle').textContent = `✏️ Edit Content — ${subPage ? subPage.name : page.name}`;
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="contentPageId" value="${pageId}">
+    ${getWordEditorHTML(content)}
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="savePageContent()"><i class="fas fa-save"></i> Save Content</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+  setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
+}
+
+function savePageContent() {
+  const pageId = document.getElementById('contentPageId').value;
+  const content = document.getElementById('richEditor').innerHTML;
+  if (!appData[pageId]) appData[pageId] = {};
+  appData[pageId].content = content;
+  saveData();
+  logActivity('Content Saved', pageId);
+  closeAdminModal();
+  showToast('✅ Content saved!', 'success');
+}
+
+// ============================================================
+// ITEM EDITOR
+// ============================================================
+function openItemEditorForPage(pageId, index = null) {
+  const isEdit = index !== null;
+  if (!appData[pageId]) appData[pageId] = { content: '', items: [] };
+  if (!appData[pageId].items) appData[pageId].items = [];
+  const item = isEdit ? appData[pageId].items[index] : { title: '', description: '', category: '', link: '' };
+
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Item #${index+1}` : '➕ Add Item';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="itemPage" value="${pageId}">
+    <input type="hidden" id="itemIndex" value="${isEdit ? index : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${escapeHtml(item.title)}"></div>
+      <div class="form-group"><label>Category</label><input type="text" id="itemCategory" value="${escapeHtml(item.category)}"></div>
+    </div>
+    <div class="form-group"><label>Link URL</label><input type="url" id="itemLink" value="${escapeHtml(item.link || '')}"></div>
+    <div class="form-group"><label>📝 Description</label>${getWordEditorHTML(item.description || '')}</div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="saveItemForPage(false)"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+      ${!isEdit ? `<button class="btn-submit" style="background:#6c5ce7;" onclick="saveItemForPage(true)"><i class="fas fa-plus-circle"></i> Add & Another</button>` : ''}
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveItemForPage(addAnother = false) {
+  const pageId = document.getElementById('itemPage').value;
+  const idx = parseInt(document.getElementById('itemIndex').value);
+  const title = document.getElementById('itemTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+
+  if (!appData[pageId]) appData[pageId] = { content: '', items: [] };
+  if (!appData[pageId].items) appData[pageId].items = [];
+
+  const item = {
+    title,
+    category: document.getElementById('itemCategory').value,
+    description: document.getElementById('richEditor').innerHTML,
+    link: document.getElementById('itemLink').value,
+    createdAt: Date.now()
+  };
+
+  if (idx >= 0) {
+    appData[pageId].items[idx] = { ...appData[pageId].items[idx], ...item };
+    showToast('✅ Updated!', 'success');
+  } else {
+    appData[pageId].items.push(item);
+    showToast('✅ Added!', 'success');
+  }
+  saveData();
+  renderItemsForPage(pageId);
+  updateStats();
+
+  if (addAnother && idx < 0) {
+    document.getElementById('itemTitle').value = '';
+    document.getElementById('itemCategory').value = '';
+    document.getElementById('itemLink').value = '';
+    document.getElementById('richEditor').innerHTML = '';
+    document.getElementById('itemTitle').focus();
+    showToast('✅ Added! Add next.', 'info');
+  } else closeAdminModal();
+}
+
+function renderItemsForPage(pageId) {
+  const container = document.getElementById('items-container-' + pageId);
+  if (!container) return;
+  const items = appData[pageId]?.items || [];
+  if (!items.length) {
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No items yet. "Add Item" button se add karein.</p></div>';
+    return;
+  }
+  container.innerHTML = items.map((item, idx) => `
+    <div class="data-item">
+      <div class="item-sno">${idx + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(item.title || 'Untitled')}</div>
+        <div class="item-meta">${item.category ? `📁 ${escapeHtml(item.category)}` : ''}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openItemEditorForPage('${pageId}', ${idx})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-dup" onclick="duplicateItemForPage('${pageId}', ${idx})"><i class="fas fa-copy"></i></button>
+        <button class="btn-i-delete" onclick="deleteItemForPage('${pageId}', ${idx})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function duplicateItemForPage(pageId, index) {
+  const item = { ...appData[pageId].items[index] };
+  item.title = (item.title || 'Untitled') + ' (Copy)';
+  item.createdAt = Date.now();
+  appData[pageId].items.splice(index + 1, 0, item);
+  saveData();
+  renderItemsForPage(pageId);
+  updateStats();
+  showToast('📋 Duplicated!', 'success');
+}
+
+function deleteItemForPage(pageId, index) {
+  if (!confirm(`Delete item #${index + 1}?`)) return;
+  appData[pageId].items.splice(index, 1);
+  saveData();
+  renderItemsForPage(pageId);
+  updateStats();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+// ============================================================
+// 💼 JOBS MANAGER
+// ============================================================
+function filterJobs(type) {
+  currentJobFilter = type;
+  document.querySelectorAll('#adminPage-jobs-manager .settings-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('jobFilter-' + type)?.classList.add('active');
+  renderJobsTable();
+}
+
+function renderJobsTable() {
+  const c = document.getElementById('jobsContainer');
+  if (!c) return;
+
+  const badge = document.getElementById('jobsCountBadge');
+  if (badge) badge.textContent = jobsData.length;
+
+  let filtered = jobsData;
+  if (currentJobFilter !== 'all') {
+    filtered = jobsData.filter(j => j.jobType === currentJobFilter);
+  }
+
+  if (!filtered.length) {
+    c.innerHTML = `<div class="empty-state"><i class="fas fa-briefcase"></i><p>No ${currentJobFilter === 'all' ? '' : currentJobFilter} jobs. "Add Job" ya "Reload Default" dabayein.</p></div>`;
+    return;
+  }
+
+  const typeLabels = {
+    central: '🏛️ Central',
+    state: '🏜️ Rajasthan',
+    private: '💼 Private'
+  };
+  const typeColors = {
+    central: '#1976d2',
+    state: '#16a34a',
+    private: '#6c5ce7'
+  };
+
+  c.innerHTML = filtered.map((j, i) => {
+    const realIdx = jobsData.indexOf(j);
+    return `
+    <div class="data-item">
+      <div class="item-sno">${i + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(j.title || 'Untitled')}</div>
+        <div class="item-meta">
+          <span style="background:${typeColors[j.jobType] || '#666'};color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:600;">
+            ${typeLabels[j.jobType] || j.jobType}
+          </span>
+          ${j.department ? ` 📁 ${escapeHtml(j.department)}` : ''}
+          ${j.post ? ` • 📌 ${escapeHtml(j.post)}` : ''}
+        </div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openJobModal(${realIdx})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteJob(${realIdx})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+function openJobModal(index = null) {
+  const isEdit = index !== null;
+  const job = isEdit ? jobsData[index] : { 
+    title: '', jobType: 'central', department: '', post: '', 
+    eligibility: '', age: '', lastDate: '', website: '', applyLink: '', description: '' 
+  };
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Job #${index+1}` : '💼 Add Job';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="jobIndex" value="${isEdit ? index : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${escapeHtml(job.title)}"></div>
+      <div class="form-group"><label>Type</label>
+        <select id="jType">
+          <option value="central" ${job.jobType === 'central' ? 'selected' : ''}>🏛️ Central Govt.</option>
+          <option value="state" ${job.jobType === 'state' ? 'selected' : ''}>🏜️ Rajasthan Govt.</option>
+          <option value="private" ${job.jobType === 'private' ? 'selected' : ''}>💼 Private</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Department</label><input type="text" id="jDept" value="${escapeHtml(job.department || '')}"></div>
+      <div class="form-group"><label>Post</label><input type="text" id="jPost" value="${escapeHtml(job.post || '')}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Eligibility</label><input type="text" id="jElig" value="${escapeHtml(job.eligibility || '')}"></div>
+      <div class="form-group"><label>Age Limit</label><input type="text" id="jAge" value="${escapeHtml(job.age || '')}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Last Date</label><input type="date" id="jLastDate" value="${job.lastDate || ''}"></div>
+      <div class="form-group"><label>Website</label><input type="url" id="jWebsite" value="${escapeHtml(job.website || '')}"></div>
+    </div>
+    <div class="form-group"><label>Apply Link</label><input type="url" id="jApply" value="${escapeHtml(job.applyLink || '')}"></div>
+    <div class="form-group"><label>Description</label><textarea id="jDesc" rows="3">${escapeHtml(job.description || '')}</textarea></div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveJob() {
+  const idx = parseInt(document.getElementById('jobIndex').value);
+  const title = document.getElementById('jTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+  const job = {
+    title,
+    jobType: document.getElementById('jType').value,
+    department: document.getElementById('jDept').value,
+    post: document.getElementById('jPost').value,
+    eligibility: document.getElementById('jElig').value,
+    age: document.getElementById('jAge').value,
+    lastDate: document.getElementById('jLastDate').value,
+    website: document.getElementById('jWebsite').value,
+    applyLink: document.getElementById('jApply').value,
+    description: document.getElementById('jDesc').value,
+    createdAt: Date.now()
+  };
+  if (idx >= 0) jobsData[idx] = { ...jobsData[idx], ...job };
+  else jobsData.push(job);
+  saveData();
+  renderJobsTable();
+  updateStats();
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
+}
+
+function deleteJob(i) {
+  if (!confirm('Delete this job?')) return;
+  jobsData.splice(i, 1);
+  saveData();
+  renderJobsTable();
+  updateStats();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+function openBulkJobModal() {
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Add Jobs';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group">
+      <label>Format: <code>Title | Type | Department</code></label>
+      <textarea id="bulkJobsText" rows="10" placeholder="SSC CGL 2026 | central | Staff Selection Commission
+Bank PO | central | SBI
+RAS 2026 | state | RPSC"></textarea>
+    </div>
+    <button class="btn-submit" onclick="doBulkAddJobs()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function doBulkAddJobs() {
+  const text = document.getElementById('bulkJobsText').value.trim();
+  if (!text) return showToast('Data दें', 'error');
+  let count = 0;
+  text.split('\n').filter(l => l.trim()).forEach(line => {
+    const p = line.split('|').map(x => x.trim());
+    if (!p[0]) return;
+    jobsData.push({ 
+      title: p[0], 
+      jobType: p[1] || 'central', 
+      department: p[2] || '', 
+      createdAt: Date.now() 
+    });
+    count++;
+  });
+  saveData();
+  closeAdminModal();
+  renderJobsTable();
+  updateStats();
+  showToast(`✅ ${count} jobs added!`, 'success');
+}
+
+function reloadDefaultJobs() {
+  if (!confirm('⚠️ Saare custom jobs delete ho jayenge aur 55+ default jobs load ho jayenge. Continue?')) return;
+  jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
+  saveData();
+  renderJobsTable();
+  updateStats();
+  showToast('🔄 55+ default jobs loaded!', 'success');
+}
+
+// ============================================================
+// DASHBOARD STATS
+// ============================================================
+function updateStats() {
+  const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  let totalPages = 0;
+  pagesData.forEach(p => { totalPages++; if (p.subPages) totalPages += p.subPages.length; });
+  setEl('statPages', totalPages);
+  setEl('statJobs', jobsData.length);
+  setEl('statSlides', (appData.slides?.items || []).length);
+  setEl('statEmployees', (appData.employees?.items || []).length);
+}
+
+// ============================================================
+// VIP EFFECTS
+// ============================================================
+function playVipSound(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    if (type === 'success') {
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+      osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2);
+    } else if (type === 'error') {
+      osc.frequency.setValueAtTime(329.63, ctx.currentTime);
+      osc.frequency.setValueAtTime(261.63, ctx.currentTime + 0.15);
+    } else if (type === 'warning') {
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+      osc.frequency.setValueAtTime(440, ctx.currentTime + 0.15);
+    } else {
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+    }
+    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.4);
+  } catch (e) {}
+}
+
+function initVipCursor() {
+  if (window.innerWidth < 900) return;
+  if (matchMedia('(pointer: coarse)').matches) return;
+  if (document.getElementById('vipCursor')) return;
+  const cursor = document.createElement('div');
+  cursor.id = 'vipCursor';
+  document.body.appendChild(cursor);
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+}
+
+let vipClockInterval = null;
+function initVipClock() {
+  const header = document.getElementById('adminActions');
+  if (!header) return;
+  document.getElementById('vipClock')?.remove();
+  const clockEl = document.createElement('div');
+  clockEl.id = 'vipClock';
+  header.prepend(clockEl);
+  function update() {
+    const now = new Date();
+    const h = now.getHours();
+    const greeting = h < 12 ? '🌅 Good Morning' : h < 17 ? '☀️ Good Afternoon' : h < 21 ? '🌆 Good Evening' : '🌙 Good Night';
+    const time = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+    const date = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    let idleText = '';
+    if (lastActivityTime) {
+      const idleFor = Date.now() - lastActivityTime;
+      const remaining = Math.max(0, IDLE_TIMEOUT - idleFor);
+      if (remaining <= 60 * 1000) {
+        idleText = `<div class="vip-idle idle-warning">⚠️ Auto logout in ${Math.ceil(remaining/1000)}s</div>`;
+      } else if (remaining <= 5 * 60 * 1000) {
+        idleText = `<div class="vip-idle">⏳ Idle: ${Math.ceil(remaining/60000)} min left</div>`;
+      }
+    }
+    clockEl.innerHTML = `
+      <div class="vip-greeting">${greeting}, Admin 👑</div>
+      <div class="vip-time">${time} • ${date}</div>
+      ${idleText}
+    `;
+  }
+  update();
+  if (vipClockInterval) clearInterval(vipClockInterval);
+  vipClockInterval = setInterval(update, 1000);
+}
+
+let lastActivityTime = Date.now();
+let idleCheckInterval = null;
+let idleWarningShown = false;
+
+function markActivity() {
+  lastActivityTime = Date.now();
+  idleWarningShown = false;
+}
+
+function initIdleLogout() {
+  const events = ['mousemove', 'mousedown', 'click', 'keypress', 'scroll', 'touchstart', 'touchmove'];
+  events.forEach(evt => document.addEventListener(evt, markActivity, { passive: true }));
+  markActivity();
+  if (idleCheckInterval) clearInterval(idleCheckInterval);
+  idleCheckInterval = setInterval(() => {
+    if (!isLoggedIn()) return;
+    const idleFor = Date.now() - lastActivityTime;
+    if (!idleWarningShown && idleFor >= IDLE_TIMEOUT - IDLE_WARNING_TIME) {
+      idleWarningShown = true;
+      showToast('⚠️ 1 minute mein auto-logout ho jayega!', 'warning');
+      playVipSound('warning');
+    }
+    if (idleFor >= IDLE_TIMEOUT) {
+      clearInterval(idleCheckInterval);
+      destroySession();
+      document.getElementById('loginScreen').classList.add('active');
+      document.getElementById('adminWrapper').classList.remove('active');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      setTimeout(() => alert('🔒 10 minute inactivity — Auto logout ho gaya.'), 100);
+    }
+  }, 1000);
+}
+
+const _origShowToast = showToast;
+window.showToast = function(msg, type = 'info') {
+  _origShowToast(msg, type);
+  if (type === 'success') playVipSound('success');
+  else if (type === 'error') playVipSound('error');
+  else if (type === 'warning') playVipSound('warning');
+};
+
+// ============================================================
+// UI HELPERS
+// ============================================================
+function closeAdminModal() { document.getElementById('adminModalOverlay').classList.remove('active'); }
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  settings.themeMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+  saveSettings();
+}
+function showToast(msg, type = 'info') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s'; setTimeout(() => t.remove(), 300); }, 3000);
+}
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function toggleSidebar() {
+  document.getElementById('adminSidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+function closeSidebar() {
+  document.getElementById('adminSidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('active');
+}
+
+// ============================================================
+// SETTINGS
+// ============================================================
+function switchSettingsTab(tab) {
+  document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
+  document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('settings-tab-' + tab)?.classList.add('active');
+}
+
+function loadSettingsForm() {
+  loadSettings();
+  loadActivityLog();
+  renderActivityLog();
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+  set('setSiteName', settings.siteName);
+  set('setTagline', settings.tagline);
+}
+
+function saveSettingsGroup(g) {
+  const gv = id => document.getElementById(id)?.value || '';
+  if (g === 'general') { 
+    settings.siteName = gv('setSiteName'); 
+    settings.tagline = gv('setTagline'); 
+  }
+  saveSettings();
+  showToast('✅ Saved!', 'success');
+}
+
+function changeAdminPassword() {
+  const cur = document.getElementById('setCurPassword').value;
+  const n1 = document.getElementById('setNewPassword').value;
+  const n2 = document.getElementById('setConfirmPassword').value;
+  if (!cur || !n1 || !n2) return showToast('सभी fields भरें!', 'error');
+  const c = getAdminCreds();
+  if (cur !== c.password) return showToast('❌ Current password गलत!', 'error');
+  if (n1 !== n2) return showToast('❌ Passwords match नहीं!', 'error');
+  if (n1.length < 6) return showToast('⚠️ Password 6+ chars', 'error');
+  saveAdminCreds(c.username, n1);
+  document.getElementById('setCurPassword').value = '';
+  document.getElementById('setNewPassword').value = '';
+  document.getElementById('setConfirmPassword').value = '';
+  logActivity('Password Changed', '');
+  showToast('✅ Password changed!', 'success');
+}
+
+function exportAllData() {
+  const data = { appData, jobsData, pagesData, settings, activityLog, version: '6.0', exportedAt: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dreamjosh_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  logActivity('Backup', 'JSON');
+  showToast('📥 Backup!', 'success');
+}
+
+function importData() {
+  const file = document.getElementById('restoreFileInput').files[0];
+  if (!file) return showToast('Backup file चुनें', 'error');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!confirm('⚠️ Current data replace होगा। Continue?')) return;
+      if (data.appData) appData = data.appData;
+      if (data.jobsData) jobsData = data.jobsData;
+      if (data.pagesData) pagesData = data.pagesData;
+      if (data.settings) settings = data.settings;
+      if (data.activityLog) activityLog = data.activityLog;
+      saveData();
+      savePages();
+      saveSettings();
+      loadSettingsForm();
+      renderSidebar();
+      renderPagesGrid();
+      renderJobsTable();
+      updateStats();
+      logActivity('Restore', 'Backup');
+      showToast('✅ Restored!', 'success');
+      setTimeout(() => location.reload(), 1500);
+    } catch (err) { showToast('❌ Invalid file', 'error'); }
+  };
+  reader.readAsText(file);
+}
+
+function clearAllAdminData() {
+  if (!confirm('⚠️ सारा data permanently delete होगा!')) return;
+  if (!confirm('Sure?')) return;
+  [STORAGE_KEY, PAGES_KEY, SETTINGS_KEY, ACTIVITY_LOG_KEY].forEach(k => localStorage.removeItem(k));
+  showToast('🗑️ Cleared!', 'success');
+  setTimeout(() => location.reload(), 1500);
+}
+
+// ============================================================
+// 🎯 SHOW ADMIN PAGE
+// ============================================================
+function showAdminPage(page) {
+  markActivity();
+  document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
+  const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
+  if (activeLink) activeLink.classList.add('active');
+
+  closeAllMenuSections();
+  const parent = pagesData.find(p => p.id === page || (p.subPages && p.subPages.some(s => s.id === page)));
+  if (parent && parent.subPages && parent.subPages.length) {
+    openMenuSection(parent.id);
+  }
+
+  const titles = {
+    'dashboard': '📊 <span>Dashboard</span>',
+    'pages': '📄 <span>Pages Manager</span>'
+  };
+
+  const pageInfo = findPageById(page);
+  if (pageInfo) {
+    document.getElementById('adminPageTitle').innerHTML = `<i class="fas ${pageInfo.icon}" style="color:var(--primary-blue);margin-right:8px;"></i> <span>${escapeHtml(pageInfo.name)}</span>`;
+  } else {
+    document.getElementById('adminPageTitle').innerHTML = titles[page] || '📄 <span>Page</span>';
+  }
+
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+
+  const existing = document.getElementById('adminPage-' + page);
+  if (existing) {
+    existing.classList.add('active');
+    if (page === 'dashboard') updateStats();
+    if (page === 'pages') renderPagesGrid();
+    if (page === 'jobs-manager') renderJobsTable();
+    if (page === 'slides') renderSlides();
+    if (page === 'employees') renderEmployees();
+    if (page === 'settings') loadSettingsForm();
+    if (window.innerWidth <= 768) closeSidebar();
+    return;
+  }
+
+  renderDynamicPage(page);
+  if (window.innerWidth <= 768) closeSidebar();
+}
+
+function findPageById(pageId) {
+  for (const p of pagesData) {
+    if (p.id === pageId) return { ...p, isParent: true };
+    if (p.subPages) {
+      const s = p.subPages.find(sp => sp.id === pageId);
+      if (s) return { ...s, isSub: true, parent: p };
+    }
+  }
+  return null;
+}
+
+function renderDynamicPage(pageId) {
+  const info = findPageById(pageId);
+  if (!info) {
+    showToast('Page not found', 'error');
+    return;
+  }
+
+  const items = appData[pageId]?.items || [];
+  const content = appData[pageId]?.content || '';
+
+  const sectionId = 'adminPage-' + pageId;
+  document.getElementById(sectionId)?.remove();
+
+  const section = document.createElement('div');
+  section.id = sectionId;
+  section.className = 'admin-section active';
+  section.innerHTML = `
+    <div class="admin-card">
+      <div class="card-header">
+        <h4><i class="fas ${info.icon}"></i> ${escapeHtml(info.name)}</h4>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-add" onclick="openPageContentEditor('${pageId}')"><i class="fas fa-edit"></i> Edit Content</button>
+          <button class="btn-add primary" onclick="openItemEditorForPage('${pageId}')"><i class="fas fa-plus"></i> Add Item</button>
+          <button class="btn-add bulk" onclick="togglePagePrivacy('${pageId}')">
+            <i class="fas fa-${info.isPublic ? 'lock' : 'unlock'}"></i>
+            ${info.isPublic ? 'Private' : 'Public'}
+          </button>
+          <button class="btn-add" style="background:#dc3545;" onclick="${info.isSub ? `deleteSubPage('${info.parent.id}', '${pageId}')` : `deletePage('${pageId}')`}">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+
+      ${content ? `
+        <div style="margin-bottom:16px;padding:14px;background:var(--bg-color);border-radius:8px;border-left:4px solid var(--secondary-blue);max-height:200px;overflow-y:auto;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-light);margin-bottom:6px;">📄 PAGE CONTENT:</div>
+          <div>${content}</div>
+        </div>
+      ` : `
+        <div style="margin-bottom:16px;padding:14px;background:var(--bg-color);border-radius:8px;text-align:center;color:var(--text-light);font-size:13px;">
+          <i class="fas fa-file-alt" style="font-size:24px;opacity:.4;"></i>
+          <p style="margin-top:6px;">Abhi koi content nahi hai. "Edit Content" dabayein.</p>
+        </div>
+      `}
+
+      <div style="margin-top:12px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">
+          📋 Items (${items.length})
+        </div>
+        <div id="items-container-${pageId}"></div>
+      </div>
+    </div>
+  `;
+
+  const contentArea = document.querySelector('.admin-content');
+  contentArea.appendChild(section);
+
+  renderItemsForPage(pageId);
+}
+
+// ============================================================
+// SLIDES / EMPLOYEES (Placeholder)
+// ============================================================
+function renderSlides() {
+  const c = document.getElementById('adminSlidesContainer');
+  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-images"></i><p>Slides feature coming soon</p></div>';
+}
+function renderEmployees() {
+  const c = document.getElementById('employeeListContainer');
+  if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>Employees feature coming soon</p></div>';
+}
+
+// ============================================================
+// INIT
+// ============================================================
+async function initAdminPanel() {
+  loadData();
+  loadPages();
+  await loadPagesFromCloud();
+  loadSettings();
+  loadActivityLog();
+  renderSidebar();
+  renderPagesGrid();
+  updateStats();
+  showAdminPage('dashboard');
+
+  setTimeout(() => {
+    initVipClock();
+    initVipCursor();
+    initIdleLogout();
+    console.log('👑 VIP Dynamic Admin v6.0 Loaded');
+    console.log('💼 Jobs loaded:', jobsData.length);
+  }, 200);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (isLoggedIn()) showAdminPanel();
+  else showLoginScreen();
+});
+
+// Expose
+Object.assign(window, {
+  handleLogin, handleLogout, showAdminPage, toggleSidebar,
+  toggleMenuSection, closeAllMenuSections, openMenuSection,
+  openPageModal, savePage, togglePagePrivacy, toggleSubPagePrivacy,
+  deletePage, deleteSubPage, resetPagesToDefault,
+  openPageContentEditor, savePageContent,
+  openItemEditorForPage, saveItemForPage, duplicateItemForPage, deleteItemForPage,
+  closeAdminModal, toggleDarkMode, showToast,
+  openJobModal, saveJob, deleteJob, openBulkJobModal, doBulkAddJobs, reloadDefaultJobs,
+  filterJobs,
+  switchSettingsTab, saveSettingsGroup, changeAdminPassword,
+  exportAllData, importData, clearAllAdminData, clearActivityLog
+});
+</script>
 
 </body>
 </html>
