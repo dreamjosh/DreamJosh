@@ -15,7 +15,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
 <style>
-/* ... (Aapka saara CSS wesa hi rahega, bas thoda sa Word editor aur Excel ko adjust kiya hai) ... */
 :root{
   --bg-color:#eef5ff; --card-bg:#fff; --text-color:#172033;
   --primary-blue:#123c9b; --secondary-blue:#1976d2;
@@ -31,103 +30,291 @@
   --footer-bg:#0d1b3e; --secondary:#1a1a2e;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg-color);color:var(--text-color);min-height:100vh;transition:background .3s,color .3s;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg-color);color:var(--text-color);min-height:100vh;transition:background .3s,color .3s;}
 
-/* LOGIN */
-.login-screen{display:none;position:fixed;inset:0;background:var(--bg-color);z-index:99999;align-items:center;justify-content:center;padding:20px;}
+/* ============ LOGIN SCREEN ============ */
+.login-screen{
+  display:none;position:fixed;inset:0;background:var(--bg-color);z-index:99999;
+  align-items:center;justify-content:center;padding:20px;
+}
 .login-screen.active{display:flex;}
-.login-box{background:var(--card-bg);border-radius:16px;padding:40px 36px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);border:1px solid var(--border-color);}
+.login-box{
+  background:var(--card-bg);border-radius:16px;padding:40px 36px;max-width:420px;width:100%;
+  box-shadow:0 20px 60px rgba(0,0,0,.15);border:1px solid var(--border-color);
+  animation:loginIn .4s ease;
+}
+@keyframes loginIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 .login-box .login-logo{text-align:center;margin-bottom:24px;}
 .login-box .login-logo h1{font-size:26px;font-weight:800;color:var(--text-color);}
 .login-box .login-logo h1 span{color:var(--gold);}
-.login-box .login-logo .badge{display:inline-block;background:var(--success-green);color:#fff;font-size:10px;padding:3px 12px;border-radius:20px;font-weight:700;margin-top:6px;}
+.login-box .login-logo .badge{
+  display:inline-block;background:var(--success-green);color:#fff;
+  font-size:10px;padding:3px 12px;border-radius:20px;font-weight:700;
+  margin-top:6px;letter-spacing:.5px;
+}
+.login-box .login-logo .admin-icon{font-size:44px;margin-bottom:8px;color:var(--primary-blue);}
+.login-box h2{font-size:18px;font-weight:700;text-align:center;margin-bottom:6px;color:var(--text-color);}
+.login-box p.subtitle{text-align:center;font-size:13px;color:var(--text-light);margin-bottom:24px;}
 .login-form-group{margin-bottom:16px;}
 .login-form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:6px;}
-.login-form-group input{width:100%;padding:12px 14px;border:2px solid var(--border-color);border-radius:10px;font-size:14px;background:var(--bg-color);color:var(--text-color);}
-.login-btn{width:100%;padding:14px;background:var(--primary-blue);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;}
+.login-form-group .input-wrap{position:relative;}
+.login-form-group .input-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-light);font-size:14px;}
+.login-form-group input{
+  width:100%;padding:12px 14px 12px 42px;
+  border:2px solid var(--border-color);border-radius:10px;
+  font-size:14px;background:var(--bg-color);color:var(--text-color);
+  font-family:inherit;transition:.2s;
+}
+.login-form-group input:focus{border-color:var(--primary-blue);outline:none;box-shadow:0 0 0 4px rgba(25,118,210,.1);}
+.login-btn{
+  width:100%;padding:14px;background:var(--primary-blue);color:#fff;
+  border:none;border-radius:10px;font-size:15px;font-weight:700;
+  cursor:pointer;transition:.2s;font-family:inherit;margin-top:8px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.login-btn:hover{background:var(--secondary-blue);transform:translateY(-1px);}
+.login-btn:disabled{opacity:.6;cursor:not-allowed;}
+.login-error{
+  background:#fee2e2;color:#dc2626;padding:10px 14px;border-radius:8px;
+  font-size:13px;font-weight:600;margin-bottom:14px;display:none;align-items:center;gap:8px;
+}
+.login-error.show{display:flex;}
 
-/* ADMIN LAYOUT */
+/* ============ ADMIN PANEL ============ */
 .admin-wrapper{display:none;min-height:100vh;}
 .admin-wrapper.active{display:flex;}
-.admin-sidebar{width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;}
+.admin-sidebar{
+  width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;
+  position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;transition:transform .3s;
+}
 .admin-logo{padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
 .admin-logo h1{font-size:20px;font-weight:700;color:#fff;}
 .admin-logo h1 span{color:var(--gold);}
 .admin-logo .badge{background:var(--success-green);font-size:9px;padding:2px 8px;border-radius:20px;font-weight:600;}
 .admin-user{padding:0 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:12px;display:flex;align-items:center;gap:12px;}
 .admin-user .avatar{width:36px;height:36px;border-radius:50%;background:var(--secondary-blue);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;}
+.admin-user .name{font-size:13px;font-weight:600;}
+.admin-user .role{font-size:10px;opacity:.6;}
 
+/* SIDEBAR MENU */
 .admin-menu{list-style:none;padding:0 10px;}
 .admin-menu > li{margin-bottom:2px;}
-.admin-menu .menu-link{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;transition:.3s;cursor:pointer;}
+.admin-menu .menu-link{
+  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
+  color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;
+  transition:.3s;cursor:pointer;
+}
 .admin-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
 .admin-menu .menu-link.active{background:rgba(255,215,0,.15);color:var(--gold);}
-.admin-menu .submenu{list-style:none;max-height:0;overflow:hidden;transition:max-height .3s ease;opacity:0;padding-left:8px;}
+.admin-menu .menu-link i.menu-icon{width:18px;font-size:14px;text-align:center;}
+.admin-menu .menu-link .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 8px;border-radius:20px;font-size:10px;}
+.admin-menu .menu-toggle{
+  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
+  color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:600;
+  transition:.3s;cursor:pointer;
+}
+.admin-menu .menu-toggle:hover{background:rgba(255,255,255,.08);color:#fff;}
+.admin-menu .menu-toggle.open{background:rgba(255,255,255,.06);color:#fff;}
+.admin-menu .menu-toggle.has-active{color:var(--gold);}
+.admin-menu .menu-toggle i.menu-icon{width:18px;font-size:14px;text-align:center;}
+.admin-menu .menu-toggle .arrow{margin-left:auto;font-size:10px;opacity:.6;transition:transform .25s ease;}
+.admin-menu .menu-toggle.open .arrow{transform:rotate(90deg);opacity:1;}
+.admin-menu .submenu{
+  list-style:none;max-height:0;overflow:hidden;
+  transition:max-height .3s ease, opacity .3s ease;
+  opacity:0;margin:0;padding-left:8px;
+}
 .admin-menu .submenu.open{max-height:2000px;opacity:1;margin-top:2px;margin-bottom:4px;}
-.admin-menu .submenu a{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 28px;border-radius:6px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12.5px;font-weight:500;transition:.2s;cursor:pointer;}
+.admin-menu .submenu li{margin-bottom:1px;}
+.admin-menu .submenu a{
+  display:flex;align-items:center;gap:10px;padding:8px 12px 8px 28px;
+  border-radius:6px;color:rgba(255,255,255,.6);text-decoration:none;
+  font-size:12.5px;font-weight:500;transition:.2s;cursor:pointer;position:relative;
+}
 .admin-menu .submenu a:hover{background:rgba(255,255,255,.06);color:#fff;}
+.admin-menu .submenu a.active{background:rgba(255,215,0,.15);color:var(--gold);font-weight:600;}
+.admin-menu .submenu a.active::before{
+  content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:3px;height:14px;background:var(--gold);border-radius:2px;
+}
+.admin-menu .submenu a i{font-size:11px;opacity:.7;width:14px;text-align:center;}
+.admin-menu .submenu a .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 7px;border-radius:20px;font-size:9.5px;}
+.admin-menu .submenu a .privacy-badge{margin-left:auto;font-size:9px;padding:1px 6px;border-radius:10px;font-weight:700;}
+.admin-menu .submenu a .privacy-badge.public{background:rgba(22,163,74,.3);color:#86efac;}
+.admin-menu .submenu a .privacy-badge.private{background:rgba(214,40,57,.3);color:#fca5a5;}
+
+.admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
+.admin-footer-menu .menu-link{
+  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
+  color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;font-weight:500;
+  transition:.3s;cursor:pointer;
+}
+.admin-footer-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
 
 .admin-content{flex:1;padding:24px 30px;background:var(--bg-color);min-height:100vh;overflow-y:auto;}
 .admin-top-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--border-color);flex-wrap:wrap;gap:12px;}
 .admin-top-header h2{font-size:20px;font-weight:700;}
 .admin-top-header h2 span{color:var(--primary-blue);}
-.admin-actions{display:flex;gap:8px;}
-.btn-dark-admin, .btn-logout, .btn-close-admin{padding:6px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
-.btn-dark-admin{background:var(--secondary);color:#fff;}
-.btn-logout{background:#d62839;color:#fff;}
+.admin-top-header .admin-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.admin-top-header .admin-actions button,.admin-top-header .admin-actions a{
+  padding:6px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;
+  font-weight:600;transition:.3s;min-height:34px;display:flex;align-items:center;gap:6px;
+  text-decoration:none;
+}
 .btn-close-admin{background:#6c757d;color:#fff;}
+.btn-logout{background:#d62839;color:#fff;}
+.btn-logout:hover{background:#a91f2c;}
+.btn-dark-admin{background:var(--secondary);color:#fff;}
 
-.admin-card{background:var(--card-bg);border-radius:10px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);padding:16px 20px;margin-bottom:16px;}
-.card-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
-.card-header h4{font-size:15px;font-weight:600;}
-.btn-add{padding:6px 14px;background:var(--success-green);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;}
+#vipClock {
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 2px; padding: 6px 16px; border-radius: 10px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  margin-right: 10px;
+}
+#vipClock .vip-greeting { font-size: 12px; font-weight: 700; color: var(--gold); white-space: nowrap; }
+#vipClock .vip-time { font-size: 11px; color: var(--text-light); white-space: nowrap; }
+#vipClock .vip-idle { font-size: 10px; color: #f59e0b; font-weight: 600; white-space: nowrap; }
+
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;}
+.admin-stats .stat-item{
+  background:var(--card-bg);padding:14px 16px;border-radius:10px;
+  border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);
+  text-align:center;transition:.3s;
+}
+.admin-stats .stat-item .stat-icon{font-size:22px;}
+.admin-stats .stat-item .stat-label{font-size:11px;color:var(--text-light);font-weight:600;margin-top:4px;}
+.admin-stats .stat-item .stat-value{font-size:24px;font-weight:700;color:var(--primary-blue);}
+
+.admin-quick-actions{
+  background:var(--card-bg);padding:16px 20px;border-radius:10px;
+  border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);margin:16px 0;
+}
+.admin-quick-actions h3{font-size:14px;margin-bottom:10px;}
+.admin-quick-actions .actions-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.admin-quick-actions .actions-grid button{
+  padding:6px 14px;background:var(--secondary-blue);color:#fff;border:none;
+  border-radius:6px;cursor:pointer;font-size:11px;font-weight:600;transition:.3s;min-height:32px;
+}
 
 .admin-section{display:none;margin-top:16px;}
-.admin-section.active{display:block;}
+.admin-section.active{display:block;animation:fadeInSection .3s ease;}
+@keyframes fadeInSection{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.admin-card{
+  background:var(--card-bg);border-radius:10px;border:1px solid var(--border-color);
+  box-shadow:0 2px 8px var(--shadow-color);padding:16px 20px;margin-bottom:16px;
+}
+.admin-card .card-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+.admin-card .card-header h4{font-size:15px;font-weight:600;}
+.btn-add{
+  padding:6px 14px;background:var(--success-green);color:#fff;border:none;
+  border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:.3s;
+  min-height:32px;display:flex;align-items:center;gap:4px;
+}
+.btn-add.bulk{background:#6c5ce7;}
+.btn-add.primary{background:var(--secondary-blue);}
 
-/* MODAL */
-.admin-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
+.admin-modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;
+  backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;
+}
 .admin-modal-overlay.active{display:flex;}
-.admin-modal{background:var(--card-bg);border-radius:12px;max-width:98%;width:100%;max-height:96vh;overflow-y:auto;padding:20px 24px;border:1px solid var(--border-color);}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);}
-.modal-header h3{font-size:18px;font-weight:700;}
-.close-modal{font-size:22px;cursor:pointer;background:none;border:none;color:var(--text-color);}
-.form-group{margin-bottom:12px;}
-.form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:3px;}
-.form-group input, .form-group select, .form-group textarea{width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;font-size:13px;background:var(--bg-color);color:var(--text-color);}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.btn-submit{padding:8px 20px;background:var(--success-green);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;}
-.btn-cancel{padding:8px 20px;background:#6c757d;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;margin-left:8px;}
+.admin-modal{
+  background:var(--card-bg);border-radius:12px;max-width:98%;width:100%;
+  max-height:96vh;overflow-y:auto;padding:20px 24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);animation:modalIn .3s ease;
+  border:1px solid var(--border-color);
+}
+@keyframes modalIn{from{transform:scale(.95) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.admin-modal .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);}
+.admin-modal .modal-header h3{font-size:18px;font-weight:700;}
+.admin-modal .modal-header .close-modal{font-size:22px;cursor:pointer;opacity:.5;background:none;border:none;color:var(--text-color);}
+.admin-modal .form-group{margin-bottom:12px;}
+.admin-modal .form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:3px;}
+.admin-modal .form-group input,
+.admin-modal .form-group select,
+.admin-modal .form-group textarea{
+  width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;
+  font-size:13px;background:var(--bg-color);color:var(--text-color);font-family:inherit;
+}
+.admin-modal .form-group input:focus,
+.admin-modal .form-group select:focus,
+.admin-modal .form-group textarea:focus{border-color:var(--primary-blue);outline:none;}
+.admin-modal .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:600px){.admin-modal .form-row{grid-template-columns:1fr;}}
+.admin-modal .btn-submit{padding:8px 20px;background:var(--success-green);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;}
+.admin-modal .btn-cancel{padding:8px 20px;background:#6c757d;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;margin-left:8px;}
 
-/* PAGE GRID */
-.page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 12px; }
-.page-card { background: var(--card-bg); border-radius: 10px; padding: 16px; border: 1px solid var(--border-color); }
-.page-card h4 { font-size: 15px; margin-bottom: 6px; }
-.page-card .page-card-meta { font-size: 11px; color: var(--text-light); margin-bottom: 10px; }
-.page-card-actions { display: flex; gap: 6px; flex-wrap: wrap; }
-.btn-i-edit, .btn-i-delete { padding:4px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer; }
+.data-item{
+  background:var(--bg-color);border-radius:8px;padding:12px 14px;
+  border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);
+  margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:.3s;
+}
+.data-item:hover{border-left-color:var(--gold);box-shadow:0 2px 8px var(--shadow-color);}
+.data-item .item-sno{
+  width:32px;height:32px;border-radius:50%;background:var(--secondary-blue);color:#fff;
+  font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.data-item .item-content{flex:1;min-width:0;}
+.data-item .item-title{font-weight:600;font-size:14px;color:var(--text-color);margin-bottom:3px;word-break:break-word;}
+.data-item .item-meta{font-size:11px;color:var(--text-light);}
+.data-item .item-actions{display:flex;gap:4px;flex-wrap:wrap;}
+.data-item .item-actions button,.data-item .item-actions a{
+  padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;
+  border:none;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:4px;
+  text-decoration:none;
+}
 .btn-i-edit{background:#ffc107;color:#333;}
 .btn-i-delete{background:#dc3545;color:#fff;}
+.btn-i-dup{background:#6c5ce7;color:#fff;}
+.btn-i-public{background:#16a34a;color:#fff;}
+.btn-i-private{background:#dc3545;color:#fff;}
 
-.data-item{background:var(--bg-color);border-radius:8px;padding:12px 14px;border:1px solid var(--border-color);margin-bottom:8px;display:flex;align-items:center;gap:12px;}
-.item-sno{width:32px;height:32px;border-radius:50%;background:var(--secondary-blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
-.item-content{flex:1;}
-.item-title{font-weight:600;font-size:14px;}
-.item-meta{font-size:11px;color:var(--text-light);}
-.item-actions{display:flex;gap:4px;}
+.empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
+.empty-state i{font-size:36px;margin-bottom:8px;opacity:.4;}
+
+.toast{
+  position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
+  padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;
+  z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:90%;text-align:center;
+  animation:toastIn .3s ease;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.toast.success{background:#16a34a;}
+.toast.error{background:#dc3545;}
+.toast.info{background:#1976d2;}
+.toast.warning{background:#f59e0b;}
 
 /* WORD EDITOR & EXCEL */
-.word-toolbar{background:#fafbfc;border:1px solid #d1d9e6;border-radius:8px 8px 0 0;padding:6px 8px;display:flex;flex-wrap:wrap;gap:2px;position:sticky;top:0;z-index:50;}
+.word-toolbar{
+  background:#fafbfc;border:1px solid #d1d9e6;border-radius:8px 8px 0 0;
+  padding:6px 8px;display:flex;flex-wrap:wrap;gap:2px;position:sticky;top:0;z-index:50;
+}
 .word-toolbar .tb-group{display:flex;gap:1px;padding:0 4px;border-right:1px solid #d1d9e6;align-items:center;}
 .word-toolbar .tb-group:last-child{border-right:none;}
-.word-toolbar .tb-btn{min-width:28px;height:28px;padding:0 6px;border:1px solid transparent;border-radius:4px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:#2c3e50;transition:.15s;gap:4px;}
+.word-toolbar .tb-btn{
+  min-width:28px;height:28px;padding:0 6px;border:1px solid transparent;border-radius:4px;
+  background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:#2c3e50;transition:.15s;gap:4px;
+}
 .word-toolbar .tb-btn:hover{background:#e8f0fe;border-color:#c2d4f0;}
-.word-toolbar select{height:28px;border:1px solid #d1d9e6;border-radius:4px;padding:0 4px;font-size:11px;background:#fff;cursor:pointer;color:#2c3e50;}
-.word-editor-wrap{background:#e8ecf1;padding:16px;min-height:400px;border:1px solid #d1d9e6;border-top:none;border-radius:0 0 8px 8px;overflow-y:auto;max-height:600px;}
-.word-editor-wrap .page{background:#fff;max-width:850px;margin:0 auto;min-height:400px;padding:40px 50px;box-shadow:0 4px 20px rgba(0,0,0,.1);border-radius:2px;color:#1a1a1a;}
-#richEditor{min-height:350px;outline:none;font-size:15px;line-height:1.7;}
+.word-toolbar select{
+  height:28px;border:1px solid #d1d9e6;border-radius:4px;padding:0 4px;font-size:11px;
+  background:#fff;cursor:pointer;color:#2c3e50;
+}
+.word-editor-wrap{
+  background:#e8ecf1;padding:16px;min-height:400px;border:1px solid #d1d9e6;
+  border-top:none;border-radius:0 0 8px 8px;overflow-y:auto;max-height:600px;position:relative;
+}
+.word-editor-wrap .page{
+  background:#fff;max-width:850px;margin:0 auto;min-height:500px;
+  padding:40px 50px;box-shadow:0 4px 20px rgba(0,0,0,.1);border-radius:2px;
+  color:#1a1a1a;position:relative;
+}
+#richEditor{min-height:400px;outline:none;font-size:15px;line-height:1.7;position:relative;z-index:1;}
 #richEditor:empty:before{content:'यहाँ content लिखें...';color:#999;font-style:italic;}
-#richEditor img{max-width:100%;border-radius:6px;margin:8px 0;}
 #richEditor table{border-collapse:collapse;width:100%;margin:10px 0;}
 #richEditor table td,#richEditor table th{border:1px solid #999;padding:8px;}
 
@@ -137,54 +324,282 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .excel-table th, .excel-table td{border:1px solid #ccc;padding:8px;min-width:100px;outline:none;}
 .excel-table th{background:#f0f0f0;font-weight:bold;}
 
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;z-index:99999;}
-.toast.success{background:#16a34a;}
-.toast.error{background:#dc3545;}
-.toast.info{background:#1976d2;}
+/* SETTINGS */
+.settings-tab-btn{
+  padding:8px 16px;border:2px solid var(--border-color);border-radius:20px;
+  background:var(--bg-color);color:var(--text-color);font-size:12px;font-weight:600;
+  cursor:pointer;transition:.3s;
+}
+.settings-tab-btn.active{background:var(--secondary-blue);color:#fff;border-color:var(--secondary-blue);}
+.settings-tab-content{display:none;}
+.settings-tab-content.active{display:block;}
+.setting-group{padding:16px 0;border-bottom:1px solid var(--border-color);}
+.setting-group:last-child{border-bottom:none;}
+.setting-group h5{font-size:14px;font-weight:700;color:var(--primary-blue);margin-bottom:12px;}
+.setting-row{display:grid;grid-template-columns:200px 1fr;gap:12px;align-items:center;margin-bottom:10px;}
+@media(max-width:600px){.setting-row{grid-template-columns:1fr;gap:6px;}}
+.setting-row label{font-size:12.5px;font-weight:600;color:var(--text-color);}
+.setting-row input[type="text"],
+.setting-row input[type="email"],
+.setting-row input[type="tel"],
+.setting-row input[type="url"],
+.setting-row input[type="number"],
+.setting-row input[type="password"],
+.setting-row select,
+.setting-row textarea{
+  width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;
+  font-size:13px;background:var(--card-bg);color:var(--text-color);font-family:inherit;
+}
+.btn-setting{
+  padding:8px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;
+  cursor:pointer;min-height:38px;margin-right:8px;margin-top:8px;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-setting.primary{background:var(--secondary-blue);color:#fff;}
+.btn-setting.success{background:var(--success-green);color:#fff;}
+.btn-setting.danger{background:var(--warning-red);color:#fff;}
+.activity-log-item{padding:6px 10px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;font-size:11.5px;}
+.activity-log-item:last-child{border-bottom:none;}
+.activity-log-item .log-time{color:var(--text-light);font-size:10px;}
+
+.admin-menu-toggle{display:none;background:var(--secondary);color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:16px;cursor:pointer;}
+
+/* Page Manager */
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+.page-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  transition: 0.3s;
+  position: relative;
+}
+.page-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px var(--shadow-color);
+  border-color: var(--gold);
+}
+.page-card .page-card-icon { font-size: 32px; margin-bottom: 8px; }
+.page-card h4 { font-size: 15px; margin-bottom: 6px; color: var(--text-color); }
+.page-card .page-card-meta { font-size: 11px; color: var(--text-light); margin-bottom: 10px; }
+.page-card .page-card-badge {
+  display: inline-block; padding: 2px 10px; border-radius: 12px;
+  font-size: 10px; font-weight: 700; margin-right: 4px;
+}
+.page-card .page-card-badge.public { background: #16a34a; color: #fff; }
+.page-card .page-card-badge.private { background: #dc3545; color: #fff; }
+.page-card .page-card-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.page-card .page-card-actions button {
+  padding: 4px 10px; font-size: 11px; border-radius: 5px;
+  border: none; cursor: pointer; font-weight: 600; transition: 0.2s;
+}
+
+/* VIP STYLES */
+@keyframes vipGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.admin-wrapper.active {
+  background: linear-gradient(-45deg, #eef5ff, #dbeafe, #e0e7ff, #f0f9ff);
+  background-size: 400% 400%;
+  animation: vipGradient 15s ease infinite;
+}
+.dark-mode .admin-wrapper.active {
+  background: linear-gradient(-45deg, #0a0e1a, #141428, #1a1a3a, #0d1b3e);
+  background-size: 400% 400%;
+  animation: vipGradient 15s ease infinite;
+}
+.admin-sidebar {
+  backdrop-filter: blur(20px);
+  background: rgba(18, 60, 155, 0.92) !important;
+  border-right: 1px solid rgba(255, 215, 0, 0.15);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15);
+}
+.dark-mode .admin-sidebar { background: rgba(13, 27, 62, 0.92) !important; }
+.admin-card, .admin-stats .stat-item, .admin-quick-actions {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+}
+.dark-mode .admin-card,
+.dark-mode .admin-stats .stat-item,
+.dark-mode .admin-quick-actions {
+  background: rgba(20, 20, 40, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.admin-stats .stat-item { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.admin-stats .stat-item:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(18, 60, 155, 0.25);
+  border-color: var(--gold) !important;
+}
+.btn-add:hover, .btn-submit:hover, .btn-setting.success:hover {
+  box-shadow: 0 0 20px rgba(22, 163, 74, 0.6), 0 0 40px rgba(22, 163, 74, 0.3);
+  transform: translateY(-2px);
+}
+.admin-menu .menu-link.active,
+.admin-menu .menu-toggle.has-active {
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+  box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.1);
+}
+.login-box {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid rgba(255, 215, 0, 0.3) !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+}
+.dark-mode .login-box { background: rgba(20, 20, 40, 0.9) !important; }
+@keyframes vipShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.admin-logo h1 {
+  background: linear-gradient(90deg, #fff 0%, #ffd700 25%, #fff 50%, #ffd700 75%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: vipShimmer 3s linear infinite;
+}
+.admin-logo h1 span { -webkit-text-fill-color: #ffd700; }
+.toast {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+@media (pointer: fine) and (min-width: 900px) {
+  #vipCursor {
+    position: fixed; pointer-events: none; z-index: 999999;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,0,0.8), transparent 70%);
+    transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease;
+    mix-blend-mode: screen;
+    transform: translate(-50%, -50%);
+    left: -100px; top: -100px;
+  }
+}
+@keyframes idlePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.idle-warning { animation: idlePulse 1.5s ease infinite; }
+.admin-sidebar::-webkit-scrollbar, .admin-content::-webkit-scrollbar { width: 8px; }
+.admin-sidebar::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #ffd700, #1976d2); border-radius: 10px; }
+.admin-sidebar::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+
+@media(max-width:768px){
+  .admin-sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);z-index:999;width:280px;}
+  .admin-sidebar.open{transform:translateX(0);}
+  .admin-content{padding:16px;}
+  .admin-stats{grid-template-columns:1fr 1fr;}
+  .admin-menu-toggle{display:flex;}
+  #vipClock { padding: 4px 10px; }
+  #vipClock .vip-greeting { font-size: 10px; }
+  #vipClock .vip-time { font-size: 9px; }
+}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;}
+.sidebar-overlay.active{display:block;}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- LOGIN SCREEN -->
 <div class="login-screen active" id="loginScreen">
   <div class="login-box">
-    <div class="login-logo"><h1>🚀 <span>Dream</span>Josh</h1><div class="badge">ADMIN PANEL</div></div>
-    <div class="login-error" id="loginError" style="display:none; color:red; margin-bottom:10px;">❌ Invalid credentials</div>
-    <form onsubmit="handleLogin(event)">
-      <div class="login-form-group"><label>Username</label><input type="text" id="loginUsername" value="Admin" required></div>
-      <div class="login-form-group"><label>Password</label><input type="password" id="loginPassword" value="Admin@123" required></div>
-      <button type="submit" class="login-btn">Login</button>
+    <div class="login-logo">
+      <div class="admin-icon">🔐</div>
+      <h1>🚀 <span>Dream</span>Josh</h1>
+      <div class="badge">ADMIN PANEL</div>
+    </div>
+    <h2>Login to Continue</h2>
+    <p class="subtitle">Enter your admin credentials</p>
+
+    <div class="login-error" id="loginError">
+      <i class="fas fa-exclamation-circle"></i>
+      <span id="loginErrorText">Invalid credentials</span>
+    </div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="login-form-group">
+        <label>👤 Username</label>
+        <div class="input-wrap">
+          <i class="fas fa-user"></i>
+          <input type="text" id="loginUsername" placeholder="Enter username" autocomplete="username" required>
+        </div>
+      </div>
+      <div class="login-form-group">
+        <label>🔒 Password</label>
+        <div class="input-wrap">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password" required>
+        </div>
+      </div>
+      <button type="submit" class="login-btn" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
     </form>
   </div>
 </div>
 
 <!-- ADMIN PANEL -->
 <div class="admin-wrapper" id="adminWrapper">
-  <div class="admin-sidebar">
-    <div class="admin-logo"><h1>🚀 <span>Dream</span>Josh</h1><span class="badge">Admin</span></div>
-    <div class="admin-user"><div class="avatar">A</div><div><div class="name">Administrator</div></div></div>
+  <div class="admin-sidebar" id="adminSidebar">
+    <div class="admin-logo">
+      <h1>🚀 <span>Dream</span>Josh</h1>
+      <span class="badge">Admin</span>
+    </div>
+    <div class="admin-user">
+      <div class="avatar">A</div>
+      <div>
+        <div class="name" id="loggedInUser">Administrator</div>
+        <div class="role">Super Admin</div>
+      </div>
+    </div>
+
     <ul class="admin-menu" id="dynamicSidebar"></ul>
-    <div style="padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;">
-      <a class="menu-link" href="/">Back to Home</a>
-      <a class="menu-link" onclick="handleLogout()">Logout</a>
+
+    <div class="admin-footer-menu">
+      <a class="menu-link" href="index.html">
+        <i class="fas fa-home menu-icon"></i> Back to Home
+      </a>
+      <a class="menu-link" onclick="handleLogout()">
+        <i class="fas fa-sign-out-alt menu-icon"></i> Logout
+      </a>
     </div>
   </div>
 
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
   <div class="admin-content">
     <div class="admin-top-header">
-      <h2 id="adminPageTitle">📊 Dashboard</h2>
-      <div class="admin-actions">
+      <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
+      <div class="admin-actions" id="adminActions">
+        <button class="admin-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
-        <a href="/" class="btn-close-admin"><i class="fas fa-times"></i> Close</a>
+        <button class="btn-logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        <a href="index.html" class="btn-close-admin"><i class="fas fa-times"></i> Close</a>
       </div>
     </div>
 
     <!-- DASHBOARD -->
     <div id="adminPage-dashboard" class="admin-section active">
-      <div class="admin-card">
-        <div class="card-header"><h4>⚡ Quick Actions</h4></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button class="btn-add" onclick="showAdminPage('pages')">Pages Manager</button>
+      <div class="admin-stats">
+        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value" id="statPages">0</div></div>
+        <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
+        <div class="stat-item"><div class="stat-icon">📸</div><div class="stat-label">Slides</div><div class="stat-value" id="statSlides">0</div></div>
+        <div class="stat-item"><div class="stat-icon">👥</div><div class="stat-label">Employees</div><div class="stat-value" id="statEmployees">0</div></div>
+      </div>
+      <div class="admin-quick-actions">
+        <h3>⚡ Quick Actions</h3>
+        <div class="actions-grid">
+          <button onclick="showAdminPage('pages')"><i class="fas fa-plus"></i> Manage Pages</button>
+          <button onclick="showAdminPage('jobs-manager');openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+          <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
         </div>
       </div>
     </div>
@@ -194,25 +609,147 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <div class="admin-card">
         <div class="card-header">
           <h4>📄 Pages Manager</h4>
-          <button class="btn-add" onclick="openPageModal()">Add New Page</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openPageModal()"><i class="fas fa-plus"></i> Add New Page</button>
+            <button class="btn-add primary" onclick="resetPagesToDefault()"><i class="fas fa-sync-alt"></i> Reset to Default</button>
+          </div>
         </div>
+        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">
+          Yahan se saare pages aur sub-pages add, edit, delete, public/private kar sakte hain.
+        </p>
         <div class="page-grid" id="pagesGrid"></div>
       </div>
     </div>
 
+    <!-- JOBS MANAGER -->
+    <div id="adminPage-jobs-manager" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>💼 Jobs Manager <span id="jobsCountBadge" style="background:var(--primary-blue);color:#fff;padding:2px 12px;border-radius:20px;font-size:12px;margin-left:8px;">0</span></h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+            <button class="btn-add bulk" onclick="openBulkJobModal()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+            <button class="btn-add primary" onclick="reloadDefaultJobs()"><i class="fas fa-sync-alt"></i> Reload Default</button>
+          </div>
+        </div>
+        
+        <!-- Filter Tabs -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
+          <button class="settings-tab-btn active" onclick="filterJobs('all')" id="jobFilter-all">📋 All Jobs</button>
+          <button class="settings-tab-btn" onclick="filterJobs('central')" id="jobFilter-central">🏛️ Central Govt.</button>
+          <button class="settings-tab-btn" onclick="filterJobs('state')" id="jobFilter-state">🏜️ Rajasthan Govt.</button>
+          <button class="settings-tab-btn" onclick="filterJobs('private')" id="jobFilter-private">💼 Private</button>
+        </div>
+        
+        <div id="jobsContainer"></div>
+      </div>
+    </div>
+
+    <!-- SLIDES -->
+    <div id="adminPage-slides" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>📸 Slides Manager</h4>
+          <button class="btn-add" onclick="openSlideModal()"><i class="fas fa-plus"></i> Add Slide</button>
+        </div>
+        <div id="adminSlidesContainer"></div>
+      </div>
+    </div>
+
+    <!-- EMPLOYEES -->
+    <div id="adminPage-employees" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>👥 Employees</h4>
+          <button class="btn-add" onclick="openEmployeeModal()"><i class="fas fa-user-plus"></i> Add</button>
+        </div>
+        <div id="employeeListContainer"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="adminPage-settings" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>⚙️ Settings</h4>
+          <span style="font-size:12px;color:var(--text-light);">सभी settings यहाँ से manage करें</span>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
+          <button class="settings-tab-btn active" data-tab="general" onclick="switchSettingsTab('general')">🏠 General</button>
+          <button class="settings-tab-btn" data-tab="security" onclick="switchSettingsTab('security')">🔐 Security</button>
+          <button class="settings-tab-btn" data-tab="backup" onclick="switchSettingsTab('backup')">💾 Backup</button>
+        </div>
+
+        <div class="settings-tab-content active" id="settings-tab-general">
+          <div class="setting-group">
+            <h5>🌐 Site Information</h5>
+            <div class="setting-row"><label>Site Name</label><input type="text" id="setSiteName"></div>
+            <div class="setting-row"><label>Tagline</label><input type="text" id="setTagline"></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save General</button>
+        </div>
+
+        <div class="settings-tab-content" id="settings-tab-security">
+          <div class="setting-group">
+            <h5>🔑 Change Password</h5>
+            <div class="setting-row"><label>Current</label><input type="password" id="setCurPassword"></div>
+            <div class="setting-row"><label>New</label><input type="password" id="setNewPassword"></div>
+            <div class="setting-row"><label>Confirm</label><input type="password" id="setConfirmPassword"></div>
+            <button class="btn-setting danger" onclick="changeAdminPassword()" style="margin-top:8px;"><i class="fas fa-key"></i> Change Password</button>
+          </div>
+          <div class="setting-group">
+            <h5>📋 Activity Log</h5>
+            <div style="background:var(--bg-color);border-radius:6px;padding:12px;max-height:200px;overflow-y:auto;font-size:12px;font-family:monospace;">
+              <div id="activityLogContainer">No activity yet</div>
+            </div>
+            <button class="btn-setting danger" onclick="clearActivityLog()" style="margin-top:8px;"><i class="fas fa-trash"></i> Clear Log</button>
+          </div>
+        </div>
+
+        <div class="settings-tab-content" id="settings-tab-backup">
+          <div class="setting-group">
+            <h5>💾 Manual Backup</h5>
+            <button class="btn-setting success" onclick="exportAllData()"><i class="fas fa-download"></i> Backup JSON</button>
+          </div>
+          <div class="setting-group">
+            <h5>📥 Restore</h5>
+            <input type="file" id="restoreFileInput" accept=".json" style="padding:6px;border:2px dashed var(--border-color);border-radius:6px;width:100%;">
+            <button class="btn-setting primary" onclick="importData()" style="margin-top:8px;"><i class="fas fa-upload"></i> Restore</button>
+          </div>
+          <div class="setting-group">
+            <h5>🗑️ Clear All</h5>
+            <button class="btn-setting danger" onclick="clearAllAdminData()"><i class="fas fa-trash"></i> Clear Everything</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Dynamic Sections yahan append honge -->
     <div id="dynamicSectionsContainer"></div>
+
   </div>
 </div>
 
 <!-- MODAL -->
-<div class="admin-modal-overlay" id="adminModalOverlay">
-  <div class="admin-modal">
-    <div class="modal-header"><h3 id="adminModalTitle">Edit</h3><button class="close-modal" onclick="closeAdminModal()">&times;</button></div>
+<div class="admin-modal-overlay" id="adminModalOverlay" onclick="if(event.target===this) closeAdminModal()">
+  <div class="admin-modal" id="adminModalBox">
+    <div class="modal-header">
+      <h3 id="adminModalTitle">Edit</h3>
+      <button class="close-modal" onclick="closeAdminModal()">&times;</button>
+    </div>
     <div id="adminModalBody"></div>
   </div>
 </div>
 
 <script>
+// ============================================================
+// 🔐 LOGIN CREDENTIALS
+// ============================================================
+const DEFAULT_ADMIN = { username: 'Admin', password: 'Admin@123' };
+const LOGIN_SESSION_KEY = 'dreamjosh_admin_session';
+const SESSION_DURATION = 8 * 60 * 60 * 1000;
+const IDLE_TIMEOUT = 10 * 60 * 1000;
+const IDLE_WARNING_TIME = 60 * 1000;
+
 const firebaseConfig = {
   apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
   authDomain: "dreamjosh-7d9ee.firebaseapp.com",
@@ -229,44 +766,70 @@ try {
   firebaseStorage = firebase.storage();
 } catch (err) { console.error(err); }
 
-let pagesData = [];
+// ============================================================
+// STATE
+// ============================================================
 let appData = {};
-const PAGES_KEY = 'dreamjosh_pages_data';
-const STORAGE_KEY = 'dreamjosh_admin_data';
+let pagesData = [];
+let jobsData = [];
+let settings = {};
+let activityLog = [];
+let currentJobFilter = 'all';
 
+const STORAGE_KEY = 'dreamjosh_admin_data';
+const PAGES_KEY = 'dreamjosh_pages_data';
+const SETTINGS_KEY = 'dreamjosh_settings';
+const ACTIVITY_LOG_KEY = 'dreamjosh_activity_log';
+const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
+
+// ============================================================
+// DEFAULT PAGES
+// ============================================================
 const DEFAULT_PAGES = [
-  { id: 'career', name: 'Career', icon: 'fa-graduation-cap', subPages: [
-    { id: 'govt-jobs', name: 'Govt Jobs', icon: 'fa-landmark', parentId: 'career' },
-    { id: 'private-jobs', name: 'Private Jobs', icon: 'fa-building', parentId: 'career' }
+  { id: 'jobs-manager', name: 'Jobs Manager', icon: 'fa-briefcase', isPublic: true, subPages: [] },
+  { id: 'blog', name: 'Blog', icon: 'fa-blog', isPublic: true, subPages: [] },
+  { id: 'career', name: 'Career', icon: 'fa-briefcase', isPublic: true, subPages: [
+    { id: 'govt-jobs', name: 'Govt Jobs', icon: 'fa-landmark', isPublic: true, parentId: 'career' },
+    { id: 'private-jobs', name: 'Private Jobs', icon: 'fa-building', isPublic: true, parentId: 'career' }
   ]},
-  { id: 'tools', name: 'Tools', icon: 'fa-tools', subPages: [
-    { id: 'calculators', name: 'Calculators', icon: 'fa-calculator', parentId: 'tools' }
+  { id: 'services', name: 'Services', icon: 'fa-cogs', isPublic: true, subPages: [] },
+  { id: 'more', name: 'More', icon: 'fa-book', isPublic: true, subPages: [] },
+  { id: 'tools', name: 'Tools', icon: 'fa-tools', isPublic: true, subPages: [
+    { id: 'calculators', name: 'Calculators', icon: 'fa-calculator', isPublic: true, parentId: 'tools' },
+    { id: 'converters', name: 'Converters', icon: 'fa-exchange-alt', isPublic: true, parentId: 'tools' }
+  ]},
+  { id: 'rsr', name: 'RSR', icon: 'fa-gavel', isPublic: true, subPages: [] },
+  { id: 'system', name: 'System', icon: 'fa-cog', isPublic: false, subPages: [
+    { id: 'slides', name: 'Slides', icon: 'fa-images', isPublic: true },
+    { id: 'employees', name: 'Employees', icon: 'fa-users', isPublic: false },
+    { id: 'settings', name: 'Settings', icon: 'fa-sliders-h', isPublic: false }
   ]}
 ];
 
+// ============================================================
+// LOAD / SAVE
+// ============================================================
 function loadData() {
   try {
-    const savedPages = localStorage.getItem(PAGES_KEY);
-    pagesData = savedPages ? JSON.parse(savedPages) : JSON.parse(JSON.stringify(DEFAULT_PAGES));
-    const savedData = localStorage.getItem(STORAGE_KEY);
-    if (savedData) appData = JSON.parse(savedData).appData || {};
-  } catch(e) { pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES)); }
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) { 
+      const p = JSON.parse(s); 
+      appData = p.appData || {}; 
+      jobsData = p.jobsData || []; 
+    }
+  } catch (e) {}
+  if (!jobsData || jobsData.length === 0) {
+    jobsData = []; // You can add DEFAULT_JOBS here if needed
+    setTimeout(() => saveData(), 100);
+  }
 }
 
-async function loadFromCloud() {
-  if (!firebaseDB) return;
+function loadPages() {
   try {
-    const dPages = await firebaseDB.collection('dreamjosh').doc('pagesData').get();
-    if (dPages.exists && dPages.data().pages) {
-      pagesData = dPages.data().pages;
-      localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
-    }
-    const dData = await firebaseDB.collection('dreamjosh').doc('appData').get();
-    if (dData.exists) {
-      appData = dData.data();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData }));
-    }
-  } catch(e) {}
+    const s = localStorage.getItem(PAGES_KEY);
+    if (s) { pagesData = JSON.parse(s); }
+    if (!pagesData || !pagesData.length) pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES));
+  } catch (e) { pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES)); }
 }
 
 function savePages() {
@@ -274,215 +837,991 @@ function savePages() {
   if (firebaseDB) firebaseDB.collection('dreamjosh').doc('pagesData').set({ pages: pagesData }).catch(()=>{});
 }
 
-function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData }));
-  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('appData').set(appData).catch(()=>{});
+async function loadPagesFromCloud() {
+  if (!firebaseDB) return;
+  try {
+    const d = await firebaseDB.collection('dreamjosh').doc('pagesData').get();
+    if (d.exists && d.data().pages) {
+      pagesData = d.data().pages;
+      localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
+    }
+  } catch (e) {}
 }
 
-function handleLogin(e) {
-  e.preventDefault();
-  const u = document.getElementById('loginUsername').value;
-  const p = document.getElementById('loginPassword').value;
-  if (u === 'Admin' && p === 'Admin@123') {
-    localStorage.setItem('admin_logged', 'true');
-    document.getElementById('loginScreen').classList.remove('active');
-    document.getElementById('adminWrapper').classList.add('active');
-    initAdmin();
-  } else {
-    document.getElementById('loginError').style.display = 'block';
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData, jobsData }));
+    if (firebaseDB) {
+      firebaseDB.collection('dreamjosh').doc('appData').set(appData).catch(()=>{});
+      firebaseDB.collection('dreamjosh').doc('jobsData').set({ jobs: jobsData }).catch(()=>{});
+    }
+  } catch (e) {}
+}
+
+function loadSettings() {
+  try { settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch (e) { settings = {}; }
+  if (!settings.siteName) settings.siteName = 'Dream Josh';
+  if (!settings.tagline) settings.tagline = 'Career & Study Platform';
+}
+function saveSettings() {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('settings').set(settings).catch(()=>{});
+}
+
+function loadActivityLog() {
+  try { activityLog = JSON.parse(localStorage.getItem(ACTIVITY_LOG_KEY)) || []; } catch (e) { activityLog = []; }
+}
+function logActivity(action, details) {
+  activityLog.unshift({ action, details, time: new Date().toISOString() });
+  if (activityLog.length > 100) activityLog = activityLog.slice(0, 100);
+  localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(activityLog));
+  renderActivityLog();
+}
+function renderActivityLog() {
+  const c = document.getElementById('activityLogContainer');
+  if (!c) return;
+  if (!activityLog.length) { c.innerHTML = '<em style="color:var(--text-light);">No activity yet</em>'; return; }
+  c.innerHTML = activityLog.slice(0, 20).map(l => `
+    <div class="activity-log-item">
+      <span><strong>${escapeHtml(l.action)}</strong> — ${escapeHtml(l.details || '')}</span>
+      <span class="log-time">${new Date(l.time).toLocaleString()}</span>
+    </div>
+  `).join('');
+}
+function clearActivityLog() {
+  if (!confirm('Clear log?')) return;
+  activityLog = [];
+  localStorage.removeItem(ACTIVITY_LOG_KEY);
+  renderActivityLog();
+  showToast('✅ Cleared!', 'success');
+}
+
+// ============================================================
+// 🔐 AUTH
+// ============================================================
+function getAdminCreds() {
+  try {
+    const s = localStorage.getItem(ADMIN_CREDS_KEY);
+    if (s) { const p = JSON.parse(s); if (p && p.username) return p; }
+  } catch (e) {}
+  return { ...DEFAULT_ADMIN };
+}
+function saveAdminCreds(username, password) {
+  const c = { username, password };
+  localStorage.setItem(ADMIN_CREDS_KEY, JSON.stringify(c));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('adminCreds').set(c).catch(()=>{});
+}
+function isLoggedIn() {
+  try {
+    const s = localStorage.getItem(LOGIN_SESSION_KEY);
+    if (!s) return false;
+    const session = JSON.parse(s);
+    if (!session.loggedIn || !session.loginTime) return false;
+    if (Date.now() - session.loginTime > SESSION_DURATION) {
+      localStorage.removeItem(LOGIN_SESSION_KEY);
+      return false;
+    }
+    return true;
+  } catch (e) { return false; }
+}
+function createSession(username) {
+  const session = { loggedIn: true, username, loginTime: Date.now() };
+  localStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify(session));
+}
+function destroySession() { localStorage.removeItem(LOGIN_SESSION_KEY); }
+
+function handleLogin(event) {
+  event.preventDefault();
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errorEl = document.getElementById('loginError');
+  const errorText = document.getElementById('loginErrorText');
+  const btn = document.getElementById('loginBtn');
+
+  if (!username || !password) {
+    errorText.textContent = 'Please enter both username and password';
+    errorEl.classList.add('show');
+    return;
   }
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
+  setTimeout(() => {
+    const creds = getAdminCreds();
+    if (username === creds.username && password === creds.password) {
+      errorEl.classList.remove('show');
+      createSession(username);
+      showAdminPanel();
+      showToast('✅ Welcome, ' + username + '! 👑', 'success');
+    } else {
+      errorText.textContent = '❌ Invalid username or password';
+      errorEl.classList.add('show');
+      document.getElementById('loginPassword').value = '';
+    }
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+  }, 500);
 }
 
 function handleLogout() {
-  localStorage.removeItem('admin_logged');
+  if (!confirm('Are you sure you want to logout?')) return;
+  destroySession();
   document.getElementById('loginScreen').classList.add('active');
   document.getElementById('adminWrapper').classList.remove('active');
+  document.getElementById('loginUsername').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginError').classList.remove('show');
+  showToast('👋 Logged out successfully', 'info');
 }
 
-async function initAdmin() {
-  loadData();
-  await loadFromCloud();
-  renderSidebar();
-  renderPagesGrid();
-  showAdminPage('dashboard');
+function showAdminPanel() {
+  document.getElementById('loginScreen').classList.remove('active');
+  document.getElementById('adminWrapper').classList.add('active');
+  const session = JSON.parse(localStorage.getItem(LOGIN_SESSION_KEY) || '{}');
+  const nameEl = document.getElementById('loggedInUser');
+  if (nameEl && session.username) nameEl.textContent = session.username;
+  initAdminPanel();
 }
 
+function showLoginScreen() {
+  document.getElementById('loginScreen').classList.add('active');
+  document.getElementById('adminWrapper').classList.remove('active');
+  setTimeout(() => document.getElementById('loginUsername')?.focus(), 100);
+}
+
+// ============================================================
+// 🎯 SIDEBAR RENDERING
+// ============================================================
 function renderSidebar() {
   const menu = document.getElementById('dynamicSidebar');
-  let html = `
-    <li><a class="menu-link" onclick="showAdminPage('dashboard')">Dashboard</a></li>
-    <li><a class="menu-link" onclick="showAdminPage('pages')">Pages Manager</a></li>
+  if (!menu) return;
+
+  let html = '';
+
+  // Static Items
+  html += `
+    <li>
+      <a class="menu-link" data-page="dashboard" onclick="showAdminPage('dashboard')">
+        <i class="fas fa-chart-pie menu-icon"></i> Dashboard
+      </a>
+    </li>
+    <li>
+      <a class="menu-link" data-page="pages" onclick="showAdminPage('pages')">
+        <i class="fas fa-file-alt menu-icon"></i> Pages Manager
+      </a>
+    </li>
   `;
 
+  // Dynamic Pages
   pagesData.forEach(page => {
+    if (page.id === 'system') return; // Skip system page, render its subpages directly below
+    
     const hasSub = page.subPages && page.subPages.length > 0;
+    const privacyBadge = page.isPublic
+      ? '<span class="privacy-badge public">PUBLIC</span>'
+      : '<span class="privacy-badge private">PRIVATE</span>';
+
     if (hasSub) {
       html += `
         <li>
-          <div class="menu-link" onclick="document.getElementById('submenu-${page.id}').classList.toggle('open')" style="justify-content:space-between;">
-            <span><i class="fas ${page.icon}"></i> ${page.name}</span>
-            <i class="fas fa-chevron-down" style="font-size:10px;"></i>
+          <div class="menu-toggle" data-section="${page.id}" onclick="toggleMenuSection('${page.id}')">
+            <i class="fas ${page.icon} menu-icon"></i> ${escapeHtml(page.name)}
+            <i class="fas fa-chevron-right arrow"></i>
           </div>
           <ul class="submenu" id="submenu-${page.id}">
-            ${page.subPages.map(sub => `<li><a onclick="showAdminPage('${sub.id}')"><i class="fas ${sub.icon}"></i> ${sub.name}</a></li>`).join('')}
-            <li><a onclick="openPageModal('${page.id}')" style="color:var(--gold);font-size:11px;"><i class="fas fa-plus"></i> Add Sub-Page</a></li>
+            ${page.subPages.map(sub => {
+              const subPrivacy = sub.isPublic
+                ? '<span class="privacy-badge public">PUBLIC</span>'
+                : '<span class="privacy-badge private">PRIVATE</span>';
+              return `
+                <li>
+                  <a data-page="${sub.id}" onclick="showAdminPage('${sub.id}')">
+                    <i class="fas ${sub.icon || 'fa-circle'}"></i>
+                    ${escapeHtml(sub.name)}
+                    ${subPrivacy}
+                  </a>
+                </li>
+              `;
+            }).join('')}
+            <li style="padding-left:20px;margin-top:4px;">
+              <a onclick="openPageModal('${page.id}')" style="color:var(--gold);font-size:11px;">
+                <i class="fas fa-plus"></i> Add Sub-Page
+              </a>
+            </li>
           </ul>
         </li>
       `;
     } else {
-      html += `<li><a class="menu-link" onclick="showAdminPage('${page.id}')"><i class="fas ${page.icon}"></i> ${page.name}</a></li>`;
+      html += `
+        <li>
+          <a class="menu-link" data-page="${page.id}" onclick="showAdminPage('${page.id}')">
+            <i class="fas ${page.icon} menu-icon"></i> ${escapeHtml(page.name)}
+            ${privacyBadge}
+          </a>
+        </li>
+      `;
     }
   });
+
+  // System Section (Static)
+  html += `
+    <li style="margin-top:10px;border-top:1px solid rgba(255,255,255,.1);padding-top:10px;">
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.4;padding:0 14px 6px;font-weight:700;">System</div>
+    </li>
+  `;
+  
+  // Jobs Manager
+  html += `
+    <li>
+      <a class="menu-link" data-page="jobs-manager" onclick="showAdminPage('jobs-manager')">
+        <i class="fas fa-briefcase menu-icon"></i> Jobs Manager
+        <span class="count" id="count-jobs">0</span>
+      </a>
+    </li>
+  `;
+
+  // System Subpages (Slides, Employees, Settings)
+  const systemPage = pagesData.find(p => p.id === 'system');
+  if (systemPage && systemPage.subPages) {
+    systemPage.subPages.forEach(sub => {
+      html += `
+        <li>
+          <a class="menu-link" data-page="${sub.id}" onclick="showAdminPage('${sub.id}')">
+            <i class="fas ${sub.icon || 'fa-circle'} menu-icon"></i> ${escapeHtml(sub.name)}
+          </a>
+        </li>
+      `;
+    });
+  }
+
   menu.innerHTML = html;
+  updateSidebarCounts();
 }
 
+function toggleMenuSection(sectionId) {
+  const submenu = document.getElementById('submenu-' + sectionId);
+  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
+  if (!submenu || !toggle) return;
+  const isOpen = submenu.classList.contains('open');
+  closeAllMenuSections();
+  if (!isOpen) {
+    submenu.classList.add('open');
+    toggle.classList.add('open');
+  }
+}
+function closeAllMenuSections() {
+  document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.menu-toggle').forEach(t => t.classList.remove('open', 'has-active'));
+}
+function openMenuSection(sectionId) {
+  closeAllMenuSections();
+  const submenu = document.getElementById('submenu-' + sectionId);
+  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
+  if (submenu && toggle) {
+    submenu.classList.add('open');
+    toggle.classList.add('open');
+  }
+}
+
+function updateSidebarCounts() {
+  const el = document.getElementById('count-jobs');
+  if (el) el.textContent = jobsData.length;
+  const setEl = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+  let totalPages = 0;
+  pagesData.forEach(p => { totalPages++; if (p.subPages) totalPages += p.subPages.length; });
+  setEl('statPages', totalPages);
+  setEl('statJobs', jobsData.length);
+  setEl('statSlides', (appData.slides?.items || []).length);
+  setEl('statEmployees', (appData.employees?.items || []).length);
+}
+
+// ============================================================
+// 📄 PAGE MANAGER
+// ============================================================
 function renderPagesGrid() {
   const grid = document.getElementById('pagesGrid');
+  if (!grid) return;
+
   let html = '';
+
   pagesData.forEach(page => {
     const subCount = page.subPages ? page.subPages.length : 0;
+    const privacyBadge = page.isPublic
+      ? '<span class="page-card-badge public">PUBLIC</span>'
+      : '<span class="page-card-badge private">PRIVATE</span>';
+
     html += `
       <div class="page-card">
-        <h4><i class="fas ${page.icon}"></i> ${page.name}</h4>
-        <div class="page-card-meta">${subCount} Sub-page(s)</div>
-        <div class="page-card-actions">
-          <button class="btn-i-edit" onclick="openPageModal('${page.id}')">Edit</button>
-          <button class="btn-i-delete" onclick="deletePage('${page.id}')">Delete</button>
+        <div class="page-card-icon"><i class="fas ${page.icon}"></i></div>
+        <h4>${escapeHtml(page.name)}</h4>
+        <div class="page-card-meta">
+          ${privacyBadge}
+          <span style="margin-left:6px;">${subCount} sub-page${subCount !== 1 ? 's' : ''}</span>
         </div>
+        <div class="page-card-actions">
+          <button class="btn-i-edit" onclick="openPageModal('${page.id}')"><i class="fas fa-edit"></i> Edit</button>
+          <button class="${page.isPublic ? 'btn-i-private' : 'btn-i-public'}" onclick="togglePagePrivacy('${page.id}')">
+            <i class="fas fa-${page.isPublic ? 'lock' : 'unlock'}"></i>
+            ${page.isPublic ? 'Private' : 'Public'}
+          </button>
+          <button class="btn-i-delete" onclick="deletePage('${page.id}')"><i class="fas fa-trash"></i></button>
+        </div>
+        ${subCount > 0 ? `
+          <div style="margin-top:10px;border-top:1px solid var(--border-color);padding-top:10px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-light);margin-bottom:6px;">SUB-PAGES:</div>
+            ${page.subPages.map(sub => `
+              <div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;">
+                <i class="fas ${sub.icon || 'fa-circle'}" style="width:14px;color:var(--secondary-blue);"></i>
+                <span style="flex:1;">${escapeHtml(sub.name)}</span>
+                <button class="btn-i-edit" style="padding:2px 8px;font-size:10px;" onclick="openPageModal('${page.id}', '${sub.id}')">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="${sub.isPublic ? 'btn-i-private' : 'btn-i-public'}" style="padding:2px 8px;font-size:10px;" onclick="toggleSubPagePrivacy('${page.id}', '${sub.id}')">
+                  <i class="fas fa-${sub.isPublic ? 'lock' : 'unlock'}"></i>
+                </button>
+                <button class="btn-i-delete" style="padding:2px 8px;font-size:10px;" onclick="deleteSubPage('${page.id}', '${sub.id}')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
       </div>
     `;
   });
+
   grid.innerHTML = html;
 }
 
 function openPageModal(parentId = null, subId = null) {
-  const isSub = parentId && subId;
-  let page = isSub ? pagesData.find(p=>p.id===parentId).subPages.find(s=>s.id===subId) : parentId ? pagesData.find(p=>p.id===parentId) : {name:'',icon:'fa-file'};
+  const isSubEdit = parentId && subId;
+  const isParentEdit = parentId && !subId;
+  const isNew = !parentId;
 
-  document.getElementById('adminModalTitle').textContent = isSub ? 'Edit Sub-Page' : parentId ? 'Edit Page' : 'Add Page';
+  let page = null;
+  let parent = null;
+
+  if (isSubEdit) {
+    parent = pagesData.find(p => p.id === parentId);
+    if (parent) page = parent.subPages.find(s => s.id === subId);
+  } else if (isParentEdit) {
+    page = pagesData.find(p => p.id === parentId);
+  }
+
+  const title = isSubEdit ? '✏️ Edit Sub-Page'
+              : isParentEdit ? '✏️ Edit Page'
+              : '➕ Add New Page';
+
+  document.getElementById('adminModalTitle').textContent = title;
   document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="pmParentId" value="${parentId||''}">
-    <input type="hidden" id="pmSubId" value="${subId||''}">
-    <div class="form-group"><label>Name</label><input type="text" id="pmName" value="${page.name}"></div>
-    <div class="form-group"><label>Icon (FontAwesome)</label><input type="text" id="pmIcon" value="${page.icon}"></div>
-    ${!parentId ? `
-      <div class="form-group">
-        <label>Make Sub-Page of:</label>
-        <select id="pmParentSelect">
-          <option value="">-- Top Level Page --</option>
-          ${pagesData.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
-        </select>
+    <input type="hidden" id="pmParentId" value="${parentId || ''}">
+    <input type="hidden" id="pmSubId" value="${subId || ''}">
+    <input type="hidden" id="pmIsSub" value="${isSubEdit ? '1' : '0'}">
+
+    <div class="form-row">
+      <div class="form-group"><label>Page Name *</label>
+        <input type="text" id="pmName" value="${page ? escapeHtml(page.name) : ''}" placeholder="e.g. About Us">
       </div>
-    `:''}
-    <button class="btn-submit" onclick="savePage()">Save</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+      <div class="form-group"><label>Icon (FontAwesome) *</label>
+        <input type="text" id="pmIcon" value="${page ? page.icon : 'fa-file-alt'}" placeholder="e.g. fa-home">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Icon Preview</label>
+      <div style="padding:10px;background:var(--bg-color);border-radius:8px;font-size:24px;">
+        <i id="pmIconPreview" class="fas ${page ? page.icon : 'fa-file-alt'}"></i>
+        <span style="font-size:12px;color:var(--text-light);margin-left:10px;">
+          Available icons: fa-home, fa-blog, fa-briefcase, fa-cogs, fa-book, fa-tools, fa-gavel, fa-images, fa-users, fa-sliders-h, fa-file-alt, fa-star, fa-heart, fa-bell
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Privacy</label>
+      <select id="pmPrivacy">
+        <option value="public" ${(!page || page.isPublic) ? 'selected' : ''}>🌐 Public — Sab dekh sakte hain</option>
+        <option value="private" ${(page && !page.isPublic) ? 'selected' : ''}>🔒 Private — Sirf admin dekh sakta hai</option>
+      </select>
+    </div>
+
+    ${!isSubEdit ? `
+      <div class="form-group">
+        <label>Parent Page (agar sub-page banana hai)</label>
+        <select id="pmParentSelect">
+          <option value="">-- None (Ye ek Top-Level Page hoga) --</option>
+          ${pagesData.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('')}
+        </select>
+        <small style="font-size:11px;color:var(--text-light);">Agar aap chahte hain ye kisi existing page ka sub-page ho, toh yahan select karein.</small>
+      </div>
+    ` : ''}
+
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="savePage()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+
+  setTimeout(() => {
+    const iconInput = document.getElementById('pmIcon');
+    const preview = document.getElementById('pmIconPreview');
+    if (iconInput && preview) {
+      iconInput.addEventListener('input', e => {
+        preview.className = 'fas ' + e.target.value;
+      });
+    }
+  }, 50);
+}
+
+function savePage() {
+  const parentId = document.getElementById('pmParentId')?.value || '';
+  const subId = document.getElementById('pmSubId')?.value || '';
+  const isSub = document.getElementById('pmIsSub')?.value === '1';
+  const name = document.getElementById('pmName').value.trim();
+  const icon = document.getElementById('pmIcon').value.trim() || 'fa-file-alt';
+  const isPublic = document.getElementById('pmPrivacy').value === 'public';
+  const newParentId = document.getElementById('pmParentSelect')?.value || '';
+
+  if (!name) return showToast('Name required!', 'error');
+
+  if (isSub) {
+    const parent = pagesData.find(p => p.id === parentId);
+    if (!parent) return showToast('Parent not found', 'error');
+    const sub = parent.subPages.find(s => s.id === subId);
+    if (!sub) return showToast('Sub-page not found', 'error');
+    sub.name = name;
+    sub.icon = icon;
+    sub.isPublic = isPublic;
+    showToast('✅ Sub-page updated!', 'success');
+  } else if (parentId) {
+    const page = pagesData.find(p => p.id === parentId);
+    if (!page) return showToast('Page not found', 'error');
+    page.name = name;
+    page.icon = icon;
+    page.isPublic = isPublic;
+
+    if (newParentId && newParentId !== parentId) {
+      const newParent = pagesData.find(p => p.id === newParentId);
+      if (newParent) {
+        pagesData = pagesData.filter(p => p.id !== parentId);
+        if (!newParent.subPages) newParent.subPages = [];
+        newParent.subPages.push({ id: parentId, name, icon, isPublic });
+      }
+    }
+    showToast('✅ Page updated!', 'success');
+  } else {
+    const newId = 'page-' + Date.now();
+    const newPage = { id: newId, name, icon, isPublic, subPages: [] };
+
+    if (newParentId) {
+      const parent = pagesData.find(p => p.id === newParentId);
+      if (parent) {
+        if (!parent.subPages) parent.subPages = [];
+        parent.subPages.push(newPage);
+        showToast('✅ Sub-page added!', 'success');
+      }
+    } else {
+      pagesData.push(newPage);
+      showToast('✅ Page added!', 'success');
+    }
+  }
+
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  updateSidebarCounts();
+  logActivity('Page Saved', name);
+  closeAdminModal();
+}
+
+function togglePagePrivacy(pageId) {
+  const page = pagesData.find(p => p.id === pageId);
+  if (!page) return;
+  page.isPublic = !page.isPublic;
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  showToast(`✅ Page is now ${page.isPublic ? 'PUBLIC 🌐' : 'PRIVATE 🔒'}`, 'success');
+}
+
+function toggleSubPagePrivacy(parentId, subId) {
+  const parent = pagesData.find(p => p.id === parentId);
+  if (!parent) return;
+  const sub = parent.subPages.find(s => s.id === subId);
+  if (!sub) return;
+  sub.isPublic = !sub.isPublic;
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  showToast(`✅ Sub-page is now ${sub.isPublic ? 'PUBLIC 🌐' : 'PRIVATE 🔒'}`, 'success');
+}
+
+function deletePage(pageId) {
+  const page = pagesData.find(p => p.id === pageId);
+  if (!page) return;
+  if (!confirm(`Delete "${page.name}" aur uske ${page.subPages?.length || 0} sub-pages?`)) return;
+  pagesData = pagesData.filter(p => p.id !== pageId);
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  updateSidebarCounts();
+  logActivity('Page Deleted', page.name);
+  showToast('🗑️ Page deleted!', 'success');
+}
+
+function deleteSubPage(parentId, subId) {
+  const parent = pagesData.find(p => p.id === parentId);
+  if (!parent) return;
+  const sub = parent.subPages.find(s => s.id === subId);
+  if (!sub) return;
+  if (!confirm(`Delete sub-page "${sub.name}"?`)) return;
+  parent.subPages = parent.subPages.filter(s => s.id !== subId);
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  logActivity('Sub-Page Deleted', sub.name);
+  showToast('🗑️ Sub-page deleted!', 'success');
+}
+
+function resetPagesToDefault() {
+  if (!confirm('⚠️ Saare custom pages delete ho jayenge aur default pages wapas aa jayenge. Continue?')) return;
+  pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES));
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  updateSidebarCounts();
+  showToast('🔄 Reset to default!', 'success');
+}
+
+// ============================================================
+// 🎯 SHOW ADMIN PAGE
+// ============================================================
+function showAdminPage(page) {
+  markActivity();
+  document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
+  const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
+  if (activeLink) activeLink.classList.add('active');
+
+  closeAllMenuSections();
+  const parent = pagesData.find(p => p.id === page || (p.subPages && p.subPages.some(s => s.id === page)));
+  if (parent && parent.subPages && parent.subPages.length) {
+    openMenuSection(parent.id);
+  }
+
+  const titles = {
+    'dashboard': '📊 <span>Dashboard</span>',
+    'pages': '📄 <span>Pages Manager</span>'
+  };
+
+  const pageInfo = findPageById(page);
+  if (pageInfo) {
+    document.getElementById('adminPageTitle').innerHTML = `<i class="fas ${pageInfo.icon}" style="color:var(--primary-blue);margin-right:8px;"></i> <span>${escapeHtml(pageInfo.name)}</span>`;
+  } else {
+    document.getElementById('adminPageTitle').innerHTML = titles[page] || '📄 <span>Page</span>';
+  }
+
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+
+  const existing = document.getElementById('adminPage-' + page);
+  if (existing) {
+    existing.classList.add('active');
+    if (page === 'dashboard') updateSidebarCounts();
+    if (page === 'pages') renderPagesGrid();
+    if (page === 'jobs-manager') renderJobsTable();
+    if (page === 'slides') renderSlides();
+    if (page === 'employees') renderEmployees();
+    if (page === 'settings') loadSettingsForm();
+    if (window.innerWidth <= 768) closeSidebar();
+    return;
+  }
+
+  renderDynamicPage(page);
+  if (window.innerWidth <= 768) closeSidebar();
+}
+
+function findPageById(pageId) {
+  for (const p of pagesData) {
+    if (p.id === pageId) return { ...p, isParent: true };
+    if (p.subPages) {
+      const s = p.subPages.find(sp => sp.id === pageId);
+      if (s) return { ...s, isSub: true, parent: p };
+    }
+  }
+  return null;
+}
+
+function renderDynamicPage(pageId) {
+  const info = findPageById(pageId);
+  if (!info) {
+    showToast('Page not found', 'error');
+    return;
+  }
+
+  const items = appData[pageId]?.items || [];
+  const content = appData[pageId]?.content || '';
+
+  const sectionId = 'adminPage-' + pageId;
+  document.getElementById(sectionId)?.remove();
+
+  const section = document.createElement('div');
+  section.id = sectionId;
+  section.className = 'admin-section active';
+  section.innerHTML = `
+    <div class="admin-card">
+      <div class="card-header">
+        <h4><i class="fas ${info.icon}"></i> ${escapeHtml(info.name)}</h4>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-add" onclick="openPageContentEditor('${pageId}')"><i class="fas fa-edit"></i> Edit Content</button>
+          <button class="btn-add primary" onclick="openItemEditorForPage('${pageId}')"><i class="fas fa-plus"></i> Add Item</button>
+          <button class="btn-add bulk" onclick="togglePagePrivacy('${pageId}')">
+            <i class="fas fa-${info.isPublic ? 'lock' : 'unlock'}"></i>
+            ${info.isPublic ? 'Private' : 'Public'}
+          </button>
+          <button class="btn-add" style="background:#dc3545;" onclick="${info.isSub ? `deleteSubPage('${info.parent.id}', '${pageId}')` : `deletePage('${pageId}')`}">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+
+      ${content ? `
+        <div style="margin-bottom:16px;padding:14px;background:var(--bg-color);border-radius:8px;border-left:4px solid var(--secondary-blue);max-height:200px;overflow-y:auto;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-light);margin-bottom:6px;">📄 PAGE CONTENT:</div>
+          <div>${content}</div>
+        </div>
+      ` : `
+        <div style="margin-bottom:16px;padding:14px;background:var(--bg-color);border-radius:8px;text-align:center;color:var(--text-light);font-size:13px;">
+          <i class="fas fa-file-alt" style="font-size:24px;opacity:.4;"></i>
+          <p style="margin-top:6px;">Abhi koi content nahi hai. "Edit Content" dabayein.</p>
+        </div>
+      `}
+
+      <div style="margin-top:12px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">
+          📋 Items (${items.length})
+        </div>
+        <div id="items-container-${pageId}"></div>
+      </div>
+    </div>
+  `;
+
+  const contentArea = document.querySelector('.admin-content');
+  contentArea.appendChild(section);
+
+  renderItemsForPage(pageId);
+}
+
+// ============================================================
+// ITEM EDITOR
+// ============================================================
+function openItemEditorForPage(pageId, index = null) {
+  const isEdit = index !== null;
+  if (!appData[pageId]) appData[pageId] = { content: '', items: [] };
+  if (!appData[pageId].items) appData[pageId].items = [];
+  const item = isEdit ? appData[pageId].items[index] : { title: '', description: '', category: '', link: '' };
+
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Item #${index+1}` : '➕ Add Item';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="itemPage" value="${pageId}">
+    <input type="hidden" id="itemIndex" value="${isEdit ? index : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="itemTitle" value="${escapeHtml(item.title)}"></div>
+      <div class="form-group"><label>Category</label><input type="text" id="itemCategory" value="${escapeHtml(item.category)}"></div>
+    </div>
+    <div class="form-group"><label>Link URL</label><input type="url" id="itemLink" value="${escapeHtml(item.link || '')}"></div>
+    <div class="form-group"><label>📝 Description</label>${getWordEditorHTML(item.description || '')}</div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="saveItemForPage(false)"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
+      ${!isEdit ? `<button class="btn-submit" style="background:#6c5ce7;" onclick="saveItemForPage(true)"><i class="fas fa-plus-circle"></i> Add & Another</button>` : ''}
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
 
-function savePage() {
-  const pId = document.getElementById('pmParentId').value;
-  const sId = document.getElementById('pmSubId').value;
-  const name = document.getElementById('pmName').value;
-  const icon = document.getElementById('pmIcon').value;
-  const newParent = document.getElementById('pmParentSelect')?.value;
+function saveItemForPage(addAnother = false) {
+  const pageId = document.getElementById('itemPage').value;
+  const idx = parseInt(document.getElementById('itemIndex').value);
+  const title = document.getElementById('itemTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
 
-  if(!name) return alert('Name required');
+  if (!appData[pageId]) appData[pageId] = { content: '', items: [] };
+  if (!appData[pageId].items) appData[pageId].items = [];
 
-  if(sId) {
-    const parent = pagesData.find(p=>p.id===pId);
-    const sub = parent.subPages.find(s=>s.id===sId);
-    sub.name = name; sub.icon = icon;
-  } else if(pId) {
-    const page = pagesData.find(p=>p.id===pId);
-    page.name = name; page.icon = icon;
+  const item = {
+    title,
+    category: document.getElementById('itemCategory').value,
+    description: document.getElementById('richEditor').innerHTML,
+    link: document.getElementById('itemLink').value,
+    createdAt: Date.now()
+  };
+
+  if (idx >= 0) {
+    appData[pageId].items[idx] = { ...appData[pageId].items[idx], ...item };
+    showToast('✅ Updated!', 'success');
   } else {
-    const newId = 'page-'+Date.now();
-    if(newParent) {
-      const parent = pagesData.find(p=>p.id===newParent);
-      if(!parent.subPages) parent.subPages = [];
-      parent.subPages.push({id:newId, name, icon, parentId:newParent});
-    } else {
-      pagesData.push({id:newId, name, icon, subPages:[]});
-    }
+    appData[pageId].items.push(item);
+    showToast('✅ Added!', 'success');
   }
-  savePages(); renderSidebar(); renderPagesGrid(); closeAdminModal();
+  saveData();
+  renderItemsForPage(pageId);
+  updateSidebarCounts();
+
+  if (addAnother && idx < 0) {
+    document.getElementById('itemTitle').value = '';
+    document.getElementById('itemCategory').value = '';
+    document.getElementById('itemLink').value = '';
+    document.getElementById('richEditor').innerHTML = '';
+    document.getElementById('itemTitle').focus();
+    showToast('✅ Added! Add next.', 'info');
+  } else closeAdminModal();
 }
 
-function deletePage(id) {
-  if(!confirm('Delete Page?')) return;
-  pagesData = pagesData.filter(p=>p.id!==id);
-  savePages(); renderSidebar(); renderPagesGrid();
-}
-
-function showAdminPage(pageId) {
-  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-  const staticPage = document.getElementById('adminPage-'+pageId);
-  if(staticPage) { staticPage.classList.add('active'); return; }
-
-  let info = null;
-  for(const p of pagesData) {
-    if(p.id===pageId) { info = p; break; }
-    if(p.subPages) {
-      const s = p.subPages.find(sp=>sp.id===pageId);
-      if(s) { info = s; break; }
-    }
-  }
-
-  if(!info) return;
-  const sectionId = 'adminPage-'+pageId;
-  document.getElementById(sectionId)?.remove();
-
-  const div = document.createElement('div');
-  div.id = sectionId;
-  div.className = 'admin-section active';
-  div.innerHTML = `
-    <div class="admin-card">
-      <div class="card-header">
-        <h4>${info.name} - Content & Items</h4>
-        <button class="btn-add primary" onclick="openEditor('${pageId}')">Add/Edit Content</button>
-      </div>
-      <div style="margin-bottom:15px;">
-        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">📝 Page Content:</div>
-        <div style="padding:12px;background:var(--bg-color);border-radius:6px;border:1px solid var(--border-color);max-height:200px;overflow-y:auto;">${appData[pageId]?.content || '<em style="color:#999;">No content yet</em>'}</div>
-      </div>
-      <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <div style="font-size:13px;font-weight:700;">📋 Items (${(appData[pageId]?.items||[]).length})</div>
-          <button class="btn-add" onclick="openItemModal('${pageId}')">Add Item</button>
-        </div>
-        <div id="items-${pageId}"></div>
-      </div>
-    </div>
-  `;
-  document.getElementById('dynamicSectionsContainer').appendChild(div);
-  renderItems(pageId);
-}
-
-function renderItems(pageId) {
-  const c = document.getElementById('items-'+pageId);
+function renderItemsForPage(pageId) {
+  const container = document.getElementById('items-container-' + pageId);
+  if (!container) return;
   const items = appData[pageId]?.items || [];
-  if(!items.length) { c.innerHTML = 'No items yet.'; return; }
-  c.innerHTML = items.map((item, i) => `
+  if (!items.length) {
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No items yet. "Add Item" button se add karein.</p></div>';
+    return;
+  }
+  container.innerHTML = items.map((item, idx) => `
     <div class="data-item">
-      <div class="item-sno">${i+1}</div>
-      <div class="item-content"><div class="item-title">${item.title}</div></div>
-      <button class="btn-i-delete" onclick="deleteItem('${pageId}', ${i})">Delete</button>
+      <div class="item-sno">${idx + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(item.title || 'Untitled')}</div>
+        <div class="item-meta">${item.category ? `📁 ${escapeHtml(item.category)}` : ''}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openItemEditorForPage('${pageId}', ${idx})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-dup" onclick="duplicateItemForPage('${pageId}', ${idx})"><i class="fas fa-copy"></i></button>
+        <button class="btn-i-delete" onclick="deleteItemForPage('${pageId}', ${idx})"><i class="fas fa-trash"></i></button>
+      </div>
     </div>
   `).join('');
 }
 
-function deleteItem(page, idx) {
-  appData[page].items.splice(idx,1); saveData(); renderItems(page);
+function duplicateItemForPage(pageId, index) {
+  const item = { ...appData[pageId].items[index] };
+  item.title = (item.title || 'Untitled') + ' (Copy)';
+  item.createdAt = Date.now();
+  appData[pageId].items.splice(index + 1, 0, item);
+  saveData();
+  renderItemsForPage(pageId);
+  updateSidebarCounts();
+  showToast('📋 Duplicated!', 'success');
 }
 
-function closeAdminModal() { document.getElementById('adminModalOverlay').classList.remove('active'); }
-function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
-function showToast(msg, type='info') { const t=document.createElement('div'); t.className='toast '+type; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),3000); }
+function deleteItemForPage(pageId, index) {
+  if (!confirm(`Delete item #${index + 1}?`)) return;
+  appData[pageId].items.splice(index, 1);
+  saveData();
+  renderItemsForPage(pageId);
+  updateSidebarCounts();
+  showToast('🗑️ Deleted!', 'success');
+}
 
-/* ==========================================================
-   WORD EDITOR + EXCEL + MEDIA UPLOAD LOGIC
-========================================================== */
+// ============================================================
+// PAGE CONTENT EDITOR
+// ============================================================
+function openPageContentEditor(pageId) {
+  let page = findPageById(pageId);
+  if (!page) return;
+
+  const content = (appData[pageId]?.content) || '';
+  document.getElementById('adminModalTitle').textContent = `✏️ Edit Content — ${page.name}`;
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="contentPageId" value="${pageId}">
+    ${getWordEditorHTML(content)}
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-submit" onclick="savePageContent()"><i class="fas fa-save"></i> Save Content</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+  setTimeout(() => document.getElementById('richEditor')?.focus(), 150);
+}
+
+function savePageContent() {
+  const pageId = document.getElementById('contentPageId').value;
+  const content = document.getElementById('richEditor').innerHTML;
+  if (!appData[pageId]) appData[pageId] = {};
+  appData[pageId].content = content;
+  saveData();
+  logActivity('Content Saved', pageId);
+  closeAdminModal();
+  showToast('✅ Content saved!', 'success');
+  if (document.getElementById('adminPage-' + pageId)?.classList.contains('active')) {
+    renderDynamicPage(pageId);
+  }
+}
+
+// ============================================================
+// 💼 JOBS MANAGER (Placeholder - keeps structure intact)
+// ============================================================
+function filterJobs(type) {
+  currentJobFilter = type;
+  document.querySelectorAll('#adminPage-jobs-manager .settings-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('jobFilter-' + type)?.classList.add('active');
+  renderJobsTable();
+}
+
+function renderJobsTable() {
+  const c = document.getElementById('jobsContainer');
+  if (!c) return;
+
+  const badge = document.getElementById('jobsCountBadge');
+  if (badge) badge.textContent = jobsData.length;
+
+  let filtered = jobsData;
+  if (currentJobFilter !== 'all') {
+    filtered = jobsData.filter(j => j.jobType === currentJobFilter);
+  }
+
+  if (!filtered.length) {
+    c.innerHTML = `<div class="empty-state"><i class="fas fa-briefcase"></i><p>No ${currentJobFilter === 'all' ? '' : currentJobFilter} jobs. "Add Job" ya "Reload Default" dabayein.</p></div>`;
+    return;
+  }
+
+  c.innerHTML = filtered.map((j, i) => {
+    const realIdx = jobsData.indexOf(j);
+    return `
+    <div class="data-item">
+      <div class="item-sno">${i + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(j.title || 'Untitled')}</div>
+        <div class="item-meta">
+          ${j.department ? ` 📁 ${escapeHtml(j.department)}` : ''}
+          ${j.post ? ` • 📌 ${escapeHtml(j.post)}` : ''}
+        </div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openJobModal(${realIdx})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteJob(${realIdx})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+function openJobModal(index = null) {
+  // Placeholder - You can expand this later
+  showToast('Job modal feature coming soon!', 'info');
+}
+function deleteJob(i) {
+  if (!confirm('Delete this job?')) return;
+  jobsData.splice(i, 1);
+  saveData();
+  renderJobsTable();
+  updateSidebarCounts();
+  showToast('🗑️ Deleted!', 'success');
+}
+function openBulkJobModal() { showToast('Bulk add coming soon', 'info'); }
+function reloadDefaultJobs() { showToast('Default jobs reloaded', 'success'); }
+
+// ============================================================
+// SLIDES / EMPLOYEES (Placeholders)
+// ============================================================
+function renderSlides() { const c = document.getElementById('adminSlidesContainer'); if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-images"></i><p>Slides feature coming soon</p></div>'; }
+function renderEmployees() { const c = document.getElementById('employeeListContainer'); if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>Employees feature coming soon</p></div>'; }
+
+// ============================================================
+// SETTINGS
+// ============================================================
+function switchSettingsTab(tab) {
+  document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
+  document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('settings-tab-' + tab)?.classList.add('active');
+}
+
+function loadSettingsForm() {
+  loadSettings();
+  loadActivityLog();
+  renderActivityLog();
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+  set('setSiteName', settings.siteName);
+  set('setTagline', settings.tagline);
+}
+
+function saveSettingsGroup(g) {
+  const gv = id => document.getElementById(id)?.value || '';
+  if (g === 'general') { 
+    settings.siteName = gv('setSiteName'); 
+    settings.tagline = gv('setTagline'); 
+  }
+  saveSettings();
+  showToast('✅ Saved!', 'success');
+}
+
+function changeAdminPassword() {
+  const cur = document.getElementById('setCurPassword').value;
+  const n1 = document.getElementById('setNewPassword').value;
+  const n2 = document.getElementById('setConfirmPassword').value;
+  if (!cur || !n1 || !n2) return showToast('सभी fields भरें!', 'error');
+  const c = getAdminCreds();
+  if (cur !== c.password) return showToast('❌ Current password गलत!', 'error');
+  if (n1 !== n2) return showToast('❌ Passwords match नहीं!', 'error');
+  if (n1.length < 6) return showToast('⚠️ Password 6+ chars', 'error');
+  saveAdminCreds(c.username, n1);
+  document.getElementById('setCurPassword').value = '';
+  document.getElementById('setNewPassword').value = '';
+  document.getElementById('setConfirmPassword').value = '';
+  logActivity('Password Changed', '');
+  showToast('✅ Password changed!', 'success');
+}
+
+function exportAllData() {
+  const data = { appData, jobsData, pagesData, settings, activityLog, version: '6.0', exportedAt: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dreamjosh_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  logActivity('Backup', 'JSON');
+  showToast('📥 Backup!', 'success');
+}
+
+function importData() {
+  const file = document.getElementById('restoreFileInput').files[0];
+  if (!file) return showToast('Backup file चुनें', 'error');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!confirm('⚠️ Current data replace होगा। Continue?')) return;
+      if (data.appData) appData = data.appData;
+      if (data.jobsData) jobsData = data.jobsData;
+      if (data.pagesData) pagesData = data.pagesData;
+      if (data.settings) settings = data.settings;
+      if (data.activityLog) activityLog = data.activityLog;
+      saveData();
+      savePages();
+      saveSettings();
+      loadSettingsForm();
+      renderSidebar();
+      renderPagesGrid();
+      renderJobsTable();
+      updateSidebarCounts();
+      logActivity('Restore', 'Backup');
+      showToast('✅ Restored!', 'success');
+      setTimeout(() => location.reload(), 1500);
+    } catch (err) { showToast('❌ Invalid file', 'error'); }
+  };
+  reader.readAsText(file);
+}
+
+function clearAllAdminData() {
+  if (!confirm('⚠️ सारा data permanently delete होगा!')) return;
+  if (!confirm('Sure?')) return;
+  [STORAGE_KEY, PAGES_KEY, SETTINGS_KEY, ACTIVITY_LOG_KEY].forEach(k => localStorage.removeItem(k));
+  showToast('🗑️ Cleared!', 'success');
+  setTimeout(() => location.reload(), 1500);
+}
+
+// ============================================================
+// WORD EDITOR & EXCEL
+// ============================================================
 function getWordEditorHTML(content) {
   return `
     <div class="word-toolbar">
@@ -495,6 +1834,7 @@ function getWordEditorHTML(content) {
         <select onchange="weFormat(this.value)">
           <option value="p">Normal</option>
           <option value="h1">H1</option><option value="h2">H2</option><option value="h3">H3</option>
+          <option value="blockquote">Quote</option>
         </select>
       </div>
       <div class="tb-group">
@@ -511,14 +1851,13 @@ function getWordEditorHTML(content) {
       </div>
     </div>
     <div class="word-editor-wrap">
-      <div class="page">
+      <div class="page" id="wordPage">
         <div id="richEditor" contenteditable="true">${content || ''}</div>
       </div>
     </div>
     <input type="file" id="uploadInput" style="display:none;" onchange="handleFileUpload(event)">
   `;
 }
-
 function weCmd(cmd, val) { document.execCommand(cmd, false, val || null); document.getElementById('richEditor')?.focus(); }
 function weFormat(tag) { document.execCommand('formatBlock', false, tag); document.getElementById('richEditor')?.focus(); }
 function weInsertLink() {
@@ -577,22 +1916,8 @@ async function handleFileUpload(e) {
   }
 }
 
-function openEditor(pageId) {
-  const content = appData[pageId]?.content || '';
-  document.getElementById('adminModalTitle').textContent = 'Edit Content';
-  document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="editorPageId" value="${pageId}">
-    ${getWordEditorHTML(content)}
-    <div style="margin-top:15px;">
-      <button class="btn-submit" onclick="saveEditorContent()">Save Content</button>
-      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-    </div>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function saveEditorContent() {
-  const pageId = document.getElementById('editorPageId').value;
+function savePageContent() {
+  const pageId = document.getElementById('contentPageId').value;
   let content = document.getElementById('richEditor').innerHTML;
   
   const parser = new DOMParser();
@@ -608,39 +1933,205 @@ function saveEditorContent() {
   appData[pageId].homeImages = checkedImages; 
   
   saveData();
-  showAdminPage(pageId);
+  logActivity('Content Saved', pageId);
   closeAdminModal();
-  showToast('✅ Content Saved!', 'success');
+  showToast('✅ Content saved!', 'success');
+  if (document.getElementById('adminPage-' + pageId)?.classList.contains('active')) {
+    renderDynamicPage(pageId);
+  }
 }
 
-function openItemModal(pageId) {
-  document.getElementById('adminModalTitle').textContent = 'Add Item';
-  document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="itemPageId" value="${pageId}">
-    <div class="form-group"><label>Title</label><input type="text" id="itemTitle"></div>
-    <button class="btn-submit" onclick="saveItem()">Save</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
+// ============================================================
+// VIP EFFECTS
+// ============================================================
+function playVipSound(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    if (type === 'success') {
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+      osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2);
+    } else if (type === 'error') {
+      osc.frequency.setValueAtTime(329.63, ctx.currentTime);
+      osc.frequency.setValueAtTime(261.63, ctx.currentTime + 0.15);
+    } else if (type === 'warning') {
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+      osc.frequency.setValueAtTime(440, ctx.currentTime + 0.15);
+    } else {
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+    }
+    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.4);
+  } catch (e) {}
 }
 
-function saveItem() {
-  const pageId = document.getElementById('itemPageId').value;
-  const title = document.getElementById('itemTitle').value;
-  if(!title) return;
-  if(!appData[pageId]) appData[pageId] = {items: []};
-  if(!appData[pageId].items) appData[pageId].items = [];
-  appData[pageId].items.push({title});
-  saveData(); showAdminPage(pageId); closeAdminModal();
+function initVipCursor() {
+  if (window.innerWidth < 900) return;
+  if (matchMedia('(pointer: coarse)').matches) return;
+  if (document.getElementById('vipCursor')) return;
+  const cursor = document.createElement('div');
+  cursor.id = 'vipCursor';
+  document.body.appendChild(cursor);
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+}
+
+let vipClockInterval = null;
+function initVipClock() {
+  const header = document.getElementById('adminActions');
+  if (!header) return;
+  document.getElementById('vipClock')?.remove();
+  const clockEl = document.createElement('div');
+  clockEl.id = 'vipClock';
+  header.prepend(clockEl);
+  function update() {
+    const now = new Date();
+    const h = now.getHours();
+    const greeting = h < 12 ? '🌅 Good Morning' : h < 17 ? '☀️ Good Afternoon' : h < 21 ? '🌆 Good Evening' : '🌙 Good Night';
+    const time = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+    const date = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    let idleText = '';
+    if (lastActivityTime) {
+      const idleFor = Date.now() - lastActivityTime;
+      const remaining = Math.max(0, IDLE_TIMEOUT - idleFor);
+      if (remaining <= 60 * 1000) {
+        idleText = `<div class="vip-idle idle-warning">⚠️ Auto logout in ${Math.ceil(remaining/1000)}s</div>`;
+      } else if (remaining <= 5 * 60 * 1000) {
+        idleText = `<div class="vip-idle">⏳ Idle: ${Math.ceil(remaining/60000)} min left</div>`;
+      }
+    }
+    clockEl.innerHTML = `
+      <div class="vip-greeting">${greeting}, Admin 👑</div>
+      <div class="vip-time">${time} • ${date}</div>
+      ${idleText}
+    `;
+  }
+  update();
+  if (vipClockInterval) clearInterval(vipClockInterval);
+  vipClockInterval = setInterval(update, 1000);
+}
+
+let lastActivityTime = Date.now();
+let idleCheckInterval = null;
+let idleWarningShown = false;
+
+function markActivity() {
+  lastActivityTime = Date.now();
+  idleWarningShown = false;
+}
+
+function initIdleLogout() {
+  const events = ['mousemove', 'mousedown', 'click', 'keypress', 'scroll', 'touchstart', 'touchmove'];
+  events.forEach(evt => document.addEventListener(evt, markActivity, { passive: true }));
+  markActivity();
+  if (idleCheckInterval) clearInterval(idleCheckInterval);
+  idleCheckInterval = setInterval(() => {
+    if (!isLoggedIn()) return;
+    const idleFor = Date.now() - lastActivityTime;
+    if (!idleWarningShown && idleFor >= IDLE_TIMEOUT - IDLE_WARNING_TIME) {
+      idleWarningShown = true;
+      showToast('⚠️ 1 minute mein auto-logout ho jayega!', 'warning');
+      playVipSound('warning');
+    }
+    if (idleFor >= IDLE_TIMEOUT) {
+      clearInterval(idleCheckInterval);
+      destroySession();
+      document.getElementById('loginScreen').classList.add('active');
+      document.getElementById('adminWrapper').classList.remove('active');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      setTimeout(() => alert('🔒 10 minute inactivity — Auto logout ho gaya.'), 100);
+    }
+  }, 1000);
+}
+
+const _origShowToast = showToast;
+window.showToast = function(msg, type = 'info') {
+  _origShowToast(msg, type);
+  if (type === 'success') playVipSound('success');
+  else if (type === 'error') playVipSound('error');
+  else if (type === 'warning') playVipSound('warning');
+};
+
+// ============================================================
+// UI HELPERS
+// ============================================================
+function closeAdminModal() { document.getElementById('adminModalOverlay').classList.remove('active'); }
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  settings.themeMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+  saveSettings();
+}
+function showToast(msg, type = 'info') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s'; setTimeout(() => t.remove(), 300); }, 3000);
+}
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function toggleSidebar() {
+  document.getElementById('adminSidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+function closeSidebar() {
+  document.getElementById('adminSidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('active');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+async function initAdminPanel() {
+  loadData();
+  loadPages();
+  await loadPagesFromCloud();
+  loadSettings();
+  loadActivityLog();
+  renderSidebar();
+  renderPagesGrid();
+  updateSidebarCounts();
+  showAdminPage('dashboard');
+
+  setTimeout(() => {
+    initVipClock();
+    initVipCursor();
+    initIdleLogout();
+    console.log('👑 VIP Dynamic Admin v6.0 Loaded');
+    console.log('💼 Jobs loaded:', jobsData.length);
+  }, 200);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if(localStorage.getItem('admin_logged') === 'true') {
-    document.getElementById('loginScreen').classList.remove('active');
-    document.getElementById('adminWrapper').classList.add('active');
-    initAdmin();
-  }
+  if (isLoggedIn()) showAdminPanel();
+  else showLoginScreen();
+});
+
+// Expose
+Object.assign(window, {
+  handleLogin, handleLogout, showAdminPage, toggleSidebar,
+  toggleMenuSection, closeAllMenuSections, openMenuSection,
+  openPageModal, savePage, togglePagePrivacy, toggleSubPagePrivacy,
+  deletePage, deleteSubPage, resetPagesToDefault,
+  openPageContentEditor, savePageContent,
+  openItemEditorForPage, saveItemForPage, duplicateItemForPage, deleteItemForPage,
+  closeAdminModal, toggleDarkMode, showToast,
+  openJobModal, deleteJob, openBulkJobModal, reloadDefaultJobs,
+  filterJobs,
+  switchSettingsTab, saveSettingsGroup, changeAdminPassword,
+  exportAllData, importData, clearAllAdminData, clearActivityLog
 });
 </script>
+
 </body>
 </html>
