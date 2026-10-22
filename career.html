@@ -68,6 +68,89 @@
         }
         .app-header .nav-btn.admin-btn:hover { background: #d62839; color: #fff; }
 
+        /* CAREER DROPDOWN */
+        .career-dropdown { position: relative; display: inline-block; }
+        .career-dropdown .dropdown-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff; padding: 5px 12px; border-radius: 18px;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+            transition: 0.3s; white-space: nowrap;
+            display: inline-flex; align-items: center; gap: 4px;
+        }
+        .career-dropdown .dropdown-btn:hover,
+        .career-dropdown .dropdown-btn.active {
+            background: var(--gold); color: #0a0e1a;
+        }
+        .career-dropdown .dropdown-btn .arrow { font-size: 10px; }
+        .career-dropdown .dropdown-content {
+            display: none;
+            position: absolute; top: 100%; right: 0;
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; box-shadow: 0 8px 30px var(--shadow-color);
+            min-width: 290px; z-index: 1001;
+            max-height: 80vh; overflow-y: auto;
+            padding: 8px 0;
+        }
+        .career-dropdown .dropdown-content.show {
+            display: block;
+            animation: dropdownFade 0.25s ease;
+        }
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .career-dropdown .dropdown-category {
+            padding: 4px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .career-dropdown .dropdown-category:last-child { border-bottom: none; }
+        .career-dropdown .dropdown-category-title {
+            padding: 8px 16px;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+            background: var(--card-hover);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .career-dropdown .dropdown-category-title:hover { background: var(--bg-color); }
+        .career-dropdown .dropdown-sub {
+            list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0;
+            margin: 0;
+        }
+        .career-dropdown .dropdown-sub.open { max-height: 800px; }
+        .career-dropdown .dropdown-sub a {
+            display: block;
+            padding: 8px 16px 8px 36px;
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--text-color);
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .career-dropdown .dropdown-sub a:hover {
+            background: var(--card-hover);
+            border-left-color: var(--secondary-blue);
+            color: var(--secondary-blue);
+        }
+        .career-dropdown .dropdown-sub a i {
+            font-size: 10px;
+            opacity: 0.6;
+            width: 14px;
+            margin-right: 4px;
+        }
+
         /* MAIN */
         .main-container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
 
@@ -114,11 +197,9 @@
             font-size: 13px; font-weight: 700; color: var(--text-color);
             margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
         }
-        .filter-buttons {
-            display: flex; gap: 8px; flex-wrap: wrap;
-        }
+        .filter-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
         .filter-btn {
-            padding: 8px 18px; border-radius: 22px;
+            padding: 8px 16px; border-radius: 22px;
             border: 2px solid var(--border-color);
             background: var(--bg-color); color: var(--text-color);
             font-size: 12px; font-weight: 600; cursor: pointer;
@@ -134,13 +215,20 @@
             box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
         }
 
-        /* ITEM COUNT */
-        .item-count-badge {
-            display: inline-flex; align-items: center; gap: 6px;
+        /* SECTION TITLE */
+        .section-title {
+            display: flex; align-items: center; gap: 12px;
+            margin: 24px 0 14px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--border-color);
+        }
+        .section-title h2 { font-size: 20px; color: var(--primary-blue); }
+        .section-title .section-icon { font-size: 24px; }
+        .section-title .count-badge {
+            margin-left: auto;
             background: var(--primary-blue); color: #fff;
-            padding: 6px 16px; border-radius: 20px;
+            padding: 4px 14px; border-radius: 20px;
             font-size: 12px; font-weight: 700;
-            margin-bottom: 16px;
         }
 
         /* CAREER GRID */
@@ -154,8 +242,7 @@
             background: var(--card-bg); border-radius: 12px;
             padding: 20px; border: 1px solid var(--border-color);
             box-shadow: 0 2px 8px var(--shadow-color);
-            transition: 0.3s; cursor: pointer;
-            position: relative; overflow: hidden;
+            transition: 0.3s; position: relative; overflow: hidden;
         }
         .career-card::before {
             content: ''; position: absolute;
@@ -169,9 +256,7 @@
             border-color: var(--gold);
         }
         .career-card:hover::before { background: var(--gold); }
-        .career-card .career-icon {
-            font-size: 36px; margin-bottom: 10px;
-        }
+        .career-card .career-icon { font-size: 36px; margin-bottom: 10px; }
         .career-card .career-title {
             font-size: 16px; font-weight: 700;
             color: var(--primary-blue); margin-bottom: 8px;
@@ -206,6 +291,7 @@
             text-align: center; padding: 60px 20px;
             background: var(--card-bg); border-radius: 14px;
             border: 2px dashed var(--border-color);
+            grid-column: 1 / -1;
         }
         .empty-state i {
             font-size: 64px; color: var(--text-light);
@@ -215,14 +301,12 @@
             font-size: 18px; color: var(--text-color);
             margin-bottom: 8px;
         }
-        .empty-state p {
-            font-size: 13px; color: var(--text-light);
-        }
+        .empty-state p { font-size: 13px; color: var(--text-light); }
 
         /* LOADING */
         .loading-state {
             text-align: center; padding: 60px 20px;
-            color: var(--text-light);
+            color: var(--text-light); grid-column: 1 / -1;
         }
         .loading-state i {
             font-size: 48px; color: var(--secondary-blue);
@@ -231,7 +315,7 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* CONTENT DISPLAY (from admin) */
+        /* CONTENT DISPLAY */
         .content-display {
             background: var(--card-bg); border-radius: 14px;
             padding: 24px; border: 1px solid var(--border-color);
@@ -239,20 +323,12 @@
             margin-bottom: 20px;
             font-size: 14px; line-height: 1.8;
         }
-        .content-display h2 {
-            color: var(--primary-blue); margin-bottom: 12px;
-            font-size: 22px;
-        }
-        .content-display h3 {
-            color: var(--primary-blue); margin: 18px 0 8px;
-            font-size: 17px;
-        }
+        .content-display h2 { color: var(--primary-blue); margin-bottom: 12px; font-size: 22px; }
+        .content-display h3 { color: var(--primary-blue); margin: 18px 0 8px; font-size: 17px; }
         .content-display p { margin: 8px 0; }
         .content-display ul, .content-display ol { padding-left: 24px; margin: 10px 0; }
         .content-display img { max-width: 100%; height: auto; border-radius: 8px; }
-        .content-display table {
-            border-collapse: collapse; width: 100%; margin: 10px 0;
-        }
+        .content-display table { border-collapse: collapse; width: 100%; margin: 10px 0; }
         .content-display table td, .content-display table th {
             border: 1px solid var(--border-color); padding: 8px 12px;
         }
@@ -294,10 +370,7 @@
             transition: 0.3s;
         }
         .back-to-top.show { display: flex; }
-        .back-to-top:hover {
-            background: var(--secondary-blue);
-            transform: translateY(-5px);
-        }
+        .back-to-top:hover { background: var(--secondary-blue); transform: translateY(-5px); }
 
         /* FOOTER */
         .app-footer {
@@ -333,20 +406,8 @@
             .career-grid { grid-template-columns: 1fr; }
             .career-card { padding: 16px; }
             .whatsapp-float { width: 48px; height: 48px; font-size: 22px; }
+            .career-dropdown .dropdown-content { min-width: 250px; right: -20px; }
         }
-
-        /* TOAST */
-        .toast {
-            position: fixed; bottom: 70px; left: 50%;
-            transform: translateX(-50%); padding: 12px 24px;
-            border-radius: 12px; color: white; font-size: 14px;
-            font-weight: 600; z-index: 99999;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            max-width: 90%; text-align: center;
-        }
-        .toast.success { background: #16a34a; }
-        .toast.error { background: #dc3545; }
-        .toast.info { background: #1976d2; }
     </style>
 </head>
 <body>
@@ -357,7 +418,15 @@
         <div class="header-controls">
             <a href="index.html" class="nav-btn">🏠 Home</a>
             <a href="jobs.html" class="nav-btn">💼 Jobs</a>
-            <a href="career.html" class="nav-btn active">🎯 Career</a>
+
+            <!-- CAREER DROPDOWN -->
+            <div class="career-dropdown" id="careerDropdownWrapper">
+                <button class="dropdown-btn active" onclick="toggleCareerDropdown(event)">
+                    🎯 Career <span class="arrow">▾</span>
+                </button>
+                <div class="dropdown-content" id="careerDropdownContent"></div>
+            </div>
+
             <a href="blog.html" class="nav-btn">📝 Blog</a>
             <a href="admin.html" class="nav-btn admin-btn">🔐 Admin</a>
         </div>
@@ -368,106 +437,40 @@
 
         <!-- TICKER -->
         <div class="page-ticker">
-            <span>🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs • Career Counseling</span>
+            <span>🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs • Career Counseling • Skill Development</span>
         </div>
 
         <!-- PAGE HEADER -->
         <div class="page-header-block">
             <h1>🎯 Career Options</h1>
-            <p>Explore various career options and find the right path for your future. यहाँ आपको सभी career paths की पूरी जानकारी मिलेगी।</p>
+            <p>Explore various career options and find the right path for your future. यहाँ आपको सभी career paths की पूरी जानकारी मिलेगी — Government Jobs, Private Jobs, Education Paths, Exam Preparation, Skill-Based Careers aur bahut kuch.</p>
         </div>
 
         <!-- FILTER -->
         <div class="filter-block">
             <div class="filter-title"><i class="fas fa-filter"></i> Filter by Category</div>
             <div class="filter-buttons" id="filterButtons">
-                <button class="filter-btn active" onclick="filterCareer('all')" data-cat="all">📌 All Careers</button>
+                <button class="filter-btn active" onclick="filterCareer('all')">📌 All Careers</button>
             </div>
         </div>
 
-        <!-- ITEM COUNT -->
-        <div id="itemCountBadge" class="item-count-badge" style="display:none;">
-            <i class="fas fa-list"></i> <span id="itemCount">0</span> items
+        <!-- ACTIVE FILTER BADGE -->
+        <div id="activeFilterBadge" style="display:none;margin-bottom:16px;">
+            <span style="display:inline-flex;align-items:center;gap:8px;background:var(--primary-blue);color:#fff;padding:8px 18px;border-radius:20px;font-size:13px;font-weight:700;">
+                <i class="fas fa-filter"></i> <span id="activeFilterText">All</span>
+                <button onclick="filterCareer('all')" style="background:rgba(255,255,255,0.3);border:none;color:#fff;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:14px;">✕</button>
+            </span>
         </div>
 
-        <!-- CONTENT (from admin) -->
-        <div id="careerContentDisplay" class="content-display" style="display:none;"></div>
-
-        <!-- CAREER GRID -->
-        <div id="careerGrid" class="career-grid">
+        <!-- CAREER SECTIONS -->
+        <div id="careerSections">
             <div class="loading-state">
                 <i class="fas fa-spinner"></i>
                 <p>Loading career options...</p>
             </div>
         </div>
 
-    </main>
+        <!-- CONTENT (from admin) -->
+        <div id="careerContentDisplay" class="content-display" style="display:none;"></div>
 
-    <!-- FOOTER -->
-    <footer class="app-footer">
-        <div class="footer-links">
-            <a href="index.html">🏠 Home</a>
-            <a href="jobs.html">💼 Jobs</a>
-            <a href="career.html" style="background:rgba(255,215,0,0.2);color:var(--gold);">🎯 Career</a>
-            <a href="blog.html">📝 Blog</a>
-            <a href="more.html">📚 More</a>
-            <a href="services.html">🛠️ Services</a>
-            <a href="rsr.html">📜 RSR</a>
-            <a href="tools.html">🛠️ Tools</a>
-            <a href="admin.html" style="background:rgba(214,40,57,0.85);">🔐 Admin</a>
-        </div>
-        <div class="footer-copy">© 2026 <span>Dream Josh</span> • Career Page</div>
-    </footer>
-
-    <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/919999999999?text=Hi%20Dream%20Josh%2C%20mujhe%20career%20guidance%20chahiye"
-       target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- BACK TO TOP -->
-    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <script>
-        // ============================================================
-        // 🔥 FIREBASE CONFIG
-        // ============================================================
-        const firebaseConfig = {
-            apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
-            authDomain: "dreamjosh-7d9ee.firebaseapp.com",
-            projectId: "dreamjosh-7d9ee",
-            storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
-            messagingSenderId: "461367857074",
-            appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
-        };
-
-        let firebaseApp, firebaseDB;
-        try {
-            firebaseApp = firebase.initializeApp(firebaseConfig);
-            firebaseDB = firebase.firestore();
-        } catch (err) { console.error('Firebase error:', err); }
-
-        // ============================================================
-        // 📦 STATE
-        // ============================================================
-        let careerData = {
-            content: '',
-            items: []
-        };
-        let currentFilter = 'all';
-
-        // ============================================================
-        // 📋 FALLBACK ITEMS (agar Firebase empty ho)
-        // ============================================================
-        const FALLBACK_ITEMS = [
-            { id: 'c1', title: '🏛️ Government Jobs', description: 'UPSC, SSC, Banking, Railway, Defence, Police', category: 'Government Jobs', visibility: 'public' },
-            { id: 'c2', title: '💼 Private Jobs', description: 'IT, Finance, Marketing, HR, Healthcare', category: 'Private Jobs', visibility: 'public' },
-            { id: 'c3', title: '📚 Teaching & Education', description: 'CTET, REET, B.Ed, M.Ed career paths', category: 'Teaching', visibility: 'public' },
-            { id: 'c4', title: '🏦 Banking & Finance', description: 'IBPS, SBI, RBI, SEBI, NABARD', category: 'Banking', visibility: 'public' },
-            { id: 'c5', title: '📄 SSC & Staff Selection', description: 'SSC CGL, CHSL, MTS, JE, CPO', category: 'SSC', visibility: 'public' },
-            { id: 'c6', title: '🚂 Railway Recruitment', description: 'RRB NTPC, Group D, ALP, JE', category: 'Railway', visibility: 'public' },
-            { id: 'c7', title: '🛡️ Defence Services', description: 'NDA, CDS, AFCAT, Indian Army, Navy, Air Force', category: 'Defence', visibility: 'public' },
-            { id: 'c8', title: '👮 Police & Paramilitary', description: 'State Police, CAPF, BSF, CRPF, CISF', category: 'Police', visibility: 'public' },
-            { id: '
+    <
