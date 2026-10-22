@@ -1,356 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Career Guide | Dream Josh</title>
-<meta name="description" content="Dream Josh Career Guide - Career options after 10th, 12th, graduation, government jobs, courses and scholarships.">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>Career – Dream Josh</title>
+    <meta name="theme-color" content="#123c9b" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-<!-- FontAwesome Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <style>
+        :root {
+            --bg-color: #eef5ff; --card-bg: #ffffff; --text-color: #172033;
+            --primary-blue: #123c9b; --secondary-blue: #1976d2;
+            --success-green: #16a34a; --warning-red: #d62839;
+            --highlight-bg: #eefaf4; --border-color: #dce5f0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --header-bg: linear-gradient(135deg, #123c9b, #1976d2);
+            --footer-bg: #123c9b; --card-hover: #f4f8ff; --gold: #ffd700;
+            --text-light: #6c757d;
+            --whatsapp-green: #25D366;
+        }
+        .dark-mode {
+            --bg-color: #0a0e1a; --card-bg: #141428; --text-color: #e8e8e8;
+            --text-light: #a0a0b8; --primary-blue: #1a3a8a;
+            --secondary-blue: #2a5ac8; --border-color: #2a2a4a;
+            --shadow-color: rgba(0, 0, 0, 0.3); --footer-bg: #0d1b3e;
+            --card-hover: #1a1a3a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg-color); color: var(--text-color);
+            min-height: 100vh; transition: background 0.3s, color 0.3s;
+            padding-top: 70px; padding-bottom: 55px;
+        }
 
-<style>
-*{box-sizing:border-box}
-body{
- margin:0;font-family:Arial,sans-serif;
- background:#f4f7fc;color:#202b40;line-height:1.6
-}
-.container{width:92%;max-width:1150px;margin:auto}
-header{
- background:linear-gradient(120deg,#123c9b,#1976d2);
- color:white;padding:25px 0
-}
-.logo{font-size:32px;font-weight:bold}
-.tagline{font-size:14px}
-nav{background:white;padding:12px 0;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:100}
-nav .container{display:flex;gap:18px;flex-wrap:wrap}
-nav a{text-decoration:none;color:#123c9b;font-weight:bold;font-size:14px}
-nav a.active{color:#1976d2;border-bottom:2px solid #1976d2;}
-.hero{
- padding:55px 0;text-align:center;
- background:linear-gradient(120deg,#e5f1ff,#fff)
-}
-.hero h1{font-size:clamp(30px,5vw,45px);color:#123c9b;margin:0 0 15px}
-.hero p{max-width:750px;margin:0 auto 25px;color:#536178}
-.btn{
- display:inline-block;background:#123c9b;color:white;
- padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:bold;
- cursor:pointer;border:none;
-}
-section{padding:40px 0}
-.section-title{text-align:center;margin-bottom:25px}
-.section-title h2{font-size:30px;margin-bottom:5px}
-.section-title p{color:#68758a}
-.search{
- display:block;width:100%;max-width:500px;margin:0 auto 25px;
- padding:14px;border:1px solid #ccd7e8;border-radius:9px;font-size:16px;
- outline:none;
-}
-.search:focus{border-color:#1976d2;box-shadow:0 0 0 3px rgba(25,118,210,.1);}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{
- background:white;padding:22px;border:1px solid #e0e7f1;
- border-radius:14px;box-shadow:0 4px 15px #173a7010;
- display:flex;flex-direction:column;transition:0.3s;
-}
-.card:hover{transform:translateY(-3px);box-shadow:0 8px 20px #173a701c}
-.icon{font-size:30px;color:#1976d2;margin-bottom:5px;}
-.card h3{font-size:18px;margin:10px 0;color:#123c9b;}
-.card p{font-size:14px;color:#647188;flex:1; margin-bottom:15px;}
-.card a{color:#123c9b;font-weight:bold;text-decoration:none;margin-top:auto;display:inline-block;}
-.card a:hover{text-decoration:underline;}
-.pathways{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
-.path{
- background:#fff;padding:18px;border-radius:12px;
- border:1px solid #e0e7f1;text-decoration:none;color:#202b40;
- transition:0.3s;
-}
-.path:hover{border-color:#1976d2;box-shadow:0 4px 12px rgba(25,118,210,0.1);}
-.path p{font-size:13px;color:#68758a;margin-bottom:0}
-.cta{
- background:linear-gradient(120deg,#123c9b,#1976d2);
- color:white;padding:30px;border-radius:15px;text-align:center
-}
-.cta a{background:white;color:#123c9b}
-footer{background:#101f3b;color:white;padding:25px 0;margin-top:25px}
-footer a{color:white;margin-right:12px;text-decoration:none;font-size:13px}
-footer p{font-size:13px;color:#c4d2e8}
-.loading-box{text-align:center;padding:40px;color:#6c757d;font-size:16px;grid-column:1/-1;}
+        /* HEADER */
+        .app-header {
+            background: var(--header-bg); padding: 10px 16px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            height: 60px; box-shadow: 0 2px 20px var(--shadow-color);
+        }
+        .app-header .logo {
+            font-size: 20px; font-weight: bold; color: #fff;
+            text-decoration: none; display: flex; align-items: center; gap: 8px;
+        }
+        .app-header .logo span { color: var(--gold); }
+        .app-header .header-controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .app-header .nav-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff; padding: 5px 12px; border-radius: 18px;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+            transition: 0.3s; white-space: nowrap;
+            text-decoration: none; display: inline-flex; align-items: center;
+        }
+        .app-header .nav-btn:hover, .app-header .nav-btn.active {
+            background: var(--gold); color: #0a0e1a;
+        }
+        .app-header .nav-btn.admin-btn {
+            background: rgba(214, 40, 57, 0.85);
+            border-color: rgba(214, 40, 57, 1);
+        }
+        .app-header .nav-btn.admin-btn:hover { background: #d62839; color: #fff; }
 
-@media(max-width:850px){
- .grid{grid-template-columns:repeat(2,1fr)}
- .pathways{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:550px){
- .grid{grid-template-columns:1fr}
- .pathways{grid-template-columns:1fr 1fr}
- .hero{padding:38px 0}
- .logo{font-size:27px}
-}
-</style>
+        /* MAIN */
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
+
+        /* TICKER */
+        .page-ticker {
+            margin: 0 auto 20px auto; max-width: 1100px;
+            padding: 10px 14px; border-radius: 10px; color: white;
+            overflow: hidden; white-space: nowrap;
+            background: var(--secondary-blue);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        .page-ticker span {
+            display: inline-block; padding-left: 100%;
+            animation: move 20s linear infinite;
+        }
+        @keyframes move {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+
+        /* PAGE HEADER */
+        .page-header-block {
+            background: var(--card-bg); border-radius: 14px;
+            padding: 24px; margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+        .page-header-block h1 {
+            font-size: 28px; color: var(--primary-blue);
+            margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+        }
+        .page-header-block p {
+            font-size: 14px; color: var(--text-light); line-height: 1.6;
+        }
+
+        /* FILTER */
+        .filter-block {
+            background: var(--card-bg); border-radius: 14px;
+            padding: 18px 20px; margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+        .filter-block .filter-title {
+            font-size: 13px; font-weight: 700; color: var(--text-color);
+            margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+        }
+        .filter-buttons {
+            display: flex; gap: 8px; flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 8px 18px; border-radius: 22px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-color); color: var(--text-color);
+            font-size: 12px; font-weight: 600; cursor: pointer;
+            transition: 0.3s; font-family: inherit;
+        }
+        .filter-btn:hover {
+            border-color: var(--secondary-blue);
+            background: var(--card-hover);
+        }
+        .filter-btn.active {
+            background: var(--secondary-blue); color: #fff;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+        }
+
+        /* ITEM COUNT */
+        .item-count-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--primary-blue); color: #fff;
+            padding: 6px 16px; border-radius: 20px;
+            font-size: 12px; font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        /* CAREER GRID */
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .career-card {
+            background: var(--card-bg); border-radius: 12px;
+            padding: 20px; border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            transition: 0.3s; cursor: pointer;
+            position: relative; overflow: hidden;
+        }
+        .career-card::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--secondary-blue);
+            transition: 0.3s;
+        }
+        .career-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-color);
+            border-color: var(--gold);
+        }
+        .career-card:hover::before { background: var(--gold); }
+        .career-card .career-icon {
+            font-size: 36px; margin-bottom: 10px;
+        }
+        .career-card .career-title {
+            font-size: 16px; font-weight: 700;
+            color: var(--primary-blue); margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .career-card .career-desc {
+            font-size: 13px; color: var(--text-light);
+            line-height: 1.6; margin-bottom: 10px;
+        }
+        .career-card .career-cat {
+            display: inline-block; padding: 3px 12px;
+            border-radius: 12px; font-size: 10px;
+            background: var(--secondary-blue); color: #fff;
+            font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .career-card .career-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 10px; padding: 6px 14px;
+            background: var(--success-green); color: #fff;
+            border-radius: 6px; font-size: 11px;
+            font-weight: 700; text-decoration: none;
+            transition: 0.3s;
+        }
+        .career-card .career-link:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center; padding: 60px 20px;
+            background: var(--card-bg); border-radius: 14px;
+            border: 2px dashed var(--border-color);
+        }
+        .empty-state i {
+            font-size: 64px; color: var(--text-light);
+            opacity: 0.4; margin-bottom: 16px;
+        }
+        .empty-state h3 {
+            font-size: 18px; color: var(--text-color);
+            margin-bottom: 8px;
+        }
+        .empty-state p {
+            font-size: 13px; color: var(--text-light);
+        }
+
+        /* LOADING */
+        .loading-state {
+            text-align: center; padding: 60px 20px;
+            color: var(--text-light);
+        }
+        .loading-state i {
+            font-size: 48px; color: var(--secondary-blue);
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px; display: block;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* CONTENT DISPLAY (from admin) */
+        .content-display {
+            background: var(--card-bg); border-radius: 14px;
+            padding: 24px; border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            margin-bottom: 20px;
+            font-size: 14px; line-height: 1.8;
+        }
+        .content-display h2 {
+            color: var(--primary-blue); margin-bottom: 12px;
+            font-size: 22px;
+        }
+        .content-display h3 {
+            color: var(--primary-blue); margin: 18px 0 8px;
+            font-size: 17px;
+        }
+        .content-display p { margin: 8px 0; }
+        .content-display ul, .content-display ol { padding-left: 24px; margin: 10px 0; }
+        .content-display img { max-width: 100%; height: auto; border-radius: 8px; }
+        .content-display table {
+            border-collapse: collapse; width: 100%; margin: 10px 0;
+        }
+        .content-display table td, .content-display table th {
+            border: 1px solid var(--border-color); padding: 8px 12px;
+        }
+        .content-display table th { background: var(--bg-color); font-weight: 600; }
+        .content-display blockquote {
+            border-left: 4px solid var(--secondary-blue);
+            padding: 8px 16px; margin: 10px 0;
+            background: var(--bg-color); border-radius: 0 8px 8px 0;
+        }
+
+        /* FLOATING WHATSAPP */
+        .whatsapp-float {
+            position: fixed; bottom: 70px; right: 16px;
+            width: 54px; height: 54px; border-radius: 50%;
+            background: var(--whatsapp-green); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; z-index: 998;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+            cursor: pointer; text-decoration: none;
+            transition: 0.3s; animation: whatsappPulse 2s infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.7);
+        }
+        @keyframes whatsappPulse {
+            0%, 100% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5); }
+            50% { box-shadow: 0 6px 30px rgba(37, 211, 102, 0.9); }
+        }
+
+        /* BACK TO TOP */
+        .back-to-top {
+            position: fixed; bottom: 140px; right: 16px;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--primary-blue); color: #fff;
+            display: none; align-items: center; justify-content: center;
+            font-size: 18px; z-index: 997; cursor: pointer;
+            border: none; box-shadow: 0 4px 15px rgba(18, 60, 155, 0.4);
+            transition: 0.3s;
+        }
+        .back-to-top.show { display: flex; }
+        .back-to-top:hover {
+            background: var(--secondary-blue);
+            transform: translateY(-5px);
+        }
+
+        /* FOOTER */
+        .app-footer {
+            background: var(--footer-bg); color: #fff;
+            padding: 12px 16px; text-align: center;
+            position: fixed; bottom: 0; left: 0; right: 0;
+            z-index: 999; box-shadow: 0 -2px 15px var(--shadow-color);
+        }
+        .app-footer .footer-links {
+            display: flex; justify-content: center;
+            gap: 12px; flex-wrap: wrap; margin-bottom: 6px;
+        }
+        .app-footer .footer-links a {
+            color: rgba(255,255,255,0.85); font-size: 11px;
+            text-decoration: none; cursor: pointer;
+            transition: 0.2s; padding: 3px 8px; border-radius: 6px;
+        }
+        .app-footer .footer-links a:hover {
+            background: rgba(255,215,0,0.2); color: var(--gold);
+        }
+        .app-footer .footer-copy {
+            font-size: 11px; color: rgba(255,255,255,0.6);
+        }
+        .app-footer .footer-copy span { color: var(--gold); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .main-container { padding: 12px; }
+            .page-header-block { padding: 16px; }
+            .page-header-block h1 { font-size: 22px; }
+            .filter-block { padding: 14px; }
+            .filter-btn { padding: 6px 14px; font-size: 11px; }
+            .career-grid { grid-template-columns: 1fr; }
+            .career-card { padding: 16px; }
+            .whatsapp-float { width: 48px; height: 48px; font-size: 22px; }
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed; bottom: 70px; left: 50%;
+            transform: translateX(-50%); padding: 12px 24px;
+            border-radius: 12px; color: white; font-size: 14px;
+            font-weight: 600; z-index: 99999;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 90%; text-align: center;
+        }
+        .toast.success { background: #16a34a; }
+        .toast.error { background: #dc3545; }
+        .toast.info { background: #1976d2; }
+    </style>
 </head>
-
 <body>
 
-<header>
- <div class="container">
-  <div class="logo">Dream <span style="color:#ffe082">Josh</span></div>
-  <div class="tagline">Study • Motivation • Government Jobs • Career Guide</div>
-  <div>पढ़ेंगे यहाँ, बढ़ेंगे जहाँ</div>
- </div>
-</header>
+    <!-- HEADER -->
+    <header class="app-header">
+        <a href="index.html" class="logo">🚀 <span>Dream</span>Josh</a>
+        <div class="header-controls">
+            <a href="index.html" class="nav-btn">🏠 Home</a>
+            <a href="jobs.html" class="nav-btn">💼 Jobs</a>
+            <a href="career.html" class="nav-btn active">🎯 Career</a>
+            <a href="blog.html" class="nav-btn">📝 Blog</a>
+            <a href="admin.html" class="nav-btn admin-btn">🔐 Admin</a>
+        </div>
+    </header>
 
-<nav>
- <div class="container">
-  <a href="index.html">Home</a>
-  <a href="government-jobs.html">Government Jobs</a>
-  <a href="study.html">Study</a>
-  <a href="career-guide.html" class="active">Career Guide</a>
-  <a href="books.html">Books</a>
-  <a href="motivation.html">Motivation</a>
-  <a href="videos.html">Videos</a>
- </div>
-</nav>
+    <!-- MAIN -->
+    <main class="main-container">
 
-<div class="hero">
- <div class="container">
-  <h1>Career Guide</h1>
-  <p>
-   Explore career options after 10th, 12th and graduation.
-   Find information about courses, government jobs, private jobs,
-   scholarships, skill development and career planning.
-  </p>
-  <a class="btn" href="#categories">Explore Career Options</a>
- </div>
-</div>
+        <!-- TICKER -->
+        <div class="page-ticker">
+            <span>🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs • Career Counseling</span>
+        </div>
 
-<section id="categories">
- <div class="container">
-  <div class="section-title">
-   <h2>Explore Career Categories</h2>
-   <p>Choose your career path and start planning your future.</p>
-  </div>
+        <!-- PAGE HEADER -->
+        <div class="page-header-block">
+            <h1>🎯 Career Options</h1>
+            <p>Explore various career options and find the right path for your future. यहाँ आपको सभी career paths की पूरी जानकारी मिलेगी।</p>
+        </div>
 
-  <input class="search" id="search" type="search"
-   placeholder="Search career guide..." aria-label="Search career guide">
+        <!-- FILTER -->
+        <div class="filter-block">
+            <div class="filter-title"><i class="fas fa-filter"></i> Filter by Category</div>
+            <div class="filter-buttons" id="filterButtons">
+                <button class="filter-btn active" onclick="filterCareer('all')" data-cat="all">📌 All Careers</button>
+            </div>
+        </div>
 
-  <!-- Dynamic Cards Yahan Load Honge -->
-  <div class="grid" id="careerGrid">
-    <div class="loading-box">
-        <i class="fas fa-spinner fa-spin"></i> Loading Career Guides...
-    </div>
-  </div>
-  
-  <p id="noResults" style="display:none;text-align:center;color:#dc3545;font-weight:bold;margin-top:20px;">No matching category found.</p>
- </div>
-</section>
+        <!-- ITEM COUNT -->
+        <div id="itemCountBadge" class="item-count-badge" style="display:none;">
+            <i class="fas fa-list"></i> <span id="itemCount">0</span> items
+        </div>
 
-<section>
- <div class="container">
-  <div class="section-title">
-   <h2>Choose by Education Level</h2>
-   <p>Start from your current qualification.</p>
-  </div>
-  <div class="pathways">
-   <a class="path" href="after-10th.html">
-    <b>After Class 10</b>
-    <p>Streams, ITI, diploma and vocational courses.</p>
-   </a>
-   <a class="path" href="after-12th.html">
-    <b>After Class 12</b>
-    <p>Degree courses, entrance exams and career paths.</p>
-   </a>
-   <a class="path" href="college-courses.html">
-    <b>After Graduation</b>
-    <p>Higher studies, competitive exams and jobs.</p>
-   </a>
-   <a class="path" href="skill-development.html">
-    <b>Learn New Skills</b>
-    <p>Develop practical and job-ready skills.</p>
-   </a>
-  </div>
- </div>
-</section>
+        <!-- CONTENT (from admin) -->
+        <div id="careerContentDisplay" class="content-display" style="display:none;"></div>
 
-<section>
- <div class="container">
-  <div class="cta">
-   <h2>Plan Today. Build Your Future.</h2>
-   <p>Explore your options and take the next step towards your career.</p>
-   <br>
-   <a class="btn" href="#categories">Browse All Categories</a>
-  </div>
- </div>
-</section>
+        <!-- CAREER GRID -->
+        <div id="careerGrid" class="career-grid">
+            <div class="loading-state">
+                <i class="fas fa-spinner"></i>
+                <p>Loading career options...</p>
+            </div>
+        </div>
 
-<footer>
- <div class="container">
-  <h3>Dream Josh</h3>
-  <p>पढ़ेंगे यहाँ, बढ़ेंगे जहाँ</p>
-  <a href="index.html">Home</a>
-  <a href="about.html">About Us</a>
-  <a href="contact.html">Contact</a>
-  <a href="privacy-policy.html">Privacy Policy</a>
-  <p>Career information is for guidance. Verify eligibility, fees, deadlines and schemes through official sources.</p>
- </div>
-</footer>
+    </main>
 
-<script>
-// ============================================================
-// FIREBASE CONFIG
-// ============================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
-  authDomain: "dreamjosh-7d9ee.firebaseapp.com",
-  projectId: "dreamjosh-7d9ee",
-  storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
-  messagingSenderId: "461367857074",
-  appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
-};
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="jobs.html">💼 Jobs</a>
+            <a href="career.html" style="background:rgba(255,215,0,0.2);color:var(--gold);">🎯 Career</a>
+            <a href="blog.html">📝 Blog</a>
+            <a href="more.html">📚 More</a>
+            <a href="services.html">🛠️ Services</a>
+            <a href="rsr.html">📜 RSR</a>
+            <a href="tools.html">🛠️ Tools</a>
+            <a href="admin.html" style="background:rgba(214,40,57,0.85);">🔐 Admin</a>
+        </div>
+        <div class="footer-copy">© 2026 <span>Dream Josh</span> • Career Page</div>
+    </footer>
 
-let firebaseApp, firebaseDB;
-try {
-  firebaseApp = firebase.initializeApp(firebaseConfig);
-  firebaseDB = firebase.firestore();
-} catch (e) { console.error("Firebase init error:", e); }
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/919999999999?text=Hi%20Dream%20Josh%2C%20mujhe%20career%20guidance%20chahiye"
+       target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-const careerGrid = document.getElementById("careerGrid");
-const noResults = document.getElementById("noResults");
-const searchInput = document.getElementById("search");
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-// ============================================================
-// DEFAULT DATA (Agar admin panel khali ho to ye dikhega)
-// ============================================================
-const DEFAULT_CAREER_ITEMS = [
-  { title: "1. After 10th Career Guide", icon: "🎓", description: "Arts, Science, Commerce, ITI, Polytechnic, Diploma and vocational courses.", link: "after-10th.html" },
-  { title: "2. After 12th Career Guide", icon: "📚", description: "Career options after Arts, Science and Commerce, degree courses and entrance exams.", link: "after-12th.html" },
-  { title: "3. Government Jobs Career Guide", icon: "🏛️", description: "UPSC, RPSC, RAS, SSC, Railway, Police, Banking, Defence and other government jobs.", link: "government-jobs-career.html" },
-  { title: "4. Private Jobs Career Guide", icon: "💼", description: "Private companies, IT jobs, banking, sales, office jobs and remote work.", link: "private-jobs-career.html" },
-  { title: "5. College & Courses Guide", icon: "🏫", description: "UG, PG, degree, diploma, online courses, admission and fee information.", link: "college-courses.html" },
-  { title: "6. Skill Development Guide", icon: "💻", description: "Computer, coding, AI, digital marketing, English speaking and job-ready skills.", link: "skill-development.html" },
-  { title: "7. Career Counseling & Planning", icon: "🧭", description: "Identify your interests, compare careers and prepare a step-by-step career roadmap.", link: "career-counseling.html" },
-  { title: "8. Competitive Exam Guide", icon: "📝", description: "Exam syllabus, pattern, preparation strategy, mock tests and interview guidance.", link: "competitive-exams.html" },
-  { title: "9. Scholarships & Schemes", icon: "🎯", description: "Student scholarships, eligibility, application process and official portals.", link: "scholarships.html" }
-];
+    <script>
+        // ============================================================
+        // 🔥 FIREBASE CONFIG
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
+            authDomain: "dreamjosh-7d9ee.firebaseapp.com",
+            projectId: "dreamjosh-7d9ee",
+            storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
+            messagingSenderId: "461367857074",
+            appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
+        };
 
-let allCareerItems = [];
+        let firebaseApp, firebaseDB;
+        try {
+            firebaseApp = firebase.initializeApp(firebaseConfig);
+            firebaseDB = firebase.firestore();
+        } catch (err) { console.error('Firebase error:', err); }
 
-// ============================================================
-// RENDER CARDS
-// ============================================================
-function renderCareerData(items) {
-  allCareerItems = items;
-  careerGrid.innerHTML = '';
+        // ============================================================
+        // 📦 STATE
+        // ============================================================
+        let careerData = {
+            content: '',
+            items: []
+        };
+        let currentFilter = 'all';
 
-  if (!items || items.length === 0) {
-    careerGrid.innerHTML = '<div class="loading-box" style="grid-column:1/-1;">No career guides available.</div>';
-    return;
-  }
-
-  items.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    
-    // HTML remove karke text nikalna
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = item.description || '';
-    let plainDesc = tempDiv.textContent || tempDiv.innerText || '';
-    if(plainDesc.length > 100) plainDesc = plainDesc.substring(0, 100) + '...';
-
-    // Icon setup
-    let icon = item.icon;
-    if(!icon) {
-        const titleLower = (item.title || '').toLowerCase();
-        if (titleLower.includes('10th')) icon = "🎓";
-        else if (titleLower.includes('12th')) icon = "📚";
-        else if (titleLower.includes('govt') || titleLower.includes('government')) icon = "🏛️";
-        else if (titleLower.includes('private')) icon = "💼";
-        else if (titleLower.includes('college')) icon = "🏫";
-        else if (titleLower.includes('skill')) icon = "💻";
-        else if (titleLower.includes('counsel')) icon = "🧭";
-        else if (titleLower.includes('exam')) icon = "📝";
-        else if (titleLower.includes('scholar')) icon = "🎯";
-        else icon = "📄";
-    }
-
-    card.innerHTML = `
-      <div class="icon">${icon}</div>
-      <h3>${item.title || 'Untitled'}</h3>
-      <p>${plainDesc}</p>
-      <a href="${item.link || '#'}">Explore Guide →</a>
-    `;
-    careerGrid.appendChild(card);
-  });
-}
-
-// ============================================================
-// SEARCH FUNCTION
-// ============================================================
-searchInput.addEventListener("input", function () {
-  const query = this.value.toLowerCase().trim();
-  const cards = document.querySelectorAll("#careerGrid .card");
-  let count = 0;
-
-  cards.forEach(function (card) {
-    const match = card.innerText.toLowerCase().includes(query);
-    card.style.display = match ? "flex" : "none";
-    if (match) count++;
-  });
-
-  noResults.style.display = count ? "none" : "block";
-});
-
-// ============================================================
-// LOAD DATA (Firebase -> LocalStorage -> Default)
-// ============================================================
-async function loadCareerData() {
-  let items = [];
-
-  try {
-    // 1. Firebase se load karein
-    const docRef = firebaseDB.collection('dreamjosh').doc('appData');
-    const docSnap = await docRef.get();
-
-    if (docSnap.exists) {
-      const data = docSnap.data();
-      // Check karein ki 'career' page me items hain ya nahi
-      if (data.career && data.career.items && data.career.items.length > 0) {
-        items = data.career.items;
-      }
-    }
-  } catch (err) {
-    console.warn("Firebase fetch failed, checking local storage.", err);
-  }
-
-  // 2. Agar Firebase me nahi mila, LocalStorage check karein
-  if (items.length === 0) {
-    try {
-      const localData = JSON.parse(localStorage.getItem('dreamjosh_admin_data') || '{}');
-      if (localData.appData && localData.appData.career && localData.appData.career.items) {
-        items = localData.appData.career.items;
-      }
-    } catch (e) {}
-  }
-
-  // 3. Agar fir bhi khali hai, Default Items dikhayein
-  if (items.length === 0) {
-    items = DEFAULT_CAREER_ITEMS;
-  }
-
-  renderCareerData(items);
-}
-
-// ============================================================
-// INIT
-// ============================================================
-document.addEventListener('DOMContentLoaded', () => {
-  loadCareerData();
-});
-</script>
-
-</body>
-</html>
+        // ============================================================
+        // 📋 FALLBACK ITEMS (agar Firebase empty ho)
+        // ============================================================
+        const FALLBACK_ITEMS = [
+            { id: 'c1', title: '🏛️ Government Jobs', description: 'UPSC, SSC, Banking, Railway, Defence, Police', category: 'Government Jobs', visibility: 'public' },
+            { id: 'c2', title: '💼 Private Jobs', description: 'IT, Finance, Marketing, HR, Healthcare', category: 'Private Jobs', visibility: 'public' },
+            { id: 'c3', title: '📚 Teaching & Education', description: 'CTET, REET, B.Ed, M.Ed career paths', category: 'Teaching', visibility: 'public' },
+            { id: 'c4', title: '🏦 Banking & Finance', description: 'IBPS, SBI, RBI, SEBI, NABARD', category: 'Banking', visibility: 'public' },
+            { id: 'c5', title: '📄 SSC & Staff Selection', description: 'SSC CGL, CHSL, MTS, JE, CPO', category: 'SSC', visibility: 'public' },
+            { id: 'c6', title: '🚂 Railway Recruitment', description: 'RRB NTPC, Group D, ALP, JE', category: 'Railway', visibility: 'public' },
+            { id: 'c7', title: '🛡️ Defence Services', description: 'NDA, CDS, AFCAT, Indian Army, Navy, Air Force', category: 'Defence', visibility: 'public' },
+            { id: 'c8', title: '👮 Police & Paramilitary', description: 'State Police, CAPF, BSF, CRPF, CISF', category: 'Police', visibility: 'public' },
+            { id: '
