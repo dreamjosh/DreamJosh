@@ -134,11 +134,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 }
 .admin-menu .submenu a:hover{background:rgba(255,255,255,.06);color:#fff;}
 .admin-menu .submenu a.active{background:rgba(255,215,0,.15);color:var(--gold);font-weight:600;}
-.admin-menu .submenu a.active::before{
-  content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);
-  width:3px;height:14px;background:var(--gold);border-radius:2px;
-}
-.admin-menu .submenu a i{font-size:11px;opacity:.7;width:14px;text-align:center;}
 
 .admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
 .admin-footer-menu .menu-link{
@@ -184,6 +179,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:.3s;
   min-height:32px;display:flex;align-items:center;gap:4px;
 }
+.btn-add.bulk{background:#6c5ce7;}
 .btn-add.primary{background:var(--secondary-blue);}
 
 .admin-section{display:none;margin-top:16px;}
@@ -202,6 +198,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .setting-row input[type="tel"],
 .setting-row input[type="url"],
 .setting-row input[type="number"],
+.setting-row input[type="password"],
 .setting-row select,
 .setting-row textarea{
   width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;
@@ -212,7 +209,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   cursor:pointer;min-height:38px;margin-right:8px;margin-top:8px;
   display:inline-flex;align-items:center;gap:6px;
 }
+.btn-setting.primary{background:var(--secondary-blue);color:#fff;}
 .btn-setting.success{background:var(--success-green);color:#fff;}
+.btn-setting.danger{background:var(--warning-red);color:#fff;}
 
 /* MODAL */
 .admin-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
@@ -232,14 +231,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .item-sno{width:32px;height:32px;border-radius:50%;background:var(--secondary-blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
 .item-content{flex:1;}
 .item-title{font-weight:600;font-size:14px;}
+.item-meta{font-size:11px;color:var(--text-light);}
 .item-actions{display:flex;gap:4px;}
 .btn-i-edit, .btn-i-delete{padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer;}
 .btn-i-edit{background:#ffc107;color:#333;}
 .btn-i-delete{background:#dc3545;color:#fff;}
 
+/* Page Manager */
+.page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 12px; }
+.page-card { background: var(--card-bg); border-radius: 10px; padding: 16px; border: 1px solid var(--border-color); }
+.page-card h4 { font-size: 15px; margin-bottom: 6px; }
+.page-card .page-card-meta { font-size: 11px; color: var(--text-light); margin-bottom: 10px; }
+.page-card-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;z-index:99999;}
 .toast.success{background:#16a34a;}
 .toast.error{background:#dc3545;}
+.toast.info{background:#1976d2;}
 </style>
 </head>
 <body>
@@ -280,6 +288,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 
     <!-- DASHBOARD -->
     <div id="adminPage-dashboard" class="admin-section active">
+      <div class="admin-stats">
+        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value" id="statPages">0</div></div>
+        <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
+      </div>
       <div class="admin-card">
         <div class="card-header"><h4>⚡ Quick Actions</h4></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -289,7 +301,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- HOME PAGE SETUP (NEW) -->
+    <!-- HOME PAGE SETUP -->
     <div id="adminPage-home-setup" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
@@ -377,7 +389,7 @@ try {
 
 let pagesData = [];
 let appData = {};
-let homeData = {}; // NEW: Home Page Data
+let homeData = {}; 
 
 const PAGES_KEY = 'dreamjosh_pages_data';
 const STORAGE_KEY = 'dreamjosh_admin_data';
@@ -528,7 +540,7 @@ function showAdminPage(pageId) {
 }
 
 // ============================================================
-// HOME SETUP LOGIC (NEW)
+// HOME SETUP LOGIC
 // ============================================================
 function loadHomeSetupForm() {
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.value = val || ''; };
