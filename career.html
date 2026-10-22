@@ -1,662 +1,644 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <title>Career – Dream Josh</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>Dream Josh - Admin Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
-    <!-- 🔥 Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<style>
+:root{
+  --bg-color:#eef5ff; --card-bg:#fff; --text-color:#172033;
+  --primary-blue:#123c9b; --secondary-blue:#1976d2;
+  --success-green:#16a34a; --warning-red:#d62839;
+  --border-color:#dce5f0; --shadow-color:rgba(0,0,0,.1);
+  --footer-bg:#123c9b; --gold:#ffd700; --text-light:#6c757d;
+  --secondary:#1a2332;
+}
+.dark-mode{
+  --bg-color:#0a0e1a; --card-bg:#141428; --text-color:#e8e8e8;
+  --text-light:#a0a0b8; --primary-blue:#1a3a8a; --secondary-blue:#2a5ac8;
+  --border-color:#2a2a4a; --shadow-color:rgba(0,0,0,.3);
+  --footer-bg:#0d1b3e; --secondary:#1a1a2e;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg-color);color:var(--text-color);min-height:100vh;transition:background .3s,color .3s;}
 
-    <style>
-        :root {
-            --bg-color: #eef5ff; --card-bg: #ffffff; --text-color: #172033;
-            --primary-blue: #123c9b; --secondary-blue: #1976d2;
-            --success-green: #16a34a; --warning-red: #d62839;
-            --highlight-bg: #eefaf4; --border-color: #dce5f0;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --header-bg: linear-gradient(135deg, #123c9b, #1976d2);
-            --footer-bg: #123c9b; --card-hover: #f4f8ff; --gold: #ffd700;
-            --safe-bottom: env(safe-area-inset-bottom, 0px);
-            --safe-top: env(safe-area-inset-top, 0px);
-            --text-light: #6c757d; --secondary: #1a2332;
-            --editor-toolbar-bg: #ffffff;
-        }
-        .dark-mode {
-            --bg-color: #0a0e1a; --card-bg: #141428; --text-color: #e8e8e8;
-            --text-light: #a0a0b8; --primary-blue: #1a3a8a;
-            --secondary-blue: #2a5ac8; --border-color: #2a2a4a;
-            --shadow-color: rgba(0, 0, 0, 0.3); --footer-bg: #0d1b3e;
-            --card-hover: #1a1a3a; --secondary: #1a1a2e;
-            --editor-toolbar-bg: #141428;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background: var(--bg-color); color: var(--text-color);
-            min-height: 100vh; transition: background 0.3s ease, color 0.3s ease;
-            padding-top: 70px; padding-bottom: 40px;
-        }
+/* LOGIN */
+.login-screen{display:none;position:fixed;inset:0;background:var(--bg-color);z-index:99999;align-items:center;justify-content:center;padding:20px;}
+.login-screen.active{display:flex;}
+.login-box{background:var(--card-bg);border-radius:16px;padding:40px 36px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);border:1px solid var(--border-color);}
+.login-box .login-logo{text-align:center;margin-bottom:24px;}
+.login-box .login-logo h1{font-size:26px;font-weight:800;color:var(--text-color);}
+.login-box .login-logo h1 span{color:var(--gold);}
+.login-box .login-logo .badge{display:inline-block;background:var(--success-green);color:#fff;font-size:10px;padding:3px 12px;border-radius:20px;font-weight:700;margin-top:6px;}
+.login-form-group{margin-bottom:16px;}
+.login-form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:6px;}
+.login-form-group input{width:100%;padding:12px 14px;border:2px solid var(--border-color);border-radius:10px;font-size:14px;background:var(--bg-color);color:var(--text-color);}
+.login-btn{width:100%;padding:14px;background:var(--primary-blue);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;}
+.login-error{background:#fee2e2;color:#dc2626;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;margin-bottom:14px;display:none;}
+.login-error.show{display:block;}
 
-        /* HEADER */
-        .app-header {
-            background: var(--header-bg); padding: 10px 16px;
-            display: flex; justify-content: space-between; align-items: center;
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            height: 60px; box-shadow: 0 2px 20px var(--shadow-color);
-            padding-top: calc(10px + var(--safe-top));
-        }
-        .app-header .logo {
-            font-size: 20px; font-weight: bold; cursor: pointer;
-            color: #fff; user-select: none;
-            display: flex; align-items: center; gap: 8px;
-            text-decoration: none;
-        }
-        .app-header .logo span { color: var(--gold); }
-        .app-header .header-controls {
-            display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-        }
-        .app-header .header-controls .nav-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #fff; padding: 5px 12px; border-radius: 18px;
-            cursor: pointer; font-size: 12px; font-weight: 600;
-            transition: 0.3s; white-space: nowrap;
-            text-decoration: none;
-            display: inline-flex; align-items: center;
-        }
-        .app-header .header-controls .nav-btn:hover { background: var(--gold); color: #0a0e1a; }
-        .app-header .header-controls .nav-btn.active { background: var(--gold); color: #0a0e1a; }
+/* ADMIN LAYOUT */
+.admin-wrapper{display:none;min-height:100vh;}
+.admin-wrapper.active{display:flex;}
+.admin-sidebar{width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;}
+.admin-logo{padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.admin-logo h1{font-size:20px;font-weight:700;color:#fff;}
+.admin-logo h1 span{color:var(--gold);}
+.admin-logo .badge{background:var(--success-green);font-size:9px;padding:2px 8px;border-radius:20px;font-weight:600;}
+.admin-user{padding:0 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:12px;display:flex;align-items:center;gap:12px;}
+.admin-user .avatar{width:36px;height:36px;border-radius:50%;background:var(--secondary-blue);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;}
+.admin-user .name{font-size:13px;font-weight:600;}
 
-        .app-header .header-controls .nav-btn.admin-btn {
-            background: rgba(214, 40, 57, 0.85);
-            border-color: rgba(214, 40, 57, 1);
-        }
-        .app-header .header-controls .nav-btn.admin-btn:hover {
-            background: #d62839; color: #fff;
-        }
+.admin-menu{list-style:none;padding:0 10px;}
+.admin-menu > li{margin-bottom:2px;}
+.admin-menu .menu-link{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;cursor:pointer;}
+.admin-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
+.admin-menu .menu-link.active{background:rgba(255,215,0,.15);color:var(--gold);}
+.admin-menu .submenu{list-style:none;max-height:0;overflow:hidden;transition:max-height .3s ease;opacity:0;padding-left:8px;}
+.admin-menu .submenu.open{max-height:2000px;opacity:1;margin-top:2px;margin-bottom:4px;}
+.admin-menu .submenu a{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 28px;border-radius:6px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12.5px;font-weight:500;cursor:pointer;}
+.admin-menu .submenu a:hover{background:rgba(255,255,255,.06);color:#fff;}
 
-        /* DROPDOWN */
-        .dropdown-wrapper { position: relative; display: inline-block; }
-        .dropdown-wrapper .dropdown-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #fff; padding: 5px 12px; border-radius: 18px;
-            cursor: pointer; font-size: 12px; font-weight: 600;
-            transition: 0.3s; white-space: nowrap;
-        }
-        .dropdown-wrapper .dropdown-btn:hover { background: var(--gold); color: #0a0e1a; }
-        .dropdown-wrapper .dropdown-btn.active { background: var(--gold); color: #0a0e1a; }
-        .dropdown-wrapper .dropdown-btn .arrow { font-size: 10px; margin-left: 3px; }
-        .dropdown-wrapper:hover .dropdown-content,
-        .dropdown-wrapper .dropdown-content.show { display: block; animation: dropdownFade 0.25s ease; }
-        .dropdown-wrapper .dropdown-content {
-            display: none; position: absolute; top: 100%; left: 0;
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 12px; box-shadow: 0 8px 30px var(--shadow-color);
-            min-width: 260px; z-index: 1001; padding: 6px 0;
-            max-height: 70vh; overflow-y: auto;
-        }
-        @keyframes dropdownFade {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .dropdown-wrapper .dropdown-content button,
-        .dropdown-wrapper .dropdown-content a {
-            display: block; width: 100%; padding: 10px 20px;
-            background: transparent; border: none; text-align: left;
-            font-size: 13px; font-weight: 600; color: var(--text-color);
-            cursor: pointer; transition: 0.2s;
-            text-decoration: none;
-        }
-        .dropdown-wrapper .dropdown-content button:hover,
-        .dropdown-wrapper .dropdown-content a:hover { background: var(--card-hover); }
-        .dropdown-wrapper .dropdown-content .dropdown-label {
-            padding: 8px 20px; font-size: 11px; text-transform: uppercase;
-            color: var(--text-color); opacity: 0.4; font-weight: 700;
-        }
-        .dropdown-wrapper .dropdown-content .dropdown-item-icon { margin-right: 8px; }
+.admin-content{flex:1;padding:24px 30px;background:var(--bg-color);min-height:100vh;overflow-y:auto;}
+.admin-top-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--border-color);flex-wrap:wrap;gap:12px;}
+.admin-top-header h2{font-size:20px;font-weight:700;}
+.admin-top-header h2 span{color:var(--primary-blue);}
+.admin-actions{display:flex;gap:8px;}
+.btn-dark-admin, .btn-logout, .btn-close-admin{padding:6px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.btn-dark-admin{background:var(--secondary);color:#fff;}
+.btn-logout{background:#d62839;color:#fff;}
+.btn-close-admin{background:#6c757d;color:#fff;}
 
-        /* CONTAINER */
-        .section-container { max-width: 1200px; margin: 0 auto; padding: 20px 24px; }
-        .section { padding: 10px 0 30px 0; animation: fadeInSection 0.4s ease; }
-        @keyframes fadeInSection {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+.admin-card{background:var(--card-bg);border-radius:10px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);padding:16px 20px;margin-bottom:16px;}
+.card-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+.card-header h4{font-size:15px;font-weight:600;}
+.btn-add{padding:6px 14px;background:var(--success-green);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;}
+.btn-add.primary{background:var(--secondary-blue);}
 
-        /* TICKER */
-        .page-ticker {
-            margin: 8px auto 16px auto; max-width: 1100px;
-            padding: 8px 10px; border-radius: 8px; color: white;
-            overflow: hidden; white-space: nowrap;
-            background: var(--secondary-blue);
-        }
-        .page-ticker span {
-            display: inline-block; padding-left: 100%;
-            animation: move 18s linear infinite;
-        }
-        @keyframes move {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
-        }
+.admin-section{display:none;margin-top:16px;}
+.admin-section.active{display:block;}
 
-        /* SECTION HEADER */
-        .section-header {
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 12px; margin-bottom: 16px;
-        }
-        .section-header h2 {
-            font-size: 28px; font-weight: 700; color: var(--text-color);
-        }
-        .section-header h2 span { color: var(--primary-blue); }
+/* MODAL */
+.admin-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
+.admin-modal-overlay.active{display:flex;}
+.admin-modal{background:var(--card-bg);border-radius:12px;max-width:98%;width:100%;max-height:96vh;overflow-y:auto;padding:20px 24px;border:1px solid var(--border-color);}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);}
+.modal-header h3{font-size:18px;font-weight:700;}
+.close-modal{font-size:22px;cursor:pointer;background:none;border:none;color:var(--text-color);}
+.form-group{margin-bottom:12px;}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:3px;}
+.form-group input, .form-group select, .form-group textarea{width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;font-size:13px;background:var(--bg-color);color:var(--text-color);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.btn-submit{padding:8px 20px;background:var(--success-green);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;}
+.btn-cancel{padding:8px 20px;background:#6c757d;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;margin-left:8px;}
 
-        /* SUB CATEGORY FILTER */
-        .sub-cat-filter {
-            display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px 0;
-        }
-        .sub-cat-filter .sub-btn {
-            padding: 4px 12px; border-radius: 14px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-color); color: var(--text-color);
-            font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.3s;
-        }
-        .sub-cat-filter .sub-btn:hover,
-        .sub-cat-filter .sub-btn.active {
-            background: var(--secondary-blue); color: #fff;
-            border-color: var(--secondary-blue);
-        }
+/* PAGE GRID */
+.page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 12px; }
+.page-card { background: var(--card-bg); border-radius: 10px; padding: 16px; border: 1px solid var(--border-color); }
+.page-card h4 { font-size: 15px; margin-bottom: 6px; }
+.page-card .page-card-meta { font-size: 11px; color: var(--text-light); margin-bottom: 10px; }
+.page-card-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn-i-edit, .btn-i-delete { padding:4px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer; }
+.btn-i-edit{background:#ffc107;color:#333;}
+.btn-i-delete{background:#dc3545;color:#fff;}
 
-        /* PAGE CONTENT */
-        .page-content-display {
-            background: var(--card-bg); border-radius: 12px; padding: 24px;
-            border: 1px solid var(--border-color); margin-top: 16px;
-            line-height: 1.8; font-size: 15px;
-        }
-        .page-content-display h2 { color: var(--primary-blue); margin-bottom: 12px; }
-        .page-content-display img { max-width: 100%; height: auto; }
-        .page-content-display table { border-collapse: collapse; width: 100%; margin: 10px 0; }
-        .page-content-display table td,
-        .page-content-display table th {
-            border: 1px solid var(--border-color); padding: 8px 12px;
-        }
-        .page-content-display table th { background: var(--editor-toolbar-bg); font-weight: 600; }
-        .page-content-display ul, .page-content-display ol { padding-left: 24px; }
-        .page-content-display blockquote {
-            border-left: 4px solid var(--secondary-blue);
-            padding: 8px 16px; margin: 10px 0;
-            background: var(--editor-toolbar-bg); border-radius: 0 4px 4px 0;
-        }
-        .page-content-display pre {
-            background: var(--editor-toolbar-bg); padding: 12px;
-            border-radius: 4px; overflow-x: auto;
-            border: 1px solid var(--border-color);
-        }
+.data-item{background:var(--bg-color);border-radius:8px;padding:12px 14px;border:1px solid var(--border-color);margin-bottom:8px;display:flex;align-items:center;gap:12px;}
+.item-sno{width:32px;height:32px;border-radius:50%;background:var(--secondary-blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.item-content{flex:1;}
+.item-title{font-weight:600;font-size:14px;}
+.item-meta{font-size:11px;color:var(--text-light);}
+.item-actions{display:flex;gap:4px;}
 
-        /* ITEMS LIST */
-        .career-items-list {
-            margin-top: 20px;
-            border-top: 2px solid var(--border-color);
-            padding-top: 16px;
-        }
-        .career-items-list h3 {
-            color: var(--primary-blue);
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .career-items-list ul {
-            list-style: none;
-            padding: 0;
-        }
-        .career-items-list li {
-            padding: 10px 14px;
-            background: var(--bg-color);
-            border-radius: 8px;
-            margin-bottom: 8px;
-            border-left: 3px solid var(--secondary-blue);
-            display: flex;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .career-items-list li .item-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--text-color);
-        }
-        .career-items-list li .item-desc {
-            font-size: 13px;
-            color: var(--text-light);
-            margin-top: 2px;
-            width: 100%;
-        }
-        .career-items-list li .item-cat {
-            font-size: 10px;
-            background: var(--secondary-blue);
-            color: #fff;
-            padding: 1px 10px;
-            border-radius: 12px;
-            font-weight: 600;
-            margin-left: 6px;
-            align-self: center;
-        }
+/* WORD EDITOR */
+.word-toolbar{background:#fafbfc;border:1px solid #d1d9e6;border-radius:8px 8px 0 0;padding:6px 8px;display:flex;flex-wrap:wrap;gap:2px;position:sticky;top:0;z-index:50;}
+.word-toolbar .tb-group{display:flex;gap:1px;padding:0 4px;border-right:1px solid #d1d9e6;align-items:center;}
+.word-toolbar .tb-group:last-child{border-right:none;}
+.word-toolbar .tb-btn{min-width:28px;height:28px;padding:0 6px;border:1px solid transparent;border-radius:4px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:#2c3e50;transition:.15s;gap:4px;}
+.word-toolbar .tb-btn:hover{background:#e8f0fe;border-color:#c2d4f0;}
+.word-toolbar select{height:28px;border:1px solid #d1d9e6;border-radius:4px;padding:0 4px;font-size:11px;background:#fff;cursor:pointer;color:#2c3e50;}
+.word-toolbar .color-picker{width:28px;height:28px;border:1px solid #d1d9e6;border-radius:4px;cursor:pointer;padding:1px;background:#fff;}
 
-        /* FOOTER */
-        .app-footer {
-            position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
-            background: var(--footer-bg); padding: 8px 16px;
-            display: flex; justify-content: center; align-items: center;
-            height: 55px; box-shadow: 0 -2px 15px var(--shadow-color);
-            padding-bottom: calc(8px + var(--safe-bottom));
-            gap: 8px; flex-wrap: wrap;
-        }
-        .app-footer .footer-text {
-            color: rgba(255, 255, 255, 0.7); font-size: 12px; text-align: center;
-        }
-        .app-footer .footer-text span { color: var(--gold); }
-        .app-footer .footer-nav {
-            display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
-        }
-        .app-footer .footer-nav a {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.8);
-            padding: 4px 10px; border-radius: 14px;
-            cursor: pointer; font-size: 11px; font-weight: 500;
-            transition: 0.3s; white-space: nowrap;
-            text-decoration: none;
-        }
-        .app-footer .footer-nav a:hover {
-            background: rgba(255, 215, 0, 0.3); color: #fff;
-            border-color: var(--gold);
-        }
-        .app-footer .footer-nav a.active {
-            background: var(--gold); color: #0a0e1a;
-        }
+.word-editor-wrap{background:#e8ecf1;padding:16px;min-height:400px;border:1px solid #d1d9e6;border-top:none;border-radius:0 0 8px 8px;overflow-y:auto;max-height:600px;}
+.word-editor-wrap .page{background:#fff;max-width:850px;margin:0 auto;min-height:400px;padding:40px 50px;box-shadow:0 4px 20px rgba(0,0,0,.1);border-radius:2px;color:#1a1a1a;}
+#richEditor{min-height:350px;outline:none;font-size:15px;line-height:1.7;}
+#richEditor:empty:before{content:'यहाँ content लिखें...';color:#999;font-style:italic;}
+#richEditor img{max-width:100%;border-radius:6px;margin:8px 0;}
+#richEditor table{border-collapse:collapse;width:100%;margin:10px 0;}
+#richEditor table td,#richEditor table th{border:1px solid #999;padding:8px;}
 
-        /* TOAST */
-        .toast {
-            position: fixed; bottom: 80px; left: 50%;
-            transform: translateX(-50%); padding: 12px 24px;
-            border-radius: 12px; color: white; font-size: 14px;
-            font-weight: 600; z-index: 9999;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            max-width: 90%; text-align: center;
-            transition: opacity 0.3s ease;
-        }
-        .toast.success { background: #16a34a; }
-        .toast.error { background: #dc3545; }
-        .toast.info { background: #1976d2; }
-
-        @media (max-width: 768px) {
-            .section .section-header h2 { font-size: 22px; }
-            .section-container { padding: 12px 14px; }
-            .app-header .header-controls .nav-btn { font-size: 10px; padding: 4px 8px; }
-            .dropdown-wrapper .dropdown-btn { font-size: 10px; padding: 4px 8px; }
-        }
-    </style>
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;z-index:99999;}
+.toast.success{background:#16a34a;}
+.toast.error{background:#dc3545;}
+.toast.info{background:#1976d2;}
+</style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header class="app-header">
-        <a href="index.html" class="logo">
-            🚀 <span>Dream</span>Josh
-        </a>
-        <div class="header-controls" id="dynamicNav"></div>
-    </header>
+<!-- LOGIN -->
+<div class="login-screen active" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo"><h1>🚀 <span>Dream</span>Josh</h1><div class="badge">ADMIN PANEL</div></div>
+    <div class="login-error" id="loginError">❌ Invalid credentials</div>
+    <form onsubmit="handleLogin(event)">
+      <div class="login-form-group"><label>Username</label><input type="text" id="loginUsername" value="Admin" required></div>
+      <div class="login-form-group"><label>Password</label><input type="password" id="loginPassword" value="Admin@123" required></div>
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+  </div>
+</div>
 
-    <!-- MAIN CONTENT -->
-    <div class="section-container">
-        <section class="section active" id="career">
-            <div class="page-ticker" id="careerTicker">
-                <span id="careerTickerText">🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs</span>
-            </div>
-            <div class="section-header">
-                <h2>🎯 <span>Career</span></h2>
-                <div id="careerSubFilter" class="sub-cat-filter" style="margin:0;gap:8px;">
-                    <button class="sub-btn active" data-sub="all" onclick="filterGenericCategory('career', 'all')">📌 All</button>
-                </div>
-            </div>
-            <div id="careerContent" class="page-content-display"></div>
-        </section>
+<!-- ADMIN PANEL -->
+<div class="admin-wrapper" id="adminWrapper">
+  <div class="admin-sidebar">
+    <div class="admin-logo"><h1>🚀 <span>Dream</span>Josh</h1><span class="badge">Admin</span></div>
+    <div class="admin-user"><div class="avatar">A</div><div><div class="name">Administrator</div></div></div>
+    <ul class="admin-menu" id="dynamicSidebar"></ul>
+    <div style="padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;">
+      <a class="menu-link" href="/">Back to Home</a>
+      <a class="menu-link" onclick="handleLogout()">Logout</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div class="admin-top-header">
+      <h2 id="adminPageTitle">📊 Dashboard</h2>
+      <div class="admin-actions">
+        <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
+        <a href="/" class="btn-close-admin"><i class="fas fa-times"></i> Close</a>
+      </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="app-footer">
-        <div class="footer-nav" id="footerNav">
-            <a href="index.html">🏠 Home</a>
-            <a href="jobs.html">💼 Jobs</a>
-            <a href="career.html" class="active">🎯 Career</a>
-            <a href="more.html">📚 More</a>
-            <a href="services.html">🛠️ Services</a>
-            <a href="blog.html">📝 Blog</a>
-            <a href="rsr.html">📜 RSR</a>
-            <a href="tools.html">🛠️ Tools</a>
-            <a href="admin.html" style="background:rgba(214,40,57,0.85);">🔐 Admin</a>
+    <!-- DASHBOARD -->
+    <div id="adminPage-dashboard" class="admin-section active">
+      <div class="admin-card">
+        <div class="card-header"><h4>⚡ Quick Actions</h4></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn-add" onclick="showAdminPage('pages')">Pages Manager</button>
         </div>
-        <div class="footer-text">© 2026 <span>Dream Josh</span> • Career Page</div>
-    </footer>
+      </div>
+    </div>
 
-    <script>
-        // ============================================================
-        // 🔥 FIREBASE CONFIG
-        // ============================================================
-        const firebaseConfig = {
-            apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
-            authDomain: "dreamjosh-7d9ee.firebaseapp.com",
-            projectId: "dreamjosh-7d9ee",
-            storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
-            messagingSenderId: "461367857074",
-            appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
-        };
+    <!-- PAGES MANAGER -->
+    <div id="adminPage-pages" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📄 Pages Manager</h4>
+          <button class="btn-add" onclick="openPageModal()">Add New Page</button>
+        </div>
+        <div class="page-grid" id="pagesGrid"></div>
+      </div>
+    </div>
 
-        let firebaseApp, firebaseDB, firebaseStorage;
-        try {
-            firebaseApp = firebase.initializeApp(firebaseConfig);
-            firebaseDB = firebase.firestore();
-            firebaseStorage = firebase.storage();
-            console.log("✅ Firebase connected");
-        } catch (err) {
-            console.error("❌ Firebase error:", err);
-        }
+    <div id="dynamicSectionsContainer"></div>
+  </div>
+</div>
 
-        // ============================================================
-        // 📦 DEFAULT DATA (fallback)
-        // ============================================================
-        const DEFAULT_CAREER_DATA = {
-            career: {
-                content: `
-                    <h2>🎯 Career Guidance</h2>
-                    <p>Explore various career options and find the right path for your future.</p>
-                    <p><strong>🔹 Get expert guidance:</strong> Our career counselors help you choose the right career path.</p>
-                    <p>नीचे दिए गए विभिन्न करियर विकल्पों में से अपने रुचि के अनुसार चुनें और अपने सपनों को साकार करें।</p>
-                `,
-                items: [
-                    { id: 'c1', title: '🏛️ Government Jobs', description: 'UPSC, SSC, Banking, Railway, Defence, Police', visibility: 'public', category: 'Government Jobs' },
-                    { id: 'c2', title: '💼 Private Jobs', description: 'IT, Finance, Marketing, HR, Healthcare', visibility: 'public', category: 'Private Jobs' },
-                    { id: 'c3', title: '📚 Teaching & Education', description: 'CTET, REET, B.Ed, M.Ed career paths', visibility: 'public', category: 'Teaching' },
-                    { id: 'c4', title: '🏦 Banking & Finance', description: 'IBPS, SBI, RBI, SEBI, NABARD', visibility: 'public', category: 'Banking' },
-                    { id: 'c5', title: '📄 SSC & Staff Selection', description: 'SSC CGL, CHSL, MTS, JE, CPO', visibility: 'public', category: 'SSC' },
-                    { id: 'c6', title: '🚂 Railway Recruitment', description: 'RRB NTPC, Group D, ALP, JE', visibility: 'public', category: 'Railway' },
-                    { id: 'c7', title: '🛡️ Defence Services', description: 'NDA, CDS, AFCAT, Indian Army, Navy, Air Force', visibility: 'public', category: 'Defence' },
-                    { id: 'c8', title: '👮 Police & Paramilitary', description: 'State Police, CAPF, BSF, CRPF, CISF', visibility: 'public', category: 'Police' },
-                    { id: 'c9', title: '⚙️ Engineering & Technology', description: 'GATE, PSU, ISRO, DRDO, BARC', visibility: 'public', category: 'Engineering' },
-                    { id: 'c10', title: '🏥 Medical & Healthcare', description: 'NEET, AIIMS, Nursing, Pharmacy', visibility: 'public', category: 'Medical' },
-                    { id: 'c11', title: '⚖️ Law & Judiciary', description: 'CLAT, Judicial Services, LLB, LLM', visibility: 'public', category: 'Law' },
-                    { id: 'c12', title: '💻 IT & Software', description: 'Software Engineer, Data Science, AI/ML', visibility: 'public', category: 'IT' },
-                    { id: 'c13', title: '📊 Management & Business', description: 'CAT, MBA, Hotel Management, Entrepreneurship', visibility: 'public', category: 'Management' },
-                    { id: 'c14', title: '🏴 UPSC Civil Services', description: 'IAS, IPS, IFS, IRS and other central services', visibility: 'public', category: 'UPSC' }
-                ]
-            }
-        };
+<!-- MODAL -->
+<div class="admin-modal-overlay" id="adminModalOverlay">
+  <div class="admin-modal">
+    <div class="modal-header"><h3 id="adminModalTitle">Edit</h3><button class="close-modal" onclick="closeAdminModal()">&times;</button></div>
+    <div id="adminModalBody"></div>
+  </div>
+</div>
 
-        // ============================================================
-        // STATE
-        // ============================================================
-        let appData = JSON.parse(JSON.stringify(DEFAULT_CAREER_DATA));
-        let genericFilters = { career: 'all' };
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
+  authDomain: "dreamjosh-7d9ee.firebaseapp.com",
+  projectId: "dreamjosh-7d9ee",
+  storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
+  messagingSenderId: "461367857074",
+  appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
+};
 
-        // ============================================================
-        // 🔥 FIREBASE DATA LOADER
-        // ============================================================
-        async function loadCareerFromFirebase() {
-            if (!firebaseDB) { console.warn("⚠️ Firebase not ready"); return; }
-            try {
-                const doc = await firebaseDB.collection('dreamjosh').doc('appData').get();
-                if (doc.exists) {
-                    const data = doc.data() || {};
-                    if (data.career && (data.career.content || (data.career.items && data.career.items.length))) {
-                        appData.career = data.career;
-                        console.log(`✅ Career loaded from Firebase: ${(data.career.items || []).length} items`);
-                    } else {
-                        console.log("ℹ️ No career data in Firebase — using default");
-                    }
-                } else {
-                    console.log("ℹ️ appData doc not found — using default");
-                }
-            } catch (err) {
-                console.error("❌ Career load error:", err);
-            }
-        }
+let firebaseApp, firebaseDB, firebaseStorage;
+try {
+  firebaseApp = firebase.initializeApp(firebaseConfig);
+  firebaseDB = firebase.firestore();
+  firebaseStorage = firebase.storage();
+} catch (err) { console.error(err); }
 
-        async function loadSettingsFromFirebase() {
-            if (!firebaseDB) return;
-            try {
-                const doc = await firebaseDB.collection('dreamjosh').doc('settings').get();
-                if (doc.exists) {
-                    const settings = doc.data();
-                    if (settings.siteName) document.title = settings.siteName + ' – Career';
-                    console.log("✅ Settings loaded");
-                }
-            } catch (err) {
-                console.error("❌ Settings load error:", err);
-            }
-        }
+let pagesData = [];
+let appData = {};
+const PAGES_KEY = 'dreamjosh_pages_data';
+const STORAGE_KEY = 'dreamjosh_admin_data';
 
-        // ============================================================
-        // RENDER NAV — Full navigation
-        // ============================================================
-        function renderNav() {
-            const nav = document.getElementById('dynamicNav');
-            const categories = ['all', ...new Set((appData.career.items || []).map(i => i.category).filter(Boolean))];
+const DEFAULT_PAGES = [
+  { id: 'career', name: 'Career', icon: 'fa-graduation-cap', subPages: [
+    { id: 'govt-jobs', name: 'Govt Jobs', icon: 'fa-landmark', parentId: 'career' },
+    { id: 'private-jobs', name: 'Private Jobs', icon: 'fa-building', parentId: 'career' }
+  ]},
+  { id: 'tools', name: 'Tools', icon: 'fa-tools', subPages: [
+    { id: 'calculators', name: 'Calculators', icon: 'fa-calculator', parentId: 'tools' }
+  ]}
+];
 
-            let html = `<a href="index.html" class="nav-btn">🏠 Home</a>`;
+function loadData() {
+  try {
+    const savedPages = localStorage.getItem(PAGES_KEY);
+    pagesData = savedPages ? JSON.parse(savedPages) : JSON.parse(JSON.stringify(DEFAULT_PAGES));
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (savedData) appData = JSON.parse(savedData).appData || {};
+  } catch(e) { pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES)); }
+}
 
-            // 💼 Jobs dropdown
-            html += `
-                <div class="dropdown-wrapper" id="govtDropdown">
-                    <button class="dropdown-btn" onclick="toggleDropdownMobile('govt', event)">💼 Jobs <span class="arrow">▾</span></button>
-                    <div class="dropdown-content" id="govtDropdownContent">
-                        <div class="dropdown-label">📂 Select Category</div>
-                        <a href="jobs.html?cat=central" onclick="closeDropdownMobile('govt');">🏛️ Central Govt.</a>
-                        <a href="jobs.html?cat=state" onclick="closeDropdownMobile('govt');">🏜️ Rajasthan Govt.</a>
-                        <a href="jobs.html?cat=private" onclick="closeDropdownMobile('govt');">💼 Private</a>
-                        <a href="jobs.html" onclick="closeDropdownMobile('govt');">📋 All Jobs</a>
-                    </div>
-                </div>
-            `;
+async function loadFromCloud() {
+  if (!firebaseDB) return;
+  try {
+    const dPages = await firebaseDB.collection('dreamjosh').doc('pagesData').get();
+    if (dPages.exists && dPages.data().pages) {
+      pagesData = dPages.data().pages;
+      localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
+    }
+    const dData = await firebaseDB.collection('dreamjosh').doc('appData').get();
+    if (dData.exists) {
+      appData = dData.data();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData }));
+    }
+  } catch(e) {}
+}
 
-            // 🎯 Career dropdown (active)
-            html += `
-                <div class="dropdown-wrapper" id="careerDropdown">
-                    <button class="dropdown-btn active" onclick="toggleDropdownMobile('career', event)">
-                        🎯 Career <span class="arrow">▾</span>
-                    </button>
-                    <div class="dropdown-content" id="careerDropdownContent">
-                        <div class="dropdown-label">📂 Select Category</div>
-                        ${categories.map(cat => `
-                            <button onclick="handleDropdownAction('career', '${cat}'); closeDropdownMobile('career');">
-                                <i class="fas fa-th-list dropdown-item-icon"></i>
-                                ${cat === 'all' ? '📌 All Careers' : cat}
-                            </button>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
+function savePages() {
+  localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('pagesData').set({ pages: pagesData }).catch(()=>{});
+}
 
-            // ⚙️ More dropdown
-            html += `
-                <div class="dropdown-wrapper" id="moreDropdown">
-                    <button class="dropdown-btn" onclick="toggleDropdownMobile('more', event)">⚙️ More <span class="arrow">▾</span></button>
-                    <div class="dropdown-content" id="moreDropdownContent">
-                        <div class="dropdown-label">📂 More</div>
-                        <a href="more.html" onclick="closeDropdownMobile('more');">
-                            <i class="fas fa-th-list dropdown-item-icon"></i> 📋 Open All
-                        </a>
-                    </div>
-                </div>
-            `;
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData }));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('appData').set(appData).catch(()=>{});
+}
 
-            // 🛠️ Services dropdown
-            html += `
-                <div class="dropdown-wrapper" id="serviceDropdown">
-                    <button class="dropdown-btn" onclick="toggleDropdownMobile('service', event)">🛠️ Services <span class="arrow">▾</span></button>
-                    <div class="dropdown-content" id="serviceDropdownContent">
-                        <div class="dropdown-label">📂 Services</div>
-                        <a href="services.html" onclick="closeDropdownMobile('service');">
-                            <i class="fas fa-th-list dropdown-item-icon"></i> 📋 Open All
-                        </a>
-                    </div>
-                </div>
-            `;
+function handleLogin(e) {
+  e.preventDefault();
+  const u = document.getElementById('loginUsername').value;
+  const p = document.getElementById('loginPassword').value;
+  if (u === 'Admin' && p === 'Admin@123') {
+    localStorage.setItem('admin_logged', 'true');
+    document.getElementById('loginScreen').classList.remove('active');
+    document.getElementById('adminWrapper').classList.add('active');
+    initAdmin();
+  } else {
+    document.getElementById('loginError').classList.add('show');
+  }
+}
 
-            // 📝 Blog dropdown
-            html += `
-                <div class="dropdown-wrapper" id="blogDropdown">
-                    <button class="dropdown-btn" onclick="toggleDropdownMobile('blog', event)">📝 Blog <span class="arrow">▾</span></button>
-                    <div class="dropdown-content" id="blogDropdownContent">
-                        <div class="dropdown-label">📂 Blog</div>
-                        <a href="blog.html" onclick="closeDropdownMobile('blog');">
-                            <i class="fas fa-th-list dropdown-item-icon"></i> 📋 Open All
-                        </a>
-                    </div>
-                </div>
-            `;
+function handleLogout() {
+  localStorage.removeItem('admin_logged');
+  document.getElementById('loginScreen').classList.add('active');
+  document.getElementById('adminWrapper').classList.remove('active');
+}
 
-            // 📜 RSR dropdown
-            html += `
-                <div class="dropdown-wrapper" id="rsrDropdown">
-                    <button class="dropdown-btn" onclick="toggleDropdownMobile('rsr', event)">📜 RSR <span class="arrow">▾</span></button>
-                    <div class="dropdown-content" id="rsrDropdownContent">
-                        <div class="dropdown-label">📂 RSR</div>
-                        <a href="rsr.html" onclick="closeDropdownMobile('rsr');">
-                            <i class="fas fa-gavel dropdown-item-icon"></i> 📜 All Rules
-                        </a>
-                    </div>
-                </div>
-            `;
+async function initAdmin() {
+  loadData();
+  await loadFromCloud();
+  renderSidebar();
+  renderPagesGrid();
+  showAdminPage('dashboard');
+}
 
-            // 🛠️ Tools
-            html += `<a href="tools.html" class="nav-btn">🛠️ Tools</a>`;
+function renderSidebar() {
+  const menu = document.getElementById('dynamicSidebar');
+  let html = `
+    <li><a class="menu-link" onclick="showAdminPage('dashboard')">Dashboard</a></li>
+    <li><a class="menu-link" onclick="showAdminPage('pages')">Pages Manager</a></li>
+  `;
 
-            // 🔐 Admin
-            html += `<a href="admin.html" class="nav-btn admin-btn">🔐 Admin</a>`;
+  pagesData.forEach(page => {
+    const hasSub = page.subPages && page.subPages.length > 0;
+    if (hasSub) {
+      html += `
+        <li>
+          <div class="menu-link" onclick="document.getElementById('submenu-${page.id}').classList.toggle('open')" style="justify-content:space-between;">
+            <span><i class="fas ${page.icon}"></i> ${page.name}</span>
+            <i class="fas fa-chevron-down" style="font-size:10px;"></i>
+          </div>
+          <ul class="submenu" id="submenu-${page.id}">
+            ${page.subPages.map(sub => `<li><a onclick="showAdminPage('${sub.id}')"><i class="fas ${sub.icon}"></i> ${sub.name}</a></li>`).join('')}
+            <li><a onclick="openPageModal('${page.id}')" style="color:var(--gold);font-size:11px;"><i class="fas fa-plus"></i> Add Sub-Page</a></li>
+          </ul>
+        </li>
+      `;
+    } else {
+      html += `<li><a class="menu-link" onclick="showAdminPage('${page.id}')"><i class="fas ${page.icon}"></i> ${page.name}</a></li>`;
+    }
+  });
+  menu.innerHTML = html;
+}
 
-            nav.innerHTML = html;
-        }
+function renderPagesGrid() {
+  const grid = document.getElementById('pagesGrid');
+  let html = '';
+  pagesData.forEach(page => {
+    const subCount = page.subPages ? page.subPages.length : 0;
+    html += `
+      <div class="page-card">
+        <h4><i class="fas ${page.icon}"></i> ${page.name}</h4>
+        <div class="page-card-meta">${subCount} Sub-page(s)</div>
+        <div class="page-card-actions">
+          <button class="btn-i-edit" onclick="openPageModal('${page.id}')">Edit</button>
+          <button class="btn-i-delete" onclick="deletePage('${page.id}')">Delete</button>
+        </div>
+      </div>
+    `;
+  });
+  grid.innerHTML = html;
+}
 
-        function handleDropdownAction(key, action) {
-            if (key === 'career') {
-                filterGenericCategory('career', action);
-            }
-        }
+function openPageModal(parentId = null, subId = null) {
+  const isSub = parentId && subId;
+  let page = isSub ? pagesData.find(p=>p.id===parentId).subPages.find(s=>s.id===subId) : parentId ? pagesData.find(p=>p.id===parentId) : {name:'',icon:'fa-file'};
 
-        function toggleDropdownMobile(name, event) {
-            if (event) event.stopPropagation();
-            const allDropdowns = ['govt', 'career', 'more', 'service', 'blog', 'rsr'];
-            allDropdowns.forEach(d => { if (d !== name) closeDropdownMobile(d); });
-            const content = document.getElementById(`${name}DropdownContent`);
-            if (content) content.classList.toggle('show');
-        }
+  document.getElementById('adminModalTitle').textContent = isSub ? 'Edit Sub-Page' : parentId ? 'Edit Page' : 'Add Page';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="pmParentId" value="${parentId||''}">
+    <input type="hidden" id="pmSubId" value="${subId||''}">
+    <div class="form-group"><label>Name</label><input type="text" id="pmName" value="${page.name}"></div>
+    <div class="form-group"><label>Icon (FontAwesome)</label><input type="text" id="pmIcon" value="${page.icon}"></div>
+    ${!parentId ? `
+      <div class="form-group">
+        <label>Make Sub-Page of:</label>
+        <select id="pmParentSelect">
+          <option value="">-- Top Level Page --</option>
+          ${pagesData.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+        </select>
+      </div>
+    `:''}
+    <button class="btn-submit" onclick="savePage()">Save</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
 
-        function closeDropdownMobile(name) {
-            const content = document.getElementById(`${name}DropdownContent`);
-            if (content) content.classList.remove('show');
-        }
+function savePage() {
+  const pId = document.getElementById('pmParentId').value;
+  const sId = document.getElementById('pmSubId').value;
+  const name = document.getElementById('pmName').value;
+  const icon = document.getElementById('pmIcon').value;
+  const newParent = document.getElementById('pmParentSelect')?.value;
 
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.dropdown-wrapper')) {
-                ['govt', 'career', 'more', 'service', 'blog', 'rsr'].forEach(name => closeDropdownMobile(name));
-            }
-        });
+  if(!name) return alert('Name required');
 
-        // ============================================================
-        // RENDER CAREER PAGE
-        // ============================================================
-        function renderGenericPage(page) {
-            const container = document.getElementById(`${page}Content`);
-            if (!container) return;
+  if(sId) {
+    const parent = pagesData.find(p=>p.id===pId);
+    const sub = parent.subPages.find(s=>s.id===sId);
+    sub.name = name; sub.icon = icon;
+  } else if(pId) {
+    const page = pagesData.find(p=>p.id===pId);
+    page.name = name; page.icon = icon;
+  } else {
+    const newId = 'page-'+Date.now();
+    if(newParent) {
+      const parent = pagesData.find(p=>p.id===newParent);
+      if(!parent.subPages) parent.subPages = [];
+      parent.subPages.push({id:newId, name, icon, parentId:newParent});
+    } else {
+      pagesData.push({id:newId, name, icon, subPages:[]});
+    }
+  }
+  savePages(); renderSidebar(); renderPagesGrid(); closeAdminModal();
+}
 
-            updateGenericSubFilter(page);
+function deletePage(id) {
+  if(!confirm('Delete Page?')) return;
+  pagesData = pagesData.filter(p=>p.id!==id);
+  savePages(); renderSidebar(); renderPagesGrid();
+}
 
-            const items = (appData[page]?.items || []).filter(i => i.visibility !== 'private');
-            const currentCat = genericFilters[page] || 'all';
+function showAdminPage(pageId) {
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  const staticPage = document.getElementById('adminPage-'+pageId);
+  if(staticPage) { staticPage.classList.add('active'); return; }
 
-            let filtered = items;
-            if (currentCat !== 'all') {
-                filtered = items.filter(i => i.category === currentCat);
-            }
+  let info = null;
+  for(const p of pagesData) {
+    if(p.id===pageId) { info = p; break; }
+    if(p.subPages) {
+      const s = p.subPages.find(sp=>sp.id===pageId);
+      if(s) { info = s; break; }
+    }
+  }
 
-            let html = appData[page]?.content || '';
+  if(!info) return;
+  const sectionId = 'adminPage-'+pageId;
+  document.getElementById(sectionId)?.remove();
 
-            if (filtered.length > 0) {
-                html += `<div class="career-items-list">
-                    <h3>📂 ${currentCat === 'all' ? 'All Career Options' : currentCat}</h3>
-                    <ul>`;
-                filtered.forEach(item => {
-                    html += `<li>
-                        <span class="item-title">${item.title || 'Untitled'}</span>
-                        ${item.category ? `<span class="item-cat">${item.category}</span>` : ''}
-                        ${item.description ? `<div class="item-desc">${item.description}</div>` : ''}
-                    </li>`;
-                });
-                html += `</ul></div>`;
-            } else {
-                html += `<p style="color:var(--text-light);margin-top:16px;">No items available in this category yet.</p>`;
-            }
+  const div = document.createElement('div');
+  div.id = sectionId;
+  div.className = 'admin-section active';
+  div.innerHTML = `
+    <div class="admin-card">
+      <div class="card-header">
+        <h4>${info.name} - Content & Items</h4>
+        <button class="btn-add primary" onclick="openEditor('${pageId}')">Add/Edit Content</button>
+      </div>
+      <div style="margin-bottom:15px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">📝 Page Content:</div>
+        <div style="padding:12px;background:var(--bg-color);border-radius:6px;border:1px solid var(--border-color);">${appData[pageId]?.content || '<em style="color:#999;">No content yet</em>'}</div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="font-size:13px;font-weight:700;">📋 Items (${(appData[pageId]?.items||[]).length})</div>
+          <button class="btn-add" onclick="openItemModal('${pageId}')">Add Item</button>
+        </div>
+        <div id="items-${pageId}"></div>
+      </div>
+    </div>
+  `;
+  document.getElementById('dynamicSectionsContainer').appendChild(div);
+  renderItems(pageId);
+}
 
-            container.innerHTML = html;
-        }
+function renderItems(pageId) {
+  const c = document.getElementById('items-'+pageId);
+  const items = appData[pageId]?.items || [];
+  if(!items.length) { c.innerHTML = 'No items yet.'; return; }
+  c.innerHTML = items.map((item, i) => `
+    <div class="data-item">
+      <div class="item-sno">${i+1}</div>
+      <div class="item-content"><div class="item-title">${item.title}</div></div>
+      <button class="btn-i-delete" onclick="deleteItem('${pageId}', ${i})">Delete</button>
+    </div>
+  `).join('');
+}
 
-        function updateGenericSubFilter(page) {
-            const container = document.getElementById(`${page}SubFilter`);
-            if (!container) return;
+function deleteItem(page, idx) {
+  appData[page].items.splice(idx,1); saveData(); renderItems(page);
+}
 
-            const items = (appData[page]?.items || []).filter(i => i.visibility !== 'private');
-            const categories = ['all'];
-            items.forEach(i => {
-                if (i.category && !categories.includes(i.category)) categories.push(i.category);
-            });
+function closeAdminModal() { document.getElementById('adminModalOverlay').classList.remove('active'); }
+function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+function showToast(msg, type='info') { const t=document.createElement('div'); t.className='toast '+type; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),3000); }
 
-            container.innerHTML = categories.map(cat => `
-                <button class="sub-btn ${cat === genericFilters[page] ? 'active' : ''}" data-sub="${cat}" onclick="filterGenericCategory('${page}', '${cat}')">
-                    ${cat === 'all' ? '📌 All' : cat}
-                </button>
-            `).join('');
-        }
+/* ==========================================================
+   WORD EDITOR & MEDIA UPLOAD LOGIC
+========================================================== */
+function getWordEditorHTML(content) {
+  return `
+    <div class="word-toolbar">
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('bold')"><i class="fas fa-bold"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('italic')"><i class="fas fa-italic"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('underline')"><i class="fas fa-underline"></i></button>
+      </div>
+      <div class="tb-group">
+        <select onchange="weFormat(this.value)">
+          <option value="p">Normal</option>
+          <option value="h1">H1</option><option value="h2">H2</option><option value="h3">H3</option>
+        </select>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('insertOrderedList')"><i class="fas fa-list-ol"></i></button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weInsertLink()" title="Insert Link"><i class="fas fa-link"></i></button>
+        <button type="button" class="tb-btn" onclick="weInsertTable()" title="Insert Table"><i class="fas fa-table"></i></button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="triggerUpload('pdf')" title="Upload PDF"><i class="fas fa-file-pdf"></i> PDF</button>
+        <button type="button" class="tb-btn" onclick="triggerUpload('image')" title="Upload Image"><i class="fas fa-image"></i> Photo</button>
+      </div>
+    </div>
+    <div class="word-editor-wrap">
+      <div class="page">
+        <div id="richEditor" contenteditable="true">${content || ''}</div>
+      </div>
+    </div>
+    <input type="file" id="uploadInput" style="display:none;" onchange="handleFileUpload(event)">
+  `;
+}
 
-        function filterGenericCategory(page, category) {
-            genericFilters[page] = category;
-            renderGenericPage(page);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+function weCmd(cmd, val) { document.execCommand(cmd, false, val || null); document.getElementById('richEditor')?.focus(); }
+function weFormat(tag) { document.execCommand('formatBlock', false, tag); document.getElementById('richEditor')?.focus(); }
+function weInsertLink() {
+  const url = prompt('Link URL:', 'https://');
+  if (!url) return;
+  document.execCommand('createLink', false, url);
+}
+function weInsertTable() {
+  const rows = prompt('Rows:', '3'); const cols = prompt('Columns:', '3');
+  if(!rows || !cols) return;
+  let html = '<table>'; for(let i=0;i<rows;i++){ html+='<tr>'; for(let j=0;j<cols;j++){ html+='<td>Cell</td>'; } html+='</tr>'; } html+='</table><br>';
+  document.execCommand('insertHTML', false, html);
+}
 
-        // ============================================================
-        // TOAST
-        // ============================================================
-        function showToast(msg, type = 'info') {
-            const t = document.createElement('div');
-            t.className = 'toast ' + type;
-            t.textContent = msg;
-            document.body.appendChild(t);
-            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2500);
-        }
+let currentUploadType = 'image';
+let currentSelection = null;
+document.addEventListener('selectionchange', () => {
+  const sel = window.getSelection();
+  if(sel.rangeCount > 0 && document.getElementById('richEditor')?.contains(sel.anchorNode)) {
+    currentSelection = sel.getRangeAt(0);
+  }
+});
 
-        // ============================================================
-        // INIT
-        // ============================================================
-        document.addEventListener('DOMContentLoaded', async () => {
-            // 🔥 Pehle Firebase se data load karo
-            await loadCareerFromFirebase();
-            await loadSettingsFromFirebase();
+function triggerUpload(type) {
+  currentUploadType = type;
+  document.getElementById('uploadInput').accept = type === 'image' ? 'image/*' : '.pdf';
+  document.getElementById('uploadInput').click();
+}
 
-            // Phir render karo
-            renderNav();
-            renderGenericPage('career');
-            console.log('✅ Career page ready — Firebase connected');
-        });
+async function handleFileUpload(e) {
+  const file = e.target.files[0];
+  if(!file || !firebaseStorage) return;
 
-        // Expose globally
-        window.filterGenericCategory = filterGenericCategory;
-        window.handleDropdownAction = handleDropdownAction;
-        window.toggleDropdownMobile = toggleDropdownMobile;
-        window.closeDropdownMobile = closeDropdownMobile;
-        window.showToast = showToast;
-    </script>
+  const btn = e.target.previousElementSibling; // Just UI feedback
+  showToast('⏳ Uploading...', 'info');
 
+  try {
+    const ref = firebaseStorage.ref(`editor/${Date.now()}_${file.name}`);
+    await ref.put(file);
+    const url = await ref.getDownloadURL();
+    
+    // Insert into editor
+    if (currentSelection) {
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(currentSelection);
+    }
+    
+    if (currentUploadType === 'image') {
+      document.execCommand('insertHTML', false, `<div style="text-align:center;"><img src="${url}" style="max-width:100%; border-radius:8px; margin:10px 0;" alt="image"><br><label style="font-size:12px;"><input type="checkbox" class="show-on-home-img" value="${url}"> Home Page par dikhaye</label></div>`);
+    } else {
+      document.execCommand('insertHTML', false, `<div style="padding:10px; border:1px solid #ccc; border-radius:6px; background:#f9f9f9; margin:10px 0;"><i class="fas fa-file-pdf" style="color:red; font-size:20px;"></i> <a href="${url}" target="_blank" style="font-weight:bold; text-decoration:none;">View PDF Document</a></div>`);
+    }
+    showToast('✅ Uploaded & Inserted!', 'success');
+  } catch (err) {
+    showToast('❌ Upload failed: ' + err.message, 'error');
+  }
+}
+
+function openEditor(pageId) {
+  const content = appData[pageId]?.content || '';
+  document.getElementById('adminModalTitle').textContent = 'Edit Content';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="editorPageId" value="${pageId}">
+    ${getWordEditorHTML(content)}
+    <div style="margin-top:15px;">
+      <button class="btn-submit" onclick="saveEditorContent()">Save Content</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveEditorContent() {
+  const pageId = document.getElementById('editorPageId').value;
+  let content = document.getElementById('richEditor').innerHTML;
+  
+  // Extract Home Images
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(content, 'text/html');
+  const checkedImages = [];
+  doc.querySelectorAll('.show-on-home-img:checked').forEach(cb => checkedImages.push(cb.value));
+  
+  // Remove checkboxes from saved HTML
+  doc.querySelectorAll('label').forEach(l => { if(l.innerHTML.includes('Home Page par dikhaye')) l.remove(); });
+  content = doc.body.innerHTML;
+
+  if(!appData[pageId]) appData[pageId] = {items: []};
+  appData[pageId].content = content;
+  appData[pageId].homeImages = checkedImages; // Save which images to show on home
+  
+  saveData();
+  showAdminPage(pageId);
+  closeAdminModal();
+  showToast('✅ Content Saved!', 'success');
+}
+
+function openItemModal(pageId) {
+  document.getElementById('adminModalTitle').textContent = 'Add Item';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="itemPageId" value="${pageId}">
+    <div class="form-group"><label>Title</label><input type="text" id="itemTitle"></div>
+    <button class="btn-submit" onclick="saveItem()">Save</button>
+    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveItem() {
+  const pageId = document.getElementById('itemPageId').value;
+  const title = document.getElementById('itemTitle').value;
+  if(!title) return;
+  if(!appData[pageId]) appData[pageId] = {items: []};
+  if(!appData[pageId].items) appData[pageId].items = [];
+  appData[pageId].items.push({title});
+  saveData(); showAdminPage(pageId); closeAdminModal();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if(localStorage.getItem('admin_logged') === 'true') {
+    document.getElementById('loginScreen').classList.remove('active');
+    document.getElementById('adminWrapper').classList.add('active');
+    initAdmin();
+  }
+});
+</script>
 </body>
 </html>
