@@ -5,14 +5,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>Dream Josh - Admin Panel</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
 <style>
 :root{
@@ -33,26 +29,15 @@
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   background:var(--bg-color);color:var(--text-color);min-height:100vh;transition:background .3s,color .3s;}
 
-/* ============ LOGIN SCREEN ============ */
-.login-screen{
-  display:none;position:fixed;inset:0;background:var(--bg-color);z-index:99999;
-  align-items:center;justify-content:center;padding:20px;
-}
+/* LOGIN */
+.login-screen{display:none;position:fixed;inset:0;background:var(--bg-color);z-index:99999;align-items:center;justify-content:center;padding:20px;}
 .login-screen.active{display:flex;}
-.login-box{
-  background:var(--card-bg);border-radius:16px;padding:40px 36px;max-width:420px;width:100%;
-  box-shadow:0 20px 60px rgba(0,0,0,.15);border:1px solid var(--border-color);
-  animation:loginIn .4s ease;
-}
+.login-box{background:var(--card-bg);border-radius:16px;padding:40px 36px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);border:1px solid var(--border-color);animation:loginIn .4s ease;}
 @keyframes loginIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 .login-box .login-logo{text-align:center;margin-bottom:24px;}
 .login-box .login-logo h1{font-size:26px;font-weight:800;color:var(--text-color);}
 .login-box .login-logo h1 span{color:var(--gold);}
-.login-box .login-logo .badge{
-  display:inline-block;background:var(--success-green);color:#fff;
-  font-size:10px;padding:3px 12px;border-radius:20px;font-weight:700;
-  margin-top:6px;letter-spacing:.5px;
-}
+.login-box .login-logo .badge{display:inline-block;background:var(--success-green);color:#fff;font-size:10px;padding:3px 12px;border-radius:20px;font-weight:700;margin-top:6px;letter-spacing:.5px;}
 .login-box .login-logo .admin-icon{font-size:44px;margin-bottom:8px;color:var(--primary-blue);}
 .login-box h2{font-size:18px;font-weight:700;text-align:center;margin-bottom:6px;color:var(--text-color);}
 .login-box p.subtitle{text-align:center;font-size:13px;color:var(--text-light);margin-bottom:24px;}
@@ -60,34 +45,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .login-form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:6px;}
 .login-form-group .input-wrap{position:relative;}
 .login-form-group .input-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-light);font-size:14px;}
-.login-form-group input{
-  width:100%;padding:12px 14px 12px 42px;
-  border:2px solid var(--border-color);border-radius:10px;
-  font-size:14px;background:var(--bg-color);color:var(--text-color);
-  font-family:inherit;transition:.2s;
-}
+.login-form-group input{width:100%;padding:12px 14px 12px 42px;border:2px solid var(--border-color);border-radius:10px;font-size:14px;background:var(--bg-color);color:var(--text-color);font-family:inherit;transition:.2s;}
 .login-form-group input:focus{border-color:var(--primary-blue);outline:none;box-shadow:0 0 0 4px rgba(25,118,210,.1);}
-.login-btn{
-  width:100%;padding:14px;background:var(--primary-blue);color:#fff;
-  border:none;border-radius:10px;font-size:15px;font-weight:700;
-  cursor:pointer;transition:.2s;font-family:inherit;margin-top:8px;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-}
+.login-btn{width:100%;padding:14px;background:var(--primary-blue);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
 .login-btn:hover{background:var(--secondary-blue);transform:translateY(-1px);}
 .login-btn:disabled{opacity:.6;cursor:not-allowed;}
-.login-error{
-  background:#fee2e2;color:#dc2626;padding:10px 14px;border-radius:8px;
-  font-size:13px;font-weight:600;margin-bottom:14px;display:none;align-items:center;gap:8px;
-}
+.login-error{background:#fee2e2;color:#dc2626;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;margin-bottom:14px;display:none;align-items:center;gap:8px;}
 .login-error.show{display:flex;}
 
-/* ============ ADMIN PANEL ============ */
+/* ADMIN PANEL */
 .admin-wrapper{display:none;min-height:100vh;}
 .admin-wrapper.active{display:flex;}
-.admin-sidebar{
-  width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;
-  position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;transition:transform .3s;
-}
+.admin-sidebar{width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;transition:transform .3s;}
 .admin-logo{padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
 .admin-logo h1{font-size:20px;font-weight:700;color:#fff;}
 .admin-logo h1 span{color:var(--gold);}
@@ -97,50 +66,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-user .name{font-size:13px;font-weight:600;}
 .admin-user .role{font-size:10px;opacity:.6;}
 
-/* SIDEBAR MENU */
 .admin-menu{list-style:none;padding:0 10px;}
 .admin-menu > li{margin-bottom:2px;}
-.admin-menu .menu-link{
-  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
-  color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;
-  transition:.3s;cursor:pointer;
-}
+.admin-menu .menu-link{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;transition:.3s;cursor:pointer;}
 .admin-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
 .admin-menu .menu-link.active{background:rgba(255,215,0,.15);color:var(--gold);}
 .admin-menu .menu-link i.menu-icon{width:18px;font-size:14px;text-align:center;}
-.admin-menu .menu-link .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 8px;border-radius:20px;font-size:10px;}
-.admin-menu .menu-toggle{
-  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
-  color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:600;
-  transition:.3s;cursor:pointer;
-}
-.admin-menu .menu-toggle:hover{background:rgba(255,255,255,.08);color:#fff;}
-.admin-menu .menu-toggle.open{background:rgba(255,255,255,.06);color:#fff;}
-.admin-menu .menu-toggle.has-active{color:var(--gold);}
-.admin-menu .menu-toggle i.menu-icon{width:18px;font-size:14px;text-align:center;}
-.admin-menu .menu-toggle .arrow{margin-left:auto;font-size:10px;opacity:.6;transition:transform .25s ease;}
-.admin-menu .menu-toggle.open .arrow{transform:rotate(90deg);opacity:1;}
-.admin-menu .submenu{
-  list-style:none;max-height:0;overflow:hidden;
-  transition:max-height .3s ease, opacity .3s ease;
-  opacity:0;margin:0;padding-left:8px;
-}
-.admin-menu .submenu.open{max-height:2000px;opacity:1;margin-top:2px;margin-bottom:4px;}
-.admin-menu .submenu li{margin-bottom:1px;}
-.admin-menu .submenu a{
-  display:flex;align-items:center;gap:10px;padding:8px 12px 8px 28px;
-  border-radius:6px;color:rgba(255,255,255,.6);text-decoration:none;
-  font-size:12.5px;font-weight:500;transition:.2s;cursor:pointer;position:relative;
-}
-.admin-menu .submenu a:hover{background:rgba(255,255,255,.06);color:#fff;}
-.admin-menu .submenu a.active{background:rgba(255,215,0,.15);color:var(--gold);font-weight:600;}
 
 .admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
-.admin-footer-menu .menu-link{
-  display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;
-  color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;font-weight:500;
-  transition:.3s;cursor:pointer;
-}
+.admin-footer-menu .menu-link{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;font-weight:500;transition:.3s;cursor:pointer;}
 .admin-footer-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
 
 .admin-content{flex:1;padding:24px 30px;background:var(--bg-color);min-height:100vh;overflow-y:auto;}
@@ -148,106 +82,116 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-top-header h2{font-size:20px;font-weight:700;}
 .admin-top-header h2 span{color:var(--primary-blue);}
 .admin-top-header .admin-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-.admin-top-header .admin-actions button,.admin-top-header .admin-actions a{
-  padding:6px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;
-  font-weight:600;transition:.3s;min-height:34px;display:flex;align-items:center;gap:6px;
-  text-decoration:none;
-}
+.admin-top-header .admin-actions button,.admin-top-header .admin-actions a{padding:6px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:.3s;min-height:34px;display:flex;align-items:center;gap:6px;text-decoration:none;}
 .btn-close-admin{background:#6c757d;color:#fff;}
 .btn-logout{background:#d62839;color:#fff;}
 .btn-logout:hover{background:#a91f2c;}
 .btn-dark-admin{background:var(--secondary);color:#fff;}
 
+#vipClock{display:flex;flex-direction:column;align-items:flex-end;gap:2px;padding:6px 16px;border-radius:10px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);margin-right:10px;}
+#vipClock .vip-greeting{font-size:12px;font-weight:700;color:var(--gold);white-space:nowrap;}
+#vipClock .vip-time{font-size:11px;color:var(--text-light);white-space:nowrap;}
+#vipClock .vip-idle{font-size:10px;color:#f59e0b;font-weight:600;white-space:nowrap;}
+
 .admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;}
-.admin-stats .stat-item{
-  background:var(--card-bg);padding:14px 16px;border-radius:10px;
-  border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);
-  text-align:center;transition:.3s;
-}
+.admin-stats .stat-item{background:var(--card-bg);padding:14px 16px;border-radius:10px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);text-align:center;transition:.3s;}
 .admin-stats .stat-item .stat-icon{font-size:22px;}
 .admin-stats .stat-item .stat-label{font-size:11px;color:var(--text-light);font-weight:600;margin-top:4px;}
 .admin-stats .stat-item .stat-value{font-size:24px;font-weight:700;color:var(--primary-blue);}
 
-.admin-card{
-  background:var(--card-bg);border-radius:10px;border:1px solid var(--border-color);
-  box-shadow:0 2px 8px var(--shadow-color);padding:16px 20px;margin-bottom:16px;
-}
-.admin-card .card-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
-.admin-card .card-header h4{font-size:15px;font-weight:600;}
-.btn-add{
-  padding:6px 14px;background:var(--success-green);color:#fff;border:none;
-  border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:.3s;
-  min-height:32px;display:flex;align-items:center;gap:4px;
-}
-.btn-add.bulk{background:#6c5ce7;}
-.btn-add.primary{background:var(--secondary-blue);}
+.admin-quick-actions{background:var(--card-bg);padding:16px 20px;border-radius:10px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);margin:16px 0;}
+.admin-quick-actions h3{font-size:14px;margin-bottom:10px;}
+.admin-quick-actions .actions-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.admin-quick-actions .actions-grid button{padding:6px 14px;background:var(--secondary-blue);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:600;transition:.3s;min-height:32px;}
 
 .admin-section{display:none;margin-top:16px;}
 .admin-section.active{display:block;animation:fadeInSection .3s ease;}
 @keyframes fadeInSection{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.admin-card{background:var(--card-bg);border-radius:10px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);padding:16px 20px;margin-bottom:16px;}
+.admin-card .card-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+.admin-card .card-header h4{font-size:15px;font-weight:600;}
+.btn-add{padding:6px 14px;background:var(--success-green);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:.3s;min-height:32px;display:flex;align-items:center;gap:4px;}
+.btn-add.bulk{background:#6c5ce7;}
+.btn-add.primary{background:var(--secondary-blue);}
 
-/* SETTING ROWS */
+.admin-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
+.admin-modal-overlay.active{display:flex;}
+.admin-modal{background:var(--card-bg);border-radius:12px;max-width:98%;width:100%;max-height:96vh;overflow-y:auto;padding:20px 24px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:modalIn .3s ease;border:1px solid var(--border-color);}
+@keyframes modalIn{from{transform:scale(.95) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.admin-modal .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);}
+.admin-modal .modal-header h3{font-size:18px;font-weight:700;}
+.admin-modal .modal-header .close-modal{font-size:22px;cursor:pointer;opacity:.5;background:none;border:none;color:var(--text-color);}
+.admin-modal .form-group{margin-bottom:12px;}
+.admin-modal .form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:3px;}
+.admin-modal .form-group input,.admin-modal .form-group select,.admin-modal .form-group textarea{width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;font-size:13px;background:var(--bg-color);color:var(--text-color);font-family:inherit;}
+.admin-modal .form-group input:focus,.admin-modal .form-group select:focus,.admin-modal .form-group textarea:focus{border-color:var(--primary-blue);outline:none;}
+.admin-modal .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:600px){.admin-modal .form-row{grid-template-columns:1fr;}}
+.admin-modal .btn-submit{padding:8px 20px;background:var(--success-green);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;}
+.admin-modal .btn-cancel{padding:8px 20px;background:#6c757d;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;margin-left:8px;}
+
+.data-item{background:var(--bg-color);border-radius:8px;padding:12px 14px;border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:.3s;}
+.data-item:hover{border-left-color:var(--gold);box-shadow:0 2px 8px var(--shadow-color);}
+.data-item .item-sno{width:32px;height:32px;border-radius:50%;background:var(--secondary-blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.data-item .item-content{flex:1;min-width:0;}
+.data-item .item-title{font-weight:600;font-size:14px;color:var(--text-color);margin-bottom:3px;word-break:break-word;}
+.data-item .item-meta{font-size:11px;color:var(--text-light);}
+.data-item .item-actions{display:flex;gap:4px;flex-wrap:wrap;}
+.data-item .item-actions button,.data-item .item-actions a{padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:4px;text-decoration:none;}
+.btn-i-edit{background:#ffc107;color:#333;}
+.btn-i-delete{background:#dc3545;color:#fff;}
+
+.empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
+.empty-state i{font-size:36px;margin-bottom:8px;opacity:.4;}
+
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:90%;text-align:center;animation:toastIn .3s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.toast.success{background:#16a34a;}
+.toast.error{background:#dc3545;}
+.toast.info{background:#1976d2;}
+.toast.warning{background:#f59e0b;}
+
+.settings-tab-btn{padding:8px 16px;border:2px solid var(--border-color);border-radius:20px;background:var(--bg-color);color:var(--text-color);font-size:12px;font-weight:600;cursor:pointer;transition:.3s;}
+.settings-tab-btn.active{background:var(--secondary-blue);color:#fff;border-color:var(--secondary-blue);}
+.settings-tab-content{display:none;}
+.settings-tab-content.active{display:block;}
+.content-tab-content{display:none;}
+.content-tab-content.active{display:block;}
 .setting-group{padding:16px 0;border-bottom:1px solid var(--border-color);}
 .setting-group:last-child{border-bottom:none;}
 .setting-group h5{font-size:14px;font-weight:700;color:var(--primary-blue);margin-bottom:12px;}
 .setting-row{display:grid;grid-template-columns:200px 1fr;gap:12px;align-items:center;margin-bottom:10px;}
 @media(max-width:600px){.setting-row{grid-template-columns:1fr;gap:6px;}}
 .setting-row label{font-size:12.5px;font-weight:600;color:var(--text-color);}
-.setting-row input[type="text"],
-.setting-row input[type="email"],
-.setting-row input[type="tel"],
-.setting-row input[type="url"],
-.setting-row input[type="number"],
-.setting-row input[type="password"],
-.setting-row select,
-.setting-row textarea{
-  width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;
-  font-size:13px;background:var(--card-bg);color:var(--text-color);font-family:inherit;
-}
-.btn-setting{
-  padding:8px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;
-  cursor:pointer;min-height:38px;margin-right:8px;margin-top:8px;
-  display:inline-flex;align-items:center;gap:6px;
-}
+.setting-row input[type="text"],.setting-row input[type="email"],.setting-row input[type="tel"],.setting-row input[type="url"],.setting-row input[type="number"],.setting-row input[type="password"],.setting-row select,.setting-row textarea{width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;font-size:13px;background:var(--card-bg);color:var(--text-color);font-family:inherit;}
+.btn-setting{padding:8px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;min-height:38px;margin-right:8px;margin-top:8px;display:inline-flex;align-items:center;gap:6px;}
 .btn-setting.primary{background:var(--secondary-blue);color:#fff;}
 .btn-setting.success{background:var(--success-green);color:#fff;}
 .btn-setting.danger{background:var(--warning-red);color:#fff;}
 
-/* MODAL */
-.admin-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
-.admin-modal-overlay.active{display:flex;}
-.admin-modal{background:var(--card-bg);border-radius:12px;max-width:98%;width:100%;max-height:96vh;overflow-y:auto;padding:20px 24px;border:1px solid var(--border-color);}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);}
-.modal-header h3{font-size:18px;font-weight:700;}
-.close-modal{font-size:22px;cursor:pointer;background:none;border:none;color:var(--text-color);}
-.form-group{margin-bottom:12px;}
-.form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:3px;}
-.form-group input, .form-group select, .form-group textarea{width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;font-size:13px;background:var(--bg-color);color:var(--text-color);}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.btn-submit{padding:8px 20px;background:var(--success-green);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;}
-.btn-cancel{padding:8px 20px;background:#6c757d;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;margin-left:8px;}
+.admin-menu-toggle{display:none;background:var(--secondary);color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:16px;cursor:pointer;}
+@media(max-width:768px){
+  .admin-sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);z-index:999;width:280px;}
+  .admin-sidebar.open{transform:translateX(0);}
+  .admin-content{padding:16px;}
+  .admin-stats{grid-template-columns:1fr 1fr;}
+  .admin-menu-toggle{display:flex;}
+  .setting-row{grid-template-columns:1fr;gap:6px;}
+}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;}
+.sidebar-overlay.active{display:block;}
 
-.data-item{background:var(--bg-color);border-radius:8px;padding:12px 14px;border:1px solid var(--border-color);margin-bottom:8px;display:flex;align-items:center;gap:12px;}
-.item-sno{width:32px;height:32px;border-radius:50%;background:var(--secondary-blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
-.item-content{flex:1;}
-.item-title{font-weight:600;font-size:14px;}
-.item-meta{font-size:11px;color:var(--text-light);}
-.item-actions{display:flex;gap:4px;}
-.btn-i-edit, .btn-i-delete{padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer;}
-.btn-i-edit{background:#ffc107;color:#333;}
-.btn-i-delete{background:#dc3545;color:#fff;}
-
-/* Page Manager */
-.page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 12px; }
-.page-card { background: var(--card-bg); border-radius: 10px; padding: 16px; border: 1px solid var(--border-color); }
-.page-card h4 { font-size: 15px; margin-bottom: 6px; }
-.page-card .page-card-meta { font-size: 11px; color: var(--text-light); margin-bottom: 10px; }
-.page-card-actions { display: flex; gap: 6px; flex-wrap: wrap; }
-
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;z-index:99999;}
-.toast.success{background:#16a34a;}
-.toast.error{background:#dc3545;}
-.toast.info{background:#1976d2;}
+/* VIP */
+@keyframes vipGradient{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.admin-wrapper.active{background:linear-gradient(-45deg,#eef5ff,#dbeafe,#e0e7ff,#f0f9ff);background-size:400% 400%;animation:vipGradient 15s ease infinite;}
+.dark-mode .admin-wrapper.active{background:linear-gradient(-45deg,#0a0e1a,#141428,#1a1a3a,#0d1b3e);background-size:400% 400%;animation:vipGradient 15s ease infinite;}
+.admin-sidebar{backdrop-filter:blur(20px);background:rgba(18,60,155,0.92) !important;border-right:1px solid rgba(255,215,0,0.15);box-shadow:4px 0 30px rgba(0,0,0,0.15);}
+.dark-mode .admin-sidebar{background:rgba(13,27,62,0.92) !important;}
+@keyframes vipShimmer{0%{background-position:-200% center;}100%{background-position:200% center;}}
+.admin-logo h1{background:linear-gradient(90deg,#fff 0%,#ffd700 25%,#fff 50%,#ffd700 75%,#fff 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:vipShimmer 3s linear infinite;}
+.admin-logo h1 span{-webkit-text-fill-color:#ffd700;}
+@keyframes idlePulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.idle-warning{animation:idlePulse 1.5s ease infinite;}
 </style>
 </head>
 <body>
@@ -255,96 +199,91 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 <!-- LOGIN -->
 <div class="login-screen active" id="loginScreen">
   <div class="login-box">
-    <div class="login-logo"><h1>🚀 <span>Dream</span>Josh</h1><div class="badge">ADMIN PANEL</div></div>
-    <div class="login-error" id="loginError">❌ Invalid credentials</div>
+    <div class="login-logo">
+      <div class="admin-icon">🔐</div>
+      <h1>🚀 <span>Dream</span>Josh</h1>
+      <div class="badge">ADMIN PANEL</div>
+    </div>
+    <h2>Login to Continue</h2>
+    <p class="subtitle">Enter your admin credentials</p>
+    <div class="login-error" id="loginError">
+      <i class="fas fa-exclamation-circle"></i>
+      <span id="loginErrorText">Invalid credentials</span>
+    </div>
     <form onsubmit="handleLogin(event)">
-      <div class="login-form-group"><label>Username</label><input type="text" id="loginUsername" value="Admin" required></div>
-      <div class="login-form-group"><label>Password</label><input type="password" id="loginPassword" value="Admin@123" required></div>
-      <button type="submit" class="login-btn">Login</button>
+      <div class="login-form-group">
+        <label>👤 Username</label>
+        <div class="input-wrap"><i class="fas fa-user"></i>
+          <input type="text" id="loginUsername" placeholder="Enter username" required>
+        </div>
+      </div>
+      <div class="login-form-group">
+        <label>🔒 Password</label>
+        <div class="input-wrap"><i class="fas fa-lock"></i>
+          <input type="password" id="loginPassword" placeholder="Enter password" required>
+        </div>
+      </div>
+      <button type="submit" class="login-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
     </form>
   </div>
 </div>
 
 <!-- ADMIN PANEL -->
 <div class="admin-wrapper" id="adminWrapper">
-  <div class="admin-sidebar">
-    <div class="admin-logo"><h1>🚀 <span>Dream</span>Josh</h1><span class="badge">Admin</span></div>
-    <div class="admin-user"><div class="avatar">A</div><div><div class="name">Administrator</div></div></div>
-    <ul class="admin-menu" id="dynamicSidebar"></ul>
-    <div style="padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;">
-      <a class="menu-link" href="/">Back to Home</a>
-      <a class="menu-link" onclick="handleLogout()">Logout</a>
+  <div class="admin-sidebar" id="adminSidebar">
+    <div class="admin-logo">
+      <h1>🚀 <span>Dream</span>Josh</h1>
+      <span class="badge">Admin</span>
+    </div>
+    <div class="admin-user">
+      <div class="avatar">A</div>
+      <div>
+        <div class="name" id="loggedInUser">Administrator</div>
+        <div class="role">Super Admin</div>
+      </div>
+    </div>
+    <ul class="admin-menu">
+      <li><a class="menu-link active" data-page="dashboard" onclick="showAdminPage('dashboard')"><i class="fas fa-chart-pie menu-icon"></i> Dashboard</a></li>
+      <li><a class="menu-link" data-page="pages" onclick="showAdminPage('pages')"><i class="fas fa-file-alt menu-icon"></i> Pages Manager</a></li>
+      <li><a class="menu-link" data-page="content-manager" onclick="showAdminPage('content-manager')"><i class="fas fa-palette menu-icon"></i> Content Manager</a></li>
+      <li><a class="menu-link" data-page="jobs-manager" onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase menu-icon"></i> Jobs Manager</a></li>
+      <li><a class="menu-link" data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog menu-icon"></i> Settings</a></li>
+    </ul>
+    <div class="admin-footer-menu">
+      <a class="menu-link" href="index.html"><i class="fas fa-home menu-icon"></i> Back to Home</a>
+      <a class="menu-link" onclick="handleLogout()"><i class="fas fa-sign-out-alt menu-icon"></i> Logout</a>
     </div>
   </div>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
   <div class="admin-content">
     <div class="admin-top-header">
-      <h2 id="adminPageTitle">📊 Dashboard</h2>
-      <div class="admin-actions">
+      <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
+      <div class="admin-actions" id="adminActions">
+        <button class="admin-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
-        <a href="/" class="btn-close-admin"><i class="fas fa-times"></i> Close</a>
+        <button class="btn-logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        <a href="index.html" class="btn-close-admin"><i class="fas fa-times"></i> Close</a>
       </div>
     </div>
 
     <!-- DASHBOARD -->
     <div id="adminPage-dashboard" class="admin-section active">
       <div class="admin-stats">
-        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value" id="statPages">0</div></div>
+        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Pages</div><div class="stat-value" id="statPages">0</div></div>
         <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
+        <div class="stat-item"><div class="stat-icon">🏆</div><div class="stat-label">Stories</div><div class="stat-value" id="statStories">0</div></div>
+        <div class="stat-item"><div class="stat-icon">🎥</div><div class="stat-label">Videos</div><div class="stat-value" id="statVideos">0</div></div>
+        <div class="stat-item"><div class="stat-icon">🏫</div><div class="stat-label">Colleges</div><div class="stat-value" id="statColleges">0</div></div>
       </div>
-      <div class="admin-card">
-        <div class="card-header"><h4>⚡ Quick Actions</h4></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button class="btn-add" onclick="showAdminPage('home-setup')">Home Setup</button>
-          <button class="btn-add" onclick="showAdminPage('pages')">Pages Manager</button>
+      <div class="admin-quick-actions">
+        <h3>⚡ Quick Actions</h3>
+        <div class="actions-grid">
+          <button onclick="showAdminPage('content-manager')"><i class="fas fa-palette"></i> Content Manager</button>
+          <button onclick="showAdminPage('pages')"><i class="fas fa-plus"></i> Pages</button>
+          <button onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase"></i> Jobs</button>
+          <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
         </div>
-      </div>
-    </div>
-
-    <!-- HOME PAGE SETUP -->
-    <div id="adminPage-home-setup" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>🏠 Home Page Setup</h4>
-          <button class="btn-add" onclick="saveHomeSetup()"><i class="fas fa-save"></i> Save All Settings</button>
-        </div>
-        
-        <div class="setting-group">
-          <h5>📞 Contact Us Setup</h5>
-          <div class="setting-row"><label>Phone Number</label><input type="text" id="homePhone" placeholder="+91 99999 99999"></div>
-          <div class="setting-row"><label>Email Address</label><input type="email" id="homeEmail" placeholder="info@dreamjosh.com"></div>
-          <div class="setting-row"><label>WhatsApp Number</label><input type="text" id="homeWhatsApp" placeholder="+91 99999 99999"></div>
-          <div class="setting-row"><label>Address</label><input type="text" id="homeAddress" placeholder="Jaipur, Rajasthan"></div>
-        </div>
-
-        <div class="setting-group">
-          <h5>🔗 Follow Us (Social Media)</h5>
-          <div class="setting-row"><label>WhatsApp Link</label><input type="url" id="homeLinkWhatsApp" placeholder="https://wa.me/..."></div>
-          <div class="setting-row"><label>Telegram Link</label><input type="url" id="homeLinkTelegram" placeholder="https://t.me/..."></div>
-          <div class="setting-row"><label>YouTube Link</label><input type="url" id="homeLinkYoutube" placeholder="https://youtube.com/..."></div>
-          <div class="setting-row"><label>Instagram Link</label><input type="url" id="homeLinkInstagram" placeholder="https://instagram.com/..."></div>
-        </div>
-
-        <div class="setting-group">
-          <h5>📊 Total Jobs Count</h5>
-          <div class="setting-row"><label>Number Displayed</label><input type="text" id="homeTotalJobs" placeholder="150+"></div>
-        </div>
-      </div>
-
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>📋 Important Forms</h4>
-          <button class="btn-add" onclick="openFormLinkModal()"><i class="fas fa-plus"></i> Add Form</button>
-        </div>
-        <div id="importantFormsContainer"></div>
-      </div>
-
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>📢 Latest Updates (Ticker)</h4>
-          <button class="btn-add" onclick="openUpdateTextModal()"><i class="fas fa-plus"></i> Add Update</button>
-        </div>
-        <div id="latestUpdatesContainer"></div>
       </div>
     </div>
 
@@ -353,25 +292,157 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <div class="admin-card">
         <div class="card-header">
           <h4>📄 Pages Manager</h4>
-          <button class="btn-add" onclick="openPageModal()">Add New Page</button>
+          <button class="btn-add" onclick="openPageModal()"><i class="fas fa-plus"></i> Add Page</button>
         </div>
-        <div class="page-grid" id="pagesGrid"></div>
+        <div id="pagesContainer"></div>
       </div>
     </div>
 
-    <div id="dynamicSectionsContainer"></div>
+    <!-- CONTENT MANAGER -->
+    <div id="adminPage-content-manager" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>🎨 Content Manager</h4>
+          <span style="font-size:12px;color:var(--text-light);">Home page content manage karein</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
+          <button class="settings-tab-btn active" onclick="switchContentTab('stories')" id="ctab-stories">🏆 Stories</button>
+          <button class="settings-tab-btn" onclick="switchContentTab('videos')" id="ctab-videos">🎥 Videos</button>
+          <button class="settings-tab-btn" onclick="switchContentTab('ads')" id="ctab-ads">💰 Ads</button>
+          <button class="settings-tab-btn" onclick="switchContentTab('insta')" id="ctab-insta">📸 Instagram</button>
+          <button class="settings-tab-btn" onclick="switchContentTab('colleges')" id="ctab-colleges">🏫 Colleges</button>
+        </div>
+
+        <div id="content-tab-stories" class="content-tab-content active">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">🏆 Success Stories</h4>
+            <button class="btn-add" onclick="openStoryModal()"><i class="fas fa-plus"></i> Add</button>
+          </div>
+          <div id="storiesContainer"></div>
+        </div>
+
+        <div id="content-tab-videos" class="content-tab-content">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">🎥 YouTube Videos</h4>
+            <button class="btn-add" onclick="openVideoModal()"><i class="fas fa-plus"></i> Add</button>
+          </div>
+          <div id="videosContainer"></div>
+        </div>
+
+        <div id="content-tab-ads" class="content-tab-content">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">💰 Ads</h4>
+            <button class="btn-add" onclick="openAdModal()"><i class="fas fa-plus"></i> Add</button>
+          </div>
+          <div id="adsContainer"></div>
+        </div>
+
+        <div id="content-tab-insta" class="content-tab-content">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">📸 Instagram Posts</h4>
+            <button class="btn-add" onclick="openInstaModal()"><i class="fas fa-plus"></i> Add</button>
+          </div>
+          <div id="instaContainer"></div>
+        </div>
+
+        <div id="content-tab-colleges" class="content-tab-content">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">🏫 Colleges</h4>
+            <button class="btn-add" onclick="openCollegeModal()"><i class="fas fa-plus"></i> Add</button>
+          </div>
+          <div id="collegesContainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOBS MANAGER -->
+    <div id="adminPage-jobs-manager" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>💼 Jobs Manager <span id="jobsCountBadge" style="background:var(--primary-blue);color:#fff;padding:2px 12px;border-radius:20px;font-size:12px;margin-left:8px;">0</span></h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+            <button class="btn-add bulk" onclick="openBulkJobModal()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
+          <button class="settings-tab-btn active" onclick="filterJobs('all')" id="jobFilter-all">📋 All</button>
+          <button class="settings-tab-btn" onclick="filterJobs('central')" id="jobFilter-central">🏛️ Central</button>
+          <button class="settings-tab-btn" onclick="filterJobs('state')" id="jobFilter-state">🏜️ Rajasthan</button>
+          <button class="settings-tab-btn" onclick="filterJobs('private')" id="jobFilter-private">💼 Private</button>
+        </div>
+        <div id="jobsContainer"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="adminPage-settings" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header"><h4>⚙️ Settings</h4></div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
+          <button class="settings-tab-btn active" data-tab="general" onclick="switchSettingsTab('general')">🏠 General</button>
+          <button class="settings-tab-btn" data-tab="security" onclick="switchSettingsTab('security')">🔐 Security</button>
+          <button class="settings-tab-btn" data-tab="backup" onclick="switchSettingsTab('backup')">💾 Backup</button>
+        </div>
+        <div class="settings-tab-content active" id="settings-tab-general">
+          <div class="setting-group">
+            <h5>🌐 Site Info</h5>
+            <div class="setting-row"><label>Site Name</label><input type="text" id="setSiteName"></div>
+            <div class="setting-row"><label>Tagline</label><input type="text" id="setTagline"></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save</button>
+        </div>
+        <div class="settings-tab-content" id="settings-tab-security">
+          <div class="setting-group">
+            <h5>🔑 Change Password</h5>
+            <div class="setting-row"><label>Current</label><input type="password" id="setCurPassword"></div>
+            <div class="setting-row"><label>New</label><input type="password" id="setNewPassword"></div>
+            <div class="setting-row"><label>Confirm</label><input type="password" id="setConfirmPassword"></div>
+            <button class="btn-setting danger" onclick="changeAdminPassword()" style="margin-top:8px;"><i class="fas fa-key"></i> Change Password</button>
+          </div>
+        </div>
+        <div class="settings-tab-content" id="settings-tab-backup">
+          <div class="setting-group">
+            <h5>💾 Backup</h5>
+            <button class="btn-setting success" onclick="exportAllData()"><i class="fas fa-download"></i> Backup JSON</button>
+          </div>
+          <div class="setting-group">
+            <h5>📥 Restore</h5>
+            <input type="file" id="restoreFileInput" accept=".json">
+            <button class="btn-setting primary" onclick="importData()" style="margin-top:8px;"><i class="fas fa-upload"></i> Restore</button>
+          </div>
+          <div class="setting-group">
+            <h5>🗑️ Clear All</h5>
+            <button class="btn-setting danger" onclick="clearAllAdminData()"><i class="fas fa-trash"></i> Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <!-- MODAL -->
-<div class="admin-modal-overlay" id="adminModalOverlay">
+<div class="admin-modal-overlay" id="adminModalOverlay" onclick="if(event.target===this) closeAdminModal()">
   <div class="admin-modal">
-    <div class="modal-header"><h3 id="adminModalTitle">Edit</h3><button class="close-modal" onclick="closeAdminModal()">&times;</button></div>
+    <div class="modal-header">
+      <h3 id="adminModalTitle">Edit</h3>
+      <button class="close-modal" onclick="closeAdminModal()">&times;</button>
+    </div>
     <div id="adminModalBody"></div>
   </div>
 </div>
 
 <script>
+// ============================================================
+// CONFIG
+// ============================================================
+const DEFAULT_ADMIN = { username: 'Admin', password: 'Admin@123' };
+const LOGIN_SESSION_KEY = 'dreamjosh_admin_session';
+const SESSION_DURATION = 8 * 60 * 60 * 1000;
+const IDLE_TIMEOUT = 10 * 60 * 1000;
+const IDLE_WARNING_TIME = 60 * 1000;
+
 const firebaseConfig = {
   apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
   authDomain: "dreamjosh-7d9ee.firebaseapp.com",
@@ -387,73 +458,99 @@ try {
   firebaseDB = firebase.firestore();
 } catch (err) { console.error(err); }
 
-let pagesData = [];
+// ============================================================
+// STATE
+// ============================================================
 let appData = {};
-let homeData = {}; 
+let pagesData = [];
+let jobsData = [];
+let contentData = { stories: [], videos: [], ads: [], instaPosts: [], colleges: [] };
+let settings = {};
+let currentJobFilter = 'all';
 
-const PAGES_KEY = 'dreamjosh_pages_data';
 const STORAGE_KEY = 'dreamjosh_admin_data';
-const HOME_KEY = 'dreamjosh_home_data';
+const PAGES_KEY = 'dreamjosh_pages_data';
+const CONTENT_KEY = 'dreamjosh_content_data';
+const SETTINGS_KEY = 'dreamjosh_settings';
+const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
 
+// ============================================================
+// DEFAULT PAGES
+// ============================================================
 const DEFAULT_PAGES = [
-  { id: 'career', name: 'Career', icon: 'fa-graduation-cap', subPages: [
-    { id: 'govt-jobs', name: 'Govt Jobs', icon: 'fa-landmark', parentId: 'career' }
-  ]}
+  { id: 'jobs', name: 'Jobs', icon: 'fa-briefcase', isPublic: true },
+  { id: 'blog', name: 'Blog', icon: 'fa-blog', isPublic: true },
+  { id: 'career', name: 'Career', icon: 'fa-briefcase', isPublic: true },
+  { id: 'services', name: 'Services', icon: 'fa-cogs', isPublic: true },
+  { id: 'more', name: 'More', icon: 'fa-book', isPublic: true },
+  { id: 'tools', name: 'Tools', icon: 'fa-tools', isPublic: true },
+  { id: 'rsr', name: 'RSR', icon: 'fa-gavel', isPublic: true }
 ];
 
-const DEFAULT_HOME = {
-  phone: "+91 99999 99999",
-  email: "info@dreamjosh.com",
-  whatsapp: "+91 99999 99999",
-  address: "Jaipur, Rajasthan",
-  linkWhatsApp: "https://wa.me/919999999999",
-  linkTelegram: "https://t.me/dreamjosh",
-  linkYoutube: "https://youtube.com/@dreamjosh",
-  linkInstagram: "https://instagram.com/dreamjosh",
-  totalJobs: "150+",
-  forms: [
-    { title: "🪪 Aadhaar Card", link: "#" },
-    { title: "💳 PAN Card", link: "#" }
+// ============================================================
+// DEFAULT CONTENT
+// ============================================================
+const DEFAULT_CONTENT = {
+  stories: [
+    { name: 'Rahul Sharma', role: 'SSC CGL 2025 - AIR 45', initial: 'R', text: 'Dream Josh ki study material aur mock tests ne meri selection mein bahut help ki.', badge: '🏆 Selected in SSC CGL', stars: 5 },
+    { name: 'Priya Verma', role: 'RAS 2025 - Rank 12', initial: 'P', text: 'Rajasthan GK notes aur previous year papers ne meri preparation ko strong banaya.', badge: '🎯 RAS Officer', stars: 5 }
   ],
-  updates: [
-    "🔴 SSC CGL 2026 Notification जल्दी आ रही है",
-    "🟢 RPSC RAS 2026 की तैयारी शुरू करें"
+  videos: [
+    { id: 'dQw4w9WgXcQ', title: 'SSC CGL 2026 Strategy', channel: 'Dream Josh', views: '2.5K views' }
+  ],
+  ads: [
+    { label: 'Advertisement', text: 'Your Ad Here', position: 'top', code: '' },
+    { label: 'Sponsored', text: 'Sponsored Content', position: 'middle', code: '' }
+  ],
+  instaPosts: [
+    { label: 'Study Tips', emoji: '📚', link: 'https://instagram.com/dreamjosh' },
+    { label: 'Govt Jobs', emoji: '🏛️', link: 'https://instagram.com/dreamjosh' }
+  ],
+  colleges: [
+    { name: 'SSC Coaching Jaipur', type: 'Coaching', city: 'Jaipur', courses: ['SSC', 'Banking'], info: 'Top SSC coaching' }
   ]
 };
 
+// ============================================================
+// LOAD / SAVE
+// ============================================================
 function loadData() {
   try {
-    const savedPages = localStorage.getItem(PAGES_KEY);
-    pagesData = savedPages ? JSON.parse(savedPages) : JSON.parse(JSON.stringify(DEFAULT_PAGES));
-    const savedData = localStorage.getItem(STORAGE_KEY);
-    if (savedData) appData = JSON.parse(savedData).appData || {};
-    const savedHome = localStorage.getItem(HOME_KEY);
-    homeData = savedHome ? JSON.parse(savedHome) : JSON.parse(JSON.stringify(DEFAULT_HOME));
-  } catch(e) { 
-    pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES)); 
-    homeData = JSON.parse(JSON.stringify(DEFAULT_HOME));
-  }
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) { const p = JSON.parse(s); appData = p.appData || {}; jobsData = p.jobsData || []; }
+  } catch (e) {}
 }
 
-async function loadFromCloud() {
-  if (!firebaseDB) return;
+function loadPages() {
   try {
-    const dPages = await firebaseDB.collection('dreamjosh').doc('pagesData').get();
-    if (dPages.exists && dPages.data().pages) {
-      pagesData = dPages.data().pages;
-      localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
+    const s = localStorage.getItem(PAGES_KEY);
+    if (s) pagesData = JSON.parse(s);
+    if (!pagesData || !pagesData.length) pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES));
+  } catch (e) { pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES)); }
+}
+
+function loadContent() {
+  try {
+    const s = localStorage.getItem(CONTENT_KEY);
+    if (s) contentData = JSON.parse(s);
+    else contentData = JSON.parse(JSON.stringify(DEFAULT_CONTENT));
+  } catch (e) { contentData = JSON.parse(JSON.stringify(DEFAULT_CONTENT)); }
+  // Ensure keys exist
+  if (!contentData.stories) contentData.stories = [];
+  if (!contentData.videos) contentData.videos = [];
+  if (!contentData.ads) contentData.ads = [];
+  if (!contentData.instaPosts) contentData.instaPosts = [];
+  if (!contentData.colleges) contentData.colleges = [];
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData, jobsData }));
+    if (firebaseDB) {
+      firebaseDB.collection('dreamjosh').doc('appData').set(appData).catch(()=>{});
+      firebaseDB.collection('dreamjosh').doc('jobsData').set({ jobs: jobsData }).catch(()=>{});
     }
-    const dData = await firebaseDB.collection('dreamjosh').doc('appData').get();
-    if (dData.exists) {
-      appData = dData.data();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData }));
-    }
-    const dHome = await firebaseDB.collection('dreamjosh').doc('homeData').get();
-    if (dHome.exists) {
-      homeData = dHome.data();
-      localStorage.setItem(HOME_KEY, JSON.stringify(homeData));
-    }
-  } catch(e) { console.warn(e); }
+  } catch (e) {}
 }
 
 function savePages() {
@@ -461,214 +558,981 @@ function savePages() {
   if (firebaseDB) firebaseDB.collection('dreamjosh').doc('pagesData').set({ pages: pagesData }).catch(()=>{});
 }
 
-function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ appData }));
-  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('appData').set(appData).catch(()=>{});
+function saveContent() {
+  localStorage.setItem(CONTENT_KEY, JSON.stringify(contentData));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('homeContent').set(contentData).catch(()=>{});
 }
 
-function saveHomeData() {
-  localStorage.setItem(HOME_KEY, JSON.stringify(homeData));
-  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('homeData').set(homeData).catch(()=>{});
+async function loadContentFromCloud() {
+  if (!firebaseDB) return;
+  try {
+    const d = await firebaseDB.collection('dreamjosh').doc('homeContent').get();
+    if (d.exists) {
+      contentData = { ...contentData, ...d.data() };
+      localStorage.setItem(CONTENT_KEY, JSON.stringify(contentData));
+    }
+  } catch (e) {}
 }
 
-function handleLogin(e) {
-  e.preventDefault();
-  const u = document.getElementById('loginUsername').value;
-  const p = document.getElementById('loginPassword').value;
-  if (u === 'Admin' && p === 'Admin@123') {
-    localStorage.setItem('admin_logged', 'true');
-    document.getElementById('loginScreen').classList.remove('active');
-    document.getElementById('adminWrapper').classList.add('active');
-    initAdmin();
-  } else {
-    document.getElementById('loginError').classList.add('show');
+// ============================================================
+// AUTH
+// ============================================================
+function getAdminCreds() {
+  try {
+    const s = localStorage.getItem(ADMIN_CREDS_KEY);
+    if (s) { const p = JSON.parse(s); if (p && p.username) return p; }
+  } catch (e) {}
+  return { ...DEFAULT_ADMIN };
+}
+function saveAdminCreds(username, password) {
+  const c = { username, password };
+  localStorage.setItem(ADMIN_CREDS_KEY, JSON.stringify(c));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('adminCreds').set(c).catch(()=>{});
+}
+function isLoggedIn() {
+  try {
+    const s = localStorage.getItem(LOGIN_SESSION_KEY);
+    if (!s) return false;
+    const session = JSON.parse(s);
+    if (!session.loggedIn || !session.loginTime) return false;
+    if (Date.now() - session.loginTime > SESSION_DURATION) {
+      localStorage.removeItem(LOGIN_SESSION_KEY);
+      return false;
+    }
+    return true;
+  } catch (e) { return false; }
+}
+function createSession(username) {
+  const session = { loggedIn: true, username, loginTime: Date.now() };
+  localStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify(session));
+}
+function destroySession() { localStorage.removeItem(LOGIN_SESSION_KEY); }
+
+function handleLogin(event) {
+  event.preventDefault();
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errorEl = document.getElementById('loginError');
+  const errorText = document.getElementById('loginErrorText');
+  const btn = document.getElementById('loginBtn');
+
+  if (!username || !password) {
+    errorText.textContent = 'Enter username & password';
+    errorEl.classList.add('show');
+    return;
   }
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
+  setTimeout(() => {
+    const creds = getAdminCreds();
+    if (username === creds.username && password === creds.password) {
+      errorEl.classList.remove('show');
+      createSession(username);
+      showAdminPanel();
+      showToast('✅ Welcome, ' + username + '! 👑', 'success');
+    } else {
+      errorText.textContent = '❌ Invalid username or password';
+      errorEl.classList.add('show');
+      document.getElementById('loginPassword').value = '';
+    }
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+  }, 500);
 }
 
 function handleLogout() {
-  localStorage.removeItem('admin_logged');
+  if (!confirm('Logout?')) return;
+  destroySession();
   document.getElementById('loginScreen').classList.add('active');
   document.getElementById('adminWrapper').classList.remove('active');
+  document.getElementById('loginUsername').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginError').classList.remove('show');
+  showToast('👋 Logged out', 'info');
 }
 
-async function initAdmin() {
-  loadData();
-  await loadFromCloud();
-  renderSidebar();
-  renderPagesGrid();
-  showAdminPage('dashboard');
+function showAdminPanel() {
+  document.getElementById('loginScreen').classList.remove('active');
+  document.getElementById('adminWrapper').classList.add('active');
+  const session = JSON.parse(localStorage.getItem(LOGIN_SESSION_KEY) || '{}');
+  const nameEl = document.getElementById('loggedInUser');
+  if (nameEl && session.username) nameEl.textContent = session.username;
+  initAdminPanel();
 }
 
-function renderSidebar() {
-  const menu = document.getElementById('dynamicSidebar');
-  let html = `
-    <li><a class="menu-link" onclick="showAdminPage('dashboard')">Dashboard</a></li>
-    <li><a class="menu-link" onclick="showAdminPage('home-setup')">🏠 Home Setup</a></li>
-    <li><a class="menu-link" onclick="showAdminPage('pages')">📄 Pages Manager</a></li>
-  `;
-  menu.innerHTML = html;
+function showLoginScreen() {
+  document.getElementById('loginScreen').classList.add('active');
+  document.getElementById('adminWrapper').classList.remove('active');
+  setTimeout(() => document.getElementById('loginUsername')?.focus(), 100);
 }
 
-function renderPagesGrid() {
-  const grid = document.getElementById('pagesGrid');
-  if(!grid) return;
-  let html = '';
-  pagesData.forEach(page => {
-    html += `
-      <div class="admin-card" style="margin-bottom:0;padding:16px;">
-        <h4><i class="fas ${page.icon}"></i> ${page.name}</h4>
-        <button class="btn-i-edit" onclick="openPageModal('${page.id}')">Edit</button>
-        <button class="btn-i-delete" onclick="deletePage('${page.id}')">Delete</button>
-      </div>
-    `;
-  });
-  grid.innerHTML = html;
-}
-
-function openPageModal() { alert('Pages feature intact hai, code short kiya gaya hai.'); }
-function deletePage() { alert('Delete feature intact hai.'); }
-
-function showAdminPage(pageId) {
-  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-  const staticPage = document.getElementById('adminPage-'+pageId);
-  if(staticPage) { 
-    staticPage.classList.add('active'); 
-    if(pageId === 'home-setup') loadHomeSetupForm();
-    return; 
+// ============================================================
+// PAGES MANAGER
+// ============================================================
+function renderPages() {
+  const c = document.getElementById('pagesContainer');
+  if (!c) return;
+  if (!pagesData.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fas fa-file-alt"></i><p>No pages yet</p></div>';
+    return;
   }
-  alert('Dynamic page feature intact hai.');
+  c.innerHTML = pagesData.map((p, i) => `
+    <div class="data-item">
+      <div class="item-sno"><i class="fas ${p.icon}"></i></div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(p.name)}</div>
+        <div class="item-meta">${p.isPublic ? '🌐 Public' : '🔒 Private'}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openPageModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deletePage(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
 }
 
-// ============================================================
-// HOME SETUP LOGIC
-// ============================================================
-function loadHomeSetupForm() {
-  const set = (id, val) => { const el = document.getElementById(id); if(el) el.value = val || ''; };
-  set('homePhone', homeData.phone);
-  set('homeEmail', homeData.email);
-  set('homeWhatsApp', homeData.whatsapp);
-  set('homeAddress', homeData.address);
-  set('homeLinkWhatsApp', homeData.linkWhatsApp);
-  set('homeLinkTelegram', homeData.linkTelegram);
-  set('homeLinkYoutube', homeData.linkYoutube);
-  set('homeLinkInstagram', homeData.linkInstagram);
-  set('homeTotalJobs', homeData.totalJobs);
-  renderFormsList();
-  renderUpdatesList();
+function openPageModal(idx = null) {
+  const isEdit = idx !== null;
+  const p = isEdit ? pagesData[idx] : { name: '', icon: 'fa-file-alt', isPublic: true };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Page' : '➕ Add Page';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="pageIdx" value="${isEdit ? idx : -1}">
+    <div class="form-group"><label>Page Name *</label><input type="text" id="pageName" value="${escapeHtml(p.name)}"></div>
+    <div class="form-group"><label>Icon (FontAwesome)</label><input type="text" id="pageIcon" value="${p.icon}"></div>
+    <div class="form-group"><label>Privacy</label>
+      <select id="pagePrivacy">
+        <option value="public" ${p.isPublic ? 'selected' : ''}>🌐 Public</option>
+        <option value="private" ${!p.isPublic ? 'selected' : ''}>🔒 Private</option>
+      </select>
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="savePage()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
 }
 
-function saveHomeSetup() {
-  const get = (id) => document.getElementById(id)?.value || '';
-  homeData.phone = get('homePhone');
-  homeData.email = get('homeEmail');
-  homeData.whatsapp = get('homeWhatsApp');
-  homeData.address = get('homeAddress');
-  homeData.linkWhatsApp = get('homeLinkWhatsApp');
-  homeData.linkTelegram = get('homeLinkTelegram');
-  homeData.linkYoutube = get('homeLinkYoutube');
-  homeData.linkInstagram = get('homeLinkInstagram');
-  homeData.totalJobs = get('homeTotalJobs');
+function savePage() {
+  const idx = parseInt(document.getElementById('pageIdx').value);
+  const name = document.getElementById('pageName').value.trim();
+  const icon = document.getElementById('pageIcon').value.trim() || 'fa-file-alt';
+  const isPublic = document.getElementById('pagePrivacy').value === 'public';
+  if (!name) return showToast('Name required!', 'error');
   
-  saveHomeData();
-  showToast('✅ Home Page Settings Saved!', 'success');
+  const page = { id: 'page-' + Date.now(), name, icon, isPublic };
+  if (idx >= 0) {
+    pagesData[idx] = { ...pagesData[idx], name, icon, isPublic };
+  } else {
+    pagesData.push(page);
+  }
+  savePages();
+  renderPages();
+  updateStats();
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
 }
 
-// Forms
-function renderFormsList() {
-  const c = document.getElementById('importantFormsContainer');
-  if(!c) return;
-  if(!homeData.forms || !homeData.forms.length) { c.innerHTML = 'No forms added.'; return; }
-  c.innerHTML = homeData.forms.map((f, i) => `
+function deletePage(i) {
+  if (!confirm('Delete?')) return;
+  pagesData.splice(i, 1);
+  savePages();
+  renderPages();
+  updateStats();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+// ============================================================
+// CONTENT MANAGER
+// ============================================================
+function switchContentTab(tab) {
+  document.querySelectorAll('.content-tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('[id^="ctab-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('content-tab-' + tab).classList.add('active');
+  document.getElementById('ctab-' + tab).classList.add('active');
+}
+
+function renderContentTabs() {
+  renderStories();
+  renderVideos();
+  renderAds();
+  renderInsta();
+  renderColleges();
+  updateStats();
+}
+
+// Stories
+function renderStories() {
+  const c = document.getElementById('storiesContainer');
+  if (!c) return;
+  const items = contentData.stories || [];
+  if (!items.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><p>No stories</p></div>';
+    return;
+  }
+  c.innerHTML = items.map((s, i) => `
     <div class="data-item">
-      <div class="item-content"><b>${f.title}</b> - <a href="${f.link}" target="_blank">${f.link}</a></div>
-      <button class="btn-i-delete" onclick="deleteForm(${i})">Delete</button>
+      <div class="item-sno">${i + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(s.name)}</div>
+        <div class="item-meta">${escapeHtml(s.role || '')} • ⭐ ${s.stars || 5}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openStoryModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteStory(${i})"><i class="fas fa-trash"></i></button>
+      </div>
     </div>
   `).join('');
 }
 
-function openFormLinkModal() {
-  document.getElementById('adminModalTitle').textContent = 'Add Important Form';
+function openStoryModal(idx = null) {
+  const isEdit = idx !== null;
+  const s = isEdit ? contentData.stories[idx] : { name: '', role: '', initial: '', text: '', badge: '', stars: 5 };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Story' : '➕ Add Story';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Form Title (with icon)</label><input type="text" id="newFormTitle" placeholder="🪪 Aadhaar Card"></div>
-    <div class="form-group"><label>Link URL</label><input type="text" id="newFormLink" placeholder="https://..."></div>
-    <button class="btn-submit" onclick="addFormLink()">Add</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    <input type="hidden" id="storyIdx" value="${isEdit ? idx : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Name *</label><input type="text" id="stName" value="${escapeHtml(s.name)}"></div>
+      <div class="form-group"><label>Role</label><input type="text" id="stRole" value="${escapeHtml(s.role)}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Initial</label><input type="text" id="stInitial" maxlength="1" value="${escapeHtml(s.initial || '')}"></div>
+      <div class="form-group"><label>Stars (1-5)</label><input type="number" id="stStars" min="1" max="5" value="${s.stars || 5}"></div>
+    </div>
+    <div class="form-group"><label>Badge</label><input type="text" id="stBadge" value="${escapeHtml(s.badge)}"></div>
+    <div class="form-group"><label>Testimonial *</label><textarea id="stText" rows="3">${escapeHtml(s.text)}</textarea></div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="saveStory()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
 
-function addFormLink() {
-  const title = document.getElementById('newFormTitle').value;
-  const link = document.getElementById('newFormLink').value;
-  if(!title || !link) return alert('Both fields required');
-  if(!homeData.forms) homeData.forms = [];
-  homeData.forms.push({ title, link });
-  saveHomeData();
-  renderFormsList();
+function saveStory() {
+  const idx = parseInt(document.getElementById('storyIdx').value);
+  const name = document.getElementById('stName').value.trim();
+  const text = document.getElementById('stText').value.trim();
+  if (!name || !text) return showToast('Name & Text required!', 'error');
+  const story = {
+    name, text,
+    role: document.getElementById('stRole').value,
+    initial: document.getElementById('stInitial').value || name.charAt(0).toUpperCase(),
+    stars: parseInt(document.getElementById('stStars').value) || 5,
+    badge: document.getElementById('stBadge').value
+  };
+  if (idx >= 0) contentData.stories[idx] = story;
+  else contentData.stories.push(story);
+  saveContent();
+  renderStories();
+  updateStats();
   closeAdminModal();
-  showToast('✅ Form Added', 'success');
+  showToast('✅ Saved!', 'success');
 }
 
-function deleteForm(i) {
-  if(!confirm('Delete?')) return;
-  homeData.forms.splice(i, 1);
-  saveHomeData();
-  renderFormsList();
+function deleteStory(i) {
+  if (!confirm('Delete?')) return;
+  contentData.stories.splice(i, 1);
+  saveContent();
+  renderStories();
+  updateStats();
+  showToast('🗑️ Deleted!', 'success');
 }
 
-// Updates
-function renderUpdatesList() {
-  const c = document.getElementById('latestUpdatesContainer');
-  if(!c) return;
-  if(!homeData.updates || !homeData.updates.length) { c.innerHTML = 'No updates added.'; return; }
-  c.innerHTML = homeData.updates.map((u, i) => `
+// Videos
+function renderVideos() {
+  const c = document.getElementById('videosContainer');
+  if (!c) return;
+  const items = contentData.videos || [];
+  if (!items.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fab fa-youtube"></i><p>No videos</p></div>';
+    return;
+  }
+  c.innerHTML = items.map((v, i) => `
     <div class="data-item">
-      <div class="item-content">${u}</div>
-      <button class="btn-i-delete" onclick="deleteUpdate(${i})">Delete</button>
+      <div class="item-sno" style="background:#FF0000;">▶</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(v.title)}</div>
+        <div class="item-meta">ID: ${escapeHtml(v.id)}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openVideoModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteVideo(${i})"><i class="fas fa-trash"></i></button>
+      </div>
     </div>
   `).join('');
 }
 
-function openUpdateTextModal() {
-  document.getElementById('adminModalTitle').textContent = 'Add Latest Update';
+function openVideoModal(idx = null) {
+  const isEdit = idx !== null;
+  const v = isEdit ? contentData.videos[idx] : { id: '', title: '', views: '' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Video' : '➕ Add Video';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group"><label>Update Text</label><input type="text" id="newUpdateText" placeholder="🔴 SSC CGL 2026 Notification"></div>
-    <button class="btn-submit" onclick="addUpdateText()">Add</button>
-    <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    <input type="hidden" id="videoIdx" value="${isEdit ? idx : -1}">
+    <div class="form-group"><label>YouTube Video ID *</label><input type="text" id="vidId" value="${escapeHtml(v.id)}" placeholder="dQw4w9WgXcQ"></div>
+    <div class="form-group"><label>Title *</label><input type="text" id="vidTitle" value="${escapeHtml(v.title)}"></div>
+    <div class="form-group"><label>Views</label><input type="text" id="vidViews" value="${escapeHtml(v.views || '')}"></div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="saveVideo()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
 
-function addUpdateText() {
-  const text = document.getElementById('newUpdateText').value;
-  if(!text) return alert('Text required');
-  if(!homeData.updates) homeData.updates = [];
-  homeData.updates.push(text);
-  saveHomeData();
-  renderUpdatesList();
+function saveVideo() {
+  const idx = parseInt(document.getElementById('videoIdx').value);
+  const vidId = document.getElementById('vidId').value.trim();
+  const title = document.getElementById('vidTitle').value.trim();
+  if (!vidId || !title) return showToast('ID & Title required!', 'error');
+  const video = { id: vidId, title, views: document.getElementById('vidViews').value, channel: 'Dream Josh' };
+  if (idx >= 0) contentData.videos[idx] = video;
+  else contentData.videos.push(video);
+  saveContent();
+  renderVideos();
+  updateStats();
   closeAdminModal();
-  showToast('✅ Update Added', 'success');
+  showToast('✅ Saved!', 'success');
 }
 
-function deleteUpdate(i) {
-  if(!confirm('Delete?')) return;
-  homeData.updates.splice(i, 1);
-  saveHomeData();
-  renderUpdatesList();
+function deleteVideo(i) {
+  if (!confirm('Delete?')) return;
+  contentData.videos.splice(i, 1);
+  saveContent();
+  renderVideos();
+  updateStats();
+  showToast('🗑️ Deleted!', 'success');
 }
 
-// HELPERS
+// Ads
+function renderAds() {
+  const c = document.getElementById('adsContainer');
+  if (!c) return;
+  const items = contentData.ads || [];
+  if (!items.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fas fa-ad"></i><p>No ads</p></div>';
+    return;
+  }
+  c.innerHTML = items.map((a, i) => `
+    <div class="data-item">
+      <div class="item-sno" style="background:#f59e0b;">💰</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(a.label || 'Ad')}</div>
+        <div class="item-meta">Position: ${escapeHtml(a.position || 'top')}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openAdModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteAd(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openAdModal(idx = null) {
+  const isEdit = idx !== null;
+  const a = isEdit ? contentData.ads[idx] : { label: 'Advertisement', text: 'Your Ad Here', position: 'top', code: '' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Ad' : '➕ Add Ad';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="adIdx" value="${isEdit ? idx : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Label</label><input type="text" id="adLabel" value="${escapeHtml(a.label)}"></div>
+      <div class="form-group"><label>Position</label>
+        <select id="adPosition">
+          <option value="top" ${a.position === 'top' ? 'selected' : ''}>Top</option>
+          <option value="middle" ${a.position === 'middle' ? 'selected' : ''}>Middle</option>
+          <option value="bottom" ${a.position === 'bottom' ? 'selected' : ''}>Bottom</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label>Text</label><input type="text" id="adText" value="${escapeHtml(a.text || '')}"></div>
+    <div class="form-group"><label>Ad Code (HTML/AdSense)</label><textarea id="adCode" rows="4">${escapeHtml(a.code || '')}</textarea></div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="saveAd()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveAd() {
+  const idx = parseInt(document.getElementById('adIdx').value);
+  const ad = {
+    label: document.getElementById('adLabel').value,
+    position: document.getElementById('adPosition').value,
+    text: document.getElementById('adText').value,
+    code: document.getElementById('adCode').value
+  };
+  if (idx >= 0) contentData.ads[idx] = ad;
+  else contentData.ads.push(ad);
+  saveContent();
+  renderAds();
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
+}
+
+function deleteAd(i) {
+  if (!confirm('Delete?')) return;
+  contentData.ads.splice(i, 1);
+  saveContent();
+  renderAds();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+// Instagram
+function renderInsta() {
+  const c = document.getElementById('instaContainer');
+  if (!c) return;
+  const items = contentData.instaPosts || [];
+  if (!items.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fab fa-instagram"></i><p>No posts</p></div>';
+    return;
+  }
+  c.innerHTML = items.map((p, i) => `
+    <div class="data-item">
+      <div class="item-sno" style="background:linear-gradient(45deg,#f09433,#dc2743);">📸</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(p.label)}</div>
+        <div class="item-meta">${escapeHtml(p.emoji || '📷')}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openInstaModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteInsta(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openInstaModal(idx = null) {
+  const isEdit = idx !== null;
+  const p = isEdit ? contentData.instaPosts[idx] : { label: '', emoji: '📷', link: 'https://instagram.com/dreamjosh' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Post' : '➕ Add Post';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="instaIdx" value="${isEdit ? idx : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Label *</label><input type="text" id="instaLabel" value="${escapeHtml(p.label)}"></div>
+      <div class="form-group"><label>Emoji</label><input type="text" id="instaEmoji" maxlength="4" value="${escapeHtml(p.emoji || '📷')}"></div>
+    </div>
+    <div class="form-group"><label>Link</label><input type="url" id="instaLink" value="${escapeHtml(p.link || '')}"></div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="saveInsta()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveInsta() {
+  const idx = parseInt(document.getElementById('instaIdx').value);
+  const label = document.getElementById('instaLabel').value.trim();
+  if (!label) return showToast('Label required!', 'error');
+  const post = { label, emoji: document.getElementById('instaEmoji').value || '📷', link: document.getElementById('instaLink').value };
+  if (idx >= 0) contentData.instaPosts[idx] = post;
+  else contentData.instaPosts.push(post);
+  saveContent();
+  renderInsta();
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
+}
+
+function deleteInsta(i) {
+  if (!confirm('Delete?')) return;
+  contentData.instaPosts.splice(i, 1);
+  saveContent();
+  renderInsta();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+// Colleges
+function renderColleges() {
+  const c = document.getElementById('collegesContainer');
+  if (!c) return;
+  const items = contentData.colleges || [];
+  if (!items.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fas fa-school"></i><p>No colleges</p></div>';
+    return;
+  }
+  c.innerHTML = items.map((col, i) => `
+    <div class="data-item">
+      <div class="item-sno" style="background:#16a34a;">🏫</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(col.name)}</div>
+        <div class="item-meta">${escapeHtml(col.type || '')} • ${escapeHtml(col.city || '')}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openCollegeModal(${i})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteCollege(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openCollegeModal(idx = null) {
+  const isEdit = idx !== null;
+  const c = isEdit ? contentData.colleges[idx] : { name: '', type: 'Coaching', city: '', courses: [], info: '' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit College' : '➕ Add College';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="colIdx" value="${isEdit ? idx : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Name *</label><input type="text" id="colName" value="${escapeHtml(c.name)}"></div>
+      <div class="form-group"><label>Type</label>
+        <select id="colType">
+          <option value="Coaching" ${c.type === 'Coaching' ? 'selected' : ''}>Coaching</option>
+          <option value="College" ${c.type === 'College' ? 'selected' : ''}>College</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>City</label><input type="text" id="colCity" value="${escapeHtml(c.city)}"></div>
+      <div class="form-group"><label>Courses</label><input type="text" id="colCourses" value="${(c.courses || []).join(', ')}" placeholder="SSC, Banking"></div>
+    </div>
+    <div class="form-group"><label>Info</label><textarea id="colInfo" rows="2">${escapeHtml(c.info)}</textarea></div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="saveCollege()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveCollege() {
+  const idx = parseInt(document.getElementById('colIdx').value);
+  const name = document.getElementById('colName').value.trim();
+  if (!name) return showToast('Name required!', 'error');
+  const college = {
+    name,
+    type: document.getElementById('colType').value,
+    city: document.getElementById('colCity').value,
+    courses: document.getElementById('colCourses').value.split(',').map(s => s.trim()).filter(Boolean),
+    info: document.getElementById('colInfo').value
+  };
+  if (idx >= 0) contentData.colleges[idx] = college;
+  else contentData.colleges.push(college);
+  saveContent();
+  renderColleges();
+  updateStats();
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
+}
+
+function deleteCollege(i) {
+  if (!confirm('Delete?')) return;
+  contentData.colleges.splice(i, 1);
+  saveContent();
+  renderColleges();
+  updateStats();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+// ============================================================
+// JOBS
+// ============================================================
+function filterJobs(type) {
+  currentJobFilter = type;
+  document.querySelectorAll('#adminPage-jobs-manager .settings-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('jobFilter-' + type)?.classList.add('active');
+  renderJobs();
+}
+
+function renderJobs() {
+  const c = document.getElementById('jobsContainer');
+  if (!c) return;
+  const badge = document.getElementById('jobsCountBadge');
+  if (badge) badge.textContent = jobsData.length;
+  let filtered = currentJobFilter === 'all' ? jobsData : jobsData.filter(j => j.jobType === currentJobFilter);
+  if (!filtered.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs</p></div>';
+    return;
+  }
+  c.innerHTML = filtered.map((j, i) => {
+    const realIdx = jobsData.indexOf(j);
+    return `
+    <div class="data-item">
+      <div class="item-sno">${i + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(j.title)}</div>
+        <div class="item-meta">${escapeHtml(j.jobType || '')} ${j.department ? '• ' + escapeHtml(j.department) : ''}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openJobModal(${realIdx})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteJob(${realIdx})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+function openJobModal(idx = null) {
+  const isEdit = idx !== null;
+  const job = isEdit ? jobsData[idx] : { title: '', jobType: 'central', department: '', post: '', eligibility: '', age: '' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Job' : '💼 Add Job';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="jobIdx" value="${isEdit ? idx : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${escapeHtml(job.title)}"></div>
+      <div class="form-group"><label>Type</label>
+        <select id="jType">
+          <option value="central" ${job.jobType === 'central' ? 'selected' : ''}>🏛️ Central</option>
+          <option value="state" ${job.jobType === 'state' ? 'selected' : ''}>🏜️ Rajasthan</option>
+          <option value="private" ${job.jobType === 'private' ? 'selected' : ''}>💼 Private</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Department</label><input type="text" id="jDept" value="${escapeHtml(job.department || '')}"></div>
+      <div class="form-group"><label>Post</label><input type="text" id="jPost" value="${escapeHtml(job.post || '')}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Eligibility</label><input type="text" id="jElig" value="${escapeHtml(job.eligibility || '')}"></div>
+      <div class="form-group"><label>Age Limit</label><input type="text" id="jAge" value="${escapeHtml(job.age || '')}"></div>
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveJob() {
+  const idx = parseInt(document.getElementById('jobIdx').value);
+  const title = document.getElementById('jTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+  const job = {
+    title,
+    jobType: document.getElementById('jType').value,
+    department: document.getElementById('jDept').value,
+    post: document.getElementById('jPost').value,
+    eligibility: document.getElementById('jElig').value,
+    age: document.getElementById('jAge').value,
+    createdAt: Date.now()
+  };
+  if (idx >= 0) jobsData[idx] = { ...jobsData[idx], ...job };
+  else jobsData.push(job);
+  saveData();
+  renderJobs();
+  updateStats();
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
+}
+
+function deleteJob(i) {
+  if (!confirm('Delete?')) return;
+  jobsData.splice(i, 1);
+  saveData();
+  renderJobs();
+  updateStats();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+function openBulkJobModal() {
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Add Jobs';
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="form-group">
+      <label>Format: Title | Type | Department</label>
+      <textarea id="bulkJobsText" rows="10" placeholder="SSC CGL | central | SSC
+RAS | state | RPSC"></textarea>
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="doBulkAddJobs()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function doBulkAddJobs() {
+  const text = document.getElementById('bulkJobsText').value.trim();
+  if (!text) return showToast('Data दें', 'error');
+  let count = 0;
+  text.split('\n').filter(l => l.trim()).forEach(line => {
+    const p = line.split('|').map(x => x.trim());
+    if (!p[0]) return;
+    jobsData.push({ title: p[0], jobType: p[1] || 'central', department: p[2] || '', createdAt: Date.now() });
+    count++;
+  });
+  saveData();
+  closeAdminModal();
+  renderJobs();
+  updateStats();
+  showToast(`✅ ${count} jobs added!`, 'success');
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function updateStats() {
+  const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  setEl('statPages', pagesData.length);
+  setEl('statJobs', jobsData.length);
+  setEl('statStories', (contentData.stories || []).length);
+  setEl('statVideos', (contentData.videos || []).length);
+  setEl('statColleges', (contentData.colleges || []).length);
+}
+
+// ============================================================
+// VIP EFFECTS
+// ============================================================
+let lastActivityTime = Date.now();
+let idleCheckInterval = null;
+let idleWarningShown = false;
+
+function markActivity() {
+  lastActivityTime = Date.now();
+  idleWarningShown = false;
+}
+
+function playVipSound(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    if (type === 'success') {
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+      osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
+    } else if (type === 'error') {
+      osc.frequency.setValueAtTime(329.63, ctx.currentTime);
+      osc.frequency.setValueAtTime(261.63, ctx.currentTime + 0.15);
+    } else {
+      osc.frequency.setValueAtTime(440, ctx.currentTime);
+    }
+    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.4);
+  } catch (e) {}
+}
+
+function initVipClock() {
+  const header = document.getElementById('adminActions');
+  if (!header) return;
+  document.getElementById('vipClock')?.remove();
+  const clockEl = document.createElement('div');
+  clockEl.id = 'vipClock';
+  header.prepend(clockEl);
+  function update() {
+    const now = new Date();
+    const h = now.getHours();
+    const greeting = h < 12 ? '🌅 Good Morning' : h < 17 ? '☀️ Good Afternoon' : h < 21 ? '🌆 Good Evening' : '🌙 Good Night';
+    const time = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+    const date = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
+    let idleText = '';
+    if (lastActivityTime) {
+      const idleFor = Date.now() - lastActivityTime;
+      const remaining = Math.max(0, IDLE_TIMEOUT - idleFor);
+      if (remaining <= 60 * 1000) {
+        idleText = `<div class="vip-idle idle-warning">⚠️ Auto logout in ${Math.ceil(remaining/1000)}s</div>`;
+      } else if (remaining <= 5 * 60 * 1000) {
+        idleText = `<div class="vip-idle">⏳ Idle: ${Math.ceil(remaining/60000)} min</div>`;
+      }
+    }
+    clockEl.innerHTML = `
+      <div class="vip-greeting">${greeting}, Admin 👑</div>
+      <div class="vip-time">${time} • ${date}</div>
+      ${idleText}
+    `;
+  }
+  update();
+  setInterval(update, 1000);
+}
+
+function initIdleLogout() {
+  const events = ['mousemove', 'mousedown', 'click', 'keypress', 'scroll', 'touchstart'];
+  events.forEach(evt => document.addEventListener(evt, markActivity, { passive: true }));
+  markActivity();
+  if (idleCheckInterval) clearInterval(idleCheckInterval);
+  idleCheckInterval = setInterval(() => {
+    if (!isLoggedIn()) return;
+    const idleFor = Date.now() - lastActivityTime;
+    if (!idleWarningShown && idleFor >= IDLE_TIMEOUT - IDLE_WARNING_TIME) {
+      idleWarningShown = true;
+      showToast('⚠️ 1 minute mein auto-logout!', 'warning');
+      playVipSound('error');
+    }
+    if (idleFor >= IDLE_TIMEOUT) {
+      clearInterval(idleCheckInterval);
+      destroySession();
+      document.getElementById('loginScreen').classList.add('active');
+      document.getElementById('adminWrapper').classList.remove('active');
+      setTimeout(() => alert('🔒 10 minute inactivity — Auto logout.'), 100);
+    }
+  }, 1000);
+}
+
+const _origShowToast = showToast;
+window.showToast = function(msg, type = 'info') {
+  _origShowToast(msg, type);
+  if (type === 'success') playVipSound('success');
+  else if (type === 'error') playVipSound('error');
+};
+
+// ============================================================
+// UI HELPERS
+// ============================================================
 function closeAdminModal() { document.getElementById('adminModalOverlay').classList.remove('active'); }
-function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
-function showToast(msg, type='info') { const t=document.createElement('div'); t.className='toast '+type; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),3000); }
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+}
+function showToast(msg, type = 'info') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
+}
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function toggleSidebar() {
+  document.getElementById('adminSidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+
+function switchSettingsTab(tab) {
+  document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
+  document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('settings-tab-' + tab)?.classList.add('active');
+}
+
+function saveSettingsGroup(g) {
+  showToast('✅ Saved!', 'success');
+}
+
+function changeAdminPassword() {
+  const cur = document.getElementById('setCurPassword').value;
+  const n1 = document.getElementById('setNewPassword').value;
+  const n2 = document.getElementById('setConfirmPassword').value;
+  if (!cur || !n1 || !n2) return showToast('सभी fields भरें!', 'error');
+  const c = getAdminCreds();
+  if (cur !== c.password) return showToast('❌ Current password गलत!', 'error');
+  if (n1 !== n2) return showToast('❌ Passwords match नहीं!', 'error');
+  if (n1.length < 6) return showToast('⚠️ 6+ chars', 'error');
+  saveAdminCreds(c.username, n1);
+  document.getElementById('setCurPassword').value = '';
+  document.getElementById('setNewPassword').value = '';
+  document.getElementById('setConfirmPassword').value = '';
+  showToast('✅ Password changed!', 'success');
+}
+
+function exportAllData() {
+  const data = { appData, jobsData, pagesData, contentData };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dreamjosh_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  showToast('📥 Backup!', 'success');
+}
+
+function importData() {
+  const file = document.getElementById('restoreFileInput').files[0];
+  if (!file) return showToast('File चुनें', 'error');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!confirm('Replace data?')) return;
+      if (data.appData) appData = data.appData;
+      if (data.jobsData) jobsData = data.jobsData;
+      if (data.pagesData) pagesData = data.pagesData;
+      if (data.contentData) contentData = data.contentData;
+      saveData(); savePages(); saveContent();
+      renderPages(); renderJobs(); renderContentTabs(); updateStats();
+      showToast('✅ Restored!', 'success');
+    } catch (err) { showToast('❌ Invalid file', 'error'); }
+  };
+  reader.readAsText(file);
+}
+
+function clearAllAdminData() {
+  if (!confirm('⚠️ All data delete?')) return;
+  if (!confirm('Sure?')) return;
+  [STORAGE_KEY, PAGES_KEY, CONTENT_KEY].forEach(k => localStorage.removeItem(k));
+  showToast('🗑️ Cleared!', 'success');
+  setTimeout(() => location.reload(), 1500);
+}
+
+// ============================================================
+// SHOW ADMIN PAGE
+// ============================================================
+function showAdminPage(page) {
+  markActivity();
+  document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
+  const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
+  if (activeLink) activeLink.classList.add('active');
+
+  const titles = {
+    'dashboard': '📊 <span>Dashboard</span>',
+    'pages': '📄 <span>Pages Manager</span>',
+    'content-manager': '🎨 <span>Content Manager</span>',
+    'jobs-manager': '💼 <span>Jobs Manager</span>',
+    'settings': '⚙️ <span>Settings</span>'
+  };
+  document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
+
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  const section = document.getElementById('adminPage-' + page);
+  if (section) {
+    section.classList.add('active');
+    if (page === 'dashboard') updateStats();
+    if (page === 'pages') renderPages();
+    if (page === 'content-manager') renderContentTabs();
+    if (page === 'jobs-manager') renderJobs();
+  }
+  if (window.innerWidth <= 768) {
+    document.getElementById('adminSidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('active');
+  }
+}
+
+// ============================================================
+// INIT
+// ============================================================
+async function initAdminPanel() {
+  loadData();
+  loadPages();
+  loadContent();
+  await loadContentFromCloud();
+  renderPages();
+  renderContentTabs();
+  renderJobs();
+  updateStats();
+  showAdminPage('dashboard');
+
+  setTimeout(() => {
+    initVipClock();
+    initIdleLogout();
+    console.log('👑 Admin v10.0 Ready');
+    console.log('Pages:', pagesData.length, '| Jobs:', jobsData.length);
+    console.log('Stories:', contentData.stories.length, '| Videos:', contentData.videos.length);
+  }, 200);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-  if(localStorage.getItem('admin_logged') === 'true') {
-    document.getElementById('loginScreen').classList.remove('active');
-    document.getElementById('adminWrapper').classList.add('active');
-    initAdmin();
-  }
+  if (isLoggedIn()) showAdminPanel();
+  else showLoginScreen();
+});
+
+// Expose
+Object.assign(window, {
+  handleLogin, handleLogout, showAdminPage, toggleSidebar,
+  openPageModal, savePage, deletePage,
+  switchContentTab,
+  openStoryModal, saveStory, deleteStory,
+  openVideoModal, saveVideo, deleteVideo,
+  openAdModal, saveAd, deleteAd,
+  openInstaModal, saveInsta, deleteInsta,
+  openCollegeModal, saveCollege, deleteCollege,
+  openJobModal, saveJob, deleteJob, openBulkJobModal, doBulkAddJobs,
+  filterJobs,
+  switchSettingsTab, saveSettingsGroup, changeAdminPassword,
+  exportAllData, importData, clearAllAdminData,
+  closeAdminModal, toggleDarkMode, showToast
 });
 </script>
+
 </body>
 </html>
