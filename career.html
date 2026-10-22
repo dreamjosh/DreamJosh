@@ -23,19 +23,11 @@
             --text-light: #6c757d;
             --whatsapp-green: #25D366;
         }
-        .dark-mode {
-            --bg-color: #0a0e1a; --card-bg: #141428; --text-color: #e8e8e8;
-            --text-light: #a0a0b8; --primary-blue: #1a3a8a;
-            --secondary-blue: #2a5ac8; --border-color: #2a2a4a;
-            --shadow-color: rgba(0, 0, 0, 0.3); --footer-bg: #0d1b3e;
-            --card-hover: #1a1a3a;
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background: var(--bg-color); color: var(--text-color);
-            min-height: 100vh; transition: background 0.3s, color 0.3s;
-            padding-top: 70px; padding-bottom: 55px;
+            min-height: 100vh; padding-top: 70px; padding-bottom: 55px;
         }
 
         /* HEADER */
@@ -68,87 +60,55 @@
         }
         .app-header .nav-btn.admin-btn:hover { background: #d62839; color: #fff; }
 
-        /* CAREER DROPDOWN */
+        /* DROPDOWN */
         .career-dropdown { position: relative; display: inline-block; }
         .career-dropdown .dropdown-btn {
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: #fff; padding: 5px 12px; border-radius: 18px;
             cursor: pointer; font-size: 12px; font-weight: 600;
-            transition: 0.3s; white-space: nowrap;
             display: inline-flex; align-items: center; gap: 4px;
         }
         .career-dropdown .dropdown-btn:hover,
-        .career-dropdown .dropdown-btn.active {
-            background: var(--gold); color: #0a0e1a;
-        }
-        .career-dropdown .dropdown-btn .arrow { font-size: 10px; }
+        .career-dropdown .dropdown-btn.active { background: var(--gold); color: #0a0e1a; }
         .career-dropdown .dropdown-content {
             display: none;
             position: absolute; top: 100%; right: 0;
             background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 12px; box-shadow: 0 8px 30px var(--shadow-color);
-            min-width: 290px; z-index: 1001;
+            min-width: 280px; z-index: 1001;
             max-height: 80vh; overflow-y: auto;
             padding: 8px 0;
         }
-        .career-dropdown .dropdown-content.show {
-            display: block;
-            animation: dropdownFade 0.25s ease;
-        }
-        @keyframes dropdownFade {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .career-dropdown .dropdown-category {
-            padding: 4px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
+        .career-dropdown .dropdown-content.show { display: block; }
+        .career-dropdown .dropdown-category { padding: 4px 0; border-bottom: 1px solid var(--border-color); }
         .career-dropdown .dropdown-category:last-child { border-bottom: none; }
         .career-dropdown .dropdown-category-title {
             padding: 8px 16px;
             font-size: 11px;
-            text-transform: uppercase;
             font-weight: 800;
             color: var(--primary-blue);
-            letter-spacing: 0.5px;
             background: var(--card-hover);
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 6px;
+            text-transform: uppercase;
         }
-        .career-dropdown .dropdown-category-title:hover { background: var(--bg-color); }
-        .career-dropdown .dropdown-sub {
-            list-style: none;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding: 0;
-            margin: 0;
-        }
+        .career-dropdown .dropdown-sub { list-style: none; max-height: 0; overflow: hidden; transition: max-height 0.3s; }
         .career-dropdown .dropdown-sub.open { max-height: 800px; }
         .career-dropdown .dropdown-sub a {
             display: block;
             padding: 8px 16px 8px 36px;
             font-size: 12.5px;
-            font-weight: 500;
             color: var(--text-color);
             text-decoration: none;
             cursor: pointer;
             transition: 0.2s;
-            border-left: 3px solid transparent;
         }
         .career-dropdown .dropdown-sub a:hover {
             background: var(--card-hover);
-            border-left-color: var(--secondary-blue);
             color: var(--secondary-blue);
-        }
-        .career-dropdown .dropdown-sub a i {
-            font-size: 10px;
-            opacity: 0.6;
-            width: 14px;
-            margin-right: 4px;
         }
 
         /* MAIN */
@@ -156,68 +116,79 @@
 
         /* TICKER */
         .page-ticker {
-            margin: 0 auto 20px auto; max-width: 1100px;
-            padding: 10px 14px; border-radius: 10px; color: white;
-            overflow: hidden; white-space: nowrap;
+            margin-bottom: 20px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: white;
+            overflow: hidden;
+            white-space: nowrap;
             background: var(--secondary-blue);
-            box-shadow: 0 2px 8px var(--shadow-color);
         }
         .page-ticker span {
-            display: inline-block; padding-left: 100%;
+            display: inline-block;
+            padding-left: 100%;
             animation: move 20s linear infinite;
         }
-        @keyframes move {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
-        }
+        @keyframes move { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 
         /* PAGE HEADER */
         .page-header-block {
-            background: var(--card-bg); border-radius: 14px;
-            padding: 24px; margin-bottom: 20px;
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 20px;
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 12px var(--shadow-color);
         }
         .page-header-block h1 {
-            font-size: 28px; color: var(--primary-blue);
-            margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+            font-size: 28px;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
         }
-        .page-header-block p {
-            font-size: 14px; color: var(--text-light); line-height: 1.6;
-        }
+        .page-header-block p { font-size: 14px; color: var(--text-light); line-height: 1.6; }
 
         /* FILTER */
         .filter-block {
-            background: var(--card-bg); border-radius: 14px;
-            padding: 18px 20px; margin-bottom: 20px;
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 12px var(--shadow-color);
         }
-        .filter-block .filter-title {
-            font-size: 13px; font-weight: 700; color: var(--text-color);
-            margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+        .filter-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .filter-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
         .filter-btn {
-            padding: 8px 16px; border-radius: 22px;
+            padding: 8px 16px;
+            border-radius: 22px;
             border: 2px solid var(--border-color);
-            background: var(--bg-color); color: var(--text-color);
-            font-size: 12px; font-weight: 600; cursor: pointer;
-            transition: 0.3s; font-family: inherit;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
         }
-        .filter-btn:hover {
-            border-color: var(--secondary-blue);
-            background: var(--card-hover);
-        }
+        .filter-btn:hover { border-color: var(--secondary-blue); }
         .filter-btn.active {
-            background: var(--secondary-blue); color: #fff;
+            background: var(--secondary-blue);
+            color: #fff;
             border-color: var(--secondary-blue);
-            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
         }
 
-        /* SECTION TITLE */
+        /* SECTION */
         .section-title {
-            display: flex; align-items: center; gap: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin: 24px 0 14px;
             padding-bottom: 10px;
             border-bottom: 3px solid var(--border-color);
@@ -226,12 +197,15 @@
         .section-title .section-icon { font-size: 24px; }
         .section-title .count-badge {
             margin-left: auto;
-            background: var(--primary-blue); color: #fff;
-            padding: 4px 14px; border-radius: 20px;
-            font-size: 12px; font-weight: 700;
+            background: var(--primary-blue);
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
         }
 
-        /* CAREER GRID */
+        /* CARDS */
         .career-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -239,14 +213,22 @@
             margin-bottom: 20px;
         }
         .career-card {
-            background: var(--card-bg); border-radius: 12px;
-            padding: 20px; border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
             box-shadow: 0 2px 8px var(--shadow-color);
-            transition: 0.3s; position: relative; overflow: hidden;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
         }
         .career-card::before {
-            content: ''; position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
             background: var(--secondary-blue);
             transition: 0.3s;
         }
@@ -258,171 +240,182 @@
         .career-card:hover::before { background: var(--gold); }
         .career-card .career-icon { font-size: 36px; margin-bottom: 10px; }
         .career-card .career-title {
-            font-size: 16px; font-weight: 700;
-            color: var(--primary-blue); margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
             line-height: 1.3;
         }
         .career-card .career-desc {
-            font-size: 13px; color: var(--text-light);
-            line-height: 1.6; margin-bottom: 10px;
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 10px;
         }
         .career-card .career-cat {
-            display: inline-block; padding: 3px 12px;
-            border-radius: 12px; font-size: 10px;
-            background: var(--secondary-blue); color: #fff;
-            font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.5px;
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            background: var(--secondary-blue);
+            color: #fff;
+            font-weight: 700;
+            text-transform: uppercase;
         }
         .career-card .career-link {
-            display: inline-flex; align-items: center; gap: 6px;
-            margin-top: 10px; padding: 6px 14px;
-            background: var(--success-green); color: #fff;
-            border-radius: 6px; font-size: 11px;
-            font-weight: 700; text-decoration: none;
-            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            padding: 6px 14px;
+            background: var(--success-green);
+            color: #fff;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
         }
-        .career-card .career-link:hover {
-            background: var(--primary-blue);
-            transform: translateY(-2px);
-        }
+        .career-card .career-link:hover { background: var(--primary-blue); }
 
-        /* EMPTY STATE */
+        /* STATES */
         .empty-state {
-            text-align: center; padding: 60px 20px;
-            background: var(--card-bg); border-radius: 14px;
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--card-bg);
+            border-radius: 14px;
             border: 2px dashed var(--border-color);
-            grid-column: 1 / -1;
         }
         .empty-state i {
-            font-size: 64px; color: var(--text-light);
-            opacity: 0.4; margin-bottom: 16px;
+            font-size: 64px;
+            color: var(--text-light);
+            opacity: 0.4;
+            margin-bottom: 16px;
         }
         .empty-state h3 {
-            font-size: 18px; color: var(--text-color);
+            font-size: 18px;
             margin-bottom: 8px;
         }
         .empty-state p { font-size: 13px; color: var(--text-light); }
 
-        /* LOADING */
         .loading-state {
-            text-align: center; padding: 60px 20px;
-            color: var(--text-light); grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
         }
         .loading-state i {
-            font-size: 48px; color: var(--secondary-blue);
+            font-size: 48px;
+            color: var(--secondary-blue);
             animation: spin 1s linear infinite;
-            margin-bottom: 16px; display: block;
+            margin-bottom: 16px;
+            display: block;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         /* CONTENT DISPLAY */
         .content-display {
-            background: var(--card-bg); border-radius: 14px;
-            padding: 24px; border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px var(--shadow-color);
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
             margin-bottom: 20px;
-            font-size: 14px; line-height: 1.8;
+            font-size: 14px;
+            line-height: 1.8;
         }
-        .content-display h2 { color: var(--primary-blue); margin-bottom: 12px; font-size: 22px; }
-        .content-display h3 { color: var(--primary-blue); margin: 18px 0 8px; font-size: 17px; }
+        .content-display h2 { color: var(--primary-blue); margin-bottom: 12px; }
+        .content-display h3 { color: var(--primary-blue); margin: 18px 0 8px; }
         .content-display p { margin: 8px 0; }
-        .content-display ul, .content-display ol { padding-left: 24px; margin: 10px 0; }
-        .content-display img { max-width: 100%; height: auto; border-radius: 8px; }
-        .content-display table { border-collapse: collapse; width: 100%; margin: 10px 0; }
-        .content-display table td, .content-display table th {
-            border: 1px solid var(--border-color); padding: 8px 12px;
-        }
-        .content-display table th { background: var(--bg-color); font-weight: 600; }
-        .content-display blockquote {
-            border-left: 4px solid var(--secondary-blue);
-            padding: 8px 16px; margin: 10px 0;
-            background: var(--bg-color); border-radius: 0 8px 8px 0;
-        }
+        .content-display ul { padding-left: 24px; margin: 10px 0; }
 
-        /* FLOATING WHATSAPP */
+        /* FLOATING */
         .whatsapp-float {
-            position: fixed; bottom: 70px; right: 16px;
-            width: 54px; height: 54px; border-radius: 50%;
-            background: var(--whatsapp-green); color: #fff;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 26px; z-index: 998;
+            position: fixed;
+            bottom: 70px;
+            right: 16px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: var(--whatsapp-green);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            z-index: 998;
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
-            cursor: pointer; text-decoration: none;
-            transition: 0.3s; animation: whatsappPulse 2s infinite;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.7);
-        }
-        @keyframes whatsappPulse {
-            0%, 100% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5); }
-            50% { box-shadow: 0 6px 30px rgba(37, 211, 102, 0.9); }
+            text-decoration: none;
         }
 
-        /* BACK TO TOP */
         .back-to-top {
-            position: fixed; bottom: 140px; right: 16px;
-            width: 44px; height: 44px; border-radius: 50%;
-            background: var(--primary-blue); color: #fff;
-            display: none; align-items: center; justify-content: center;
-            font-size: 18px; z-index: 997; cursor: pointer;
-            border: none; box-shadow: 0 4px 15px rgba(18, 60, 155, 0.4);
-            transition: 0.3s;
+            position: fixed;
+            bottom: 140px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            color: #fff;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            z-index: 997;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(18, 60, 155, 0.4);
         }
         .back-to-top.show { display: flex; }
-        .back-to-top:hover { background: var(--secondary-blue); transform: translateY(-5px); }
 
         /* FOOTER */
         .app-footer {
-            background: var(--footer-bg); color: #fff;
-            padding: 12px 16px; text-align: center;
-            position: fixed; bottom: 0; left: 0; right: 0;
-            z-index: 999; box-shadow: 0 -2px 15px var(--shadow-color);
+            background: var(--footer-bg);
+            color: #fff;
+            padding: 12px 16px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
         }
         .app-footer .footer-links {
-            display: flex; justify-content: center;
-            gap: 12px; flex-wrap: wrap; margin-bottom: 6px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
         }
         .app-footer .footer-links a {
-            color: rgba(255,255,255,0.85); font-size: 11px;
-            text-decoration: none; cursor: pointer;
-            transition: 0.2s; padding: 3px 8px; border-radius: 6px;
-        }
-        .app-footer .footer-links a:hover {
-            background: rgba(255,215,0,0.2); color: var(--gold);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 11px;
+            text-decoration: none;
+            padding: 3px 8px;
+            border-radius: 6px;
         }
         .app-footer .footer-copy {
-            font-size: 11px; color: rgba(255,255,255,0.6);
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
         }
         .app-footer .footer-copy span { color: var(--gold); }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             .main-container { padding: 12px; }
-            .page-header-block { padding: 16px; }
             .page-header-block h1 { font-size: 22px; }
-            .filter-block { padding: 14px; }
-            .filter-btn { padding: 6px 14px; font-size: 11px; }
             .career-grid { grid-template-columns: 1fr; }
-            .career-card { padding: 16px; }
-            .whatsapp-float { width: 48px; height: 48px; font-size: 22px; }
             .career-dropdown .dropdown-content { min-width: 250px; right: -20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="app-header">
         <a href="index.html" class="logo">🚀 <span>Dream</span>Josh</a>
         <div class="header-controls">
             <a href="index.html" class="nav-btn">🏠 Home</a>
             <a href="jobs.html" class="nav-btn">💼 Jobs</a>
 
-            <!-- CAREER DROPDOWN -->
-            <div class="career-dropdown" id="careerDropdownWrapper">
-                <button class="dropdown-btn active" onclick="toggleCareerDropdown(event)">
-                    🎯 Career <span class="arrow">▾</span>
+            <div class="career-dropdown">
+                <button class="dropdown-btn active" onclick="toggleDropdown(event)">
+                    🎯 Career <span>▾</span>
                 </button>
                 <div class="dropdown-content" id="careerDropdownContent"></div>
             </div>
@@ -432,29 +425,23 @@
         </div>
     </header>
 
-    <!-- MAIN -->
     <main class="main-container">
-
-        <!-- TICKER -->
         <div class="page-ticker">
-            <span>🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs • Career Counseling • Skill Development</span>
+            <span>🎯 Career Guidance • Government Jobs • Banking • SSC • Railway • Defence • Police • Teaching • IT • Private Jobs • Skill Development</span>
         </div>
 
-        <!-- PAGE HEADER -->
         <div class="page-header-block">
             <h1>🎯 Career Options</h1>
-            <p>Explore various career options and find the right path for your future. यहाँ आपको सभी career paths की पूरी जानकारी मिलेगी — Government Jobs, Private Jobs, Education Paths, Exam Preparation, Skill-Based Careers aur bahut kuch.</p>
+            <p>Explore various career options and find the right path for your future.</p>
         </div>
 
-        <!-- FILTER -->
         <div class="filter-block">
             <div class="filter-title"><i class="fas fa-filter"></i> Filter by Category</div>
             <div class="filter-buttons" id="filterButtons">
-                <button class="filter-btn active" onclick="filterCareer('all')">📌 All Careers</button>
+                <button class="filter-btn active" onclick="filterCareer('all')">📌 All</button>
             </div>
         </div>
 
-        <!-- ACTIVE FILTER BADGE -->
         <div id="activeFilterBadge" style="display:none;margin-bottom:16px;">
             <span style="display:inline-flex;align-items:center;gap:8px;background:var(--primary-blue);color:#fff;padding:8px 18px;border-radius:20px;font-size:13px;font-weight:700;">
                 <i class="fas fa-filter"></i> <span id="activeFilterText">All</span>
@@ -462,7 +449,6 @@
             </span>
         </div>
 
-        <!-- CAREER SECTIONS -->
         <div id="careerSections">
             <div class="loading-state">
                 <i class="fas fa-spinner"></i>
@@ -470,7 +456,494 @@
             </div>
         </div>
 
-        <!-- CONTENT (from admin) -->
         <div id="careerContentDisplay" class="content-display" style="display:none;"></div>
+    </main>
 
-    <
+    <footer class="app-footer">
+        <div class="footer-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="jobs.html">💼 Jobs</a>
+            <a href="career.html" style="background:rgba(255,215,0,0.2);color:var(--gold);">🎯 Career</a>
+            <a href="blog.html">📝 Blog</a>
+            <a href="more.html">📚 More</a>
+            <a href="services.html">🛠️ Services</a>
+            <a href="rsr.html">📜 RSR</a>
+            <a href="tools.html">🛠️ Tools</a>
+            <a href="admin.html">🔐 Admin</a>
+        </div>
+        <div class="footer-copy">© 2026 <span>Dream Josh</span> • Career Page</div>
+    </footer>
+
+    <a href="https://wa.me/919999999999" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // ============================================================
+        // 🔥 FIREBASE — SAFE INIT
+        // ============================================================
+        let firebaseDB = null;
+
+        try {
+            const firebaseConfig = {
+                apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
+                authDomain: "dreamjosh-7d9ee.firebaseapp.com",
+                projectId: "dreamjosh-7d9ee",
+                storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
+                messagingSenderId: "461367857074",
+                appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
+            };
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                firebaseDB = firebase.firestore();
+                console.log('✅ Firebase initialized');
+            } else {
+                console.warn('⚠️ Firebase not loaded — using fallback');
+            }
+        } catch (err) {
+            console.error('❌ Firebase init error:', err);
+            firebaseDB = null;
+        }
+
+        // ============================================================
+        // 📂 CATEGORIES STRUCTURE
+        // ============================================================
+        const CAREER_CATEGORIES = [
+            {
+                id: 'government',
+                name: 'Government Jobs',
+                icon: '🏛️',
+                subPages: [
+                    { name: 'UPSC Civil Services', icon: '🏛️', filter: 'UPSC' },
+                    { name: 'SSC Exams', icon: '📄', filter: 'SSC' },
+                    { name: 'Railway (RRB)', icon: '🚂', filter: 'Railway' },
+                    { name: 'Banking Exams', icon: '🏦', filter: 'Banking' },
+                    { name: 'Defence Services', icon: '🛡️', filter: 'Defence' },
+                    { name: 'Police & Paramilitary', icon: '👮', filter: 'Police' },
+                    { name: 'Teaching Exams', icon: '📚', filter: 'Teaching' },
+                    { name: 'Medical & Healthcare', icon: '🏥', filter: 'Medical' },
+                    { name: 'Engineering & PSU', icon: '⚙️', filter: 'Engineering' },
+                    { name: 'Judiciary & Law', icon: '⚖️', filter: 'Law' },
+                    { name: 'State PSC Exams', icon: '🏜️', filter: 'State PSC' }
+                ]
+            },
+            {
+                id: 'private',
+                name: 'Private Jobs',
+                icon: '💼',
+                subPages: [
+                    { name: 'IT & Software', icon: '💻', filter: 'IT' },
+                    { name: 'Finance & Accounting', icon: '💰', filter: 'Finance' },
+                    { name: 'Marketing & Sales', icon: '📈', filter: 'Marketing' },
+                    { name: 'Human Resources', icon: '👥', filter: 'HR' },
+                    { name: 'Healthcare', icon: '🏥', filter: 'Healthcare' },
+                    { name: 'Manufacturing', icon: '🏭', filter: 'Manufacturing' },
+                    { name: 'Startups', icon: '🚀', filter: 'Startup' },
+                    { name: 'Hospitality', icon: '🏨', filter: 'Hospitality' }
+                ]
+            },
+            {
+                id: 'education',
+                name: 'Education Paths',
+                icon: '📚',
+                subPages: [
+                    { name: '10th ke baad', icon: '🎓', filter: 'After 10th' },
+                    { name: '12th ke baad', icon: '🎓', filter: 'After 12th' },
+                    { name: 'Graduation ke baad', icon: '🎓', filter: 'After Graduation' },
+                    { name: 'Govt vs Private', icon: '⚖️', filter: 'Govt vs Private' },
+                    { name: 'Scholarship', icon: '💰', filter: 'Scholarship' },
+                    { name: 'Study Abroad', icon: '✈️', filter: 'Study Abroad' }
+                ]
+            },
+            {
+                id: 'exams',
+                name: 'Exam-Specific',
+                icon: '📝',
+                subPages: [
+                    { name: 'UPSC IAS', icon: '🏛️', filter: 'UPSC IAS' },
+                    { name: 'SSC CGL', icon: '📄', filter: 'SSC CGL' },
+                    { name: 'IBPS PO', icon: '🏦', filter: 'IBPS PO' },
+                    { name: 'RRB NTPC', icon: '🚂', filter: 'RRB NTPC' },
+                    { name: 'RAS', icon: '🏜️', filter: 'RAS' },
+                    { name: 'REET', icon: '📚', filter: 'REET' },
+                    { name: 'NEET', icon: '🏥', filter: 'NEET' },
+                    { name: 'JEE', icon: '⚙️', filter: 'JEE' },
+                    { name: 'GATE', icon: '🎯', filter: 'GATE' }
+                ]
+            },
+            {
+                id: 'skills',
+                name: 'Skill-Based',
+                icon: '💡',
+                subPages: [
+                    { name: 'Freelancing', icon: '💻', filter: 'Freelancing' },
+                    { name: 'Content Creation', icon: '🎬', filter: 'Content Creation' },
+                    { name: 'Web Development', icon: '🌐', filter: 'Web Development' },
+                    { name: 'Digital Marketing', icon: '📱', filter: 'Digital Marketing' },
+                    { name: 'Data Science', icon: '📊', filter: 'Data Science' }
+                ]
+            },
+            {
+                id: 'guidance',
+                name: 'Career Guidance',
+                icon: '📖',
+                subPages: [
+                    { name: 'Career Counseling', icon: '💬', filter: 'Counseling' },
+                    { name: 'Resume Building', icon: '📄', filter: 'Resume' },
+                    { name: 'Interview Prep', icon: '🎤', filter: 'Interview' },
+                    { name: 'Mock Tests', icon: '📝', filter: 'Mock Tests' }
+                ]
+            }
+        ];
+
+        // ============================================================
+        // 📋 FALLBACK ITEMS
+        // ============================================================
+        const FALLBACK_ITEMS = [
+            { title: '🏛️ UPSC Civil Services', description: 'IAS, IPS, IFS, IRS, IES', category: 'UPSC', visibility: 'public' },
+            { title: '📄 SSC Exams', description: 'CGL, CHSL, MTS, JE, CPO', category: 'SSC', visibility: 'public' },
+            { title: '🚂 Railway (RRB)', description: 'NTPC, Group D, ALP, JE', category: 'Railway', visibility: 'public' },
+            { title: '🏦 Banking Exams', description: 'IBPS PO, SBI PO, RBI Grade B', category: 'Banking', visibility: 'public' },
+            { title: '🛡️ Defence Services', description: 'NDA, CDS, AFCAT, Agniveer', category: 'Defence', visibility: 'public' },
+            { title: '👮 Police & Paramilitary', description: 'State Police, CAPF, BSF', category: 'Police', visibility: 'public' },
+            { title: '📚 Teaching Exams', description: 'CTET, REET, B.Ed, TET', category: 'Teaching', visibility: 'public' },
+            { title: '🏥 Medical & Healthcare', description: 'NEET, AIIMS, Nursing', category: 'Medical', visibility: 'public' },
+            { title: '⚙️ Engineering & PSU', description: 'GATE, ISRO, DRDO, BARC', category: 'Engineering', visibility: 'public' },
+            { title: '⚖️ Judiciary & Law', description: 'CLAT, Judicial Services, LLB', category: 'Law', visibility: 'public' },
+            { title: '🏜️ State PSC Exams', description: 'RPSC, UPPSC, MPPSC, BPSC', category: 'State PSC', visibility: 'public' },
+            { title: '💻 IT & Software', description: 'Software Developer, Data Science', category: 'IT', visibility: 'public' },
+            { title: '💰 Finance & Accounting', description: 'CA, CFA, Banking, Insurance', category: 'Finance', visibility: 'public' },
+            { title: '📈 Marketing & Sales', description: 'Digital Marketing, Brand Manager', category: 'Marketing', visibility: 'public' },
+            { title: '👥 Human Resources', description: 'HR Executive, Recruiter', category: 'HR', visibility: 'public' },
+            { title: '🏭 Manufacturing', description: 'Production, Quality Control', category: 'Manufacturing', visibility: 'public' },
+            { title: '🎓 10th ke baad kya karein?', description: 'Stream selection guide', category: 'After 10th', visibility: 'public' },
+            { title: '🎓 12th ke baad kya karein?', description: 'Graduation, Jobs, Exams', category: 'After 12th', visibility: 'public' },
+            { title: '⚖️ Government vs Private Jobs', description: 'Pros and cons', category: 'Govt vs Private', visibility: 'public' },
+            { title: '🏛️ UPSC IAS Preparation', description: 'Prelims, Mains, Interview', category: 'UPSC IAS', visibility: 'public' },
+            { title: '📄 SSC CGL Strategy', description: 'Tier 1, 2, 3, 4 guide', category: 'SSC CGL', visibility: 'public' },
+            { title: '🏦 IBPS PO Preparation', description: 'Complete guide', category: 'IBPS PO', visibility: 'public' },
+            { title: '💻 Freelancing', description: 'Upwork, Fiverr, tips', category: 'Freelancing', visibility: 'public' },
+            { title: '🎬 Content Creation', description: 'YouTube, Blogging', category: 'Content Creation', visibility: 'public' },
+            { title: '🌐 Web Development', description: 'HTML, CSS, JS, React', category: 'Web Development', visibility: 'public' },
+            { title: '📱 Digital Marketing', description: 'SEO, Google Ads', category: 'Digital Marketing', visibility: 'public' },
+            { title: '💬 Career Counseling', description: '1-on-1 guidance', category: 'Counseling', visibility: 'public' },
+            { title: '📄 Resume Building', description: 'Best resume tips', category: 'Resume', visibility: 'public' },
+            { title: '🎤 Interview Preparation', description: 'Mock interviews', category: 'Interview', visibility: 'public' }
+        ];
+
+        // ============================================================
+        // 📦 STATE
+        // ============================================================
+        let careerData = { content: '', items: [] };
+        let currentFilter = 'all';
+
+        // ============================================================
+        // 🔥 LOAD FROM FIREBASE
+        // ============================================================
+        async function loadCareerData() {
+            // Start with fallback
+            careerData.items = JSON.parse(JSON.stringify(FALLBACK_ITEMS));
+            careerData.content = '';
+
+            if (!firebaseDB) {
+                console.log('ℹ️ No Firebase — using fallback items');
+                renderCareer();
+                renderDropdown();
+                return;
+            }
+
+            try {
+                console.log('⏳ Loading from Firebase...');
+                const doc = await firebaseDB.collection('dreamjosh').doc('appData').get();
+                
+                if (doc.exists) {
+                    const data = doc.data();
+                    if (data.career && data.career.items && data.career.items.length > 0) {
+                        careerData.content = data.career.content || '';
+                        careerData.items = data.career.items;
+                        console.log('✅ Loaded from Firebase:', careerData.items.length, 'items');
+                    } else {
+                        console.log('ℹ️ Firebase empty — using fallback');
+                    }
+                } else {
+                    console.log('ℹ️ No appData doc — using fallback');
+                }
+            } catch (err) {
+                console.error('❌ Firebase load error:', err);
+                console.log('ℹ️ Using fallback items');
+            }
+
+            renderCareer();
+            renderDropdown();
+        }
+
+        // ============================================================
+        // 🎨 RENDER DROPDOWN
+        // ============================================================
+        function renderDropdown() {
+            const content = document.getElementById('careerDropdownContent');
+            if (!content) return;
+
+            let html = `
+                <div class="dropdown-category">
+                    <div class="dropdown-category-title" onclick="filterCareer('all'); closeDropdown();" style="color:var(--success-green);">
+                        📌 All Careers
+                    </div>
+                </div>
+            `;
+
+            CAREER_CATEGORIES.forEach(cat => {
+                html += `
+                    <div class="dropdown-category">
+                        <div class="dropdown-category-title" onclick="toggleSubmenu('${cat.id}')">
+                            ${cat.icon} ${cat.name}
+                            <i class="fas fa-chevron-down" style="margin-left:auto;font-size:10px;transition:transform 0.3s;" id="arrow-${cat.id}"></i>
+                        </div>
+                        <ul class="dropdown-sub" id="sub-${cat.id}">
+                            ${cat.subPages.map(sub => `
+                                <li>
+                                    <a onclick="filterCareer('${escapeHtml(sub.filter)}', '${escapeHtml(sub.name)}', '${sub.icon}'); closeDropdown();">
+                                        ${sub.icon} ${sub.name}
+                                    </a>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+            });
+
+            content.innerHTML = html;
+        }
+
+        function toggleSubmenu(catId) {
+            const sub = document.getElementById('sub-' + catId);
+            const arrow = document.getElementById('arrow-' + catId);
+            if (!sub) return;
+            const isOpen = sub.classList.contains('open');
+            document.querySelectorAll('.dropdown-sub').forEach(s => s.classList.remove('open'));
+            document.querySelectorAll('.dropdown-category-title i').forEach(a => a.style.transform = 'rotate(0deg)');
+            if (!isOpen) {
+                sub.classList.add('open');
+                if (arrow) arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            const content = document.getElementById('careerDropdownContent');
+            if (content) content.classList.toggle('show');
+        }
+
+        function closeDropdown() {
+            const content = document.getElementById('careerDropdownContent');
+            if (content) content.classList.remove('show');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.career-dropdown')) closeDropdown();
+        });
+
+        // ============================================================
+        // 🎯 FILTER
+        // ============================================================
+        function filterCareer(filter, name = 'All Careers', icon = '📌') {
+            currentFilter = filter;
+
+            document.getElementById('careerContentDisplay').style.display = 'none';
+
+            const badge = document.getElementById('activeFilterBadge');
+            const badgeText = document.getElementById('activeFilterText');
+            if (filter === 'all') {
+                badge.style.display = 'none';
+            } else {
+                badge.style.display = 'block';
+                badgeText.textContent = `${icon} ${name}`;
+            }
+
+            let filtered = (careerData.items || []).filter(i => i.visibility !== 'private');
+            if (filter !== 'all') {
+                filtered = filtered.filter(i => i.category === filter);
+            }
+
+            renderFilteredItems(filtered, name, icon);
+            updateFilterButtons();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderFilteredItems(items, title, icon) {
+            const container = document.getElementById('careerSections');
+            if (!container) return;
+
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No Items in "${escapeHtml(title)}"</h3>
+                        <p>Admin panel se items add karein — Career → Career Items → Add Item</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="section-title">
+                    <span class="section-icon">${icon}</span>
+                    <h2>${escapeHtml(title)}</h2>
+                    <span class="count-badge">${items.length}</span>
+                </div>
+                <div class="career-grid">
+                    ${items.map(item => renderCard(item)).join('')}
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // 🎨 RENDER CAREER (default grouped)
+        // ============================================================
+        function renderCareer() {
+            const container = document.getElementById('careerSections');
+            const contentDisplay = document.getElementById('careerContentDisplay');
+
+            let filtered = (careerData.items || []).filter(i => i.visibility !== 'private');
+
+            if (careerData.content && careerData.content.trim()) {
+                contentDisplay.innerHTML = careerData.content;
+                contentDisplay.style.display = 'block';
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No Career Options</h3>
+                        <p>Admin panel se items add karein.</p>
+                    </div>
+                `;
+                updateFilterButtons();
+                return;
+            }
+
+            let html = '';
+            const categories = [...new Set(filtered.map(i => i.category).filter(Boolean))];
+
+            categories.forEach(catName => {
+                const catItems = filtered.filter(i => i.category === catName);
+                if (catItems.length === 0) return;
+
+                let catIcon = '🎯';
+                CAREER_CATEGORIES.forEach(cat => {
+                    const sub = cat.subPages.find(s => s.filter === catName);
+                    if (sub) catIcon = sub.icon;
+                });
+
+                html += `
+                    <div class="section-title">
+                        <span class="section-icon">${catIcon}</span>
+                        <h2>${escapeHtml(catName)}</h2>
+                        <span class="count-badge">${catItems.length}</span>
+                    </div>
+                    <div class="career-grid">
+                        ${catItems.map(item => renderCard(item)).join('')}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            updateFilterButtons();
+        }
+
+        function renderCard(item) {
+            const icon = extractIcon(item.title) || '🎯';
+            const cleanTitle = item.title.replace(/^[^\s]+\s*/, '') || item.title;
+            const linkHtml = item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" class="career-link"><i class="fas fa-external-link-alt"></i> Learn More</a>` : '';
+
+            return `
+                <div class="career-card">
+                    <div class="career-icon">${icon}</div>
+                    <div class="career-title">${escapeHtml(cleanTitle)}</div>
+                    ${item.description ? `<div class="career-desc">${stripHtml(item.description)}</div>` : ''}
+                    ${item.category ? `<div class="career-cat">${escapeHtml(item.category)}</div>` : ''}
+                    ${linkHtml}
+                </div>
+            `;
+        }
+
+        function updateFilterButtons() {
+            const container = document.getElementById('filterButtons');
+            if (!container) return;
+
+            let html = `<button class="filter-btn ${currentFilter === 'all' ? 'active' : ''}" onclick="filterCareer('all')">📌 All</button>`;
+
+            CAREER_CATEGORIES.forEach(cat => {
+                const isActive = cat.subPages.some(s => s.filter === currentFilter);
+                html += `<button class="filter-btn ${isActive ? 'active' : ''}" onclick="filterCategoryGroup('${cat.id}')">${cat.icon} ${cat.name}</button>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function filterCategoryGroup(catId) {
+            const cat = CAREER_CATEGORIES.find(c => c.id === catId);
+            if (!cat) return;
+
+            currentFilter = catId;
+            const subFilters = cat.subPages.map(s => s.filter);
+            let filtered = (careerData.items || []).filter(i => 
+                i.visibility !== 'private' && subFilters.includes(i.category)
+            );
+
+            const badge = document.getElementById('activeFilterBadge');
+            const badgeText = document.getElementById('activeFilterText');
+            badge.style.display = 'block';
+            badgeText.textContent = `${cat.icon} ${cat.name}`;
+
+            document.getElementById('careerContentDisplay').style.display = 'none';
+
+            renderFilteredItems(filtered, cat.name, cat.icon);
+            updateFilterButtons();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================================
+        // 🛠️ HELPERS
+        // ============================================================
+        function extractIcon(text) {
+            if (!text) return null;
+            const match = text.match(/^([\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}])/u);
+            return match ? match[1] : null;
+        }
+
+        function stripHtml(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || '';
+        }
+
+        function escapeHtml(s) {
+            return String(s || '').replace(/[&<>"']/g, c => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[c]));
+        }
+
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 400) btn.classList.add('show');
+            else btn.classList.remove('show');
+        });
+
+        // ============================================================
+        // 🚀 INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Career page initializing...');
+            loadCareerData();
+        });
+
+        window.toggleDropdown = toggleDropdown;
+        window.closeDropdown = closeDropdown;
+        window.toggleSubmenu = toggleSubmenu;
+        window.filterCareer = filterCareer;
+        window.filterCategoryGroup = filterCategoryGroup;
+    </script>
+
+</body>
+</html>
