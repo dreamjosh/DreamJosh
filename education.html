@@ -18,6 +18,7 @@ content="Dream Josh Education - Live Classes, Government Jobs, Study Material, P
     --dark: #17233d;
     --white: #ffffff;
     --green: #138a45;
+    --red: #c62828;
 }
 
 * {
@@ -137,6 +138,11 @@ nav a:hover {
     color: white;
 }
 
+.button-red {
+    background: var(--red);
+    color: white;
+}
+
 .search-box {
     margin: 20px 0;
     display: flex;
@@ -240,6 +246,563 @@ footer a {
     display: none !important;
 }
 
+/* ============================================ */
+/* VIDEO MEETING STYLES */
+/* ============================================ */
+
+/* Meeting Section Container */
+.meeting-container {
+    background: white;
+    border-radius: 15px;
+    padding: 24px;
+    box-shadow: 0 5px 25px rgba(18, 60, 155, 0.12);
+    border: 1px solid #e5eaf4;
+}
+
+/* Live Status Bar */
+.live-status-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(90deg, #fff4e5, #ffe4b5);
+    border: 1px solid #ffd08a;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #c62828;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    animation: pulse 1.2s ease infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Meeting Grid Layout */
+.meeting-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+@media (max-width: 900px) {
+    .meeting-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Video Frame */
+.video-frame {
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16/9;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.25);
+}
+
+.video-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: linear-gradient(135deg, #17233d, #2a3a5c);
+    text-align: center;
+    padding: 20px;
+}
+
+.video-placeholder .icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+    opacity: 0.6;
+}
+
+.video-placeholder h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.video-placeholder p {
+    font-size: 14px;
+    opacity: 0.8;
+    max-width: 400px;
+}
+
+/* Sidebar Controls */
+.meeting-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sidebar-card {
+    background: white;
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid #e5eaf4;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.sidebar-card h4 {
+    font-size: 14px;
+    color: var(--primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e5eaf4;
+}
+
+/* Room Info */
+.room-info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 13px;
+    border-bottom: 1px dashed #e5eaf4;
+}
+
+.room-info-item:last-child {
+    border-bottom: none;
+}
+
+.room-info-item .label {
+    color: #6b7a99;
+    font-weight: 500;
+}
+
+.room-info-item .value {
+    color: var(--dark);
+    font-weight: bold;
+    word-break: break-all;
+    text-align: right;
+    max-width: 60%;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--secondary);
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+.copy-btn:hover {
+    background: #e8f0fe;
+}
+
+/* Participant List */
+.participant-list {
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.participant-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 6px;
+    border-bottom: 1px solid #f0f3f9;
+    font-size: 13px;
+}
+
+.participant-item:last-child {
+    border-bottom: none;
+}
+
+.participant-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.participant-name {
+    flex: 1;
+    color: var(--dark);
+    font-weight: 500;
+}
+
+.participant-role {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: #e8f0fe;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.participant-role.host {
+    background: #fff4e5;
+    color: #a34800;
+}
+
+/* Chat */
+.chat-box {
+    height: 200px;
+    overflow-y: auto;
+    background: #f8faff;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.chat-message {
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.chat-message .chat-author {
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.chat-message .chat-text {
+    color: var(--dark);
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.chat-message .chat-time {
+    font-size: 10px;
+    color: #9ba8c0;
+    float: right;
+}
+
+.chat-input-row {
+    display: flex;
+    gap: 6px;
+}
+
+.chat-input-row input {
+    flex: 1;
+    margin: 0;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+.chat-input-row button {
+    padding: 8px 14px;
+    margin: 0;
+}
+
+/* Action Buttons */
+.meeting-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.meeting-actions button,
+.meeting-actions a {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.meeting-actions button:hover,
+.meeting-actions a:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn-join { background: var(--green); color: white; }
+.btn-copy-link { background: var(--secondary); color: white; }
+.btn-leave { background: var(--red); color: white; }
+.btn-embed { background: var(--primary); color: white; }
+
+/* Setup Form */
+.setup-form {
+    background: linear-gradient(135deg, #f8faff, #eef4ff);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px dashed #b8c8e8;
+}
+
+.setup-form h3 {
+    color: var(--primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 4px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Teacher / Student Tab */
+.role-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 18px;
+    background: white;
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid #e5eaf4;
+}
+
+.role-tab {
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #6b7a99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: 0.2s;
+}
+
+.role-tab.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    box-shadow: 0 3px 10px rgba(25, 118, 210, 0.3);
+}
+
+/* Schedule Table */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.schedule-table th {
+    background: #f0f4fa;
+    color: var(--primary);
+    padding: 10px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #dbe4f0;
+}
+
+.schedule-table td {
+    padding: 10px;
+    border-bottom: 1px solid #eef1f7;
+    color: var(--dark);
+}
+
+.schedule-table tr:hover td {
+    background: #f8faff;
+}
+
+.status-live {
+    background: #ffebee;
+    color: #c62828;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.status-upcoming {
+    background: #e3f2fd;
+    color: #1565c0;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.status-ended {
+    background: #f5f5f5;
+    color: #757575;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* Toast Notification */
+.meeting-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--dark);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: transform 0.3s ease;
+    max-width: 90%;
+    text-align: center;
+}
+
+.meeting-toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.meeting-toast.success { background: var(--green); }
+.meeting-toast.error { background: var(--red); }
+.meeting-toast.info { background: var(--secondary); }
+
+/* Waiting Room */
+.waiting-room {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #f8faff, #eef4ff);
+    border-radius: 12px;
+    border: 2px dashed #b8c8e8;
+}
+
+.waiting-room .icon {
+    font-size: 60px;
+    margin-bottom: 12px;
+}
+
+.waiting-room h3 {
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.waiting-room p {
+    color: #6b7a99;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+/* Device Test */
+.device-test {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+    .device-test {
+        grid-template-columns: 1fr;
+    }
+}
+
+.device-test-item {
+    background: white;
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid #e5eaf4;
+    text-align: center;
+    font-size: 13px;
+}
+
+.device-test-item .icon {
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.device-test-item .status {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.device-test-item .status.ok {
+    background: #e5f5e9;
+    color: #126c37;
+}
+
+.device-test-item .status.pending {
+    background: #fff4e5;
+    color: #a34800;
+}
+
+.device-test-item .status.error {
+    background: #ffebee;
+    color: #c62828;
+}
+
 @media(max-width: 800px) {
     .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -320,57 +883,295 @@ footer a {
 
     <div id="searchMessage" aria-live="polite"></div>
 
+    <!-- ============================================ -->
+    <!-- LIVE CLASSROOM WITH FULL VIDEO MEETING -->
+    <!-- ============================================ -->
     <section id="live">
         <h2 class="section-title">🔴 Live Classroom</h2>
 
-        <div class="live-banner">
-            <h3>Dream Josh Live Learning</h3>
-            <p>
-                ऑनलाइन क्लास और ग्रुप स्टडी के लिए नीचे दिए बटन से
-                वीडियो मीटिंग सेवा खोलें।
-            </p>
-
-            <label for="roomName">क्लास या मीटिंग का नाम</label>
-            <input
-                type="text"
-                id="roomName"
-                maxlength="40"
-                placeholder="जैसे Rajasthan Police Class"
-            >
-
-            <button class="button button-green" onclick="joinLiveClass()">
-                🎥 Live Meeting खोलें
-            </button>
-
-            <p style="font-size:12px;margin-top:10px">
-                नोट: यह सार्वजनिक मीटिंग सेवा खोलता है।
-                यह सुरक्षित शिक्षक लॉगिन या निजी क्लास का सिस्टम नहीं है।
-            </p>
+        <div class="live-status-bar">
+            <span class="live-badge">
+                <span class="live-dot"></span> LIVE
+            </span>
+            <span style="font-size:13px;color:#6b7a99;">
+                Dream Josh Video Classroom — बिना login के instant join करें
+            </span>
         </div>
 
-        <div class="grid" style="margin-top:18px">
+        <!-- SETUP: Choose Role + Create/Join -->
+        <div id="meetingSetup" class="meeting-container">
+            <div class="role-tabs">
+                <button class="role-tab active" id="tabTeacher" onclick="switchRole('teacher')">
+                    👨‍🏫 Teacher (Host)
+                </button>
+                <button class="role-tab" id="tabStudent" onclick="switchRole('student')">
+                    👨‍🎓 Student (Join)
+                </button>
+            </div>
 
+            <!-- Teacher Panel -->
+            <div id="teacherPanel">
+                <div class="setup-form">
+                    <h3>🎓 Create New Class</h3>
+                    <p style="font-size:13px;color:#6b7a99;margin-bottom:16px;">
+                        अपनी क्लास का नाम डालें और instant meeting room बनाएं। 
+                        Meeting link को students के साथ share करें।
+                    </p>
+
+                    <div class="form-group">
+                        <label>Class Name / Topic *</label>
+                        <input type="text" id="className" maxlength="60"
+                            placeholder="उदा. Rajasthan Police - Reasoning Class">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Teacher Name *</label>
+                            <input type="text" id="teacherName" maxlength="30"
+                                placeholder="उदा. Er. Damor">
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" id="classSubject" maxlength="40"
+                                placeholder="उदा. Reasoning / Math / GK">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Class Duration</label>
+                        <select id="classDuration">
+                            <option value="30">30 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60" selected>1 hour</option>
+                            <option value="90">1.5 hours</option>
+                            <option value="120">2 hours</option>
+                        </select>
+                    </div>
+
+                    <button class="button button-green" style="width:100%;font-size:15px;padding:14px;"
+                        onclick="createClass()">
+                        🎥 Create & Start Class Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Student Panel -->
+            <div id="studentPanel" class="hidden">
+                <div class="setup-form">
+                    <h3>👨‍🎓 Join Class</h3>
+                    <p style="font-size:13px;color:#6b7a99;margin-bottom:16px;">
+                        Teacher से मिला हुआ Meeting Code या पूरा Link डालें और class join करें।
+                    </p>
+
+                    <div class="form-group">
+                        <label>Your Name *</label>
+                        <input type="text" id="studentName" maxlength="30"
+                            placeholder="अपना नाम लिखें">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Meeting Code / Link *</label>
+                        <input type="text" id="meetingCode"
+                            placeholder="उदा. DreamJosh-Class-ABC123xyz (या पूरा link)">
+                        <p style="font-size:11px;color:#9ba8c0;margin-top:4px;">
+                            Teacher से मिली class code यहाँ paste करें।
+                        </p>
+                    </div>
+
+                    <button class="button button-green" style="width:100%;font-size:15px;padding:14px;"
+                        onclick="joinAsStudent()">
+                        🚀 Join Class
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVE MEETING ROOM (shown after create/join) -->
+        <div id="activeMeeting" class="meeting-container hidden" style="margin-top:20px;">
+            <div class="live-status-bar" style="background:linear-gradient(90deg,#e5f5e9,#c8e6c9);border-color:#81c784;">
+                <span class="live-badge" style="background:#138a45;">
+                    <span class="live-dot"></span> LIVE NOW
+                </span>
+                <span id="activeMeetingTitle" style="font-size:14px;font-weight:bold;color:#126c37;">
+                    Class Title
+                </span>
+                <span id="liveTimer" style="margin-left:auto;font-size:13px;color:#126c37;font-weight:bold;">
+                    00:00
+                </span>
+            </div>
+
+            <div class="meeting-grid">
+                <!-- Left: Video -->
+                <div>
+                    <div class="video-frame" id="videoFrame">
+                        <div class="video-placeholder" id="videoPlaceholder">
+                            <div class="icon">🎥</div>
+                            <h3>Ready to Start</h3>
+                            <p>नीचे "Embed Video" बटन दबाकर video को इसी page में खोलें</p>
+                        </div>
+                        <iframe id="meetingIframe" class="hidden"
+                            allow="camera; microphone; fullscreen; display-capture; autoplay"
+                            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads">
+                        </iframe>
+                    </div>
+
+                    <div class="meeting-actions" style="margin-top:14px;">
+                        <button class="btn-embed" onclick="embedVideo()">
+                            📺 Embed Video
+                        </button>
+                        <button class="btn-join" onclick="openInNewTab()">
+                            🔗 Open in New Tab
+                        </button>
+                        <button class="btn-copy-link" onclick="copyMeetingLink()">
+                            📋 Copy Link
+                        </button>
+                        <button class="btn-leave" onclick="leaveMeeting()">
+                            ❌ Leave
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Sidebar -->
+                <div class="meeting-sidebar">
+                    <!-- Room Info -->
+                    <div class="sidebar-card">
+                        <h4>📋 Room Info</h4>
+                        <div class="room-info-item">
+                            <span class="label">Meeting Code</span>
+                            <span class="value" id="roomCodeDisplay">-</span>
+                        </div>
+                        <div class="room-info-item">
+                            <span class="label">Host</span>
+                            <span class="value" id="hostDisplay">-</span>
+                        </div>
+                        <div class="room-info-item">
+                            <span class="label">Subject</span>
+                            <span class="value" id="subjectDisplay">-</span>
+                        </div>
+                        <div class="room-info-item">
+                            <span class="label">Duration</span>
+                            <span class="value" id="durationDisplay">-</span>
+                        </div>
+                        <div class="room-info-item">
+                            <span class="label">Full Link</span>
+                            <button class="copy-btn" onclick="copyMeetingLink()">📋 Copy</button>
+                        </div>
+                    </div>
+
+                    <!-- Participants -->
+                    <div class="sidebar-card">
+                        <h4>👥 Participants (<span id="participantCount">1</span>)</h4>
+                        <ul class="participant-list" id="participantList">
+                            <li class="participant-item">
+                                <div class="participant-avatar" id="pAvatar">Y</div>
+                                <span class="participant-name" id="pName">You</span>
+                                <span class="participant-role host" id="pRole">HOST</span>
+                            </li>
+                        </ul>
+                        <p style="font-size:11px;color:#9ba8c0;margin-top:8px;">
+                            💡 Real-time participants जितने students meeting में जुड़ेंगे वो Jitsi interface में दिखेंगे।
+                        </p>
+                    </div>
+
+                    <!-- Chat -->
+                    <div class="sidebar-card">
+                        <h4>💬 Class Chat</h4>
+                        <div class="chat-box" id="chatBox">
+                            <div class="chat-message">
+                                <div class="chat-author">System</div>
+                                <div class="chat-text">Welcome! Class chat यहाँ local रूप से काम करता है।</div>
+                            </div>
+                        </div>
+                        <div class="chat-input-row">
+                            <input type="text" id="chatInput" placeholder="Message लिखें..."
+                                onkeydown="if(event.key==='Enter') sendChat()">
+                            <button class="button button-blue" onclick="sendChat()">
+                                <span style="font-size:16px;">➤</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Device Test -->
+        <div class="sidebar-card" style="margin-top:20px;">
+            <h4>🎛️ Device Setup Check</h4>
+            <p style="font-size:12px;color:#6b7a99;margin-bottom:10px;">
+                Class join करने से पहले camera और microphone check करें।
+            </p>
+            <div class="device-test">
+                <div class="device-test-item">
+                    <div class="icon">📷</div>
+                    <div>Camera</div>
+                    <span class="status pending" id="camStatus">Check करें</span>
+                    <button class="button button-blue" style="width:100%;padding:6px;font-size:11px;margin-top:8px;"
+                        onclick="testCamera()">Test Camera</button>
+                </div>
+                <div class="device-test-item">
+                    <div class="icon">🎤</div>
+                    <div>Microphone</div>
+                    <span class="status pending" id="micStatus">Check करें</span>
+                    <button class="button button-blue" style="width:100%;padding:6px;font-size:11px;margin-top:8px;"
+                        onclick="testMicrophone()">Test Mic</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedule Table -->
+        <div class="sidebar-card" style="margin-top:20px;">
+            <h4>📅 Upcoming Classes Schedule</h4>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Subject</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="scheduleBody">
+                    <tr>
+                        <td>Rajasthan Police Reasoning</td>
+                        <td>Reasoning</td>
+                        <td>10:00 AM</td>
+                        <td><span class="status-live">LIVE</span></td>
+                    </tr>
+                    <tr>
+                        <td>SSC CGL Maths</td>
+                        <td>Mathematics</td>
+                        <td>12:00 PM</td>
+                        <td><span class="status-upcoming">Upcoming</span></td>
+                    </tr>
+                    <tr>
+                        <td>Rajasthan GK</td>
+                        <td>GK</td>
+                        <td>04:00 PM</td>
+                        <td><span class="status-upcoming">Upcoming</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="grid" style="margin-top:18px">
             <article class="card searchable">
                 <div class="icon">🎓</div>
                 <h3>Live Study Class</h3>
                 <p>शिक्षक और विद्यार्थी ऑनलाइन पढ़ाई के लिए जुड़ सकते हैं।</p>
-                <a href="#live" class="button button-blue">क्लास देखें</a>
             </article>
 
             <article class="card searchable">
                 <div class="icon">💬</div>
                 <h3>Doubt Session</h3>
                 <p>पढ़ाई से जुड़े सवालों के लिए ऑनलाइन चर्चा।</p>
-                <a href="#live" class="button">शुरू करें</a>
             </article>
 
             <article class="card searchable">
                 <div class="icon">📅</div>
                 <h3>Class Schedule</h3>
                 <p>आने वाली क्लास का समय और विषय यहाँ प्रकाशित करें।</p>
-                <p>शेड्यूल एडमिन द्वारा जोड़ना होगा।</p>
             </article>
-
         </div>
     </section>
 
@@ -378,7 +1179,6 @@ footer a {
         <h2 class="section-title">📚 Study Material & PDF Notes</h2>
 
         <div class="grid">
-
             <article class="card searchable">
                 <div class="icon">📖</div>
                 <h3>School Study</h3>
@@ -399,7 +1199,6 @@ footer a {
                 <p>अपने नोट्स की PDF फाइलें यहाँ जोड़ी जा सकती हैं।</p>
                 <a href="#pdf-notes" class="button button-blue">PDF सेक्शन</a>
             </article>
-
         </div>
 
         <div id="pdf-notes" class="notice">
@@ -412,9 +1211,6 @@ footer a {
             <a href="notes/sample.pdf" class="button button-blue">
                 Sample PDF खोलें
             </a>
-            <p style="font-size:12px">
-                यह लिंक तभी काम करेगा जब notes/sample.pdf फाइल मौजूद हो।
-            </p>
         </div>
     </section>
 
@@ -422,14 +1218,11 @@ footer a {
         <h2 class="section-title">📝 Online Test & Mock Test</h2>
 
         <div class="grid">
-
             <article class="card searchable">
                 <div class="icon">⏱️</div>
                 <h3>Daily Quiz</h3>
                 <p>सामान्य ज्ञान का छोटा अभ्यास टेस्ट।</p>
-                <button class="button button-blue" onclick="startQuiz()">
-                    टेस्ट शुरू करें
-                </button>
+                <button class="button button-blue" onclick="startQuiz()">टेस्ट शुरू करें</button>
             </article>
 
             <article class="card searchable">
@@ -444,7 +1237,6 @@ footer a {
                 <h3>Test Result</h3>
                 <p>इस डेमो में टेस्ट पूरा करने के बाद स्कोर दिखेगा।</p>
             </article>
-
         </div>
 
         <div id="quizArea" class="card hidden" style="margin-top:20px">
@@ -462,7 +1254,6 @@ footer a {
         <h2 class="section-title">💼 Government Jobs Preparation</h2>
 
         <div class="grid">
-
             <article class="card searchable">
                 <div class="icon">🏛️</div>
                 <h3>UPSC / SSC</h3>
@@ -500,7 +1291,6 @@ footer a {
                     RSSB
                 </a>
             </article>
-
         </div>
 
         <div class="notice">
@@ -514,7 +1304,6 @@ footer a {
         <h2 class="section-title">🎯 Career Guide</h2>
 
         <div class="grid">
-
             <article class="card searchable">
                 <div class="icon">🎒</div>
                 <h3>After 10th</h3>
@@ -535,7 +1324,6 @@ footer a {
                 <p>कंप्यूटर, डिजिटल कौशल, करियर और रोजगार के विकल्प।</p>
                 <a href="#student" class="button button-blue">जानकारी देखें</a>
             </article>
-
         </div>
     </section>
 
@@ -547,7 +1335,6 @@ footer a {
             <p>यह डेमो डैशबोर्ड है। अभी इसमें वास्तविक लॉगिन या निजी विद्यार्थी डेटा नहीं है।</p>
 
             <div class="grid" style="margin-top:18px">
-
                 <article class="card searchable">
                     <h3>📚 My Study</h3>
                     <p>अपने अध्ययन संसाधन व्यवस्थित करें।</p>
@@ -562,7 +1349,6 @@ footer a {
                     <h3>🏆 My Progress</h3>
                     <p>वास्तविक प्रगति रिपोर्ट के लिए डेटाबेस की आवश्यकता होगी।</p>
                 </article>
-
             </div>
         </div>
     </section>
@@ -586,67 +1372,441 @@ footer a {
     <p>© <span id="year"></span> Dream Josh. All rights reserved.</p>
 </footer>
 
+<!-- Toast Container -->
+<div class="meeting-toast" id="meetingToast"></div>
+
 <script>
-document.getElementById("year").textContent =
-    new Date().getFullYear();
+// ============================================
+// YEAR
+// ============================================
+document.getElementById("year").textContent = new Date().getFullYear();
 
-/* Live Meeting Demo */
-function joinLiveClass() {
-    const input = document.getElementById("roomName");
-    const name = input.value.trim();
+// ============================================
+// GLOBAL STATE
+// ============================================
+let currentRole = 'teacher';          // 'teacher' or 'student'
+let meetingState = {
+    active: false,
+    roomCode: '',
+    fullUrl: '',
+    title: '',
+    host: '',
+    subject: '',
+    duration: 60,
+    startTime: null,
+    role: 'teacher'
+};
+let liveTimerInterval = null;
+let chatMessages = [];
+let localParticipant = { name: 'You', role: 'HOST' };
+let mediaStream = null;
 
-    if (!name) {
-        alert("कृपया पहले क्लास का नाम लिखें।");
-        input.focus();
+// ============================================
+// TOAST NOTIFICATIONS
+// ============================================
+function showToast(message, type = 'info') {
+    const toast = document.getElementById('meetingToast');
+    toast.textContent = message;
+    toast.className = 'meeting-toast show ' + type;
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+// ============================================
+// ROLE SWITCH (Teacher / Student)
+// ============================================
+function switchRole(role) {
+    currentRole = role;
+    document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+
+    const teacherTab = document.getElementById('tabTeacher');
+    const studentTab = document.getElementById('tabStudent');
+    const teacherPanel = document.getElementById('teacherPanel');
+    const studentPanel = document.getElementById('studentPanel');
+
+    if (role === 'teacher') {
+        teacherTab.classList.add('active');
+        teacherPanel.classList.remove('hidden');
+        studentPanel.classList.add('hidden');
+    } else {
+        studentTab.classList.add('active');
+        teacherPanel.classList.add('hidden');
+        studentPanel.classList.remove('hidden');
+    }
+}
+
+// ============================================
+// GENERATE ROOM CODE
+// ============================================
+function generateRoomCode(className) {
+    const clean = (className || 'Class')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '')
+        .slice(0, 20) || 'class';
+
+    const random = Math.random().toString(36).substring(2, 10);
+    return `DreamJosh-${clean}-${random}`;
+}
+
+// ============================================
+// CREATE CLASS (Teacher)
+// ============================================
+function createClass() {
+    const className = document.getElementById('className').value.trim();
+    const teacherName = document.getElementById('teacherName').value.trim();
+    const subject = document.getElementById('classSubject').value.trim();
+    const duration = parseInt(document.getElementById('classDuration').value) || 60;
+
+    // Validation
+    if (!className) {
+        showToast('⚠️ Class Name ज़रूरी है', 'error');
+        document.getElementById('className').focus();
+        return;
+    }
+    if (!teacherName) {
+        showToast('⚠️ Teacher Name ज़रूरी है', 'error');
+        document.getElementById('teacherName').focus();
         return;
     }
 
-    // हर बार अलग रूम नाम; यह पासवर्ड या एक्सेस कंट्रोल नहीं है।
-    const safeName = name
-        .replace(/[^a-zA-Z0-9_-]/g, "-")
-        .replace(/-+/g, "-")
-        .slice(0, 35);
+    // Generate room
+    const roomCode = generateRoomCode(className);
+    const fullUrl = `https://meet.jit.si/${encodeURIComponent(roomCode)}`;
 
-    const room = "DreamJosh-" + safeName + "-" +
-        Math.random().toString(36).slice(2, 10);
+    // Set state
+    meetingState = {
+        active: true,
+        roomCode: roomCode,
+        fullUrl: fullUrl,
+        title: className,
+        host: teacherName,
+        subject: subject || 'General',
+        duration: duration,
+        startTime: Date.now(),
+        role: 'teacher'
+    };
+    localParticipant = { name: teacherName, role: 'HOST' };
 
-    window.open(
-        "https://meet.jit.si/" + encodeURIComponent(room),
-        "_blank",
-        "noopener,noreferrer"
-    );
+    showActiveMeeting();
+    showToast('✅ Class created successfully!', 'success');
 }
 
-/* Website Card Search */
-function searchCards() {
-    const query = document.getElementById("siteSearch")
-        .value.trim().toLowerCase();
+// ============================================
+// JOIN AS STUDENT
+// ============================================
+function joinAsStudent() {
+    const studentName = document.getElementById('studentName').value.trim();
+    const meetingCode = document.getElementById('meetingCode').value.trim();
 
+    if (!studentName) {
+        showToast('⚠️ अपना नाम लिखें', 'error');
+        document.getElementById('studentName').focus();
+        return;
+    }
+    if (!meetingCode) {
+        showToast('⚠️ Meeting Code डालें', 'error');
+        document.getElementById('meetingCode').focus();
+        return;
+    }
+
+    // Parse code - could be full URL or just code
+    let roomCode = meetingCode;
+    if (meetingCode.includes('meet.jit.si/')) {
+        roomCode = meetingCode.split('meet.jit.si/')[1].split(/[?#]/)[0];
+        roomCode = decodeURIComponent(roomCode);
+    }
+
+    const fullUrl = `https://meet.jit.si/${encodeURIComponent(roomCode)}`;
+
+    meetingState = {
+        active: true,
+        roomCode: roomCode,
+        fullUrl: fullUrl,
+        title: 'Student Session',
+        host: '-',
+        subject: '-',
+        duration: 60,
+        startTime: Date.now(),
+        role: 'student'
+    };
+    localParticipant = { name: studentName, role: 'STUDENT' };
+
+    showActiveMeeting();
+    showToast('🚀 Joining class...', 'success');
+
+    // Auto-embed after 1 second
+    setTimeout(() => embedVideo(), 800);
+}
+
+// ============================================
+// SHOW ACTIVE MEETING
+// ============================================
+function showActiveMeeting() {
+    document.getElementById('meetingSetup').classList.add('hidden');
+    document.getElementById('activeMeeting').classList.remove('hidden');
+
+    // Update title
+    document.getElementById('activeMeetingTitle').textContent = meetingState.title;
+
+    // Update room info
+    document.getElementById('roomCodeDisplay').textContent = meetingState.roomCode;
+    document.getElementById('hostDisplay').textContent = meetingState.host;
+    document.getElementById('subjectDisplay').textContent = meetingState.subject;
+    document.getElementById('durationDisplay').textContent = meetingState.duration + ' min';
+
+    // Update participant
+    document.getElementById('pAvatar').textContent = localParticipant.name.charAt(0).toUpperCase();
+    document.getElementById('pName').textContent = localParticipant.name;
+    document.getElementById('pRole').textContent = localParticipant.role;
+    document.getElementById('pRole').className = 'participant-role ' + (localParticipant.role === 'HOST' ? 'host' : '');
+    document.getElementById('participantCount').textContent = '1';
+
+    // Start timer
+    startLiveTimer();
+
+    // Scroll to meeting
+    document.getElementById('activeMeeting').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Auto-embed for students
+    if (meetingState.role === 'student') {
+        setTimeout(() => embedVideo(), 500);
+    }
+}
+
+// ============================================
+// EMBED VIDEO (iframe)
+// ============================================
+function embedVideo() {
+    const iframe = document.getElementById('meetingIframe');
+    const placeholder = document.getElementById('videoPlaceholder');
+
+    // Jitsi URL with config params
+    const displayName = encodeURIComponent(localParticipant.name);
+    const embedUrl = `https://meet.jit.si/${encodeURIComponent(meetingState.roomCode)}#userInfo.displayName="${displayName}"&config.prejoinPageEnabled=false&config.startWithAudioMuted=false&config.startWithVideoMuted=false`;
+
+    iframe.src = embedUrl;
+    iframe.classList.remove('hidden');
+    placeholder.classList.add('hidden');
+
+    showToast('📺 Video embedded! Allow camera/mic when prompted.', 'info');
+}
+
+// ============================================
+// OPEN IN NEW TAB
+// ============================================
+function openInNewTab() {
+    window.open(meetingState.fullUrl, '_blank', 'noopener,noreferrer');
+    showToast('🔗 Meeting opened in new tab', 'info');
+}
+
+// ============================================
+// COPY MEETING LINK
+// ============================================
+function copyMeetingLink() {
+    const link = meetingState.fullUrl;
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(link).then(() => {
+            showToast('📋 Link copied! Students के साथ share करें', 'success');
+        }).catch(() => fallbackCopy(link));
+    } else {
+        fallbackCopy(link);
+    }
+}
+
+function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        showToast('📋 Link copied!', 'success');
+    } catch (err) {
+        showToast('❌ Copy failed. Link: ' + text.substring(0, 40) + '...', 'error');
+    }
+    document.body.removeChild(textarea);
+}
+
+// ============================================
+// LEAVE MEETING
+// ============================================
+function leaveMeeting() {
+    if (!confirm('क्या आप class छोड़ना चाहते हैं?')) return;
+
+    // Stop timer
+    if (liveTimerInterval) {
+        clearInterval(liveTimerInterval);
+        liveTimerInterval = null;
+    }
+
+    // Stop media
+    if (mediaStream) {
+        mediaStream.getTracks().forEach(t => t.stop());
+        mediaStream = null;
+    }
+
+    // Reset iframe
+    const iframe = document.getElementById('meetingIframe');
+    iframe.src = '';
+    iframe.classList.add('hidden');
+    document.getElementById('videoPlaceholder').classList.remove('hidden');
+
+    // Reset state
+    meetingState.active = false;
+    meetingState.roomCode = '';
+
+    // Show setup
+    document.getElementById('activeMeeting').classList.add('hidden');
+    document.getElementById('meetingSetup').classList.remove('hidden');
+
+    // Clear form
+    document.getElementById('className').value = '';
+    document.getElementById('meetingCode').value = '';
+    document.getElementById('chatBox').innerHTML = `
+        <div class="chat-message">
+            <div class="chat-author">System</div>
+            <div class="chat-text">Welcome! Class chat यहाँ local रूप से काम करता है।</div>
+        </div>`;
+
+    showToast('👋 You left the class', 'info');
+}
+
+// ============================================
+// LIVE TIMER
+// ============================================
+function startLiveTimer() {
+    if (liveTimerInterval) clearInterval(liveTimerInterval);
+    const timerEl = document.getElementById('liveTimer');
+
+    function update() {
+        const elapsed = Math.floor((Date.now() - meetingState.startTime) / 1000);
+        const mins = String(Math.floor(elapsed / 60)).padStart(2, '0');
+        const secs = String(elapsed % 60).padStart(2, '0');
+        timerEl.textContent = `${mins}:${secs}`;
+
+        // Auto-end at duration
+        if (elapsed >= meetingState.duration * 60) {
+            clearInterval(liveTimerInterval);
+            showToast('⏰ Class duration complete!', 'info');
+        }
+    }
+    update();
+    liveTimerInterval = setInterval(update, 1000);
+}
+
+// ============================================
+// CHAT
+// ============================================
+function sendChat() {
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    const time = new Date().toLocaleTimeString('en-IN', {
+        hour: '2-digit', minute: '2-digit'
+    });
+
+    const msg = {
+        author: localParticipant.name,
+        text: text,
+        time: time
+    };
+    chatMessages.push(msg);
+
+    const box = document.getElementById('chatBox');
+    const div = document.createElement('div');
+    div.className = 'chat-message';
+    div.innerHTML = `
+        <div class="chat-author">${escapeHtml(msg.author)}</div>
+        <div class="chat-text">${escapeHtml(msg.text)}</div>
+        <div class="chat-time">${msg.time}</div>
+    `;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+
+    input.value = '';
+}
+
+function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+}
+
+// ============================================
+// DEVICE TEST - CAMERA
+// ============================================
+async function testCamera() {
+    const status = document.getElementById('camStatus');
+    status.textContent = 'Testing...';
+    status.className = 'status pending';
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        stream.getTracks().forEach(t => t.stop());
+        status.textContent = '✓ Working';
+        status.className = 'status ok';
+        showToast('📷 Camera working!', 'success');
+    } catch (err) {
+        status.textContent = '✗ Not available';
+        status.className = 'status error';
+        showToast('📷 Camera error: ' + err.message, 'error');
+    }
+}
+
+// ============================================
+// DEVICE TEST - MICROPHONE
+// ============================================
+async function testMicrophone() {
+    const status = document.getElementById('micStatus');
+    status.textContent = 'Testing...';
+    status.className = 'status pending';
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        stream.getTracks().forEach(t => t.stop());
+        status.textContent = '✓ Working';
+        status.className = 'status ok';
+        showToast('🎤 Microphone working!', 'success');
+    } catch (err) {
+        status.textContent = '✗ Not available';
+        status.className = 'status error';
+        showToast('🎤 Mic error: ' + err.message, 'error');
+    }
+}
+
+// ============================================
+// WEBSITE CARD SEARCH
+// ============================================
+function searchCards() {
+    const query = document.getElementById("siteSearch").value.trim().toLowerCase();
     const cards = document.querySelectorAll(".searchable");
     let found = 0;
 
     cards.forEach(card => {
-        const matches = card.textContent.toLowerCase()
-            .includes(query);
-
+        const matches = card.textContent.toLowerCase().includes(query);
         card.classList.toggle("hidden", query !== "" && !matches);
-
         if (query === "" || matches) found++;
     });
 
     document.getElementById("searchMessage").textContent =
-        query === "" ? "" :
-        found + " संबंधित सेक्शन मिले।";
+        query === "" ? "" : found + " संबंधित सेक्शन मिले।";
 }
 
-document.getElementById("siteSearch").addEventListener(
-    "keydown",
-    function(event) {
-        if (event.key === "Enter") searchCards();
-    }
-);
+document.getElementById("siteSearch").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") searchCards();
+});
 
-/* Demo Quiz */
+// ============================================
+// DEMO QUIZ
+// ============================================
 const questions = [
     {
         question: "भारत की राजधानी क्या है?",
@@ -673,13 +1833,8 @@ let answered = false;
 function startQuiz() {
     currentQuestion = 0;
     score = 0;
-
-    document.getElementById("quizArea")
-        .classList.remove("hidden");
-
-    document.getElementById("quizArea")
-        .scrollIntoView({ behavior: "smooth" });
-
+    document.getElementById("quizArea").classList.remove("hidden");
+    document.getElementById("quizArea").scrollIntoView({ behavior: "smooth" });
     renderQuestion();
 }
 
@@ -688,12 +1843,9 @@ function renderQuestion() {
     answered = false;
 
     document.getElementById("questionNumber").textContent =
-        "प्रश्न " + (currentQuestion + 1) +
-        " / " + questions.length;
+        "प्रश्न " + (currentQuestion + 1) + " / " + questions.length;
 
-    document.getElementById("questionText").textContent =
-        q.question;
-
+    document.getElementById("questionText").textContent = q.question;
     document.getElementById("quizResult").textContent = "";
 
     const options = document.getElementById("answerOptions");
@@ -706,7 +1858,6 @@ function renderQuestion() {
         button.style.width = "100%";
         button.style.margin = "8px 0";
         button.textContent = option;
-
         button.addEventListener("click", () => checkAnswer(index));
         options.appendChild(button);
     });
@@ -714,8 +1865,7 @@ function renderQuestion() {
     const next = document.getElementById("nextQuestion");
     next.classList.add("hidden");
     next.textContent = currentQuestion === questions.length - 1
-        ? "परिणाम देखें"
-        : "अगला सवाल";
+        ? "परिणाम देखें" : "अगला सवाल";
 }
 
 function checkAnswer(selected) {
@@ -727,7 +1877,6 @@ function checkAnswer(selected) {
 
     buttons.forEach((button, index) => {
         button.disabled = true;
-
         if (index === correct) {
             button.style.background = "#138a45";
         } else if (index === selected) {
@@ -737,30 +1886,37 @@ function checkAnswer(selected) {
 
     if (selected === correct) {
         score++;
-        document.getElementById("quizResult").textContent =
-            "सही जवाब! बहुत बढ़िया।";
+        document.getElementById("quizResult").textContent = "सही जवाब! बहुत बढ़िया।";
     } else {
         document.getElementById("quizResult").textContent =
             "सही जवाब: " + questions[currentQuestion].options[correct];
     }
 
-    document.getElementById("nextQuestion")
-        .classList.remove("hidden");
+    document.getElementById("nextQuestion").classList.remove("hidden");
 }
 
 function nextQuizQuestion() {
     if (!answered) return;
-
     if (currentQuestion < questions.length - 1) {
         currentQuestion++;
         renderQuestion();
     } else {
-        document.getElementById("questionNumber").textContent =
-            "टेस्ट पूरा हुआ";
-
+        document.getElementById("questionNumber").textContent = "टेस्ट पूरा हुआ";
         document.getElementById("questionText").textContent =
             "आपका स्कोर: " + score + " / " + questions.length;
-
         document.getElementById("answerOptions").replaceChildren();
+        document.getElementById("nextQuestion").classList.add("hidden");
+    }
+}
 
-        doc
+// ============================================
+// PAGE UNLOAD CLEANUP
+// ============================================
+window.addEventListener('beforeunload', function() {
+    if (liveTimerInterval) clearInterval(liveTimerInterval);
+    if (mediaStream) mediaStream.getTracks().forEach(t => t.stop());
+});
+</script>
+
+</body>
+</html>
