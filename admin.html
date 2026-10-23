@@ -8,6 +8,10 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 <style>
 :root{
@@ -36,18 +40,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .login-box .login-logo{text-align:center;margin-bottom:24px;}
 .login-box .login-logo h1{font-size:26px;font-weight:800;color:var(--text-color);}
 .login-box .login-logo h1 span{color:var(--gold);}
-.login-box .login-logo .badge{display:inline-block;background:var(--success-green);color:#fff;font-size:10px;padding:3px 12px;border-radius:20px;font-weight:700;margin-top:6px;letter-spacing:.5px;}
+.login-box .login-logo .badge{display:inline-block;background:var(--success-green);color:#fff;font-size:10px;padding:3px 12px;border-radius:20px;font-weight:700;margin-top:6px;}
 .login-box .login-logo .admin-icon{font-size:44px;margin-bottom:8px;color:var(--primary-blue);}
-.login-box h2{font-size:18px;font-weight:700;text-align:center;margin-bottom:6px;color:var(--text-color);}
+.login-box h2{font-size:18px;font-weight:700;text-align:center;margin-bottom:6px;}
 .login-box p.subtitle{text-align:center;font-size:13px;color:var(--text-light);margin-bottom:24px;}
 .login-form-group{margin-bottom:16px;}
 .login-form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-light);margin-bottom:6px;}
 .login-form-group .input-wrap{position:relative;}
 .login-form-group .input-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-light);font-size:14px;}
-.login-form-group input{width:100%;padding:12px 14px 12px 42px;border:2px solid var(--border-color);border-radius:10px;font-size:14px;background:var(--bg-color);color:var(--text-color);font-family:inherit;transition:.2s;}
-.login-form-group input:focus{border-color:var(--primary-blue);outline:none;box-shadow:0 0 0 4px rgba(25,118,210,.1);}
-.login-btn{width:100%;padding:14px;background:var(--primary-blue);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
-.login-btn:hover{background:var(--secondary-blue);transform:translateY(-1px);}
+.login-form-group input{width:100%;padding:12px 14px 12px 42px;border:2px solid var(--border-color);border-radius:10px;font-size:14px;background:var(--bg-color);color:var(--text-color);font-family:inherit;}
+.login-form-group input:focus{border-color:var(--primary-blue);outline:none;}
+.login-btn{width:100%;padding:14px;background:var(--primary-blue);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.login-btn:hover{background:var(--secondary-blue);}
 .login-btn:disabled{opacity:.6;cursor:not-allowed;}
 .login-error{background:#fee2e2;color:#dc2626;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;margin-bottom:14px;display:none;align-items:center;gap:8px;}
 .login-error.show{display:flex;}
@@ -55,7 +59,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 /* ADMIN PANEL */
 .admin-wrapper{display:none;min-height:100vh;}
 .admin-wrapper.active{display:flex;}
-.admin-sidebar{width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;transition:transform .3s;}
+.admin-sidebar{width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;}
 .admin-logo{padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
 .admin-logo h1{font-size:20px;font-weight:700;color:#fff;}
 .admin-logo h1 span{color:var(--gold);}
@@ -77,19 +81,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-menu .menu-toggle.open{background:rgba(255,255,255,.06);color:#fff;}
 .admin-menu .menu-toggle.has-active{color:var(--gold);}
 .admin-menu .menu-toggle i.menu-icon{width:18px;font-size:14px;text-align:center;}
-.admin-menu .menu-toggle .arrow{margin-left:auto;font-size:10px;opacity:.6;transition:transform .25s ease;}
+.admin-menu .menu-toggle .arrow{margin-left:auto;font-size:10px;opacity:.6;transition:transform .25s;}
 .admin-menu .menu-toggle.open .arrow{transform:rotate(90deg);opacity:1;}
-.admin-menu .submenu{list-style:none;max-height:0;overflow:hidden;transition:max-height .3s ease, opacity .3s ease;opacity:0;margin:0;padding-left:8px;}
+.admin-menu .submenu{list-style:none;max-height:0;overflow:hidden;transition:max-height .3s;opacity:0;margin:0;padding-left:8px;}
 .admin-menu .submenu.open{max-height:2000px;opacity:1;margin-top:2px;margin-bottom:4px;}
 .admin-menu .submenu li{margin-bottom:1px;}
 .admin-menu .submenu a{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 28px;border-radius:6px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12.5px;font-weight:500;transition:.2s;cursor:pointer;position:relative;}
 .admin-menu .submenu a:hover{background:rgba(255,255,255,.06);color:#fff;}
 .admin-menu .submenu a.active{background:rgba(255,215,0,.15);color:var(--gold);font-weight:600;}
 .admin-menu .submenu a.active::before{content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);width:3px;height:14px;background:var(--gold);border-radius:2px;}
-.admin-menu .submenu a i{font-size:11px;opacity:.7;width:14px;text-align:center;}
-.admin-menu .submenu a .privacy-badge{margin-left:auto;font-size:9px;padding:1px 6px;border-radius:10px;font-weight:700;}
-.admin-menu .submenu a .privacy-badge.public{background:rgba(22,163,74,.3);color:#86efac;}
-.admin-menu .submenu a .privacy-badge.private{background:rgba(214,40,57,.3);color:#fca5a5;}
 
 .admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
 .admin-footer-menu .menu-link{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;font-weight:500;transition:.3s;cursor:pointer;}
@@ -111,7 +111,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 #vipClock .vip-idle{font-size:10px;color:#f59e0b;font-weight:600;white-space:nowrap;}
 
 .admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:16px 0;}
-.admin-stats .stat-item{background:var(--card-bg);padding:14px 16px;border-radius:10px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);text-align:center;transition:.3s;}
+.admin-stats .stat-item{background:var(--card-bg);padding:14px 16px;border-radius:10px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);text-align:center;}
 .admin-stats .stat-item .stat-icon{font-size:22px;}
 .admin-stats .stat-item .stat-label{font-size:11px;color:var(--text-light);font-weight:600;margin-top:4px;}
 .admin-stats .stat-item .stat-value{font-size:24px;font-weight:700;color:var(--primary-blue);}
@@ -119,7 +119,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-quick-actions{background:var(--card-bg);padding:16px 20px;border-radius:10px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);margin:16px 0;}
 .admin-quick-actions h3{font-size:14px;margin-bottom:10px;}
 .admin-quick-actions .actions-grid{display:flex;flex-wrap:wrap;gap:8px;}
-.admin-quick-actions .actions-grid button{padding:6px 14px;background:var(--secondary-blue);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:600;transition:.3s;min-height:32px;}
+.admin-quick-actions .actions-grid button{padding:6px 14px;background:var(--secondary-blue);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:600;min-height:32px;}
 
 .admin-section{display:none;margin-top:16px;}
 .admin-section.active{display:block;animation:fadeInSection .3s ease;}
@@ -127,14 +127,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-card{background:var(--card-bg);border-radius:10px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);padding:16px 20px;margin-bottom:16px;}
 .admin-card .card-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
 .admin-card .card-header h4{font-size:15px;font-weight:600;}
-.btn-add{padding:6px 14px;background:var(--success-green);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:.3s;min-height:32px;display:flex;align-items:center;gap:4px;}
+.btn-add{padding:6px 14px;background:var(--success-green);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;min-height:32px;display:flex;align-items:center;gap:4px;}
 .btn-add.bulk{background:#6c5ce7;}
 .btn-add.primary{background:var(--secondary-blue);}
 
 .admin-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;}
 .admin-modal-overlay.active{display:flex;}
-.admin-modal{background:var(--card-bg);border-radius:12px;max-width:98%;width:100%;max-height:96vh;overflow-y:auto;padding:20px 24px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:modalIn .3s ease;border:1px solid var(--border-color);}
-@keyframes modalIn{from{transform:scale(.95) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.admin-modal{background:var(--card-bg);border-radius:12px;max-width:98%;width:100%;max-height:96vh;overflow-y:auto;padding:20px 24px;box-shadow:0 20px 60px rgba(0,0,0,.3);border:1px solid var(--border-color);}
 .admin-modal .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-color);}
 .admin-modal .modal-header h3{font-size:18px;font-weight:700;}
 .admin-modal .modal-header .close-modal{font-size:22px;cursor:pointer;opacity:.5;background:none;border:none;color:var(--text-color);}
@@ -147,25 +146,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-modal .btn-submit{padding:8px 20px;background:var(--success-green);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;}
 .admin-modal .btn-cancel{padding:8px 20px;background:#6c757d;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px;margin-left:8px;}
 
-.data-item{background:var(--bg-color);border-radius:8px;padding:12px 14px;border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:.3s;}
+.data-item{background:var(--bg-color);border-radius:8px;padding:12px 14px;border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);margin-bottom:8px;display:flex;align-items:center;gap:12px;}
 .data-item:hover{border-left-color:var(--gold);box-shadow:0 2px 8px var(--shadow-color);}
 .data-item .item-sno{width:32px;height:32px;border-radius:50%;background:var(--secondary-blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .data-item .item-content{flex:1;min-width:0;}
-.data-item .item-title{font-weight:600;font-size:14px;color:var(--text-color);margin-bottom:3px;word-break:break-word;}
+.data-item .item-title{font-weight:600;font-size:14px;margin-bottom:3px;word-break:break-word;}
 .data-item .item-meta{font-size:11px;color:var(--text-light);}
 .data-item .item-actions{display:flex;gap:4px;flex-wrap:wrap;}
-.data-item .item-actions button,.data-item .item-actions a{padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:4px;text-decoration:none;}
+.data-item .item-actions button,.data-item .item-actions a{padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;text-decoration:none;}
 .btn-i-edit{background:#ffc107;color:#333;}
 .btn-i-delete{background:#dc3545;color:#fff;}
 .btn-i-dup{background:#6c5ce7;color:#fff;}
-.btn-i-public{background:#16a34a;color:#fff;}
-.btn-i-private{background:#dc3545;color:#fff;}
+.btn-i-preview{background:var(--secondary-blue);color:#fff;}
 
 .empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
 .empty-state i{font-size:36px;margin-bottom:8px;opacity:.4;}
 
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:90%;text-align:center;animation:toastIn .3s ease;}
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:90%;text-align:center;}
 .toast.success{background:#16a34a;}
 .toast.error{background:#dc3545;}
 .toast.info{background:#1976d2;}
@@ -175,16 +172,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .content-tab-content.active{display:block;}
 
 .page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:12px;}
-.page-card{background:var(--card-bg);border-radius:10px;padding:16px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);transition:0.3s;position:relative;}
+.page-card{background:var(--card-bg);border-radius:10px;padding:16px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);transition:0.3s;}
 .page-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow-color);border-color:var(--gold);}
 .page-card .page-card-icon{font-size:32px;margin-bottom:8px;}
-.page-card h4{font-size:15px;margin-bottom:6px;color:var(--text-color);}
+.page-card h4{font-size:15px;margin-bottom:6px;}
 .page-card .page-card-meta{font-size:11px;color:var(--text-light);margin-bottom:10px;}
 .page-card .page-card-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:10px;font-weight:700;margin-right:4px;}
 .page-card .page-card-badge.public{background:#16a34a;color:#fff;}
 .page-card .page-card-badge.private{background:#dc3545;color:#fff;}
 .page-card .page-card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
-.page-card .page-card-actions button{padding:4px 10px;font-size:11px;border-radius:5px;border:none;cursor:pointer;font-weight:600;transition:0.2s;}
+.page-card .page-card-actions button{padding:4px 10px;font-size:11px;border-radius:5px;border:none;cursor:pointer;font-weight:600;}
 
 .settings-tab-btn{padding:8px 16px;border:2px solid var(--border-color);border-radius:20px;background:var(--bg-color);color:var(--text-color);font-size:12px;font-weight:600;cursor:pointer;transition:.3s;}
 .settings-tab-btn.active{background:var(--secondary-blue);color:#fff;border-color:var(--secondary-blue);}
@@ -215,6 +212,78 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;}
 .sidebar-overlay.active{display:block;}
 
+/* ============ WORD EDITOR (Rich Text) ============ */
+.word-toolbar{background:#fafbfc;border:1px solid #d1d9e6;border-radius:8px 8px 0 0;padding:6px 8px;display:flex;flex-wrap:wrap;gap:2px;position:sticky;top:0;z-index:50;}
+.dark-mode .word-toolbar{background:#1a1a2e;border-color:#2a2a4a;}
+.word-toolbar .tb-group{display:flex;gap:1px;padding:0 4px;border-right:1px solid #d1d9e6;align-items:center;}
+.dark-mode .word-toolbar .tb-group{border-color:#2a2a4a;}
+.word-toolbar .tb-group:last-child{border-right:none;}
+.word-toolbar .tb-btn{min-width:28px;height:28px;padding:0 6px;border:1px solid transparent;border-radius:4px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:#2c3e50;transition:.15s;gap:4px;}
+.dark-mode .word-toolbar .tb-btn{color:#e8e8e8;}
+.word-toolbar .tb-btn:hover{background:#e8f0fe;border-color:#c2d4f0;}
+.word-toolbar select{height:28px;border:1px solid #d1d9e6;border-radius:4px;padding:0 4px;font-size:11px;background:#fff;cursor:pointer;color:#2c3e50;}
+.dark-mode .word-toolbar select{background:#141428;color:#e8e8e8;border-color:#2a2a4a;}
+.word-toolbar .color-picker{width:28px;height:28px;border:1px solid #d1d9e6;border-radius:4px;cursor:pointer;padding:1px;background:#fff;}
+
+.word-editor-wrap{background:#e8ecf1;padding:16px;min-height:400px;border:1px solid #d1d9e6;border-top:none;border-radius:0 0 8px 8px;overflow-y:auto;max-height:600px;position:relative;}
+.dark-mode .word-editor-wrap{background:#0a0e1a;border-color:#2a2a4a;}
+.word-editor-wrap .page{background:#fff;max-width:850px;margin:0 auto;min-height:500px;padding:40px 50px;box-shadow:0 4px 20px rgba(0,0,0,.1);border-radius:2px;color:#1a1a1a;position:relative;}
+.dark-mode .word-editor-wrap .page{background:#1a1a2e;color:#e8e8e8;}
+#richEditor{min-height:400px;outline:none;font-size:15px;line-height:1.7;position:relative;z-index:1;}
+#richEditor:empty:before{content:'Yahan content likhein...';color:#999;font-style:italic;}
+#richEditor h1{font-size:32px;margin:16px 0 10px;font-weight:800;}
+#richEditor h2{font-size:26px;margin:14px 0 8px;font-weight:700;}
+#richEditor h3{font-size:22px;margin:12px 0 6px;font-weight:700;}
+#richEditor h4{font-size:18px;margin:10px 0 4px;font-weight:600;}
+#richEditor h5,#richEditor h6{font-size:16px;margin:8px 0 4px;font-weight:600;}
+#richEditor p{margin:6px 0;}
+#richEditor ul,#richEditor ol{margin:8px 0 8px 25px;}
+#richEditor blockquote{border-left:4px solid #1976d2;padding:8px 14px;margin:10px 0;background:#f5f8ff;font-style:italic;}
+#richEditor pre{background:#2c3e50;color:#fff;padding:12px 16px;border-radius:6px;overflow-x:auto;font-family:monospace;font-size:13px;margin:10px 0;}
+#richEditor table{border-collapse:collapse;width:100%;margin:10px 0;}
+#richEditor table td,#richEditor table th{border:1px solid #999;padding:8px 10px;min-width:40px;}
+#richEditor table th{background:#f0f0f0;font-weight:600;}
+#richEditor img{max-width:100%;height:auto;margin:8px 0;border-radius:4px;}
+
+/* ============ EXCEL EDITOR ============ */
+.excel-toolbar{display:flex;gap:6px;flex-wrap:wrap;padding:8px;background:#fafbfc;border:1px solid #d1d9e6;border-bottom:none;border-radius:8px 8px 0 0;}
+.dark-mode .excel-toolbar{background:#1a1a2e;border-color:#2a2a4a;}
+.excel-toolbar button{padding:6px 10px;border:1px solid #d1d9e6;border-radius:4px;background:#fff;cursor:pointer;font-size:11px;font-weight:600;}
+.dark-mode .excel-toolbar button{background:#141428;color:#e8e8e8;border-color:#2a2a4a;}
+.excel-toolbar button:hover{background:#e8f0fe;}
+.excel-wrap{overflow:auto;border:1px solid #d1d9e6;border-radius:0 0 8px 8px;max-height:500px;background:#fff;}
+.dark-mode .excel-wrap{background:#1a1a2e;border-color:#2a2a4a;}
+.excel-table{border-collapse:collapse;width:100%;font-size:13px;}
+.excel-table th,.excel-table td{border:1px solid #d1d9e6;padding:0;height:32px;}
+.dark-mode .excel-table th,.dark-mode .excel-table td{border-color:#2a2a4a;}
+.excel-table th{background:#f0f4f8;font-weight:700;padding:6px 8px;text-align:left;}
+.dark-mode .excel-table th{background:#2a2a4a;color:#e8e8e8;}
+.excel-table td input{width:100%;height:100%;border:none;padding:6px 8px;font-size:13px;background:transparent;color:#1a1a1a;font-family:inherit;outline:none;}
+.dark-mode .excel-table td input{color:#e8e8e8;}
+.excel-table td input:focus{background:#e8f0fe;}
+.dark-mode .excel-table td input:focus{background:#2a2a4a;}
+
+/* ============ UPLOAD AREA ============ */
+.upload-zone{border:2px dashed var(--border-color);border-radius:10px;padding:24px;text-align:center;cursor:pointer;transition:.3s;background:var(--bg-color);}
+.upload-zone:hover{border-color:var(--secondary-blue);background:rgba(25,118,210,.05);}
+.upload-zone i{font-size:32px;color:var(--secondary-blue);margin-bottom:6px;}
+.upload-zone p{font-size:12px;color:var(--text-light);}
+.uploaded-files{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.uploaded-file{background:var(--bg-color);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;font-size:11px;display:flex;align-items:center;gap:6px;max-width:100%;}
+.uploaded-file i{color:var(--secondary-blue);}
+.uploaded-file button{background:none;border:none;color:var(--warning-red);cursor:pointer;font-size:12px;}
+
+/* ============ EXPORT BUTTONS ============ */
+.export-bar{display:flex;gap:8px;flex-wrap:wrap;padding:12px;background:var(--bg-color);border-radius:8px;border:1px solid var(--border-color);margin-top:12px;}
+.export-bar button{padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;}
+.export-bar .btn-pdf{background:#dc3545;color:#fff;}
+.export-bar .btn-word{background:#2b5797;color:#fff;}
+.export-bar .btn-excel{background:#217346;color:#fff;}
+.export-bar .btn-csv{background:#6c5ce7;color:#fff;}
+.export-bar .btn-print{background:#6c757d;color:#fff;}
+.export-bar button:hover{opacity:.85;}
+
+/* VIP */
 @keyframes vipGradient{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 .admin-wrapper.active{background:linear-gradient(-45deg,#eef5ff,#dbeafe,#e0e7ff,#f0f9ff);background-size:400% 400%;animation:vipGradient 15s ease infinite;}
 .dark-mode .admin-wrapper.active{background:linear-gradient(-45deg,#0a0e1a,#141428,#1a1a3a,#0d1b3e);background-size:400% 400%;animation:vipGradient 15s ease infinite;}
@@ -277,6 +346,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     </div>
     <ul class="admin-menu" id="dynamicSidebar"></ul>
     <div class="admin-footer-menu">
+      <a class="menu-link" data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog menu-icon"></i> Settings</a>
       <a class="menu-link" href="index.html"><i class="fas fa-home menu-icon"></i> Back to Home</a>
       <a class="menu-link" onclick="handleLogout()"><i class="fas fa-sign-out-alt menu-icon"></i> Logout</a>
     </div>
@@ -296,7 +366,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     <!-- DASHBOARD -->
     <div id="adminPage-dashboard" class="admin-section active">
       <div class="admin-stats">
-        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value" id="statPages">0</div></div>
+        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Pages</div><div class="stat-value" id="statPages">0</div></div>
         <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
         <div class="stat-item"><div class="stat-icon">🏆</div><div class="stat-label">Stories</div><div class="stat-value" id="statStories">0</div></div>
         <div class="stat-item"><div class="stat-icon">🎥</div><div class="stat-label">Videos</div><div class="stat-value" id="statVideos">0</div></div>
@@ -306,24 +376,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         <h3>⚡ Quick Actions</h3>
         <div class="actions-grid">
           <button onclick="showAdminPage('content-manager')"><i class="fas fa-palette"></i> Content Manager</button>
-          <button onclick="showAdminPage('pages')"><i class="fas fa-plus"></i> Manage Pages</button>
           <button onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase"></i> Jobs</button>
           <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
         </div>
-      </div>
-    </div>
-
-    <!-- PAGES MANAGER -->
-    <div id="adminPage-pages" class="admin-section">
-      <div class="admin-card">
-        <div class="card-header">
-          <h4>📄 Pages Manager</h4>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openPageModal()"><i class="fas fa-plus"></i> Add New Page</button>
-            <button class="btn-add primary" onclick="resetPagesToDefault()"><i class="fas fa-sync-alt"></i> Reset</button>
-          </div>
-        </div>
-        <div class="page-grid" id="pagesGrid"></div>
       </div>
     </div>
 
@@ -332,52 +387,46 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <div class="admin-card">
         <div class="card-header">
           <h4>🎨 Content Manager</h4>
-          <span style="font-size:12px;color:var(--text-light);">Home page ka saara content yahan se manage karein</span>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
-          <button class="settings-tab-btn active" onclick="switchContentTab('stories')" id="ctab-stories">🏆 Success Stories</button>
-          <button class="settings-tab-btn" onclick="switchContentTab('videos')" id="ctab-videos">🎥 YouTube Videos</button>
+          <button class="settings-tab-btn active" onclick="switchContentTab('stories')" id="ctab-stories">🏆 Stories</button>
+          <button class="settings-tab-btn" onclick="switchContentTab('videos')" id="ctab-videos">🎥 Videos</button>
           <button class="settings-tab-btn" onclick="switchContentTab('ads')" id="ctab-ads">💰 Ads</button>
           <button class="settings-tab-btn" onclick="switchContentTab('insta')" id="ctab-insta">📸 Instagram</button>
           <button class="settings-tab-btn" onclick="switchContentTab('colleges')" id="ctab-colleges">🏫 Colleges</button>
         </div>
-
         <div id="content-tab-stories" class="content-tab-content active">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
             <h4 style="font-size:15px;">🏆 Success Stories</h4>
-            <button class="btn-add" onclick="openStoryModal()"><i class="fas fa-plus"></i> Add Story</button>
+            <button class="btn-add" onclick="openStoryModal()"><i class="fas fa-plus"></i> Add</button>
           </div>
           <div id="storiesContainer"></div>
         </div>
-
         <div id="content-tab-videos" class="content-tab-content">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
             <h4 style="font-size:15px;">🎥 YouTube Videos</h4>
-            <button class="btn-add" onclick="openVideoModal()"><i class="fas fa-plus"></i> Add Video</button>
+            <button class="btn-add" onclick="openVideoModal()"><i class="fas fa-plus"></i> Add</button>
           </div>
           <div id="videosContainer"></div>
         </div>
-
         <div id="content-tab-ads" class="content-tab-content">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-            <h4 style="font-size:15px;">💰 Ads / Affiliate</h4>
-            <button class="btn-add" onclick="openAdModal()"><i class="fas fa-plus"></i> Add Ad Slot</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">💰 Ads</h4>
+            <button class="btn-add" onclick="openAdModal()"><i class="fas fa-plus"></i> Add</button>
           </div>
           <div id="adsContainer"></div>
         </div>
-
         <div id="content-tab-insta" class="content-tab-content">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-            <h4 style="font-size:15px;">📸 Instagram Posts</h4>
-            <button class="btn-add" onclick="openInstaModal()"><i class="fas fa-plus"></i> Add Post</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">📸 Instagram</h4>
+            <button class="btn-add" onclick="openInstaModal()"><i class="fas fa-plus"></i> Add</button>
           </div>
           <div id="instaContainer"></div>
         </div>
-
         <div id="content-tab-colleges" class="content-tab-content">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-            <h4 style="font-size:15px;">🏫 Colleges / Coaching</h4>
-            <button class="btn-add" onclick="openCollegeModal()"><i class="fas fa-plus"></i> Add College</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">🏫 Colleges</h4>
+            <button class="btn-add" onclick="openCollegeModal()"><i class="fas fa-plus"></i> Add</button>
           </div>
           <div id="collegesContainer"></div>
         </div>
@@ -391,7 +440,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <h4>💼 Jobs Manager <span id="jobsCountBadge" style="background:var(--primary-blue);color:#fff;padding:2px 12px;border-radius:20px;font-size:12px;margin-left:8px;">0</span></h4>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
-            <button class="btn-add bulk" onclick="openBulkJobModal()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+            <button class="btn-add bulk" onclick="openBulkJobModal()"><i class="fas fa-layer-group"></i> Bulk</button>
           </div>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
@@ -404,14 +453,80 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- SETTINGS — 10 TABS -->
-    <!-- ============================================ -->
+    <!-- BLOG MANAGER -->
+    <div id="adminPage-blog-manager" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📝 Blog Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openPageDataEditor('blog')"><i class="fas fa-plus"></i> Add Content</button>
+            <button class="btn-add primary" onclick="exportPageData('blog')"><i class="fas fa-download"></i> Export All</button>
+          </div>
+        </div>
+        <div id="blogContainer"></div>
+      </div>
+    </div>
+
+    <!-- CAREER MANAGER -->
+    <div id="adminPage-career-manager" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>🎯 Career Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openPageDataEditor('career')"><i class="fas fa-plus"></i> Add Content</button>
+            <button class="btn-add primary" onclick="exportPageData('career')"><i class="fas fa-download"></i> Export All</button>
+          </div>
+        </div>
+        <div id="careerContainer"></div>
+      </div>
+    </div>
+
+    <!-- SERVICE MANAGER -->
+    <div id="adminPage-service-manager" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>🛠️ Service Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openPageDataEditor('service')"><i class="fas fa-plus"></i> Add Content</button>
+            <button class="btn-add primary" onclick="exportPageData('service')"><i class="fas fa-download"></i> Export All</button>
+          </div>
+        </div>
+        <div id="serviceContainer"></div>
+      </div>
+    </div>
+
+    <!-- MORE MANAGER -->
+    <div id="adminPage-more-manager" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📚 More Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openPageDataEditor('more')"><i class="fas fa-plus"></i> Add Content</button>
+            <button class="btn-add primary" onclick="exportPageData('more')"><i class="fas fa-download"></i> Export All</button>
+          </div>
+        </div>
+        <div id="moreContainer"></div>
+      </div>
+    </div>
+
+    <!-- RSR MANAGER -->
+    <div id="adminPage-rsr-manager" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📜 RSR Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openPageDataEditor('rsr')"><i class="fas fa-plus"></i> Add Content</button>
+            <button class="btn-add primary" onclick="exportPageData('rsr')"><i class="fas fa-download"></i> Export All</button>
+          </div>
+        </div>
+        <div id="rsrContainer"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS (10 TABS) -->
     <div id="adminPage-settings" class="admin-section">
       <div class="admin-card">
-        <div class="card-header"><h4>⚙️ Settings</h4>
-          <span style="font-size:12px;color:var(--text-light);">Saare settings yahan se manage karein</span>
-        </div>
+        <div class="card-header"><h4>⚙️ Settings</h4></div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
           <button class="settings-tab-btn active" data-tab="general" onclick="switchSettingsTab('general')">🏠 General</button>
           <button class="settings-tab-btn" data-tab="contact" onclick="switchSettingsTab('contact')">📞 Contact</button>
@@ -425,169 +540,153 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <button class="settings-tab-btn" data-tab="analytics" onclick="switchSettingsTab('analytics')">📈 Analytics</button>
         </div>
 
-        <!-- GENERAL -->
         <div class="settings-tab-content active" id="settings-tab-general">
           <div class="setting-group">
             <h5>🌐 Site Information</h5>
-            <div class="setting-row"><label>Site Name</label><input type="text" id="setSiteName" placeholder="Dream Josh"></div>
-            <div class="setting-row"><label>Tagline</label><input type="text" id="setTagline" placeholder="Career & Study Platform"></div>
+            <div class="setting-row"><label>Site Name</label><input type="text" id="setSiteName"></div>
+            <div class="setting-row"><label>Tagline</label><input type="text" id="setTagline"></div>
             <div class="setting-row"><label>Description</label><textarea id="setSiteDesc" rows="2"></textarea></div>
-            <div class="setting-row"><label>Logo Upload</label><input type="file" id="setLogo" accept="image/*"></div>
-            <div class="setting-row"><label>Favicon Upload</label><input type="file" id="setFavicon" accept="image/*"></div>
+            <div class="setting-row"><label>Logo</label><input type="file" id="setLogo" accept="image/*"></div>
+            <div class="setting-row"><label>Favicon</label><input type="file" id="setFavicon" accept="image/*"></div>
           </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save General</button>
+          <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save</button>
         </div>
 
-        <!-- CONTACT -->
         <div class="settings-tab-content" id="settings-tab-contact">
           <div class="setting-group">
             <h5>📞 Contact Info</h5>
-            <div class="setting-row"><label>Email</label><input type="email" id="setEmail" placeholder="info@dreamjosh.com"></div>
-            <div class="setting-row"><label>Phone</label><input type="tel" id="setPhone" placeholder="+91 99999 99999"></div>
-            <div class="setting-row"><label>WhatsApp</label><input type="tel" id="setWhatsApp" placeholder="+91 99999 99999"></div>
+            <div class="setting-row"><label>Email</label><input type="email" id="setEmail"></div>
+            <div class="setting-row"><label>Phone</label><input type="tel" id="setPhone"></div>
+            <div class="setting-row"><label>WhatsApp</label><input type="tel" id="setWhatsApp"></div>
             <div class="setting-row"><label>Address</label><textarea id="setAddress" rows="2"></textarea></div>
-            <div class="setting-row"><label>Google Maps URL</label><input type="url" id="setMapsUrl"></div>
+            <div class="setting-row"><label>Google Maps</label><input type="url" id="setMapsUrl"></div>
           </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('contact')"><i class="fas fa-save"></i> Save Contact</button>
+          <button class="btn-setting success" onclick="saveSettingsGroup('contact')"><i class="fas fa-save"></i> Save</button>
         </div>
 
-        <!-- APPEARANCE -->
         <div class="settings-tab-content" id="settings-tab-appearance">
           <div class="setting-group">
             <h5>🎨 Colors</h5>
-            <div class="setting-row"><label>Primary Color</label><input type="color" id="setPrimaryColor" value="#123c9b"></div>
-            <div class="setting-row"><label>Secondary Color</label><input type="color" id="setSecondaryColor" value="#1976d2"></div>
-            <div class="setting-row"><label>Accent Color</label><input type="color" id="setAccentColor" value="#ffd700"></div>
+            <div class="setting-row"><label>Primary</label><input type="color" id="setPrimaryColor" value="#123c9b"></div>
+            <div class="setting-row"><label>Secondary</label><input type="color" id="setSecondaryColor" value="#1976d2"></div>
+            <div class="setting-row"><label>Accent</label><input type="color" id="setAccentColor" value="#ffd700"></div>
           </div>
           <div class="setting-group">
             <h5>🔤 Typography</h5>
-            <div class="setting-row"><label>Font Family</label>
+            <div class="setting-row"><label>Font</label>
               <select id="setFontFamily">
                 <option value="Arial, sans-serif">Arial</option>
                 <option value="'Segoe UI', sans-serif">Segoe UI</option>
                 <option value="Roboto, sans-serif">Roboto</option>
-                <option value="'Nirmala UI', sans-serif">Nirmala UI (Hindi)</option>
+                <option value="'Nirmala UI', sans-serif">Nirmala UI</option>
               </select>
             </div>
           </div>
           <div class="setting-group">
             <h5>🎭 Theme</h5>
-            <div class="setting-row"><label>Theme Mode</label>
+            <div class="setting-row"><label>Mode</label>
               <select id="setThemeMode">
-                <option value="light">☀️ Light</option>
-                <option value="dark">🌙 Dark</option>
-                <option value="auto">🌓 Auto</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="auto">Auto</option>
               </select>
             </div>
           </div>
           <div class="setting-group">
             <h5>💻 Custom CSS</h5>
-            <div class="setting-row"><label>Custom CSS</label><textarea id="setCustomCss" rows="5" placeholder="/* Custom CSS */"></textarea></div>
+            <div class="setting-row"><label>CSS</label><textarea id="setCustomCss" rows="4"></textarea></div>
           </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('appearance')"><i class="fas fa-save"></i> Save Appearance</button>
+          <button class="btn-setting success" onclick="saveSettingsGroup('appearance')"><i class="fas fa-save"></i> Save</button>
         </div>
 
-        <!-- HOMEPAGE -->
         <div class="settings-tab-content" id="settings-tab-homepage">
           <div class="setting-group">
-            <h5>📊 Display Settings</h5>
-            <div class="setting-row"><label>Home Limit</label><input type="number" id="setHomeLimit" value="6" min="1" max="50"></div>
-            <div class="setting-row"><label>Items Per Page</label><input type="number" id="setItemsPerPage" value="12" min="1" max="100"></div>
+            <h5>📊 Display</h5>
+            <div class="setting-row"><label>Home Limit</label><input type="number" id="setHomeLimit" value="6"></div>
+            <div class="setting-row"><label>Items Per Page</label><input type="number" id="setItemsPerPage" value="12"></div>
             <div class="setting-row"><label>Layout</label>
-              <select id="setLayout"><option value="grid">Grid</option><option value="list">List</option><option value="card">Card</option></select>
+              <select id="setLayout"><option value="grid">Grid</option><option value="list">List</option></select>
             </div>
             <div class="setting-row"><label>Show Ticker</label>
               <select id="setShowTicker"><option value="yes">Yes</option><option value="no">No</option></select>
             </div>
           </div>
           <div class="setting-group">
-            <h5>🎛️ Section Toggles</h5>
-            <div class="setting-row"><label>Show Success Stories</label><input type="checkbox" id="setShowStories" checked></div>
-            <div class="setting-row"><label>Show YouTube Videos</label><input type="checkbox" id="setShowVideos" checked></div>
-            <div class="setting-row"><label>Show Instagram</label><input type="checkbox" id="setShowInstagram" checked></div>
-            <div class="setting-row"><label>Show Colleges</label><input type="checkbox" id="setShowColleges" checked></div>
-            <div class="setting-row"><label>Show Age Calculator</label><input type="checkbox" id="setShowAgeCalc" checked></div>
-            <div class="setting-row"><label>Show Ads</label><input type="checkbox" id="setShowAds" checked></div>
+            <h5>🎛️ Sections</h5>
+            <div class="setting-row"><label>Stories</label><input type="checkbox" id="setShowStories" checked></div>
+            <div class="setting-row"><label>Videos</label><input type="checkbox" id="setShowVideos" checked></div>
+            <div class="setting-row"><label>Instagram</label><input type="checkbox" id="setShowInstagram" checked></div>
+            <div class="setting-row"><label>Colleges</label><input type="checkbox" id="setShowColleges" checked></div>
+            <div class="setting-row"><label>Age Calculator</label><input type="checkbox" id="setShowAgeCalc" checked></div>
           </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('homepage')"><i class="fas fa-save"></i> Save Homepage</button>
+          <button class="btn-setting success" onclick="saveSettingsGroup('homepage')"><i class="fas fa-save"></i> Save</button>
         </div>
 
-        <!-- SOCIAL -->
         <div class="settings-tab-content" id="settings-tab-social">
           <div class="setting-group">
-            <h5>🔗 Social Media Links</h5>
-            <div class="setting-row"><label>📘 Facebook</label><input type="url" id="setFacebook"></div>
-            <div class="setting-row"><label>📷 Instagram</label><input type="url" id="setInstagram"></div>
-            <div class="setting-row"><label>▶️ YouTube</label><input type="url" id="setYouTube"></div>
-            <div class="setting-row"><label>✈️ Telegram</label><input type="url" id="setTelegram"></div>
-            <div class="setting-row"><label>💬 WhatsApp</label><input type="tel" id="setWhatsAppLink"></div>
-            <div class="setting-row"><label>🐦 Twitter / X</label><input type="url" id="setTwitter"></div>
-            <div class="setting-row"><label>💼 LinkedIn</label><input type="url" id="setLinkedIn"></div>
+            <h5>🔗 Social Links</h5>
+            <div class="setting-row"><label>Facebook</label><input type="url" id="setFacebook"></div>
+            <div class="setting-row"><label>Instagram</label><input type="url" id="setInstagram"></div>
+            <div class="setting-row"><label>YouTube</label><input type="url" id="setYouTube"></div>
+            <div class="setting-row"><label>Telegram</label><input type="url" id="setTelegram"></div>
+            <div class="setting-row"><label>WhatsApp</label><input type="tel" id="setWhatsAppLink"></div>
+            <div class="setting-row"><label>Twitter</label><input type="url" id="setTwitter"></div>
+            <div class="setting-row"><label>LinkedIn</label><input type="url" id="setLinkedIn"></div>
           </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('social')"><i class="fas fa-save"></i> Save Social</button>
+          <button class="btn-setting success" onclick="saveSettingsGroup('social')"><i class="fas fa-save"></i> Save</button>
         </div>
 
-        <!-- SEO -->
         <div class="settings-tab-content" id="settings-tab-seo">
           <div class="setting-group">
-            <h5>🔍 Meta Tags</h5>
-            <div class="setting-row"><label>Meta Title</label><input type="text" id="setMetaTitle"></div>
-            <div class="setting-row"><label>Meta Description</label><textarea id="setMetaDesc" rows="2"></textarea></div>
+            <h5>🔍 Meta</h5>
+            <div class="setting-row"><label>Title</label><input type="text" id="setMetaTitle"></div>
+            <div class="setting-row"><label>Description</label><textarea id="setMetaDesc" rows="2"></textarea></div>
             <div class="setting-row"><label>Keywords</label><input type="text" id="setKeywords"></div>
-            <div class="setting-row"><label>OG Image URL</label><input type="url" id="setOgImage"></div>
+            <div class="setting-row"><label>OG Image</label><input type="url" id="setOgImage"></div>
           </div>
           <div class="setting-group">
-            <h5>📊 Google Tools</h5>
-            <div class="setting-row"><label>Google Analytics ID</label><input type="text" id="setGAId" placeholder="G-XXXXXXXXXX"></div>
-            <div class="setting-row"><label>Search Console Code</label><input type="text" id="setGSCode"></div>
+            <h5>📊 Google</h5>
+            <div class="setting-row"><label>Analytics ID</label><input type="text" id="setGAId"></div>
+            <div class="setting-row"><label>Search Console</label><input type="text" id="setGSCode"></div>
           </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('seo')"><i class="fas fa-save"></i> Save SEO</button>
+          <button class="btn-setting success" onclick="saveSettingsGroup('seo')"><i class="fas fa-save"></i> Save</button>
         </div>
 
-        <!-- ANNOUNCEMENTS -->
         <div class="settings-tab-content" id="settings-tab-announcements">
           <div class="setting-group">
-            <h5>📢 Ticker & Bar</h5>
+            <h5>📢 Ticker</h5>
             <div class="setting-row"><label>Ticker Text</label><input type="text" id="setTickerText"></div>
-            <div class="setting-row"><label>Announcement Bar</label><input type="text" id="setAnnouncementBar"></div>
+            <div class="setting-row"><label>Announcement</label><input type="text" id="setAnnouncementBar"></div>
           </div>
           <div class="setting-group">
-            <h5>🛠️ Maintenance Mode</h5>
+            <h5>🛠️ Maintenance</h5>
             <div class="setting-row"><label>Enable</label>
               <select id="setMaintenanceMode"><option value="no">No</option><option value="yes">Yes</option></select>
             </div>
             <div class="setting-row"><label>Message</label><textarea id="setMaintenanceMsg" rows="2"></textarea></div>
           </div>
-          <div class="setting-group">
-            <h5>🪟 Popup</h5>
-            <div class="setting-row"><label>Show Popup</label>
-              <select id="setShowPopup"><option value="no">No</option><option value="yes">Yes</option></select>
-            </div>
-            <div class="setting-row"><label>Popup Text</label><textarea id="setPopupText" rows="2"></textarea></div>
-          </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('announcements')"><i class="fas fa-save"></i> Save Announcements</button>
+          <button class="btn-setting success" onclick="saveSettingsGroup('announcements')"><i class="fas fa-save"></i> Save</button>
         </div>
 
-        <!-- SECURITY -->
         <div class="settings-tab-content" id="settings-tab-security">
           <div class="setting-group">
             <h5>🔑 Change Password</h5>
-            <div class="setting-row"><label>Current Password</label><input type="password" id="setCurPassword"></div>
-            <div class="setting-row"><label>New Password</label><input type="password" id="setNewPassword"></div>
-            <div class="setting-row"><label>Confirm Password</label><input type="password" id="setConfirmPassword"></div>
-            <button class="btn-setting danger" onclick="changeAdminPassword()" style="margin-top:8px;"><i class="fas fa-key"></i> Change Password</button>
+            <div class="setting-row"><label>Current</label><input type="password" id="setCurPassword"></div>
+            <div class="setting-row"><label>New</label><input type="password" id="setNewPassword"></div>
+            <div class="setting-row"><label>Confirm</label><input type="password" id="setConfirmPassword"></div>
+            <button class="btn-setting danger" onclick="changeAdminPassword()" style="margin-top:8px;"><i class="fas fa-key"></i> Change</button>
           </div>
           <div class="setting-group">
             <h5>👤 Change Username</h5>
             <div class="setting-row"><label>Current</label><input type="text" id="setCurUsername" readonly></div>
             <div class="setting-row"><label>New</label><input type="text" id="setNewUsername"></div>
-            <button class="btn-setting primary" onclick="changeAdminUsername()" style="margin-top:8px;"><i class="fas fa-user-edit"></i> Change Username</button>
+            <button class="btn-setting primary" onclick="changeAdminUsername()" style="margin-top:8px;"><i class="fas fa-user-edit"></i> Change</button>
           </div>
           <div class="setting-group">
             <h5>⏱️ Session</h5>
             <div class="setting-row"><label>Session Timeout</label>
               <select id="setSessionTimeout">
-                <option value="30">30 minutes</option>
+                <option value="30">30 min</option>
                 <option value="60">1 hour</option>
                 <option value="480" selected>8 hours</option>
                 <option value="1440">24 hours</option>
@@ -595,64 +694,42 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
             </div>
             <div class="setting-row"><label>Idle Timeout</label>
               <select id="setIdleTimeout">
-                <option value="5">5 minutes</option>
-                <option value="10" selected>10 minutes</option>
-                <option value="15">15 minutes</option>
+                <option value="5">5 min</option>
+                <option value="10" selected>10 min</option>
+                <option value="15">15 min</option>
               </select>
             </div>
           </div>
-          <div class="setting-group">
-            <h5>🔐 Two-Factor Auth</h5>
-            <div class="setting-row"><label>Enable 2FA</label>
-              <select id="set2FA"><option value="no">No</option><option value="yes">Yes</option></select>
-            </div>
-          </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('security')"><i class="fas fa-save"></i> Save Security</button>
+          <button class="btn-setting success" onclick="saveSettingsGroup('security')"><i class="fas fa-save"></i> Save</button>
         </div>
 
-        <!-- BACKUP -->
         <div class="settings-tab-content" id="settings-tab-backup">
           <div class="setting-group">
-            <h5>💾 Manual Backup</h5>
-            <button class="btn-setting success" onclick="exportAllData()"><i class="fas fa-download"></i> Download JSON Backup</button>
-            <button class="btn-setting primary" onclick="exportAllDataCSV()" style="margin-top:8px;"><i class="fas fa-file-csv"></i> Export CSV</button>
-          </div>
-          <div class="setting-group">
-            <h5>⏰ Auto Backup</h5>
-            <div class="setting-row"><label>Enable Auto Backup</label>
-              <select id="setAutoBackup"><option value="no">No</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select>
-            </div>
+            <h5>💾 Backup</h5>
+            <button class="btn-setting success" onclick="exportAllData()"><i class="fas fa-download"></i> JSON Backup</button>
+            <button class="btn-setting primary" onclick="exportAllDataCSV()"><i class="fas fa-file-csv"></i> CSV Export</button>
           </div>
           <div class="setting-group">
             <h5>📥 Restore</h5>
-            <input type="file" id="restoreFileInput" accept=".json" style="padding:6px;border:2px dashed var(--border-color);border-radius:6px;width:100%;">
-            <button class="btn-setting primary" onclick="importData()" style="margin-top:8px;"><i class="fas fa-upload"></i> Restore from File</button>
+            <input type="file" id="restoreFileInput" accept=".json">
+            <button class="btn-setting primary" onclick="importData()" style="margin-top:8px;"><i class="fas fa-upload"></i> Restore</button>
           </div>
           <div class="setting-group">
-            <h5>🗑️ Clear All Data</h5>
-            <p style="font-size:12px;color:var(--text-light);margin-bottom:8px;">Warning: This will delete all data permanently</p>
-            <button class="btn-setting danger" onclick="clearAllAdminData()"><i class="fas fa-trash"></i> Clear Everything</button>
+            <h5>🗑️ Clear All</h5>
+            <button class="btn-setting danger" onclick="clearAllAdminData()"><i class="fas fa-trash"></i> Clear</button>
           </div>
         </div>
 
-        <!-- ANALYTICS -->
         <div class="settings-tab-content" id="settings-tab-analytics">
           <div class="setting-group">
-            <h5>📈 Google Analytics</h5>
-            <div class="setting-row"><label>Google Analytics ID</label><input type="text" id="setGAnalyticsId" placeholder="G-XXXXXXXXXX"></div>
-            <div class="setting-row"><label>Google Tag Manager</label><input type="text" id="setGTMId" placeholder="GTM-XXXXXXX"></div>
+            <h5>📈 Analytics</h5>
+            <div class="setting-row"><label>GA ID</label><input type="text" id="setGAnalyticsId"></div>
+            <div class="setting-row"><label>GTM ID</label><input type="text" id="setGTMId"></div>
+            <div class="setting-row"><label>FB Pixel</label><input type="text" id="setFBPixelId"></div>
+            <div class="setting-row"><label>Custom Code</label><textarea id="setCustomCode" rows="4"></textarea></div>
           </div>
-          <div class="setting-group">
-            <h5>📘 Facebook Pixel</h5>
-            <div class="setting-row"><label>Facebook Pixel ID</label><input type="text" id="setFBPixelId" placeholder="1234567890"></div>
-          </div>
-          <div class="setting-group">
-            <h5>💻 Custom Tracking Code</h5>
-            <div class="setting-row"><label>Custom Code</label><textarea id="setCustomCode" rows="5" placeholder="<!-- tracking code -->"></textarea></div>
-          </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('analytics')"><i class="fas fa-save"></i> Save Analytics</button>
+          <button class="btn-setting success" onclick="saveSettingsGroup('analytics')"><i class="fas fa-save"></i> Save</button>
         </div>
-
       </div>
     </div>
 
@@ -689,10 +766,11 @@ const firebaseConfig = {
   appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
 };
 
-let firebaseApp, firebaseDB;
+let firebaseApp, firebaseDB, firebaseStorage;
 try {
   firebaseApp = firebase.initializeApp(firebaseConfig);
   firebaseDB = firebase.firestore();
+  firebaseStorage = firebase.storage();
 } catch (err) { console.error(err); }
 
 // ============================================================
@@ -701,16 +779,22 @@ try {
 let appData = {};
 let pagesData = [];
 let jobsData = [];
+let pageDataStore = {
+  blog: { content: '', items: [] },
+  career: { content: '', items: [] },
+  service: { content: '', items: [] },
+  more: { content: '', items: [] },
+  rsr: { content: '', items: [] }
+};
 let contentData = { stories: [], videos: [], ads: [], instaPosts: [], colleges: [] };
 let settings = {};
-let activityLog = [];
 let currentJobFilter = 'all';
 
 const STORAGE_KEY = 'dreamjosh_admin_data';
 const PAGES_KEY = 'dreamjosh_pages_data';
+const PAGE_DATA_KEY = 'dreamjosh_page_data_store';
 const CONTENT_KEY = 'dreamjosh_content_data';
 const SETTINGS_KEY = 'dreamjosh_settings';
-const ACTIVITY_LOG_KEY = 'dreamjosh_activity_log';
 const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
 
 // ============================================================
@@ -720,18 +804,13 @@ const DEFAULT_JOBS = [
   { title: 'IAS (Indian Administrative Service)', jobType: 'central', department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', description: 'Premier civil service.' },
   { title: 'IPS (Indian Police Service)', jobType: 'central', department: 'UPSC', post: 'IPS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', description: 'Law and order.' },
   { title: 'SSC CGL', jobType: 'central', department: 'SSC', post: 'Group B & C', eligibility: 'Graduate', age: '18-32 Years', lastDate: '2026-07-15', website: 'https://ssc.nic.in', description: 'Group B & C posts.' },
-  { title: 'SSC CHSL', jobType: 'central', department: 'SSC', post: 'LDC, DEO', eligibility: '12th Pass', age: '18-27 Years', lastDate: '2026-08-01', website: 'https://ssc.nic.in', description: 'LDC and DEO.' },
   { title: 'RRB NTPC', jobType: 'central', department: 'Railway', post: 'Station Master', eligibility: '12th/Graduate', age: '18-33 Years', lastDate: '2026-05-30', website: 'https://rrb.gov.in', description: 'Railway NTPC.' },
   { title: 'IBPS PO', jobType: 'central', department: 'Banking', post: 'PO', eligibility: 'Graduate', age: '20-30 Years', lastDate: '2026-08-01', website: 'https://ibps.in', description: 'Bank PO.' },
-  { title: 'SBI PO', jobType: 'central', department: 'Banking', post: 'PO', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-15', website: 'https://sbi.co.in', description: 'SBI PO.' },
-  { title: 'NDA', jobType: 'central', department: 'Defence', post: 'Cadet', eligibility: '12th Pass', age: '16.5-19.5 Years', lastDate: '2026-06-20', website: 'https://nda.nic.in', description: 'Defence entry.' },
   { title: 'RAS', jobType: 'state', department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-07-20', website: 'https://rpsc.rajasthan.gov.in', description: 'State civil service.' },
   { title: 'Rajasthan Police Constable', jobType: 'state', department: 'Police', post: 'Constable', eligibility: '10+2', age: '18-28 Years', lastDate: '2026-09-01', website: 'https://police.rajasthan.gov.in', description: 'Police constable.' },
   { title: 'REET', jobType: 'state', department: 'Education', post: 'Teacher', eligibility: 'Graduate + B.Ed', age: '18-40 Years', lastDate: '2026-08-15', website: 'https://rajeduboard.rajasthan.gov.in', description: 'Teacher recruitment.' },
-  { title: 'RSMSSB LDC', jobType: 'state', department: 'RSMSSB', post: 'LDC', eligibility: '12th Pass', age: '18-40 Years', lastDate: '2026-08-25', website: 'https://rsmssb.rajasthan.gov.in', description: 'LDC.' },
   { title: 'Software Engineer – Google', jobType: 'private', department: 'IT/Software', post: 'SDE', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-04-15', website: 'https://careers.google.com', description: 'Google hiring.' },
-  { title: 'Finance Manager – HSBC', jobType: 'private', department: 'Finance', post: 'Finance Manager', eligibility: 'CA/CFA/MBA', age: '25-40 Years', lastDate: '2026-05-10', website: 'https://hsbc.com/careers', description: 'HSBC hiring.' },
-  { title: 'Marketing Executive – Amazon', jobType: 'private', department: 'Marketing', post: 'Marketing Executive', eligibility: 'MBA/BBA', age: '22-30 Years', lastDate: '2026-06-01', website: 'https://amazon.jobs', description: 'Amazon hiring.' }
+  { title: 'Finance Manager – HSBC', jobType: 'private', department: 'Finance', post: 'Finance Manager', eligibility: 'CA/CFA/MBA', age: '25-40 Years', lastDate: '2026-05-10', website: 'https://hsbc.com/careers', description: 'HSBC hiring.' }
 ];
 
 // ============================================================
@@ -739,12 +818,11 @@ const DEFAULT_JOBS = [
 // ============================================================
 const DEFAULT_PAGES = [
   { id: 'jobs-manager', name: 'Jobs Manager', icon: 'fa-briefcase', isPublic: true, subPages: [] },
-  { id: 'blog', name: 'Blog', icon: 'fa-blog', isPublic: true, subPages: [] },
-  { id: 'career', name: 'Career', icon: 'fa-briefcase', isPublic: true, subPages: [] },
-  { id: 'services', name: 'Services', icon: 'fa-cogs', isPublic: true, subPages: [] },
-  { id: 'more', name: 'More', icon: 'fa-book', isPublic: true, subPages: [] },
-  { id: 'tools', name: 'Tools', icon: 'fa-tools', isPublic: true, subPages: [] },
-  { id: 'rsr', name: 'RSR', icon: 'fa-gavel', isPublic: true, subPages: [] }
+  { id: 'blog-manager', name: 'Blog', icon: 'fa-blog', isPublic: true, subPages: [] },
+  { id: 'career-manager', name: 'Career', icon: 'fa-briefcase', isPublic: true, subPages: [] },
+  { id: 'service-manager', name: 'Services', icon: 'fa-cogs', isPublic: true, subPages: [] },
+  { id: 'more-manager', name: 'More', icon: 'fa-book', isPublic: true, subPages: [] },
+  { id: 'rsr-manager', name: 'RSR', icon: 'fa-gavel', isPublic: true, subPages: [] }
 ];
 
 // ============================================================
@@ -758,8 +836,7 @@ const DEFAULT_CONTENT = {
     { id: 'dQw4w9WgXcQ', title: 'SSC CGL 2026 Strategy', channel: 'Dream Josh', views: '2.5K views' }
   ],
   ads: [
-    { label: 'Advertisement', text: 'Your Ad Here', position: 'top', code: '' },
-    { label: 'Sponsored', text: 'Sponsored Content', position: 'middle', code: '' }
+    { label: 'Advertisement', text: 'Your Ad Here', position: 'top', code: '' }
   ],
   instaPosts: [
     { label: 'Study Tips', emoji: '📚', link: 'https://instagram.com/dreamjosh' }
@@ -783,12 +860,38 @@ function loadData() {
   }
 }
 
-function loadPages() {
+function loadPageData() {
   try {
-    const s = localStorage.getItem(PAGES_KEY);
-    if (s) pagesData = JSON.parse(s);
-    if (!pagesData || !pagesData.length) pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES));
-  } catch (e) { pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES)); }
+    const s = localStorage.getItem(PAGE_DATA_KEY);
+    if (s) pageDataStore = JSON.parse(s);
+    Object.keys(pageDataStore).forEach(k => {
+      if (!pageDataStore[k].content) pageDataStore[k].content = '';
+      if (!pageDataStore[k].items) pageDataStore[k].items = [];
+    });
+  } catch (e) {}
+}
+
+function savePageData() {
+  localStorage.setItem(PAGE_DATA_KEY, JSON.stringify(pageDataStore));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('pageDataStore').set({ pages: pageDataStore }).catch(()=>{});
+  // Also sync to appData for frontend
+  Object.keys(pageDataStore).forEach(k => {
+    if (!appData[k]) appData[k] = {};
+    appData[k].content = pageDataStore[k].content;
+    appData[k].items = pageDataStore[k].items;
+  });
+  saveData();
+}
+
+async function loadPageDataFromCloud() {
+  if (!firebaseDB) return;
+  try {
+    const d = await firebaseDB.collection('dreamjosh').doc('pageDataStore').get();
+    if (d.exists && d.data().pages) {
+      pageDataStore = d.data().pages;
+      localStorage.setItem(PAGE_DATA_KEY, JSON.stringify(pageDataStore));
+    }
+  } catch (e) {}
 }
 
 function loadContent() {
@@ -812,11 +915,6 @@ function saveData() {
       firebaseDB.collection('dreamjosh').doc('jobsData').set({ jobs: jobsData }).catch(()=>{});
     }
   } catch (e) {}
-}
-
-function savePages() {
-  localStorage.setItem(PAGES_KEY, JSON.stringify(pagesData));
-  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('pagesData').set({ pages: pagesData }).catch(()=>{});
 }
 
 function saveContent() {
@@ -843,11 +941,11 @@ function loadSettings() {
     primaryColor: '#123c9b', secondaryColor: '#1976d2', accentColor: '#ffd700',
     fontFamily: 'Arial, sans-serif', themeMode: 'light', customCss: '',
     homeLimit: 6, itemsPerPage: 12, layout: 'grid', showTicker: 'yes',
-    showStories: true, showVideos: true, showInstagram: true, showColleges: true, showAgeCalc: true, showAds: true,
+    showStories: true, showVideos: true, showInstagram: true, showColleges: true, showAgeCalc: true,
     facebook: '', instagram: '', youtube: '', telegram: '', whatsappLink: '', twitter: '', linkedin: '',
     metaTitle: 'Dream Josh', metaDesc: '', keywords: '', ogImage: '', gaId: '', gsCode: '',
-    tickerText: '🔥 Latest Updates', announcementBar: '', maintenanceMode: 'no', maintenanceMsg: '', showPopup: 'no', popupText: '',
-    sessionTimeout: 480, idleTimeout: 10, twoFA: 'no', autoBackup: 'no',
+    tickerText: '🔥 Latest Updates', announcementBar: '', maintenanceMode: 'no', maintenanceMsg: '',
+    sessionTimeout: 480, idleTimeout: 10,
     gaAnalyticsId: '', gtmId: '', fbPixelId: '', customCode: ''
   };
   Object.keys(defaults).forEach(k => {
@@ -858,10 +956,6 @@ function loadSettings() {
 function saveSettings() {
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
   if (firebaseDB) firebaseDB.collection('dreamjosh').doc('settings').set(settings).catch(()=>{});
-}
-
-function loadActivityLog() {
-  try { activityLog = JSON.parse(localStorage.getItem(ACTIVITY_LOG_KEY)) || []; } catch (e) { activityLog = []; }
 }
 
 // ============================================================
@@ -906,7 +1000,7 @@ function handleLogin(event) {
   const errorText = document.getElementById('loginErrorText');
   const btn = document.getElementById('loginBtn');
   if (!username || !password) {
-    errorText.textContent = 'Please enter both username and password';
+    errorText.textContent = 'Enter username and password';
     errorEl.classList.add('show');
     return;
   }
@@ -918,9 +1012,9 @@ function handleLogin(event) {
       errorEl.classList.remove('show');
       createSession(username);
       showAdminPanel();
-      showToast('✅ Welcome, ' + username + '! 👑', 'success');
+      showToast('✅ Welcome, ' + username + '!', 'success');
     } else {
-      errorText.textContent = '❌ Invalid username or password';
+      errorText.textContent = '❌ Invalid credentials';
       errorEl.classList.add('show');
       document.getElementById('loginPassword').value = '';
     }
@@ -963,196 +1057,58 @@ function renderSidebar() {
   if (!menu) return;
   let html = `
     <li><a class="menu-link" data-page="dashboard" onclick="showAdminPage('dashboard')"><i class="fas fa-chart-pie menu-icon"></i> Dashboard</a></li>
-    <li><a class="menu-link" data-page="pages" onclick="showAdminPage('pages')"><i class="fas fa-file-alt menu-icon"></i> Pages Manager</a></li>
     <li><a class="menu-link" data-page="content-manager" onclick="showAdminPage('content-manager')"><i class="fas fa-palette menu-icon"></i> Content Manager</a></li>
+    <li><a class="menu-link" data-page="jobs-manager" onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase menu-icon"></i> Jobs Manager</a></li>
+    <li><a class="menu-link" data-page="blog-manager" onclick="showAdminPage('blog-manager')"><i class="fas fa-blog menu-icon"></i> Blog</a></li>
+    <li><a class="menu-link" data-page="career-manager" onclick="showAdminPage('career-manager')"><i class="fas fa-briefcase menu-icon"></i> Career</a></li>
+    <li><a class="menu-link" data-page="service-manager" onclick="showAdminPage('service-manager')"><i class="fas fa-cogs menu-icon"></i> Services</a></li>
+    <li><a class="menu-link" data-page="more-manager" onclick="showAdminPage('more-manager')"><i class="fas fa-book menu-icon"></i> More</a></li>
+    <li><a class="menu-link" data-page="rsr-manager" onclick="showAdminPage('rsr-manager')"><i class="fas fa-gavel menu-icon"></i> RSR</a></li>
   `;
-  pagesData.forEach(page => {
-    const hasSub = page.subPages && page.subPages.length > 0;
-    const privacyBadge = page.isPublic ? '<span class="privacy-badge public">PUBLIC</span>' : '<span class="privacy-badge private">PRIVATE</span>';
-    if (hasSub) {
-      html += `
-        <li>
-          <div class="menu-toggle" data-section="${page.id}" onclick="toggleMenuSection('${page.id}')">
-            <i class="fas ${page.icon} menu-icon"></i> ${escapeHtml(page.name)}
-            <i class="fas fa-chevron-right arrow"></i>
-          </div>
-          <ul class="submenu" id="submenu-${page.id}">
-            ${page.subPages.map(sub => `
-              <li><a data-page="${sub.id}" onclick="showAdminPage('${sub.id}')">
-                <i class="fas ${sub.icon || 'fa-circle'}"></i> ${escapeHtml(sub.name)}
-                ${sub.isPublic ? '<span class="privacy-badge public">PUBLIC</span>' : '<span class="privacy-badge private">PRIVATE</span>'}
-              </a></li>
-            `).join('')}
-          </ul>
-        </li>
-      `;
-    } else {
-      html += `
-        <li><a class="menu-link" data-page="${page.id}" onclick="showAdminPage('${page.id}')">
-          <i class="fas ${page.icon} menu-icon"></i> ${escapeHtml(page.name)} ${privacyBadge}
-        </a></li>
-      `;
-    }
-  });
   menu.innerHTML = html;
 }
 
-function toggleMenuSection(sectionId) {
-  const submenu = document.getElementById('submenu-' + sectionId);
-  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
-  if (!submenu || !toggle) return;
-  const isOpen = submenu.classList.contains('open');
-  closeAllMenuSections();
-  if (!isOpen) {
-    submenu.classList.add('open');
-    toggle.classList.add('open');
+// ============================================================
+// SHOW ADMIN PAGE
+// ============================================================
+function showAdminPage(page) {
+  markActivity();
+  document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
+  const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
+  if (activeLink) activeLink.classList.add('active');
+
+  const titles = {
+    'dashboard': '📊 <span>Dashboard</span>',
+    'content-manager': '🎨 <span>Content Manager</span>',
+    'jobs-manager': '💼 <span>Jobs Manager</span>',
+    'blog-manager': '📝 <span>Blog Manager</span>',
+    'career-manager': '🎯 <span>Career Manager</span>',
+    'service-manager': '🛠️ <span>Service Manager</span>',
+    'more-manager': '📚 <span>More Manager</span>',
+    'rsr-manager': '📜 <span>RSR Manager</span>',
+    'settings': '⚙️ <span>Settings</span>'
+  };
+  document.getElementById('adminPageTitle').innerHTML = titles[page] || '📄 <span>Page</span>';
+
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  const section = document.getElementById('adminPage-' + page);
+  if (section) {
+    section.classList.add('active');
+    if (page === 'dashboard') updateStats();
+    if (page === 'content-manager') renderContentTabs();
+    if (page === 'jobs-manager') renderJobsTable();
+    if (page === 'blog-manager') renderPageData('blog');
+    if (page === 'career-manager') renderPageData('career');
+    if (page === 'service-manager') renderPageData('service');
+    if (page === 'more-manager') renderPageData('more');
+    if (page === 'rsr-manager') renderPageData('rsr');
+    if (page === 'settings') loadSettingsForm();
   }
-}
-function closeAllMenuSections() {
-  document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
-  document.querySelectorAll('.menu-toggle').forEach(t => t.classList.remove('open', 'has-active'));
+  if (window.innerWidth <= 768) closeSidebar();
 }
 
 // ============================================================
-// PAGES MANAGER
-// ============================================================
-function renderPagesGrid() {
-  const grid = document.getElementById('pagesGrid');
-  if (!grid) return;
-  let html = '';
-  pagesData.forEach(page => {
-    const subCount = page.subPages?.length || 0;
-    html += `
-      <div class="page-card">
-        <div class="page-card-icon"><i class="fas ${page.icon}"></i></div>
-        <h4>${escapeHtml(page.name)}</h4>
-        <div class="page-card-meta">
-          ${page.isPublic ? '<span class="page-card-badge public">PUBLIC</span>' : '<span class="page-card-badge private">PRIVATE</span>'}
-          <span style="margin-left:6px;">${subCount} sub-pages</span>
-        </div>
-        <div class="page-card-actions">
-          <button class="btn-i-edit" onclick="openPageModal('${page.id}')"><i class="fas fa-edit"></i> Edit</button>
-          <button class="${page.isPublic ? 'btn-i-private' : 'btn-i-public'}" onclick="togglePagePrivacy('${page.id}')">
-            <i class="fas fa-${page.isPublic ? 'lock' : 'unlock'}"></i> ${page.isPublic ? 'Private' : 'Public'}
-          </button>
-          <button class="btn-i-delete" onclick="deletePage('${page.id}')"><i class="fas fa-trash"></i></button>
-        </div>
-      </div>
-    `;
-  });
-  grid.innerHTML = html;
-}
-
-function openPageModal(parentId = null, subId = null) {
-  const isSubEdit = parentId && subId;
-  const isParentEdit = parentId && !subId;
-  let page = null;
-  if (isSubEdit) {
-    const parent = pagesData.find(p => p.id === parentId);
-    if (parent) page = parent.subPages.find(s => s.id === subId);
-  } else if (isParentEdit) {
-    page = pagesData.find(p => p.id === parentId);
-  }
-  const title = isSubEdit ? '✏️ Edit Sub-Page' : isParentEdit ? '✏️ Edit Page' : '➕ Add New Page';
-  document.getElementById('adminModalTitle').textContent = title;
-  document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="pmParentId" value="${parentId || ''}">
-    <input type="hidden" id="pmSubId" value="${subId || ''}">
-    <input type="hidden" id="pmIsSub" value="${isSubEdit ? '1' : '0'}">
-    <div class="form-row">
-      <div class="form-group"><label>Page Name *</label><input type="text" id="pmName" value="${page ? escapeHtml(page.name) : ''}"></div>
-      <div class="form-group"><label>Icon</label><input type="text" id="pmIcon" value="${page ? page.icon : 'fa-file-alt'}"></div>
-    </div>
-    <div class="form-group">
-      <label>Privacy</label>
-      <select id="pmPrivacy">
-        <option value="public" ${(!page || page.isPublic) ? 'selected' : ''}>🌐 Public</option>
-        <option value="private" ${(page && !page.isPublic) ? 'selected' : ''}>🔒 Private</option>
-      </select>
-    </div>
-    ${!isSubEdit ? `
-      <div class="form-group">
-        <label>Parent Page (optional)</label>
-        <select id="pmParentSelect">
-          <option value="">-- Top Level --</option>
-          ${pagesData.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('')}
-        </select>
-      </div>
-    ` : ''}
-    <div style="margin-top:16px;">
-      <button class="btn-submit" onclick="savePage()"><i class="fas fa-save"></i> Save</button>
-      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
-    </div>
-  `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-}
-
-function savePage() {
-  const parentId = document.getElementById('pmParentId')?.value || '';
-  const subId = document.getElementById('pmSubId')?.value || '';
-  const isSub = document.getElementById('pmIsSub')?.value === '1';
-  const name = document.getElementById('pmName').value.trim();
-  const icon = document.getElementById('pmIcon').value.trim() || 'fa-file-alt';
-  const isPublic = document.getElementById('pmPrivacy').value === 'public';
-  const newParentId = document.getElementById('pmParentSelect')?.value || '';
-  if (!name) return showToast('Name required!', 'error');
-  if (isSub) {
-    const parent = pagesData.find(p => p.id === parentId);
-    if (parent) {
-      const sub = parent.subPages.find(s => s.id === subId);
-      if (sub) { sub.name = name; sub.icon = icon; sub.isPublic = isPublic; }
-    }
-  } else if (parentId) {
-    const page = pagesData.find(p => p.id === parentId);
-    if (page) { page.name = name; page.icon = icon; page.isPublic = isPublic; }
-  } else {
-    const newId = 'page-' + Date.now();
-    const newPage = { id: newId, name, icon, isPublic, subPages: [] };
-    if (newParentId) {
-      const parent = pagesData.find(p => p.id === newParentId);
-      if (parent) { if (!parent.subPages) parent.subPages = []; parent.subPages.push(newPage); }
-    } else { pagesData.push(newPage); }
-  }
-  savePages();
-  renderSidebar();
-  renderPagesGrid();
-  updateStats();
-  closeAdminModal();
-  showToast('✅ Saved!', 'success');
-}
-
-function togglePagePrivacy(pageId) {
-  const page = pagesData.find(p => p.id === pageId);
-  if (!page) return;
-  page.isPublic = !page.isPublic;
-  savePages();
-  renderSidebar();
-  renderPagesGrid();
-  showToast(`✅ Now ${page.isPublic ? 'PUBLIC' : 'PRIVATE'}`, 'success');
-}
-
-function deletePage(pageId) {
-  if (!confirm('Delete this page?')) return;
-  pagesData = pagesData.filter(p => p.id !== pageId);
-  savePages();
-  renderSidebar();
-  renderPagesGrid();
-  updateStats();
-  showToast('🗑️ Deleted!', 'success');
-}
-
-function resetPagesToDefault() {
-  if (!confirm('Reset pages to default?')) return;
-  pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES));
-  savePages();
-  renderSidebar();
-  renderPagesGrid();
-  updateStats();
-  showToast('🔄 Reset!', 'success');
-}
-
-// ============================================================
-// CONTENT MANAGER
+// CONTENT MANAGER (Stories, Videos, Ads, Insta, Colleges)
 // ============================================================
 function switchContentTab(tab) {
   document.querySelectorAll('.content-tab-content').forEach(c => c.classList.remove('active'));
@@ -1174,7 +1130,7 @@ function renderStories() {
   const c = document.getElementById('storiesContainer');
   if (!c) return;
   const items = contentData.stories || [];
-  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><p>No stories yet</p></div>'; return; }
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><p>No stories</p></div>'; return; }
   c.innerHTML = items.map((s, i) => `
     <div class="data-item">
       <div class="item-sno">${i + 1}</div>
@@ -1249,13 +1205,13 @@ function renderVideos() {
   const c = document.getElementById('videosContainer');
   if (!c) return;
   const items = contentData.videos || [];
-  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fab fa-youtube"></i><p>No videos yet</p></div>'; return; }
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fab fa-youtube"></i><p>No videos</p></div>'; return; }
   c.innerHTML = items.map((v, i) => `
     <div class="data-item">
       <div class="item-sno" style="background:#FF0000;">▶</div>
       <div class="item-content">
         <div class="item-title">${escapeHtml(v.title)}</div>
-        <div class="item-meta">ID: ${escapeHtml(v.id)} • ${escapeHtml(v.views || '')}</div>
+        <div class="item-meta">ID: ${escapeHtml(v.id)}</div>
       </div>
       <div class="item-actions">
         <button class="btn-i-edit" onclick="openVideoModal(${i})"><i class="fas fa-edit"></i></button>
@@ -1267,13 +1223,13 @@ function renderVideos() {
 
 function openVideoModal(idx = null) {
   const isEdit = idx !== null;
-  const v = isEdit ? contentData.videos[idx] : { id: '', title: '', views: '0 views' };
+  const v = isEdit ? contentData.videos[idx] : { id: '', title: '', views: '' };
   document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Video' : '➕ Add Video';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="videoIdx" value="${isEdit ? idx : -1}">
     <div class="form-group"><label>YouTube Video ID *</label><input type="text" id="vidId" value="${escapeHtml(v.id)}" placeholder="dQw4w9WgXcQ"></div>
     <div class="form-group"><label>Title *</label><input type="text" id="vidTitle" value="${escapeHtml(v.title)}"></div>
-    <div class="form-group"><label>Views</label><input type="text" id="vidViews" value="${escapeHtml(v.views || '0 views')}"></div>
+    <div class="form-group"><label>Views</label><input type="text" id="vidViews" value="${escapeHtml(v.views || '')}"></div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="saveVideo()"><i class="fas fa-save"></i> Save</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
@@ -1311,7 +1267,7 @@ function renderAds() {
   const c = document.getElementById('adsContainer');
   if (!c) return;
   const items = contentData.ads || [];
-  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-ad"></i><p>No ads yet</p></div>'; return; }
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-ad"></i><p>No ads</p></div>'; return; }
   c.innerHTML = items.map((a, i) => `
     <div class="data-item">
       <div class="item-sno" style="background:#f59e0b;">💰</div>
@@ -1329,7 +1285,7 @@ function renderAds() {
 
 function openAdModal(idx = null) {
   const isEdit = idx !== null;
-  const a = isEdit ? contentData.ads[idx] : { label: 'Advertisement', text: 'Your Ad Here', position: 'top', code: '' };
+  const a = isEdit ? contentData.ads[idx] : { label: 'Advertisement', text: '', position: 'top', code: '' };
   document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Ad' : '➕ Add Ad';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="adIdx" value="${isEdit ? idx : -1}">
@@ -1344,7 +1300,7 @@ function openAdModal(idx = null) {
       </div>
     </div>
     <div class="form-group"><label>Text</label><input type="text" id="adText" value="${escapeHtml(a.text || '')}"></div>
-    <div class="form-group"><label>Ad Code</label><textarea id="adCode" rows="4">${escapeHtml(a.code || '')}</textarea></div>
+    <div class="form-group"><label>Ad Code</label><textarea id="adCode" rows="3">${escapeHtml(a.code || '')}</textarea></div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="saveAd()"><i class="fas fa-save"></i> Save</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
@@ -1382,7 +1338,7 @@ function renderInsta() {
   const c = document.getElementById('instaContainer');
   if (!c) return;
   const items = contentData.instaPosts || [];
-  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fab fa-instagram"></i><p>No posts yet</p></div>'; return; }
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fab fa-instagram"></i><p>No posts</p></div>'; return; }
   c.innerHTML = items.map((p, i) => `
     <div class="data-item">
       <div class="item-sno" style="background:linear-gradient(45deg,#f09433,#dc2743);">📸</div>
@@ -1443,7 +1399,7 @@ function renderColleges() {
   const c = document.getElementById('collegesContainer');
   if (!c) return;
   const items = contentData.colleges || [];
-  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-school"></i><p>No colleges yet</p></div>'; return; }
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-school"></i><p>No colleges</p></div>'; return; }
   c.innerHTML = items.map((col, i) => `
     <div class="data-item">
       <div class="item-sno" style="background:#16a34a;">🏫</div>
@@ -1562,7 +1518,7 @@ function renderJobsTable() {
 function openJobModal(index = null) {
   const isEdit = index !== null;
   const job = isEdit ? jobsData[index] : { title: '', jobType: 'central', department: '', post: '', eligibility: '', age: '', lastDate: '', website: '', description: '' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Job` : '💼 Add Job';
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Job' : '💼 Add Job';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="jobIndex" value="${isEdit ? index : -1}">
     <div class="form-row">
@@ -1583,11 +1539,9 @@ function openJobModal(index = null) {
       <div class="form-group"><label>Eligibility</label><input type="text" id="jElig" value="${escapeHtml(job.eligibility || '')}"></div>
       <div class="form-group"><label>Age</label><input type="text" id="jAge" value="${escapeHtml(job.age || '')}"></div>
     </div>
-    <div class="form-row">
-      <div class="form-group"><label>Last Date</label><input type="date" id="jLastDate" value="${job.lastDate || ''}"></div>
-      <div class="form-group"><label>Website</label><input type="url" id="jWebsite" value="${escapeHtml(job.website || '')}"></div>
+    <div class="form-group"><label>Description</label>
+      ${getWordEditorHTML(job.description || '')}
     </div>
-    <div class="form-group"><label>Description</label><textarea id="jDesc" rows="3">${escapeHtml(job.description || '')}</textarea></div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
@@ -1607,9 +1561,7 @@ function saveJob() {
     post: document.getElementById('jPost').value,
     eligibility: document.getElementById('jElig').value,
     age: document.getElementById('jAge').value,
-    lastDate: document.getElementById('jLastDate').value,
-    website: document.getElementById('jWebsite').value,
-    description: document.getElementById('jDesc').value,
+    description: document.getElementById('richEditor').innerHTML,
     createdAt: Date.now()
   };
   if (idx >= 0) jobsData[idx] = { ...jobsData[idx], ...job };
@@ -1635,8 +1587,7 @@ function openBulkJobModal() {
   document.getElementById('adminModalBody').innerHTML = `
     <div class="form-group">
       <label>Format: Title | Type | Department</label>
-      <textarea id="bulkJobsText" rows="10" placeholder="SSC CGL | central | SSC
-RAS | state | RPSC"></textarea>
+      <textarea id="bulkJobsText" rows="10"></textarea>
     </div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="doBulkAddJobs()"><i class="fas fa-layer-group"></i> Bulk Add</button>
@@ -1648,7 +1599,7 @@ RAS | state | RPSC"></textarea>
 
 function doBulkAddJobs() {
   const text = document.getElementById('bulkJobsText').value.trim();
-  if (!text) return showToast('Data दें', 'error');
+  if (!text) return showToast('Data required', 'error');
   let count = 0;
   text.split('\n').filter(l => l.trim()).forEach(line => {
     const p = line.split('|').map(x => x.trim());
@@ -1664,17 +1615,749 @@ function doBulkAddJobs() {
 }
 
 // ============================================================
+// PAGE DATA (Blog, Career, Service, More, RSR) — Full Editor
+// ============================================================
+function renderPageData(pageKey) {
+  const containerId = pageKey + 'Container';
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  const data = pageDataStore[pageKey] || { content: '', items: [] };
+  let html = '';
+
+  // Content section
+  html += `
+    <div class="admin-card" style="margin-bottom:16px;">
+      <div class="card-header">
+        <h4>📄 Page Content</h4>
+        <div style="display:flex;gap:6px;">
+          <button class="btn-add" onclick="openPageEditorModal('${pageKey}')"><i class="fas fa-edit"></i> Edit</button>
+          <button class="btn-add primary" onclick="exportContent('${pageKey}')"><i class="fas fa-download"></i> Export</button>
+        </div>
+      </div>
+      <div style="padding:12px;background:var(--bg-color);border-radius:8px;max-height:300px;overflow-y:auto;">
+        ${data.content || '<em style="color:var(--text-light);">No content yet. Click Edit.</em>'}
+      </div>
+    </div>
+  `;
+
+  // Items section
+  html += `
+    <div class="admin-card">
+      <div class="card-header">
+        <h4>📋 Items (${(data.items || []).length})</h4>
+        <button class="btn-add" onclick="openPageItemModal('${pageKey}')"><i class="fas fa-plus"></i> Add Item</button>
+      </div>
+      <div id="${pageKey}-items-list"></div>
+    </div>
+  `;
+
+  c.innerHTML = html;
+  renderPageItemsList(pageKey);
+}
+
+function renderPageItemsList(pageKey) {
+  const c = document.getElementById(pageKey + '-items-list');
+  if (!c) return;
+  const items = pageDataStore[pageKey]?.items || [];
+  if (!items.length) {
+    c.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No items yet</p></div>';
+    return;
+  }
+  c.innerHTML = items.map((item, idx) => `
+    <div class="data-item">
+      <div class="item-sno">${idx + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(item.title || 'Untitled')}</div>
+        <div class="item-meta">${item.category ? `📁 ${escapeHtml(item.category)}` : ''} ${item.link ? '• 🔗 Link' : ''}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-i-preview" onclick="previewItem('${pageKey}', ${idx})"><i class="fas fa-eye"></i></button>
+        <button class="btn-i-edit" onclick="openPageItemModal('${pageKey}', ${idx})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deletePageItem('${pageKey}', ${idx})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ---- PAGE CONTENT EDITOR (Word + Excel + Uploads + Export) ----
+function openPageEditorModal(pageKey) {
+  const content = pageDataStore[pageKey]?.content || '';
+  document.getElementById('adminModalTitle').textContent = `✏️ Edit ${pageKey} Content`;
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="pePageKey" value="${pageKey}">
+
+    <!-- MODE TABS -->
+    <div style="display:flex;gap:6px;margin-bottom:12px;border-bottom:2px solid var(--border-color);padding-bottom:8px;">
+      <button class="settings-tab-btn active" onclick="switchPEMode('word')" id="pe-tab-word">📝 Word Editor</button>
+      <button class="settings-tab-btn" onclick="switchPEMode('excel')" id="pe-tab-excel">📊 Excel Editor</button>
+      <button class="settings-tab-btn" onclick="switchPEMode('upload')" id="pe-tab-upload">📤 Uploads</button>
+    </div>
+
+    <!-- WORD EDITOR -->
+    <div id="pe-mode-word" class="pe-mode">
+      ${getWordEditorHTML(content)}
+    </div>
+
+    <!-- EXCEL EDITOR -->
+    <div id="pe-mode-excel" class="pe-mode" style="display:none;">
+      <div id="excelEditorContainer"></div>
+    </div>
+
+    <!-- UPLOADS -->
+    <div id="pe-mode-upload" class="pe-mode" style="display:none;">
+      <div class="setting-group">
+        <h5>📄 Upload PDF</h5>
+        <input type="file" id="peUploadPdf" accept=".pdf" onchange="handlePageUpload('${pageKey}', 'pdf', this)">
+        <div class="uploaded-files" id="pe-files-pdf"></div>
+      </div>
+      <div class="setting-group">
+        <h5>🖼️ Upload Photo</h5>
+        <input type="file" id="peUploadImg" accept="image/*" onchange="handlePageUpload('${pageKey}', 'image', this)">
+        <div class="uploaded-files" id="pe-files-img"></div>
+      </div>
+      <div class="setting-group">
+        <h5>📁 Upload Soft Copy (Any File)</h5>
+        <input type="file" id="peUploadFile" onchange="handlePageUpload('${pageKey}', 'file', this)">
+        <div class="uploaded-files" id="pe-files-file"></div>
+      </div>
+      <div class="setting-group">
+        <h5>📊 Upload Excel</h5>
+        <input type="file" id="peUploadExcel" accept=".xlsx,.xls,.csv" onchange="handlePageUpload('${pageKey}', 'excel', this)">
+        <div class="uploaded-files" id="pe-files-excel"></div>
+      </div>
+    </div>
+
+    <!-- EXPORT BAR -->
+    <div class="export-bar">
+      <button class="btn-pdf" onclick="exportContentPDF('${pageKey}')"><i class="fas fa-file-pdf"></i> PDF</button>
+      <button class="btn-word" onclick="exportContentWord('${pageKey}')"><i class="fas fa-file-word"></i> Word</button>
+      <button class="btn-excel" onclick="exportContentExcel('${pageKey}')"><i class="fas fa-file-excel"></i> Excel</button>
+      <button class="btn-csv" onclick="exportContentCSV('${pageKey}')"><i class="fas fa-file-csv"></i> CSV</button>
+      <button class="btn-print" onclick="exportContentPrint('${pageKey}')"><i class="fas fa-print"></i> Print</button>
+    </div>
+
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="savePageContent('${pageKey}')"><i class="fas fa-save"></i> Save Content</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+
+  // Load uploaded files
+  loadPageUploadedFiles(pageKey);
+  // Load Excel editor
+  setTimeout(() => initExcelEditor(), 100);
+}
+
+function switchPEMode(mode) {
+  document.querySelectorAll('.pe-mode').forEach(m => m.style.display = 'none');
+  document.querySelectorAll('[id^="pe-tab-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('pe-mode-' + mode).style.display = 'block';
+  document.getElementById('pe-tab-' + mode).classList.add('active');
+}
+
+function savePageContent(pageKey) {
+  if (!pageDataStore[pageKey]) pageDataStore[pageKey] = { content: '', items: [] };
+  pageDataStore[pageKey].content = document.getElementById('richEditor').innerHTML;
+  savePageData();
+  renderPageData(pageKey);
+  closeAdminModal();
+  showToast('✅ Content saved!', 'success');
+}
+
+// ---- PAGE ITEM EDITOR ----
+function openPageItemModal(pageKey, idx = null) {
+  const isEdit = idx !== null;
+  const item = isEdit ? pageDataStore[pageKey].items[idx] : { title: '', description: '', category: '', link: '' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Item` : '➕ Add Item';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="piPage" value="${pageKey}">
+    <input type="hidden" id="piIdx" value="${isEdit ? idx : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="piTitle" value="${escapeHtml(item.title)}"></div>
+      <div class="form-group"><label>Category</label><input type="text" id="piCategory" value="${escapeHtml(item.category)}"></div>
+    </div>
+    <div class="form-group"><label>Link URL</label><input type="url" id="piLink" value="${escapeHtml(item.link || '')}"></div>
+    <div class="form-group"><label>📝 Description (Word Editor)</label>${getWordEditorHTML(item.description || '')}</div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="savePageItem()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function savePageItem() {
+  const pageKey = document.getElementById('piPage').value;
+  const idx = parseInt(document.getElementById('piIdx').value);
+  const title = document.getElementById('piTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+  if (!pageDataStore[pageKey]) pageDataStore[pageKey] = { content: '', items: [] };
+  if (!pageDataStore[pageKey].items) pageDataStore[pageKey].items = [];
+  const item = {
+    title,
+    category: document.getElementById('piCategory').value,
+    description: document.getElementById('richEditor').innerHTML,
+    link: document.getElementById('piLink').value,
+    createdAt: Date.now()
+  };
+  if (idx >= 0) pageDataStore[pageKey].items[idx] = item;
+  else pageDataStore[pageKey].items.push(item);
+  savePageData();
+  renderPageItemsList(pageKey);
+  renderPageData(pageKey);
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
+}
+
+function deletePageItem(pageKey, idx) {
+  if (!confirm('Delete?')) return;
+  pageDataStore[pageKey].items.splice(idx, 1);
+  savePageData();
+  renderPageData(pageKey);
+  showToast('🗑️ Deleted!', 'success');
+}
+
+function previewItem(pageKey, idx) {
+  const item = pageDataStore[pageKey].items[idx];
+  if (!item) return;
+  document.getElementById('adminModalTitle').textContent = '👁️ Preview: ' + item.title;
+  document.getElementById('adminModalBody').innerHTML = `
+    <div style="padding:16px;background:var(--bg-color);border-radius:8px;">
+      <h2 style="color:var(--primary-blue);margin-bottom:8px;">${escapeHtml(item.title)}</h2>
+      ${item.category ? `<div style="display:inline-block;background:var(--secondary-blue);color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;margin-bottom:8px;">${escapeHtml(item.category)}</div>` : ''}
+      <div style="margin-top:8px;">${item.description || ''}</div>
+      ${item.link ? `<div style="margin-top:12px;"><a href="${item.link}" target="_blank" style="background:var(--success-green);color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;">🔗 Open Link</a></div>` : ''}
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+// ============================================================
+// WORD EDITOR
+// ============================================================
+function getWordEditorHTML(content) {
+  return `
+    <div class="word-toolbar">
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('bold')"><i class="fas fa-bold"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('italic')"><i class="fas fa-italic"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('underline')"><i class="fas fa-underline"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('strikeThrough')"><i class="fas fa-strikethrough"></i></button>
+      </div>
+      <div class="tb-group">
+        <select onchange="weFormat(this.value)">
+          <option value="p">Normal</option>
+          <option value="h1">H1</option><option value="h2">H2</option><option value="h3">H3</option>
+          <option value="h4">H4</option><option value="h5">H5</option><option value="h6">H6</option>
+          <option value="blockquote">Quote</option><option value="pre">Code</option>
+        </select>
+      </div>
+      <div class="tb-group">
+        <select onchange="weCmd('fontName', this.value)">
+          <option value="Arial">Arial</option>
+          <option value="Times New Roman">Times</option>
+          <option value="Calibri">Calibri</option>
+          <option value="Georgia">Georgia</option>
+        </select>
+        <select onchange="weCmd('fontSize', this.value)">
+          <option value="1">8</option><option value="2">10</option>
+          <option value="3" selected>12</option><option value="4">14</option>
+          <option value="5">18</option><option value="6">24</option><option value="7">36</option>
+        </select>
+      </div>
+      <div class="tb-group">
+        <input type="color" class="color-picker" value="#000000" onchange="weCmd('foreColor', this.value)" title="Font Color">
+        <input type="color" class="color-picker" value="#ffff00" onchange="weCmd('hiliteColor', this.value)" title="Highlight">
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('justifyLeft')"><i class="fas fa-align-left"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('justifyCenter')"><i class="fas fa-align-center"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('justifyRight')"><i class="fas fa-align-right"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('justifyFull')"><i class="fas fa-align-justify"></i></button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+        <button type="button" class="tb-btn" onclick="weCmd('insertOrderedList')"><i class="fas fa-list-ol"></i></button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weInsertLink()"><i class="fas fa-link"></i></button>
+        <button type="button" class="tb-btn" onclick="weInsertImage()"><i class="fas fa-image"></i></button>
+        <button type="button" class="tb-btn" onclick="weInsertTable()"><i class="fas fa-table"></i></button>
+      </div>
+      <div class="tb-group">
+        <button type="button" class="tb-btn" onclick="weCmd('removeFormat')"><i class="fas fa-eraser"></i></button>
+      </div>
+    </div>
+    <div class="word-editor-wrap">
+      <div class="page" id="wordPage">
+        <div id="richEditor" contenteditable="true">${content || ''}</div>
+      </div>
+    </div>
+  `;
+}
+
+function weCmd(cmd, val) { document.execCommand(cmd, false, val || null); document.getElementById('richEditor')?.focus(); }
+function weFormat(tag) { document.execCommand('formatBlock', false, tag); document.getElementById('richEditor')?.focus(); }
+function weInsertLink() {
+  const url = prompt('Link URL:', 'https://');
+  if (!url) return;
+  const text = prompt('Link Text:', url);
+  if (!text) return;
+  document.execCommand('insertHTML', false, `<a href="${url}" target="_blank">${text}</a>`);
+}
+function weInsertImage() {
+  const url = prompt('Image URL:', 'https://');
+  if (!url) return;
+  document.execCommand('insertHTML', false, `<img src="${url}"><p><br></p>`);
+}
+function weInsertTable() {
+  const r = parseInt(prompt('Rows:', '3')) || 3;
+  const c = parseInt(prompt('Columns:', '3')) || 3;
+  let html = '<table>';
+  for (let i = 0; i < r; i++) {
+    html += '<tr>';
+    for (let j = 0; j < c; j++) html += `<td>Cell</td>`;
+    html += '</tr>';
+  }
+  html += '</table><p><br></p>';
+  document.execCommand('insertHTML', false, html);
+}
+
+// ============================================================
+// EXCEL EDITOR
+// ============================================================
+let excelData = [['', '', ''], ['', '', ''], ['', '', '']];
+function initExcelEditor() {
+  const container = document.getElementById('excelEditorContainer');
+  if (!container) return;
+  renderExcelTable();
+}
+function renderExcelTable() {
+  const container = document.getElementById('excelEditorContainer');
+  if (!container) return;
+  let html = `
+    <div class="excel-toolbar">
+      <button onclick="excelAddRow()"><i class="fas fa-plus"></i> Add Row</button>
+      <button onclick="excelAddCol()"><i class="fas fa-plus"></i> Add Column</button>
+      <button onclick="excelRemoveRow()"><i class="fas fa-minus"></i> Remove Row</button>
+      <button onclick="excelRemoveCol()"><i class="fas fa-minus"></i> Remove Column</button>
+    </div>
+    <div class="excel-wrap">
+      <table class="excel-table" id="excelTable">
+  `;
+  excelData.forEach((row, ri) => {
+    html += '<tr>';
+    row.forEach((cell, ci) => {
+      html += `<td><input type="text" value="${escapeHtml(cell)}" onchange="excelUpdate(${ri}, ${ci}, this.value)"></td>`;
+    });
+    html += '</tr>';
+  });
+  html += `</table></div>`;
+  container.innerHTML = html;
+}
+function excelUpdate(ri, ci, val) { excelData[ri][ci] = val; }
+function excelAddRow() { excelData.push(new Array(excelData[0].length).fill('')); renderExcelTable(); }
+function excelAddCol() { excelData.forEach(r => r.push('')); renderExcelTable(); }
+function excelRemoveRow() { if (excelData.length > 1) { excelData.pop(); renderExcelTable(); } }
+function excelRemoveCol() { if (excelData[0].length > 1) { excelData.forEach(r => r.pop()); renderExcelTable(); } }
+
+// ============================================================
+// UPLOADS
+// ============================================================
+async function handlePageUpload(pageKey, type, input) {
+  const file = input.files[0];
+  if (!file) return;
+  showToast('⏳ Uploading...', 'info');
+
+  if (!pageDataStore[pageKey]) pageDataStore[pageKey] = { content: '', items: [], uploads: [] };
+  if (!pageDataStore[pageKey].uploads) pageDataStore[pageKey].uploads = [];
+
+  let url = '';
+  try {
+    if (firebaseStorage) {
+      const ref = firebaseStorage.ref(`page-uploads/${pageKey}/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      url = await ref.getDownloadURL();
+    } else {
+      // Fallback: base64
+      url = await new Promise((res) => {
+        const reader = new FileReader();
+        reader.onload = e => res(e.target.result);
+        reader.readAsDataURL(file);
+      });
+    }
+    pageDataStore[pageKey].uploads.push({
+      type,
+      name: file.name,
+      url,
+      size: file.size,
+      uploadedAt: Date.now()
+    });
+    savePageData();
+    loadPageUploadedFiles(pageKey);
+    showToast('✅ Uploaded!', 'success');
+  } catch (err) {
+    showToast('Upload failed: ' + err.message, 'error');
+  }
+  input.value = '';
+}
+
+function loadPageUploadedFiles(pageKey) {
+  const uploads = pageDataStore[pageKey]?.uploads || [];
+  ['pdf', 'image', 'file', 'excel'].forEach(type => {
+    const container = document.getElementById('pe-files-' + type);
+    if (!container) return;
+    const filtered = uploads.filter(u => u.type === type);
+    if (!filtered.length) { container.innerHTML = ''; return; }
+    container.innerHTML = filtered.map((u, idx) => `
+      <div class="uploaded-file">
+        <i class="fas fa-file"></i>
+        <span style="flex:1;word-break:break-all;">${escapeHtml(u.name)}</span>
+        <a href="${u.url}" target="_blank" style="color:var(--secondary-blue);"><i class="fas fa-eye"></i></a>
+        <button onclick="deletePageUpload('${pageKey}', '${u.url}')"><i class="fas fa-times"></i></button>
+      </div>
+    `).join('');
+  });
+}
+
+function deletePageUpload(pageKey, url) {
+  if (!confirm('Remove this file?')) return;
+  if (pageDataStore[pageKey]?.uploads) {
+    pageDataStore[pageKey].uploads = pageDataStore[pageKey].uploads.filter(u => u.url !== url);
+    savePageData();
+    loadPageUploadedFiles(pageKey);
+    showToast('🗑️ Removed', 'info');
+  }
+}
+
+// ============================================================
+// EXPORT FUNCTIONS
+// ============================================================
+function exportContentPDF(pageKey) {
+  const editor = document.getElementById('richEditor');
+  if (!editor) return showToast('Editor not found', 'error');
+  const content = editor.innerHTML;
+
+  if (window.html2pdf) {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    tempDiv.style.cssText = 'padding:20px;font-family:Arial;line-height:1.6;';
+    html2pdf().from(tempDiv).set({
+      margin: 10,
+      filename: `${pageKey}_content.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).save();
+    showToast('📥 PDF downloading...', 'success');
+  } else {
+    showToast('PDF library not loaded', 'error');
+  }
+}
+
+function exportContentWord(pageKey) {
+  const editor = document.getElementById('richEditor');
+  if (!editor) return;
+  const content = editor.innerHTML;
+  const html = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>${pageKey}</title><style>body{font-family:Arial;}</style></head><body>${content}</body></html>`;
+  const blob = new Blob(['\uFEFF' + html], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${pageKey}_content.doc`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('📥 Word downloaded!', 'success');
+}
+
+function exportContentExcel(pageKey) {
+  const data = [['Content'], [stripHtml(document.getElementById('richEditor')?.innerHTML || '')]];
+  const ws = XLSX.utils.aoa_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Content');
+  XLSX.writeFile(wb, `${pageKey}_content.xlsx`);
+  showToast('📥 Excel downloaded!', 'success');
+}
+
+function exportContentCSV(pageKey) {
+  const content = stripHtml(document.getElementById('richEditor')?.innerHTML || '');
+  const csv = '\uFEFF' + 'Content\n"' + content.replace(/"/g, '""') + '"';
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${pageKey}_content.csv`;
+  a.click();
+  showToast('📥 CSV downloaded!', 'success');
+}
+
+function exportContentPrint(pageKey) {
+  const content = document.getElementById('richEditor')?.innerHTML || '';
+  const win = window.open('', '_blank');
+  win.document.write(`<html><head><title>Print</title><style>body{font-family:Arial;padding:40px;line-height:1.6;}table{border-collapse:collapse;width:100%;}td,th{border:1px solid #999;padding:8px;}img{max-width:100%;}</style></head><body>${content}</body></html>`);
+  win.document.close();
+  setTimeout(() => win.print(), 500);
+  showToast('🖨️ Print dialog opening...', 'info');
+}
+
+function exportPageData(pageKey) {
+  const data = pageDataStore[pageKey] || {};
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${pageKey}_data.json`;
+  a.click();
+  showToast('📥 Exported!', 'success');
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function stripHtml(html) {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || '';
+}
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ============================================================
 // STATS
 // ============================================================
 function updateStats() {
   const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-  let totalPages = 0;
-  pagesData.forEach(p => { totalPages++; if (p.subPages) totalPages += p.subPages.length; });
-  setEl('statPages', totalPages);
+  setEl('statPages', Object.keys(pageDataStore).length);
   setEl('statJobs', jobsData.length);
   setEl('statStories', (contentData.stories || []).length);
   setEl('statVideos', (contentData.videos || []).length);
   setEl('statColleges', (contentData.colleges || []).length);
+}
+
+// ============================================================
+// SETTINGS FUNCTIONS
+// ============================================================
+function switchSettingsTab(tab) {
+  document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
+  document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('settings-tab-' + tab)?.classList.add('active');
+}
+
+function loadSettingsForm() {
+  loadSettings();
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+  const setC = (id, v) => { const el = document.getElementById(id); if (el) el.checked = !!v; };
+
+  set('setSiteName', settings.siteName);
+  set('setTagline', settings.tagline);
+  set('setSiteDesc', settings.siteDesc);
+
+  set('setEmail', settings.email);
+  set('setPhone', settings.phone);
+  set('setWhatsApp', settings.whatsapp);
+  set('setAddress', settings.address);
+  set('setMapsUrl', settings.mapsUrl);
+
+  set('setPrimaryColor', settings.primaryColor);
+  set('setSecondaryColor', settings.secondaryColor);
+  set('setAccentColor', settings.accentColor);
+  set('setFontFamily', settings.fontFamily);
+  set('setThemeMode', settings.themeMode);
+  set('setCustomCss', settings.customCss);
+
+  set('setHomeLimit', settings.homeLimit);
+  set('setItemsPerPage', settings.itemsPerPage);
+  set('setLayout', settings.layout);
+  set('setShowTicker', settings.showTicker);
+  setC('setShowStories', settings.showStories);
+  setC('setShowVideos', settings.showVideos);
+  setC('setShowInstagram', settings.showInstagram);
+  setC('setShowColleges', settings.showColleges);
+  setC('setShowAgeCalc', settings.showAgeCalc);
+
+  set('setFacebook', settings.facebook);
+  set('setInstagram', settings.instagram);
+  set('setYouTube', settings.youtube);
+  set('setTelegram', settings.telegram);
+  set('setWhatsAppLink', settings.whatsappLink);
+  set('setTwitter', settings.twitter);
+  set('setLinkedIn', settings.linkedin);
+
+  set('setMetaTitle', settings.metaTitle);
+  set('setMetaDesc', settings.metaDesc);
+  set('setKeywords', settings.keywords);
+  set('setOgImage', settings.ogImage);
+  set('setGAId', settings.gaId);
+  set('setGSCode', settings.gsCode);
+
+  set('setTickerText', settings.tickerText);
+  set('setAnnouncementBar', settings.announcementBar);
+  set('setMaintenanceMode', settings.maintenanceMode);
+  set('setMaintenanceMsg', settings.maintenanceMsg);
+
+  set('setCurUsername', getAdminCreds().username);
+  set('setSessionTimeout', settings.sessionTimeout);
+  set('setIdleTimeout', settings.idleTimeout);
+
+  set('setGAnalyticsId', settings.gaAnalyticsId);
+  set('setGTMId', settings.gtmId);
+  set('setFBPixelId', settings.fbPixelId);
+  set('setCustomCode', settings.customCode);
+}
+
+function saveSettingsGroup(group) {
+  const gv = id => document.getElementById(id)?.value || '';
+  const gc = id => document.getElementById(id)?.checked || false;
+
+  if (group === 'general') {
+    settings.siteName = gv('setSiteName');
+    settings.tagline = gv('setTagline');
+    settings.siteDesc = gv('setSiteDesc');
+  }
+  if (group === 'contact') {
+    settings.email = gv('setEmail');
+    settings.phone = gv('setPhone');
+    settings.whatsapp = gv('setWhatsApp');
+    settings.address = gv('setAddress');
+    settings.mapsUrl = gv('setMapsUrl');
+  }
+  if (group === 'appearance') {
+    settings.primaryColor = gv('setPrimaryColor');
+    settings.secondaryColor = gv('setSecondaryColor');
+    settings.accentColor = gv('setAccentColor');
+    settings.fontFamily = gv('setFontFamily');
+    settings.themeMode = gv('setThemeMode');
+    settings.customCss = gv('setCustomCss');
+  }
+  if (group === 'homepage') {
+    settings.homeLimit = parseInt(gv('setHomeLimit')) || 6;
+    settings.itemsPerPage = parseInt(gv('setItemsPerPage')) || 12;
+    settings.layout = gv('setLayout');
+    settings.showTicker = gv('setShowTicker');
+    settings.showStories = gc('setShowStories');
+    settings.showVideos = gc('setShowVideos');
+    settings.showInstagram = gc('setShowInstagram');
+    settings.showColleges = gc('setShowColleges');
+    settings.showAgeCalc = gc('setShowAgeCalc');
+  }
+  if (group === 'social') {
+    settings.facebook = gv('setFacebook');
+    settings.instagram = gv('setInstagram');
+    settings.youtube = gv('setYouTube');
+    settings.telegram = gv('setTelegram');
+    settings.whatsappLink = gv('setWhatsAppLink');
+    settings.twitter = gv('setTwitter');
+    settings.linkedin = gv('setLinkedIn');
+  }
+  if (group === 'seo') {
+    settings.metaTitle = gv('setMetaTitle');
+    settings.metaDesc = gv('setMetaDesc');
+    settings.keywords = gv('setKeywords');
+    settings.ogImage = gv('setOgImage');
+    settings.gaId = gv('setGAId');
+    settings.gsCode = gv('setGSCode');
+  }
+  if (group === 'announcements') {
+    settings.tickerText = gv('setTickerText');
+    settings.announcementBar = gv('setAnnouncementBar');
+    settings.maintenanceMode = gv('setMaintenanceMode');
+    settings.maintenanceMsg = gv('setMaintenanceMsg');
+  }
+  if (group === 'security') {
+    settings.sessionTimeout = parseInt(gv('setSessionTimeout')) || 480;
+    settings.idleTimeout = parseInt(gv('setIdleTimeout')) || 10;
+  }
+  if (group === 'analytics') {
+    settings.gaAnalyticsId = gv('setGAnalyticsId');
+    settings.gtmId = gv('setGTMId');
+    settings.fbPixelId = gv('setFBPixelId');
+    settings.customCode = gv('setCustomCode');
+  }
+  saveSettings();
+  showToast('✅ ' + group + ' saved!', 'success');
+}
+
+function changeAdminPassword() {
+  const cur = document.getElementById('setCurPassword').value;
+  const n1 = document.getElementById('setNewPassword').value;
+  const n2 = document.getElementById('setConfirmPassword').value;
+  if (!cur || !n1 || !n2) return showToast('All fields required!', 'error');
+  const c = getAdminCreds();
+  if (cur !== c.password) return showToast('❌ Current password wrong!', 'error');
+  if (n1 !== n2) return showToast('❌ Passwords do not match!', 'error');
+  if (n1.length < 6) return showToast('⚠️ Password 6+ chars', 'error');
+  saveAdminCreds(c.username, n1);
+  document.getElementById('setCurPassword').value = '';
+  document.getElementById('setNewPassword').value = '';
+  document.getElementById('setConfirmPassword').value = '';
+  showToast('✅ Password changed!', 'success');
+}
+
+function changeAdminUsername() {
+  const u = document.getElementById('setNewUsername').value.trim();
+  if (!u) return showToast('New username required', 'error');
+  const c = getAdminCreds();
+  saveAdminCreds(u, c.password);
+  document.getElementById('setCurUsername').value = u;
+  document.getElementById('setNewUsername').value = '';
+  showToast('✅ Username changed!', 'success');
+}
+
+function exportAllData() {
+  const data = { appData, jobsData, pageDataStore, contentData, settings };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dreamjosh_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  showToast('📥 Backup!', 'success');
+}
+
+function exportAllDataCSV() {
+  let csv = '\uFEFF';
+  csv += 'Type,Title,Category,Department,Link\n';
+  jobsData.forEach(j => {
+    csv += `Job,"${(j.title || '').replace(/"/g, '""')}","${(j.jobType || '').replace(/"/g, '""')}","${(j.department || '').replace(/"/g, '""')}",""\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dreamjosh_data_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  showToast('📊 CSV exported!', 'success');
+}
+
+function importData() {
+  const file = document.getElementById('restoreFileInput').files[0];
+  if (!file) return showToast('File required', 'error');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!confirm('Replace data?')) return;
+      if (data.appData) appData = data.appData;
+      if (data.jobsData) jobsData = data.jobsData;
+      if (data.pageDataStore) pageDataStore = data.pageDataStore;
+      if (data.contentData) contentData = data.contentData;
+      if (data.settings) settings = data.settings;
+      saveData(); savePageData(); saveContent(); saveSettings();
+      renderSidebar(); renderContentTabs(); updateStats();
+      showToast('✅ Restored!', 'success');
+    } catch (err) { showToast('❌ Invalid file', 'error'); }
+  };
+  reader.readAsText(file);
+}
+
+function clearAllAdminData() {
+  if (!confirm('⚠️ All data delete?')) return;
+  if (!confirm('Sure?')) return;
+  [STORAGE_KEY, PAGE_DATA_KEY, CONTENT_KEY, SETTINGS_KEY].forEach(k => localStorage.removeItem(k));
+  showToast('🗑️ Cleared!', 'success');
+  setTimeout(() => location.reload(), 1500);
 }
 
 // ============================================================
@@ -1762,7 +2445,7 @@ function initIdleLogout() {
       destroySession();
       document.getElementById('loginScreen').classList.add('active');
       document.getElementById('adminWrapper').classList.remove('active');
-      setTimeout(() => alert('🔒 10 minute inactivity — Auto logout.'), 100);
+      setTimeout(() => alert('🔒 10 min inactivity — Auto logout.'), 100);
     }
   }, 1000);
 }
@@ -1790,9 +2473,6 @@ function showToast(msg, type = 'info') {
   document.body.appendChild(t);
   setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
 }
-function escapeHtml(s) {
-  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
 function toggleSidebar() {
   document.getElementById('adminSidebar').classList.toggle('open');
   document.getElementById('sidebarOverlay').classList.toggle('active');
@@ -1803,161 +2483,28 @@ function closeSidebar() {
 }
 
 // ============================================================
-// SETTINGS FUNCTIONS
+// INIT
 // ============================================================
-function switchSettingsTab(tab) {
-  document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
-  document.querySelectorAll('.settings-tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById('settings-tab-' + tab)?.classList.add('active');
-}
-
-function loadSettingsForm() {
+async function initAdminPanel() {
+  loadData();
+  loadPageData();
+  await loadPageDataFromCloud();
+  loadContent();
   loadSettings();
-  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
-  const setC = (id, v) => { const el = document.getElementById(id); if (el) el.checked = !!v; };
-
-  set('setSiteName', settings.siteName);
-  set('setTagline', settings.tagline);
-  set('setSiteDesc', settings.siteDesc);
-
-  set('setEmail', settings.email);
-  set('setPhone', settings.phone);
-  set('setWhatsApp', settings.whatsapp);
-  set('setAddress', settings.address);
-  set('setMapsUrl', settings.mapsUrl);
-
-  set('setPrimaryColor', settings.primaryColor);
-  set('setSecondaryColor', settings.secondaryColor);
-  set('setAccentColor', settings.accentColor);
-  set('setFontFamily', settings.fontFamily);
-  set('setThemeMode', settings.themeMode);
-  set('setCustomCss', settings.customCss);
-
-  set('setHomeLimit', settings.homeLimit);
-  set('setItemsPerPage', settings.itemsPerPage);
-  set('setLayout', settings.layout);
-  set('setShowTicker', settings.showTicker);
-  setC('setShowStories', settings.showStories);
-  setC('setShowVideos', settings.showVideos);
-  setC('setShowInstagram', settings.showInstagram);
-  setC('setShowColleges', settings.showColleges);
-  setC('setShowAgeCalc', settings.showAgeCalc);
-  setC('setShowAds', settings.showAds);
-
-  set('setFacebook', settings.facebook);
-  set('setInstagram', settings.instagram);
-  set('setYouTube', settings.youtube);
-  set('setTelegram', settings.telegram);
-  set('setWhatsAppLink', settings.whatsappLink);
-  set('setTwitter', settings.twitter);
-  set('setLinkedIn', settings.linkedin);
-
-  set('setMetaTitle', settings.metaTitle);
-  set('setMetaDesc', settings.metaDesc);
-  set('setKeywords', settings.keywords);
-  set('setOgImage', settings.ogImage);
-  set('setGAId', settings.gaId);
-  set('setGSCode', settings.gsCode);
-
-  set('setTickerText', settings.tickerText);
-  set('setAnnouncementBar', settings.announcementBar);
-  set('setMaintenanceMode', settings.maintenanceMode);
-  set('setMaintenanceMsg', settings.maintenanceMsg);
-  set('setShowPopup', settings.showPopup);
-  set('setPopupText', settings.popupText);
-
-  set('setCurUsername', getAdminCreds().username);
-  set('setSessionTimeout', settings.sessionTimeout);
-  set('setIdleTimeout', settings.idleTimeout);
-  set('set2FA', settings.twoFA);
-  set('setAutoBackup', settings.autoBackup);
-
-  set('setGAnalyticsId', settings.gaAnalyticsId);
-  set('setGTMId', settings.gtmId);
-  set('setFBPixelId', settings.fbPixelId);
-  set('setCustomCode', settings.customCode);
-}
-
-function saveSettingsGroup(group) {
-  const gv = id => document.getElementById(id)?.value || '';
-  const gc = id => document.getElementById(id)?.checked || false;
-
-  if (group === 'general') {
-    settings.siteName = gv('setSiteName');
-    settings.tagline = gv('setTagline');
-    settings.siteDesc = gv('setSiteDesc');
-  }
-  if (group === 'contact') {
-    settings.email = gv('setEmail');
-    settings.phone = gv('setPhone');
-    settings.whatsapp = gv('setWhatsApp');
-    settings.address = gv('setAddress');
-    settings.mapsUrl = gv('setMapsUrl');
-  }
-  if (group === 'appearance') {
-    settings.primaryColor = gv('setPrimaryColor');
-    settings.secondaryColor = gv('setSecondaryColor');
-    settings.accentColor = gv('setAccentColor');
-    settings.fontFamily = gv('setFontFamily');
-    settings.themeMode = gv('setThemeMode');
-    settings.customCss = gv('setCustomCss');
-  }
-  if (group === 'homepage') {
-    settings.homeLimit = parseInt(gv('setHomeLimit')) || 6;
-    settings.itemsPerPage = parseInt(gv('setItemsPerPage')) || 12;
-    settings.layout = gv('setLayout');
-    settings.showTicker = gv('setShowTicker');
-    settings.showStories = gc('setShowStories');
-    settings.showVideos = gc('setShowVideos');
-    settings.showInstagram = gc('setShowInstagram');
-    settings.showColleges = gc('setShowColleges');
-    settings.showAgeCalc = gc('setShowAgeCalc');
-    settings.showAds = gc('setShowAds');
-  }
-  if (group === 'social') {
-    settings.facebook = gv('setFacebook');
-    settings.instagram = gv('setInstagram');
-    settings.youtube = gv('setYouTube');
-    settings.telegram = gv('setTelegram');
-    settings.whatsappLink = gv('setWhatsAppLink');
-    settings.twitter = gv('setTwitter');
-    settings.linkedin = gv('setLinkedIn');
-  }
-  if (group === 'seo') {
-    settings.metaTitle = gv('setMetaTitle');
-    settings.metaDesc = gv('setMetaDesc');
-    settings.keywords = gv('setKeywords');
-    settings.ogImage = gv('setOgImage');
-    settings.gaId = gv('setGAId');
-    settings.gsCode = gv('setGSCode');
-  }
-  if (group === 'announcements') {
-    settings.tickerText = gv('setTickerText');
-    settings.announcementBar = gv('setAnnouncementBar');
-    settings.maintenanceMode = gv('setMaintenanceMode');
-    settings.maintenanceMsg = gv('setMaintenanceMsg');
-    settings.showPopup = gv('setShowPopup');
-    settings.popupText = gv('setPopupText');
-  }
-  if (group === 'security') {
-    settings.sessionTimeout = parseInt(gv('setSessionTimeout')) || 480;
-    settings.idleTimeout = parseInt(gv('setIdleTimeout')) || 10;
-    settings.twoFA = gv('set2FA');
-  }
-  if (group === 'backup') {
-    settings.autoBackup = gv('setAutoBackup');
-  }
-  if (group === 'analytics') {
-    settings.gaAnalyticsId = gv('setGAnalyticsId');
-    settings.gtmId = gv('setGTMId');
-    settings.fbPixelId = gv('setFBPixelId');
-    settings.customCode = gv('setCustomCode');
-  }
-
-  saveSettings();
   applyAppearanceSettings();
-  showToast('✅ ' + group + ' settings saved!', 'success');
+  await loadContentFromCloud();
+  renderSidebar();
+  renderContentTabs();
+  updateStats();
+  showAdminPage('dashboard');
+
+  setTimeout(() => {
+    initVipClock();
+    initIdleLogout();
+    console.log('👑 Admin v10.0 Ready');
+    console.log('📄 Pages loaded:', Object.keys(pageDataStore).length);
+    console.log('💼 Jobs:', jobsData.length);
+  }, 200);
 }
 
 function applyAppearanceSettings() {
@@ -1969,159 +2516,6 @@ function applyAppearanceSettings() {
   else if (settings.themeMode === 'light') document.body.classList.remove('dark-mode');
 }
 
-function changeAdminPassword() {
-  const cur = document.getElementById('setCurPassword').value;
-  const n1 = document.getElementById('setNewPassword').value;
-  const n2 = document.getElementById('setConfirmPassword').value;
-  if (!cur || !n1 || !n2) return showToast('सभी fields भरें!', 'error');
-  const c = getAdminCreds();
-  if (cur !== c.password) return showToast('❌ Current password गलत!', 'error');
-  if (n1 !== n2) return showToast('❌ Passwords match नहीं!', 'error');
-  if (n1.length < 6) return showToast('⚠️ 6+ chars', 'error');
-  saveAdminCreds(c.username, n1);
-  document.getElementById('setCurPassword').value = '';
-  document.getElementById('setNewPassword').value = '';
-  document.getElementById('setConfirmPassword').value = '';
-  showToast('✅ Password changed!', 'success');
-}
-
-function changeAdminUsername() {
-  const u = document.getElementById('setNewUsername').value.trim();
-  if (!u) return showToast('New username daalein', 'error');
-  const c = getAdminCreds();
-  saveAdminCreds(u, c.password);
-  document.getElementById('setCurUsername').value = u;
-  document.getElementById('setNewUsername').value = '';
-  showToast('✅ Username changed!', 'success');
-}
-
-function exportAllData() {
-  const data = { appData, jobsData, pagesData, contentData, settings };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `dreamjosh_backup_${new Date().toISOString().slice(0, 10)}.json`;
-  a.click();
-  showToast('📥 Backup!', 'success');
-}
-
-function exportAllDataCSV() {
-  let csv = '\uFEFF';
-  csv += 'Type,Title,Category,Department,Link\n';
-  jobsData.forEach(j => {
-    csv += `Job,"${(j.title || '').replace(/"/g, '""')}","${(j.jobType || '').replace(/"/g, '""')}","${(j.department || '').replace(/"/g, '""')}",""\n`;
-  });
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `dreamjosh_data_${new Date().toISOString().slice(0, 10)}.csv`;
-  a.click();
-  showToast('📊 CSV exported!', 'success');
-}
-
-function importData() {
-  const file = document.getElementById('restoreFileInput').files[0];
-  if (!file) return showToast('File चुनें', 'error');
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    try {
-      const data = JSON.parse(e.target.result);
-      if (!confirm('Replace data?')) return;
-      if (data.appData) appData = data.appData;
-      if (data.jobsData) jobsData = data.jobsData;
-      if (data.pagesData) pagesData = data.pagesData;
-      if (data.contentData) contentData = data.contentData;
-      if (data.settings) settings = data.settings;
-      saveData(); savePages(); saveContent(); saveSettings();
-      renderSidebar(); renderPagesGrid(); renderJobsTable(); renderContentTabs(); updateStats();
-      showToast('✅ Restored!', 'success');
-    } catch (err) { showToast('❌ Invalid file', 'error'); }
-  };
-  reader.readAsText(file);
-}
-
-function clearAllAdminData() {
-  if (!confirm('⚠️ All data delete?')) return;
-  if (!confirm('Sure?')) return;
-  [STORAGE_KEY, PAGES_KEY, CONTENT_KEY, SETTINGS_KEY, ACTIVITY_LOG_KEY].forEach(k => localStorage.removeItem(k));
-  showToast('🗑️ Cleared!', 'success');
-  setTimeout(() => location.reload(), 1500);
-}
-
-// ============================================================
-// SHOW ADMIN PAGE
-// ============================================================
-function showAdminPage(page) {
-  markActivity();
-  document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
-  const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
-  if (activeLink) activeLink.classList.add('active');
-
-  closeAllMenuSections();
-  const parent = pagesData.find(p => p.id === page || (p.subPages && p.subPages.some(s => s.id === page)));
-  if (parent && parent.subPages && parent.subPages.length) {
-    const submenu = document.getElementById('submenu-' + parent.id);
-    const toggle = document.querySelector(`.menu-toggle[data-section="${parent.id}"]`);
-    if (submenu && toggle) { submenu.classList.add('open'); toggle.classList.add('open'); }
-  }
-
-  const titles = {
-    'dashboard': '📊 <span>Dashboard</span>',
-    'pages': '📄 <span>Pages Manager</span>',
-    'content-manager': '🎨 <span>Content Manager</span>',
-    'jobs-manager': '💼 <span>Jobs Manager</span>',
-    'settings': '⚙️ <span>Settings</span>'
-  };
-  document.getElementById('adminPageTitle').innerHTML = titles[page] || '📄 <span>Page</span>';
-
-  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-  const section = document.getElementById('adminPage-' + page);
-  if (section) {
-    section.classList.add('active');
-    if (page === 'dashboard') updateStats();
-    if (page === 'pages') renderPagesGrid();
-    if (page === 'content-manager') renderContentTabs();
-    if (page === 'jobs-manager') renderJobsTable();
-    if (page === 'settings') loadSettingsForm();
-  }
-  if (window.innerWidth <= 768) closeSidebar();
-}
-
-function findPageById(pageId) {
-  for (const p of pagesData) {
-    if (p.id === pageId) return { ...p, isParent: true };
-    if (p.subPages) {
-      const s = p.subPages.find(sp => sp.id === pageId);
-      if (s) return { ...s, isSub: true, parent: p };
-    }
-  }
-  return null;
-}
-
-// ============================================================
-// INIT
-// ============================================================
-async function initAdminPanel() {
-  loadData();
-  loadPages();
-  loadContent();
-  loadSettings();
-  loadActivityLog();
-  applyAppearanceSettings();
-  await loadContentFromCloud();
-  renderSidebar();
-  renderPagesGrid();
-  renderContentTabs();
-  updateStats();
-  showAdminPage('dashboard');
-
-  setTimeout(() => {
-    initVipClock();
-    initIdleLogout();
-    console.log('👑 Admin v9.0 Ready');
-  }, 200);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   if (isLoggedIn()) showAdminPanel();
   else showLoginScreen();
@@ -2129,9 +2523,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 Object.assign(window, {
   handleLogin, handleLogout, showAdminPage, toggleSidebar,
-  toggleMenuSection, closeAllMenuSections,
-  openPageModal, savePage, togglePagePrivacy, deletePage, resetPagesToDefault,
-  switchContentTab,
+  switchContentTab, switchContentTab,
   openStoryModal, saveStory, deleteStory,
   openVideoModal, saveVideo, deleteVideo,
   openAdModal, saveAd, deleteAd,
@@ -2139,6 +2531,13 @@ Object.assign(window, {
   openCollegeModal, saveCollege, deleteCollege,
   openJobModal, saveJob, deleteJob, openBulkJobModal, doBulkAddJobs,
   filterJobs,
+  renderPageData, renderPageItemsList,
+  openPageEditorModal, switchPEMode, savePageContent,
+  openPageItemModal, savePageItem, deletePageItem, previewItem,
+  weCmd, weFormat, weInsertLink, weInsertImage, weInsertTable,
+  excelUpdate, excelAddRow, excelAddCol, excelRemoveRow, excelRemoveCol,
+  handlePageUpload, deletePageUpload,
+  exportContent, exportContentPDF, exportContentWord, exportContentExcel, exportContentCSV, exportContentPrint, exportPageData,
   switchSettingsTab, saveSettingsGroup, changeAdminPassword, changeAdminUsername,
   exportAllData, exportAllDataCSV, importData, clearAllAdminData,
   closeAdminModal, toggleDarkMode, showToast
