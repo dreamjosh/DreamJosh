@@ -171,11 +171,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .toast.info{background:#1976d2;}
 .toast.warning{background:#f59e0b;}
 
-/* Content Manager Tabs */
 .content-tab-content{display:none;}
 .content-tab-content.active{display:block;}
 
-/* Page Manager */
 .page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:12px;}
 .page-card{background:var(--card-bg);border-radius:10px;padding:16px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);transition:0.3s;position:relative;}
 .page-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow-color);border-color:var(--gold);}
@@ -188,7 +186,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .page-card .page-card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
 .page-card .page-card-actions button{padding:4px 10px;font-size:11px;border-radius:5px;border:none;cursor:pointer;font-weight:600;transition:0.2s;}
 
-/* Settings */
 .settings-tab-btn{padding:8px 16px;border:2px solid var(--border-color);border-radius:20px;background:var(--bg-color);color:var(--text-color);font-size:12px;font-weight:600;cursor:pointer;transition:.3s;}
 .settings-tab-btn.active{background:var(--secondary-blue);color:#fff;border-color:var(--secondary-blue);}
 .settings-tab-content{display:none;}
@@ -199,13 +196,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .setting-row{display:grid;grid-template-columns:200px 1fr;gap:12px;align-items:center;margin-bottom:10px;}
 .setting-row label{font-size:12.5px;font-weight:600;color:var(--text-color);}
 .setting-row input[type="text"],.setting-row input[type="email"],.setting-row input[type="tel"],.setting-row input[type="url"],.setting-row input[type="number"],.setting-row input[type="password"],.setting-row select,.setting-row textarea{width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;font-size:13px;background:var(--card-bg);color:var(--text-color);font-family:inherit;}
+.setting-row input[type="color"]{width:60px;height:40px;padding:2px;border:2px solid var(--border-color);border-radius:6px;cursor:pointer;}
+.setting-row input[type="checkbox"]{width:20px;height:20px;cursor:pointer;accent-color:var(--primary-blue);}
 .btn-setting{padding:8px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;min-height:38px;margin-right:8px;margin-top:8px;display:inline-flex;align-items:center;gap:6px;}
 .btn-setting.primary{background:var(--secondary-blue);color:#fff;}
 .btn-setting.success{background:var(--success-green);color:#fff;}
 .btn-setting.danger{background:var(--warning-red);color:#fff;}
-.activity-log-item{padding:6px 10px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;font-size:11.5px;}
-.activity-log-item:last-child{border-bottom:none;}
-.activity-log-item .log-time{color:var(--text-light);font-size:10px;}
 
 .admin-menu-toggle{display:none;background:var(--secondary);color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:16px;cursor:pointer;}
 @media(max-width:768px){
@@ -219,7 +215,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;}
 .sidebar-overlay.active{display:block;}
 
-/* VIP */
 @keyframes vipGradient{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 .admin-wrapper.active{background:linear-gradient(-45deg,#eef5ff,#dbeafe,#e0e7ff,#f0f9ff);background-size:400% 400%;animation:vipGradient 15s ease infinite;}
 .dark-mode .admin-wrapper.active{background:linear-gradient(-45deg,#0a0e1a,#141428,#1a1a3a,#0d1b3e);background-size:400% 400%;animation:vipGradient 15s ease infinite;}
@@ -332,7 +327,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- CONTENT MANAGER (NEW) -->
+    <!-- CONTENT MANAGER -->
     <div id="adminPage-content-manager" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
@@ -409,47 +404,255 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- SETTINGS -->
+    <!-- ============================================ -->
+    <!-- SETTINGS — 10 TABS -->
+    <!-- ============================================ -->
     <div id="adminPage-settings" class="admin-section">
       <div class="admin-card">
-        <div class="card-header"><h4>⚙️ Settings</h4></div>
+        <div class="card-header"><h4>⚙️ Settings</h4>
+          <span style="font-size:12px;color:var(--text-light);">Saare settings yahan se manage karein</span>
+        </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
           <button class="settings-tab-btn active" data-tab="general" onclick="switchSettingsTab('general')">🏠 General</button>
+          <button class="settings-tab-btn" data-tab="contact" onclick="switchSettingsTab('contact')">📞 Contact</button>
+          <button class="settings-tab-btn" data-tab="appearance" onclick="switchSettingsTab('appearance')">🎨 Appearance</button>
+          <button class="settings-tab-btn" data-tab="homepage" onclick="switchSettingsTab('homepage')">📊 Homepage</button>
+          <button class="settings-tab-btn" data-tab="social" onclick="switchSettingsTab('social')">🔗 Social</button>
+          <button class="settings-tab-btn" data-tab="seo" onclick="switchSettingsTab('seo')">🔍 SEO</button>
+          <button class="settings-tab-btn" data-tab="announcements" onclick="switchSettingsTab('announcements')">📢 Announcements</button>
           <button class="settings-tab-btn" data-tab="security" onclick="switchSettingsTab('security')">🔐 Security</button>
           <button class="settings-tab-btn" data-tab="backup" onclick="switchSettingsTab('backup')">💾 Backup</button>
+          <button class="settings-tab-btn" data-tab="analytics" onclick="switchSettingsTab('analytics')">📈 Analytics</button>
         </div>
+
+        <!-- GENERAL -->
         <div class="settings-tab-content active" id="settings-tab-general">
           <div class="setting-group">
-            <h5>🌐 Site Info</h5>
-            <div class="setting-row"><label>Site Name</label><input type="text" id="setSiteName"></div>
-            <div class="setting-row"><label>Tagline</label><input type="text" id="setTagline"></div>
+            <h5>🌐 Site Information</h5>
+            <div class="setting-row"><label>Site Name</label><input type="text" id="setSiteName" placeholder="Dream Josh"></div>
+            <div class="setting-row"><label>Tagline</label><input type="text" id="setTagline" placeholder="Career & Study Platform"></div>
+            <div class="setting-row"><label>Description</label><textarea id="setSiteDesc" rows="2"></textarea></div>
+            <div class="setting-row"><label>Logo Upload</label><input type="file" id="setLogo" accept="image/*"></div>
+            <div class="setting-row"><label>Favicon Upload</label><input type="file" id="setFavicon" accept="image/*"></div>
           </div>
-          <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save</button>
+          <button class="btn-setting success" onclick="saveSettingsGroup('general')"><i class="fas fa-save"></i> Save General</button>
         </div>
+
+        <!-- CONTACT -->
+        <div class="settings-tab-content" id="settings-tab-contact">
+          <div class="setting-group">
+            <h5>📞 Contact Info</h5>
+            <div class="setting-row"><label>Email</label><input type="email" id="setEmail" placeholder="info@dreamjosh.com"></div>
+            <div class="setting-row"><label>Phone</label><input type="tel" id="setPhone" placeholder="+91 99999 99999"></div>
+            <div class="setting-row"><label>WhatsApp</label><input type="tel" id="setWhatsApp" placeholder="+91 99999 99999"></div>
+            <div class="setting-row"><label>Address</label><textarea id="setAddress" rows="2"></textarea></div>
+            <div class="setting-row"><label>Google Maps URL</label><input type="url" id="setMapsUrl"></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('contact')"><i class="fas fa-save"></i> Save Contact</button>
+        </div>
+
+        <!-- APPEARANCE -->
+        <div class="settings-tab-content" id="settings-tab-appearance">
+          <div class="setting-group">
+            <h5>🎨 Colors</h5>
+            <div class="setting-row"><label>Primary Color</label><input type="color" id="setPrimaryColor" value="#123c9b"></div>
+            <div class="setting-row"><label>Secondary Color</label><input type="color" id="setSecondaryColor" value="#1976d2"></div>
+            <div class="setting-row"><label>Accent Color</label><input type="color" id="setAccentColor" value="#ffd700"></div>
+          </div>
+          <div class="setting-group">
+            <h5>🔤 Typography</h5>
+            <div class="setting-row"><label>Font Family</label>
+              <select id="setFontFamily">
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="'Segoe UI', sans-serif">Segoe UI</option>
+                <option value="Roboto, sans-serif">Roboto</option>
+                <option value="'Nirmala UI', sans-serif">Nirmala UI (Hindi)</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-group">
+            <h5>🎭 Theme</h5>
+            <div class="setting-row"><label>Theme Mode</label>
+              <select id="setThemeMode">
+                <option value="light">☀️ Light</option>
+                <option value="dark">🌙 Dark</option>
+                <option value="auto">🌓 Auto</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-group">
+            <h5>💻 Custom CSS</h5>
+            <div class="setting-row"><label>Custom CSS</label><textarea id="setCustomCss" rows="5" placeholder="/* Custom CSS */"></textarea></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('appearance')"><i class="fas fa-save"></i> Save Appearance</button>
+        </div>
+
+        <!-- HOMEPAGE -->
+        <div class="settings-tab-content" id="settings-tab-homepage">
+          <div class="setting-group">
+            <h5>📊 Display Settings</h5>
+            <div class="setting-row"><label>Home Limit</label><input type="number" id="setHomeLimit" value="6" min="1" max="50"></div>
+            <div class="setting-row"><label>Items Per Page</label><input type="number" id="setItemsPerPage" value="12" min="1" max="100"></div>
+            <div class="setting-row"><label>Layout</label>
+              <select id="setLayout"><option value="grid">Grid</option><option value="list">List</option><option value="card">Card</option></select>
+            </div>
+            <div class="setting-row"><label>Show Ticker</label>
+              <select id="setShowTicker"><option value="yes">Yes</option><option value="no">No</option></select>
+            </div>
+          </div>
+          <div class="setting-group">
+            <h5>🎛️ Section Toggles</h5>
+            <div class="setting-row"><label>Show Success Stories</label><input type="checkbox" id="setShowStories" checked></div>
+            <div class="setting-row"><label>Show YouTube Videos</label><input type="checkbox" id="setShowVideos" checked></div>
+            <div class="setting-row"><label>Show Instagram</label><input type="checkbox" id="setShowInstagram" checked></div>
+            <div class="setting-row"><label>Show Colleges</label><input type="checkbox" id="setShowColleges" checked></div>
+            <div class="setting-row"><label>Show Age Calculator</label><input type="checkbox" id="setShowAgeCalc" checked></div>
+            <div class="setting-row"><label>Show Ads</label><input type="checkbox" id="setShowAds" checked></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('homepage')"><i class="fas fa-save"></i> Save Homepage</button>
+        </div>
+
+        <!-- SOCIAL -->
+        <div class="settings-tab-content" id="settings-tab-social">
+          <div class="setting-group">
+            <h5>🔗 Social Media Links</h5>
+            <div class="setting-row"><label>📘 Facebook</label><input type="url" id="setFacebook"></div>
+            <div class="setting-row"><label>📷 Instagram</label><input type="url" id="setInstagram"></div>
+            <div class="setting-row"><label>▶️ YouTube</label><input type="url" id="setYouTube"></div>
+            <div class="setting-row"><label>✈️ Telegram</label><input type="url" id="setTelegram"></div>
+            <div class="setting-row"><label>💬 WhatsApp</label><input type="tel" id="setWhatsAppLink"></div>
+            <div class="setting-row"><label>🐦 Twitter / X</label><input type="url" id="setTwitter"></div>
+            <div class="setting-row"><label>💼 LinkedIn</label><input type="url" id="setLinkedIn"></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('social')"><i class="fas fa-save"></i> Save Social</button>
+        </div>
+
+        <!-- SEO -->
+        <div class="settings-tab-content" id="settings-tab-seo">
+          <div class="setting-group">
+            <h5>🔍 Meta Tags</h5>
+            <div class="setting-row"><label>Meta Title</label><input type="text" id="setMetaTitle"></div>
+            <div class="setting-row"><label>Meta Description</label><textarea id="setMetaDesc" rows="2"></textarea></div>
+            <div class="setting-row"><label>Keywords</label><input type="text" id="setKeywords"></div>
+            <div class="setting-row"><label>OG Image URL</label><input type="url" id="setOgImage"></div>
+          </div>
+          <div class="setting-group">
+            <h5>📊 Google Tools</h5>
+            <div class="setting-row"><label>Google Analytics ID</label><input type="text" id="setGAId" placeholder="G-XXXXXXXXXX"></div>
+            <div class="setting-row"><label>Search Console Code</label><input type="text" id="setGSCode"></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('seo')"><i class="fas fa-save"></i> Save SEO</button>
+        </div>
+
+        <!-- ANNOUNCEMENTS -->
+        <div class="settings-tab-content" id="settings-tab-announcements">
+          <div class="setting-group">
+            <h5>📢 Ticker & Bar</h5>
+            <div class="setting-row"><label>Ticker Text</label><input type="text" id="setTickerText"></div>
+            <div class="setting-row"><label>Announcement Bar</label><input type="text" id="setAnnouncementBar"></div>
+          </div>
+          <div class="setting-group">
+            <h5>🛠️ Maintenance Mode</h5>
+            <div class="setting-row"><label>Enable</label>
+              <select id="setMaintenanceMode"><option value="no">No</option><option value="yes">Yes</option></select>
+            </div>
+            <div class="setting-row"><label>Message</label><textarea id="setMaintenanceMsg" rows="2"></textarea></div>
+          </div>
+          <div class="setting-group">
+            <h5>🪟 Popup</h5>
+            <div class="setting-row"><label>Show Popup</label>
+              <select id="setShowPopup"><option value="no">No</option><option value="yes">Yes</option></select>
+            </div>
+            <div class="setting-row"><label>Popup Text</label><textarea id="setPopupText" rows="2"></textarea></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('announcements')"><i class="fas fa-save"></i> Save Announcements</button>
+        </div>
+
+        <!-- SECURITY -->
         <div class="settings-tab-content" id="settings-tab-security">
           <div class="setting-group">
             <h5>🔑 Change Password</h5>
-            <div class="setting-row"><label>Current</label><input type="password" id="setCurPassword"></div>
-            <div class="setting-row"><label>New</label><input type="password" id="setNewPassword"></div>
-            <div class="setting-row"><label>Confirm</label><input type="password" id="setConfirmPassword"></div>
+            <div class="setting-row"><label>Current Password</label><input type="password" id="setCurPassword"></div>
+            <div class="setting-row"><label>New Password</label><input type="password" id="setNewPassword"></div>
+            <div class="setting-row"><label>Confirm Password</label><input type="password" id="setConfirmPassword"></div>
             <button class="btn-setting danger" onclick="changeAdminPassword()" style="margin-top:8px;"><i class="fas fa-key"></i> Change Password</button>
           </div>
+          <div class="setting-group">
+            <h5>👤 Change Username</h5>
+            <div class="setting-row"><label>Current</label><input type="text" id="setCurUsername" readonly></div>
+            <div class="setting-row"><label>New</label><input type="text" id="setNewUsername"></div>
+            <button class="btn-setting primary" onclick="changeAdminUsername()" style="margin-top:8px;"><i class="fas fa-user-edit"></i> Change Username</button>
+          </div>
+          <div class="setting-group">
+            <h5>⏱️ Session</h5>
+            <div class="setting-row"><label>Session Timeout</label>
+              <select id="setSessionTimeout">
+                <option value="30">30 minutes</option>
+                <option value="60">1 hour</option>
+                <option value="480" selected>8 hours</option>
+                <option value="1440">24 hours</option>
+              </select>
+            </div>
+            <div class="setting-row"><label>Idle Timeout</label>
+              <select id="setIdleTimeout">
+                <option value="5">5 minutes</option>
+                <option value="10" selected>10 minutes</option>
+                <option value="15">15 minutes</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-group">
+            <h5>🔐 Two-Factor Auth</h5>
+            <div class="setting-row"><label>Enable 2FA</label>
+              <select id="set2FA"><option value="no">No</option><option value="yes">Yes</option></select>
+            </div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('security')"><i class="fas fa-save"></i> Save Security</button>
         </div>
+
+        <!-- BACKUP -->
         <div class="settings-tab-content" id="settings-tab-backup">
           <div class="setting-group">
-            <h5>💾 Backup</h5>
-            <button class="btn-setting success" onclick="exportAllData()"><i class="fas fa-download"></i> Backup JSON</button>
+            <h5>💾 Manual Backup</h5>
+            <button class="btn-setting success" onclick="exportAllData()"><i class="fas fa-download"></i> Download JSON Backup</button>
+            <button class="btn-setting primary" onclick="exportAllDataCSV()" style="margin-top:8px;"><i class="fas fa-file-csv"></i> Export CSV</button>
+          </div>
+          <div class="setting-group">
+            <h5>⏰ Auto Backup</h5>
+            <div class="setting-row"><label>Enable Auto Backup</label>
+              <select id="setAutoBackup"><option value="no">No</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select>
+            </div>
           </div>
           <div class="setting-group">
             <h5>📥 Restore</h5>
-            <input type="file" id="restoreFileInput" accept=".json">
-            <button class="btn-setting primary" onclick="importData()" style="margin-top:8px;"><i class="fas fa-upload"></i> Restore</button>
+            <input type="file" id="restoreFileInput" accept=".json" style="padding:6px;border:2px dashed var(--border-color);border-radius:6px;width:100%;">
+            <button class="btn-setting primary" onclick="importData()" style="margin-top:8px;"><i class="fas fa-upload"></i> Restore from File</button>
           </div>
           <div class="setting-group">
-            <h5>🗑️ Clear All</h5>
-            <button class="btn-setting danger" onclick="clearAllAdminData()"><i class="fas fa-trash"></i> Clear</button>
+            <h5>🗑️ Clear All Data</h5>
+            <p style="font-size:12px;color:var(--text-light);margin-bottom:8px;">Warning: This will delete all data permanently</p>
+            <button class="btn-setting danger" onclick="clearAllAdminData()"><i class="fas fa-trash"></i> Clear Everything</button>
           </div>
         </div>
+
+        <!-- ANALYTICS -->
+        <div class="settings-tab-content" id="settings-tab-analytics">
+          <div class="setting-group">
+            <h5>📈 Google Analytics</h5>
+            <div class="setting-row"><label>Google Analytics ID</label><input type="text" id="setGAnalyticsId" placeholder="G-XXXXXXXXXX"></div>
+            <div class="setting-row"><label>Google Tag Manager</label><input type="text" id="setGTMId" placeholder="GTM-XXXXXXX"></div>
+          </div>
+          <div class="setting-group">
+            <h5>📘 Facebook Pixel</h5>
+            <div class="setting-row"><label>Facebook Pixel ID</label><input type="text" id="setFBPixelId" placeholder="1234567890"></div>
+          </div>
+          <div class="setting-group">
+            <h5>💻 Custom Tracking Code</h5>
+            <div class="setting-row"><label>Custom Code</label><textarea id="setCustomCode" rows="5" placeholder="<!-- tracking code -->"></textarea></div>
+          </div>
+          <button class="btn-setting success" onclick="saveSettingsGroup('analytics')"><i class="fas fa-save"></i> Save Analytics</button>
+        </div>
+
       </div>
     </div>
 
@@ -514,31 +717,21 @@ const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
 // DEFAULT JOBS
 // ============================================================
 const DEFAULT_JOBS = [
-  { title: 'IAS (Indian Administrative Service)', jobType: 'central', department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', description: 'Premier civil service of India.' },
-  { title: 'IPS (Indian Police Service)', jobType: 'central', department: 'UPSC', post: 'IPS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', description: 'Maintains law and order.' },
-  { title: 'SSC CGL (Combined Graduate Level)', jobType: 'central', department: 'SSC', post: 'Various Group B & C', eligibility: 'Graduate', age: '18-32 Years', lastDate: '2026-07-15', website: 'https://ssc.nic.in', description: 'Group B and C posts.' },
-  { title: 'SSC CHSL (10+2 Level)', jobType: 'central', department: 'SSC', post: 'LDC, DEO', eligibility: '12th Pass', age: '18-27 Years', lastDate: '2026-08-01', website: 'https://ssc.nic.in', description: 'LDC and DEO posts.' },
-  { title: 'SSC MTS', jobType: 'central', department: 'SSC', post: 'MTS', eligibility: '10th Pass', age: '18-25 Years', lastDate: '2026-09-01', website: 'https://ssc.nic.in', description: 'Multi Tasking Staff.' },
-  { title: 'RRB NTPC', jobType: 'central', department: 'Railway (RRB)', post: 'Station Master, Clerk', eligibility: '12th/Graduate', age: '18-33 Years', lastDate: '2026-05-30', website: 'https://rrb.gov.in', description: 'Non-technical posts in Railways.' },
-  { title: 'RRB Group D', jobType: 'central', department: 'Railway (RRB)', post: 'Track Maintainer', eligibility: '10th Pass', age: '18-33 Years', lastDate: '2026-06-15', website: 'https://rrb.gov.in', description: 'Group D posts.' },
-  { title: 'IBPS PO', jobType: 'central', department: 'Banking (IBPS)', post: 'PO', eligibility: 'Graduate', age: '20-30 Years', lastDate: '2026-08-01', website: 'https://ibps.in', description: 'Probationary Officer.' },
-  { title: 'SBI PO', jobType: 'central', department: 'Banking (SBI)', post: 'PO', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-15', website: 'https://sbi.co.in', description: 'Top banking job.' },
-  { title: 'RBI Grade B Officer', jobType: 'central', department: 'Banking (RBI)', post: 'Grade B', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-10', website: 'https://rbi.org.in', description: 'Prestigious banking exam.' },
-  { title: 'NDA', jobType: 'central', department: 'Defence (NDA)', post: 'Cadet', eligibility: '12th Pass', age: '16.5-19.5 Years', lastDate: '2026-06-20', website: 'https://nda.nic.in', description: 'Defence entry.' },
-  { title: 'RAS (Rajasthan Administrative Service)', jobType: 'state', department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-07-20', website: 'https://rpsc.rajasthan.gov.in', description: 'State civil service.' },
-  { title: 'Rajasthan Police Constable', jobType: 'state', department: 'Rajasthan Police', post: 'Constable', eligibility: '10+2', age: '18-28 Years', lastDate: '2026-09-01', website: 'https://police.rajasthan.gov.in', description: 'Police constable.' },
-  { title: 'REET', jobType: 'state', department: 'Education (RBSE)', post: 'Teacher', eligibility: 'Graduate + B.Ed', age: '18-40 Years', lastDate: '2026-08-15', website: 'https://rajeduboard.rajasthan.gov.in', description: 'Teacher recruitment.' },
-  { title: 'RSMSSB LDC', jobType: 'state', department: 'RSMSSB', post: 'LDC', eligibility: '12th Pass', age: '18-40 Years', lastDate: '2026-08-25', website: 'https://rsmssb.rajasthan.gov.in', description: 'Lower Division Clerk.' },
-  { title: 'RSMSSB Patwari', jobType: 'state', department: 'Revenue (RSMSSB)', post: 'Patwari', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-10-01', website: 'https://rsmssb.rajasthan.gov.in', description: 'Patwari in Revenue.' },
-  { title: 'RPSC Lecturer', jobType: 'state', department: 'Education (RPSC)', post: 'Lecturer', eligibility: 'PG + NET', age: '21-40 Years', lastDate: '2026-11-01', website: 'https://rpsc.rajasthan.gov.in', description: 'College Lecturer.' },
-  { title: 'RPSC ACF', jobType: 'state', department: 'Forest (RPSC)', post: 'ACF', eligibility: 'Graduate/BSc', age: '21-40 Years', lastDate: '2026-08-20', website: 'https://rpsc.rajasthan.gov.in', description: 'Forest service.' },
-  { title: 'Rajasthan High Court Assistant', jobType: 'state', department: 'Judiciary (High Court)', post: 'Assistant', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-09-20', website: 'https://hcraj.nic.in', description: 'Assistant in HC.' },
-  { title: 'RSMSSB Agriculture Supervisor', jobType: 'state', department: 'Agriculture (RSMSSB)', post: 'Agriculture Supervisor', eligibility: 'BSc Agriculture', age: '18-40 Years', lastDate: '2026-12-01', website: 'https://rsmssb.rajasthan.gov.in', description: 'Agriculture Supervisor.' },
-  { title: 'Software Engineer – Google India', jobType: 'private', department: 'IT/Software', post: 'Software Engineer', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-04-15', website: 'https://careers.google.com', description: 'Google India hiring.' },
-  { title: 'Software Developer – Microsoft', jobType: 'private', department: 'IT/Software', post: 'Developer', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-05-01', website: 'https://careers.microsoft.com', description: 'Microsoft hiring.' },
-  { title: 'Data Analyst – Amazon', jobType: 'private', department: 'IT/Software', post: 'Data Analyst', eligibility: 'B.Tech/MBA', age: '22-35 Years', lastDate: '2026-05-15', website: 'https://amazon.jobs', description: 'Data Analyst role.' },
-  { title: 'Finance Manager – HSBC', jobType: 'private', department: 'Finance/Banking', post: 'Finance Manager', eligibility: 'CA/CFA/MBA', age: '25-40 Years', lastDate: '2026-05-10', website: 'https://www.hsbc.com/careers', description: 'Finance Manager.' },
-  { title: 'Marketing Executive – Amazon', jobType: 'private', department: 'Marketing/Sales', post: 'Marketing Executive', eligibility: 'MBA/BBA', age: '22-30 Years', lastDate: '2026-06-01', website: 'https://amazon.jobs', description: 'Marketing Executive.' }
+  { title: 'IAS (Indian Administrative Service)', jobType: 'central', department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', description: 'Premier civil service.' },
+  { title: 'IPS (Indian Police Service)', jobType: 'central', department: 'UPSC', post: 'IPS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', description: 'Law and order.' },
+  { title: 'SSC CGL', jobType: 'central', department: 'SSC', post: 'Group B & C', eligibility: 'Graduate', age: '18-32 Years', lastDate: '2026-07-15', website: 'https://ssc.nic.in', description: 'Group B & C posts.' },
+  { title: 'SSC CHSL', jobType: 'central', department: 'SSC', post: 'LDC, DEO', eligibility: '12th Pass', age: '18-27 Years', lastDate: '2026-08-01', website: 'https://ssc.nic.in', description: 'LDC and DEO.' },
+  { title: 'RRB NTPC', jobType: 'central', department: 'Railway', post: 'Station Master', eligibility: '12th/Graduate', age: '18-33 Years', lastDate: '2026-05-30', website: 'https://rrb.gov.in', description: 'Railway NTPC.' },
+  { title: 'IBPS PO', jobType: 'central', department: 'Banking', post: 'PO', eligibility: 'Graduate', age: '20-30 Years', lastDate: '2026-08-01', website: 'https://ibps.in', description: 'Bank PO.' },
+  { title: 'SBI PO', jobType: 'central', department: 'Banking', post: 'PO', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-15', website: 'https://sbi.co.in', description: 'SBI PO.' },
+  { title: 'NDA', jobType: 'central', department: 'Defence', post: 'Cadet', eligibility: '12th Pass', age: '16.5-19.5 Years', lastDate: '2026-06-20', website: 'https://nda.nic.in', description: 'Defence entry.' },
+  { title: 'RAS', jobType: 'state', department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-07-20', website: 'https://rpsc.rajasthan.gov.in', description: 'State civil service.' },
+  { title: 'Rajasthan Police Constable', jobType: 'state', department: 'Police', post: 'Constable', eligibility: '10+2', age: '18-28 Years', lastDate: '2026-09-01', website: 'https://police.rajasthan.gov.in', description: 'Police constable.' },
+  { title: 'REET', jobType: 'state', department: 'Education', post: 'Teacher', eligibility: 'Graduate + B.Ed', age: '18-40 Years', lastDate: '2026-08-15', website: 'https://rajeduboard.rajasthan.gov.in', description: 'Teacher recruitment.' },
+  { title: 'RSMSSB LDC', jobType: 'state', department: 'RSMSSB', post: 'LDC', eligibility: '12th Pass', age: '18-40 Years', lastDate: '2026-08-25', website: 'https://rsmssb.rajasthan.gov.in', description: 'LDC.' },
+  { title: 'Software Engineer – Google', jobType: 'private', department: 'IT/Software', post: 'SDE', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-04-15', website: 'https://careers.google.com', description: 'Google hiring.' },
+  { title: 'Finance Manager – HSBC', jobType: 'private', department: 'Finance', post: 'Finance Manager', eligibility: 'CA/CFA/MBA', age: '25-40 Years', lastDate: '2026-05-10', website: 'https://hsbc.com/careers', description: 'HSBC hiring.' },
+  { title: 'Marketing Executive – Amazon', jobType: 'private', department: 'Marketing', post: 'Marketing Executive', eligibility: 'MBA/BBA', age: '22-30 Years', lastDate: '2026-06-01', website: 'https://amazon.jobs', description: 'Amazon hiring.' }
 ];
 
 // ============================================================
@@ -559,29 +752,20 @@ const DEFAULT_PAGES = [
 // ============================================================
 const DEFAULT_CONTENT = {
   stories: [
-    { name: 'Rahul Sharma', role: 'SSC CGL 2025 - AIR 45', initial: 'R', text: 'Dream Josh ki study material aur mock tests ne meri selection mein bahut help ki.', badge: '🏆 Selected in SSC CGL', stars: 5 },
-    { name: 'Priya Verma', role: 'RAS 2025 - Rank 12', initial: 'P', text: 'Rajasthan GK notes aur previous year papers ne meri preparation ko strong banaya.', badge: '🎯 RAS Officer', stars: 5 },
-    { name: 'Amit Kumar', role: 'IBPS PO 2025', initial: 'A', text: 'Banking section ke detailed notes aur daily current affairs ne IBPS crack karne mein help ki.', badge: '🏦 IBPS PO Selected', stars: 5 }
+    { name: 'Rahul Sharma', role: 'SSC CGL 2025 - AIR 45', initial: 'R', text: 'Dream Josh ki study material ne meri selection mein help ki.', badge: '🏆 Selected in SSC CGL', stars: 5 }
   ],
   videos: [
-    { id: 'dQw4w9WgXcQ', title: 'SSC CGL 2026 - Complete Strategy', channel: 'Dream Josh', views: '2.5K views' },
-    { id: 'dQw4w9WgXcQ', title: 'Rajasthan GK - Top 100 Questions', channel: 'Dream Josh', views: '1.8K views' },
-    { id: 'dQw4w9WgXcQ', title: 'UPSC Prelims - Study Plan', channel: 'Dream Josh', views: '3.2K views' }
+    { id: 'dQw4w9WgXcQ', title: 'SSC CGL 2026 Strategy', channel: 'Dream Josh', views: '2.5K views' }
   ],
   ads: [
-    { label: 'Advertisement', text: 'Your Ad Here - Contact us', position: 'top', code: '' },
-    { label: 'Sponsored', text: 'Sponsored Content Space', position: 'middle', code: '' }
+    { label: 'Advertisement', text: 'Your Ad Here', position: 'top', code: '' },
+    { label: 'Sponsored', text: 'Sponsored Content', position: 'middle', code: '' }
   ],
   instaPosts: [
-    { label: 'Study Tips', emoji: '📚', link: 'https://instagram.com/dreamjosh' },
-    { label: 'Govt Jobs', emoji: '🏛️', link: 'https://instagram.com/dreamjosh' },
-    { label: 'Motivation', emoji: '🎯', link: 'https://instagram.com/dreamjosh' },
-    { label: 'Notes', emoji: '📖', link: 'https://instagram.com/dreamjosh' }
+    { label: 'Study Tips', emoji: '📚', link: 'https://instagram.com/dreamjosh' }
   ],
   colleges: [
-    { name: 'SSC Coaching Jaipur', type: 'Coaching', city: 'Jaipur', courses: ['SSC', 'Banking'], info: 'Top SSC coaching' },
-    { name: 'Rajasthan Academy', type: 'Coaching', city: 'Jaipur', courses: ['RAS', 'REET', 'Police'], info: 'Rajasthan exams specialist' },
-    { name: 'Rajasthan University', type: 'College', city: 'Jaipur', courses: ['BA', 'BSc', 'BCom'], info: 'Government university' }
+    { name: 'SSC Coaching Jaipur', type: 'Coaching', city: 'Jaipur', courses: ['SSC', 'Banking'], info: 'Top SSC coaching' }
   ]
 };
 
@@ -612,12 +796,11 @@ function loadContent() {
     const s = localStorage.getItem(CONTENT_KEY);
     if (s) contentData = JSON.parse(s);
     else contentData = JSON.parse(JSON.stringify(DEFAULT_CONTENT));
-    // Ensure all keys exist
-    if (!contentData.stories) contentData.stories = DEFAULT_CONTENT.stories;
-    if (!contentData.videos) contentData.videos = DEFAULT_CONTENT.videos;
-    if (!contentData.ads) contentData.ads = DEFAULT_CONTENT.ads;
-    if (!contentData.instaPosts) contentData.instaPosts = DEFAULT_CONTENT.instaPosts;
-    if (!contentData.colleges) contentData.colleges = DEFAULT_CONTENT.colleges;
+    if (!contentData.stories) contentData.stories = [];
+    if (!contentData.videos) contentData.videos = [];
+    if (!contentData.ads) contentData.ads = [];
+    if (!contentData.instaPosts) contentData.instaPosts = [];
+    if (!contentData.colleges) contentData.colleges = [];
   } catch (e) { contentData = JSON.parse(JSON.stringify(DEFAULT_CONTENT)); }
 }
 
@@ -654,9 +837,24 @@ async function loadContentFromCloud() {
 
 function loadSettings() {
   try { settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch (e) { settings = {}; }
-  if (!settings.siteName) settings.siteName = 'Dream Josh';
-  if (!settings.tagline) settings.tagline = 'Career & Study Platform';
+  const defaults = {
+    siteName: 'Dream Josh', tagline: 'Career & Study Platform', siteDesc: '',
+    email: 'info@dreamjosh.com', phone: '+91 99999 99999', whatsapp: '+91 99999 99999', address: 'Jaipur, Rajasthan', mapsUrl: '',
+    primaryColor: '#123c9b', secondaryColor: '#1976d2', accentColor: '#ffd700',
+    fontFamily: 'Arial, sans-serif', themeMode: 'light', customCss: '',
+    homeLimit: 6, itemsPerPage: 12, layout: 'grid', showTicker: 'yes',
+    showStories: true, showVideos: true, showInstagram: true, showColleges: true, showAgeCalc: true, showAds: true,
+    facebook: '', instagram: '', youtube: '', telegram: '', whatsappLink: '', twitter: '', linkedin: '',
+    metaTitle: 'Dream Josh', metaDesc: '', keywords: '', ogImage: '', gaId: '', gsCode: '',
+    tickerText: '🔥 Latest Updates', announcementBar: '', maintenanceMode: 'no', maintenanceMsg: '', showPopup: 'no', popupText: '',
+    sessionTimeout: 480, idleTimeout: 10, twoFA: 'no', autoBackup: 'no',
+    gaAnalyticsId: '', gtmId: '', fbPixelId: '', customCode: ''
+  };
+  Object.keys(defaults).forEach(k => {
+    if (settings[k] === undefined) settings[k] = defaults[k];
+  });
 }
+
 function saveSettings() {
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
   if (firebaseDB) firebaseDB.collection('dreamjosh').doc('settings').set(settings).catch(()=>{});
@@ -707,7 +905,6 @@ function handleLogin(event) {
   const errorEl = document.getElementById('loginError');
   const errorText = document.getElementById('loginErrorText');
   const btn = document.getElementById('loginBtn');
-
   if (!username || !password) {
     errorText.textContent = 'Please enter both username and password';
     errorEl.classList.add('show');
@@ -715,7 +912,6 @@ function handleLogin(event) {
   }
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
-
   setTimeout(() => {
     const creds = getAdminCreds();
     if (username === creds.username && password === creds.password) {
@@ -899,9 +1095,7 @@ function savePage() {
   const icon = document.getElementById('pmIcon').value.trim() || 'fa-file-alt';
   const isPublic = document.getElementById('pmPrivacy').value === 'public';
   const newParentId = document.getElementById('pmParentSelect')?.value || '';
-
   if (!name) return showToast('Name required!', 'error');
-
   if (isSub) {
     const parent = pagesData.find(p => p.id === parentId);
     if (parent) {
@@ -910,23 +1104,14 @@ function savePage() {
     }
   } else if (parentId) {
     const page = pagesData.find(p => p.id === parentId);
-    if (page) {
-      page.name = name;
-      page.icon = icon;
-      page.isPublic = isPublic;
-    }
+    if (page) { page.name = name; page.icon = icon; page.isPublic = isPublic; }
   } else {
     const newId = 'page-' + Date.now();
     const newPage = { id: newId, name, icon, isPublic, subPages: [] };
     if (newParentId) {
       const parent = pagesData.find(p => p.id === newParentId);
-      if (parent) {
-        if (!parent.subPages) parent.subPages = [];
-        parent.subPages.push(newPage);
-      }
-    } else {
-      pagesData.push(newPage);
-    }
+      if (parent) { if (!parent.subPages) parent.subPages = []; parent.subPages.push(newPage); }
+    } else { pagesData.push(newPage); }
   }
   savePages();
   renderSidebar();
@@ -985,15 +1170,11 @@ function renderContentTabs() {
   updateStats();
 }
 
-// Stories
 function renderStories() {
   const c = document.getElementById('storiesContainer');
   if (!c) return;
   const items = contentData.stories || [];
-  if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><p>No stories yet</p></div>';
-    return;
-  }
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><p>No stories yet</p></div>'; return; }
   c.innerHTML = items.map((s, i) => `
     <div class="data-item">
       <div class="item-sno">${i + 1}</div>
@@ -1017,13 +1198,13 @@ function openStoryModal(idx = null) {
     <input type="hidden" id="storyIdx" value="${isEdit ? idx : -1}">
     <div class="form-row">
       <div class="form-group"><label>Name *</label><input type="text" id="stName" value="${escapeHtml(s.name)}"></div>
-      <div class="form-group"><label>Role/Achievement</label><input type="text" id="stRole" value="${escapeHtml(s.role)}"></div>
+      <div class="form-group"><label>Role</label><input type="text" id="stRole" value="${escapeHtml(s.role)}"></div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>Initial (1 letter)</label><input type="text" id="stInitial" maxlength="1" value="${escapeHtml(s.initial || '')}"></div>
+      <div class="form-group"><label>Initial</label><input type="text" id="stInitial" maxlength="1" value="${escapeHtml(s.initial || '')}"></div>
       <div class="form-group"><label>Stars (1-5)</label><input type="number" id="stStars" min="1" max="5" value="${s.stars || 5}"></div>
     </div>
-    <div class="form-group"><label>Badge</label><input type="text" id="stBadge" value="${escapeHtml(s.badge)}" placeholder="🏆 Selected"></div>
+    <div class="form-group"><label>Badge</label><input type="text" id="stBadge" value="${escapeHtml(s.badge)}"></div>
     <div class="form-group"><label>Testimonial *</label><textarea id="stText" rows="3">${escapeHtml(s.text)}</textarea></div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="saveStory()"><i class="fas fa-save"></i> Save</button>
@@ -1064,15 +1245,11 @@ function deleteStory(i) {
   showToast('🗑️ Deleted!', 'success');
 }
 
-// Videos
 function renderVideos() {
   const c = document.getElementById('videosContainer');
   if (!c) return;
   const items = contentData.videos || [];
-  if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fab fa-youtube"></i><p>No videos yet</p></div>';
-    return;
-  }
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fab fa-youtube"></i><p>No videos yet</p></div>'; return; }
   c.innerHTML = items.map((v, i) => `
     <div class="data-item">
       <div class="item-sno" style="background:#FF0000;">▶</div>
@@ -1094,7 +1271,7 @@ function openVideoModal(idx = null) {
   document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Video' : '➕ Add Video';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="videoIdx" value="${isEdit ? idx : -1}">
-    <div class="form-group"><label>YouTube Video ID *</label><input type="text" id="vidId" value="${escapeHtml(v.id)}" placeholder="e.g. dQw4w9WgXcQ"></div>
+    <div class="form-group"><label>YouTube Video ID *</label><input type="text" id="vidId" value="${escapeHtml(v.id)}" placeholder="dQw4w9WgXcQ"></div>
     <div class="form-group"><label>Title *</label><input type="text" id="vidTitle" value="${escapeHtml(v.title)}"></div>
     <div class="form-group"><label>Views</label><input type="text" id="vidViews" value="${escapeHtml(v.views || '0 views')}"></div>
     <div style="margin-top:16px;">
@@ -1130,21 +1307,17 @@ function deleteVideo(i) {
   showToast('🗑️ Deleted!', 'success');
 }
 
-// Ads
 function renderAds() {
   const c = document.getElementById('adsContainer');
   if (!c) return;
   const items = contentData.ads || [];
-  if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-ad"></i><p>No ads yet</p></div>';
-    return;
-  }
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-ad"></i><p>No ads yet</p></div>'; return; }
   c.innerHTML = items.map((a, i) => `
     <div class="data-item">
       <div class="item-sno" style="background:#f59e0b;">💰</div>
       <div class="item-content">
         <div class="item-title">${escapeHtml(a.label || 'Ad')}</div>
-        <div class="item-meta">Position: ${escapeHtml(a.position || 'top')} • ${escapeHtml(a.text || '')}</div>
+        <div class="item-meta">Position: ${escapeHtml(a.position || 'top')}</div>
       </div>
       <div class="item-actions">
         <button class="btn-i-edit" onclick="openAdModal(${i})"><i class="fas fa-edit"></i></button>
@@ -1171,7 +1344,7 @@ function openAdModal(idx = null) {
       </div>
     </div>
     <div class="form-group"><label>Text</label><input type="text" id="adText" value="${escapeHtml(a.text || '')}"></div>
-    <div class="form-group"><label>Ad Code (HTML/AdSense)</label><textarea id="adCode" rows="4" placeholder="<ins class='adsbygoogle'...>">${escapeHtml(a.code || '')}</textarea></div>
+    <div class="form-group"><label>Ad Code</label><textarea id="adCode" rows="4">${escapeHtml(a.code || '')}</textarea></div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="saveAd()"><i class="fas fa-save"></i> Save</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
@@ -1205,15 +1378,11 @@ function deleteAd(i) {
   showToast('🗑️ Deleted!', 'success');
 }
 
-// Instagram
 function renderInsta() {
   const c = document.getElementById('instaContainer');
   if (!c) return;
   const items = contentData.instaPosts || [];
-  if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fab fa-instagram"></i><p>No posts yet</p></div>';
-    return;
-  }
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fab fa-instagram"></i><p>No posts yet</p></div>'; return; }
   c.innerHTML = items.map((p, i) => `
     <div class="data-item">
       <div class="item-sno" style="background:linear-gradient(45deg,#f09433,#dc2743);">📸</div>
@@ -1270,15 +1439,11 @@ function deleteInsta(i) {
   showToast('🗑️ Deleted!', 'success');
 }
 
-// Colleges
 function renderColleges() {
   const c = document.getElementById('collegesContainer');
   if (!c) return;
   const items = contentData.colleges || [];
-  if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-school"></i><p>No colleges yet</p></div>';
-    return;
-  }
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-school"></i><p>No colleges yet</p></div>'; return; }
   c.innerHTML = items.map((col, i) => `
     <div class="data-item">
       <div class="item-sno" style="background:#16a34a;">🏫</div>
@@ -1311,7 +1476,7 @@ function openCollegeModal(idx = null) {
     </div>
     <div class="form-row">
       <div class="form-group"><label>City</label><input type="text" id="colCity" value="${escapeHtml(c.city)}"></div>
-      <div class="form-group"><label>Courses (comma sep.)</label><input type="text" id="colCourses" value="${(c.courses || []).join(', ')}"></div>
+      <div class="form-group"><label>Courses</label><input type="text" id="colCourses" value="${(c.courses || []).join(', ')}"></div>
     </div>
     <div class="form-group"><label>Info</label><textarea id="colInfo" rows="2">${escapeHtml(c.info)}</textarea></div>
     <div style="margin-top:16px;">
@@ -1368,10 +1533,7 @@ function renderJobsTable() {
   const badge = document.getElementById('jobsCountBadge');
   if (badge) badge.textContent = jobsData.length;
   let filtered = currentJobFilter === 'all' ? jobsData : jobsData.filter(j => j.jobType === currentJobFilter);
-  if (!filtered.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs</p></div>';
-    return;
-  }
+  if (!filtered.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs</p></div>'; return; }
   const typeLabels = { central: '🏛️ Central', state: '🏜️ Rajasthan', private: '💼 Private' };
   const typeColors = { central: '#1976d2', state: '#16a34a', private: '#6c5ce7' };
   c.innerHTML = filtered.map((j, i) => {
@@ -1400,7 +1562,7 @@ function renderJobsTable() {
 function openJobModal(index = null) {
   const isEdit = index !== null;
   const job = isEdit ? jobsData[index] : { title: '', jobType: 'central', department: '', post: '', eligibility: '', age: '', lastDate: '', website: '', description: '' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Job #${index+1}` : '💼 Add Job';
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Job` : '💼 Add Job';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="jobIndex" value="${isEdit ? index : -1}">
     <div class="form-row">
@@ -1419,7 +1581,7 @@ function openJobModal(index = null) {
     </div>
     <div class="form-row">
       <div class="form-group"><label>Eligibility</label><input type="text" id="jElig" value="${escapeHtml(job.eligibility || '')}"></div>
-      <div class="form-group"><label>Age Limit</label><input type="text" id="jAge" value="${escapeHtml(job.age || '')}"></div>
+      <div class="form-group"><label>Age</label><input type="text" id="jAge" value="${escapeHtml(job.age || '')}"></div>
     </div>
     <div class="form-row">
       <div class="form-group"><label>Last Date</label><input type="date" id="jLastDate" value="${job.lastDate || ''}"></div>
@@ -1523,10 +1685,7 @@ let idleCheckInterval = null;
 let idleWarningShown = false;
 let vipClockInterval = null;
 
-function markActivity() {
-  lastActivityTime = Date.now();
-  idleWarningShown = false;
-}
+function markActivity() { lastActivityTime = Date.now(); idleWarningShown = false; }
 
 function playVipSound(type) {
   try {
@@ -1538,7 +1697,6 @@ function playVipSound(type) {
     if (type === 'success') {
       osc.frequency.setValueAtTime(523.25, ctx.currentTime);
       osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
-      osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2);
     } else if (type === 'error') {
       osc.frequency.setValueAtTime(329.63, ctx.currentTime);
       osc.frequency.setValueAtTime(261.63, ctx.currentTime + 0.15);
@@ -1564,7 +1722,7 @@ function initVipClock() {
     const h = now.getHours();
     const greeting = h < 12 ? '🌅 Good Morning' : h < 17 ? '☀️ Good Afternoon' : h < 21 ? '🌆 Good Evening' : '🌙 Good Night';
     const time = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-    const date = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    const date = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
     let idleText = '';
     if (lastActivityTime) {
       const idleFor = Date.now() - lastActivityTime;
@@ -1572,7 +1730,7 @@ function initVipClock() {
       if (remaining <= 60 * 1000) {
         idleText = `<div class="vip-idle idle-warning">⚠️ Auto logout in ${Math.ceil(remaining/1000)}s</div>`;
       } else if (remaining <= 5 * 60 * 1000) {
-        idleText = `<div class="vip-idle">⏳ Idle: ${Math.ceil(remaining/60000)} min left</div>`;
+        idleText = `<div class="vip-idle">⏳ Idle: ${Math.ceil(remaining/60000)} min</div>`;
       }
     }
     clockEl.innerHTML = `
@@ -1644,6 +1802,9 @@ function closeSidebar() {
   document.getElementById('sidebarOverlay').classList.remove('active');
 }
 
+// ============================================================
+// SETTINGS FUNCTIONS
+// ============================================================
 function switchSettingsTab(tab) {
   document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`.settings-tab-btn[data-tab="${tab}"]`)?.classList.add('active');
@@ -1654,18 +1815,158 @@ function switchSettingsTab(tab) {
 function loadSettingsForm() {
   loadSettings();
   const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+  const setC = (id, v) => { const el = document.getElementById(id); if (el) el.checked = !!v; };
+
   set('setSiteName', settings.siteName);
   set('setTagline', settings.tagline);
+  set('setSiteDesc', settings.siteDesc);
+
+  set('setEmail', settings.email);
+  set('setPhone', settings.phone);
+  set('setWhatsApp', settings.whatsapp);
+  set('setAddress', settings.address);
+  set('setMapsUrl', settings.mapsUrl);
+
+  set('setPrimaryColor', settings.primaryColor);
+  set('setSecondaryColor', settings.secondaryColor);
+  set('setAccentColor', settings.accentColor);
+  set('setFontFamily', settings.fontFamily);
+  set('setThemeMode', settings.themeMode);
+  set('setCustomCss', settings.customCss);
+
+  set('setHomeLimit', settings.homeLimit);
+  set('setItemsPerPage', settings.itemsPerPage);
+  set('setLayout', settings.layout);
+  set('setShowTicker', settings.showTicker);
+  setC('setShowStories', settings.showStories);
+  setC('setShowVideos', settings.showVideos);
+  setC('setShowInstagram', settings.showInstagram);
+  setC('setShowColleges', settings.showColleges);
+  setC('setShowAgeCalc', settings.showAgeCalc);
+  setC('setShowAds', settings.showAds);
+
+  set('setFacebook', settings.facebook);
+  set('setInstagram', settings.instagram);
+  set('setYouTube', settings.youtube);
+  set('setTelegram', settings.telegram);
+  set('setWhatsAppLink', settings.whatsappLink);
+  set('setTwitter', settings.twitter);
+  set('setLinkedIn', settings.linkedin);
+
+  set('setMetaTitle', settings.metaTitle);
+  set('setMetaDesc', settings.metaDesc);
+  set('setKeywords', settings.keywords);
+  set('setOgImage', settings.ogImage);
+  set('setGAId', settings.gaId);
+  set('setGSCode', settings.gsCode);
+
+  set('setTickerText', settings.tickerText);
+  set('setAnnouncementBar', settings.announcementBar);
+  set('setMaintenanceMode', settings.maintenanceMode);
+  set('setMaintenanceMsg', settings.maintenanceMsg);
+  set('setShowPopup', settings.showPopup);
+  set('setPopupText', settings.popupText);
+
+  set('setCurUsername', getAdminCreds().username);
+  set('setSessionTimeout', settings.sessionTimeout);
+  set('setIdleTimeout', settings.idleTimeout);
+  set('set2FA', settings.twoFA);
+  set('setAutoBackup', settings.autoBackup);
+
+  set('setGAnalyticsId', settings.gaAnalyticsId);
+  set('setGTMId', settings.gtmId);
+  set('setFBPixelId', settings.fbPixelId);
+  set('setCustomCode', settings.customCode);
 }
 
-function saveSettingsGroup(g) {
+function saveSettingsGroup(group) {
   const gv = id => document.getElementById(id)?.value || '';
-  if (g === 'general') {
+  const gc = id => document.getElementById(id)?.checked || false;
+
+  if (group === 'general') {
     settings.siteName = gv('setSiteName');
     settings.tagline = gv('setTagline');
+    settings.siteDesc = gv('setSiteDesc');
   }
+  if (group === 'contact') {
+    settings.email = gv('setEmail');
+    settings.phone = gv('setPhone');
+    settings.whatsapp = gv('setWhatsApp');
+    settings.address = gv('setAddress');
+    settings.mapsUrl = gv('setMapsUrl');
+  }
+  if (group === 'appearance') {
+    settings.primaryColor = gv('setPrimaryColor');
+    settings.secondaryColor = gv('setSecondaryColor');
+    settings.accentColor = gv('setAccentColor');
+    settings.fontFamily = gv('setFontFamily');
+    settings.themeMode = gv('setThemeMode');
+    settings.customCss = gv('setCustomCss');
+  }
+  if (group === 'homepage') {
+    settings.homeLimit = parseInt(gv('setHomeLimit')) || 6;
+    settings.itemsPerPage = parseInt(gv('setItemsPerPage')) || 12;
+    settings.layout = gv('setLayout');
+    settings.showTicker = gv('setShowTicker');
+    settings.showStories = gc('setShowStories');
+    settings.showVideos = gc('setShowVideos');
+    settings.showInstagram = gc('setShowInstagram');
+    settings.showColleges = gc('setShowColleges');
+    settings.showAgeCalc = gc('setShowAgeCalc');
+    settings.showAds = gc('setShowAds');
+  }
+  if (group === 'social') {
+    settings.facebook = gv('setFacebook');
+    settings.instagram = gv('setInstagram');
+    settings.youtube = gv('setYouTube');
+    settings.telegram = gv('setTelegram');
+    settings.whatsappLink = gv('setWhatsAppLink');
+    settings.twitter = gv('setTwitter');
+    settings.linkedin = gv('setLinkedIn');
+  }
+  if (group === 'seo') {
+    settings.metaTitle = gv('setMetaTitle');
+    settings.metaDesc = gv('setMetaDesc');
+    settings.keywords = gv('setKeywords');
+    settings.ogImage = gv('setOgImage');
+    settings.gaId = gv('setGAId');
+    settings.gsCode = gv('setGSCode');
+  }
+  if (group === 'announcements') {
+    settings.tickerText = gv('setTickerText');
+    settings.announcementBar = gv('setAnnouncementBar');
+    settings.maintenanceMode = gv('setMaintenanceMode');
+    settings.maintenanceMsg = gv('setMaintenanceMsg');
+    settings.showPopup = gv('setShowPopup');
+    settings.popupText = gv('setPopupText');
+  }
+  if (group === 'security') {
+    settings.sessionTimeout = parseInt(gv('setSessionTimeout')) || 480;
+    settings.idleTimeout = parseInt(gv('setIdleTimeout')) || 10;
+    settings.twoFA = gv('set2FA');
+  }
+  if (group === 'backup') {
+    settings.autoBackup = gv('setAutoBackup');
+  }
+  if (group === 'analytics') {
+    settings.gaAnalyticsId = gv('setGAnalyticsId');
+    settings.gtmId = gv('setGTMId');
+    settings.fbPixelId = gv('setFBPixelId');
+    settings.customCode = gv('setCustomCode');
+  }
+
   saveSettings();
-  showToast('✅ Saved!', 'success');
+  applyAppearanceSettings();
+  showToast('✅ ' + group + ' settings saved!', 'success');
+}
+
+function applyAppearanceSettings() {
+  if (settings.primaryColor) document.documentElement.style.setProperty('--primary-blue', settings.primaryColor);
+  if (settings.secondaryColor) document.documentElement.style.setProperty('--secondary-blue', settings.secondaryColor);
+  if (settings.accentColor) document.documentElement.style.setProperty('--gold', settings.accentColor);
+  if (settings.fontFamily) document.body.style.fontFamily = settings.fontFamily;
+  if (settings.themeMode === 'dark') document.body.classList.add('dark-mode');
+  else if (settings.themeMode === 'light') document.body.classList.remove('dark-mode');
 }
 
 function changeAdminPassword() {
@@ -1684,6 +1985,16 @@ function changeAdminPassword() {
   showToast('✅ Password changed!', 'success');
 }
 
+function changeAdminUsername() {
+  const u = document.getElementById('setNewUsername').value.trim();
+  if (!u) return showToast('New username daalein', 'error');
+  const c = getAdminCreds();
+  saveAdminCreds(u, c.password);
+  document.getElementById('setCurUsername').value = u;
+  document.getElementById('setNewUsername').value = '';
+  showToast('✅ Username changed!', 'success');
+}
+
 function exportAllData() {
   const data = { appData, jobsData, pagesData, contentData, settings };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -1692,6 +2003,20 @@ function exportAllData() {
   a.download = `dreamjosh_backup_${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   showToast('📥 Backup!', 'success');
+}
+
+function exportAllDataCSV() {
+  let csv = '\uFEFF';
+  csv += 'Type,Title,Category,Department,Link\n';
+  jobsData.forEach(j => {
+    csv += `Job,"${(j.title || '').replace(/"/g, '""')}","${(j.jobType || '').replace(/"/g, '""')}","${(j.department || '').replace(/"/g, '""')}",""\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dreamjosh_data_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  showToast('📊 CSV exported!', 'success');
 }
 
 function importData() {
@@ -1737,10 +2062,7 @@ function showAdminPage(page) {
   if (parent && parent.subPages && parent.subPages.length) {
     const submenu = document.getElementById('submenu-' + parent.id);
     const toggle = document.querySelector(`.menu-toggle[data-section="${parent.id}"]`);
-    if (submenu && toggle) {
-      submenu.classList.add('open');
-      toggle.classList.add('open');
-    }
+    if (submenu && toggle) { submenu.classList.add('open'); toggle.classList.add('open'); }
   }
 
   const titles = {
@@ -1761,11 +2083,6 @@ function showAdminPage(page) {
     if (page === 'content-manager') renderContentTabs();
     if (page === 'jobs-manager') renderJobsTable();
     if (page === 'settings') loadSettingsForm();
-  } else {
-    const info = findPageById(page);
-    if (info) {
-      document.getElementById('adminPageTitle').innerHTML = `<i class="fas ${info.icon}"></i> <span>${escapeHtml(info.name)}</span>`;
-    }
   }
   if (window.innerWidth <= 768) closeSidebar();
 }
@@ -1790,6 +2107,7 @@ async function initAdminPanel() {
   loadContent();
   loadSettings();
   loadActivityLog();
+  applyAppearanceSettings();
   await loadContentFromCloud();
   renderSidebar();
   renderPagesGrid();
@@ -1800,9 +2118,7 @@ async function initAdminPanel() {
   setTimeout(() => {
     initVipClock();
     initIdleLogout();
-    console.log('👑 Admin v8.0 Ready');
-    console.log('💼 Jobs:', jobsData.length);
-    console.log('🏆 Stories:', contentData.stories?.length || 0);
+    console.log('👑 Admin v9.0 Ready');
   }, 200);
 }
 
@@ -1823,8 +2139,8 @@ Object.assign(window, {
   openCollegeModal, saveCollege, deleteCollege,
   openJobModal, saveJob, deleteJob, openBulkJobModal, doBulkAddJobs,
   filterJobs,
-  switchSettingsTab, saveSettingsGroup, changeAdminPassword,
-  exportAllData, importData, clearAllAdminData,
+  switchSettingsTab, saveSettingsGroup, changeAdminPassword, changeAdminUsername,
+  exportAllData, exportAllDataCSV, importData, clearAllAdminData,
   closeAdminModal, toggleDarkMode, showToast
 });
 </script>
