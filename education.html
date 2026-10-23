@@ -3,12 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Dream Josh Education - Study, Live Classes & Exams</title>
-
-<meta name="description"
-content="Dream Josh Education - Live Classes, Government Jobs, Study Material, PDF Notes, Online Tests and Career Guidance.">
-
+<meta name="description" content="Dream Josh Education - Live Classes, Government Jobs, Study Material, PDF Notes, Online Tests and Career Guidance.">
 <style>
 :root {
     --primary: #123c9b;
@@ -250,7 +246,6 @@ footer a {
 /* VIDEO MEETING STYLES */
 /* ============================================ */
 
-/* Meeting Section Container */
 .meeting-container {
     background: white;
     border-radius: 15px;
@@ -259,7 +254,6 @@ footer a {
     border: 1px solid #e5eaf4;
 }
 
-/* Live Status Bar */
 .live-status-bar {
     display: flex;
     align-items: center;
@@ -297,7 +291,6 @@ footer a {
     50% { opacity: 0.4; transform: scale(0.85); }
 }
 
-/* Meeting Grid Layout */
 .meeting-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -311,7 +304,6 @@ footer a {
     }
 }
 
-/* Video Frame */
 .video-frame {
     background: #000;
     border-radius: 12px;
@@ -358,7 +350,6 @@ footer a {
     max-width: 400px;
 }
 
-/* Sidebar Controls */
 .meeting-sidebar {
     display: flex;
     flex-direction: column;
@@ -384,7 +375,6 @@ footer a {
     border-bottom: 1px solid #e5eaf4;
 }
 
-/* Room Info */
 .room-info-item {
     display: flex;
     justify-content: space-between;
@@ -426,7 +416,6 @@ footer a {
     background: #e8f0fe;
 }
 
-/* Participant List */
 .participant-list {
     list-style: none;
     max-height: 200px;
@@ -480,7 +469,6 @@ footer a {
     color: #a34800;
 }
 
-/* Chat */
 .chat-box {
     height: 200px;
     overflow-y: auto;
@@ -535,7 +523,6 @@ footer a {
     margin: 0;
 }
 
-/* Action Buttons */
 .meeting-actions {
     display: flex;
     gap: 8px;
@@ -571,7 +558,6 @@ footer a {
 .btn-leave { background: var(--red); color: white; }
 .btn-embed { background: var(--primary); color: white; }
 
-/* Setup Form */
 .setup-form {
     background: linear-gradient(135deg, #f8faff, #eef4ff);
     border-radius: 12px;
@@ -611,7 +597,6 @@ footer a {
     }
 }
 
-/* Teacher / Student Tab */
 .role-tabs {
     display: flex;
     gap: 6px;
@@ -645,7 +630,6 @@ footer a {
     box-shadow: 0 3px 10px rgba(25, 118, 210, 0.3);
 }
 
-/* Schedule Table */
 .schedule-table {
     width: 100%;
     border-collapse: collapse;
@@ -699,7 +683,6 @@ footer a {
     font-weight: bold;
 }
 
-/* Toast Notification */
 .meeting-toast {
     position: fixed;
     bottom: 30px;
@@ -726,7 +709,6 @@ footer a {
 .meeting-toast.error { background: var(--red); }
 .meeting-toast.info { background: var(--secondary); }
 
-/* Waiting Room */
 .waiting-room {
     text-align: center;
     padding: 30px 20px;
@@ -751,7 +733,6 @@ footer a {
     margin-bottom: 16px;
 }
 
-/* Device Test */
 .device-test {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -827,6 +808,14 @@ footer a {
         padding: 7px;
     }
 }
+
+/* ===== PAGE TAB VISIBILITY ===== */
+.page-section {
+    display: none;
+}
+.page-section.active-page {
+    display: block;
+}
 </style>
 </head>
 
@@ -848,45 +837,46 @@ footer a {
 
 <nav>
     <div class="nav-content">
-        <a href="#home">Home</a>
-        <a href="#live">Live Classes</a>
-        <a href="#study">Study Material</a>
-        <a href="#tests">Online Tests</a>
-        <a href="#jobs">Government Jobs</a>
-        <a href="#career">Career Guide</a>
-        <a href="#student">Student Dashboard</a>
+        <a href="#home" class="nav-link" data-page="home">Home</a>
+        <a href="#live" class="nav-link" data-page="live">Live Classes</a>
+        <a href="#study" class="nav-link" data-page="study">Study Material</a>
+        <a href="#tests" class="nav-link" data-page="tests">Online Tests</a>
+        <a href="#jobs" class="nav-link" data-page="jobs">Government Jobs</a>
+        <a href="#career" class="nav-link" data-page="career">Career Guide</a>
+        <a href="#student" class="nav-link" data-page="student">Student Dashboard</a>
     </div>
 </nav>
 
 <main class="container" id="home">
 
-    <section class="hero">
-        <h1>Welcome to Dream Josh Education</h1>
-        <p>आपकी पढ़ाई, आपकी तैयारी और आपके सपनों की उड़ान।</p>
-        <p>Live Classes | Notes | Mock Tests | Career Guidance</p>
+    <!-- ==================== HOME PAGE ==================== -->
+    <section id="page-home" class="page-section active-page">
+        <div class="hero">
+            <h1>Welcome to Dream Josh Education</h1>
+            <p>आपकी पढ़ाई, आपकी तैयारी और आपके सपनों की उड़ान।</p>
+            <p>Live Classes | Notes | Mock Tests | Career Guidance</p>
 
-        <a class="button" href="#study">पढ़ाई शुरू करें</a>
-        <a class="button" href="#live">Live Classes</a>
+            <a class="button" href="#study" onclick="showPage('study'); return false;">पढ़ाई शुरू करें</a>
+            <a class="button" href="#live" onclick="showPage('live'); return false;">Live Classes</a>
+        </div>
+
+        <div class="search-box">
+            <input
+                type="search"
+                id="siteSearch"
+                placeholder="क्लास, नोट्स, परीक्षा या विषय खोजें..."
+                aria-label="वेबसाइट पर खोजें"
+            >
+            <button class="button button-blue" onclick="searchCards()">
+                Search
+            </button>
+        </div>
+
+        <div id="searchMessage" aria-live="polite"></div>
     </section>
 
-    <div class="search-box">
-        <input
-            type="search"
-            id="siteSearch"
-            placeholder="क्लास, नोट्स, परीक्षा या विषय खोजें..."
-            aria-label="वेबसाइट पर खोजें"
-        >
-        <button class="button button-blue" onclick="searchCards()">
-            Search
-        </button>
-    </div>
-
-    <div id="searchMessage" aria-live="polite"></div>
-
-    <!-- ============================================ -->
-    <!-- LIVE CLASSROOM WITH FULL VIDEO MEETING -->
-    <!-- ============================================ -->
-    <section id="live">
+    <!-- ==================== LIVE PAGE ==================== -->
+    <section id="page-live" class="page-section">
         <h2 class="section-title">🔴 Live Classroom</h2>
 
         <div class="live-status-bar">
@@ -1175,7 +1165,8 @@ footer a {
         </div>
     </section>
 
-    <section id="study">
+    <!-- ==================== STUDY PAGE ==================== -->
+    <section id="page-study" class="page-section">
         <h2 class="section-title">📚 Study Material & PDF Notes</h2>
 
         <div class="grid">
@@ -1183,21 +1174,21 @@ footer a {
                 <div class="icon">📖</div>
                 <h3>School Study</h3>
                 <p>कक्षा 6 से 12 तक के विषयवार नोट्स।</p>
-                <a href="#student" class="button button-blue">नोट्स देखें</a>
+                <a href="#student" class="button button-blue" onclick="showPage('student'); return false;">नोट्स देखें</a>
             </article>
 
             <article class="card searchable">
                 <div class="icon">📝</div>
                 <h3>Competitive Exams</h3>
                 <p>प्रतियोगी परीक्षाओं की तैयारी और अभ्यास सामग्री।</p>
-                <a href="#jobs" class="button button-blue">परीक्षाएँ देखें</a>
+                <a href="#jobs" class="button button-blue" onclick="showPage('jobs'); return false;">परीक्षाएँ देखें</a>
             </article>
 
             <article class="card searchable">
                 <div class="icon">📄</div>
                 <h3>PDF Notes</h3>
                 <p>अपने नोट्स की PDF फाइलें यहाँ जोड़ी जा सकती हैं।</p>
-                <a href="#pdf-notes" class="button button-blue">PDF सेक्शन</a>
+                <a href="#pdf-notes" class="button button-blue" onclick="return false;">PDF सेक्शन</a>
             </article>
         </div>
 
@@ -1214,7 +1205,8 @@ footer a {
         </div>
     </section>
 
-    <section id="tests">
+    <!-- ==================== TESTS PAGE ==================== -->
+    <section id="page-tests" class="page-section">
         <h2 class="section-title">📝 Online Test & Mock Test</h2>
 
         <div class="grid">
@@ -1229,7 +1221,7 @@ footer a {
                 <div class="icon">🎯</div>
                 <h3>Mock Test</h3>
                 <p>सरकारी नौकरी की तैयारी के लिए मॉक टेस्ट।</p>
-                <a href="#quizArea" class="button button-blue">क्विज खोलें</a>
+                <a href="#quizArea" class="button button-blue" onclick="return false;">क्विज खोलें</a>
             </article>
 
             <article class="card searchable">
@@ -1250,7 +1242,8 @@ footer a {
         </div>
     </section>
 
-    <section id="jobs">
+    <!-- ==================== JOBS PAGE ==================== -->
+    <section id="page-jobs" class="page-section">
         <h2 class="section-title">💼 Government Jobs Preparation</h2>
 
         <div class="grid">
@@ -1300,7 +1293,8 @@ footer a {
         </div>
     </section>
 
-    <section id="career">
+    <!-- ==================== CAREER PAGE ==================== -->
+    <section id="page-career" class="page-section">
         <h2 class="section-title">🎯 Career Guide</h2>
 
         <div class="grid">
@@ -1308,26 +1302,27 @@ footer a {
                 <div class="icon">🎒</div>
                 <h3>After 10th</h3>
                 <p>11वीं-12वीं, ITI, डिप्लोमा और अन्य विकल्पों की जानकारी।</p>
-                <a href="#student" class="button button-blue">जानकारी देखें</a>
+                <a href="#student" class="button button-blue" onclick="showPage('student'); return false;">जानकारी देखें</a>
             </article>
 
             <article class="card searchable">
                 <div class="icon">🎓</div>
                 <h3>After 12th</h3>
                 <p>Arts, Science, Commerce, प्रतियोगी परीक्षा और कौशल कोर्स।</p>
-                <a href="#student" class="button button-blue">जानकारी देखें</a>
+                <a href="#student" class="button button-blue" onclick="showPage('student'); return false;">जानकारी देखें</a>
             </article>
 
             <article class="card searchable">
                 <div class="icon">💻</div>
                 <h3>Skills & Career</h3>
                 <p>कंप्यूटर, डिजिटल कौशल, करियर और रोजगार के विकल्प।</p>
-                <a href="#student" class="button button-blue">जानकारी देखें</a>
+                <a href="#student" class="button button-blue" onclick="showPage('student'); return false;">जानकारी देखें</a>
             </article>
         </div>
     </section>
 
-    <section id="student">
+    <!-- ==================== STUDENT DASHBOARD PAGE ==================== -->
+    <section id="page-student" class="page-section">
         <h2 class="section-title">👨‍🎓 Student Dashboard</h2>
 
         <div class="card">
@@ -1353,7 +1348,9 @@ footer a {
         </div>
     </section>
 
-    <section id="contact">
+    <!-- ==================== CONTACT (always visible? no, keep as part of home) ==================== -->
+    <!-- Moved contact to home page for simplicity, since original contact section was inside main. -->
+    <section id="page-contact" class="page-section">
         <h2 class="section-title">📩 Contact Dream Josh</h2>
 
         <div class="card">
@@ -1382,9 +1379,44 @@ footer a {
 document.getElementById("year").textContent = new Date().getFullYear();
 
 // ============================================
+// PAGE TAB SYSTEM
+// ============================================
+function showPage(pageId) {
+    // Hide all page sections
+    document.querySelectorAll('.page-section').forEach(function(section) {
+        section.classList.remove('active-page');
+    });
+    // Show selected page
+    var target = document.getElementById('page-' + pageId);
+    if (target) {
+        target.classList.add('active-page');
+    }
+    // Update nav active state
+    document.querySelectorAll('.nav-link').forEach(function(link) {
+        link.classList.remove('active-nav');
+        if (link.getAttribute('data-page') === pageId) {
+            link.classList.add('active-nav');
+        }
+    });
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Attach nav link click handlers
+document.querySelectorAll('.nav-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var page = this.getAttribute('data-page');
+        if (page) {
+            showPage(page);
+        }
+    });
+});
+
+// ============================================
 // GLOBAL STATE
 // ============================================
-let currentRole = 'teacher';          // 'teacher' or 'student'
+let currentRole = 'teacher';
 let meetingState = {
     active: false,
     roomCode: '',
@@ -1461,7 +1493,6 @@ function createClass() {
     const subject = document.getElementById('classSubject').value.trim();
     const duration = parseInt(document.getElementById('classDuration').value) || 60;
 
-    // Validation
     if (!className) {
         showToast('⚠️ Class Name ज़रूरी है', 'error');
         document.getElementById('className').focus();
@@ -1473,11 +1504,9 @@ function createClass() {
         return;
     }
 
-    // Generate room
     const roomCode = generateRoomCode(className);
     const fullUrl = `https://meet.jit.si/${encodeURIComponent(roomCode)}`;
 
-    // Set state
     meetingState = {
         active: true,
         roomCode: roomCode,
@@ -1513,7 +1542,6 @@ function joinAsStudent() {
         return;
     }
 
-    // Parse code - could be full URL or just code
     let roomCode = meetingCode;
     if (meetingCode.includes('meet.jit.si/')) {
         roomCode = meetingCode.split('meet.jit.si/')[1].split(/[?#]/)[0];
@@ -1538,7 +1566,6 @@ function joinAsStudent() {
     showActiveMeeting();
     showToast('🚀 Joining class...', 'success');
 
-    // Auto-embed after 1 second
     setTimeout(() => embedVideo(), 800);
 }
 
@@ -1549,29 +1576,21 @@ function showActiveMeeting() {
     document.getElementById('meetingSetup').classList.add('hidden');
     document.getElementById('activeMeeting').classList.remove('hidden');
 
-    // Update title
     document.getElementById('activeMeetingTitle').textContent = meetingState.title;
-
-    // Update room info
     document.getElementById('roomCodeDisplay').textContent = meetingState.roomCode;
     document.getElementById('hostDisplay').textContent = meetingState.host;
     document.getElementById('subjectDisplay').textContent = meetingState.subject;
     document.getElementById('durationDisplay').textContent = meetingState.duration + ' min';
 
-    // Update participant
     document.getElementById('pAvatar').textContent = localParticipant.name.charAt(0).toUpperCase();
     document.getElementById('pName').textContent = localParticipant.name;
     document.getElementById('pRole').textContent = localParticipant.role;
     document.getElementById('pRole').className = 'participant-role ' + (localParticipant.role === 'HOST' ? 'host' : '');
     document.getElementById('participantCount').textContent = '1';
 
-    // Start timer
     startLiveTimer();
-
-    // Scroll to meeting
     document.getElementById('activeMeeting').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    // Auto-embed for students
     if (meetingState.role === 'student') {
         setTimeout(() => embedVideo(), 500);
     }
@@ -1584,7 +1603,6 @@ function embedVideo() {
     const iframe = document.getElementById('meetingIframe');
     const placeholder = document.getElementById('videoPlaceholder');
 
-    // Jitsi URL with config params
     const displayName = encodeURIComponent(localParticipant.name);
     const embedUrl = `https://meet.jit.si/${encodeURIComponent(meetingState.roomCode)}#userInfo.displayName="${displayName}"&config.prejoinPageEnabled=false&config.startWithAudioMuted=false&config.startWithVideoMuted=false`;
 
@@ -1640,33 +1658,27 @@ function fallbackCopy(text) {
 function leaveMeeting() {
     if (!confirm('क्या आप class छोड़ना चाहते हैं?')) return;
 
-    // Stop timer
     if (liveTimerInterval) {
         clearInterval(liveTimerInterval);
         liveTimerInterval = null;
     }
 
-    // Stop media
     if (mediaStream) {
         mediaStream.getTracks().forEach(t => t.stop());
         mediaStream = null;
     }
 
-    // Reset iframe
     const iframe = document.getElementById('meetingIframe');
     iframe.src = '';
     iframe.classList.add('hidden');
     document.getElementById('videoPlaceholder').classList.remove('hidden');
 
-    // Reset state
     meetingState.active = false;
     meetingState.roomCode = '';
 
-    // Show setup
     document.getElementById('activeMeeting').classList.add('hidden');
     document.getElementById('meetingSetup').classList.remove('hidden');
 
-    // Clear form
     document.getElementById('className').value = '';
     document.getElementById('meetingCode').value = '';
     document.getElementById('chatBox').innerHTML = `
@@ -1691,7 +1703,6 @@ function startLiveTimer() {
         const secs = String(elapsed % 60).padStart(2, '0');
         timerEl.textContent = `${mins}:${secs}`;
 
-        // Auto-end at duration
         if (elapsed >= meetingState.duration * 60) {
             clearInterval(liveTimerInterval);
             showToast('⏰ Class duration complete!', 'info');
