@@ -1,552 +1,766 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="utf-8" />
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<title>Education – Dream Josh</title>
-<meta name="description" content="Study Materials, Notes, PDFs, Syllabus, Videos – Dream Josh Education" />
-<meta name="theme-color" content="#123c9b" />
-<link rel="manifest" href="manifest.json" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<title>Dream Josh Education - Study, Live Classes & Exams</title>
+
+<meta name="description"
+content="Dream Josh Education - Live Classes, Government Jobs, Study Material, PDF Notes, Online Tests and Career Guidance.">
 
 <style>
 :root {
-  --bg-color:#eef5ff; --card-bg:#fff; --text-color:#172033;
-  --primary-blue:#123c9b; --secondary-blue:#1976d2;
-  --success-green:#16a34a; --warning-red:#d62839;
-  --border-color:#dce5f0; --shadow-color:rgba(0,0,0,.1);
-  --footer-bg:#123c9b; --gold:#ffd700; --text-light:#6c757d;
-  --header-bg:linear-gradient(135deg,#123c9b,#1976d2);
-  --card-hover:#f4f8ff; --safe-bottom:env(safe-area-inset-bottom,0px);
-  --safe-top:env(safe-area-inset-top,0px);
-  --whatsapp-green:#25D366;
-}
-.dark-mode {
-  --bg-color:#0a0e1a; --card-bg:#141428; --text-color:#e8e8e8;
-  --text-light:#a0a0b8; --primary-blue:#1a3a8a; --secondary-blue:#2a5ac8;
-  --border-color:#2a2a4a; --shadow-color:rgba(0,0,0,.3);
-  --footer-bg:#0d1b3e; --card-hover:#1a1a3a;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:var(--bg-color);color:var(--text-color);min-height:100vh;
-  padding-top:70px;padding-bottom:55px;transition:background .3s,color .3s;
+    --primary: #123c9b;
+    --secondary: #1976d2;
+    --accent: #ffb300;
+    --light: #f3f7ff;
+    --dark: #17233d;
+    --white: #ffffff;
+    --green: #138a45;
 }
 
-/* HEADER */
-.app-header{
-  background:var(--header-bg);padding:10px 16px;display:flex;
-  justify-content:space-between;align-items:center;
-  position:fixed;top:0;left:0;right:0;z-index:1000;height:60px;
-  box-shadow:0 2px 20px var(--shadow-color);
-  padding-top:calc(10px + var(--safe-top));
-}
-.app-header .logo{
-  font-size:20px;font-weight:bold;color:#fff;text-decoration:none;
-  display:flex;align-items:center;gap:8px;
-}
-.app-header .logo span{color:var(--gold);}
-.app-header .header-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.app-header .nav-btn{
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);
-  color:#fff;padding:5px 12px;border-radius:18px;cursor:pointer;
-  font-size:12px;font-weight:600;text-decoration:none;
-  display:inline-flex;align-items:center;transition:.3s;white-space:nowrap;
-}
-.app-header .nav-btn:hover,.app-header .nav-btn.active{background:var(--gold);color:#0a0e1a;}
-
-/* PAGE HERO */
-.edu-hero{
-  background:linear-gradient(135deg,#123c9b,#1684d9);color:#fff;
-  padding:36px 20px;border-radius:16px;text-align:center;margin-bottom:20px;
-}
-.edu-hero h1{font-size:clamp(24px,4vw,34px);margin-bottom:8px;}
-.edu-hero p{font-size:14px;opacity:.9;}
-.edu-hero .hero-stats{
-  display:flex;justify-content:center;gap:22px;margin-top:16px;flex-wrap:wrap;
-}
-.edu-hero .hero-stat{text-align:center;}
-.edu-hero .hero-stat b{font-size:22px;display:block;color:var(--gold);}
-.edu-hero .hero-stat span{font-size:11px;opacity:.85;}
-
-/* LAYOUT */
-.main-wrap{padding:16px;max-width:1200px;margin:0 auto;}
-
-/* SEARCH + FILTER */
-.edu-toolbar{
-  background:var(--card-bg);border:1px solid var(--border-color);
-  border-radius:12px;padding:14px 16px;margin-bottom:18px;
-  box-shadow:0 2px 8px var(--shadow-color);
-  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
-}
-.edu-toolbar input[type="search"]{
-  flex:1;min-width:200px;padding:10px 14px;border:2px solid var(--border-color);
-  border-radius:8px;font-size:14px;background:var(--bg-color);
-  color:var(--text-color);font-family:inherit;outline:none;
-}
-.edu-toolbar input[type="search"]:focus{border-color:var(--secondary-blue);}
-.edu-toolbar select{
-  padding:10px 14px;border:2px solid var(--border-color);border-radius:8px;
-  font-size:14px;background:var(--bg-color);color:var(--text-color);
-  font-family:inherit;cursor:pointer;outline:none;
-}
-.edu-toolbar select:focus{border-color:var(--secondary-blue);}
-
-/* CATEGORY CHIPS */
-.edu-cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
-.edu-chip{
-  padding:8px 16px;border:2px solid var(--border-color);border-radius:20px;
-  background:var(--card-bg);color:var(--text-color);font-size:13px;font-weight:600;
-  cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:6px;
-}
-.edu-chip:hover{border-color:var(--secondary-blue);}
-.edu-chip.active{background:var(--primary-blue);color:#fff;border-color:var(--primary-blue);}
-
-/* SECTION HEADING */
-.edu-section-title{
-  font-size:19px;font-weight:700;margin:22px 0 14px;
-  display:flex;align-items:center;gap:10px;
-  padding-bottom:8px;border-bottom:2px solid var(--border-color);
-}
-.edu-section-title i{color:var(--secondary-blue);}
-
-/* MATERIAL GRID */
-.edu-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:16px;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* MATERIAL CARD */
-.edu-card{
-  background:var(--card-bg);border:1px solid var(--border-color);
-  border-radius:12px;padding:18px;box-shadow:0 3px 12px var(--shadow-color);
-  transition:.25s;display:flex;flex-direction:column;
-  border-left:4px solid var(--secondary-blue);
+body {
+    font-family: Arial, "Noto Sans Devanagari", sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
 }
-.edu-card:hover{
-  transform:translateY(-4px);border-left-color:var(--gold);
-  box-shadow:0 10px 24px var(--shadow-color);
-}
-.edu-card .edu-icon{
-  width:46px;height:46px;border-radius:10px;
-  background:rgba(25,118,210,.1);color:var(--secondary-blue);
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;margin-bottom:12px;
-}
-.edu-card .edu-badge{
-  display:inline-block;padding:2px 10px;border-radius:12px;
-  font-size:10px;font-weight:700;margin-bottom:8px;
-  background:rgba(25,118,210,.12);color:var(--secondary-blue);
-}
-.edu-card .edu-badge.books{background:rgba(22,163,74,.12);color:var(--success-green);}
-.edu-card .edu-badge.notes{background:rgba(255,179,0,.15);color:#a86a00;}
-.edu-card .edu-badge.syllabus{background:rgba(108,92,231,.15);color:#6c5ce7;}
-.edu-card .edu-badge.videos{background:rgba(214,40,57,.12);color:var(--warning-red);}
-.edu-card h3{font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.4;}
-.edu-card .edu-desc{
-  font-size:12.5px;color:var(--text-light);line-height:1.5;
-  margin-bottom:12px;flex:1;
-}
-.edu-card .edu-meta{
-  font-size:11px;color:var(--text-light);margin-bottom:10px;
-  display:flex;gap:10px;flex-wrap:wrap;
-}
-.edu-card .edu-actions{display:flex;gap:6px;flex-wrap:wrap;}
-.edu-card .edu-actions a,.edu-card .edu-actions button{
-  padding:6px 12px;border-radius:6px;font-size:11.5px;font-weight:600;
-  border:none;cursor:pointer;text-decoration:none;
-  display:inline-flex;align-items:center;gap:5px;transition:.2s;
-}
-.btn-view{background:var(--primary-blue);color:#fff;}
-.btn-view:hover{background:var(--secondary-blue);}
-.btn-download{background:var(--success-green);color:#fff;}
-.btn-download:hover{opacity:.85;}
 
-/* EMPTY */
-.edu-empty{
-  padding:40px 20px;text-align:center;color:var(--text-light);
-  background:var(--card-bg);border-radius:12px;border:1px dashed var(--border-color);
+header {
+    background: linear-gradient(120deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 22px 5%;
 }
-.edu-empty i{font-size:40px;margin-bottom:10px;opacity:.4;}
 
-/* FOOTER */
-.app-footer{
-  background:var(--footer-bg);color:#fff;padding:12px 16px;text-align:center;
-  position:fixed;bottom:0;left:0;right:0;z-index:999;
-  padding-bottom:calc(12px + var(--safe-bottom));
+.header-content {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
-.app-footer .footer-copy{font-size:11px;color:rgba(255,255,255,.6);}
-.app-footer .footer-copy span{color:var(--gold);}
 
-/* FLOATING WHATSAPP */
-.whatsapp-float{
-  position:fixed;bottom:70px;right:16px;width:52px;height:52px;
-  border-radius:50%;background:var(--whatsapp-green);color:#fff;
-  display:flex;align-items:center;justify-content:center;font-size:24px;
-  z-index:998;box-shadow:0 6px 20px rgba(37,211,102,.5);
-  text-decoration:none;transition:.3s;
+.logo {
+    font-size: 28px;
+    font-weight: bold;
 }
-.whatsapp-float:hover{transform:scale(1.1);}
 
-/* TOAST */
-.toast{
-  position:fixed;bottom:70px;left:50%;transform:translateX(-50%);
-  padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;
-  font-weight:600;z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,.3);
+.logo span {
+    color: var(--accent);
 }
-.toast.success{background:#16a34a;}
-.toast.error{background:#dc3545;}
-.toast.info{background:#1976d2;}
 
-@media(max-width:600px){
-  .edu-grid{grid-template-columns:1fr;}
-  .edu-hero{padding:26px 16px;}
+header p {
+    font-size: 13px;
+}
+
+nav {
+    background: #092d78;
+    padding: 12px 4%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    background: var(--secondary);
+}
+
+.container {
+    width: 92%;
+    max-width: 1200px;
+    margin: 25px auto;
+}
+
+.hero {
+    background: linear-gradient(135deg, #123c9b, #1684d9);
+    color: white;
+    padding: 48px 25px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.hero h1 {
+    font-size: clamp(27px, 5vw, 43px);
+    margin-bottom: 12px;
+}
+
+.hero p {
+    margin-bottom: 20px;
+}
+
+.button {
+    display: inline-block;
+    background: var(--accent);
+    color: #17233d;
+    border: none;
+    border-radius: 7px;
+    padding: 11px 18px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.button-blue {
+    background: var(--primary);
+    color: white;
+}
+
+.button-green {
+    background: var(--green);
+    color: white;
+}
+
+.search-box {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.search-box input {
+    flex: 1;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd5e5;
+    border-radius: 7px;
+    margin: 5px 0 12px;
+    font: inherit;
+}
+
+.section-title {
+    font-size: 25px;
+    margin: 32px 0 18px;
+    border-left: 5px solid var(--accent);
+    padding-left: 12px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 14px #142f5510;
+    border: 1px solid #e5eaf4;
+    overflow-wrap: anywhere;
+}
+
+.card h3 {
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.card p {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.icon {
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+.tag {
+    display: inline-block;
+    background: #e5f5e9;
+    color: #126c37;
+    padding: 4px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.live-banner {
+    background: #fff4e5;
+    border: 1px solid #ffd08a;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.live-banner h3 {
+    color: #a34800;
+}
+
+.notice {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 18px;
+    border-left: 4px solid var(--secondary);
+}
+
+footer {
+    background: #092d78;
+    color: white;
+    text-align: center;
+    padding: 28px 15px;
+    margin-top: 40px;
+}
+
+footer a {
+    color: #ffcf58;
+    margin: 5px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media(max-width: 800px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media(max-width: 520px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 30px 16px;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    nav a {
+        font-size: 12px;
+        padding: 7px;
+    }
 }
 </style>
 </head>
+
 <body>
 
-<!-- HEADER -->
-<header class="app-header">
-  <a href="index.html" class="logo">🚀 <span>Dream</span>Josh</a>
-  <div class="header-controls">
-    <a href="index.html" class="nav-btn">🏠 Home</a>
-    <a href="jobs.html" class="nav-btn">💼 Jobs</a>
-    <a href="education.html" class="nav-btn active">📚 Education</a>
-    <a href="career.html" class="nav-btn">🎯 Career</a>
-    <a href="admin.html" class="nav-btn" style="background:rgba(214,40,57,.85);">🔐 Admin</a>
-  </div>
+<header>
+    <div class="header-content">
+        <div>
+            <div class="logo">DREAM <span>JOSH</span></div>
+            <p>पढ़ेंगे यहाँ, बढ़ेंगे जहाँ</p>
+        </div>
+
+        <div>
+            <strong>Education & Career Portal</strong>
+            <p>Study • Motivation • Government Jobs</p>
+        </div>
+    </div>
 </header>
 
-<!-- MAIN -->
-<div class="main-wrap">
-
-  <!-- HERO -->
-  <section class="edu-hero">
-    <h1>📚 Education Hub</h1>
-    <p>Study Materials • Notes • PDFs • Syllabus • Videos – सब कुछ एक जगह</p>
-    <div class="hero-stats">
-      <div class="hero-stat"><b id="statTotal">0</b><span>Total Resources</span></div>
-      <div class="hero-stat"><b id="statNotes">0</b><span>Notes</span></div>
-      <div class="hero-stat"><b id="statBooks">0</b><span>Books</span></div>
-      <div class="hero-stat"><b id="statVideos">0</b><span>Videos</span></div>
+<nav>
+    <div class="nav-content">
+        <a href="#home">Home</a>
+        <a href="#live">Live Classes</a>
+        <a href="#study">Study Material</a>
+        <a href="#tests">Online Tests</a>
+        <a href="#jobs">Government Jobs</a>
+        <a href="#career">Career Guide</a>
+        <a href="#student">Student Dashboard</a>
     </div>
-  </section>
+</nav>
 
-  <!-- SEARCH + FILTER -->
-  <div class="edu-toolbar">
-    <input type="search" id="eduSearch" placeholder="🔍 Search notes, books, syllabus, videos..." oninput="filterEducation()">
-    <select id="eduSort" onchange="filterEducation()">
-      <option value="newest">🆕 Newest First</option>
-      <option value="oldest">📅 Oldest First</option>
-      <option value="az">🔤 A → Z</option>
-      <option value="za">🔤 Z → A</option>
-    </select>
-  </div>
+<main class="container" id="home">
 
-  <!-- CATEGORY CHIPS -->
-  <div class="edu-cats" id="eduCats">
-    <button class="edu-chip active" data-cat="all" onclick="setEduCat('all', this)">📂 All</button>
-    <button class="edu-chip" data-cat="Study Materials" onclick="setEduCat('Study Materials', this)">📘 Study Materials</button>
-    <button class="edu-chip" data-cat="Notes" onclick="setEduCat('Notes', this)">📝 Notes</button>
-    <button class="edu-chip" data-cat="Books" onclick="setEduCat('Books', this)">📚 Books</button>
-    <button class="edu-chip" data-cat="Syllabus" onclick="setEduCat('Syllabus', this)">📋 Syllabus</button>
-    <button class="edu-chip" data-cat="Videos" onclick="setEduCat('Videos', this)">🎥 Videos</button>
-  </div>
+    <section class="hero">
+        <h1>Welcome to Dream Josh Education</h1>
+        <p>आपकी पढ़ाई, आपकी तैयारी और आपके सपनों की उड़ान।</p>
+        <p>Live Classes | Notes | Mock Tests | Career Guidance</p>
 
-  <!-- GRID -->
-  <div id="eduContainer"></div>
+        <a class="button" href="#study">पढ़ाई शुरू करें</a>
+        <a class="button" href="#live">Live Classes</a>
+    </section>
 
-</div>
+    <div class="search-box">
+        <input
+            type="search"
+            id="siteSearch"
+            placeholder="क्लास, नोट्स, परीक्षा या विषय खोजें..."
+            aria-label="वेबसाइट पर खोजें"
+        >
+        <button class="button button-blue" onclick="searchCards()">
+            Search
+        </button>
+    </div>
 
-<!-- FOOTER -->
-<footer class="app-footer">
-  <div class="footer-copy">
-    © 2026 <span>Dream Josh</span> • Made with ❤️ in India
-  </div>
+    <div id="searchMessage" aria-live="polite"></div>
+
+    <section id="live">
+        <h2 class="section-title">🔴 Live Classroom</h2>
+
+        <div class="live-banner">
+            <h3>Dream Josh Live Learning</h3>
+            <p>
+                ऑनलाइन क्लास और ग्रुप स्टडी के लिए नीचे दिए बटन से
+                वीडियो मीटिंग सेवा खोलें।
+            </p>
+
+            <label for="roomName">क्लास या मीटिंग का नाम</label>
+            <input
+                type="text"
+                id="roomName"
+                maxlength="40"
+                placeholder="जैसे Rajasthan Police Class"
+            >
+
+            <button class="button button-green" onclick="joinLiveClass()">
+                🎥 Live Meeting खोलें
+            </button>
+
+            <p style="font-size:12px;margin-top:10px">
+                नोट: यह सार्वजनिक मीटिंग सेवा खोलता है।
+                यह सुरक्षित शिक्षक लॉगिन या निजी क्लास का सिस्टम नहीं है।
+            </p>
+        </div>
+
+        <div class="grid" style="margin-top:18px">
+
+            <article class="card searchable">
+                <div class="icon">🎓</div>
+                <h3>Live Study Class</h3>
+                <p>शिक्षक और विद्यार्थी ऑनलाइन पढ़ाई के लिए जुड़ सकते हैं।</p>
+                <a href="#live" class="button button-blue">क्लास देखें</a>
+            </article>
+
+            <article class="card searchable">
+                <div class="icon">💬</div>
+                <h3>Doubt Session</h3>
+                <p>पढ़ाई से जुड़े सवालों के लिए ऑनलाइन चर्चा।</p>
+                <a href="#live" class="button">शुरू करें</a>
+            </article>
+
+            <article class="card searchable">
+                <div class="icon">📅</div>
+                <h3>Class Schedule</h3>
+                <p>आने वाली क्लास का समय और विषय यहाँ प्रकाशित करें।</p>
+                <p>शेड्यूल एडमिन द्वारा जोड़ना होगा।</p>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="study">
+        <h2 class="section-title">📚 Study Material & PDF Notes</h2>
+
+        <div class="grid">
+
+            <article class="card searchable">
+                <div class="icon">📖</div>
+                <h3>School Study</h3>
+                <p>कक्षा 6 से 12 तक के विषयवार नोट्स।</p>
+                <a href="#student" class="button button-blue">नोट्स देखें</a>
+            </article>
+
+            <article class="card searchable">
+                <div class="icon">📝</div>
+                <h3>Competitive Exams</h3>
+                <p>प्रतियोगी परीक्षाओं की तैयारी और अभ्यास सामग्री।</p>
+                <a href="#jobs" class="button button-blue">परीक्षाएँ देखें</a>
+            </article>
+
+            <article class="card searchable">
+                <div class="icon">📄</div>
+                <h3>PDF Notes</h3>
+                <p>अपने नोट्स की PDF फाइलें यहाँ जोड़ी जा सकती हैं।</p>
+                <a href="#pdf-notes" class="button button-blue">PDF सेक्शन</a>
+            </article>
+
+        </div>
+
+        <div id="pdf-notes" class="notice">
+            <h3>PDF Library</h3>
+            <p>नीचे उदाहरण के रूप में एक PDF लिंक दिया गया है।</p>
+            <p>
+                अपनी PDF फाइल को GitHub Repository में अपलोड करके
+                इस लिंक में उसका सही पथ डालें।
+            </p>
+            <a href="notes/sample.pdf" class="button button-blue">
+                Sample PDF खोलें
+            </a>
+            <p style="font-size:12px">
+                यह लिंक तभी काम करेगा जब notes/sample.pdf फाइल मौजूद हो।
+            </p>
+        </div>
+    </section>
+
+    <section id="tests">
+        <h2 class="section-title">📝 Online Test & Mock Test</h2>
+
+        <div class="grid">
+
+            <article class="card searchable">
+                <div class="icon">⏱️</div>
+                <h3>Daily Quiz</h3>
+                <p>सामान्य ज्ञान का छोटा अभ्यास टेस्ट।</p>
+                <button class="button button-blue" onclick="startQuiz()">
+                    टेस्ट शुरू करें
+                </button>
+            </article>
+
+            <article class="card searchable">
+                <div class="icon">🎯</div>
+                <h3>Mock Test</h3>
+                <p>सरकारी नौकरी की तैयारी के लिए मॉक टेस्ट।</p>
+                <a href="#quizArea" class="button button-blue">क्विज खोलें</a>
+            </article>
+
+            <article class="card searchable">
+                <div class="icon">📊</div>
+                <h3>Test Result</h3>
+                <p>इस डेमो में टेस्ट पूरा करने के बाद स्कोर दिखेगा।</p>
+            </article>
+
+        </div>
+
+        <div id="quizArea" class="card hidden" style="margin-top:20px">
+            <h3>Dream Josh General Knowledge Quiz</h3>
+            <p id="questionNumber"></p>
+            <h3 id="questionText"></h3>
+            <div id="answerOptions"></div>
+            <p id="quizResult" aria-live="polite"></p>
+            <button class="button button-blue hidden" id="nextQuestion"
+                    onclick="nextQuizQuestion()">अगला सवाल</button>
+        </div>
+    </section>
+
+    <section id="jobs">
+        <h2 class="section-title">💼 Government Jobs Preparation</h2>
+
+        <div class="grid">
+
+            <article class="card searchable">
+                <div class="icon">🏛️</div>
+                <h3>UPSC / SSC</h3>
+                <p>केंद्र सरकार की विभिन्न प्रतियोगी परीक्षाएँ।</p>
+                <a href="https://upsc.gov.in/" target="_blank"
+                   rel="noopener noreferrer" class="button button-blue">
+                    UPSC Website
+                </a>
+                <a href="https://ssc.gov.in/" target="_blank"
+                   rel="noopener noreferrer" class="button button-blue">
+                    SSC Website
+                </a>
+            </article>
+
+            <article class="card searchable">
+                <div class="icon">🚔</div>
+                <h3>Rajasthan Police</h3>
+                <p>राजस्थान पुलिस भर्ती की आधिकारिक सूचनाएँ।</p>
+                <a href="https://police.rajasthan.gov.in/" target="_blank"
+                   rel="noopener noreferrer" class="button button-blue">
+                    Official Website
+                </a>
+            </article>
+
+            <article class="card searchable">
+                <div class="icon">📋</div>
+                <h3>RPSC / RSSB</h3>
+                <p>RAS, CET और अन्य भर्ती परीक्षाओं की तैयारी।</p>
+                <a href="https://rpsc.rajasthan.gov.in/" target="_blank"
+                   rel="noopener noreferrer" class="button button-blue">
+                    RPSC
+                </a>
+                <a href="https://rssb.rajasthan.gov.in/" target="_blank"
+                   rel="noopener noreferrer" class="button button-blue">
+                    RSSB
+                </a>
+            </article>
+
+        </div>
+
+        <div class="notice">
+            <strong>महत्वपूर्ण:</strong>
+            भर्ती की तारीख, आवेदन लिंक, एडमिट कार्ड और रिजल्ट
+            प्रकाशित करने से पहले आधिकारिक वेबसाइट पर जानकारी सत्यापित करें।
+        </div>
+    </section>
+
+    <section id="career">
+        <h2 class="section-title">🎯 Career Guide</h2>
+
+        <div class="grid">
+
+            <article class="card searchable">
+                <div class="icon">🎒</div>
+                <h3>After 10th</h3>
+                <p>11वीं-12वीं, ITI, डिप्लोमा और अन्य विकल्पों की जानकारी।</p>
+                <a href="#student" class="button button-blue">जानकारी देखें</a>
+            </article>
+
+            <article class="card searchable">
+                <div class="icon">🎓</div>
+                <h3>After 12th</h3>
+                <p>Arts, Science, Commerce, प्रतियोगी परीक्षा और कौशल कोर्स।</p>
+                <a href="#student" class="button button-blue">जानकारी देखें</a>
+            </article>
+
+            <article class="card searchable">
+                <div class="icon">💻</div>
+                <h3>Skills & Career</h3>
+                <p>कंप्यूटर, डिजिटल कौशल, करियर और रोजगार के विकल्प।</p>
+                <a href="#student" class="button button-blue">जानकारी देखें</a>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="student">
+        <h2 class="section-title">👨‍🎓 Student Dashboard</h2>
+
+        <div class="card">
+            <h3>विद्यार्थी सुविधाएँ</h3>
+            <p>यह डेमो डैशबोर्ड है। अभी इसमें वास्तविक लॉगिन या निजी विद्यार्थी डेटा नहीं है।</p>
+
+            <div class="grid" style="margin-top:18px">
+
+                <article class="card searchable">
+                    <h3>📚 My Study</h3>
+                    <p>अपने अध्ययन संसाधन व्यवस्थित करें।</p>
+                </article>
+
+                <article class="card searchable">
+                    <h3>📝 My Tests</h3>
+                    <p>इस ब्राउज़र में दिए गए डेमो क्विज का अभ्यास करें।</p>
+                </article>
+
+                <article class="card searchable">
+                    <h3>🏆 My Progress</h3>
+                    <p>वास्तविक प्रगति रिपोर्ट के लिए डेटाबेस की आवश्यकता होगी।</p>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">📩 Contact Dream Josh</h2>
+
+        <div class="card">
+            <p>सुझाव, अध्ययन सामग्री और सहयोग के लिए संपर्क करें।</p>
+            <a href="mailto:Technicaldamor@gmail.com"
+               class="button button-blue">Email करें</a>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <h2>DREAM JOSH</h2>
+    <p>पढ़ेंगे यहाँ, बढ़ेंगे जहाँ</p>
+    <p>Study • Motivation • Government Jobs • Career Guide</p>
+    <p>© <span id="year"></span> Dream Josh. All rights reserved.</p>
 </footer>
 
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/919999999999" target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
-  <i class="fab fa-whatsapp"></i>
-</a>
-
 <script>
-// ============================================================
-// FIREBASE
-// ============================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
-  authDomain: "dreamjosh-7d9ee.firebaseapp.com",
-  projectId: "dreamjosh-7d9ee",
-  storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
-  messagingSenderId: "461367857074",
-  appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
-};
-let firebaseDB = null;
-try {
-  firebase.initializeApp(firebaseConfig);
-  firebaseDB = firebase.firestore();
-} catch (e) { console.error(e); }
+document.getElementById("year").textContent =
+    new Date().getFullYear();
 
-// ============================================================
-// STATE
-// ============================================================
-let educationItems = [];
-let currentCat = 'all';
-let currentSearch = '';
+/* Live Meeting Demo */
+function joinLiveClass() {
+    const input = document.getElementById("roomName");
+    const name = input.value.trim();
 
-// Default data (fallback if Firebase empty)
-const DEFAULT_EDUCATION = [
-  {
-    title: 'SSC CGL Complete Notes 2026',
-    category: 'Notes',
-    description: 'Complete handwritten notes for SSC CGL Tier 1 & 2 – Maths, Reasoning, English, GK.',
-    link: 'https://ssc.nic.in',
-    fileName: 'SSC-CGL-Notes-2026.pdf',
-    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 3
-  },
-  {
-    title: 'Rajasthan GK Book PDF',
-    category: 'Books',
-    description: 'Rajasthan General Knowledge complete book with latest current affairs.',
-    link: '',
-    fileName: 'Rajasthan-GK-Book.pdf',
-    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 10
-  },
-  {
-    title: 'UPSC Prelims Syllabus 2026',
-    category: 'Syllabus',
-    description: 'Official UPSC Civil Services Prelims syllabus with topic-wise breakdown.',
-    link: 'https://upsc.gov.in',
-    fileName: '',
-    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 20
-  },
-  {
-    title: 'Maths Short Tricks Video',
-    category: 'Videos',
-    description: 'Speed maths tricks for competitive exams – 30 min complete video.',
-    link: 'https://youtube.com',
-    fileName: '',
-    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 5
-  },
-  {
-    title: 'English Grammar Study Material',
-    category: 'Study Materials',
-    description: 'Complete English grammar rules with examples for all exams.',
-    link: '',
-    fileName: 'English-Grammar.pdf',
-    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 15
-  }
+    if (!name) {
+        alert("कृपया पहले क्लास का नाम लिखें।");
+        input.focus();
+        return;
+    }
+
+    // हर बार अलग रूम नाम; यह पासवर्ड या एक्सेस कंट्रोल नहीं है।
+    const safeName = name
+        .replace(/[^a-zA-Z0-9_-]/g, "-")
+        .replace(/-+/g, "-")
+        .slice(0, 35);
+
+    const room = "DreamJosh-" + safeName + "-" +
+        Math.random().toString(36).slice(2, 10);
+
+    window.open(
+        "https://meet.jit.si/" + encodeURIComponent(room),
+        "_blank",
+        "noopener,noreferrer"
+    );
+}
+
+/* Website Card Search */
+function searchCards() {
+    const query = document.getElementById("siteSearch")
+        .value.trim().toLowerCase();
+
+    const cards = document.querySelectorAll(".searchable");
+    let found = 0;
+
+    cards.forEach(card => {
+        const matches = card.textContent.toLowerCase()
+            .includes(query);
+
+        card.classList.toggle("hidden", query !== "" && !matches);
+
+        if (query === "" || matches) found++;
+    });
+
+    document.getElementById("searchMessage").textContent =
+        query === "" ? "" :
+        found + " संबंधित सेक्शन मिले।";
+}
+
+document.getElementById("siteSearch").addEventListener(
+    "keydown",
+    function(event) {
+        if (event.key === "Enter") searchCards();
+    }
+);
+
+/* Demo Quiz */
+const questions = [
+    {
+        question: "भारत की राजधानी क्या है?",
+        options: ["जयपुर", "नई दिल्ली", "मुंबई", "भोपाल"],
+        answer: 1
+    },
+    {
+        question: "राजस्थान की राजधानी क्या है?",
+        options: ["उदयपुर", "जोधपुर", "जयपुर", "कोटा"],
+        answer: 2
+    },
+    {
+        question: "भारत का संविधान कब लागू हुआ?",
+        options: ["15 अगस्त 1947", "26 जनवरी 1950",
+                  "2 अक्टूबर 1950", "26 नवंबर 1949"],
+        answer: 1
+    }
 ];
 
-// ============================================================
-// LOAD DATA
-// ============================================================
-async function loadEducationFromFirebase() {
-  // First try Firestore
-  if (firebaseDB) {
-    try {
-      const doc = await firebaseDB.collection('dreamjosh').doc('educationData').get();
-      if (doc.exists && doc.data().items) {
-        educationItems = doc.data().items;
-        localStorage.setItem('dreamjosh_education', JSON.stringify(educationItems));
-        renderEducation();
-        return;
-      }
-    } catch (e) { console.warn('Firestore failed, using local', e); }
-  }
-  // Then localStorage
-  try {
-    const local = localStorage.getItem('dreamjosh_education');
-    if (local) {
-      educationItems = JSON.parse(local);
-      renderEducation();
-      return;
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+function startQuiz() {
+    currentQuestion = 0;
+    score = 0;
+
+    document.getElementById("quizArea")
+        .classList.remove("hidden");
+
+    document.getElementById("quizArea")
+        .scrollIntoView({ behavior: "smooth" });
+
+    renderQuestion();
+}
+
+function renderQuestion() {
+    const q = questions[currentQuestion];
+    answered = false;
+
+    document.getElementById("questionNumber").textContent =
+        "प्रश्न " + (currentQuestion + 1) +
+        " / " + questions.length;
+
+    document.getElementById("questionText").textContent =
+        q.question;
+
+    document.getElementById("quizResult").textContent = "";
+
+    const options = document.getElementById("answerOptions");
+    options.replaceChildren();
+
+    q.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.className = "button button-blue";
+        button.style.display = "block";
+        button.style.width = "100%";
+        button.style.margin = "8px 0";
+        button.textContent = option;
+
+        button.addEventListener("click", () => checkAnswer(index));
+        options.appendChild(button);
+    });
+
+    const next = document.getElementById("nextQuestion");
+    next.classList.add("hidden");
+    next.textContent = currentQuestion === questions.length - 1
+        ? "परिणाम देखें"
+        : "अगला सवाल";
+}
+
+function checkAnswer(selected) {
+    if (answered) return;
+    answered = true;
+
+    const correct = questions[currentQuestion].answer;
+    const buttons = document.querySelectorAll("#answerOptions button");
+
+    buttons.forEach((button, index) => {
+        button.disabled = true;
+
+        if (index === correct) {
+            button.style.background = "#138a45";
+        } else if (index === selected) {
+            button.style.background = "#c62828";
+        }
+    });
+
+    if (selected === correct) {
+        score++;
+        document.getElementById("quizResult").textContent =
+            "सही जवाब! बहुत बढ़िया।";
+    } else {
+        document.getElementById("quizResult").textContent =
+            "सही जवाब: " + questions[currentQuestion].options[correct];
     }
-  } catch (e) {}
-  // Fallback to defaults
-  educationItems = JSON.parse(JSON.stringify(DEFAULT_EDUCATION));
-  renderEducation();
+
+    document.getElementById("nextQuestion")
+        .classList.remove("hidden");
 }
 
-// ============================================================
-// HELPERS
-// ============================================================
-function escapeHtml(s) {
-  return String(s || '').replace(/[&<>"']/g, c => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[c]));
-}
+function nextQuizQuestion() {
+    if (!answered) return;
 
-function getCategoryIcon(cat) {
-  const map = {
-    'Study Materials': '📘',
-    'Notes': '📝',
-    'Books': '📚',
-    'Syllabus': '📋',
-    'Videos': '🎥'
-  };
-  return map[cat] || '📄';
-}
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+    } else {
+        document.getElementById("questionNumber").textContent =
+            "टेस्ट पूरा हुआ";
 
-function getCategoryBadgeClass(cat) {
-  const map = {
-    'Study Materials': '',
-    'Notes': 'notes',
-    'Books': 'books',
-    'Syllabus': 'syllabus',
-    'Videos': 'videos'
-  };
-  return map[cat] || '';
-}
+        document.getElementById("questionText").textContent =
+            "आपका स्कोर: " + score + " / " + questions.length;
 
-function formatDate(ts) {
-  if (!ts) return '';
-  try {
-    const d = new Date(ts);
-    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-  } catch (e) { return ''; }
-}
+        document.getElementById("answerOptions").replaceChildren();
 
-// ============================================================
-// FILTER / SEARCH
-// ============================================================
-function setEduCat(cat, btn) {
-  currentCat = cat;
-  document.querySelectorAll('.edu-chip').forEach(c => c.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  filterEducation();
-}
-
-function filterEducation() {
-  const searchEl = document.getElementById('eduSearch');
-  currentSearch = (searchEl?.value || '').toLowerCase().trim();
-  renderEducation();
-}
-
-// ============================================================
-// RENDER
-// ============================================================
-function renderEducation() {
-  const container = document.getElementById('eduContainer');
-  if (!container) return;
-
-  // Filter
-  let items = educationItems.slice();
-  if (currentCat !== 'all') {
-    items = items.filter(it => it.category === currentCat);
-  }
-  if (currentSearch) {
-    items = items.filter(it =>
-      (it.title || '').toLowerCase().includes(currentSearch) ||
-      (it.description || '').toLowerCase().includes(currentSearch) ||
-      (it.category || '').toLowerCase().includes(currentSearch) ||
-      (it.fileName || '').toLowerCase().includes(currentSearch)
-    );
-  }
-
-  // Sort
-  const sortEl = document.getElementById('eduSort');
-  const sortVal = sortEl?.value || 'newest';
-  items.sort((a, b) => {
-    if (sortVal === 'az') return (a.title || '').localeCompare(b.title || '');
-    if (sortVal === 'za') return (b.title || '').localeCompare(a.title || '');
-    if (sortVal === 'oldest') return (a.createdAt || 0) - (b.createdAt || 0);
-    return (b.createdAt || 0) - (a.createdAt || 0);
-  });
-
-  // Stats
-  document.getElementById('statTotal').textContent = educationItems.length;
-  document.getElementById('statNotes').textContent = educationItems.filter(i => i.category === 'Notes').length;
-  document.getElementById('statBooks').textContent = educationItems.filter(i => i.category === 'Books').length;
-  document.getElementById('statVideos').textContent = educationItems.filter(i => i.category === 'Videos').length;
-
-  // Empty
-  if (!items.length) {
-    container.innerHTML = `
-      <div class="edu-empty">
-        <i class="fas fa-folder-open"></i>
-        <p>कोई material नहीं मिला${currentSearch ? ' "' + escapeHtml(currentSearch) + '" के लिए' : ''}।</p>
-        <p style="font-size:12px;margin-top:8px;">Admin panel से नया content जोड़ें।</p>
-      </div>`;
-    return;
-  }
-
-  // Grid
-  container.innerHTML = `
-    <h2 class="edu-section-title">
-      <i class="fas fa-layer-group"></i>
-      ${currentCat === 'all' ? 'All Education Resources' : currentCat}
-      <span style="font-size:13px;color:var(--text-light);font-weight:500;">(${items.length})</span>
-    </h2>
-    <div class="edu-grid">
-      ${items.map(it => renderEduCard(it)).join('')}
-    </div>
-  `;
-}
-
-function renderEduCard(it) {
-  const icon = getCategoryIcon(it.category);
-  const badgeClass = getCategoryBadgeClass(it.category);
-  const fileUrl = it.fileUrl || it.link || '';
-  const hasLink = !!fileUrl;
-  const fileName = it.fileName || '';
-  const dateStr = formatDate(it.createdAt);
-
-  const viewBtn = hasLink
-    ? `<a href="${escapeHtml(fileUrl)}" target="_blank" rel="noopener noreferrer" class="btn-view"><i class="fas fa-eye"></i> View</a>`
-    : '';
-  const downloadBtn = hasLink
-    ? `<a href="${escapeHtml(fileUrl)}" download class="btn-download"><i class="fas fa-download"></i> Download</a>`
-    : '';
-
-  return `
-    <div class="edu-card">
-      <div class="edu-icon">${icon}</div>
-      <span class="edu-badge ${badgeClass}">${escapeHtml(it.category || 'Material')}</span>
-      <h3>${escapeHtml(it.title || 'Untitled')}</h3>
-      <p class="edu-desc">${escapeHtml(it.description || 'No description')}</p>
-      <div class="edu-meta">
-        ${fileName ? `<span><i class="fas fa-file"></i> ${escapeHtml(fileName)}</span>` : ''}
-        ${dateStr ? `<span><i class="fas fa-calendar"></i> ${dateStr}</span>` : ''}
-      </div>
-      <div class="edu-actions">
-        ${viewBtn}
-        ${downloadBtn}
-      </div>
-    </div>
-  `;
-}
-
-// ============================================================
-// INIT
-// ============================================================
-document.addEventListener('DOMContentLoaded', async () => {
-  await loadEducationFromFirebase();
-
-  // Sync live from Firestore
-  if (firebaseDB) {
-    try {
-      firebaseDB.collection('dreamjosh').doc('educationData')
-        .onSnapshot(snap => {
-          if (snap.exists && snap.data().items) {
-            educationItems = snap.data().items;
-            localStorage.setItem('dreamjosh_education', JSON.stringify(educationItems));
-            renderEducation();
-          }
-        });
-    } catch (e) {}
-  }
-});
-
-window.setEduCat = setEduCat;
-window.filterEducation = filterEducation;
-</script>
-
-</body>
-</html>
+        doc
