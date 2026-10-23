@@ -84,8 +84,19 @@ nav a {
     font-size: 14px;
 }
 
-nav a:hover {
+nav a:hover,
+nav a.active-nav {
     background: var(--secondary);
+}
+
+nav a.admin-nav {
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+nav a.admin-nav:hover {
+    background: linear-gradient(135deg, #fb8c00, #e64a19);
 }
 
 .container {
@@ -136,6 +147,11 @@ nav a:hover {
 
 .button-red {
     background: var(--red);
+    color: white;
+}
+
+.button-orange {
+    background: linear-gradient(135deg, #ff9800, #ff5722);
     color: white;
 }
 
@@ -816,6 +832,394 @@ footer a {
 .page-section.active-page {
     display: block;
 }
+
+/* ============================================ */
+/* ADMIN PANEL STYLES */
+/* ============================================ */
+
+.admin-login-box {
+    max-width: 420px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 16px;
+    padding: 35px 30px;
+    box-shadow: 0 10px 40px rgba(18, 60, 155, 0.15);
+    border: 1px solid #e5eaf4;
+}
+
+.admin-login-box .admin-icon {
+    text-align: center;
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.admin-login-box h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+
+.admin-login-box .admin-subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: #6b7a99;
+    margin-bottom: 22px;
+}
+
+.admin-login-box label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.admin-login-box .admin-hint {
+    font-size: 11px;
+    color: #9ba8c0;
+    background: #f8faff;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 14px;
+    border-left: 3px solid var(--accent);
+}
+
+.admin-error {
+    background: #ffebee;
+    color: #c62828;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    border-left: 4px solid #c62828;
+}
+
+/* Admin Dashboard */
+.admin-topbar {
+    background: linear-gradient(135deg, #17233d, #123c9b);
+    color: white;
+    padding: 18px 22px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(18, 60, 155, 0.25);
+}
+
+.admin-topbar h2 {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-topbar .admin-user {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-user-badge {
+    background: rgba(255,255,255,0.15);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+@media (max-width: 800px) {
+    .admin-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+.admin-stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid #e5eaf4;
+    box-shadow: 0 3px 14px #142f5510;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.admin-stat-card .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.admin-stat-card .stat-icon.blue { background: #e8f0fe; color: #123c9b; }
+.admin-stat-card .stat-icon.green { background: #e5f5e9; color: #138a45; }
+.admin-stat-card .stat-icon.orange { background: #fff4e5; color: #a34800; }
+.admin-stat-card .stat-icon.red { background: #ffebee; color: #c62828; }
+
+.admin-stat-card .stat-value {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--dark);
+    line-height: 1.2;
+}
+
+.admin-stat-card .stat-label {
+    font-size: 12px;
+    color: #6b7a99;
+    font-weight: 500;
+}
+
+/* Admin Tabs */
+.admin-tabs {
+    display: flex;
+    gap: 6px;
+    background: white;
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid #e5eaf4;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    flex-wrap: wrap;
+}
+
+.admin-tab {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #6b7a99;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.admin-tab.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    box-shadow: 0 3px 10px rgba(25, 118, 210, 0.3);
+}
+
+.admin-panel-section {
+    display: none;
+}
+.admin-panel-section.active-panel {
+    display: block;
+}
+
+.admin-card {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    border: 1px solid #e5eaf4;
+    box-shadow: 0 3px 14px #142f5510;
+    margin-bottom: 20px;
+}
+
+.admin-card h3 {
+    color: var(--primary);
+    font-size: 17px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f4fa;
+}
+
+.admin-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width: 600px) {
+    .admin-form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.admin-form-group {
+    margin-bottom: 12px;
+}
+
+.admin-form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--dark);
+}
+
+.admin-form-group input,
+.admin-form-group select,
+.admin-form-group textarea {
+    margin: 0;
+}
+
+.admin-table-wrap {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 600px;
+}
+
+.admin-table th {
+    background: #f0f4fa;
+    color: var(--primary);
+    padding: 11px 10px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #dbe4f0;
+    white-space: nowrap;
+}
+
+.admin-table td {
+    padding: 11px 10px;
+    border-bottom: 1px solid #eef1f7;
+    vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+    background: #f8faff;
+}
+
+.admin-table .actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.mini-btn {
+    border: none;
+    border-radius: 6px;
+    padding: 6px 11px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mini-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+.mini-btn.view { background: #e8f0fe; color: #123c9b; }
+.mini-btn.edit { background: #fff4e5; color: #a34800; }
+.mini-btn.delete { background: #ffebee; color: #c62828; }
+.mini-btn.primary { background: var(--primary); color: white; }
+.mini-btn.success { background: var(--green); color: white; }
+
+.admin-empty {
+    text-align: center;
+    padding: 30px 15px;
+    color: #9ba8c0;
+    font-size: 14px;
+}
+
+.admin-empty .icon {
+    font-size: 45px;
+    margin-bottom: 8px;
+    opacity: 0.5;
+}
+
+.admin-activity-list {
+    list-style: none;
+}
+
+.admin-activity-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f3f9;
+    font-size: 13px;
+    align-items: flex-start;
+}
+
+.admin-activity-item:last-child {
+    border-bottom: none;
+}
+
+.admin-activity-item .act-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #e8f0fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+}
+
+.admin-activity-item .act-body {
+    flex: 1;
+}
+
+.admin-activity-item .act-title {
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.admin-activity-item .act-time {
+    font-size: 11px;
+    color: #9ba8c0;
+    margin-top: 2px;
+}
+
+.admin-footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: #9ba8c0;
+    margin-top: 10px;
+}
+
+/* Admin login tab on nav */
+.admin-login-nav {
+    background: #ff9800 !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+.admin-login-nav:hover {
+    background: #fb8c00 !important;
+}
 </style>
 </head>
 
@@ -844,6 +1248,7 @@ footer a {
         <a href="#jobs" class="nav-link" data-page="jobs">Government Jobs</a>
         <a href="#career" class="nav-link" data-page="career">Career Guide</a>
         <a href="#student" class="nav-link" data-page="student">Student Dashboard</a>
+        <a href="#admin" class="nav-link admin-nav" data-page="admin">🔐 Admin Panel</a>
     </div>
 </nav>
 
@@ -1348,8 +1753,7 @@ footer a {
         </div>
     </section>
 
-    <!-- ==================== CONTACT (always visible? no, keep as part of home) ==================== -->
-    <!-- Moved contact to home page for simplicity, since original contact section was inside main. -->
+    <!-- ==================== CONTACT PAGE ==================== -->
     <section id="page-contact" class="page-section">
         <h2 class="section-title">📩 Contact Dream Josh</h2>
 
@@ -1357,6 +1761,375 @@ footer a {
             <p>सुझाव, अध्ययन सामग्री और सहयोग के लिए संपर्क करें।</p>
             <a href="mailto:Technicaldamor@gmail.com"
                class="button button-blue">Email करें</a>
+        </div>
+    </section>
+
+    <!-- ==================== ADMIN PANEL PAGE ==================== -->
+    <section id="page-admin" class="page-section">
+        <h2 class="section-title">🔐 Admin Panel</h2>
+
+        <!-- Admin Login -->
+        <div id="adminLoginView">
+            <div class="admin-login-box">
+                <div class="admin-icon">🔐</div>
+                <h2>Admin Login</h2>
+                <p class="admin-subtitle">Dream Josh Education — Control Panel</p>
+
+                <div id="adminLoginError" class="admin-error hidden"></div>
+
+                <div class="admin-form-group">
+                    <label>Username</label>
+                    <input type="text" id="adminUsername" placeholder="admin" autocomplete="username">
+                </div>
+
+                <div class="admin-form-group">
+                    <label>Password</label>
+                    <input type="password" id="adminPassword" placeholder="••••••••"
+                        autocomplete="current-password"
+                        onkeydown="if(event.key==='Enter') adminLogin()">
+                </div>
+
+                <button class="button button-orange" style="width:100%;padding:13px;font-size:15px;"
+                    onclick="adminLogin()">
+                    🔓 Login to Admin Panel
+                </button>
+
+                <div class="admin-hint">
+                    <strong>Demo Credentials:</strong><br>
+                    Username: <code>admin</code> &nbsp;|&nbsp; Password: <code>dreamjosh123</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="adminDashboardView" class="hidden">
+            <div class="admin-topbar">
+                <h2>⚙️ Admin Dashboard</h2>
+                <div class="admin-user">
+                    <span class="admin-user-badge">👤 <span id="adminUserName">Admin</span></span>
+                    <button class="mini-btn delete" onclick="adminLogout()">🚪 Logout</button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="admin-stats">
+                <div class="admin-stat-card">
+                    <div class="stat-icon blue">🎥</div>
+                    <div>
+                        <div class="stat-value" id="statLiveClasses">0</div>
+                        <div class="stat-label">Live Classes</div>
+                    </div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-icon green">📚</div>
+                    <div>
+                        <div class="stat-value" id="statStudyMaterial">0</div>
+                        <div class="stat-label">Study Materials</div>
+                    </div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-icon orange">💼</div>
+                    <div>
+                        <div class="stat-value" id="statJobs">0</div>
+                        <div class="stat-label">Job Posts</div>
+                    </div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="stat-icon red">👨‍🎓</div>
+                    <div>
+                        <div class="stat-value" id="statStudents">0</div>
+                        <div class="stat-label">Registered Students</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Tabs -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-admin-tab="overview" onclick="switchAdminTab('overview')">📊 Overview</button>
+                <button class="admin-tab" data-admin-tab="classes" onclick="switchAdminTab('classes')">🎥 Live Classes</button>
+                <button class="admin-tab" data-admin-tab="study" onclick="switchAdminTab('study')">📚 Study Material</button>
+                <button class="admin-tab" data-admin-tab="jobs" onclick="switchAdminTab('jobs')">💼 Job Posts</button>
+                <button class="admin-tab" data-admin-tab="students" onclick="switchAdminTab('students')">👨‍🎓 Students</button>
+                <button class="admin-tab" data-admin-tab="settings" onclick="switchAdminTab('settings')">⚙️ Settings</button>
+            </div>
+
+            <!-- Overview Panel -->
+            <div id="adminPanel-overview" class="admin-panel-section active-panel">
+                <div class="admin-card">
+                    <h3>📊 Recent Activity</h3>
+                    <ul class="admin-activity-list" id="adminActivityList">
+                        <li class="admin-activity-item">
+                            <div class="act-icon">🎥</div>
+                            <div class="act-body">
+                                <div class="act-title">New live class created: Rajasthan Police Reasoning</div>
+                                <div class="act-time">Just now</div>
+                            </div>
+                        </li>
+                        <li class="admin-activity-item">
+                            <div class="act-icon">📚</div>
+                            <div class="act-body">
+                                <div class="act-title">Study material uploaded: Maths PDF Notes</div>
+                                <div class="act-time">2 hours ago</div>
+                            </div>
+                        </li>
+                        <li class="admin-activity-item">
+                            <div class="act-icon">👨‍🎓</div>
+                            <div class="act-body">
+                                <div class="act-title">New student registered: Rahul Sharma</div>
+                                <div class="act-time">5 hours ago</div>
+                            </div>
+                        </li>
+                        <li class="admin-activity-item">
+                            <div class="act-icon">💼</div>
+                            <div class="act-body">
+                                <div class="act-title">Job post added: Rajasthan Police Constable 2025</div>
+                                <div class="act-time">Yesterday</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="admin-card">
+                    <h3>⚡ Quick Actions</h3>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="button button-blue" onclick="switchAdminTab('classes')">➕ Add Live Class</button>
+                        <button class="button button-green" onclick="switchAdminTab('study')">➕ Add Study Material</button>
+                        <button class="button button-orange" onclick="switchAdminTab('jobs')">➕ Add Job Post</button>
+                        <button class="button button-blue" onclick="switchAdminTab('students')">👀 View Students</button>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3>📈 System Status</h3>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+                        <div style="background:#e5f5e9;padding:14px;border-radius:10px;">
+                            <strong style="color:#138a45;">✅ Server Status</strong>
+                            <p style="font-size:13px;margin-top:4px;">All systems operational</p>
+                        </div>
+                        <div style="background:#e8f0fe;padding:14px;border-radius:10px;">
+                            <strong style="color:#123c9b;">🔒 Security</strong>
+                            <p style="font-size:13px;margin-top:4px;">SSL active — secure connection</p>
+                        </div>
+                        <div style="background:#fff4e5;padding:14px;border-radius:10px;">
+                            <strong style="color:#a34800;">📦 Database</strong>
+                            <p style="font-size:13px;margin-top:4px;">Demo mode — localStorage only</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classes Panel -->
+            <div id="adminPanel-classes" class="admin-panel-section">
+                <div class="admin-card">
+                    <h3>🎥 Add New Live Class</h3>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label>Class Name *</label>
+                            <input type="text" id="adminClassName" placeholder="उदा. Rajasthan Police Reasoning">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Subject</label>
+                            <input type="text" id="adminClassSubject" placeholder="उदा. Reasoning">
+                        </div>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label>Teacher</label>
+                            <input type="text" id="adminClassTeacher" placeholder="उदा. Er. Damor">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Time</label>
+                            <input type="text" id="adminClassTime" placeholder="उदा. 10:00 AM">
+                        </div>
+                    </div>
+                    <button class="button button-green" onclick="adminAddClass()">➕ Add Class</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>📋 Manage Live Classes</h3>
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Subject</th>
+                                    <th>Teacher</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminClassesTableBody">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Study Material Panel -->
+            <div id="adminPanel-study" class="admin-panel-section">
+                <div class="admin-card">
+                    <h3>📚 Add Study Material</h3>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label>Title *</label>
+                            <input type="text" id="adminStudyTitle" placeholder="उदा. Maths PDF Notes">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Category</label>
+                            <select id="adminStudyCategory">
+                                <option>School</option>
+                                <option>Competitive</option>
+                                <option>PDF</option>
+                                <option>Notes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Description</label>
+                        <input type="text" id="adminStudyDesc" placeholder="Short description">
+                    </div>
+                    <button class="button button-green" onclick="adminAddStudy()">➕ Add Material</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>📋 Manage Study Materials</h3>
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminStudyTableBody">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jobs Panel -->
+            <div id="adminPanel-jobs" class="admin-panel-section">
+                <div class="admin-card">
+                    <h3>💼 Add Job Post</h3>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label>Job Title *</label>
+                            <input type="text" id="adminJobTitle" placeholder="उदा. Rajasthan Police Constable 2025">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Organization</label>
+                            <input type="text" id="adminJobOrg" placeholder="उदा. Rajasthan Police">
+                        </div>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label>Last Date</label>
+                            <input type="text" id="adminJobDate" placeholder="उदा. 31 Dec 2025">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Official Link</label>
+                            <input type="text" id="adminJobLink" placeholder="https://...">
+                        </div>
+                    </div>
+                    <button class="button button-green" onclick="adminAddJob()">➕ Add Job Post</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>📋 Manage Job Posts</h3>
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Job Title</th>
+                                    <th>Organization</th>
+                                    <th>Last Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminJobsTableBody">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Students Panel -->
+            <div id="adminPanel-students" class="admin-panel-section">
+                <div class="admin-card">
+                    <h3>👨‍🎓 Registered Students</h3>
+                    <p style="font-size:13px;color:#6b7a99;margin-bottom:14px;">
+                        यह डेमो डेटा है। वास्तविक छात्र डेटा के लिए database integration आवश्यक है।
+                    </p>
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Joined</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminStudentsTableBody">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Panel -->
+            <div id="adminPanel-settings" class="admin-panel-section">
+                <div class="admin-card">
+                    <h3>⚙️ Site Settings</h3>
+                    <div class="admin-form-group">
+                        <label>Site Name</label>
+                        <input type="text" id="adminSettingSiteName" value="Dream Josh Education">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Tagline</label>
+                        <input type="text" id="adminSettingTagline" value="पढ़ेंगे यहाँ, बढ़ेंगे जहाँ">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Contact Email</label>
+                        <input type="email" id="adminSettingEmail" value="Technicaldamor@gmail.com">
+                    </div>
+                    <button class="button button-green" onclick="adminSaveSettings()">💾 Save Settings</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>🔐 Change Admin Password (Demo)</h3>
+                    <div class="admin-form-group">
+                        <label>Current Password</label>
+                        <input type="password" id="adminCurrentPassword" placeholder="••••••••">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>New Password</label>
+                        <input type="password" id="adminNewPassword" placeholder="••••••••">
+                    </div>
+                    <button class="button button-orange" onclick="adminChangePassword()">🔑 Update Password</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>⚠️ Danger Zone</h3>
+                    <p style="font-size:13px;color:#6b7a99;margin-bottom:12px;">
+                        यह केवल डेमो डेटा को reset करता है। वास्तविक डेटा सुरक्षित रहता है।
+                    </p>
+                    <button class="button button-red" onclick="adminResetData()">🗑️ Reset Demo Data</button>
+                </div>
+            </div>
+
+            <p class="admin-footer-note">
+                Dream Josh Admin Panel v1.0 — Demo Mode (Data stored in browser localStorage)
+            </p>
         </div>
     </section>
 
@@ -1382,27 +2155,22 @@ document.getElementById("year").textContent = new Date().getFullYear();
 // PAGE TAB SYSTEM
 // ============================================
 function showPage(pageId) {
-    // Hide all page sections
     document.querySelectorAll('.page-section').forEach(function(section) {
         section.classList.remove('active-page');
     });
-    // Show selected page
     var target = document.getElementById('page-' + pageId);
     if (target) {
         target.classList.add('active-page');
     }
-    // Update nav active state
     document.querySelectorAll('.nav-link').forEach(function(link) {
         link.classList.remove('active-nav');
         if (link.getAttribute('data-page') === pageId) {
             link.classList.add('active-nav');
         }
     });
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Attach nav link click handlers
 document.querySelectorAll('.nav-link').forEach(function(link) {
     link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -1414,7 +2182,437 @@ document.querySelectorAll('.nav-link').forEach(function(link) {
 });
 
 // ============================================
-// GLOBAL STATE
+// ADMIN AUTH (Demo)
+// ============================================
+const ADMIN_CREDENTIALS = {
+    username: 'admin',
+    password: 'dreamjosh123'
+};
+
+let adminLoggedIn = false;
+let adminUser = 'Admin';
+
+// Load admin session from sessionStorage
+if (sessionStorage.getItem('dreamjosh_admin') === 'true') {
+    adminLoggedIn = true;
+    adminUser = sessionStorage.getItem('dreamjosh_admin_user') || 'Admin';
+}
+
+function adminLogin() {
+    const username = document.getElementById('adminUsername').value.trim();
+    const password = document.getElementById('adminPassword').value;
+    const errorBox = document.getElementById('adminLoginError');
+
+    if (!username || !password) {
+        errorBox.textContent = '⚠️ Username और Password दोनों भरें।';
+        errorBox.classList.remove('hidden');
+        return;
+    }
+
+    if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+        adminLoggedIn = true;
+        adminUser = 'Admin';
+        sessionStorage.setItem('dreamjosh_admin', 'true');
+        sessionStorage.setItem('dreamjosh_admin_user', adminUser);
+        errorBox.classList.add('hidden');
+        document.getElementById('adminPassword').value = '';
+        showAdminDashboard();
+        showToast('✅ Admin login successful!', 'success');
+    } else {
+        errorBox.textContent = '❌ गलत Username या Password। Demo: admin / dreamjosh123';
+        errorBox.classList.remove('hidden');
+        showToast('❌ Invalid credentials', 'error');
+    }
+}
+
+function adminLogout() {
+    if (!confirm('Logout from Admin Panel?')) return;
+    adminLoggedIn = false;
+    sessionStorage.removeItem('dreamjosh_admin');
+    sessionStorage.removeItem('dreamjosh_admin_user');
+    document.getElementById('adminDashboardView').classList.add('hidden');
+    document.getElementById('adminLoginView').classList.remove('hidden');
+    document.getElementById('adminLoginError').classList.add('hidden');
+    showToast('👋 Logged out successfully', 'info');
+}
+
+function showAdminDashboard() {
+    document.getElementById('adminLoginView').classList.add('hidden');
+    document.getElementById('adminDashboardView').classList.remove('hidden');
+    document.getElementById('adminUserName').textContent = adminUser;
+    loadAdminData();
+}
+
+// Check admin state on page show
+const originalShowPage = showPage;
+showPage = function(pageId) {
+    originalShowPage(pageId);
+    if (pageId === 'admin') {
+        if (adminLoggedIn) {
+            document.getElementById('adminLoginView').classList.add('hidden');
+            document.getElementById('adminDashboardView').classList.remove('hidden');
+            document.getElementById('adminUserName').textContent = adminUser;
+            loadAdminData();
+        } else {
+            document.getElementById('adminLoginView').classList.remove('hidden');
+            document.getElementById('adminDashboardView').classList.add('hidden');
+        }
+    }
+};
+
+// ============================================
+// ADMIN DATA (localStorage demo)
+// ============================================
+const ADMIN_STORAGE_KEY = 'dreamjosh_admin_data';
+
+function getDefaultAdminData() {
+    return {
+        classes: [
+            { id: 1, name: 'Rajasthan Police Reasoning', subject: 'Reasoning', teacher: 'Er. Damor', time: '10:00 AM', status: 'Live' },
+            { id: 2, name: 'SSC CGL Maths', subject: 'Mathematics', teacher: 'Er. Damor', time: '12:00 PM', status: 'Upcoming' },
+            { id: 3, name: 'Rajasthan GK', subject: 'GK', teacher: 'Er. Damor', time: '04:00 PM', status: 'Upcoming' }
+        ],
+        study: [
+            { id: 1, title: 'Maths PDF Notes', category: 'PDF', desc: 'Complete maths notes for SSC' },
+            { id: 2, title: 'Reasoning Practice Set', category: 'Competitive', desc: 'Practice questions with solutions' },
+            { id: 3, title: 'Class 10 Science Notes', category: 'School', desc: 'Chapter-wise science notes' }
+        ],
+        jobs: [
+            { id: 1, title: 'Rajasthan Police Constable 2025', org: 'Rajasthan Police', date: '31 Dec 2025', link: 'https://police.rajasthan.gov.in/' },
+            { id: 2, title: 'SSC CGL 2025', org: 'Staff Selection Commission', date: '15 Jan 2026', link: 'https://ssc.gov.in/' }
+        ],
+        students: [
+            { id: 1, name: 'Rahul Sharma', email: 'rahul@example.com', joined: '10 Oct 2025', status: 'Active' },
+            { id: 2, name: 'Priya Verma', email: 'priya@example.com', joined: '12 Oct 2025', status: 'Active' },
+            { id: 3, name: 'Amit Kumar', email: 'amit@example.com', joined: '14 Oct 2025', status: 'Inactive' }
+        ],
+        settings: {
+            siteName: 'Dream Josh Education',
+            tagline: 'पढ़ेंगे यहाँ, बढ़ेंगे जहाँ',
+            email: 'Technicaldamor@gmail.com'
+        },
+        password: 'dreamjosh123'
+    };
+}
+
+function loadAdminData() {
+    let data;
+    try {
+        data = JSON.parse(localStorage.getItem(ADMIN_STORAGE_KEY));
+    } catch (e) {
+        data = null;
+    }
+    if (!data || !data.classes) {
+        data = getDefaultAdminData();
+        localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(data));
+    }
+    window._adminData = data;
+    renderAdminStats();
+    renderAdminClasses();
+    renderAdminStudy();
+    renderAdminJobs();
+    renderAdminStudents();
+    renderAdminSettings();
+}
+
+function saveAdminData() {
+    localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(window._adminData));
+    renderAdminStats();
+    renderAdminClasses();
+    renderAdminStudy();
+    renderAdminJobs();
+    renderAdminStudents();
+}
+
+function renderAdminStats() {
+    const d = window._adminData;
+    if (!d) return;
+    document.getElementById('statLiveClasses').textContent = d.classes.length;
+    document.getElementById('statStudyMaterial').textContent = d.study.length;
+    document.getElementById('statJobs').textContent = d.jobs.length;
+    document.getElementById('statStudents').textContent = d.students.length;
+}
+
+// ============================================
+// ADMIN TABS
+// ============================================
+function switchAdminTab(tab) {
+    document.querySelectorAll('.admin-tab').forEach(function(t) {
+        t.classList.remove('active');
+        if (t.getAttribute('data-admin-tab') === tab) t.classList.add('active');
+    });
+    document.querySelectorAll('.admin-panel-section').forEach(function(p) {
+        p.classList.remove('active-panel');
+    });
+    var target = document.getElementById('adminPanel-' + tab);
+    if (target) target.classList.add('active-panel');
+}
+
+// ============================================
+// ADMIN: CLASSES
+// ============================================
+function adminAddClass() {
+    const name = document.getElementById('adminClassName').value.trim();
+    const subject = document.getElementById('adminClassSubject').value.trim() || 'General';
+    const teacher = document.getElementById('adminClassTeacher').value.trim() || 'Admin';
+    const time = document.getElementById('adminClassTime').value.trim() || 'TBD';
+
+    if (!name) {
+        showToast('⚠️ Class Name ज़रूरी है', 'error');
+        return;
+    }
+
+    const d = window._adminData;
+    const newId = d.classes.length ? Math.max(...d.classes.map(c => c.id)) + 1 : 1;
+    d.classes.push({ id: newId, name, subject, teacher, time, status: 'Upcoming' });
+    saveAdminData();
+
+    document.getElementById('adminClassName').value = '';
+    document.getElementById('adminClassSubject').value = '';
+    document.getElementById('adminClassTeacher').value = '';
+    document.getElementById('adminClassTime').value = '';
+
+    showToast('✅ Class added successfully!', 'success');
+}
+
+function renderAdminClasses() {
+    const tbody = document.getElementById('adminClassesTableBody');
+    if (!tbody || !window._adminData) return;
+    const classes = window._adminData.classes;
+
+    if (!classes.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="admin-empty"><div class="icon">🎥</div>कोई class नहीं है।</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = classes.map(function(c) {
+        var statusClass = c.status === 'Live' ? 'status-live' : (c.status === 'Ended' ? 'status-ended' : 'status-upcoming');
+        return '<tr>' +
+            '<td><strong>' + escapeHtml(c.name) + '</strong></td>' +
+            '<td>' + escapeHtml(c.subject) + '</td>' +
+            '<td>' + escapeHtml(c.teacher) + '</td>' +
+            '<td>' + escapeHtml(c.time) + '</td>' +
+            '<td><span class="' + statusClass + '">' + escapeHtml(c.status) + '</span></td>' +
+            '<td><div class="actions">' +
+                '<button class="mini-btn edit" onclick="adminToggleClassStatus(' + c.id + ')">🔄 Toggle</button>' +
+                '<button class="mini-btn delete" onclick="adminDeleteClass(' + c.id + ')">🗑️</button>' +
+            '</div></td>' +
+        '</tr>';
+    }).join('');
+}
+
+function adminToggleClassStatus(id) {
+    const c = window._adminData.classes.find(x => x.id === id);
+    if (!c) return;
+    if (c.status === 'Upcoming') c.status = 'Live';
+    else if (c.status === 'Live') c.status = 'Ended';
+    else c.status = 'Upcoming';
+    saveAdminData();
+    showToast('🔄 Status updated to ' + c.status, 'info');
+}
+
+function adminDeleteClass(id) {
+    if (!confirm('इस class को delete करें?')) return;
+    window._adminData.classes = window._adminData.classes.filter(c => c.id !== id);
+    saveAdminData();
+    showToast('🗑️ Class deleted', 'success');
+}
+
+// ============================================
+// ADMIN: STUDY MATERIAL
+// ============================================
+function adminAddStudy() {
+    const title = document.getElementById('adminStudyTitle').value.trim();
+    const category = document.getElementById('adminStudyCategory').value;
+    const desc = document.getElementById('adminStudyDesc').value.trim() || '-';
+
+    if (!title) {
+        showToast('⚠️ Title ज़रूरी है', 'error');
+        return;
+    }
+
+    const d = window._adminData;
+    const newId = d.study.length ? Math.max(...d.study.map(s => s.id)) + 1 : 1;
+    d.study.push({ id: newId, title, category, desc });
+    saveAdminData();
+
+    document.getElementById('adminStudyTitle').value = '';
+    document.getElementById('adminStudyDesc').value = '';
+    showToast('✅ Study material added!', 'success');
+}
+
+function renderAdminStudy() {
+    const tbody = document.getElementById('adminStudyTableBody');
+    if (!tbody || !window._adminData) return;
+    const items = window._adminData.study;
+
+    if (!items.length) {
+        tbody.innerHTML = '<tr><td colspan="4" class="admin-empty"><div class="icon">📚</div>कोई material नहीं है।</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = items.map(function(s) {
+        return '<tr>' +
+            '<td><strong>' + escapeHtml(s.title) + '</strong></td>' +
+            '<td>' + escapeHtml(s.category) + '</td>' +
+            '<td>' + escapeHtml(s.desc) + '</td>' +
+            '<td><div class="actions">' +
+                '<button class="mini-btn delete" onclick="adminDeleteStudy(' + s.id + ')">🗑️ Delete</button>' +
+            '</div></td>' +
+        '</tr>';
+    }).join('');
+}
+
+function adminDeleteStudy(id) {
+    if (!confirm('इस study material को delete करें?')) return;
+    window._adminData.study = window._adminData.study.filter(s => s.id !== id);
+    saveAdminData();
+    showToast('🗑️ Deleted', 'success');
+}
+
+// ============================================
+// ADMIN: JOBS
+// ============================================
+function adminAddJob() {
+    const title = document.getElementById('adminJobTitle').value.trim();
+    const org = document.getElementById('adminJobOrg').value.trim() || '-';
+    const date = document.getElementById('adminJobDate').value.trim() || '-';
+    const link = document.getElementById('adminJobLink').value.trim() || '#';
+
+    if (!title) {
+        showToast('⚠️ Job Title ज़रूरी है', 'error');
+        return;
+    }
+
+    const d = window._adminData;
+    const newId = d.jobs.length ? Math.max(...d.jobs.map(j => j.id)) + 1 : 1;
+    d.jobs.push({ id: newId, title, org, date, link });
+    saveAdminData();
+
+    document.getElementById('adminJobTitle').value = '';
+    document.getElementById('adminJobOrg').value = '';
+    document.getElementById('adminJobDate').value = '';
+    document.getElementById('adminJobLink').value = '';
+    showToast('✅ Job post added!', 'success');
+}
+
+function renderAdminJobs() {
+    const tbody = document.getElementById('adminJobsTableBody');
+    if (!tbody || !window._adminData) return;
+    const jobs = window._adminData.jobs;
+
+    if (!jobs.length) {
+        tbody.innerHTML = '<tr><td colspan="4" class="admin-empty"><div class="icon">💼</div>कोई job post नहीं है।</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = jobs.map(function(j) {
+        return '<tr>' +
+            '<td><strong>' + escapeHtml(j.title) + '</strong></td>' +
+            '<td>' + escapeHtml(j.org) + '</td>' +
+            '<td>' + escapeHtml(j.date) + '</td>' +
+            '<td><div class="actions">' +
+                '<button class="mini-btn delete" onclick="adminDeleteJob(' + j.id + ')">🗑️ Delete</button>' +
+            '</div></td>' +
+        '</tr>';
+    }).join('');
+}
+
+function adminDeleteJob(id) {
+    if (!confirm('इस job post को delete करें?')) return;
+    window._adminData.jobs = window._adminData.jobs.filter(j => j.id !== id);
+    saveAdminData();
+    showToast('🗑️ Deleted', 'success');
+}
+
+// ============================================
+// ADMIN: STUDENTS
+// ============================================
+function renderAdminStudents() {
+    const tbody = document.getElementById('adminStudentsTableBody');
+    if (!tbody || !window._adminData) return;
+    const students = window._adminData.students;
+
+    if (!students.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="admin-empty"><div class="icon">👨‍🎓</div>कोई student नहीं है।</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = students.map(function(s) {
+        var statusClass = s.status === 'Active' ? 'status-live' : 'status-ended';
+        return '<tr>' +
+            '<td><strong>' + escapeHtml(s.name) + '</strong></td>' +
+            '<td>' + escapeHtml(s.email) + '</td>' +
+            '<td>' + escapeHtml(s.joined) + '</td>' +
+            '<td><span class="' + statusClass + '">' + escapeHtml(s.status) + '</span></td>' +
+            '<td><div class="actions">' +
+                '<button class="mini-btn delete" onclick="adminDeleteStudent(' + s.id + ')">🗑️ Remove</button>' +
+            '</div></td>' +
+        '</tr>';
+    }).join('');
+}
+
+function adminDeleteStudent(id) {
+    if (!confirm('इस student को remove करें?')) return;
+    window._adminData.students = window._adminData.students.filter(s => s.id !== id);
+    saveAdminData();
+    showToast('🗑️ Student removed', 'success');
+}
+
+// ============================================
+// ADMIN: SETTINGS
+// ============================================
+function renderAdminSettings() {
+    if (!window._adminData) return;
+    var s = window._adminData.settings;
+    document.getElementById('adminSettingSiteName').value = s.siteName;
+    document.getElementById('adminSettingTagline').value = s.tagline;
+    document.getElementById('adminSettingEmail').value = s.email;
+}
+
+function adminSaveSettings() {
+    var s = window._adminData.settings;
+    s.siteName = document.getElementById('adminSettingSiteName').value.trim() || 'Dream Josh Education';
+    s.tagline = document.getElementById('adminSettingTagline').value.trim() || 'पढ़ेंगे यहाँ, बढ़ेंगे जहाँ';
+    s.email = document.getElementById('adminSettingEmail').value.trim() || 'Technicaldamor@gmail.com';
+    saveAdminData();
+    showToast('💾 Settings saved!', 'success');
+}
+
+function adminChangePassword() {
+    var current = document.getElementById('adminCurrentPassword').value;
+    var newPass = document.getElementById('adminNewPassword').value;
+
+    if (!current || !newPass) {
+        showToast('⚠️ दोनों password भरें', 'error');
+        return;
+    }
+    if (current !== window._adminData.password) {
+        showToast('❌ Current password गलत है', 'error');
+        return;
+    }
+    if (newPass.length < 6) {
+        showToast('⚠️ नया password कम से कम 6 characters का हो', 'error');
+        return;
+    }
+
+    window._adminData.password = newPass;
+    ADMIN_CREDENTIALS.password = newPass;
+    saveAdminData();
+    document.getElementById('adminCurrentPassword').value = '';
+    document.getElementById('adminNewPassword').value = '';
+    showToast('🔑 Password updated! (Demo only)', 'success');
+}
+
+function adminResetData() {
+    if (!confirm('सभी demo data reset करें? यह action undo नहीं हो सकता।')) return;
+    localStorage.removeItem(ADMIN_STORAGE_KEY);
+    loadAdminData();
+    showToast('🗑️ Demo data reset successfully!', 'success');
+}
+
+// ============================================
+// GLOBAL STATE (Meeting etc.)
 // ============================================
 let currentRole = 'teacher';
 let meetingState = {
