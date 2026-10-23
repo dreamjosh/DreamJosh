@@ -1,799 +1,916 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dream Josh – Govt Jobs, Study Notes & Career Guidance</title>
-<meta name="description" content="Dream Josh – Govt Jobs, Study Notes, Career Guidance, Live Classes aur bahut kuch." />
-<meta name="theme-color" content="#123c9b" />
-<link rel="manifest" href="manifest.json" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<style>
-:root{
-  --bg-color:#eef5ff;--card-bg:#fff;--text-color:#172033;
-  --primary-blue:#123c9b;--secondary-blue:#1976d2;
-  --success-green:#16a34a;--warning-red:#d62839;
-  --highlight-bg:#eefaf4;--border-color:#dce5f0;
-  --shadow-color:rgba(0,0,0,.1);
-  --header-bg:linear-gradient(135deg,#123c9b,#1976d2);
-  --footer-bg:#123c9b;--gold:#ffd700;--text-light:#6c757d;
-  --safe-bottom:env(safe-area-inset-bottom,0px);
-  --safe-top:env(safe-area-inset-top,0px);
-  --whatsapp-green:#25D366;--telegram-blue:#0088cc;
-  --youtube-red:#FF0000;--instagram-pink:#E4405F;
-}
-.dark-mode{--bg-color:#0a0e1a;--card-bg:#141428;--text-color:#e8e8e8;
-  --text-light:#a0a0b8;--primary-blue:#1a3a8a;--secondary-blue:#2a5ac8;
-  --border-color:#2a2a4a;--shadow-color:rgba(0,0,0,.3);--footer-bg:#0d1b3e;}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:var(--bg-color);color:var(--text-color);min-height:100vh;
-  transition:background .3s,color .3s;padding-top:70px;padding-bottom:55px;}
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>Home – Dream Josh</title>
+    <meta name="description" content="Dream Josh – Govt Jobs, Study Notes, Career Guidance" />
+    <meta name="theme-color" content="#123c9b" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="https://dreamjosh.com/logo.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-/* HEADER */
-.app-header{background:var(--header-bg);padding:10px 16px;display:flex;
-  justify-content:space-between;align-items:center;position:fixed;top:0;left:0;right:0;
-  z-index:1000;height:60px;box-shadow:0 2px 20px var(--shadow-color);
-  padding-top:calc(10px + var(--safe-top));}
-.app-header .logo{font-size:20px;font-weight:bold;cursor:pointer;color:#fff;
-  user-select:none;display:flex;align-items:center;gap:8px;text-decoration:none;}
-.app-header .logo span{color:var(--gold);}
-.header-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.nav-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);
-  color:#fff;padding:5px 12px;border-radius:18px;cursor:pointer;font-size:12px;
-  font-weight:600;transition:.3s;white-space:nowrap;text-decoration:none;
-  display:inline-flex;align-items:center;gap:4px;}
-.nav-btn:hover,.nav-btn.active{background:var(--gold);color:#0a0e1a;}
-.nav-btn.admin-btn{background:rgba(214,40,57,.85);border-color:rgba(214,40,57,1);}
-.nav-btn.admin-btn:hover{background:#d62839;color:#fff;}
-.nav-btn.dark-btn{background:rgba(0,0,0,.3);}
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
-/* MAIN */
-.main-scroll-area{padding:16px;}
-.section-container{max-width:1200px;margin:0 auto;}
+    <style>
+        :root {
+            --bg-color: #eef5ff; --card-bg: #ffffff; --text-color: #172033;
+            --primary-blue: #123c9b; --secondary-blue: #1976d2;
+            --success-green: #16a34a; --warning-red: #d62839;
+            --highlight-bg: #eefaf4; --border-color: #dce5f0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --header-bg: linear-gradient(135deg, #123c9b, #1976d2);
+            --footer-bg: #123c9b; --card-hover: #f4f8ff; --gold: #ffd700;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+            --safe-top: env(safe-area-inset-top, 0px);
+            --text-light: #6c757d; --secondary: #1a2332;
+            --editor-toolbar-bg: #ffffff;
+            --whatsapp-green: #25D366;
+            --telegram-blue: #0088cc;
+            --youtube-red: #FF0000;
+            --instagram-pink: #E4405F;
+        }
+        .dark-mode {
+            --bg-color: #0a0e1a; --card-bg: #141428; --text-color: #e8e8e8;
+            --text-light: #a0a0b8; --primary-blue: #1a3a8a;
+            --secondary-blue: #2a5ac8; --border-color: #2a2a4a;
+            --shadow-color: rgba(0, 0, 0, 0.3); --footer-bg: #0d1b3e;
+            --card-hover: #1a1a3a; --secondary: #1a1a2e;
+            --editor-toolbar-bg: #141428;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg-color); color: var(--text-color);
+            min-height: 100vh; transition: background 0.3s ease, color 0.3s ease;
+            padding-top: 70px; padding-bottom: 55px;
+        }
 
-/* HERO */
-.hero{background:var(--header-bg);color:#fff;text-align:center;padding:40px 20px;
-  border-radius:16px;margin-bottom:20px;}
-.hero h1{font-size:clamp(24px,5vw,36px);margin-bottom:8px;}
-.hero p{font-size:14px;opacity:.9;margin-bottom:16px;}
-.hero .hero-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
-.hero .btn{background:var(--gold);color:#0a0e1a;padding:10px 22px;border-radius:8px;
-  font-weight:700;text-decoration:none;font-size:14px;border:none;cursor:pointer;}
-.hero .btn.outline{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);}
+        /* ============ HEADER ============ */
+        .app-header {
+            background: var(--header-bg); padding: 10px 16px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            height: 60px; box-shadow: 0 2px 20px var(--shadow-color);
+            padding-top: calc(10px + var(--safe-top));
+        }
+        .app-header .logo {
+            font-size: 20px; font-weight: bold; cursor: pointer;
+            color: #fff; user-select: none;
+            display: flex; align-items: center; gap: 8px;
+            text-decoration: none;
+        }
+        .app-header .logo span { color: var(--gold); }
+        .app-header .header-controls {
+            display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+        }
+        .app-header .header-controls .nav-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff; padding: 5px 12px; border-radius: 18px;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+            transition: 0.3s; white-space: nowrap;
+            text-decoration: none;
+            display: inline-flex; align-items: center;
+        }
+        .app-header .header-controls .nav-btn:hover { background: var(--gold); color: #0a0e1a; }
+        .app-header .header-controls .nav-btn.active { background: var(--gold); color: #0a0e1a; }
 
-/* TICKER */
-.ticker{margin:8px auto;padding:8px 10px;border-radius:8px;color:#fff;
-  overflow:hidden;white-space:nowrap;max-width:100%;}
-.ticker.latest{background:#d62839;}
-.ticker.update{background:#079455;}
-.ticker span{display:inline-block;padding-left:100%;animation:move 20s linear infinite;}
-@keyframes move{from{transform:translateX(0);}to{transform:translateX(-100%);}}
+        .app-header .header-controls .nav-btn.admin-btn {
+            background: rgba(214, 40, 57, 0.85);
+            border-color: rgba(214, 40, 57, 1);
+        }
+        .app-header .header-controls .nav-btn.admin-btn:hover {
+            background: #d62839; color: #fff;
+        }
 
-/* SECTION */
-.section-block{background:var(--card-bg);border-radius:14px;padding:22px;
-  margin:20px 0;border:1px solid var(--border-color);
-  box-shadow:0 4px 12px var(--shadow-color);}
-.section-header{display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:10px;margin-bottom:16px;padding-bottom:12px;
-  border-bottom:2px solid var(--border-color);}
-.section-header h2{font-size:20px;display:flex;align-items:center;gap:10px;
-  color:var(--primary-blue);}
-.section-header .see-all{font-size:12px;color:var(--secondary-blue);
-  text-decoration:none;font-weight:600;}
+        /* ============ DROPDOWN ============ */
+        .dropdown-wrapper { position: relative; display: inline-block; }
+        .dropdown-wrapper .dropdown-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff; padding: 5px 12px; border-radius: 18px;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+            transition: 0.3s; white-space: nowrap;
+        }
+        .dropdown-wrapper .dropdown-btn:hover { background: var(--gold); color: #0a0e1a; }
+        .dropdown-wrapper .dropdown-btn .arrow { font-size: 10px; margin-left: 3px; }
+        .dropdown-wrapper:hover .dropdown-content,
+        .dropdown-wrapper .dropdown-content.show { display: block; animation: dropdownFade 0.25s ease; }
+        .dropdown-wrapper .dropdown-content {
+            display: none; position: absolute; top: 100%; right: 0; left: auto;
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; box-shadow: 0 8px 30px var(--shadow-color);
+            min-width: 260px; z-index: 1001; padding: 6px 0;
+            max-height: 70vh; overflow-y: auto;
+        }
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .dropdown-wrapper .dropdown-content a {
+            display: block; width: 100%; padding: 10px 20px;
+            background: transparent; border: none; text-align: left;
+            font-size: 13px; font-weight: 600; color: var(--text-color);
+            cursor: pointer; transition: 0.2s;
+            text-decoration: none;
+        }
+        .dropdown-wrapper .dropdown-content a:hover { background: var(--card-hover); }
+        .dropdown-wrapper .dropdown-content .dropdown-label {
+            padding: 8px 20px; font-size: 11px; text-transform: uppercase;
+            color: var(--text-color); opacity: 0.4; font-weight: 700;
+        }
 
-/* SEARCH */
-.search-box{display:flex;gap:10px;margin:16px 0;}
-.search-box input{flex:1;padding:12px 16px;border:2px solid var(--border-color);
-  border-radius:10px;font-size:14px;background:var(--card-bg);color:var(--text-color);
-  outline:none;font-family:inherit;}
-.search-box input:focus{border-color:var(--secondary-blue);}
-.search-box button{padding:12px 24px;background:var(--secondary-blue);color:#fff;
-  border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px;}
+        /* ============ MAIN ============ */
+        .main-scroll-area { padding: 16px; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
 
-/* GRID CARDS */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;}
-.card{background:var(--card-bg);border-radius:12px;padding:18px;
-  border:1px solid var(--border-color);transition:.3s;position:relative;
-  box-shadow:0 2px 8px var(--shadow-color);}
-.card:hover{transform:translateY(-4px);box-shadow:0 8px 20px var(--shadow-color);
-  border-color:var(--secondary-blue);}
-.card .card-icon{font-size:28px;margin-bottom:8px;}
-.card h3{font-size:15px;margin-bottom:6px;color:var(--primary-blue);}
-.card p{font-size:12.5px;color:var(--text-light);margin-bottom:10px;}
-.card .btn-sm{display:inline-block;padding:6px 14px;background:var(--secondary-blue);
-  color:#fff;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;
-  border:none;cursor:pointer;}
+        /* ============ HOME ============ */
+        .home-original {
+            background: var(--bg-color); color: var(--text-color);
+            border-radius: 16px; overflow: hidden;
+        }
+        .home-original header {
+            background: var(--header-bg); color: white;
+            text-align: center; padding: 20px 20px;
+            border-radius: 16px 16px 0 0;
+        }
+        .home-original header h1 { margin: 0; font-size: 28px; }
+        .home-original header p { margin: 5px 0 0; font-size: 14px; }
+        .home-original header small { font-size: 12px; opacity: 0.8; }
+        .home-original .ticker {
+            margin: 8px auto; max-width: 1100px; padding: 8px 10px;
+            border-radius: 8px; color: white;
+            overflow: hidden; white-space: nowrap;
+        }
+        .home-original .latest { background: #d62839; }
+        .home-original .update { background: #079455; }
+        .home-original .ticker span {
+            display: inline-block; padding-left: 100%;
+            animation: move 18s linear infinite;
+        }
+        @keyframes move {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+        .home-original .container { max-width: 1100px; margin: auto; padding: 12px; }
+        .home-original .home-layout { display: flex; gap: 20px; align-items: flex-start; }
+        .home-original .left-content { flex: 3; }
+        .home-original .right-sidebar { flex: 1; }
+        .home-original .sidebar-box {
+            background: var(--card-bg); border-radius: 10px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            margin-bottom: 12px; overflow: hidden;
+        }
+        .home-original .sidebar-box h3 {
+            margin: 0; padding: 8px 14px;
+            background: var(--secondary-blue); color: #fff; font-size: 13px;
+        }
+        .home-original .notice {
+            height: 140px; overflow: hidden; position: relative;
+        }
+        .home-original .notice ul {
+            padding: 8px 16px; list-style: none;
+            animation: scrollUp 12s linear infinite;
+        }
+        .home-original .notice ul li {
+            padding: 5px 0; font-size: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .home-original .notice ul li:last-child { border-bottom: none; }
+        @keyframes scrollUp {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .home-original .notice:hover ul { animation-play-state: paused; }
 
-/* JOB CARDS */
-.job-card{background:var(--card-bg);border-radius:12px;padding:16px;
-  border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);
-  margin-bottom:10px;transition:.3s;}
-.job-card:hover{border-left-color:var(--gold);box-shadow:0 6px 18px var(--shadow-color);}
-.job-card .job-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
-.job-card .job-title{font-size:15px;font-weight:700;color:var(--text-color);}
-.job-card .job-badge{font-size:10px;font-weight:700;padding:2px 10px;border-radius:12px;
-  color:#fff;background:var(--secondary-blue);}
-.job-card .job-badge.central{background:#1976d2;}
-.job-card .job-badge.state{background:#16a34a;}
-.job-card .job-badge.private{background:#6c5ce7;}
-.job-card .job-meta{font-size:12px;color:var(--text-light);display:flex;gap:12px;flex-wrap:wrap;margin:6px 0;}
-.job-card .job-actions{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;}
-.job-card .job-actions a{padding:5px 12px;background:var(--secondary-blue);color:#fff;
-  border-radius:5px;font-size:11px;font-weight:600;text-decoration:none;}
+        .home-original .imp-links a {
+            display: block; padding: 6px 14px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--primary-blue); text-decoration: none;
+            font-size: 12px; cursor: pointer;
+        }
+        .home-original .imp-links a:hover { background: var(--card-hover); }
+        .home-original .card {
+            background: var(--card-bg); padding: 16px; margin: 8px 0;
+            border-radius: 10px; border-left: 5px solid var(--secondary-blue);
+        }
+        .home-original .card h3 { margin-top: 0; color: var(--primary-blue); font-size: 16px; }
+        .home-original .about-home { line-height: 1.7; font-size: 14px; }
+        .home-original .about-home ul { padding-left: 20px; margin: 6px 0 10px; }
+        .home-original .about-home li { margin: 3px 0; font-size: 13px; }
+        .home-original .about-highlight {
+            margin-top: 12px; padding: 14px;
+            border-left: 4px solid var(--success-green);
+            background: var(--highlight-bg); border-radius: 8px;
+            text-align: center; font-size: 15px;
+        }
 
-/* CONTACT */
-.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;}
-.contact-card{background:var(--bg-color);border-radius:12px;padding:18px;
-  text-align:center;border:1px solid var(--border-color);transition:.3s;
-  text-decoration:none;color:inherit;display:block;}
-.contact-card:hover{transform:translateY(-5px);border-color:var(--secondary-blue);
-  box-shadow:0 8px 20px var(--shadow-color);}
-.contact-card .contact-icon{width:50px;height:50px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:22px;
-  margin:0 auto 10px;background:var(--primary-blue);color:#fff;}
-.contact-card .contact-label{font-size:11px;color:var(--text-light);font-weight:600;margin-bottom:4px;}
-.contact-card .contact-value{font-size:13px;font-weight:700;word-break:break-word;}
+        /* ============ NEW SECTIONS ============ */
+        .section-block {
+            background: var(--card-bg); border-radius: 14px;
+            padding: 24px; margin: 20px 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+        .section-block .section-header {
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap;
+            gap: 10px; margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .section-block .section-header h2 {
+            font-size: 20px; display: flex; align-items: center; gap: 10px;
+            color: var(--primary-blue);
+        }
 
-/* SOCIAL */
-.social-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;}
-.social-card{display:flex;align-items:center;gap:12px;padding:14px 16px;
-  border-radius:12px;text-decoration:none;color:#fff;transition:.3s;font-weight:600;
-  box-shadow:0 4px 12px var(--shadow-color);}
-.social-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 12px 25px rgba(0,0,0,.2);}
-.social-card i{font-size:24px;}
-.social-card .social-info{display:flex;flex-direction:column;line-height:1.3;}
-.social-card .social-name{font-size:14px;}
-.social-card .social-sub{font-size:10px;opacity:.85;}
-.social-card.whatsapp{background:var(--whatsapp-green);}
-.social-card.telegram{background:var(--telegram-blue);}
-.social-card.youtube{background:var(--youtube-red);}
-.social-card.instagram{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+        }
+        .contact-card {
+            background: var(--bg-color); border-radius: 12px;
+            padding: 18px; text-align: center;
+            border: 1px solid var(--border-color);
+            transition: 0.3s; text-decoration: none; color: inherit;
+            display: block;
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+        .contact-card .contact-icon {
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; margin: 0 auto 10px;
+            background: var(--primary-blue); color: #fff;
+        }
+        .contact-card .contact-label {
+            font-size: 12px; color: var(--text-light);
+            font-weight: 600; margin-bottom: 4px;
+        }
+        .contact-card .contact-value {
+            font-size: 14px; font-weight: 700;
+            color: var(--text-color); word-break: break-word;
+        }
 
-/* FLOAT */
-.whatsapp-float{position:fixed;bottom:70px;right:16px;width:54px;height:54px;
-  border-radius:50%;background:var(--whatsapp-green);color:#fff;display:flex;
-  align-items:center;justify-content:center;font-size:26px;z-index:998;
-  box-shadow:0 6px 20px rgba(37,211,102,.5);text-decoration:none;transition:.3s;
-  animation:wpPulse 2s infinite;}
-@keyframes wpPulse{0%,100%{box-shadow:0 6px 20px rgba(37,211,102,.5);}
-  50%{box-shadow:0 6px 30px rgba(37,211,102,.9);}}
-.back-to-top{position:fixed;bottom:140px;right:16px;width:44px;height:44px;
-  border-radius:50%;background:var(--primary-blue);color:#fff;display:none;
-  align-items:center;justify-content:center;font-size:18px;z-index:997;
-  cursor:pointer;border:none;box-shadow:0 4px 15px rgba(18,60,155,.4);transition:.3s;}
-.back-to-top.show{display:flex;}
-.back-to-top:hover{background:var(--secondary-blue);transform:translateY(-5px);}
+        /* Social */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+        }
+        .social-card {
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 16px; border-radius: 12px;
+            text-decoration: none; color: #fff;
+            transition: 0.3s; font-weight: 600;
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+        .social-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        }
+        .social-card i { font-size: 24px; }
+        .social-card .social-info {
+            display: flex; flex-direction: column; line-height: 1.3;
+        }
+        .social-card .social-name { font-size: 14px; }
+        .social-card .social-sub { font-size: 10px; opacity: 0.85; font-weight: 500; }
+        .social-card.whatsapp { background: var(--whatsapp-green); }
+        .social-card.telegram { background: var(--telegram-blue); }
+        .social-card.youtube { background: var(--youtube-red); }
+        .social-card.instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
 
-/* FOOTER */
-.app-footer{background:var(--footer-bg);color:#fff;padding:12px 16px;text-align:center;
-  position:fixed;bottom:0;left:0;right:0;z-index:999;
-  box-shadow:0 -2px 15px var(--shadow-color);padding-bottom:calc(12px + var(--safe-bottom));}
-.footer-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:6px;}
-.footer-links a{color:rgba(255,255,255,.85);font-size:11px;text-decoration:none;
-  cursor:pointer;transition:.2s;padding:3px 8px;border-radius:6px;}
-.footer-links a:hover{background:rgba(255,215,0,.2);color:var(--gold);}
-.footer-copy{font-size:11px;color:rgba(255,255,255,.6);}
-.footer-copy span{color:var(--gold);}
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed; bottom: 70px; right: 16px;
+            width: 54px; height: 54px; border-radius: 50%;
+            background: var(--whatsapp-green); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; z-index: 998;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+            cursor: pointer; text-decoration: none;
+            transition: 0.3s; animation: whatsappPulse 2s infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.7);
+        }
+        @keyframes whatsappPulse {
+            0%, 100% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5); }
+            50% { box-shadow: 0 6px 30px rgba(37, 211, 102, 0.9); }
+        }
 
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
-  z-index:9999;backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px;}
-.modal-overlay.active{display:flex;}
-.modal-box{background:var(--card-bg);border-radius:14px;max-width:700px;width:100%;
-  max-height:85vh;overflow-y:auto;padding:24px;border:1px solid var(--border-color);}
-.modal-box .modal-header{display:flex;justify-content:space-between;align-items:center;
-  padding-bottom:12px;margin-bottom:16px;border-bottom:2px solid var(--border-color);}
-.modal-box .modal-header h3{font-size:20px;color:var(--primary-blue);}
-.modal-box .modal-close{background:var(--bg-color);border:1px solid var(--border-color);
-  width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;
-  color:var(--text-color);display:flex;align-items:center;justify-content:center;}
-.modal-box .modal-content{font-size:13.5px;line-height:1.8;}
-.modal-box .modal-content h4{color:var(--primary-blue);margin:16px 0 8px;font-size:15px;}
-.modal-box .modal-content p{margin-bottom:10px;}
-.modal-box .modal-content ul{padding-left:24px;margin-bottom:10px;}
+        /* PWA Install */
+        .pwa-install-btn {
+            position: fixed; bottom: 70px; left: 16px;
+            background: var(--primary-blue); color: #fff;
+            padding: 10px 18px; border-radius: 30px;
+            border: none; cursor: pointer;
+            font-size: 13px; font-weight: 700;
+            display: none; align-items: center; gap: 8px;
+            z-index: 998;
+            box-shadow: 0 6px 20px rgba(18, 60, 155, 0.4);
+            animation: slideUp 0.4s ease;
+        }
+        .pwa-install-btn.show { display: flex; }
+        .pwa-install-btn:hover {
+            background: var(--secondary-blue);
+            transform: translateY(-3px);
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-/* TOAST */
-.toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);
-  padding:12px 24px;border-radius:12px;color:#fff;font-size:14px;font-weight:600;
-  z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:90%;text-align:center;}
-.toast.success{background:#16a34a;}
-.toast.error{background:#dc3545;}
-.toast.info{background:#1976d2;}
+        /* Back to top */
+        .back-to-top {
+            position: fixed; bottom: 140px; right: 16px;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--primary-blue); color: #fff;
+            display: none; align-items: center; justify-content: center;
+            font-size: 18px; z-index: 997; cursor: pointer;
+            border: none; box-shadow: 0 4px 15px rgba(18, 60, 155, 0.4);
+            transition: 0.3s;
+        }
+        .back-to-top.show { display: flex; }
+        .back-to-top:hover { background: var(--secondary-blue); transform: translateY(-5px); }
 
-/* EMPTY */
-.empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
-.empty-state i{font-size:36px;margin-bottom:8px;opacity:.4;display:block;}
+        /* Footer */
+        .app-footer {
+            background: var(--footer-bg); color: #fff;
+            padding: 12px 16px; text-align: center;
+            position: fixed; bottom: 0; left: 0; right: 0;
+            z-index: 999; box-shadow: 0 -2px 15px var(--shadow-color);
+            padding-bottom: calc(12px + var(--safe-bottom));
+        }
+        .app-footer .footer-links {
+            display: flex; justify-content: center;
+            gap: 12px; flex-wrap: wrap; margin-bottom: 6px;
+        }
+        .app-footer .footer-links a {
+            color: rgba(255,255,255,0.85); font-size: 11px;
+            text-decoration: none; cursor: pointer;
+            transition: 0.2s; padding: 3px 8px; border-radius: 6px;
+        }
+        .app-footer .footer-links a:hover {
+            background: rgba(255,215,0,0.2); color: var(--gold);
+        }
+        .app-footer .footer-copy {
+            font-size: 11px; color: rgba(255,255,255,0.6);
+        }
+        .app-footer .footer-copy span { color: var(--gold); }
 
-/* HOME LAYOUT */
-.home-layout{display:flex;gap:20px;align-items:flex-start;}
-.left-content{flex:3;min-width:0;}
-.right-sidebar{flex:1;min-width:220px;}
-.sidebar-box{background:var(--card-bg);border-radius:10px;
-  box-shadow:0 2px 8px var(--shadow-color);margin-bottom:12px;overflow:hidden;}
-.sidebar-box h3{margin:0;padding:8px 14px;background:var(--secondary-blue);
-  color:#fff;font-size:13px;}
-.notice{height:140px;overflow:hidden;position:relative;}
-.notice ul{padding:8px 16px;list-style:none;animation:scrollUp 12s linear infinite;}
-.notice ul li{padding:5px 0;font-size:12px;border-bottom:1px solid var(--border-color);}
-.notice ul li:last-child{border-bottom:none;}
-@keyframes scrollUp{0%{transform:translateY(0);}100%{transform:translateY(-50%);}}
-.notice:hover ul{animation-play-state:paused;}
-.imp-links a{display:block;padding:8px 14px;border-bottom:1px solid var(--border-color);
-  color:var(--primary-blue);text-decoration:none;font-size:12px;cursor:pointer;}
-.imp-links a:hover{background:var(--card-bg);background:#f4f8ff;}
+        /* Modal */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6); z-index: 9999;
+            backdrop-filter: blur(6px);
+            align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: var(--card-bg); border-radius: 14px;
+            max-width: 700px; width: 100%;
+            max-height: 85vh; overflow-y: auto;
+            padding: 24px; border: 1px solid var(--border-color);
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-box .modal-header {
+            display: flex; justify-content: space-between;
+            align-items: center; padding-bottom: 12px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .modal-box .modal-header h3 { font-size: 20px; color: var(--primary-blue); }
+        .modal-box .modal-close {
+            background: var(--bg-color); border: 1px solid var(--border-color);
+            width: 32px; height: 32px; border-radius: 50%;
+            cursor: pointer; font-size: 16px;
+            color: var(--text-color);
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        .modal-box .modal-close:hover { background: var(--warning-red); color: #fff; }
+        .modal-box .modal-content { font-size: 13.5px; line-height: 1.8; color: var(--text-color); }
+        .modal-box .modal-content h4 { color: var(--primary-blue); margin: 16px 0 8px; font-size: 15px; }
+        .modal-box .modal-content p { margin-bottom: 10px; }
+        .modal-box .modal-content ul { padding-left: 24px; margin-bottom: 10px; }
+        .modal-box .modal-content li { margin-bottom: 4px; }
 
-@media(max-width:768px){
-  .home-layout{flex-direction:column;}
-  .left-content,.right-sidebar{width:100%;}
-  .main-scroll-area{padding:10px;}
-  .section-block{padding:16px;}
-  .whatsapp-float{width:48px;height:48px;font-size:22px;}
-}
-</style>
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 70px; left: 50%;
+            transform: translateX(-50%); padding: 12px 24px;
+            border-radius: 12px; color: white; font-size: 14px;
+            font-weight: 600; z-index: 99999;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 90%; text-align: center;
+            transition: opacity 0.3s ease;
+        }
+        .toast.success { background: #16a34a; }
+        .toast.error { background: #dc3545; }
+        .toast.info { background: #1976d2; }
+
+        @media (max-width: 768px) {
+            .home-original .home-layout { flex-direction: column; }
+            .home-original .left-content, .home-original .right-sidebar { width: 100%; }
+            .home-original header h1 { font-size: 22px; }
+            .main-scroll-area { padding: 10px; }
+            .section-block { padding: 16px; }
+            .section-block .section-header h2 { font-size: 17px; }
+            .contact-grid { grid-template-columns: 1fr 1fr; }
+            .whatsapp-float { width: 48px; height: 48px; font-size: 22px; }
+        }
+        @media (max-width: 480px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .social-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="app-header">
-  <a href="index.html" class="logo">🚀 <span>Dream</span>Josh</a>
-  <div class="header-controls" id="dynamicNav"></div>
-</header>
+    <!-- HEADER -->
+    <header class="app-header">
+        <a href="index.html" class="logo">
+            🚀 <span>Dream</span>Josh
+        </a>
+        <div class="header-controls" id="dynamicNav"></div>
+    </header>
 
-<!-- MAIN -->
-<div class="main-scroll-area">
-  <div class="section-container">
+    <!-- MAIN -->
+    <div class="main-scroll-area">
+        <div class="section-container">
 
-    <!-- HERO -->
-    <section class="hero">
-      <h1>🚀 Dream Josh</h1>
-      <p>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"</p>
-      <p>Motivation • Study • Govt. Jobs • Career Guide</p>
-      <div class="hero-btns">
-        <a href="#jobs-section" class="btn">💼 Latest Jobs</a>
-        <a href="blog.html" class="btn outline">📝 Blog</a>
-      </div>
-    </section>
+            <!-- HOME PAGE -->
+            <section class="page-view active" id="page-home">
+                <div class="home-original">
+                    <header>
+                        <h1>🚀 DREAM JOSH</h1>
+                        <p>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ"</p>
+                        <small>Motivation • Study • Govt. Jobs • Career Guide</small>
+                    </header>
+                    <div class="ticker latest"><span>🔥 प्रेरणा • 📚 अध्ययन • 🏛️ सरकारी नौकरी • 🎯 करियर मार्गदर्शन</span></div>
+                    <div class="ticker update"><span>✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी</span></div>
+                    <div class="container">
+                        <div class="home-layout">
+                            <div class="left-content">
+                                <h2>🚀 Dream Josh में आपका स्वागत है</h2>
+                                <div class="card about-home">
+                                    <h3>🌟 Dream Josh के बारे में</h3>
+                                    <p><b>Dream Josh</b> एक educational और career guidance platform है। यहाँ आपको <b>Central Govt., Rajasthan Govt. और Private</b> सेक्टर की <b>150+ नौकरियों</b> की पूरी जानकारी मिलेगी।</p>
+                                    <h3>📚 Dream Josh पर क्या मिलेगा?</h3>
+                                    <ul>
+                                        <li>📖 Study Notes और अध्ययन सामग्री</li>
+                                        <li>🏛️ Govt. Jobs से संबंधित जानकारी</li>
+                                        <li>🎯 Career Guide और Career Options</li>
+                                        <li>📋 हर नौकरी की पूरी डिटेल</li>
+                                    </ul>
+                                    <div class="about-highlight">
+                                        <b>"पढ़ेंगे यहाँ, बढ़ेंगे जहाँ।"</b><br>
+                                        <span>सही जानकारी • सही मार्गदर्शन • निरंतर मेहनत</span>
+                                    </div>
+                                </div>
 
-    <!-- TICKERS -->
-    <div class="ticker latest"><span id="tickerLatest">🔥 Loading latest updates...</span></div>
-    <div class="ticker update"><span id="tickerUpdate">✨ सपने बड़े रखें • मेहनत करते रहें • सफलता आपकी होगी</span></div>
+                                <div id="slidesCarouselContainer" style="margin:16px 0;"></div>
+                            </div>
 
-    <!-- SEARCH -->
-    <div class="search-box">
-      <input type="search" id="siteSearch" placeholder="Jobs, notes, category search karein..." />
-      <button onclick="searchCards()"><i class="fas fa-search"></i> Search</button>
+                            <div class="right-sidebar">
+                                <div class="sidebar-box">
+                                    <h3>📢 Latest Updates</h3>
+                                    <div class="notice" id="latestUpdatesBox">
+                                        <ul id="latestUpdatesList"></ul>
+                                    </div>
+                                </div>
+                                <div class="sidebar-box">
+                                    <h3>📋 Important Forms</h3>
+                                    <div class="imp-links">
+                                        <a href="#">🪪 Aadhaar Card</a>
+                                        <a href="#">💳 PAN Card</a>
+                                        <a href="#">🗳️ Voter ID</a>
+                                        <a href="#">🛂 Passport</a>
+                                    </div>
+                                </div>
+                                <div class="sidebar-box">
+                                    <h3>📊 Total Jobs</h3>
+                                    <div style="padding:12px 14px;text-align:center;">
+                                        <div style="font-size:26px;font-weight:700;color:var(--primary-blue);" id="totalJobsSidebar">0</div>
+                                        <div style="font-size:11px;color:var(--text-light);">Available Jobs</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT US -->
+            <section class="section-block">
+                <div class="section-header">
+                    <h2><i class="fas fa-address-book"></i> Contact Us</h2>
+                </div>
+                <div class="contact-grid">
+                    <a href="tel:+919999999999" class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-label">📞 Phone</div>
+                        <div class="contact-value">+91 99999 99999</div>
+                    </a>
+                    <a href="mailto:info@dreamjosh.com" class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-label">📧 Email</div>
+                        <div class="contact-value">info@dreamjosh.com</div>
+                    </a>
+                    <a href="https://wa.me/919999999999" target="_blank" class="contact-card">
+                        <div class="contact-icon" style="background:var(--whatsapp-green);">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-label">💬 WhatsApp</div>
+                        <div class="contact-value">Chat Now</div>
+                    </a>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-label">📍 Address</div>
+                        <div class="contact-value">Jaipur, Rajasthan</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOLLOW US -->
+            <section class="section-block">
+                <div class="section-header">
+                    <h2><i class="fas fa-share-alt"></i> Follow Us</h2>
+                </div>
+                <div class="social-grid">
+                    <a href="https://wa.me/919999999999" target="_blank" class="social-card whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <div class="social-info">
+                            <span class="social-name">WhatsApp</span>
+                            <span class="social-sub">Join Channel</span>
+                        </div>
+                    </a>
+                    <a href="https://t.me/dreamjosh" target="_blank" class="social-card telegram">
+                        <i class="fab fa-telegram"></i>
+                        <div class="social-info">
+                            <span class="social-name">Telegram</span>
+                            <span class="social-sub">Join Group</span>
+                        </div>
+                    </a>
+                    <a href="https://youtube.com/@dreamjosh" target="_blank" class="social-card youtube">
+                        <i class="fab fa-youtube"></i>
+                        <div class="social-info">
+                            <span class="social-name">YouTube</span>
+                            <span class="social-sub">Subscribe</span>
+                        </div>
+                    </a>
+                    <a href="https://instagram.com/dreamjosh" target="_blank" class="social-card instagram">
+                        <i class="fab fa-instagram"></i>
+                        <div class="social-info">
+                            <span class="social-name">Instagram</span>
+                            <span class="social-sub">Follow</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+        </div>
     </div>
-    <div id="searchMessage" style="font-size:12px;color:var(--text-light);margin-bottom:8px;"></div>
 
-    <!-- HOME LAYOUT -->
-    <div class="home-layout">
-
-      <!-- LEFT -->
-      <div class="left-content">
-
-        <!-- LATEST UPDATES -->
-        <section class="section-block">
-          <div class="section-header">
-            <h2><i class="fas fa-bullhorn"></i> 📢 Latest Updates</h2>
-          </div>
-          <div id="latestUpdatesContainer" class="searchable"></div>
-        </section>
-
-        <!-- IMPORTANT FORMS -->
-        <section class="section-block">
-          <div class="section-header">
-            <h2><i class="fas fa-file-alt"></i> 📋 Important Forms</h2>
-          </div>
-          <div id="importantFormsContainer" class="searchable"></div>
-        </section>
-
-        <!-- LATEST JOBS -->
-        <section class="section-block" id="jobs-section">
-          <div class="section-header">
-            <h2><i class="fas fa-briefcase"></i> 💼 Latest Jobs</h2>
-            <a href="jobs.html" class="see-all">See All →</a>
-          </div>
-          <div id="jobsContainer" class="searchable"></div>
-        </section>
-
-        <!-- ABOUT -->
-        <section class="section-block searchable">
-          <div class="section-header">
-            <h2><i class="fas fa-info-circle"></i> 🌟 Dream Josh ke baare mein</h2>
-          </div>
-          <p style="font-size:14px;line-height:1.8;">
-            <b>Dream Josh</b> ek educational aur career guidance platform hai. Yahan aapko
-            <b>Central Govt., Rajasthan Govt. aur Private</b> sector ki <b>150+ naukriyon</b> ki poori jaankari milegi.
-          </p>
-          <ul style="padding-left:24px;margin-top:10px;font-size:13.5px;line-height:1.9;">
-            <li>📖 Study Notes aur adhyayan samagri</li>
-            <li>🏛️ Govt. Jobs se sambandhit jaankari</li>
-            <li>🎯 Career Guide aur Career Options</li>
-            <li>📋 Har naukri ki poori detail</li>
-          </ul>
-        </section>
-
-      </div>
-
-      <!-- RIGHT SIDEBAR -->
-      <aside class="right-sidebar">
-
-        <div class="sidebar-box">
-          <h3>📌 Quick Links</h3>
-          <div class="imp-links" id="sidebarLinksContainer"></div>
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-links">
+            <a onclick="openPolicyModal('privacy')">📜 Privacy Policy</a>
+            <a onclick="openPolicyModal('terms')">📄 Terms of Service</a>
+            <a onclick="openPolicyModal('disclaimer')">⚠️ Disclaimer</a>
+            <a href="mailto:info@dreamjosh.com">📧 Contact</a>
         </div>
-
-        <div class="sidebar-box">
-          <h3>📊 Total Jobs</h3>
-          <div style="padding:12px 14px;text-align:center;">
-            <div style="font-size:26px;font-weight:700;color:var(--primary-blue);" id="totalJobsSidebar">0</div>
-            <div style="font-size:11px;color:var(--text-light);">Available Jobs</div>
-          </div>
+        <div class="footer-copy">
+            © 2026 <span>Dream Josh</span> • Made with ❤️ in India
         </div>
+    </footer>
 
-        <div class="sidebar-box">
-          <h3>📢 Notice</h3>
-          <div class="notice" id="noticeBox">
-            <ul id="noticeList"></ul>
-          </div>
-        </div>
-
-      </aside>
-
-    </div>
-
-    <!-- CONTACT -->
-    <section class="section-block" id="contact-section">
-      <div class="section-header">
-        <h2><i class="fas fa-address-book"></i> Contact Us</h2>
-      </div>
-      <div class="contact-grid">
-        <a href="tel:+919999999999" class="contact-card">
-          <div class="contact-icon"><i class="fas fa-phone"></i></div>
-          <div class="contact-label">📞 Phone</div>
-          <div class="contact-value" id="contactPhone">+91 99999 99999</div>
-        </a>
-        <a href="mailto:info@dreamjosh.com" class="contact-card">
-          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-          <div class="contact-label">📧 Email</div>
-          <div class="contact-value" id="contactEmail">info@dreamjosh.com</div>
-        </a>
-        <a href="https://wa.me/919999999999" target="_blank" rel="noopener" class="contact-card">
-          <div class="contact-icon" style="background:var(--whatsapp-green);">
-            <i class="fab fa-whatsapp"></i>
-          </div>
-          <div class="contact-label">💬 WhatsApp</div>
-          <div class="contact-value">Chat Now</div>
-        </a>
-        <div class="contact-card">
-          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-          <div class="contact-label">📍 Address</div>
-          <div class="contact-value" id="contactAddress">Jaipur, Rajasthan</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOLLOW US -->
-    <section class="section-block">
-      <div class="section-header">
-        <h2><i class="fas fa-share-alt"></i> Follow Us</h2>
-      </div>
-      <div class="social-grid">
-        <a href="https://wa.me/919999999999" target="_blank" rel="noopener" class="social-card whatsapp">
-          <i class="fab fa-whatsapp"></i>
-          <div class="social-info">
-            <span class="social-name">WhatsApp</span>
-            <span class="social-sub">Join Channel</span>
-          </div>
-        </a>
-        <a href="https://t.me/dreamjosh" target="_blank" rel="noopener" class="social-card telegram">
-          <i class="fab fa-telegram"></i>
-          <div class="social-info">
-            <span class="social-name">Telegram</span>
-            <span class="social-sub">Join Group</span>
-          </div>
-        </a>
-        <a href="https://youtube.com/@dreamjosh" target="_blank" rel="noopener" class="social-card youtube">
-          <i class="fab fa-youtube"></i>
-          <div class="social-info">
-            <span class="social-name">YouTube</span>
-            <span class="social-sub">Subscribe</span>
-          </div>
-        </a>
-        <a href="https://instagram.com/dreamjosh" target="_blank" rel="noopener" class="social-card instagram">
-          <i class="fab fa-instagram"></i>
-          <div class="social-info">
-            <span class="social-name">Instagram</span>
-            <span class="social-sub">Follow</span>
-          </div>
-        </a>
-      </div>
-    </section>
-
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer class="app-footer">
-  <div class="footer-links">
-    <a onclick="openPolicyModal('privacy')">📜 Privacy Policy</a>
-    <a onclick="openPolicyModal('terms')">📄 Terms of Service</a>
-    <a onclick="openPolicyModal('disclaimer')">⚠️ Disclaimer</a>
-    <a href="mailto:info@dreamjosh.com">📧 Contact</a>
-  </div>
-  <div class="footer-copy">© <span id="year">2026</span> <span>Dream Josh</span> • Made with ❤️ in India</div>
-</footer>
-
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/919999999999?text=Hi%20Dream%20Josh" target="_blank" rel="noopener"
-   class="whatsapp-float" title="Chat on WhatsApp">
-  <i class="fab fa-whatsapp"></i>
-</a>
-
-<!-- BACK TO TOP -->
-<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-  <i class="fas fa-arrow-up"></i>
-</button>
-
-<!-- POLICY MODAL -->
-<div class="modal-overlay" id="policyModal" onclick="if(event.target===this) closeModal('policyModal')">
-  <div class="modal-box">
-    <div class="modal-header">
-      <h3 id="policyTitle">Privacy Policy</h3>
-      <button class="modal-close" onclick="closeModal('policyModal')">&times;</button>
-    </div>
-    <div class="modal-content" id="policyContent"></div>
-  </div>
-</div>
-
-<script>
-// ============================================================
-// FIREBASE
-// ============================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
-  authDomain: "dreamjosh-7d9ee.firebaseapp.com",
-  projectId: "dreamjosh-7d9ee",
-  storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
-  messagingSenderId: "461367857074",
-  appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
-};
-let firebaseDB = null;
-try {
-  firebase.initializeApp(firebaseConfig);
-  firebaseDB = firebase.firestore();
-} catch (e) { console.warn('Firebase init failed', e); }
-
-// ============================================================
-// STATE
-// ============================================================
-let jobsData = [];
-let homeUpdates = { latest: [], forms: [], sidebar: [] };
-let settings = {};
-let contentData = { stories: [], videos: [], ads: [], instaPosts: [], colleges: [] };
-
-const HOME_UPDATES_KEY = 'dreamjosh_home_updates';
-const SETTINGS_KEY = 'dreamjosh_settings';
-const STORAGE_KEY = 'dreamjosh_admin_data';
-const CONTENT_KEY = 'dreamjosh_content_data';
-
-// ============================================================
-// DEFAULT HOME UPDATES
-// ============================================================
-const DEFAULT_HOME_UPDATES = {
-  latest: [
-    { id: 'lu1', title: 'SSC CGL 2026 Notification Released', subtitle: 'Apply before 15 July 2026', link: 'https://ssc.nic.in', icon: '📢', date: '2026-06-01', active: true },
-    { id: 'lu2', title: 'Rajasthan Police Constable Recruitment 2026', subtitle: '10,000+ Vacancies', link: 'https://police.rajasthan.gov.in', icon: '🚔', date: '2026-09-01', active: true },
-    { id: 'lu3', title: 'UPSC Prelims Admit Card Out', subtitle: 'Download now', link: 'https://upsc.gov.in', icon: '🎫', date: '2026-05-20', active: true }
-  ],
-  forms: [
-    { id: 'fm1', title: 'SSC CGL Application Form', subtitle: 'Last date: 15 July 2026', link: 'https://ssc.nic.in', icon: '📋', date: '2026-07-15', active: true },
-    { id: 'fm2', title: 'RAS Pre Application Form', subtitle: 'Last date: 20 July 2026', link: 'https://rpsc.rajasthan.gov.in', icon: '📝', date: '2026-07-20', active: true },
-    { id: 'fm3', title: 'REET 2026 Online Form', subtitle: 'Apply online', link: 'https://rajeduboard.rajasthan.gov.in', icon: '✍️', date: '2026-08-15', active: true }
-  ],
-  sidebar: [
-    { id: 'sb1', title: 'Syllabus', subtitle: 'All exams syllabus', link: 'syllabus.html', icon: '📘', date: '', active: true },
-    { id: 'sb2', title: 'Previous Papers', subtitle: 'Download previous year papers', link: 'papers.html', icon: '📄', date: '', active: true },
-    { id: 'sb3', title: 'Admit Card', subtitle: 'Download admit cards', link: 'admit-card.html', icon: '🎫', date: '', active: true },
-    { id: 'sb4', title: 'Result', subtitle: 'Check results', link: 'result.html', icon: '📊', date: '', active: true },
-    { id: 'sb5', title: 'Answer Key', subtitle: 'Download answer keys', link: 'answer-key.html', icon: '🔑', date: '', active: true }
-  ]
-};
-
-// ============================================================
-// NAV
-// ============================================================
-function renderNav() {
-  const nav = document.getElementById('dynamicNav');
-  nav.innerHTML = `
-    <a href="index.html" class="nav-btn active">🏠 Home</a>
-    <a href="jobs.html" class="nav-btn">💼 Jobs</a>
-    <a href="career.html" class="nav-btn">🎯 Career</a>
-    <a href="more.html" class="nav-btn">📚 More</a>
-    <a href="services.html" class="nav-btn">🛠️ Services</a>
-    <a href="blog.html" class="nav-btn">📝 Blog</a>
-    <a href="tools.html" class="nav-btn">🛠️ Tools</a>
-    <a href="admin.html" class="nav-btn admin-btn">🔐 Admin</a>
-  `;
-}
-
-// ============================================================
-// HOME UPDATES
-// ============================================================
-function loadLocalHomeUpdates() {
-  try {
-    const s = localStorage.getItem(HOME_UPDATES_KEY);
-    if (s) {
-      const d = JSON.parse(s);
-      homeUpdates = {
-        latest: d.latest || [],
-        forms: d.forms || [],
-        sidebar: d.sidebar || []
-      };
-      return;
-    }
-  } catch (e) {}
-  homeUpdates = JSON.parse(JSON.stringify(DEFAULT_HOME_UPDATES));
-}
-
-async function loadCloudHomeUpdates() {
-  if (!firebaseDB) return;
-  try {
-    const d = await firebaseDB.collection('dreamjosh').doc('homeUpdates').get();
-    if (d.exists) {
-      const data = d.data();
-      homeUpdates = {
-        latest: data.latest || [],
-        forms: data.forms || [],
-        sidebar: data.sidebar || []
-      };
-      localStorage.setItem(HOME_UPDATES_KEY, JSON.stringify(homeUpdates));
-    }
-  } catch (e) { console.warn('Cloud home updates failed', e); }
-}
-
-function renderHomeUpdates() {
-  renderUpdateList('latestUpdatesContainer', homeUpdates.latest);
-  renderUpdateList('importantFormsContainer', homeUpdates.forms);
-  renderSidebarLinks(homeUpdates.sidebar);
-  renderTicker();
-}
-
-function renderUpdateList(containerId, items) {
-  const c = document.getElementById(containerId);
-  if (!c) return;
-  const active = (items || []).filter(it => it.active !== false);
-  if (!active.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>Abhi koi update nahi hai.</p></div>';
-    return;
-  }
-  c.innerHTML = active.map(item => {
-    const link = item.link || '#';
-    return `
-      <div class="job-card">
-        <div class="job-top">
-          <div class="job-title">${escapeHtml(item.title)}</div>
-          <span class="job-badge">${item.icon || '📢'} Update</span>
-        </div>
-        ${item.subtitle ? `<div style="font-size:13px;color:var(--text-light);margin-bottom:6px;">${escapeHtml(item.subtitle)}</div>` : ''}
-        <div class="job-meta">
-          ${item.date ? `<span>📅 ${escapeHtml(item.date)}</span>` : ''}
-        </div>
-        <div class="job-actions">
-          <a href="${escapeHtml(link)}" target="_blank" rel="noopener">🔗 Open</a>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function renderSidebarLinks(items) {
-  const c = document.getElementById('sidebarLinksContainer');
-  if (!c) return;
-  const active = (items || []).filter(it => it.active !== false);
-  if (!active.length) {
-    c.innerHTML = '<div style="padding:8px 14px;font-size:12px;color:var(--text-light);">No links</div>';
-    return;
-  }
-  c.innerHTML = active.map(it => `
-    <a href="${escapeHtml(it.link || '#')}" target="_blank" rel="noopener">
-      ${it.icon || '📌'} ${escapeHtml(it.title)}
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/919999999999?text=Hi%20Dream%20Josh%2C%20mujhe%20help%20chahiye"
+       target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
     </a>
-  `).join('');
-}
 
-function renderTicker() {
-  const el = document.getElementById('tickerLatest');
-  if (!el) return;
-  const active = (homeUpdates.latest || []).filter(it => it.active !== false);
-  if (!active.length) { el.textContent = '🔥 Dream Josh – Padhenge yahan, badhenge jahan'; return; }
-  el.textContent = active.map(it => `${it.icon || '📢'} ${it.title}`).join('   •   ');
-}
+    <!-- PWA INSTALL -->
+    <button class="pwa-install-btn" id="pwaInstallBtn" onclick="installPWA()">
+        <i class="fas fa-download"></i> Install App
+    </button>
 
-// ============================================================
-// JOBS
-// ============================================================
-function loadLocalJobs() {
-  try {
-    const s = localStorage.getItem(STORAGE_KEY);
-    if (s) {
-      const p = JSON.parse(s);
-      if (p.jobsData) { jobsData = p.jobsData; return; }
-    }
-  } catch (e) {}
-}
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-async function loadCloudJobs() {
-  if (!firebaseDB) return;
-  try {
-    const d = await firebaseDB.collection('dreamjosh').doc('jobsData').get();
-    if (d.exists && d.data().jobs) {
-      jobsData = d.data().jobs;
-    }
-  } catch (e) {}
-}
-
-function renderJobs() {
-  const c = document.getElementById('jobsContainer');
-  if (!c) return;
-  const totalEl = document.getElementById('totalJobsSidebar');
-  if (totalEl) totalEl.textContent = jobsData.length + '+';
-  if (!jobsData.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>Jobs load ho rahi hain...</p></div>';
-    return;
-  }
-  const typeLabels = { central: '🏛️ Central', state: '🏜️ Rajasthan', private: '💼 Private' };
-  const recent = jobsData.slice(-6).reverse();
-  c.innerHTML = recent.map(j => `
-    <div class="job-card searchable">
-      <div class="job-top">
-        <div class="job-title">${escapeHtml(j.title || 'Untitled')}</div>
-        <span class="job-badge ${j.jobType || ''}">${typeLabels[j.jobType] || j.jobType || 'Job'}</span>
-      </div>
-      <div class="job-meta">
-        ${j.department ? `<span>📁 ${escapeHtml(j.department)}</span>` : ''}
-        ${j.eligibility ? `<span>🎓 ${escapeHtml(j.eligibility)}</span>` : ''}
-        ${j.age ? `<span>👤 ${escapeHtml(j.age)}</span>` : ''}
-      </div>
-      <div class="job-actions">
-        ${j.website ? `<a href="${escapeHtml(j.website)}" target="_blank" rel="noopener">🔗 Apply</a>` : ''}
-        <a href="jobs.html">📖 Details</a>
-      </div>
+    <!-- POLICY MODAL -->
+    <div class="modal-overlay" id="policyModal" onclick="if(event.target===this) closeModal('policyModal')">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="policyTitle">Privacy Policy</h3>
+                <button class="modal-close" onclick="closeModal('policyModal')">&times;</button>
+            </div>
+            <div class="modal-content" id="policyContent"></div>
+        </div>
     </div>
-  `).join('');
-}
 
-// ============================================================
-// SETTINGS APPLY
-// ============================================================
-function loadSettings() {
-  try {
-    const s = localStorage.getItem(SETTINGS_KEY);
-    if (s) settings = JSON.parse(s);
-  } catch (e) { settings = {}; }
-  if (settings.email) document.getElementById('contactEmail').textContent = settings.email;
-  if (settings.phone) document.getElementById('contactPhone').textContent = settings.phone;
-  if (settings.address) document.getElementById('contactAddress').textContent = settings.address;
-}
+    <script>
+        // ============================================================
+        // 🔥 FIREBASE
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyBlI0IgzkgvoPaTntxfnU8q5CYRwc4sIHM",
+            authDomain: "dreamjosh-7d9ee.firebaseapp.com",
+            projectId: "dreamjosh-7d9ee",
+            storageBucket: "dreamjosh-7d9ee.firebasestorage.app",
+            messagingSenderId: "461367857074",
+            appId: "1:461367857074:web:6cb1e1ffafaf60309c5eab"
+        };
+        let firebaseApp, firebaseDB;
+        try {
+            firebaseApp = firebase.initializeApp(firebaseConfig);
+            firebaseDB = firebase.firestore();
+        } catch (err) { console.error(err); }
 
-// ============================================================
-// SEARCH
-// ============================================================
-function searchCards() {
-  const q = document.getElementById('siteSearch').value.trim().toLowerCase();
-  const cards = document.querySelectorAll('.searchable');
-  let found = 0;
-  cards.forEach(card => {
-    const m = q === '' || card.textContent.toLowerCase().includes(q);
-    card.style.display = m ? '' : 'none';
-    if (m) found++;
-  });
-  document.getElementById('searchMessage').textContent =
-    q === '' ? '' : `${found} results mile.`;
-}
+        // ============================================================
+        // STATE
+        // ============================================================
+        let jobsData = [];
 
-// ============================================================
-// POLICY MODAL
-// ============================================================
-const POLICY_CONTENT = {
-  privacy: `
-    <h4>Privacy Policy</h4>
-    <p>Dream Josh aapki privacy ko respect karta hai.</p>
-    <h4>1. Information We Collect</h4>
-    <ul><li>Basic info: Naam, email, phone (agar aap contact karein)</li><li>Usage data: Pages visited</li><li>Device info</li></ul>
-    <h4>2. How We Use</h4>
-    <ul><li>Better service</li><li>Job updates</li><li>Website improvement</li></ul>
-    <h4>3. Contact</h4>
-    <p>info@dreamjosh.com</p>
-  `,
-  terms: `
-    <h4>Terms of Service</h4>
-    <p>Dream Josh use karne se pehle in terms ko padhein.</p>
-    <h4>1. Content Use</h4>
-    <ul><li>Personal use only</li><li>Commercial use ke liye permission chahiye</li></ul>
-    <h4>2. Job Info</h4>
-    <p>Official website par verify karein.</p>
-  `,
-  disclaimer: `
-    <h4>Disclaimer</h4>
-    <p>Dream Josh ek educational aur career guidance platform hai.</p>
-    <h4>1. Job Info</h4>
-    <p>Apply se pehle official website par verify karein.</p>
-    <h4>2. No Guarantee</h4>
-    <p>Hum kisi job ki guarantee nahi dete.</p>
-  `
-};
+        // ============================================================
+        // LATEST UPDATES
+        // ============================================================
+        const LATEST_UPDATES = [
+            '🔴 SSC CGL 2026 Notification जल्दी आ रही है',
+            '🟢 RPSC RAS 2026 की तैयारी शुरू करें',
+            '🔵 REET 2026 के लिए आवेदन प्रक्रिया शुरू',
+            '🟠 Google India में 500+ नई भर्तियाँ',
+            '🟣 UPSC 2026 का नोटिफिकेशन जारी',
+            '🟡 Railway RRB NTPC की तैयारी करें',
+            '🟤 SBI PO 2026 की भर्ती शुरू',
+            '⚫ Rajasthan Police Constable भर्ती',
+            '⚪ IBPS Clerk 2026 Notification',
+            '🔶 State PSC Exams की तैयारी करें'
+        ];
 
-function openPolicyModal(type) {
-  const titles = { privacy: '📜 Privacy Policy', terms: '📄 Terms', disclaimer: '⚠️ Disclaimer' };
-  document.getElementById('policyTitle').textContent = titles[type] || 'Policy';
-  document.getElementById('policyContent').innerHTML = POLICY_CONTENT[type] || '';
-  document.getElementById('policyModal').classList.add('active');
-}
-function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        // ============================================================
+        // HEADER NAV
+        // ============================================================
+        function renderNav() {
+            const nav = document.getElementById('dynamicNav');
+            let html = `<a href="index.html" class="nav-btn active">🏠 Home</a>`;
 
-// ============================================================
-// BACK TO TOP
-// ============================================================
-window.addEventListener('scroll', () => {
-  const b = document.getElementById('backToTop');
-  if (window.scrollY > 400) b.classList.add('show');
-  else b.classList.remove('show');
-});
+            html += `
+                <div class="dropdown-wrapper" id="govtDropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdownMobile('govt', event)">💼 Jobs <span class="arrow">▾</span></button>
+                    <div class="dropdown-content" id="govtDropdownContent">
+                        <div class="dropdown-label">📂 Select Category</div>
+                        <a href="jobs.html?cat=central">🏛️ Central Govt.</a>
+                        <a href="jobs.html?cat=state">🏜️ Rajasthan Govt.</a>
+                        <a href="jobs.html?cat=private">💼 Private</a>
+                        <a href="jobs.html">📋 All Jobs</a>
+                    </div>
+                </div>
+            `;
+            html += `<a href="career.html" class="nav-btn">🎯 Career</a>`;
+            html += `<a href="more.html" class="nav-btn">⚙️ More</a>`;
+            html += `<a href="services.html" class="nav-btn">🛠️ Services</a>`;
+            html += `<a href="blog.html" class="nav-btn">📝 Blog</a>`;
+            html += `<a href="rsr.html" class="nav-btn">📜 RSR</a>`;
+            html += `<a href="tools.html" class="nav-btn">🛠️ Tools</a>`;
+            html += `<a href="admin.html" class="nav-btn admin-btn">🔐 Admin</a>`;
 
-// ============================================================
-// NOTICE BOX (animated)
-// ============================================================
-function renderNotice() {
-  const list = document.getElementById('noticeList');
-  if (!list) return;
-  const active = (homeUpdates.latest || []).filter(it => it.active !== false);
-  const items = active.length ? active : DEFAULT_HOME_UPDATES.latest;
-  const doubled = [...items, ...items];
-  list.innerHTML = doubled.map(it => `<li>${it.icon || '📢'} ${escapeHtml(it.title)}</li>`).join('');
-}
+            nav.innerHTML = html;
+        }
 
-// ============================================================
-// HELPERS
-// ============================================================
-function escapeHtml(s) {
-  return String(s || '').replace(/[&<>"']/g, c => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[c]));
-}
+        function toggleDropdownMobile(name, event) {
+            if (event) event.stopPropagation();
+            const content = document.getElementById(`${name}DropdownContent`);
+            if (content) content.classList.toggle('show');
+        }
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown-wrapper')) {
+                document.querySelectorAll('.dropdown-content').forEach(d => d.classList.remove('show'));
+            }
+        });
 
-// ============================================================
-// INIT
-// ============================================================
-document.addEventListener('DOMContentLoaded', async () => {
-  document.getElementById('year').textContent = new Date().getFullYear();
-  renderNav();
+        // ============================================================
+        // LATEST UPDATES
+        // ============================================================
+        function initLatestUpdates() {
+            const list = document.getElementById('latestUpdatesList');
+            if (!list) return;
+            const doubled = [...LATEST_UPDATES, ...LATEST_UPDATES];
+            list.innerHTML = doubled.map(txt => `<li>${txt}</li>`).join('');
+        }
 
-  loadLocalHomeUpdates();
-  loadLocalJobs();
-  loadSettings();
-  renderHomeUpdates();
-  renderJobs();
-  renderNotice();
+        // ============================================================
+        // SLIDES CAROUSEL
+        // ============================================================
+        let slideIndex = 0;
+        let slideInterval = null;
+        const SLIDES = [
+            { title: '🚀 Welcome to Dream Josh', description: 'Your ultimate career and study platform' },
+            { title: '📚 Study Materials', description: 'Get access to premium study resources' },
+            { title: '🏛️ Govt. Jobs', description: 'Find the latest government job updates' }
+        ];
 
-  await loadCloudHomeUpdates();
-  await loadCloudJobs();
+        function renderSlidesCarousel() {
+            const container = document.getElementById('slidesCarouselContainer');
+            if (!container) return;
 
-  renderHomeUpdates();
-  renderJobs();
-  renderNotice();
+            container.innerHTML = `
+                <div style="position:relative;overflow:hidden;border-radius:12px;background:var(--bg-color);border:1px solid var(--border-color);">
+                    <div id="slideTrack" style="display:flex;transition:transform 0.5s ease;">
+                        ${SLIDES.map((slide) => `
+                            <div style="min-width:100%;padding:20px;text-align:center;background:var(--card-bg);">
+                                <div style="height:160px;background:var(--secondary-blue);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:44px;">🚀</div>
+                                <div style="font-size:18px;font-weight:700;color:var(--primary-blue);margin:8px 0 4px;">${slide.title}</div>
+                                <div style="font-size:13px;color:var(--text-light);">${slide.description}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button onclick="changeSlide(-1)" style="position:absolute;top:50%;left:10px;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;padding:8px 14px;border-radius:50%;cursor:pointer;font-size:18px;">‹</button>
+                    <button onclick="changeSlide(1)" style="position:absolute;top:50%;right:10px;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;padding:8px 14px;border-radius:50%;cursor:pointer;font-size:18px;">›</button>
+                </div>
+            `;
+            updateSlidePosition();
+            startSlideAutoPlay();
+        }
 
-  document.getElementById('siteSearch').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') searchCards();
-  });
+        function updateSlidePosition() {
+            const track = document.getElementById('slideTrack');
+            if (!track) return;
+            const slides = track.querySelectorAll(':scope > div');
+            if (slides.length === 0) return;
+            if (slideIndex >= slides.length) slideIndex = 0;
+            if (slideIndex < 0) slideIndex = slides.length - 1;
+            track.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+        function changeSlide(dir) { slideIndex += dir; updateSlidePosition(); }
+        function startSlideAutoPlay() {
+            if (slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(() => { slideIndex++; updateSlidePosition(); }, 5000);
+        }
 
-  console.log('✅ Home ready');
-});
+        // ============================================================
+        // POLICY MODAL
+        // ============================================================
+        const POLICY_CONTENT = {
+            privacy: `
+                <h4>Privacy Policy</h4>
+                <p>Dream Josh aapki privacy ko respect karta hai. Yeh policy batati hai ki hum aapki information kaise collect, use aur protect karte hain.</p>
+                <h4>1. Information We Collect</h4>
+                <ul><li>Basic info: Naam, email, phone (agar aap contact karein)</li><li>Usage data: Kaunse pages visit kiye</li><li>Device info: Browser, OS, IP address</li></ul>
+                <h4>2. How We Use Info</h4>
+                <ul><li>Better service dene ke liye</li><li>Job updates bhejne ke liye</li><li>Website improve karne ke liye</li></ul>
+                <h4>3. Data Protection</h4>
+                <p>Hum aapki data ko secure rakhte hain. Kisi third party ko personal info nahi bechte.</p>
+                <h4>4. Contact</h4>
+                <p>Koi sawal ho toh: info@dreamjosh.com</p>
+            `,
+            terms: `
+                <h4>Terms of Service</h4>
+                <p>Dream Josh use karne se pehle in terms ko padhein.</p>
+                <h4>1. Acceptance</h4>
+                <p>Website use karne ka matlab hai ki aap in terms se agree karte hain.</p>
+                <h4>2. Use of Content</h4>
+                <ul><li>Content sirf personal use ke liye hai</li><li>Commercial use ke liye permission chahiye</li></ul>
+                <h4>3. Job Information</h4>
+                <p>Final info official website par check karein. Hum kisi bhi galat info ke liye zimmedar nahi hain.</p>
+                <h4>4. Changes</h4>
+                <p>Hum kabhi bhi terms change kar sakte hain.</p>
+            `,
+            disclaimer: `
+                <h4>Disclaimer</h4>
+                <p>Dream Josh ek educational aur career guidance platform hai.</p>
+                <h4>1. Job Information</h4>
+                <p>Saari job information different sources se collect karte hain. Apply karne se pehle official website par verify karein.</p>
+                <h4>2. No Guarantee</h4>
+                <p>Hum kisi bhi job ki guarantee nahi dete.</p>
+                <h4>3. Third-Party Links</h4>
+                <p>Website par kuch external links hain. Unki content ke liye hum zimmedar nahi hain.</p>
+                <h4>4. Copyright</h4>
+                <p>Kuch content external sources se liya gaya hai. Koi copyright issue ho toh contact karein.</p>
+            `
+        };
 
-Object.assign(window, { searchCards, openPolicyModal, closeModal });
-</script>
+        function openPolicyModal(type) {
+            const titles = { privacy: '📜 Privacy Policy', terms: '📄 Terms of Service', disclaimer: '⚠️ Disclaimer' };
+            document.getElementById('policyTitle').textContent = titles[type] || 'Policy';
+            document.getElementById('policyContent').innerHTML = POLICY_CONTENT[type] || '';
+            document.getElementById('policyModal').classList.add('active');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // ============================================================
+        // PWA INSTALL
+        // ============================================================
+        let deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            setTimeout(() => document.getElementById('pwaInstallBtn').classList.add('show'), 3000);
+        });
+
+        function installPWA() {
+            if (!deferredPrompt) {
+                showToast('Aapka browser install support nahi karta', 'info');
+                return;
+            }
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(choice => {
+                if (choice.outcome === 'accepted') {
+                    showToast('✅ App install ho gaya!', 'success');
+                    document.getElementById('pwaInstallBtn').classList.remove('show');
+                }
+                deferredPrompt = null;
+            });
+        }
+
+        // ============================================================
+        // BACK TO TOP
+        // ============================================================
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 400) btn.classList.add('show');
+            else btn.classList.remove('show');
+        });
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(msg, type = 'info') {
+            const t = document.createElement('div');
+            t.className = 'toast ' + type;
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2500);
+        }
+
+        // ============================================================
+        // FIREBASE DATA LOAD
+        // ============================================================
+        async function loadJobsFromFirebase() {
+            if (!firebaseDB) return;
+            try {
+                const doc = await firebaseDB.collection('dreamjosh').doc('jobsData').get();
+                if (doc.exists && doc.data().jobs) {
+                    jobsData = doc.data().jobs;
+                    const tj = document.getElementById('totalJobsSidebar');
+                    if (tj) tj.textContent = jobsData.filter(j => j.visibility !== 'private').length + '+';
+                } else {
+                    const tj = document.getElementById('totalJobsSidebar');
+                    if (tj) tj.textContent = '150+';
+                }
+            } catch (err) {
+                const tj = document.getElementById('totalJobsSidebar');
+                if (tj) tj.textContent = '150+';
+            }
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', async () => {
+            initLatestUpdates();
+            renderNav();
+            renderSlidesCarousel();
+            await loadJobsFromFirebase();
+            console.log('✅ Home page ready');
+        });
+
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(() => {});
+        }
+
+        // Expose
+        window.toggleDropdownMobile = toggleDropdownMobile;
+        window.changeSlide = changeSlide;
+        window.openPolicyModal = openPolicyModal;
+        window.closeModal = closeModal;
+        window.installPWA = installPWA;
+        window.showToast = showToast;
+    </script>
+
 </body>
 </html>
