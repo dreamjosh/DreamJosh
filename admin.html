@@ -322,6 +322,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .more-uploaded-preview i{color:var(--secondary-blue);}
 .more-uploaded-preview .file-name{flex:1;word-break:break-all;}
 .more-uploaded-preview button{background:none;border:none;color:var(--warning-red);cursor:pointer;font-size:14px;}
+
+/* ============ HOMEPAGE UPDATES SPECIFIC ============ */
+.home-update-item{background:var(--card-bg);border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;transition:.2s;}
+.home-update-item:hover{border-left-color:var(--gold);box-shadow:0 4px 14px var(--shadow-color);}
+.home-update-item .hu-icon{width:38px;height:38px;border-radius:9px;background:rgba(25,118,210,.1);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--secondary-blue);flex-shrink:0;}
+.home-update-item .hu-info{flex:1;min-width:0;}
+.home-update-item .hu-title{font-weight:700;font-size:14px;margin-bottom:2px;word-break:break-word;}
+.home-update-item .hu-title a{color:var(--text-color);text-decoration:none;transition:.2s;}
+.home-update-item .hu-title a:hover{color:var(--secondary-blue);text-decoration:underline;}
+.home-update-item .hu-meta{font-size:11px;color:var(--text-light);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.home-update-item .hu-actions{display:flex;gap:4px;flex-shrink:0;}
+.home-tab-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;}
 </style>
 </head>
 <body>
@@ -405,6 +417,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         <div class="actions-grid">
           <button onclick="showAdminPage('content-manager')"><i class="fas fa-palette"></i> Content Manager</button>
           <button onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase"></i> Jobs</button>
+          <button onclick="showAdminPage('home-updates')"><i class="fas fa-bullhorn"></i> Homepage Updates</button>
           <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
         </div>
       </div>
@@ -544,6 +557,46 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
           <span style="margin-left:auto;font-size:12px;color:var(--text-light);" id="moreCountLabel"></span>
         </div>
         <div id="moreContainer"></div>
+      </div>
+    </div>
+
+    <!-- HOMEPAGE UPDATES MANAGER (NEW - Latest Updates, Important Forms, Sidebar) -->
+    <div id="adminPage-home-updates" class="admin-section">
+      <div class="admin-card">
+        <div class="card-header">
+          <h4>📢 Homepage Updates Manager</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openHomeUpdateModal()"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkHomeUpdateModal()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+            <button class="btn-add primary" onclick="exportHomeUpdates()"><i class="fas fa-download"></i> Export All</button>
+          </div>
+        </div>
+        <div class="home-tab-bar">
+          <button class="settings-tab-btn active" onclick="switchHomeTab('latest')" id="htab-latest">🆕 Latest Updates</button>
+          <button class="settings-tab-btn" onclick="switchHomeTab('forms')" id="htab-forms">📋 Important Forms</button>
+          <button class="settings-tab-btn" onclick="switchHomeTab('sidebar')" id="htab-sidebar">📌 Sidebar</button>
+        </div>
+        <div id="home-tab-latest" class="content-tab-content active">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">🆕 Latest Updates</h4>
+            <button class="btn-add" onclick="openHomeUpdateModal(null, 'latest')"><i class="fas fa-plus"></i> Add</button>
+          </div>
+          <div id="latestUpdatesContainer"></div>
+        </div>
+        <div id="home-tab-forms" class="content-tab-content">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">📋 Important Forms</h4>
+            <button class="btn-add" onclick="openHomeUpdateModal(null, 'forms')"><i class="fas fa-plus"></i> Add</button>
+          </div>
+          <div id="importantFormsContainer"></div>
+        </div>
+        <div id="home-tab-sidebar" class="content-tab-content">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h4 style="font-size:15px;">📌 Sidebar Links</h4>
+            <button class="btn-add" onclick="openHomeUpdateModal(null, 'sidebar')"><i class="fas fa-plus"></i> Add</button>
+          </div>
+          <div id="sidebarLinksContainer"></div>
+        </div>
       </div>
     </div>
 
@@ -828,12 +881,20 @@ let contentData = { stories: [], videos: [], ads: [], instaPosts: [], colleges: 
 let settings = {};
 let currentJobFilter = 'all';
 
+// NEW: Homepage updates data
+let homeUpdatesData = {
+  latest: [],   // Latest Updates
+  forms: [],    // Important Forms
+  sidebar: []   // Sidebar Links
+};
+
 const STORAGE_KEY = 'dreamjosh_admin_data';
 const PAGES_KEY = 'dreamjosh_pages_data';
 const PAGE_DATA_KEY = 'dreamjosh_page_data_store';
 const CONTENT_KEY = 'dreamjosh_content_data';
 const SETTINGS_KEY = 'dreamjosh_settings';
 const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
+const HOME_UPDATES_KEY = 'dreamjosh_home_updates';  // NEW
 
 // ============================================================
 // DEFAULT JOBS
@@ -885,6 +946,29 @@ const DEFAULT_CONTENT = {
 };
 
 // ============================================================
+// DEFAULT HOME UPDATES
+// ============================================================
+const DEFAULT_HOME_UPDATES = {
+  latest: [
+    { id: 'lu1', title: 'SSC CGL 2026 Notification Released', subtitle: 'Apply before 15 July 2026', link: 'https://ssc.nic.in', icon: '📢', date: '2026-06-01', active: true },
+    { id: 'lu2', title: 'Rajasthan Police Constable Recruitment 2026', subtitle: '10,000+ Vacancies', link: 'https://police.rajasthan.gov.in', icon: '🚔', date: '2026-09-01', active: true },
+    { id: 'lu3', title: 'UPSC Prelims Admit Card Out', subtitle: 'Download now', link: 'https://upsc.gov.in', icon: '🎫', date: '2026-05-20', active: true }
+  ],
+  forms: [
+    { id: 'fm1', title: 'SSC CGL Application Form', subtitle: 'Last date: 15 July 2026', link: 'https://ssc.nic.in', icon: '📋', date: '2026-07-15', active: true },
+    { id: 'fm2', title: 'RAS Pre Application Form', subtitle: 'Last date: 20 July 2026', link: 'https://rpsc.rajasthan.gov.in', icon: '📝', date: '2026-07-20', active: true },
+    { id: 'fm3', title: 'REET 2026 Online Form', subtitle: 'Apply online', link: 'https://rajeduboard.rajasthan.gov.in', icon: '✍️', date: '2026-08-15', active: true }
+  ],
+  sidebar: [
+    { id: 'sb1', title: 'Syllabus', subtitle: 'All exams syllabus', link: 'syllabus.html', icon: '📘', date: '', active: true },
+    { id: 'sb2', title: 'Previous Papers', subtitle: 'Download previous year papers', link: 'papers.html', icon: '📄', date: '', active: true },
+    { id: 'sb3', title: 'Admit Card', subtitle: 'Download admit cards', link: 'admit-card.html', icon: '🎫', date: '', active: true },
+    { id: 'sb4', title: 'Result', subtitle: 'Check results', link: 'result.html', icon: '📊', date: '', active: true },
+    { id: 'sb5', title: 'Answer Key', subtitle: 'Download answer keys', link: 'answer-key.html', icon: '🔑', date: '', active: true }
+  ]
+};
+
+// ============================================================
 // LOAD / SAVE
 // ============================================================
 function loadData() {
@@ -912,7 +996,6 @@ function loadPageData() {
 function savePageData() {
   localStorage.setItem(PAGE_DATA_KEY, JSON.stringify(pageDataStore));
   if (firebaseDB) firebaseDB.collection('dreamjosh').doc('pageDataStore').set({ pages: pageDataStore }).catch(()=>{});
-  // Also sync to appData for frontend
   Object.keys(pageDataStore).forEach(k => {
     if (!appData[k]) appData[k] = {};
     appData[k].content = pageDataStore[k].content;
@@ -943,6 +1026,46 @@ function loadContent() {
     if (!contentData.instaPosts) contentData.instaPosts = [];
     if (!contentData.colleges) contentData.colleges = [];
   } catch (e) { contentData = JSON.parse(JSON.stringify(DEFAULT_CONTENT)); }
+}
+
+// NEW: Home updates load/save
+function loadHomeUpdates() {
+  try {
+    const s = localStorage.getItem(HOME_UPDATES_KEY);
+    if (s) {
+      homeUpdatesData = JSON.parse(s);
+      if (!homeUpdatesData.latest) homeUpdatesData.latest = [];
+      if (!homeUpdatesData.forms) homeUpdatesData.forms = [];
+      if (!homeUpdatesData.sidebar) homeUpdatesData.sidebar = [];
+    } else {
+      homeUpdatesData = JSON.parse(JSON.stringify(DEFAULT_HOME_UPDATES));
+      localStorage.setItem(HOME_UPDATES_KEY, JSON.stringify(homeUpdatesData));
+    }
+  } catch (e) {
+    homeUpdatesData = JSON.parse(JSON.stringify(DEFAULT_HOME_UPDATES));
+  }
+}
+
+function saveHomeUpdates() {
+  localStorage.setItem(HOME_UPDATES_KEY, JSON.stringify(homeUpdatesData));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('homeUpdates').set(homeUpdatesData).catch(()=>{});
+  // Sync to appData for frontend access
+  appData.homeUpdates = homeUpdatesData;
+  saveData();
+}
+
+async function loadHomeUpdatesFromCloud() {
+  if (!firebaseDB) return;
+  try {
+    const d = await firebaseDB.collection('dreamjosh').doc('homeUpdates').get();
+    if (d.exists) {
+      homeUpdatesData = d.data();
+      if (!homeUpdatesData.latest) homeUpdatesData.latest = [];
+      if (!homeUpdatesData.forms) homeUpdatesData.forms = [];
+      if (!homeUpdatesData.sidebar) homeUpdatesData.sidebar = [];
+      localStorage.setItem(HOME_UPDATES_KEY, JSON.stringify(homeUpdatesData));
+    }
+  } catch (e) {}
 }
 
 function saveData() {
@@ -1097,6 +1220,7 @@ function renderSidebar() {
     <li><a class="menu-link" data-page="dashboard" onclick="showAdminPage('dashboard')"><i class="fas fa-chart-pie menu-icon"></i> Dashboard</a></li>
     <li><a class="menu-link" data-page="content-manager" onclick="showAdminPage('content-manager')"><i class="fas fa-palette menu-icon"></i> Content Manager</a></li>
     <li><a class="menu-link" data-page="jobs-manager" onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase menu-icon"></i> Jobs Manager</a></li>
+    <li><a class="menu-link" data-page="home-updates" onclick="showAdminPage('home-updates')"><i class="fas fa-bullhorn menu-icon"></i> Homepage Updates</a></li>
     <li><a class="menu-link" data-page="blog-manager" onclick="showAdminPage('blog-manager')"><i class="fas fa-blog menu-icon"></i> Blog</a></li>
     <li><a class="menu-link" data-page="career-manager" onclick="showAdminPage('career-manager')"><i class="fas fa-briefcase menu-icon"></i> Career</a></li>
     <li><a class="menu-link" data-page="service-manager" onclick="showAdminPage('service-manager')"><i class="fas fa-cogs menu-icon"></i> Services</a></li>
@@ -1119,6 +1243,7 @@ function showAdminPage(page) {
     'dashboard': '📊 <span>Dashboard</span>',
     'content-manager': '🎨 <span>Content Manager</span>',
     'jobs-manager': '💼 <span>Jobs Manager</span>',
+    'home-updates': '📢 <span>Homepage Updates</span>',
     'blog-manager': '📝 <span>Blog Manager</span>',
     'career-manager': '🎯 <span>Career Manager</span>',
     'service-manager': '🛠️ <span>Service Manager</span>',
@@ -1135,6 +1260,7 @@ function showAdminPage(page) {
     if (page === 'dashboard') updateStats();
     if (page === 'content-manager') renderContentTabs();
     if (page === 'jobs-manager') renderJobsTable();
+    if (page === 'home-updates') renderHomeUpdates();
     if (page === 'blog-manager') renderPageData('blog');
     if (page === 'career-manager') renderPageData('career');
     if (page === 'service-manager') renderPageData('service');
@@ -1143,6 +1269,206 @@ function showAdminPage(page) {
     if (page === 'settings') loadSettingsForm();
   }
   if (window.innerWidth <= 768) closeSidebar();
+}
+
+// ============================================================
+// HOMEPAGE UPDATES MANAGER (NEW)
+// ============================================================
+let currentHomeTab = 'latest';
+
+function switchHomeTab(tab) {
+  currentHomeTab = tab;
+  document.querySelectorAll('#adminPage-home-updates .content-tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('[id^="htab-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('home-tab-' + tab).classList.add('active');
+  document.getElementById('htab-' + tab).classList.add('active');
+}
+
+function renderHomeUpdates() {
+  renderHomeList('latest', 'latestUpdatesContainer', '🆕');
+  renderHomeList('forms', 'importantFormsContainer', '📋');
+  renderHomeList('sidebar', 'sidebarLinksContainer', '📌');
+}
+
+function renderHomeList(type, containerId, icon) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  const items = homeUpdatesData[type] || [];
+  if (!items.length) {
+    c.innerHTML = `<div class="empty-state"><i class="fas fa-inbox"></i><p>No items in ${type} yet. Click Add to create one.</p></div>`;
+    return;
+  }
+  c.innerHTML = items.map((item, idx) => {
+    const iconChar = item.icon || icon;
+    const titleHtml = item.link
+      ? `<a href="${escapeHtml(item.link)}" target="_blank" title="Click to open">${escapeHtml(item.title)} <i class="fas fa-external-link-alt" style="font-size:10px;opacity:.5;"></i></a>`
+      : escapeHtml(item.title);
+    return `
+      <div class="home-update-item">
+        <div class="hu-icon">${iconChar}</div>
+        <div class="hu-info">
+          <div class="hu-title">${titleHtml}</div>
+          <div class="hu-meta">
+            ${item.subtitle ? `<span>📝 ${escapeHtml(item.subtitle)}</span>` : ''}
+            ${item.date ? `<span>📅 ${escapeHtml(item.date)}</span>` : ''}
+            ${item.active === false ? '<span style="color:#dc3545;font-weight:700;">⛔ Inactive</span>' : '<span style="color:#16a34a;font-weight:700;">✅ Active</span>'}
+          </div>
+        </div>
+        <div class="hu-actions">
+          <button class="btn-i-edit" onclick="openHomeUpdateModal(${idx}, '${type}')" title="Edit"><i class="fas fa-edit"></i></button>
+          <button class="btn-i-delete" onclick="deleteHomeUpdate('${type}', ${idx})" title="Delete"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openHomeUpdateModal(idx = null, type = null) {
+  if (!type) type = currentHomeTab;
+  const isEdit = idx !== null && idx !== undefined;
+  const list = homeUpdatesData[type] || [];
+  const item = isEdit ? list[idx] : { title: '', subtitle: '', link: '', icon: '📢', date: '', active: true };
+  const typeLabels = { latest: '🆕 Latest Update', forms: '📋 Important Form', sidebar: '📌 Sidebar Link' };
+
+  document.getElementById('adminModalTitle').textContent = (isEdit ? '✏️ Edit ' : '➕ Add ') + (typeLabels[type] || 'Item');
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="huIdx" value="${isEdit ? idx : -1}">
+    <input type="hidden" id="huType" value="${type}">
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Title *</label>
+        <input type="text" id="huTitle" value="${escapeHtml(item.title)}" placeholder="e.g. SSC CGL 2026 Notification">
+      </div>
+      <div class="form-group">
+        <label>Icon (Emoji)</label>
+        <input type="text" id="huIcon" maxlength="4" value="${escapeHtml(item.icon || '📢')}" placeholder="📢">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Subtitle / Short Description</label>
+      <input type="text" id="huSubtitle" value="${escapeHtml(item.subtitle || '')}" placeholder="e.g. Apply before 15 July 2026">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Link / URL *</label>
+        <input type="url" id="huLink" value="${escapeHtml(item.link || '')}" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label>Date (optional)</label>
+        <input type="text" id="huDate" value="${escapeHtml(item.date || '')}" placeholder="e.g. 2026-07-15">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <select id="huActive">
+        <option value="true" ${item.active !== false ? 'selected' : ''}>✅ Active (Show on homepage)</option>
+        <option value="false" ${item.active === false ? 'selected' : ''}>⛔ Inactive (Hide)</option>
+      </select>
+    </div>
+
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="saveHomeUpdate()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Save'}</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function saveHomeUpdate() {
+  const idx = parseInt(document.getElementById('huIdx').value);
+  const type = document.getElementById('huType').value;
+  const title = document.getElementById('huTitle').value.trim();
+  const link = document.getElementById('huLink').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+  if (!link) return showToast('Link required!', 'error');
+
+  if (!homeUpdatesData[type]) homeUpdatesData[type] = [];
+
+  const item = {
+    id: (idx >= 0 && homeUpdatesData[type][idx]?.id) ? homeUpdatesData[type][idx].id : 'hu_' + Date.now(),
+    title,
+    subtitle: document.getElementById('huSubtitle').value.trim(),
+    link,
+    icon: document.getElementById('huIcon').value || '📢',
+    date: document.getElementById('huDate').value.trim(),
+    active: document.getElementById('huActive').value === 'true',
+    updatedAt: Date.now()
+  };
+
+  if (idx >= 0) homeUpdatesData[type][idx] = item;
+  else homeUpdatesData[type].push(item);
+
+  saveHomeUpdates();
+  renderHomeUpdates();
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
+}
+
+function deleteHomeUpdate(type, idx) {
+  if (!confirm('Delete this item?')) return;
+  homeUpdatesData[type].splice(idx, 1);
+  saveHomeUpdates();
+  renderHomeUpdates();
+  showToast('🗑️ Deleted!', 'success');
+}
+
+function openBulkHomeUpdateModal() {
+  const type = currentHomeTab;
+  const typeLabels = { latest: '🆕 Latest Updates', forms: '📋 Important Forms', sidebar: '📌 Sidebar Links' };
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Add ' + (typeLabels[type] || 'Items');
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="bulkHuType" value="${type}">
+    <div class="form-group">
+      <label>Format (one per line): Title | Subtitle | Link | Icon</label>
+      <textarea id="bulkHuText" rows="10" placeholder="SSC CGL 2026 Notification | Apply before 15 July | https://ssc.nic.in | 📢
+RAS Pre 2026 | Last date 20 July | https://rpsc.rajasthan.gov.in | 📝"></textarea>
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="doBulkAddHomeUpdate()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function doBulkAddHomeUpdate() {
+  const type = document.getElementById('bulkHuType').value;
+  const text = document.getElementById('bulkHuText').value.trim();
+  if (!text) return showToast('Data required', 'error');
+  if (!homeUpdatesData[type]) homeUpdatesData[type] = [];
+  let count = 0;
+  text.split('\n').filter(l => l.trim()).forEach(line => {
+    const p = line.split('|').map(x => x.trim());
+    if (!p[0]) return;
+    homeUpdatesData[type].push({
+      id: 'hu_' + Date.now() + '_' + count,
+      title: p[0],
+      subtitle: p[1] || '',
+      link: p[2] || '',
+      icon: p[3] || '📢',
+      date: '',
+      active: true,
+      updatedAt: Date.now()
+    });
+    count++;
+  });
+  saveHomeUpdates();
+  closeAdminModal();
+  renderHomeUpdates();
+  showToast(`✅ ${count} items added!`, 'success');
+}
+
+function exportHomeUpdates() {
+  const blob = new Blob([JSON.stringify(homeUpdatesData, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `homepage_updates_${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  showToast('📥 Exported!', 'success');
 }
 
 // ============================================================
@@ -1662,7 +1988,6 @@ function renderPageData(pageKey) {
   const data = pageDataStore[pageKey] || { content: '', items: [] };
   let html = '';
 
-  // Content section
   html += `
     <div class="admin-card" style="margin-bottom:16px;">
       <div class="card-header">
@@ -1678,7 +2003,6 @@ function renderPageData(pageKey) {
     </div>
   `;
 
-  // Items section
   html += `
     <div class="admin-card">
       <div class="card-header">
@@ -1914,7 +2238,6 @@ function saveMoreItem() {
   if (idx >= 0) data.items[idx] = item;
   else data.items.push(item);
 
-  // Save the uploads list persistently
   if (uploadedFile) {
     if (!data.uploads) data.uploads = [];
     data.uploads.push({
@@ -1992,6 +2315,142 @@ function exportMoreData() {
 }
 
 let moreUploadsTemp = [];
+
+// ============================================================
+// PAGE EDITOR MODAL
+// ============================================================
+function openPageEditorModal(pageKey) {
+  const content = pageDataStore[pageKey]?.content || '';
+  document.getElementById('adminModalTitle').textContent = `✏️ Edit ${pageKey} Content`;
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="pePageKey" value="${pageKey}">
+    <div style="display:flex;gap:6px;margin-bottom:12px;border-bottom:2px solid var(--border-color);padding-bottom:8px;">
+      <button class="settings-tab-btn active" onclick="switchPEMode('word')" id="pe-tab-word">📝 Word Editor</button>
+      <button class="settings-tab-btn" onclick="switchPEMode('excel')" id="pe-tab-excel">📊 Excel Editor</button>
+      <button class="settings-tab-btn" onclick="switchPEMode('upload')" id="pe-tab-upload">📤 Uploads</button>
+    </div>
+    <div id="pe-mode-word" class="pe-mode">${getWordEditorHTML(content)}</div>
+    <div id="pe-mode-excel" class="pe-mode" style="display:none;"><div id="excelEditorContainer"></div></div>
+    <div id="pe-mode-upload" class="pe-mode" style="display:none;">
+      <div class="setting-group">
+        <h5>📄 Upload PDF</h5>
+        <input type="file" id="peUploadPdf" accept=".pdf" onchange="handlePageUpload('${pageKey}', 'pdf', this)">
+        <div class="uploaded-files" id="pe-files-pdf"></div>
+      </div>
+      <div class="setting-group">
+        <h5>🖼️ Upload Photo</h5>
+        <input type="file" id="peUploadImg" accept="image/*" onchange="handlePageUpload('${pageKey}', 'image', this)">
+        <div class="uploaded-files" id="pe-files-img"></div>
+      </div>
+      <div class="setting-group">
+        <h5>📁 Upload Soft Copy (Any File)</h5>
+        <input type="file" id="peUploadFile" onchange="handlePageUpload('${pageKey}', 'file', this)">
+        <div class="uploaded-files" id="pe-files-file"></div>
+      </div>
+    </div>
+    <div class="export-bar">
+      <button class="btn-pdf" onclick="exportContentPDF('${pageKey}')"><i class="fas fa-file-pdf"></i> PDF</button>
+      <button class="btn-word" onclick="exportContentWord('${pageKey}')"><i class="fas fa-file-word"></i> Word</button>
+      <button class="btn-excel" onclick="exportContentExcel('${pageKey}')"><i class="fas fa-file-excel"></i> Excel</button>
+      <button class="btn-csv" onclick="exportContentCSV('${pageKey}')"><i class="fas fa-file-csv"></i> CSV</button>
+      <button class="btn-print" onclick="exportContentPrint('${pageKey}')"><i class="fas fa-print"></i> Print</button>
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="savePageContent('${pageKey}')"><i class="fas fa-save"></i> Save Content</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+  loadPageUploadedFiles(pageKey);
+  setTimeout(() => initExcelEditor(), 100);
+}
+
+function switchPEMode(mode) {
+  document.querySelectorAll('.pe-mode').forEach(m => m.style.display = 'none');
+  document.querySelectorAll('[id^="pe-tab-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('pe-mode-' + mode).style.display = 'block';
+  document.getElementById('pe-tab-' + mode).classList.add('active');
+}
+
+function savePageContent(pageKey) {
+  if (!pageDataStore[pageKey]) pageDataStore[pageKey] = { content: '', items: [] };
+  pageDataStore[pageKey].content = document.getElementById('richEditor').innerHTML;
+  savePageData();
+  renderPageData(pageKey);
+  closeAdminModal();
+  showToast('✅ Content saved!', 'success');
+}
+
+// ---- PAGE ITEM EDITOR ----
+function openPageItemModal(pageKey, idx = null) {
+  const isEdit = idx !== null;
+  const item = isEdit ? pageDataStore[pageKey].items[idx] : { title: '', description: '', category: '', link: '' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Item` : '➕ Add Item';
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="piPage" value="${pageKey}">
+    <input type="hidden" id="piIdx" value="${isEdit ? idx : -1}">
+    <div class="form-row">
+      <div class="form-group"><label>Title *</label><input type="text" id="piTitle" value="${escapeHtml(item.title)}"></div>
+      <div class="form-group"><label>Category</label><input type="text" id="piCategory" value="${escapeHtml(item.category)}"></div>
+    </div>
+    <div class="form-group"><label>Link URL</label><input type="url" id="piLink" value="${escapeHtml(item.link || '')}"></div>
+    <div class="form-group"><label>📝 Description (Word Editor)</label>${getWordEditorHTML(item.description || '')}</div>
+    <div style="margin-top:16px;">
+      <button class="btn-submit" onclick="savePageItem()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
+
+function savePageItem() {
+  const pageKey = document.getElementById('piPage').value;
+  const idx = parseInt(document.getElementById('piIdx').value);
+  const title = document.getElementById('piTitle').value.trim();
+  if (!title) return showToast('Title required!', 'error');
+  if (!pageDataStore[pageKey]) pageDataStore[pageKey] = { content: '', items: [] };
+  if (!pageDataStore[pageKey].items) pageDataStore[pageKey].items = [];
+  const item = {
+    title,
+    category: document.getElementById('piCategory').value,
+    description: document.getElementById('richEditor').innerHTML,
+    link: document.getElementById('piLink').value,
+    createdAt: Date.now()
+  };
+  if (idx >= 0) pageDataStore[pageKey].items[idx] = item;
+  else pageDataStore[pageKey].items.push(item);
+  savePageData();
+  renderPageItemsList(pageKey);
+  renderPageData(pageKey);
+  closeAdminModal();
+  showToast('✅ Saved!', 'success');
+}
+
+function deletePageItem(pageKey, idx) {
+  if (!confirm('Delete?')) return;
+  pageDataStore[pageKey].items.splice(idx, 1);
+  savePageData();
+  renderPageData(pageKey);
+  showToast('🗑️ Deleted!', 'success');
+}
+
+function previewItem(pageKey, idx) {
+  const item = pageDataStore[pageKey].items[idx];
+  if (!item) return;
+  document.getElementById('adminModalTitle').textContent = '👁️ Preview: ' + item.title;
+  document.getElementById('adminModalBody').innerHTML = `
+    <div style="padding:16px;background:var(--bg-color);border-radius:8px;">
+      <h2 style="color:var(--primary-blue);margin-bottom:8px;">${escapeHtml(item.title)}</h2>
+      ${item.category ? `<div style="display:inline-block;background:var(--secondary-blue);color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;margin-bottom:8px;">${escapeHtml(item.category)}</div>` : ''}
+      <div style="margin-top:8px;">${item.description || ''}</div>
+      ${item.link ? `<div style="margin-top:12px;"><a href="${item.link}" target="_blank" style="background:var(--success-green);color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;">🔗 Open Link</a></div>` : ''}
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
+    </div>
+  `;
+  document.getElementById('adminModalOverlay').classList.add('active');
+}
 
 // ============================================================
 // WORD EDITOR
@@ -2164,7 +2623,7 @@ async function handlePageUpload(pageKey, type, input) {
 
 function loadPageUploadedFiles(pageKey) {
   const uploads = pageDataStore[pageKey]?.uploads || [];
-  ['pdf', 'image', 'file', 'excel'].forEach(type => {
+  ['pdf', 'image', 'file'].forEach(type => {
     const container = document.getElementById('pe-files-' + type);
     if (!container) return;
     const filtered = uploads.filter(u => u.type === type);
@@ -2189,6 +2648,87 @@ function deletePageUpload(pageKey, url) {
     showToast('🗑️ Removed', 'info');
   }
 }
+
+// ============================================================
+// EXPORT FUNCTIONS
+// ============================================================
+function exportContentPDF(pageKey) {
+  const editor = document.getElementById('richEditor');
+  if (!editor) return showToast('Editor not found', 'error');
+  const content = editor.innerHTML;
+  if (window.html2pdf) {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    tempDiv.style.cssText = 'padding:20px;font-family:Arial;line-height:1.6;';
+    html2pdf().from(tempDiv).set({
+      margin: 10,
+      filename: `${pageKey}_content.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).save();
+    showToast('📥 PDF downloading...', 'success');
+  } else {
+    showToast('PDF library not loaded', 'error');
+  }
+}
+
+function exportContentWord(pageKey) {
+  const editor = document.getElementById('richEditor');
+  if (!editor) return;
+  const content = editor.innerHTML;
+  const html = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>${pageKey}</title><style>body{font-family:Arial;}</style></head><body>${content}</body></html>`;
+  const blob = new Blob(['\uFEFF' + html], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${pageKey}_content.doc`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('📥 Word downloaded!', 'success');
+}
+
+function exportContentExcel(pageKey) {
+  const data = [['Content'], [stripHtml(document.getElementById('richEditor')?.innerHTML || '')]];
+  const ws = XLSX.utils.aoa_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Content');
+  XLSX.writeFile(wb, `${pageKey}_content.xlsx`);
+  showToast('📥 Excel downloaded!', 'success');
+}
+
+function exportContentCSV(pageKey) {
+  const content = stripHtml(document.getElementById('richEditor')?.innerHTML || '');
+  const csv = '\uFEFF' + 'Content\n"' + content.replace(/"/g, '""') + '"';
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${pageKey}_content.csv`;
+  a.click();
+  showToast('📥 CSV downloaded!', 'success');
+}
+
+function exportContentPrint(pageKey) {
+  const content = document.getElementById('richEditor')?.innerHTML || '';
+  const win = window.open('', '_blank');
+  win.document.write(`<html><head><title>Print</title><style>body{font-family:Arial;padding:40px;line-height:1.6;}table{border-collapse:collapse;width:100%;}td,th{border:1px solid #999;padding:8px;}img{max-width:100%;}</style></head><body>${content}</body></html>`);
+  win.document.close();
+  setTimeout(() => win.print(), 500);
+  showToast('🖨️ Print dialog opening...', 'info');
+}
+
+function exportPageData(pageKey) {
+  const data = pageDataStore[pageKey] || {};
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${pageKey}_data.json`;
+  a.click();
+  showToast('📥 Exported!', 'success');
+}
+
+// Legacy alias
+function exportContent(pageKey) { exportPageData(pageKey); }
 
 // ============================================================
 // HELPERS
@@ -2385,7 +2925,7 @@ function changeAdminUsername() {
 }
 
 function exportAllData() {
-  const data = { appData, jobsData, pageDataStore, contentData, settings };
+  const data = { appData, jobsData, pageDataStore, contentData, settings, homeUpdatesData };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -2421,8 +2961,9 @@ function importData() {
       if (data.pageDataStore) pageDataStore = data.pageDataStore;
       if (data.contentData) contentData = data.contentData;
       if (data.settings) settings = data.settings;
-      saveData(); savePageData(); saveContent(); saveSettings();
-      renderSidebar(); renderContentTabs(); updateStats();
+      if (data.homeUpdatesData) homeUpdatesData = data.homeUpdatesData;
+      saveData(); savePageData(); saveContent(); saveSettings(); saveHomeUpdates();
+      renderSidebar(); renderContentTabs(); updateStats(); renderHomeUpdates();
       showToast('✅ Restored!', 'success');
     } catch (err) { showToast('❌ Invalid file', 'error'); }
   };
@@ -2432,7 +2973,7 @@ function importData() {
 function clearAllAdminData() {
   if (!confirm('⚠️ All data delete?')) return;
   if (!confirm('Sure?')) return;
-  [STORAGE_KEY, PAGE_DATA_KEY, CONTENT_KEY, SETTINGS_KEY].forEach(k => localStorage.removeItem(k));
+  [STORAGE_KEY, PAGE_DATA_KEY, CONTENT_KEY, SETTINGS_KEY, HOME_UPDATES_KEY].forEach(k => localStorage.removeItem(k));
   showToast('🗑️ Cleared!', 'success');
   setTimeout(() => location.reload(), 1500);
 }
@@ -2567,20 +3108,28 @@ async function initAdminPanel() {
   loadPageData();
   await loadPageDataFromCloud();
   loadContent();
+  loadHomeUpdates();
+  await loadHomeUpdatesFromCloud();
   loadSettings();
   applyAppearanceSettings();
   await loadContentFromCloud();
   renderSidebar();
   renderContentTabs();
+  renderHomeUpdates();
   updateStats();
   showAdminPage('dashboard');
 
   setTimeout(() => {
     initVipClock();
     initIdleLogout();
-    console.log('👑 Admin v10.0 Ready');
+    console.log('👑 Admin v10.1 Ready');
     console.log('📄 Pages loaded:', Object.keys(pageDataStore).length);
     console.log('💼 Jobs:', jobsData.length);
+    console.log('📢 Home updates:', {
+      latest: homeUpdatesData.latest.length,
+      forms: homeUpdatesData.forms.length,
+      sidebar: homeUpdatesData.sidebar.length
+    });
   }, 200);
 }
 
@@ -2624,7 +3173,10 @@ Object.assign(window, {
   // MORE PAGE
   renderMorePage, openMoreItemModal, saveMoreItem, deleteMoreItem,
   openBulkMoreModal, doBulkAddMore, handleMoreFileUpload, removeMoreTempUpload,
-  exportMoreData
+  exportMoreData,
+  // HOMEPAGE UPDATES (NEW)
+  switchHomeTab, renderHomeUpdates, openHomeUpdateModal, saveHomeUpdate,
+  deleteHomeUpdate, openBulkHomeUpdateModal, doBulkAddHomeUpdate, exportHomeUpdates
 });
 </script>
 
