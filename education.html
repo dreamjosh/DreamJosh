@@ -1464,7 +1464,7 @@ input, select, textarea {
                     </div>
                     <div class="admin-form-group">
                         <label>Gemini API Key</label>
-                        <input type="password" id="adminGeminiApiKey" placeholder="AIza...">
+                        <input type="password" id="adminGeminiApiKey" placeholder="AIza... या AQ...">
                         <p style="font-size:11px;color:#9ba8c0;margin-top:4px;">
                             Google AI Studio से मुफ्त में प्राप्त करें. Key localStorage में सुरक्षित है (केवल डेमो)
                         </p>
@@ -1527,7 +1527,7 @@ input, select, textarea {
                 </div>
             </div>
 
-            <p class="admin-footer-note">Dream Josh Admin Panel v1.2 — AI Integrated (Gemini) — Demo Mode</p>
+            <p class="admin-footer-note">Dream Josh Admin Panel v1.3 — AI Integrated (Gemini) — Demo Mode</p>
         </div>
     </section>
 
@@ -1600,7 +1600,7 @@ function showToast(message, type = 'info') {
     toast.textContent = message;
     toast.className = 'meeting-toast show ' + type;
     clearTimeout(toast._timeout);
-    toast._timeout = setTimeout(() => { toast.classList.remove('show'); }, 4000);
+    toast._timeout = setTimeout(() => { toast.classList.remove('show'); }, 5000);
 }
 
 // ============================================
@@ -1642,7 +1642,8 @@ function updateAiStatusBadges() {
 }
 
 // ============================================
-// GEMINI API CALL (header-based key, gemini-flash-latest)
+// GEMINI API CALL — ?key= URL PARAMETER METHOD
+// (यह AQ. फॉर्मेट keys के लिए compatible है)
 // ============================================
 async function getAiAnswer(question, subject, studentName) {
     const settings = getAiSettings();
@@ -1657,14 +1658,14 @@ async function getAiAnswer(question, subject, studentName) {
 
 कृपया हिंदी में सरल, स्पष्ट और सहायक उत्तर दें। यदि प्रश्न गणित/विज्ञान से संबंधित है तो चरण-दर-चरण समझाएं। उत्तर 200 शब्दों के भीतर रखें।`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${settings.model}:generateContent`;
+    // ✅ ?key= URL parameter method (AQ. keys के लिए ज़रूरी)
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${settings.model}:generateContent?key=${encodeURIComponent(settings.apiKey)}`;
 
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'x-goog-api-key': settings.apiKey
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 contents: [{ parts: [{ text: prompt }] }]
@@ -1672,17 +1673,18 @@ async function getAiAnswer(question, subject, studentName) {
         });
 
         if (!response.ok) {
-            let errMsg = 'API request failed';
+            let errMsg = 'API request failed (' + response.status + ')';
             try {
                 const err = await response.json();
                 errMsg = err.error?.message || errMsg;
+                console.error('Gemini API full error:', err);
             } catch (e) {}
             throw new Error(errMsg);
         }
 
         const data = await response.json();
         const answer = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!answer) throw new Error('AI ने कोई जवाब नहीं दिया');
+        if (!answer) throw new Error('AI ने कोई जवाब नहीं दिया (empty response)');
         return answer.trim();
     } catch (error) {
         console.error('AI answer error:', error);
@@ -1802,7 +1804,6 @@ async function submitDoubt() {
 
     var aiSettings = getAiSettings();
     if (aiSettings.enabled && aiSettings.apiKey) {
-        // Mark as processing
         newDoubt.status = 'processing';
         saveDoubts(doubts);
         renderMyDoubts();
@@ -1811,7 +1812,6 @@ async function submitDoubt() {
 
         var aiAnswer = await getAiAnswer(question, subject, name);
         
-        // Reload doubts and update target
         var updatedDoubts = getDoubts();
         var targetDoubt = updatedDoubts.find(d => d.id === newId);
         if (targetDoubt) {
