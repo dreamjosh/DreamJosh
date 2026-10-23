@@ -56,7 +56,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .login-error{background:#fee2e2;color:#dc2626;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;margin-bottom:14px;display:none;align-items:center;gap:8px;}
 .login-error.show{display:flex;}
 
-/* ADMIN PANEL */
+/* ADMIN */
 .admin-wrapper{display:none;min-height:100vh;}
 .admin-wrapper.active{display:flex;}
 .admin-sidebar{width:280px;background:var(--footer-bg);color:#fff;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;}
@@ -75,12 +75,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
 .admin-menu .menu-link.active{background:rgba(255,215,0,.15);color:var(--gold);}
 .admin-menu .menu-link i.menu-icon{width:18px;font-size:14px;text-align:center;}
-.admin-menu .menu-link .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 8px;border-radius:20px;font-size:10px;}
 .admin-menu .menu-toggle{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:600;transition:.3s;cursor:pointer;}
 .admin-menu .menu-toggle:hover{background:rgba(255,255,255,.08);color:#fff;}
-.admin-menu .menu-toggle.open{background:rgba(255,255,255,.06);color:#fff;}
-.admin-menu .menu-toggle.has-active{color:var(--gold);}
-.admin-menu .menu-toggle i.menu-icon{width:18px;font-size:14px;text-align:center;}
 .admin-menu .menu-toggle .arrow{margin-left:auto;font-size:10px;opacity:.6;transition:transform .25s;}
 .admin-menu .menu-toggle.open .arrow{transform:rotate(90deg);opacity:1;}
 .admin-menu .submenu{list-style:none;max-height:0;overflow:hidden;transition:max-height .3s;opacity:0;margin:0;padding-left:8px;}
@@ -153,10 +149,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .data-item .item-title{font-weight:600;font-size:14px;margin-bottom:3px;word-break:break-word;}
 .data-item .item-meta{font-size:11px;color:var(--text-light);}
 .data-item .item-actions{display:flex;gap:4px;flex-wrap:wrap;}
-.data-item .item-actions button,.data-item .item-actions a{padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;text-decoration:none;}
+.data-item .item-actions button{padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;}
 .btn-i-edit{background:#ffc107;color:#333;}
 .btn-i-delete{background:#dc3545;color:#fff;}
-.btn-i-dup{background:#6c5ce7;color:#fff;}
 .btn-i-preview{background:var(--secondary-blue);color:#fff;}
 
 .empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
@@ -172,11 +167,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .content-tab-content.active{display:block;}
 
 .page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:12px;}
-.page-card{background:var(--card-bg);border-radius:10px;padding:16px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);transition:0.3s;}
-.page-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow-color);border-color:var(--gold);}
-.page-card .page-card-icon{font-size:32px;margin-bottom:8px;}
-.page-card h4{font-size:15px;margin-bottom:6px;}
-.page-card .page-card-meta{font-size:11px;color:var(--text-light);margin-bottom:10px;}
 
 .settings-tab-btn{padding:8px 16px;border:2px solid var(--border-color);border-radius:20px;background:var(--bg-color);color:var(--text-color);font-size:12px;font-weight:600;cursor:pointer;transition:.3s;}
 .settings-tab-btn.active{background:var(--secondary-blue);color:#fff;border-color:var(--secondary-blue);}
@@ -189,7 +179,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .setting-row label{font-size:12.5px;font-weight:600;color:var(--text-color);}
 .setting-row input[type="text"],.setting-row input[type="email"],.setting-row input[type="tel"],.setting-row input[type="url"],.setting-row input[type="number"],.setting-row input[type="password"],.setting-row select,.setting-row textarea{width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;font-size:13px;background:var(--card-bg);color:var(--text-color);font-family:inherit;}
 .setting-row input[type="color"]{width:60px;height:40px;padding:2px;border:2px solid var(--border-color);border-radius:6px;cursor:pointer;}
-.setting-row input[type="checkbox"]{width:20px;height:20px;cursor:pointer;accent-color:var(--primary-blue);}
 .btn-setting{padding:8px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;min-height:38px;margin-right:8px;margin-top:8px;display:inline-flex;align-items:center;gap:6px;}
 .btn-setting.primary{background:var(--secondary-blue);color:#fff;}
 .btn-setting.success{background:var(--success-green);color:#fff;}
@@ -256,7 +245,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .excel-table td input:focus{background:#e8f0fe;}
 .dark-mode .excel-table td input:focus{background:#2a2a4a;}
 
-/* UPLOAD / MEDIA AREA */
+/* UPLOAD / MEDIA */
 .upload-zone{border:2px dashed var(--border-color);border-radius:10px;padding:18px;text-align:center;cursor:pointer;transition:.3s;background:var(--bg-color);}
 .upload-zone:hover{border-color:var(--secondary-blue);background:rgba(25,118,210,.05);}
 .upload-zone i{font-size:28px;color:var(--secondary-blue);margin-bottom:6px;}
@@ -266,7 +255,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .media-chip i{color:var(--secondary-blue);}
 .media-chip button{background:none;border:none;color:var(--warning-red);cursor:pointer;font-size:11px;padding:0;}
 
-/* MODE SWITCH TABS inside modal */
+/* EDITOR MODE TABS */
 .editor-mode-tabs{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;border-bottom:1px solid var(--border-color);padding-bottom:6px;}
 .editor-mode-tabs button{padding:6px 14px;border:1px solid var(--border-color);border-radius:6px 6px 0 0;background:var(--bg-color);color:var(--text-color);font-size:12px;font-weight:600;cursor:pointer;}
 .editor-mode-tabs button.active{background:var(--secondary-blue);color:#fff;border-color:var(--secondary-blue);}
@@ -289,14 +278,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .more-category-bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px;background:var(--bg-color);padding:10px 16px;border-radius:10px;border:1px solid var(--border-color);}
 .more-category-bar label{font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;}
 .more-category-bar select{padding:8px 14px;border-radius:8px;border:2px solid var(--border-color);background:var(--card-bg);color:var(--text-color);font-size:13px;font-weight:500;cursor:pointer;min-width:200px;outline:none;font-family:inherit;}
-.more-category-bar select:focus{border-color:var(--secondary-blue);box-shadow:0 0 0 3px rgba(25,118,210,.1);}
-
 .more-file-item{background:var(--card-bg);border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:10px;transition:.2s;box-shadow:0 2px 6px var(--shadow-color);}
 .more-file-item:hover{border-left-color:var(--gold);box-shadow:0 6px 18px var(--shadow-color);transform:translateY(-1px);}
 .more-file-item .file-icon{width:44px;height:44px;border-radius:10px;background:rgba(25,118,210,.1);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--secondary-blue);flex-shrink:0;}
 .more-file-item .file-info{flex:1;min-width:0;}
 .more-file-item .file-name{font-weight:700;font-size:15px;margin-bottom:3px;word-break:break-word;}
-.more-file-item .file-name a{color:var(--text-color);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.2s;}
+.more-file-item .file-name a{color:var(--text-color);text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
 .more-file-item .file-name a:hover{color:var(--secondary-blue);text-decoration:underline;}
 .more-file-item .file-meta{font-size:11px;color:var(--text-light);display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
 .more-file-item .file-meta .badge-cat{padding:2px 10px;border-radius:12px;font-size:10px;font-weight:700;color:#fff;}
@@ -304,29 +291,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .more-file-item .file-meta .badge-cat.books{background:#16a34a;}
 .more-file-item .file-actions{display:flex;gap:4px;flex-shrink:0;}
 
-.more-upload-zone{border:2px dashed var(--border-color);border-radius:8px;padding:14px;text-align:center;cursor:pointer;transition:.3s;background:var(--bg-color);margin-bottom:8px;}
-.more-upload-zone:hover{border-color:var(--secondary-blue);background:rgba(25,118,210,.05);}
-.more-upload-zone i{font-size:24px;color:var(--secondary-blue);margin-bottom:4px;}
-.more-upload-zone p{font-size:11px;color:var(--text-light);}
-.more-uploaded-preview{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(25,118,210,.08);border:1px solid var(--secondary-blue);border-radius:6px;font-size:12px;margin-bottom:6px;}
-.more-uploaded-preview i{color:var(--secondary-blue);}
-.more-uploaded-preview .file-name{flex:1;word-break:break-all;}
-.more-uploaded-preview button{background:none;border:none;color:var(--warning-red);cursor:pointer;font-size:14px;}
-
-/* PAGE MANAGER */
+/* PAGE MANAGER CARDS */
 .pm-page-card{background:var(--card-bg);border-radius:12px;padding:18px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);transition:.3s;position:relative;}
 .pm-page-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow-color);border-color:var(--gold);}
-.pm-page-card .pm-page-icon{font-size:36px;margin-bottom:10px;}
+.pm-page-card.pm-builtin{border-left:4px solid var(--gold);}
+.pm-page-card .pm-page-icon{font-size:36px;margin-bottom:10px;color:var(--secondary-blue);}
 .pm-page-card h4{font-size:16px;margin-bottom:4px;}
 .pm-page-card .pm-page-meta{font-size:11px;color:var(--text-light);margin-bottom:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
 .pm-page-card .pm-page-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:10px;font-weight:700;}
 .pm-page-card .pm-page-badge.public{background:#16a34a;color:#fff;}
 .pm-page-card .pm-page-badge.private{background:#dc3545;color:#fff;}
 .pm-page-card .pm-page-badge.type{background:var(--secondary-blue);color:#fff;}
+.pm-page-card .pm-page-badge.builtin{background:var(--gold);color:#333;}
 .pm-page-card .pm-page-actions{display:flex;gap:6px;flex-wrap:wrap;}
 .pm-page-card .pm-page-actions button{padding:6px 12px;font-size:11px;border-radius:6px;border:none;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:4px;}
 .pm-empty{padding:50px 20px;text-align:center;color:var(--text-light);}
 .pm-empty i{font-size:48px;margin-bottom:12px;opacity:.3;}
+
+/* Filter bar for page manager */
+.pm-filter-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:16px;background:var(--bg-color);padding:10px 16px;border-radius:10px;border:1px solid var(--border-color);}
+.pm-filter-bar label{font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;}
+.pm-filter-bar select{padding:8px 14px;border-radius:8px;border:2px solid var(--border-color);background:var(--card-bg);color:var(--text-color);font-size:13px;font-weight:500;cursor:pointer;min-width:200px;outline:none;font-family:inherit;}
+.pm-filter-bar select:focus{border-color:var(--secondary-blue);}
+.pm-stat-badges{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;}
+.pm-stat-badges span{padding:4px 10px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:20px;font-size:11px;font-weight:600;}
 </style>
 </head>
 <body>
@@ -402,7 +390,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     <!-- DASHBOARD -->
     <div id="adminPage-dashboard" class="admin-section active">
       <div class="admin-stats">
-        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Pages</div><div class="stat-value" id="statPages">0</div></div>
+        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value" id="statPages">0</div></div>
         <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
         <div class="stat-item"><div class="stat-icon">🏆</div><div class="stat-label">Stories</div><div class="stat-value" id="statStories">0</div></div>
         <div class="stat-item"><div class="stat-icon">🎥</div><div class="stat-label">Videos</div><div class="stat-value" id="statVideos">0</div></div>
@@ -412,27 +400,37 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <div class="admin-quick-actions">
         <h3>⚡ Quick Actions</h3>
         <div class="actions-grid">
+          <button onclick="showAdminPage('page-manager')"><i class="fas fa-plus-circle"></i> Page Manager</button>
           <button onclick="showAdminPage('content-manager')"><i class="fas fa-palette"></i> Content Manager</button>
           <button onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase"></i> Jobs</button>
-          <button onclick="showAdminPage('page-manager')"><i class="fas fa-plus-circle"></i> Add New Page</button>
           <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
         </div>
       </div>
     </div>
 
-    <!-- PAGE MANAGER -->
+    <!-- PAGE MANAGER (ALL PAGES) -->
     <div id="adminPage-page-manager" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
-          <h4>📑 Page Manager</h4>
+          <h4>📑 Page Manager <span style="font-size:12px;font-weight:400;color:var(--text-light);">(All Pages)</span></h4>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <button class="btn-add" onclick="openPageManagerModal()"><i class="fas fa-plus"></i> New Page</button>
             <button class="btn-add primary" onclick="exportPageManagerData()"><i class="fas fa-download"></i> Export All</button>
           </div>
         </div>
         <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">
-          <i class="fas fa-info-circle"></i> Create new pages or update existing ones with Word Editor, Excel Editor, PDF, Photos & Hyperlinks.
+          <i class="fas fa-info-circle"></i> Showing <b>all</b> pages — both built-in (Jobs, Blog, Career, Service, More, RSR) and custom pages. Edit any page with Word Editor, Excel Editor, PDF, Photos & Hyperlinks.
         </p>
+
+        <div class="pm-filter-bar">
+          <label><i class="fas fa-filter" style="color:var(--secondary-blue);"></i> Filter:</label>
+          <select id="pmTypeFilter" onchange="renderPageManager()">
+            <option value="all">📂 All Pages</option>
+            ${PAGE_TYPES_HTML()}
+          </select>
+          <div class="pm-stat-badges" id="pmStatBadges"></div>
+        </div>
+
         <div id="pageManagerContainer" class="page-grid"></div>
       </div>
     </div>
@@ -634,27 +632,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
             <div class="setting-row"><label>Secondary</label><input type="color" id="setSecondaryColor" value="#1976d2"></div>
             <div class="setting-row"><label>Accent</label><input type="color" id="setAccentColor" value="#ffd700"></div>
           </div>
-          <div class="setting-group">
-            <h5>🔤 Typography</h5>
-            <div class="setting-row"><label>Font</label>
-              <select id="setFontFamily">
-                <option value="Arial, sans-serif">Arial</option>
-                <option value="'Segoe UI', sans-serif">Segoe UI</option>
-                <option value="Roboto, sans-serif">Roboto</option>
-                <option value="'Nirmala UI', sans-serif">Nirmala UI</option>
-              </select>
-            </div>
-          </div>
-          <div class="setting-group">
-            <h5>🎭 Theme</h5>
-            <div class="setting-row"><label>Mode</label>
-              <select id="setThemeMode">
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-                <option value="auto">Auto</option>
-              </select>
-            </div>
-          </div>
           <button class="btn-setting success" onclick="saveSettingsGroup('appearance')"><i class="fas fa-save"></i> Save</button>
         </div>
 
@@ -663,9 +640,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
             <h5>📊 Display</h5>
             <div class="setting-row"><label>Home Limit</label><input type="number" id="setHomeLimit" value="6"></div>
             <div class="setting-row"><label>Items Per Page</label><input type="number" id="setItemsPerPage" value="12"></div>
-            <div class="setting-row"><label>Layout</label>
-              <select id="setLayout"><option value="grid">Grid</option><option value="list">List</option></select>
-            </div>
           </div>
           <button class="btn-setting success" onclick="saveSettingsGroup('homepage')"><i class="fas fa-save"></i> Save</button>
         </div>
@@ -756,9 +730,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 </div>
 
 <script>
-// ============================================================
-// GLOBAL ERROR HANDLER
-// ============================================================
+// Global error handler
 window.onerror = function(msg, src, line) {
   console.error('❌ JS Error:', msg, 'at', src + ':' + line);
   return false;
@@ -805,8 +777,7 @@ let contentData = { stories: [], videos: [], ads: [], instaPosts: [], colleges: 
 let settings = {};
 let customPages = [];
 let currentJobFilter = 'all';
-let moreUploadsTemp = [];
-let pmUploadsTemp = []; // media for page manager
+let pmUploadsTemp = [];
 
 const STORAGE_KEY = 'dreamjosh_admin_data';
 const PAGE_DATA_KEY = 'dreamjosh_page_data_store';
@@ -815,7 +786,7 @@ const SETTINGS_KEY = 'dreamjosh_settings';
 const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
 const CUSTOM_PAGES_KEY = 'dreamjosh_custom_pages';
 
-// PAGE TYPES for dropdown
+// PAGE TYPES (dropdown)
 const PAGE_TYPES = [
   { value: 'jobs', label: '💼 Jobs', icon: 'fa-briefcase' },
   { value: 'education', label: '🎓 Education', icon: 'fa-graduation-cap' },
@@ -826,6 +797,22 @@ const PAGE_TYPES = [
   { value: 'rsr', label: '📜 RSR', icon: 'fa-gavel' },
   { value: 'tools', label: '🧰 Tools', icon: 'fa-tools' },
   { value: 'custom', label: '📄 Custom', icon: 'fa-file' }
+];
+
+function PAGE_TYPES_HTML() {
+  return PAGE_TYPES.map(pt => `<option value="${pt.value}">${pt.label}</option>`).join('');
+}
+
+// ============================================================
+// BUILT-IN PAGES (always present, editable via Page Manager)
+// ============================================================
+const BUILTIN_PAGES = [
+  { id: 'builtin-jobs-manager', name: 'Jobs Manager', icon: 'fa-briefcase', slug: 'jobs-manager', pageType: 'jobs', isPublic: true, description: 'Government & private job listings', dataKey: 'jobs', isBuiltin: true },
+  { id: 'builtin-blog-manager', name: 'Blog', icon: 'fa-blog', slug: 'blog-manager', pageType: 'blog', isPublic: true, description: 'Blog articles & news', dataKey: 'blog', isBuiltin: true },
+  { id: 'builtin-career-manager', name: 'Career', icon: 'fa-bullseye', slug: 'career-manager', pageType: 'career', isPublic: true, description: 'Career guidance & resources', dataKey: 'career', isBuiltin: true },
+  { id: 'builtin-service-manager', name: 'Services', icon: 'fa-cogs', slug: 'service-manager', pageType: 'service', isPublic: true, description: 'Services offered', dataKey: 'service', isBuiltin: true },
+  { id: 'builtin-more-manager', name: 'More', icon: 'fa-book', slug: 'more-manager', pageType: 'more', isPublic: true, description: 'Study materials & books', dataKey: 'more', isBuiltin: true },
+  { id: 'builtin-rsr-manager', name: 'RSR', icon: 'fa-gavel', slug: 'rsr-manager', pageType: 'rsr', isPublic: true, description: 'RSR resources', dataKey: 'rsr', isBuiltin: true }
 ];
 
 // ============================================================
@@ -849,9 +836,7 @@ const DEFAULT_CUSTOM_PAGES = [{
   description: 'Free study notes and materials',
   content: '<h2>📝 Free Study Notes</h2><p>Access high-quality study notes for various competitive exams.</p>',
   media: [], excelData: null,
-  items: [
-    { title: 'SSC CGL Complete Notes', category: 'Study Materials', link: 'https://example.com/ssc-notes.pdf', description: 'Complete SSC CGL notes' }
-  ],
+  items: [{ title: 'SSC CGL Complete Notes', category: 'Study Materials', link: 'https://example.com/ssc-notes.pdf', description: 'Complete SSC CGL notes' }],
   createdAt: Date.now()
 }];
 
@@ -863,10 +848,7 @@ function loadData() {
     const s = localStorage.getItem(STORAGE_KEY);
     if (s) { const p = JSON.parse(s); appData = p.appData || {}; jobsData = p.jobsData || []; }
   } catch (e) {}
-  if (!jobsData || jobsData.length === 0) {
-    jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
-    setTimeout(() => saveData(), 100);
-  }
+  if (!jobsData || jobsData.length === 0) { jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS)); setTimeout(() => saveData(), 100); }
 }
 function saveData() {
   try {
@@ -882,7 +864,9 @@ function loadPageData() {
   try {
     const s = localStorage.getItem(PAGE_DATA_KEY);
     if (s) pageDataStore = JSON.parse(s);
-    Object.keys(pageDataStore).forEach(k => {
+    // ensure all builtin keys exist
+    ['blog','career','service','more','rsr'].forEach(k => {
+      if (!pageDataStore[k]) pageDataStore[k] = { content: '', items: [] };
       if (!pageDataStore[k].content) pageDataStore[k].content = '';
       if (!pageDataStore[k].items) pageDataStore[k].items = [];
       if (!pageDataStore[k].uploads) pageDataStore[k].uploads = [];
@@ -920,12 +904,10 @@ function loadSettings() {
     email: 'info@dreamjosh.com', phone: '+91 99999 99999', whatsapp: '+91 99999 99999',
     address: 'Jaipur, Rajasthan', mapsUrl: '',
     primaryColor: '#123c9b', secondaryColor: '#1976d2', accentColor: '#ffd700',
-    fontFamily: 'Arial, sans-serif', themeMode: 'light',
-    homeLimit: 6, itemsPerPage: 12, layout: 'grid', showTicker: 'yes',
+    homeLimit: 6, itemsPerPage: 12,
     facebook: '', instagram: '', youtube: '', telegram: '', whatsappLink: '',
     metaTitle: 'Dream Josh', metaDesc: '', keywords: '',
     tickerText: '🔥 Latest Updates', announcementBar: '',
-    sessionTimeout: 480, idleTimeout: 10,
     gaAnalyticsId: '', gtmId: '', fbPixelId: ''
   };
   Object.keys(defaults).forEach(k => { if (settings[k] === undefined) settings[k] = defaults[k]; });
@@ -941,7 +923,6 @@ function loadCustomPages() {
     if (s) customPages = JSON.parse(s);
     else { customPages = JSON.parse(JSON.stringify(DEFAULT_CUSTOM_PAGES)); saveCustomPages(); }
     if (!Array.isArray(customPages)) customPages = [];
-    // ensure fields
     customPages.forEach(p => {
       if (!p.media) p.media = [];
       if (p.excelData === undefined) p.excelData = null;
@@ -1068,14 +1049,13 @@ function renderSidebar() {
     <li><a class="menu-link" data-page="content-manager" onclick="showAdminPage('content-manager')"><i class="fas fa-palette menu-icon"></i> Content Manager</a></li>
     <li><a class="menu-link" data-page="jobs-manager" onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase menu-icon"></i> Jobs Manager</a></li>
     <li><a class="menu-link" data-page="blog-manager" onclick="showAdminPage('blog-manager')"><i class="fas fa-blog menu-icon"></i> Blog</a></li>
-    <li><a class="menu-link" data-page="career-manager" onclick="showAdminPage('career-manager')"><i class="fas fa-briefcase menu-icon"></i> Career</a></li>
+    <li><a class="menu-link" data-page="career-manager" onclick="showAdminPage('career-manager')"><i class="fas fa-bullseye menu-icon"></i> Career</a></li>
     <li><a class="menu-link" data-page="service-manager" onclick="showAdminPage('service-manager')"><i class="fas fa-cogs menu-icon"></i> Services</a></li>
     <li><a class="menu-link" data-page="more-manager" onclick="showAdminPage('more-manager')"><i class="fas fa-book menu-icon"></i> More</a></li>
     <li><a class="menu-link" data-page="rsr-manager" onclick="showAdminPage('rsr-manager')"><i class="fas fa-gavel menu-icon"></i> RSR</a></li>
   `;
 
   if (customPages && customPages.length) {
-    // Group custom pages by pageType
     const grouped = {};
     customPages.forEach(p => {
       const t = p.pageType || 'custom';
@@ -1114,13 +1094,14 @@ function toggleCustomPagesSubmenu(el) {
 }
 
 function showCustomPageAdmin(pageId) {
-  const page = customPages.find(p => p.id === pageId);
+  // Check custom first
+  let page = customPages.find(p => p.id === pageId);
+  let isBuiltin = false;
+  if (!page) { page = BUILTIN_PAGES.find(p => p.id === pageId); isBuiltin = true; }
   if (!page) return showToast('Page not found', 'error');
   document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
-  const link = document.querySelector(`.admin-menu a[data-page="custom-page-${page.slug}"]`);
-  if (link) link.classList.add('active');
-  const idx = customPages.findIndex(p => p.id === pageId);
-  openPageManagerModal(idx);
+  const idx = isBuiltin ? null : customPages.findIndex(p => p.id === pageId);
+  openPageManagerModal(isBuiltin ? page : idx);
 }
 
 // ============================================================
@@ -1134,7 +1115,7 @@ function showAdminPage(page) {
 
   const titles = {
     'dashboard': '📊 <span>Dashboard</span>',
-    'page-manager': '📑 <span>Page Manager</span>',
+    'page-manager': '📑 <span>Page Manager (All Pages)</span>',
     'content-manager': '🎨 <span>Content Manager</span>',
     'jobs-manager': '💼 <span>Jobs Manager</span>',
     'blog-manager': '📝 <span>Blog Manager</span>',
@@ -1779,7 +1760,7 @@ function exportMoreData() {
 function handleMoreFileUpload() {}
 
 // ============================================================
-// WORD EDITOR HELPERS
+// WORD EDITOR
 // ============================================================
 function wordEditorHTML(content, editorId) {
   const id = editorId || ('richEditor_' + Date.now() + '_' + Math.random().toString(36).slice(2,6));
@@ -1937,72 +1918,142 @@ function getExcelData(id) {
 }
 
 // ============================================================
-// PAGE MANAGER (CUSTOM PAGES) - UPDATED with dropdown + editors
+// PAGE MANAGER — SHOWS ALL PAGES (builtin + custom)
 // ============================================================
+function getAllPages() {
+  const builtin = BUILTIN_PAGES.map(p => ({ ...p, isBuiltin: true }));
+  const custom = customPages.map(p => ({ ...p, isBuiltin: false }));
+  return [...builtin, ...custom];
+}
+
 function renderPageManager() {
   const container = document.getElementById('pageManagerContainer');
   if (!container) return;
-  if (!customPages.length) {
+
+  const allPages = getAllPages();
+  const filterEl = document.getElementById('pmTypeFilter');
+  const filter = filterEl ? filterEl.value : 'all';
+
+  let filtered = filter === 'all' ? allPages : allPages.filter(p => p.pageType === filter);
+
+  // Update stat badges
+  const badges = document.getElementById('pmStatBadges');
+  if (badges) {
+    const builtinCount = BUILTIN_PAGES.length;
+    const customCount = customPages.length;
+    badges.innerHTML = `
+      <span>📄 Total: <b>${allPages.length}</b></span>
+      <span style="color:var(--gold);">⭐ Built-in: <b>${builtinCount}</b></span>
+      <span style="color:var(--secondary-blue);">➕ Custom: <b>${customCount}</b></span>
+      ${filter !== 'all' ? `<span>Showing: <b>${filtered.length}</b></span>` : ''}
+    `;
+  }
+
+  if (!filtered.length) {
     container.innerHTML = `<div class="pm-empty" style="grid-column:1/-1;">
       <i class="fas fa-file-alt"></i>
-      <h4 style="margin:10px 0 6px;">No custom pages yet</h4>
-      <p>Click "New Page" to create your first custom page.</p>
+      <h4 style="margin:10px 0 6px;">No pages in this category</h4>
+      <p>Try a different filter or click "New Page" to add one.</p>
       <button class="btn-add" onclick="openPageManagerModal()" style="margin:16px auto;display:inline-flex;">
-        <i class="fas fa-plus"></i> Create First Page
+        <i class="fas fa-plus"></i> Create Page
       </button></div>`;
     return;
   }
-  container.innerHTML = customPages.map((page, idx) => {
+
+  container.innerHTML = filtered.map((page) => {
     const pt = PAGE_TYPES.find(p => p.value === page.pageType) || PAGE_TYPES[PAGE_TYPES.length - 1];
-    const mediaCount = (page.media || []).length;
-    const hasExcel = page.excelData && page.excelData.length;
+    const isBuiltin = page.isBuiltin;
+    const idx = isBuiltin ? null : customPages.findIndex(p => p.id === page.id);
+    const data = isBuiltin ? (pageDataStore[page.dataKey] || { items: [] }) : page;
+    const mediaCount = (data.media || []).length;
+    const hasExcel = isBuiltin ? false : (data.excelData && data.excelData.length);
+    const itemCount = isBuiltin ? (data.items || []).length : (data.items || []).length;
+
     return `
-    <div class="pm-page-card">
+    <div class="pm-page-card ${isBuiltin ? 'pm-builtin' : ''}">
       <div class="pm-page-icon"><i class="fas ${escapeHtml(page.icon || 'fa-file')}"></i></div>
       <h4>${escapeHtml(page.name)}</h4>
       <div class="pm-page-meta">
         <span class="pm-page-badge type">${pt.label}</span>
         <span class="pm-page-badge ${page.isPublic ? 'public' : 'private'}">${page.isPublic ? '🌐 Public' : '🔒 Private'}</span>
+        ${isBuiltin ? '<span class="pm-page-badge builtin">⭐ Built-in</span>' : ''}
       </div>
       <div class="pm-page-meta" style="font-size:10px;">
-        <span>📎 ${page.items ? page.items.length : 0} items</span>
+        <span>📎 ${itemCount} items</span>
         ${mediaCount ? `<span>📁 ${mediaCount} media</span>` : ''}
         ${hasExcel ? `<span>📊 Excel</span>` : ''}
       </div>
       <div class="pm-page-meta" style="font-size:10px;"><span>🔗 /${escapeHtml(page.slug || page.id)}</span></div>
       <div class="pm-page-actions">
-        <button class="btn-i-edit" onclick="openPageManagerModal(${idx})"><i class="fas fa-edit"></i> Edit</button>
-        <button class="btn-i-preview" onclick="previewCustomPage(${idx})"><i class="fas fa-eye"></i> Preview</button>
-        <button class="btn-i-delete" onclick="deleteCustomPage(${idx})"><i class="fas fa-trash"></i> Delete</button>
+        <button class="btn-i-edit" onclick="openPageManagerModal(${isBuiltin ? 'null' : idx}, ${isBuiltin ? `'${page.id}'` : 'null'})"><i class="fas fa-edit"></i> Edit</button>
+        <button class="btn-i-preview" onclick="previewAnyPage('${page.id}')"><i class="fas fa-eye"></i> Preview</button>
+        ${isBuiltin ? '' : `<button class="btn-i-delete" onclick="deleteCustomPage(${idx})"><i class="fas fa-trash"></i> Delete</button>`}
       </div>
     </div>`;
   }).join('');
 }
 
 let pmActiveEditorId = null;
+let pmActiveBuiltinId = null;
 
-function openPageManagerModal(idx = null) {
-  const isEdit = idx !== null;
-  const page = isEdit ? customPages[idx] : {
-    id: '', name: '', icon: 'fa-file', slug: '', pageType: 'custom', isPublic: true,
-    description: '', content: '', items: [], media: [], excelData: null
-  };
+function openPageManagerModal(idx = null, builtinId = null) {
+  // Determine if editing builtin or custom
+  let page, isBuiltin = false, excelEditorId = null;
+
+  if (builtinId) {
+    // Editing a built-in page
+    const builtin = BUILTIN_PAGES.find(p => p.id === builtinId);
+    if (!builtin) return showToast('Built-in page not found', 'error');
+    isBuiltin = true;
+    pmActiveBuiltinId = builtinId;
+    const existing = pageDataStore[builtin.dataKey] || { content: '', items: [], uploads: [] };
+    page = {
+      ...builtin,
+      content: existing.content || '',
+      items: existing.items || [],
+      media: existing.uploads || [],
+      excelData: existing.excelData || null,
+      description: builtin.description || ''
+    };
+  } else if (idx !== null) {
+    // Editing a custom page
+    page = customPages[idx];
+    pmActiveBuiltinId = null;
+  } else {
+    // Creating new custom page
+    page = {
+      id: '', name: '', icon: 'fa-file', slug: '', pageType: 'custom', isPublic: true,
+      description: '', content: '', items: [], media: [], excelData: null
+    };
+    pmActiveBuiltinId = null;
+  }
 
   pmActiveEditorId = 'richEditor_pm_' + Date.now();
-  const excelEditorId = 'excelEditor_pm_' + Date.now();
+  excelEditorId = 'excelEditor_pm_' + Date.now();
 
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Page' : '📑 Create New Page';
+  document.getElementById('adminModalTitle').textContent = isBuiltin
+    ? '✏️ Edit Built-in Page: ' + page.name
+    : (idx !== null ? '✏️ Edit Page' : '📑 Create New Page');
+
   document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="pmPageIdx" value="${isEdit ? idx : -1}">
+    <input type="hidden" id="pmPageIdx" value="${idx !== null ? idx : -1}">
+    <input type="hidden" id="pmBuiltinId" value="${isBuiltin ? builtinId : ''}">
+
+    ${isBuiltin ? `
+      <div style="padding:10px 14px;background:rgba(255,215,0,.15);border:1px solid var(--gold);border-radius:8px;margin-bottom:12px;font-size:12px;">
+        <i class="fas fa-star" style="color:var(--gold);"></i>
+        <b>Built-in Page</b> — Content, items & media you add here will appear on the built-in <b>${escapeHtml(page.name)}</b> page.
+      </div>
+    ` : ''}
 
     <div class="form-row">
       <div class="form-group">
         <label>Page Name *</label>
-        <input type="text" id="pmPageName" value="${escapeHtml(page.name)}" placeholder="e.g. Free Notes">
+        <input type="text" id="pmPageName" value="${escapeHtml(page.name)}" placeholder="e.g. Free Notes" ${isBuiltin ? 'readonly style="opacity:.7;"' : ''}>
       </div>
       <div class="form-group">
         <label>Page Type * (Dropdown)</label>
-        <select id="pmPageType">
+        <select id="pmPageType" ${isBuiltin ? 'disabled style="opacity:.7;"' : ''}>
           ${PAGE_TYPES.map(pt => `<option value="${pt.value}" ${page.pageType === pt.value ? 'selected' : ''}>${pt.label}</option>`).join('')}
         </select>
       </div>
@@ -2011,18 +2062,18 @@ function openPageManagerModal(idx = null) {
     <div class="form-row">
       <div class="form-group">
         <label>Slug (URL) *</label>
-        <input type="text" id="pmPageSlug" value="${escapeHtml(page.slug || '')}" placeholder="e.g. notes" oninput="updatePageId(this)">
+        <input type="text" id="pmPageSlug" value="${escapeHtml(page.slug || '')}" oninput="updatePageId(this)" ${isBuiltin ? 'readonly style="opacity:.7;"' : ''}>
       </div>
       <div class="form-group">
         <label>Icon (Font Awesome)</label>
-        <input type="text" id="pmPageIcon" value="${escapeHtml(page.icon || 'fa-file')}" placeholder="fa-sticky-note">
+        <input type="text" id="pmPageIcon" value="${escapeHtml(page.icon || 'fa-file')}" ${isBuiltin ? 'readonly style="opacity:.7;"' : ''}>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label>Visibility</label>
-        <select id="pmPagePublic">
+        <select id="pmPagePublic" ${isBuiltin ? 'disabled style="opacity:.7;"' : ''}>
           <option value="true" ${page.isPublic ? 'selected' : ''}>🌐 Public</option>
           <option value="false" ${!page.isPublic ? 'selected' : ''}>🔒 Private</option>
         </select>
@@ -2033,7 +2084,6 @@ function openPageManagerModal(idx = null) {
       </div>
     </div>
 
-    <!-- EDITOR MODE TABS -->
     <div class="form-group" style="margin-top:16px;">
       <label>📝 Page Content Editor</label>
       <div class="editor-mode-tabs">
@@ -2082,7 +2132,7 @@ function openPageManagerModal(idx = null) {
     </div>
 
     <div style="margin-top:16px;">
-      <button class="btn-submit" onclick="saveCustomPage('${excelEditorId}')"><i class="fas fa-save"></i> ${isEdit ? 'Update Page' : 'Create Page'}</button>
+      <button class="btn-submit" onclick="saveCustomPage('${excelEditorId}')"><i class="fas fa-save"></i> ${isBuiltin ? 'Save to Built-in Page' : (idx !== null ? 'Update Page' : 'Create Page')}</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
     </div>
   `;
@@ -2211,19 +2261,38 @@ function addPMHyperlink() {
 
 function saveCustomPage(excelEditorId) {
   const idx = parseInt(document.getElementById('pmPageIdx').value);
+  const builtinId = document.getElementById('pmBuiltinId').value;
   const name = document.getElementById('pmPageName').value.trim();
   const slug = document.getElementById('pmPageSlug').value.trim();
   const pageType = document.getElementById('pmPageType').value;
 
-  if (!name) return showToast('Page name required!', 'error');
-  if (!slug) return showToast('Slug required!', 'error');
-
-  // Get content from the active word editor
+  // Get content from word editor
   const contentEl = document.getElementById(pmActiveEditorId);
   const content = contentEl ? contentEl.innerHTML : '';
 
   // Get excel data
   const excelData = excelEditorId ? getExcelData(excelEditorId) : null;
+
+  // SAVE TO BUILT-IN
+  if (builtinId) {
+    const builtin = BUILTIN_PAGES.find(p => p.id === builtinId);
+    if (!builtin) return showToast('Built-in page not found', 'error');
+    const key = builtin.dataKey;
+    if (!pageDataStore[key]) pageDataStore[key] = { content: '', items: [], uploads: [] };
+    pageDataStore[key].content = content;
+    pageDataStore[key].items = window.pmItemsTemp || [];
+    pageDataStore[key].uploads = pmUploadsTemp || [];
+    if (excelData) pageDataStore[key].excelData = excelData;
+    savePageData();
+    closeAdminModal();
+    showToast('✅ Built-in page updated!', 'success');
+    renderPageManager();
+    return;
+  }
+
+  // SAVE AS CUSTOM
+  if (!name) return showToast('Page name required!', 'error');
+  if (!slug) return showToast('Slug required!', 'error');
 
   const page = {
     id: 'custom-' + slug, name,
@@ -2244,6 +2313,7 @@ function saveCustomPage(excelEditorId) {
     customPages[idx] = { ...customPages[idx], ...page };
   } else {
     if (customPages.some(p => p.slug === page.slug)) return showToast('Slug already exists! Choose another.', 'error');
+    if (BUILTIN_PAGES.some(p => p.slug === page.slug)) return showToast('Slug matches built-in page! Choose another.', 'error');
     customPages.push(page);
   }
 
@@ -2262,8 +2332,31 @@ function deleteCustomPage(i) {
   showToast('🗑️ Page deleted!', 'success');
 }
 
-function previewCustomPage(i) {
-  const page = customPages[i];
+function previewAnyPage(pageId) {
+  // Try builtin first
+  const builtin = BUILTIN_PAGES.find(p => p.id === pageId);
+  if (builtin) {
+    const existing = pageDataStore[builtin.dataKey] || { content: '', items: [], uploads: [] };
+    showPreview({
+      name: builtin.name,
+      pageType: builtin.pageType,
+      content: existing.content || '',
+      items: existing.items || [],
+      media: existing.uploads || [],
+      excelData: existing.excelData || null
+    });
+    return;
+  }
+  const idx = customPages.findIndex(p => p.id === pageId);
+  if (idx >= 0) {
+    const page = customPages[idx];
+    showPreview(page);
+    return;
+  }
+  showToast('Page not found', 'error');
+}
+
+function showPreview(page) {
   const pt = PAGE_TYPES.find(p => p.value === page.pageType) || { label: '📄 Custom' };
   document.getElementById('adminModalTitle').textContent = '👁️ Preview: ' + page.name;
   document.getElementById('adminModalBody').innerHTML = `
@@ -2304,12 +2397,13 @@ function previewCustomPage(i) {
 }
 
 function exportPageManagerData() {
-  const blob = new Blob([JSON.stringify(customPages, null, 2)], { type: 'application/json' });
+  const all = { builtin: BUILTIN_PAGES, custom: customPages, pageData: pageDataStore };
+  const blob = new Blob([JSON.stringify(all, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `dreamjosh_custom_pages_${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `dreamjosh_all_pages_${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
-  showToast('📥 Exported!', 'success');
+  showToast('📥 Exported all pages!', 'success');
 }
 
 // ============================================================
@@ -2317,7 +2411,7 @@ function exportPageManagerData() {
 // ============================================================
 function updateStats() {
   const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-  setEl('statPages', Object.keys(pageDataStore).length);
+  setEl('statPages', BUILTIN_PAGES.length + customPages.length);
   setEl('statJobs', jobsData.length);
   setEl('statStories', (contentData.stories || []).length);
   setEl('statVideos', (contentData.videos || []).length);
@@ -2341,10 +2435,8 @@ function loadSettingsForm() {
   set('setEmail', settings.email); set('setPhone', settings.phone); set('setWhatsApp', settings.whatsapp);
   set('setAddress', settings.address); set('setMapsUrl', settings.mapsUrl);
   set('setPrimaryColor', settings.primaryColor); set('setSecondaryColor', settings.secondaryColor);
-  set('setAccentColor', settings.accentColor); set('setFontFamily', settings.fontFamily);
-  set('setThemeMode', settings.themeMode);
+  set('setAccentColor', settings.accentColor);
   set('setHomeLimit', settings.homeLimit); set('setItemsPerPage', settings.itemsPerPage);
-  set('setLayout', settings.layout);
   set('setFacebook', settings.facebook); set('setInstagram', settings.instagram);
   set('setYouTube', settings.youtube); set('setTelegram', settings.telegram); set('setWhatsAppLink', settings.whatsappLink);
   set('setMetaTitle', settings.metaTitle); set('setMetaDesc', settings.metaDesc); set('setKeywords', settings.keywords);
@@ -2356,8 +2448,8 @@ function saveSettingsGroup(group) {
   const gv = id => document.getElementById(id)?.value || '';
   if (group === 'general') { settings.siteName = gv('setSiteName'); settings.tagline = gv('setTagline'); settings.siteDesc = gv('setSiteDesc'); }
   if (group === 'contact') { settings.email = gv('setEmail'); settings.phone = gv('setPhone'); settings.whatsapp = gv('setWhatsApp'); settings.address = gv('setAddress'); settings.mapsUrl = gv('setMapsUrl'); }
-  if (group === 'appearance') { settings.primaryColor = gv('setPrimaryColor'); settings.secondaryColor = gv('setSecondaryColor'); settings.accentColor = gv('setAccentColor'); settings.fontFamily = gv('setFontFamily'); settings.themeMode = gv('setThemeMode'); }
-  if (group === 'homepage') { settings.homeLimit = parseInt(gv('setHomeLimit')) || 6; settings.itemsPerPage = parseInt(gv('setItemsPerPage')) || 12; settings.layout = gv('setLayout'); }
+  if (group === 'appearance') { settings.primaryColor = gv('setPrimaryColor'); settings.secondaryColor = gv('setSecondaryColor'); settings.accentColor = gv('setAccentColor'); }
+  if (group === 'homepage') { settings.homeLimit = parseInt(gv('setHomeLimit')) || 6; settings.itemsPerPage = parseInt(gv('setItemsPerPage')) || 12; }
   if (group === 'social') { settings.facebook = gv('setFacebook'); settings.instagram = gv('setInstagram'); settings.youtube = gv('setYouTube'); settings.telegram = gv('setTelegram'); settings.whatsappLink = gv('setWhatsAppLink'); }
   if (group === 'seo') { settings.metaTitle = gv('setMetaTitle'); settings.metaDesc = gv('setMetaDesc'); settings.keywords = gv('setKeywords'); }
   if (group === 'announcements') { settings.tickerText = gv('setTickerText'); settings.announcementBar = gv('setAnnouncementBar'); }
@@ -2550,7 +2642,7 @@ async function initAdminPanel() {
       try {
         initVipClock();
         initIdleLogout();
-        console.log('👑 Admin v12.0 Ready (Page Manager + Editors)');
+        console.log('👑 Admin v13.0 Ready — All Pages Visible');
       } catch (e) { console.error('Post-init error:', e); }
     }, 200);
   } catch (err) { console.error('Init error:', err); }
@@ -2561,7 +2653,6 @@ function applyAppearanceSettings() {
     if (settings.primaryColor) document.documentElement.style.setProperty('--primary-blue', settings.primaryColor);
     if (settings.secondaryColor) document.documentElement.style.setProperty('--secondary-blue', settings.secondaryColor);
     if (settings.accentColor) document.documentElement.style.setProperty('--gold', settings.accentColor);
-    if (settings.fontFamily) document.body.style.fontFamily = settings.fontFamily;
     if (settings.themeMode === 'dark') document.body.classList.add('dark-mode');
     else if (settings.themeMode === 'light') document.body.classList.remove('dark-mode');
   } catch (e) {}
@@ -2596,10 +2687,11 @@ Object.assign(window, {
   openBulkMoreModal, doBulkAddMore, handleMoreFileUpload,
   exportMoreData,
   renderPageManager, openPageManagerModal, saveCustomPage, deleteCustomPage,
-  previewCustomPage, exportPageManagerData, addPMItem, editPMItem, removePMItem,
+  previewCustomPage: previewAnyPage, previewAnyPage, exportPageManagerData,
+  addPMItem, editPMItem, removePMItem,
   toggleCustomPagesSubmenu, showCustomPageAdmin, updatePageId,
   switchPMEditorMode, handlePMMediaUpload, removePMMedia, addPMHyperlink,
-  renderPMMediaList,
+  renderPMMediaList, getAllPages,
   weCmd, weFormat, weInsertLink, weInsertImage, weInsertTable,
   excelUpdate, excelAddRow, excelAddCol, excelRemoveRow, excelRemoveCol, excelExportCSV
 });
