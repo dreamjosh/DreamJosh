@@ -5,10 +5,9 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>Dream Josh - Admin Panel</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
 <style>
 :root{
@@ -72,6 +71,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-menu .menu-link:hover{background:rgba(255,255,255,.08);color:#fff;}
 .admin-menu .menu-link.active{background:rgba(255,215,0,.15);color:var(--gold);}
 .admin-menu .menu-link i.menu-icon{width:18px;font-size:14px;text-align:center;}
+.admin-menu .menu-link .count{margin-left:auto;background:rgba(255,255,255,.1);padding:0 8px;border-radius:20px;font-size:10px;}
+.admin-menu .menu-toggle{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:600;transition:.3s;cursor:pointer;}
+.admin-menu .menu-toggle:hover{background:rgba(255,255,255,.08);color:#fff;}
+.admin-menu .menu-toggle.open{background:rgba(255,255,255,.06);color:#fff;}
+.admin-menu .menu-toggle.has-active{color:var(--gold);}
+.admin-menu .menu-toggle i.menu-icon{width:18px;font-size:14px;text-align:center;}
+.admin-menu .menu-toggle .arrow{margin-left:auto;font-size:10px;opacity:.6;transition:transform .25s ease;}
+.admin-menu .menu-toggle.open .arrow{transform:rotate(90deg);opacity:1;}
+.admin-menu .submenu{list-style:none;max-height:0;overflow:hidden;transition:max-height .3s ease, opacity .3s ease;opacity:0;margin:0;padding-left:8px;}
+.admin-menu .submenu.open{max-height:2000px;opacity:1;margin-top:2px;margin-bottom:4px;}
+.admin-menu .submenu li{margin-bottom:1px;}
+.admin-menu .submenu a{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 28px;border-radius:6px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12.5px;font-weight:500;transition:.2s;cursor:pointer;position:relative;}
+.admin-menu .submenu a:hover{background:rgba(255,255,255,.06);color:#fff;}
+.admin-menu .submenu a.active{background:rgba(255,215,0,.15);color:var(--gold);font-weight:600;}
+.admin-menu .submenu a.active::before{content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);width:3px;height:14px;background:var(--gold);border-radius:2px;}
+.admin-menu .submenu a i{font-size:11px;opacity:.7;width:14px;text-align:center;}
+.admin-menu .submenu a .privacy-badge{margin-left:auto;font-size:9px;padding:1px 6px;border-radius:10px;font-weight:700;}
+.admin-menu .submenu a .privacy-badge.public{background:rgba(22,163,74,.3);color:#86efac;}
+.admin-menu .submenu a .privacy-badge.private{background:rgba(214,40,57,.3);color:#fca5a5;}
 
 .admin-footer-menu{padding:12px 10px;border-top:1px solid rgba(255,255,255,.08);margin-top:12px;}
 .admin-footer-menu .menu-link{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;font-weight:500;transition:.3s;cursor:pointer;}
@@ -85,7 +103,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-top-header .admin-actions button,.admin-top-header .admin-actions a{padding:6px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:.3s;min-height:34px;display:flex;align-items:center;gap:6px;text-decoration:none;}
 .btn-close-admin{background:#6c757d;color:#fff;}
 .btn-logout{background:#d62839;color:#fff;}
-.btn-logout:hover{background:#a91f2c;}
 .btn-dark-admin{background:var(--secondary);color:#fff;}
 
 #vipClock{display:flex;flex-direction:column;align-items:flex-end;gap:2px;padding:6px 16px;border-radius:10px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);margin-right:10px;}
@@ -140,6 +157,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .data-item .item-actions button,.data-item .item-actions a{padding:6px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer;transition:.3s;display:inline-flex;align-items:center;gap:4px;text-decoration:none;}
 .btn-i-edit{background:#ffc107;color:#333;}
 .btn-i-delete{background:#dc3545;color:#fff;}
+.btn-i-dup{background:#6c5ce7;color:#fff;}
+.btn-i-public{background:#16a34a;color:#fff;}
+.btn-i-private{background:#dc3545;color:#fff;}
 
 .empty-state{padding:30px 20px;text-align:center;color:var(--text-light);}
 .empty-state i{font-size:36px;margin-bottom:8px;opacity:.4;}
@@ -151,23 +171,41 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .toast.info{background:#1976d2;}
 .toast.warning{background:#f59e0b;}
 
+/* Content Manager Tabs */
+.content-tab-content{display:none;}
+.content-tab-content.active{display:block;}
+
+/* Page Manager */
+.page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:12px;}
+.page-card{background:var(--card-bg);border-radius:10px;padding:16px;border:1px solid var(--border-color);box-shadow:0 2px 8px var(--shadow-color);transition:0.3s;position:relative;}
+.page-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow-color);border-color:var(--gold);}
+.page-card .page-card-icon{font-size:32px;margin-bottom:8px;}
+.page-card h4{font-size:15px;margin-bottom:6px;color:var(--text-color);}
+.page-card .page-card-meta{font-size:11px;color:var(--text-light);margin-bottom:10px;}
+.page-card .page-card-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:10px;font-weight:700;margin-right:4px;}
+.page-card .page-card-badge.public{background:#16a34a;color:#fff;}
+.page-card .page-card-badge.private{background:#dc3545;color:#fff;}
+.page-card .page-card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.page-card .page-card-actions button{padding:4px 10px;font-size:11px;border-radius:5px;border:none;cursor:pointer;font-weight:600;transition:0.2s;}
+
+/* Settings */
 .settings-tab-btn{padding:8px 16px;border:2px solid var(--border-color);border-radius:20px;background:var(--bg-color);color:var(--text-color);font-size:12px;font-weight:600;cursor:pointer;transition:.3s;}
 .settings-tab-btn.active{background:var(--secondary-blue);color:#fff;border-color:var(--secondary-blue);}
 .settings-tab-content{display:none;}
 .settings-tab-content.active{display:block;}
-.content-tab-content{display:none;}
-.content-tab-content.active{display:block;}
 .setting-group{padding:16px 0;border-bottom:1px solid var(--border-color);}
 .setting-group:last-child{border-bottom:none;}
 .setting-group h5{font-size:14px;font-weight:700;color:var(--primary-blue);margin-bottom:12px;}
 .setting-row{display:grid;grid-template-columns:200px 1fr;gap:12px;align-items:center;margin-bottom:10px;}
-@media(max-width:600px){.setting-row{grid-template-columns:1fr;gap:6px;}}
 .setting-row label{font-size:12.5px;font-weight:600;color:var(--text-color);}
 .setting-row input[type="text"],.setting-row input[type="email"],.setting-row input[type="tel"],.setting-row input[type="url"],.setting-row input[type="number"],.setting-row input[type="password"],.setting-row select,.setting-row textarea{width:100%;padding:8px 12px;border:2px solid var(--border-color);border-radius:6px;font-size:13px;background:var(--card-bg);color:var(--text-color);font-family:inherit;}
 .btn-setting{padding:8px 20px;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;min-height:38px;margin-right:8px;margin-top:8px;display:inline-flex;align-items:center;gap:6px;}
 .btn-setting.primary{background:var(--secondary-blue);color:#fff;}
 .btn-setting.success{background:var(--success-green);color:#fff;}
 .btn-setting.danger{background:var(--warning-red);color:#fff;}
+.activity-log-item{padding:6px 10px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;font-size:11.5px;}
+.activity-log-item:last-child{border-bottom:none;}
+.activity-log-item .log-time{color:var(--text-light);font-size:10px;}
 
 .admin-menu-toggle{display:none;background:var(--secondary);color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:16px;cursor:pointer;}
 @media(max-width:768px){
@@ -242,20 +280,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         <div class="role">Super Admin</div>
       </div>
     </div>
-    <ul class="admin-menu">
-      <li><a class="menu-link active" data-page="dashboard" onclick="showAdminPage('dashboard')"><i class="fas fa-chart-pie menu-icon"></i> Dashboard</a></li>
-      <li><a class="menu-link" data-page="pages" onclick="showAdminPage('pages')"><i class="fas fa-file-alt menu-icon"></i> Pages Manager</a></li>
-      <li><a class="menu-link" data-page="content-manager" onclick="showAdminPage('content-manager')"><i class="fas fa-palette menu-icon"></i> Content Manager</a></li>
-      <li><a class="menu-link" data-page="jobs-manager" onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase menu-icon"></i> Jobs Manager</a></li>
-      <li><a class="menu-link" data-page="settings" onclick="showAdminPage('settings')"><i class="fas fa-cog menu-icon"></i> Settings</a></li>
-    </ul>
+    <ul class="admin-menu" id="dynamicSidebar"></ul>
     <div class="admin-footer-menu">
       <a class="menu-link" href="index.html"><i class="fas fa-home menu-icon"></i> Back to Home</a>
       <a class="menu-link" onclick="handleLogout()"><i class="fas fa-sign-out-alt menu-icon"></i> Logout</a>
     </div>
   </div>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
   <div class="admin-content">
     <div class="admin-top-header">
       <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
@@ -270,7 +301,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     <!-- DASHBOARD -->
     <div id="adminPage-dashboard" class="admin-section active">
       <div class="admin-stats">
-        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Pages</div><div class="stat-value" id="statPages">0</div></div>
+        <div class="stat-item"><div class="stat-icon">📄</div><div class="stat-label">Total Pages</div><div class="stat-value" id="statPages">0</div></div>
         <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
         <div class="stat-item"><div class="stat-icon">🏆</div><div class="stat-label">Stories</div><div class="stat-value" id="statStories">0</div></div>
         <div class="stat-item"><div class="stat-icon">🎥</div><div class="stat-label">Videos</div><div class="stat-value" id="statVideos">0</div></div>
@@ -280,7 +311,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         <h3>⚡ Quick Actions</h3>
         <div class="actions-grid">
           <button onclick="showAdminPage('content-manager')"><i class="fas fa-palette"></i> Content Manager</button>
-          <button onclick="showAdminPage('pages')"><i class="fas fa-plus"></i> Pages</button>
+          <button onclick="showAdminPage('pages')"><i class="fas fa-plus"></i> Manage Pages</button>
           <button onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase"></i> Jobs</button>
           <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
         </div>
@@ -292,63 +323,66 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       <div class="admin-card">
         <div class="card-header">
           <h4>📄 Pages Manager</h4>
-          <button class="btn-add" onclick="openPageModal()"><i class="fas fa-plus"></i> Add Page</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn-add" onclick="openPageModal()"><i class="fas fa-plus"></i> Add New Page</button>
+            <button class="btn-add primary" onclick="resetPagesToDefault()"><i class="fas fa-sync-alt"></i> Reset</button>
+          </div>
         </div>
-        <div id="pagesContainer"></div>
+        <div class="page-grid" id="pagesGrid"></div>
       </div>
     </div>
 
-    <!-- CONTENT MANAGER -->
+    <!-- CONTENT MANAGER (NEW) -->
     <div id="adminPage-content-manager" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
           <h4>🎨 Content Manager</h4>
-          <span style="font-size:12px;color:var(--text-light);">Home page content manage karein</span>
+          <span style="font-size:12px;color:var(--text-light);">Home page ka saara content yahan se manage karein</span>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border-color);padding-bottom:10px;">
-          <button class="settings-tab-btn active" onclick="switchContentTab('stories')" id="ctab-stories">🏆 Stories</button>
-          <button class="settings-tab-btn" onclick="switchContentTab('videos')" id="ctab-videos">🎥 Videos</button>
+          <button class="settings-tab-btn active" onclick="switchContentTab('stories')" id="ctab-stories">🏆 Success Stories</button>
+          <button class="settings-tab-btn" onclick="switchContentTab('videos')" id="ctab-videos">🎥 YouTube Videos</button>
           <button class="settings-tab-btn" onclick="switchContentTab('ads')" id="ctab-ads">💰 Ads</button>
           <button class="settings-tab-btn" onclick="switchContentTab('insta')" id="ctab-insta">📸 Instagram</button>
           <button class="settings-tab-btn" onclick="switchContentTab('colleges')" id="ctab-colleges">🏫 Colleges</button>
         </div>
 
         <div id="content-tab-stories" class="content-tab-content active">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
             <h4 style="font-size:15px;">🏆 Success Stories</h4>
-            <button class="btn-add" onclick="openStoryModal()"><i class="fas fa-plus"></i> Add</button>
+            <button class="btn-add" onclick="openStoryModal()"><i class="fas fa-plus"></i> Add Story</button>
           </div>
           <div id="storiesContainer"></div>
         </div>
 
         <div id="content-tab-videos" class="content-tab-content">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
             <h4 style="font-size:15px;">🎥 YouTube Videos</h4>
-            <button class="btn-add" onclick="openVideoModal()"><i class="fas fa-plus"></i> Add</button>
+            <button class="btn-add" onclick="openVideoModal()"><i class="fas fa-plus"></i> Add Video</button>
           </div>
           <div id="videosContainer"></div>
         </div>
 
         <div id="content-tab-ads" class="content-tab-content">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-            <h4 style="font-size:15px;">💰 Ads</h4>
-            <button class="btn-add" onclick="openAdModal()"><i class="fas fa-plus"></i> Add</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+            <h4 style="font-size:15px;">💰 Ads / Affiliate</h4>
+            <button class="btn-add" onclick="openAdModal()"><i class="fas fa-plus"></i> Add Ad Slot</button>
           </div>
           <div id="adsContainer"></div>
         </div>
 
         <div id="content-tab-insta" class="content-tab-content">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
             <h4 style="font-size:15px;">📸 Instagram Posts</h4>
-            <button class="btn-add" onclick="openInstaModal()"><i class="fas fa-plus"></i> Add</button>
+            <button class="btn-add" onclick="openInstaModal()"><i class="fas fa-plus"></i> Add Post</button>
           </div>
           <div id="instaContainer"></div>
         </div>
 
         <div id="content-tab-colleges" class="content-tab-content">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-            <h4 style="font-size:15px;">🏫 Colleges</h4>
-            <button class="btn-add" onclick="openCollegeModal()"><i class="fas fa-plus"></i> Add</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+            <h4 style="font-size:15px;">🏫 Colleges / Coaching</h4>
+            <button class="btn-add" onclick="openCollegeModal()"><i class="fas fa-plus"></i> Add College</button>
           </div>
           <div id="collegesContainer"></div>
         </div>
@@ -466,25 +500,58 @@ let pagesData = [];
 let jobsData = [];
 let contentData = { stories: [], videos: [], ads: [], instaPosts: [], colleges: [] };
 let settings = {};
+let activityLog = [];
 let currentJobFilter = 'all';
 
 const STORAGE_KEY = 'dreamjosh_admin_data';
 const PAGES_KEY = 'dreamjosh_pages_data';
 const CONTENT_KEY = 'dreamjosh_content_data';
 const SETTINGS_KEY = 'dreamjosh_settings';
+const ACTIVITY_LOG_KEY = 'dreamjosh_activity_log';
 const ADMIN_CREDS_KEY = 'dreamjosh_admin_creds';
+
+// ============================================================
+// DEFAULT JOBS
+// ============================================================
+const DEFAULT_JOBS = [
+  { title: 'IAS (Indian Administrative Service)', jobType: 'central', department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', description: 'Premier civil service of India.' },
+  { title: 'IPS (Indian Police Service)', jobType: 'central', department: 'UPSC', post: 'IPS Officer', eligibility: 'Graduate', age: '21-32 Years', lastDate: '2026-06-01', website: 'https://upsc.gov.in', description: 'Maintains law and order.' },
+  { title: 'SSC CGL (Combined Graduate Level)', jobType: 'central', department: 'SSC', post: 'Various Group B & C', eligibility: 'Graduate', age: '18-32 Years', lastDate: '2026-07-15', website: 'https://ssc.nic.in', description: 'Group B and C posts.' },
+  { title: 'SSC CHSL (10+2 Level)', jobType: 'central', department: 'SSC', post: 'LDC, DEO', eligibility: '12th Pass', age: '18-27 Years', lastDate: '2026-08-01', website: 'https://ssc.nic.in', description: 'LDC and DEO posts.' },
+  { title: 'SSC MTS', jobType: 'central', department: 'SSC', post: 'MTS', eligibility: '10th Pass', age: '18-25 Years', lastDate: '2026-09-01', website: 'https://ssc.nic.in', description: 'Multi Tasking Staff.' },
+  { title: 'RRB NTPC', jobType: 'central', department: 'Railway (RRB)', post: 'Station Master, Clerk', eligibility: '12th/Graduate', age: '18-33 Years', lastDate: '2026-05-30', website: 'https://rrb.gov.in', description: 'Non-technical posts in Railways.' },
+  { title: 'RRB Group D', jobType: 'central', department: 'Railway (RRB)', post: 'Track Maintainer', eligibility: '10th Pass', age: '18-33 Years', lastDate: '2026-06-15', website: 'https://rrb.gov.in', description: 'Group D posts.' },
+  { title: 'IBPS PO', jobType: 'central', department: 'Banking (IBPS)', post: 'PO', eligibility: 'Graduate', age: '20-30 Years', lastDate: '2026-08-01', website: 'https://ibps.in', description: 'Probationary Officer.' },
+  { title: 'SBI PO', jobType: 'central', department: 'Banking (SBI)', post: 'PO', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-15', website: 'https://sbi.co.in', description: 'Top banking job.' },
+  { title: 'RBI Grade B Officer', jobType: 'central', department: 'Banking (RBI)', post: 'Grade B', eligibility: 'Graduate', age: '21-30 Years', lastDate: '2026-07-10', website: 'https://rbi.org.in', description: 'Prestigious banking exam.' },
+  { title: 'NDA', jobType: 'central', department: 'Defence (NDA)', post: 'Cadet', eligibility: '12th Pass', age: '16.5-19.5 Years', lastDate: '2026-06-20', website: 'https://nda.nic.in', description: 'Defence entry.' },
+  { title: 'RAS (Rajasthan Administrative Service)', jobType: 'state', department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40 Years', lastDate: '2026-07-20', website: 'https://rpsc.rajasthan.gov.in', description: 'State civil service.' },
+  { title: 'Rajasthan Police Constable', jobType: 'state', department: 'Rajasthan Police', post: 'Constable', eligibility: '10+2', age: '18-28 Years', lastDate: '2026-09-01', website: 'https://police.rajasthan.gov.in', description: 'Police constable.' },
+  { title: 'REET', jobType: 'state', department: 'Education (RBSE)', post: 'Teacher', eligibility: 'Graduate + B.Ed', age: '18-40 Years', lastDate: '2026-08-15', website: 'https://rajeduboard.rajasthan.gov.in', description: 'Teacher recruitment.' },
+  { title: 'RSMSSB LDC', jobType: 'state', department: 'RSMSSB', post: 'LDC', eligibility: '12th Pass', age: '18-40 Years', lastDate: '2026-08-25', website: 'https://rsmssb.rajasthan.gov.in', description: 'Lower Division Clerk.' },
+  { title: 'RSMSSB Patwari', jobType: 'state', department: 'Revenue (RSMSSB)', post: 'Patwari', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-10-01', website: 'https://rsmssb.rajasthan.gov.in', description: 'Patwari in Revenue.' },
+  { title: 'RPSC Lecturer', jobType: 'state', department: 'Education (RPSC)', post: 'Lecturer', eligibility: 'PG + NET', age: '21-40 Years', lastDate: '2026-11-01', website: 'https://rpsc.rajasthan.gov.in', description: 'College Lecturer.' },
+  { title: 'RPSC ACF', jobType: 'state', department: 'Forest (RPSC)', post: 'ACF', eligibility: 'Graduate/BSc', age: '21-40 Years', lastDate: '2026-08-20', website: 'https://rpsc.rajasthan.gov.in', description: 'Forest service.' },
+  { title: 'Rajasthan High Court Assistant', jobType: 'state', department: 'Judiciary (High Court)', post: 'Assistant', eligibility: 'Graduate', age: '18-40 Years', lastDate: '2026-09-20', website: 'https://hcraj.nic.in', description: 'Assistant in HC.' },
+  { title: 'RSMSSB Agriculture Supervisor', jobType: 'state', department: 'Agriculture (RSMSSB)', post: 'Agriculture Supervisor', eligibility: 'BSc Agriculture', age: '18-40 Years', lastDate: '2026-12-01', website: 'https://rsmssb.rajasthan.gov.in', description: 'Agriculture Supervisor.' },
+  { title: 'Software Engineer – Google India', jobType: 'private', department: 'IT/Software', post: 'Software Engineer', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-04-15', website: 'https://careers.google.com', description: 'Google India hiring.' },
+  { title: 'Software Developer – Microsoft', jobType: 'private', department: 'IT/Software', post: 'Developer', eligibility: 'B.Tech/BE', age: '22-35 Years', lastDate: '2026-05-01', website: 'https://careers.microsoft.com', description: 'Microsoft hiring.' },
+  { title: 'Data Analyst – Amazon', jobType: 'private', department: 'IT/Software', post: 'Data Analyst', eligibility: 'B.Tech/MBA', age: '22-35 Years', lastDate: '2026-05-15', website: 'https://amazon.jobs', description: 'Data Analyst role.' },
+  { title: 'Finance Manager – HSBC', jobType: 'private', department: 'Finance/Banking', post: 'Finance Manager', eligibility: 'CA/CFA/MBA', age: '25-40 Years', lastDate: '2026-05-10', website: 'https://www.hsbc.com/careers', description: 'Finance Manager.' },
+  { title: 'Marketing Executive – Amazon', jobType: 'private', department: 'Marketing/Sales', post: 'Marketing Executive', eligibility: 'MBA/BBA', age: '22-30 Years', lastDate: '2026-06-01', website: 'https://amazon.jobs', description: 'Marketing Executive.' }
+];
 
 // ============================================================
 // DEFAULT PAGES
 // ============================================================
 const DEFAULT_PAGES = [
-  { id: 'jobs', name: 'Jobs', icon: 'fa-briefcase', isPublic: true },
-  { id: 'blog', name: 'Blog', icon: 'fa-blog', isPublic: true },
-  { id: 'career', name: 'Career', icon: 'fa-briefcase', isPublic: true },
-  { id: 'services', name: 'Services', icon: 'fa-cogs', isPublic: true },
-  { id: 'more', name: 'More', icon: 'fa-book', isPublic: true },
-  { id: 'tools', name: 'Tools', icon: 'fa-tools', isPublic: true },
-  { id: 'rsr', name: 'RSR', icon: 'fa-gavel', isPublic: true }
+  { id: 'jobs-manager', name: 'Jobs Manager', icon: 'fa-briefcase', isPublic: true, subPages: [] },
+  { id: 'blog', name: 'Blog', icon: 'fa-blog', isPublic: true, subPages: [] },
+  { id: 'career', name: 'Career', icon: 'fa-briefcase', isPublic: true, subPages: [] },
+  { id: 'services', name: 'Services', icon: 'fa-cogs', isPublic: true, subPages: [] },
+  { id: 'more', name: 'More', icon: 'fa-book', isPublic: true, subPages: [] },
+  { id: 'tools', name: 'Tools', icon: 'fa-tools', isPublic: true, subPages: [] },
+  { id: 'rsr', name: 'RSR', icon: 'fa-gavel', isPublic: true, subPages: [] }
 ];
 
 // ============================================================
@@ -493,21 +560,28 @@ const DEFAULT_PAGES = [
 const DEFAULT_CONTENT = {
   stories: [
     { name: 'Rahul Sharma', role: 'SSC CGL 2025 - AIR 45', initial: 'R', text: 'Dream Josh ki study material aur mock tests ne meri selection mein bahut help ki.', badge: '🏆 Selected in SSC CGL', stars: 5 },
-    { name: 'Priya Verma', role: 'RAS 2025 - Rank 12', initial: 'P', text: 'Rajasthan GK notes aur previous year papers ne meri preparation ko strong banaya.', badge: '🎯 RAS Officer', stars: 5 }
+    { name: 'Priya Verma', role: 'RAS 2025 - Rank 12', initial: 'P', text: 'Rajasthan GK notes aur previous year papers ne meri preparation ko strong banaya.', badge: '🎯 RAS Officer', stars: 5 },
+    { name: 'Amit Kumar', role: 'IBPS PO 2025', initial: 'A', text: 'Banking section ke detailed notes aur daily current affairs ne IBPS crack karne mein help ki.', badge: '🏦 IBPS PO Selected', stars: 5 }
   ],
   videos: [
-    { id: 'dQw4w9WgXcQ', title: 'SSC CGL 2026 Strategy', channel: 'Dream Josh', views: '2.5K views' }
+    { id: 'dQw4w9WgXcQ', title: 'SSC CGL 2026 - Complete Strategy', channel: 'Dream Josh', views: '2.5K views' },
+    { id: 'dQw4w9WgXcQ', title: 'Rajasthan GK - Top 100 Questions', channel: 'Dream Josh', views: '1.8K views' },
+    { id: 'dQw4w9WgXcQ', title: 'UPSC Prelims - Study Plan', channel: 'Dream Josh', views: '3.2K views' }
   ],
   ads: [
-    { label: 'Advertisement', text: 'Your Ad Here', position: 'top', code: '' },
-    { label: 'Sponsored', text: 'Sponsored Content', position: 'middle', code: '' }
+    { label: 'Advertisement', text: 'Your Ad Here - Contact us', position: 'top', code: '' },
+    { label: 'Sponsored', text: 'Sponsored Content Space', position: 'middle', code: '' }
   ],
   instaPosts: [
     { label: 'Study Tips', emoji: '📚', link: 'https://instagram.com/dreamjosh' },
-    { label: 'Govt Jobs', emoji: '🏛️', link: 'https://instagram.com/dreamjosh' }
+    { label: 'Govt Jobs', emoji: '🏛️', link: 'https://instagram.com/dreamjosh' },
+    { label: 'Motivation', emoji: '🎯', link: 'https://instagram.com/dreamjosh' },
+    { label: 'Notes', emoji: '📖', link: 'https://instagram.com/dreamjosh' }
   ],
   colleges: [
-    { name: 'SSC Coaching Jaipur', type: 'Coaching', city: 'Jaipur', courses: ['SSC', 'Banking'], info: 'Top SSC coaching' }
+    { name: 'SSC Coaching Jaipur', type: 'Coaching', city: 'Jaipur', courses: ['SSC', 'Banking'], info: 'Top SSC coaching' },
+    { name: 'Rajasthan Academy', type: 'Coaching', city: 'Jaipur', courses: ['RAS', 'REET', 'Police'], info: 'Rajasthan exams specialist' },
+    { name: 'Rajasthan University', type: 'College', city: 'Jaipur', courses: ['BA', 'BSc', 'BCom'], info: 'Government university' }
   ]
 };
 
@@ -519,6 +593,10 @@ function loadData() {
     const s = localStorage.getItem(STORAGE_KEY);
     if (s) { const p = JSON.parse(s); appData = p.appData || {}; jobsData = p.jobsData || []; }
   } catch (e) {}
+  if (!jobsData || jobsData.length === 0) {
+    jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
+    setTimeout(() => saveData(), 100);
+  }
 }
 
 function loadPages() {
@@ -534,13 +612,13 @@ function loadContent() {
     const s = localStorage.getItem(CONTENT_KEY);
     if (s) contentData = JSON.parse(s);
     else contentData = JSON.parse(JSON.stringify(DEFAULT_CONTENT));
+    // Ensure all keys exist
+    if (!contentData.stories) contentData.stories = DEFAULT_CONTENT.stories;
+    if (!contentData.videos) contentData.videos = DEFAULT_CONTENT.videos;
+    if (!contentData.ads) contentData.ads = DEFAULT_CONTENT.ads;
+    if (!contentData.instaPosts) contentData.instaPosts = DEFAULT_CONTENT.instaPosts;
+    if (!contentData.colleges) contentData.colleges = DEFAULT_CONTENT.colleges;
   } catch (e) { contentData = JSON.parse(JSON.stringify(DEFAULT_CONTENT)); }
-  // Ensure keys exist
-  if (!contentData.stories) contentData.stories = [];
-  if (!contentData.videos) contentData.videos = [];
-  if (!contentData.ads) contentData.ads = [];
-  if (!contentData.instaPosts) contentData.instaPosts = [];
-  if (!contentData.colleges) contentData.colleges = [];
 }
 
 function saveData() {
@@ -572,6 +650,20 @@ async function loadContentFromCloud() {
       localStorage.setItem(CONTENT_KEY, JSON.stringify(contentData));
     }
   } catch (e) {}
+}
+
+function loadSettings() {
+  try { settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch (e) { settings = {}; }
+  if (!settings.siteName) settings.siteName = 'Dream Josh';
+  if (!settings.tagline) settings.tagline = 'Career & Study Platform';
+}
+function saveSettings() {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  if (firebaseDB) firebaseDB.collection('dreamjosh').doc('settings').set(settings).catch(()=>{});
+}
+
+function loadActivityLog() {
+  try { activityLog = JSON.parse(localStorage.getItem(ACTIVITY_LOG_KEY)) || []; } catch (e) { activityLog = []; }
 }
 
 // ============================================================
@@ -617,7 +709,7 @@ function handleLogin(event) {
   const btn = document.getElementById('loginBtn');
 
   if (!username || !password) {
-    errorText.textContent = 'Enter username & password';
+    errorText.textContent = 'Please enter both username and password';
     errorEl.classList.add('show');
     return;
   }
@@ -668,44 +760,129 @@ function showLoginScreen() {
 }
 
 // ============================================================
-// PAGES MANAGER
+// SIDEBAR
 // ============================================================
-function renderPages() {
-  const c = document.getElementById('pagesContainer');
-  if (!c) return;
-  if (!pagesData.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-file-alt"></i><p>No pages yet</p></div>';
-    return;
-  }
-  c.innerHTML = pagesData.map((p, i) => `
-    <div class="data-item">
-      <div class="item-sno"><i class="fas ${p.icon}"></i></div>
-      <div class="item-content">
-        <div class="item-title">${escapeHtml(p.name)}</div>
-        <div class="item-meta">${p.isPublic ? '🌐 Public' : '🔒 Private'}</div>
-      </div>
-      <div class="item-actions">
-        <button class="btn-i-edit" onclick="openPageModal(${i})"><i class="fas fa-edit"></i></button>
-        <button class="btn-i-delete" onclick="deletePage(${i})"><i class="fas fa-trash"></i></button>
-      </div>
-    </div>
-  `).join('');
+function renderSidebar() {
+  const menu = document.getElementById('dynamicSidebar');
+  if (!menu) return;
+  let html = `
+    <li><a class="menu-link" data-page="dashboard" onclick="showAdminPage('dashboard')"><i class="fas fa-chart-pie menu-icon"></i> Dashboard</a></li>
+    <li><a class="menu-link" data-page="pages" onclick="showAdminPage('pages')"><i class="fas fa-file-alt menu-icon"></i> Pages Manager</a></li>
+    <li><a class="menu-link" data-page="content-manager" onclick="showAdminPage('content-manager')"><i class="fas fa-palette menu-icon"></i> Content Manager</a></li>
+  `;
+  pagesData.forEach(page => {
+    const hasSub = page.subPages && page.subPages.length > 0;
+    const privacyBadge = page.isPublic ? '<span class="privacy-badge public">PUBLIC</span>' : '<span class="privacy-badge private">PRIVATE</span>';
+    if (hasSub) {
+      html += `
+        <li>
+          <div class="menu-toggle" data-section="${page.id}" onclick="toggleMenuSection('${page.id}')">
+            <i class="fas ${page.icon} menu-icon"></i> ${escapeHtml(page.name)}
+            <i class="fas fa-chevron-right arrow"></i>
+          </div>
+          <ul class="submenu" id="submenu-${page.id}">
+            ${page.subPages.map(sub => `
+              <li><a data-page="${sub.id}" onclick="showAdminPage('${sub.id}')">
+                <i class="fas ${sub.icon || 'fa-circle'}"></i> ${escapeHtml(sub.name)}
+                ${sub.isPublic ? '<span class="privacy-badge public">PUBLIC</span>' : '<span class="privacy-badge private">PRIVATE</span>'}
+              </a></li>
+            `).join('')}
+          </ul>
+        </li>
+      `;
+    } else {
+      html += `
+        <li><a class="menu-link" data-page="${page.id}" onclick="showAdminPage('${page.id}')">
+          <i class="fas ${page.icon} menu-icon"></i> ${escapeHtml(page.name)} ${privacyBadge}
+        </a></li>
+      `;
+    }
+  });
+  menu.innerHTML = html;
 }
 
-function openPageModal(idx = null) {
-  const isEdit = idx !== null;
-  const p = isEdit ? pagesData[idx] : { name: '', icon: 'fa-file-alt', isPublic: true };
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Page' : '➕ Add Page';
+function toggleMenuSection(sectionId) {
+  const submenu = document.getElementById('submenu-' + sectionId);
+  const toggle = document.querySelector(`.menu-toggle[data-section="${sectionId}"]`);
+  if (!submenu || !toggle) return;
+  const isOpen = submenu.classList.contains('open');
+  closeAllMenuSections();
+  if (!isOpen) {
+    submenu.classList.add('open');
+    toggle.classList.add('open');
+  }
+}
+function closeAllMenuSections() {
+  document.querySelectorAll('.submenu').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.menu-toggle').forEach(t => t.classList.remove('open', 'has-active'));
+}
+
+// ============================================================
+// PAGES MANAGER
+// ============================================================
+function renderPagesGrid() {
+  const grid = document.getElementById('pagesGrid');
+  if (!grid) return;
+  let html = '';
+  pagesData.forEach(page => {
+    const subCount = page.subPages?.length || 0;
+    html += `
+      <div class="page-card">
+        <div class="page-card-icon"><i class="fas ${page.icon}"></i></div>
+        <h4>${escapeHtml(page.name)}</h4>
+        <div class="page-card-meta">
+          ${page.isPublic ? '<span class="page-card-badge public">PUBLIC</span>' : '<span class="page-card-badge private">PRIVATE</span>'}
+          <span style="margin-left:6px;">${subCount} sub-pages</span>
+        </div>
+        <div class="page-card-actions">
+          <button class="btn-i-edit" onclick="openPageModal('${page.id}')"><i class="fas fa-edit"></i> Edit</button>
+          <button class="${page.isPublic ? 'btn-i-private' : 'btn-i-public'}" onclick="togglePagePrivacy('${page.id}')">
+            <i class="fas fa-${page.isPublic ? 'lock' : 'unlock'}"></i> ${page.isPublic ? 'Private' : 'Public'}
+          </button>
+          <button class="btn-i-delete" onclick="deletePage('${page.id}')"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    `;
+  });
+  grid.innerHTML = html;
+}
+
+function openPageModal(parentId = null, subId = null) {
+  const isSubEdit = parentId && subId;
+  const isParentEdit = parentId && !subId;
+  let page = null;
+  if (isSubEdit) {
+    const parent = pagesData.find(p => p.id === parentId);
+    if (parent) page = parent.subPages.find(s => s.id === subId);
+  } else if (isParentEdit) {
+    page = pagesData.find(p => p.id === parentId);
+  }
+  const title = isSubEdit ? '✏️ Edit Sub-Page' : isParentEdit ? '✏️ Edit Page' : '➕ Add New Page';
+  document.getElementById('adminModalTitle').textContent = title;
   document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="pageIdx" value="${isEdit ? idx : -1}">
-    <div class="form-group"><label>Page Name *</label><input type="text" id="pageName" value="${escapeHtml(p.name)}"></div>
-    <div class="form-group"><label>Icon (FontAwesome)</label><input type="text" id="pageIcon" value="${p.icon}"></div>
-    <div class="form-group"><label>Privacy</label>
-      <select id="pagePrivacy">
-        <option value="public" ${p.isPublic ? 'selected' : ''}>🌐 Public</option>
-        <option value="private" ${!p.isPublic ? 'selected' : ''}>🔒 Private</option>
+    <input type="hidden" id="pmParentId" value="${parentId || ''}">
+    <input type="hidden" id="pmSubId" value="${subId || ''}">
+    <input type="hidden" id="pmIsSub" value="${isSubEdit ? '1' : '0'}">
+    <div class="form-row">
+      <div class="form-group"><label>Page Name *</label><input type="text" id="pmName" value="${page ? escapeHtml(page.name) : ''}"></div>
+      <div class="form-group"><label>Icon</label><input type="text" id="pmIcon" value="${page ? page.icon : 'fa-file-alt'}"></div>
+    </div>
+    <div class="form-group">
+      <label>Privacy</label>
+      <select id="pmPrivacy">
+        <option value="public" ${(!page || page.isPublic) ? 'selected' : ''}>🌐 Public</option>
+        <option value="private" ${(page && !page.isPublic) ? 'selected' : ''}>🔒 Private</option>
       </select>
     </div>
+    ${!isSubEdit ? `
+      <div class="form-group">
+        <label>Parent Page (optional)</label>
+        <select id="pmParentSelect">
+          <option value="">-- Top Level --</option>
+          ${pagesData.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('')}
+        </select>
+      </div>
+    ` : ''}
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="savePage()"><i class="fas fa-save"></i> Save</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
@@ -715,32 +892,78 @@ function openPageModal(idx = null) {
 }
 
 function savePage() {
-  const idx = parseInt(document.getElementById('pageIdx').value);
-  const name = document.getElementById('pageName').value.trim();
-  const icon = document.getElementById('pageIcon').value.trim() || 'fa-file-alt';
-  const isPublic = document.getElementById('pagePrivacy').value === 'public';
+  const parentId = document.getElementById('pmParentId')?.value || '';
+  const subId = document.getElementById('pmSubId')?.value || '';
+  const isSub = document.getElementById('pmIsSub')?.value === '1';
+  const name = document.getElementById('pmName').value.trim();
+  const icon = document.getElementById('pmIcon').value.trim() || 'fa-file-alt';
+  const isPublic = document.getElementById('pmPrivacy').value === 'public';
+  const newParentId = document.getElementById('pmParentSelect')?.value || '';
+
   if (!name) return showToast('Name required!', 'error');
-  
-  const page = { id: 'page-' + Date.now(), name, icon, isPublic };
-  if (idx >= 0) {
-    pagesData[idx] = { ...pagesData[idx], name, icon, isPublic };
+
+  if (isSub) {
+    const parent = pagesData.find(p => p.id === parentId);
+    if (parent) {
+      const sub = parent.subPages.find(s => s.id === subId);
+      if (sub) { sub.name = name; sub.icon = icon; sub.isPublic = isPublic; }
+    }
+  } else if (parentId) {
+    const page = pagesData.find(p => p.id === parentId);
+    if (page) {
+      page.name = name;
+      page.icon = icon;
+      page.isPublic = isPublic;
+    }
   } else {
-    pagesData.push(page);
+    const newId = 'page-' + Date.now();
+    const newPage = { id: newId, name, icon, isPublic, subPages: [] };
+    if (newParentId) {
+      const parent = pagesData.find(p => p.id === newParentId);
+      if (parent) {
+        if (!parent.subPages) parent.subPages = [];
+        parent.subPages.push(newPage);
+      }
+    } else {
+      pagesData.push(newPage);
+    }
   }
   savePages();
-  renderPages();
+  renderSidebar();
+  renderPagesGrid();
   updateStats();
   closeAdminModal();
   showToast('✅ Saved!', 'success');
 }
 
-function deletePage(i) {
-  if (!confirm('Delete?')) return;
-  pagesData.splice(i, 1);
+function togglePagePrivacy(pageId) {
+  const page = pagesData.find(p => p.id === pageId);
+  if (!page) return;
+  page.isPublic = !page.isPublic;
   savePages();
-  renderPages();
+  renderSidebar();
+  renderPagesGrid();
+  showToast(`✅ Now ${page.isPublic ? 'PUBLIC' : 'PRIVATE'}`, 'success');
+}
+
+function deletePage(pageId) {
+  if (!confirm('Delete this page?')) return;
+  pagesData = pagesData.filter(p => p.id !== pageId);
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
   updateStats();
   showToast('🗑️ Deleted!', 'success');
+}
+
+function resetPagesToDefault() {
+  if (!confirm('Reset pages to default?')) return;
+  pagesData = JSON.parse(JSON.stringify(DEFAULT_PAGES));
+  savePages();
+  renderSidebar();
+  renderPagesGrid();
+  updateStats();
+  showToast('🔄 Reset!', 'success');
 }
 
 // ============================================================
@@ -768,7 +991,7 @@ function renderStories() {
   if (!c) return;
   const items = contentData.stories || [];
   if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><p>No stories</p></div>';
+    c.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><p>No stories yet</p></div>';
     return;
   }
   c.innerHTML = items.map((s, i) => `
@@ -794,13 +1017,13 @@ function openStoryModal(idx = null) {
     <input type="hidden" id="storyIdx" value="${isEdit ? idx : -1}">
     <div class="form-row">
       <div class="form-group"><label>Name *</label><input type="text" id="stName" value="${escapeHtml(s.name)}"></div>
-      <div class="form-group"><label>Role</label><input type="text" id="stRole" value="${escapeHtml(s.role)}"></div>
+      <div class="form-group"><label>Role/Achievement</label><input type="text" id="stRole" value="${escapeHtml(s.role)}"></div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>Initial</label><input type="text" id="stInitial" maxlength="1" value="${escapeHtml(s.initial || '')}"></div>
+      <div class="form-group"><label>Initial (1 letter)</label><input type="text" id="stInitial" maxlength="1" value="${escapeHtml(s.initial || '')}"></div>
       <div class="form-group"><label>Stars (1-5)</label><input type="number" id="stStars" min="1" max="5" value="${s.stars || 5}"></div>
     </div>
-    <div class="form-group"><label>Badge</label><input type="text" id="stBadge" value="${escapeHtml(s.badge)}"></div>
+    <div class="form-group"><label>Badge</label><input type="text" id="stBadge" value="${escapeHtml(s.badge)}" placeholder="🏆 Selected"></div>
     <div class="form-group"><label>Testimonial *</label><textarea id="stText" rows="3">${escapeHtml(s.text)}</textarea></div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="saveStory()"><i class="fas fa-save"></i> Save</button>
@@ -822,6 +1045,7 @@ function saveStory() {
     stars: parseInt(document.getElementById('stStars').value) || 5,
     badge: document.getElementById('stBadge').value
   };
+  if (!contentData.stories) contentData.stories = [];
   if (idx >= 0) contentData.stories[idx] = story;
   else contentData.stories.push(story);
   saveContent();
@@ -846,7 +1070,7 @@ function renderVideos() {
   if (!c) return;
   const items = contentData.videos || [];
   if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fab fa-youtube"></i><p>No videos</p></div>';
+    c.innerHTML = '<div class="empty-state"><i class="fab fa-youtube"></i><p>No videos yet</p></div>';
     return;
   }
   c.innerHTML = items.map((v, i) => `
@@ -854,7 +1078,7 @@ function renderVideos() {
       <div class="item-sno" style="background:#FF0000;">▶</div>
       <div class="item-content">
         <div class="item-title">${escapeHtml(v.title)}</div>
-        <div class="item-meta">ID: ${escapeHtml(v.id)}</div>
+        <div class="item-meta">ID: ${escapeHtml(v.id)} • ${escapeHtml(v.views || '')}</div>
       </div>
       <div class="item-actions">
         <button class="btn-i-edit" onclick="openVideoModal(${i})"><i class="fas fa-edit"></i></button>
@@ -866,13 +1090,13 @@ function renderVideos() {
 
 function openVideoModal(idx = null) {
   const isEdit = idx !== null;
-  const v = isEdit ? contentData.videos[idx] : { id: '', title: '', views: '' };
+  const v = isEdit ? contentData.videos[idx] : { id: '', title: '', views: '0 views' };
   document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Video' : '➕ Add Video';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="videoIdx" value="${isEdit ? idx : -1}">
-    <div class="form-group"><label>YouTube Video ID *</label><input type="text" id="vidId" value="${escapeHtml(v.id)}" placeholder="dQw4w9WgXcQ"></div>
+    <div class="form-group"><label>YouTube Video ID *</label><input type="text" id="vidId" value="${escapeHtml(v.id)}" placeholder="e.g. dQw4w9WgXcQ"></div>
     <div class="form-group"><label>Title *</label><input type="text" id="vidTitle" value="${escapeHtml(v.title)}"></div>
-    <div class="form-group"><label>Views</label><input type="text" id="vidViews" value="${escapeHtml(v.views || '')}"></div>
+    <div class="form-group"><label>Views</label><input type="text" id="vidViews" value="${escapeHtml(v.views || '0 views')}"></div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="saveVideo()"><i class="fas fa-save"></i> Save</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
@@ -887,6 +1111,7 @@ function saveVideo() {
   const title = document.getElementById('vidTitle').value.trim();
   if (!vidId || !title) return showToast('ID & Title required!', 'error');
   const video = { id: vidId, title, views: document.getElementById('vidViews').value, channel: 'Dream Josh' };
+  if (!contentData.videos) contentData.videos = [];
   if (idx >= 0) contentData.videos[idx] = video;
   else contentData.videos.push(video);
   saveContent();
@@ -911,7 +1136,7 @@ function renderAds() {
   if (!c) return;
   const items = contentData.ads || [];
   if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-ad"></i><p>No ads</p></div>';
+    c.innerHTML = '<div class="empty-state"><i class="fas fa-ad"></i><p>No ads yet</p></div>';
     return;
   }
   c.innerHTML = items.map((a, i) => `
@@ -919,7 +1144,7 @@ function renderAds() {
       <div class="item-sno" style="background:#f59e0b;">💰</div>
       <div class="item-content">
         <div class="item-title">${escapeHtml(a.label || 'Ad')}</div>
-        <div class="item-meta">Position: ${escapeHtml(a.position || 'top')}</div>
+        <div class="item-meta">Position: ${escapeHtml(a.position || 'top')} • ${escapeHtml(a.text || '')}</div>
       </div>
       <div class="item-actions">
         <button class="btn-i-edit" onclick="openAdModal(${i})"><i class="fas fa-edit"></i></button>
@@ -946,7 +1171,7 @@ function openAdModal(idx = null) {
       </div>
     </div>
     <div class="form-group"><label>Text</label><input type="text" id="adText" value="${escapeHtml(a.text || '')}"></div>
-    <div class="form-group"><label>Ad Code (HTML/AdSense)</label><textarea id="adCode" rows="4">${escapeHtml(a.code || '')}</textarea></div>
+    <div class="form-group"><label>Ad Code (HTML/AdSense)</label><textarea id="adCode" rows="4" placeholder="<ins class='adsbygoogle'...>">${escapeHtml(a.code || '')}</textarea></div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="saveAd()"><i class="fas fa-save"></i> Save</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
@@ -963,6 +1188,7 @@ function saveAd() {
     text: document.getElementById('adText').value,
     code: document.getElementById('adCode').value
   };
+  if (!contentData.ads) contentData.ads = [];
   if (idx >= 0) contentData.ads[idx] = ad;
   else contentData.ads.push(ad);
   saveContent();
@@ -985,7 +1211,7 @@ function renderInsta() {
   if (!c) return;
   const items = contentData.instaPosts || [];
   if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fab fa-instagram"></i><p>No posts</p></div>';
+    c.innerHTML = '<div class="empty-state"><i class="fab fa-instagram"></i><p>No posts yet</p></div>';
     return;
   }
   c.innerHTML = items.map((p, i) => `
@@ -1027,6 +1253,7 @@ function saveInsta() {
   const label = document.getElementById('instaLabel').value.trim();
   if (!label) return showToast('Label required!', 'error');
   const post = { label, emoji: document.getElementById('instaEmoji').value || '📷', link: document.getElementById('instaLink').value };
+  if (!contentData.instaPosts) contentData.instaPosts = [];
   if (idx >= 0) contentData.instaPosts[idx] = post;
   else contentData.instaPosts.push(post);
   saveContent();
@@ -1049,7 +1276,7 @@ function renderColleges() {
   if (!c) return;
   const items = contentData.colleges || [];
   if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-school"></i><p>No colleges</p></div>';
+    c.innerHTML = '<div class="empty-state"><i class="fas fa-school"></i><p>No colleges yet</p></div>';
     return;
   }
   c.innerHTML = items.map((col, i) => `
@@ -1084,7 +1311,7 @@ function openCollegeModal(idx = null) {
     </div>
     <div class="form-row">
       <div class="form-group"><label>City</label><input type="text" id="colCity" value="${escapeHtml(c.city)}"></div>
-      <div class="form-group"><label>Courses</label><input type="text" id="colCourses" value="${(c.courses || []).join(', ')}" placeholder="SSC, Banking"></div>
+      <div class="form-group"><label>Courses (comma sep.)</label><input type="text" id="colCourses" value="${(c.courses || []).join(', ')}"></div>
     </div>
     <div class="form-group"><label>Info</label><textarea id="colInfo" rows="2">${escapeHtml(c.info)}</textarea></div>
     <div style="margin-top:16px;">
@@ -1106,6 +1333,7 @@ function saveCollege() {
     courses: document.getElementById('colCourses').value.split(',').map(s => s.trim()).filter(Boolean),
     info: document.getElementById('colInfo').value
   };
+  if (!contentData.colleges) contentData.colleges = [];
   if (idx >= 0) contentData.colleges[idx] = college;
   else contentData.colleges.push(college);
   saveContent();
@@ -1131,10 +1359,10 @@ function filterJobs(type) {
   currentJobFilter = type;
   document.querySelectorAll('#adminPage-jobs-manager .settings-tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('jobFilter-' + type)?.classList.add('active');
-  renderJobs();
+  renderJobsTable();
 }
 
-function renderJobs() {
+function renderJobsTable() {
   const c = document.getElementById('jobsContainer');
   if (!c) return;
   const badge = document.getElementById('jobsCountBadge');
@@ -1144,6 +1372,8 @@ function renderJobs() {
     c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs</p></div>';
     return;
   }
+  const typeLabels = { central: '🏛️ Central', state: '🏜️ Rajasthan', private: '💼 Private' };
+  const typeColors = { central: '#1976d2', state: '#16a34a', private: '#6c5ce7' };
   c.innerHTML = filtered.map((j, i) => {
     const realIdx = jobsData.indexOf(j);
     return `
@@ -1151,7 +1381,12 @@ function renderJobs() {
       <div class="item-sno">${i + 1}</div>
       <div class="item-content">
         <div class="item-title">${escapeHtml(j.title)}</div>
-        <div class="item-meta">${escapeHtml(j.jobType || '')} ${j.department ? '• ' + escapeHtml(j.department) : ''}</div>
+        <div class="item-meta">
+          <span style="background:${typeColors[j.jobType] || '#666'};color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:600;">
+            ${typeLabels[j.jobType] || j.jobType}
+          </span>
+          ${j.department ? ` 📁 ${escapeHtml(j.department)}` : ''}
+        </div>
       </div>
       <div class="item-actions">
         <button class="btn-i-edit" onclick="openJobModal(${realIdx})"><i class="fas fa-edit"></i></button>
@@ -1162,12 +1397,12 @@ function renderJobs() {
   }).join('');
 }
 
-function openJobModal(idx = null) {
-  const isEdit = idx !== null;
-  const job = isEdit ? jobsData[idx] : { title: '', jobType: 'central', department: '', post: '', eligibility: '', age: '' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Job' : '💼 Add Job';
+function openJobModal(index = null) {
+  const isEdit = index !== null;
+  const job = isEdit ? jobsData[index] : { title: '', jobType: 'central', department: '', post: '', eligibility: '', age: '', lastDate: '', website: '', description: '' };
+  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Job #${index+1}` : '💼 Add Job';
   document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="jobIdx" value="${isEdit ? idx : -1}">
+    <input type="hidden" id="jobIndex" value="${isEdit ? index : -1}">
     <div class="form-row">
       <div class="form-group"><label>Title *</label><input type="text" id="jTitle" value="${escapeHtml(job.title)}"></div>
       <div class="form-group"><label>Type</label>
@@ -1186,8 +1421,13 @@ function openJobModal(idx = null) {
       <div class="form-group"><label>Eligibility</label><input type="text" id="jElig" value="${escapeHtml(job.eligibility || '')}"></div>
       <div class="form-group"><label>Age Limit</label><input type="text" id="jAge" value="${escapeHtml(job.age || '')}"></div>
     </div>
+    <div class="form-row">
+      <div class="form-group"><label>Last Date</label><input type="date" id="jLastDate" value="${job.lastDate || ''}"></div>
+      <div class="form-group"><label>Website</label><input type="url" id="jWebsite" value="${escapeHtml(job.website || '')}"></div>
+    </div>
+    <div class="form-group"><label>Description</label><textarea id="jDesc" rows="3">${escapeHtml(job.description || '')}</textarea></div>
     <div style="margin-top:16px;">
-      <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-submit" onclick="saveJob()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Add'}</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
     </div>
   `;
@@ -1195,7 +1435,7 @@ function openJobModal(idx = null) {
 }
 
 function saveJob() {
-  const idx = parseInt(document.getElementById('jobIdx').value);
+  const idx = parseInt(document.getElementById('jobIndex').value);
   const title = document.getElementById('jTitle').value.trim();
   if (!title) return showToast('Title required!', 'error');
   const job = {
@@ -1205,12 +1445,15 @@ function saveJob() {
     post: document.getElementById('jPost').value,
     eligibility: document.getElementById('jElig').value,
     age: document.getElementById('jAge').value,
+    lastDate: document.getElementById('jLastDate').value,
+    website: document.getElementById('jWebsite').value,
+    description: document.getElementById('jDesc').value,
     createdAt: Date.now()
   };
   if (idx >= 0) jobsData[idx] = { ...jobsData[idx], ...job };
   else jobsData.push(job);
   saveData();
-  renderJobs();
+  renderJobsTable();
   updateStats();
   closeAdminModal();
   showToast('✅ Saved!', 'success');
@@ -1220,7 +1463,7 @@ function deleteJob(i) {
   if (!confirm('Delete?')) return;
   jobsData.splice(i, 1);
   saveData();
-  renderJobs();
+  renderJobsTable();
   updateStats();
   showToast('🗑️ Deleted!', 'success');
 }
@@ -1253,7 +1496,7 @@ function doBulkAddJobs() {
   });
   saveData();
   closeAdminModal();
-  renderJobs();
+  renderJobsTable();
   updateStats();
   showToast(`✅ ${count} jobs added!`, 'success');
 }
@@ -1263,7 +1506,9 @@ function doBulkAddJobs() {
 // ============================================================
 function updateStats() {
   const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-  setEl('statPages', pagesData.length);
+  let totalPages = 0;
+  pagesData.forEach(p => { totalPages++; if (p.subPages) totalPages += p.subPages.length; });
+  setEl('statPages', totalPages);
   setEl('statJobs', jobsData.length);
   setEl('statStories', (contentData.stories || []).length);
   setEl('statVideos', (contentData.videos || []).length);
@@ -1276,6 +1521,7 @@ function updateStats() {
 let lastActivityTime = Date.now();
 let idleCheckInterval = null;
 let idleWarningShown = false;
+let vipClockInterval = null;
 
 function markActivity() {
   lastActivityTime = Date.now();
@@ -1292,6 +1538,7 @@ function playVipSound(type) {
     if (type === 'success') {
       osc.frequency.setValueAtTime(523.25, ctx.currentTime);
       osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2);
     } else if (type === 'error') {
       osc.frequency.setValueAtTime(329.63, ctx.currentTime);
       osc.frequency.setValueAtTime(261.63, ctx.currentTime + 0.15);
@@ -1317,7 +1564,7 @@ function initVipClock() {
     const h = now.getHours();
     const greeting = h < 12 ? '🌅 Good Morning' : h < 17 ? '☀️ Good Afternoon' : h < 21 ? '🌆 Good Evening' : '🌙 Good Night';
     const time = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-    const date = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
+    const date = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
     let idleText = '';
     if (lastActivityTime) {
       const idleFor = Date.now() - lastActivityTime;
@@ -1325,7 +1572,7 @@ function initVipClock() {
       if (remaining <= 60 * 1000) {
         idleText = `<div class="vip-idle idle-warning">⚠️ Auto logout in ${Math.ceil(remaining/1000)}s</div>`;
       } else if (remaining <= 5 * 60 * 1000) {
-        idleText = `<div class="vip-idle">⏳ Idle: ${Math.ceil(remaining/60000)} min</div>`;
+        idleText = `<div class="vip-idle">⏳ Idle: ${Math.ceil(remaining/60000)} min left</div>`;
       }
     }
     clockEl.innerHTML = `
@@ -1335,11 +1582,12 @@ function initVipClock() {
     `;
   }
   update();
-  setInterval(update, 1000);
+  if (vipClockInterval) clearInterval(vipClockInterval);
+  vipClockInterval = setInterval(update, 1000);
 }
 
 function initIdleLogout() {
-  const events = ['mousemove', 'mousedown', 'click', 'keypress', 'scroll', 'touchstart'];
+  const events = ['mousemove', 'mousedown', 'click', 'keypress', 'scroll', 'touchstart', 'touchmove'];
   events.forEach(evt => document.addEventListener(evt, markActivity, { passive: true }));
   markActivity();
   if (idleCheckInterval) clearInterval(idleCheckInterval);
@@ -1374,6 +1622,8 @@ window.showToast = function(msg, type = 'info') {
 function closeAdminModal() { document.getElementById('adminModalOverlay').classList.remove('active'); }
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
+  settings.themeMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+  saveSettings();
 }
 function showToast(msg, type = 'info') {
   const t = document.createElement('div');
@@ -1389,6 +1639,10 @@ function toggleSidebar() {
   document.getElementById('adminSidebar').classList.toggle('open');
   document.getElementById('sidebarOverlay').classList.toggle('active');
 }
+function closeSidebar() {
+  document.getElementById('adminSidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('active');
+}
 
 function switchSettingsTab(tab) {
   document.querySelectorAll('.settings-tab-btn').forEach(b => b.classList.remove('active'));
@@ -1397,7 +1651,20 @@ function switchSettingsTab(tab) {
   document.getElementById('settings-tab-' + tab)?.classList.add('active');
 }
 
+function loadSettingsForm() {
+  loadSettings();
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+  set('setSiteName', settings.siteName);
+  set('setTagline', settings.tagline);
+}
+
 function saveSettingsGroup(g) {
+  const gv = id => document.getElementById(id)?.value || '';
+  if (g === 'general') {
+    settings.siteName = gv('setSiteName');
+    settings.tagline = gv('setTagline');
+  }
+  saveSettings();
   showToast('✅ Saved!', 'success');
 }
 
@@ -1418,7 +1685,7 @@ function changeAdminPassword() {
 }
 
 function exportAllData() {
-  const data = { appData, jobsData, pagesData, contentData };
+  const data = { appData, jobsData, pagesData, contentData, settings };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -1439,8 +1706,9 @@ function importData() {
       if (data.jobsData) jobsData = data.jobsData;
       if (data.pagesData) pagesData = data.pagesData;
       if (data.contentData) contentData = data.contentData;
-      saveData(); savePages(); saveContent();
-      renderPages(); renderJobs(); renderContentTabs(); updateStats();
+      if (data.settings) settings = data.settings;
+      saveData(); savePages(); saveContent(); saveSettings();
+      renderSidebar(); renderPagesGrid(); renderJobsTable(); renderContentTabs(); updateStats();
       showToast('✅ Restored!', 'success');
     } catch (err) { showToast('❌ Invalid file', 'error'); }
   };
@@ -1450,7 +1718,7 @@ function importData() {
 function clearAllAdminData() {
   if (!confirm('⚠️ All data delete?')) return;
   if (!confirm('Sure?')) return;
-  [STORAGE_KEY, PAGES_KEY, CONTENT_KEY].forEach(k => localStorage.removeItem(k));
+  [STORAGE_KEY, PAGES_KEY, CONTENT_KEY, SETTINGS_KEY, ACTIVITY_LOG_KEY].forEach(k => localStorage.removeItem(k));
   showToast('🗑️ Cleared!', 'success');
   setTimeout(() => location.reload(), 1500);
 }
@@ -1464,6 +1732,17 @@ function showAdminPage(page) {
   const activeLink = document.querySelector(`.admin-menu a[data-page="${page}"]`);
   if (activeLink) activeLink.classList.add('active');
 
+  closeAllMenuSections();
+  const parent = pagesData.find(p => p.id === page || (p.subPages && p.subPages.some(s => s.id === page)));
+  if (parent && parent.subPages && parent.subPages.length) {
+    const submenu = document.getElementById('submenu-' + parent.id);
+    const toggle = document.querySelector(`.menu-toggle[data-section="${parent.id}"]`);
+    if (submenu && toggle) {
+      submenu.classList.add('open');
+      toggle.classList.add('open');
+    }
+  }
+
   const titles = {
     'dashboard': '📊 <span>Dashboard</span>',
     'pages': '📄 <span>Pages Manager</span>',
@@ -1471,21 +1750,35 @@ function showAdminPage(page) {
     'jobs-manager': '💼 <span>Jobs Manager</span>',
     'settings': '⚙️ <span>Settings</span>'
   };
-  document.getElementById('adminPageTitle').innerHTML = titles[page] || '📊 <span>Dashboard</span>';
+  document.getElementById('adminPageTitle').innerHTML = titles[page] || '📄 <span>Page</span>';
 
   document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
   const section = document.getElementById('adminPage-' + page);
   if (section) {
     section.classList.add('active');
     if (page === 'dashboard') updateStats();
-    if (page === 'pages') renderPages();
+    if (page === 'pages') renderPagesGrid();
     if (page === 'content-manager') renderContentTabs();
-    if (page === 'jobs-manager') renderJobs();
+    if (page === 'jobs-manager') renderJobsTable();
+    if (page === 'settings') loadSettingsForm();
+  } else {
+    const info = findPageById(page);
+    if (info) {
+      document.getElementById('adminPageTitle').innerHTML = `<i class="fas ${info.icon}"></i> <span>${escapeHtml(info.name)}</span>`;
+    }
   }
-  if (window.innerWidth <= 768) {
-    document.getElementById('adminSidebar').classList.remove('open');
-    document.getElementById('sidebarOverlay').classList.remove('active');
+  if (window.innerWidth <= 768) closeSidebar();
+}
+
+function findPageById(pageId) {
+  for (const p of pagesData) {
+    if (p.id === pageId) return { ...p, isParent: true };
+    if (p.subPages) {
+      const s = p.subPages.find(sp => sp.id === pageId);
+      if (s) return { ...s, isSub: true, parent: p };
+    }
   }
+  return null;
 }
 
 // ============================================================
@@ -1495,19 +1788,21 @@ async function initAdminPanel() {
   loadData();
   loadPages();
   loadContent();
+  loadSettings();
+  loadActivityLog();
   await loadContentFromCloud();
-  renderPages();
+  renderSidebar();
+  renderPagesGrid();
   renderContentTabs();
-  renderJobs();
   updateStats();
   showAdminPage('dashboard');
 
   setTimeout(() => {
     initVipClock();
     initIdleLogout();
-    console.log('👑 Admin v10.0 Ready');
-    console.log('Pages:', pagesData.length, '| Jobs:', jobsData.length);
-    console.log('Stories:', contentData.stories.length, '| Videos:', contentData.videos.length);
+    console.log('👑 Admin v8.0 Ready');
+    console.log('💼 Jobs:', jobsData.length);
+    console.log('🏆 Stories:', contentData.stories?.length || 0);
   }, 200);
 }
 
@@ -1516,10 +1811,10 @@ document.addEventListener('DOMContentLoaded', () => {
   else showLoginScreen();
 });
 
-// Expose
 Object.assign(window, {
   handleLogin, handleLogout, showAdminPage, toggleSidebar,
-  openPageModal, savePage, deletePage,
+  toggleMenuSection, closeAllMenuSections,
+  openPageModal, savePage, togglePagePrivacy, deletePage, resetPagesToDefault,
   switchContentTab,
   openStoryModal, saveStory, deleteStory,
   openVideoModal, saveVideo, deleteVideo,
