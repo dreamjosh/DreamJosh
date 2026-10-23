@@ -14,15 +14,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 <style>
-:root{--bg-color:#eef5ff;--card-bg:#fff;--text-color:#172033;--primary-blue:#123c9b;--secondary-blue:#1976d2;--success-green:#16a34a;--warning-red:#d62839;--border-color:#dce5f0;--shadow-color:rgba(0,0,0,.1);--footer-bg:#123c9b;--gold:#ffd700;--text-light:#6c757d;--secondary:#1a2332;}
-.dark-mode{--bg-color:#0a0e1a;--card-bg:#141428;--text-color:#e8e8e8;--text-light:#a0a0b8;--primary-blue:#1a3a8a;--secondary-blue:#2a5ac8;--border-color:#2a2a4a;--shadow-color:rgba(0,0,0,.3);--footer-bg:#0d1b3e;--secondary:#1a1a2e;}
+:root{--bg-color:#eef5ff;--card-bg:#fff;--text-color:#172033;--primary-blue:#123c9b;--secondary-blue:#1976d2;--success-green:#16a34a;--warning-red:#d62839;--border-color:#dce5f0;--shadow-color:rgba(0,0,0,.1);--footer-bg:#123c9b;--gold:#ffd700;--text-light:#6c757d;--secondary:#1a2332;--editor-toolbar-bg:#fff;}
+.dark-mode{--bg-color:#0a0e1a;--card-bg:#141428;--text-color:#e8e8e8;--text-light:#a0a0b8;--primary-blue:#1a3a8a;--secondary-blue:#2a5ac8;--border-color:#2a2a4a;--shadow-color:rgba(0,0,0,.3);--footer-bg:#0d1b3e;--secondary:#1a1a2e;--editor-toolbar-bg:#141428;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg-color);color:var(--text-color);min-height:100vh;transition:background .3s,color .3s;}
 
 /* LOGIN */
 .login-screen{display:none;position:fixed;inset:0;background:var(--bg-color);z-index:99999;align-items:center;justify-content:center;padding:20px;}
 .login-screen.active{display:flex;}
-.login-box{background:var(--card-bg);border-radius:16px;padding:40px 36px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);border:1px solid var(--border-color);}
+.login-box{background:var(--card-bg);border-radius:16px;padding:40px 36px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);border:1px solid var(--border-color);animation:loginIn .4s ease;}
+@keyframes loginIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 .login-box .login-logo{text-align:center;margin-bottom:24px;}
 .login-box .login-logo h1{font-size:26px;font-weight:800;color:var(--text-color);}
 .login-box .login-logo h1 span{color:var(--gold);}
@@ -216,7 +217,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
   <div class="admin-content">
     <div class="admin-top-header">
       <h2 id="adminPageTitle">📊 <span>Dashboard</span></h2>
-      <div class="admin-actions" id="adminActions">
+      <div class="admin-actions">
         <button class="admin-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <button class="btn-dark-admin" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Dark</button>
         <button class="btn-logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
@@ -230,14 +231,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         <div class="stat-item"><div class="stat-icon">💼</div><div class="stat-label">Jobs</div><div class="stat-value" id="statJobs">0</div></div>
         <div class="stat-item"><div class="stat-icon">📚</div><div class="stat-label">Education</div><div class="stat-value" id="statEducation">0</div></div>
         <div class="stat-item"><div class="stat-icon">📢</div><div class="stat-label">Home Updates</div><div class="stat-value" id="statHomeUpdates">0</div></div>
-        <div class="stat-item"><div class="stat-icon">📝</div><div class="stat-label">Pages</div><div class="stat-value" id="statPages">0</div></div>
       </div>
       <div class="admin-quick-actions">
         <h3>⚡ Quick Actions</h3>
         <div class="actions-grid">
           <button onclick="showAdminPage('jobs-manager')"><i class="fas fa-briefcase"></i> Jobs</button>
           <button onclick="showAdminPage('education-manager')"><i class="fas fa-graduation-cap"></i> Education</button>
-          <button onclick="showAdminPage('home-updates')"><i class="fas fa-bullhorn"></i> Homepage Updates</button>
+          <button onclick="showAdminPage('home-updates')"><i class="fas fa-bullhorn"></i> Home Updates</button>
           <button onclick="showAdminPage('settings')"><i class="fas fa-cog"></i> Settings</button>
         </div>
       </div>
@@ -249,7 +249,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
         <div class="card-header">
           <h4>💼 Jobs Manager <span id="jobsCountBadge" style="background:var(--primary-blue);color:#fff;padding:2px 12px;border-radius:20px;font-size:12px;margin-left:8px;">0</span></h4>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add Job</button>
+            <button class="btn-add" onclick="openJobModal()"><i class="fas fa-plus"></i> Add</button>
             <button class="btn-add bulk" onclick="openBulkJobModal()"><i class="fas fa-layer-group"></i> Bulk</button>
           </div>
         </div>
@@ -290,9 +290,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     <div id="adminPage-home-updates" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
-          <h4>📢 Homepage Updates Manager</h4>
+          <h4>📢 Homepage Updates</h4>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openHomeUpdateModal()"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add" onclick="openHomeUpdateModal()"><i class="fas fa-plus"></i> Add</button>
             <button class="btn-add bulk" onclick="openBulkHomeUpdateModal()"><i class="fas fa-layer-group"></i> Bulk</button>
             <button class="btn-add primary" onclick="exportHomeUpdates()"><i class="fas fa-download"></i> Export</button>
           </div>
@@ -364,9 +364,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
     </div>
     <div id="adminModalBody"></div>
   </div>
-</div>
-
-<script>
+</div><script>
 // ============================================================
 // CONFIG
 // ============================================================
@@ -396,6 +394,7 @@ let jobsData = [];
 let educationData = [];
 let currentJobFilter = 'all';
 let currentEduFilter = 'all';
+let currentHomeTab = 'latest';
 let homeUpdatesData = { latest: [], forms: [] };
 
 const STORAGE_KEY = 'dreamjosh_admin_data';
@@ -404,35 +403,24 @@ const SETTINGS_KEY = 'dreamjosh_settings';
 const HOME_UPDATES_KEY = 'dreamjosh_home_updates';
 const EDUCATION_KEY = 'dreamjosh_education';
 
-// ============================================================
-// DEFAULT DATA
-// ============================================================
 const DEFAULT_JOBS = [
-  { title: 'IAS (Indian Administrative Service)', jobType: 'central', department: 'UPSC', post: 'IAS Officer', eligibility: 'Graduate', age: '21-32 Years', website: 'https://upsc.gov.in' },
-  { title: 'SSC CGL', jobType: 'central', department: 'SSC', post: 'Group B & C', eligibility: 'Graduate', age: '18-32 Years', website: 'https://ssc.nic.in' },
-  { title: 'RAS', jobType: 'state', department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40 Years', website: 'https://rpsc.rajasthan.gov.in' },
-  { title: 'Rajasthan Police Constable', jobType: 'state', department: 'Police', post: 'Constable', eligibility: '10+2', age: '18-28 Years', website: 'https://police.rajasthan.gov.in' }
+  { title: 'IAS', jobType: 'central', department: 'UPSC', post: 'Officer', eligibility: 'Graduate', age: '21-32' },
+  { title: 'SSC CGL', jobType: 'central', department: 'SSC', post: 'Group B & C', eligibility: 'Graduate', age: '18-32' },
+  { title: 'RAS', jobType: 'state', department: 'RPSC', post: 'RAS Officer', eligibility: 'Graduate', age: '21-40' },
+  { title: 'Rajasthan Police', jobType: 'state', department: 'Police', post: 'Constable', eligibility: '10+2', age: '18-28' }
 ];
 
 const DEFAULT_HOME_UPDATES = {
-  latest: [
-    { id: 'lu1', title: 'SSC CGL 2026 Notification Released', subtitle: 'Apply before 15 July 2026', link: 'https://ssc.nic.in', icon: '📢', active: true }
-  ],
-  forms: [
-    { id: 'fm1', title: '🪪 Aadhaar Card', subtitle: 'Update your Aadhaar', link: '#', icon: '📋', active: true },
-    { id: 'fm2', title: '💳 PAN Card', subtitle: 'Apply for PAN', link: '#', icon: '📋', active: true }
-  ]
+  latest: [{ id: 'lu1', title: 'SSC CGL 2026 Released', subtitle: 'Apply before 15 July', link: 'https://ssc.nic.in', icon: '📢', active: true }],
+  forms: [{ id: 'fm1', title: '🪪 Aadhaar Card', subtitle: 'Update Aadhaar', link: '#', icon: '📋', active: true }]
 };
 
 // ============================================================
 // HELPERS
 // ============================================================
 function escapeHtml(s) {
-  return String(s || '').replace(/[&<>"']/g, c => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[c]));
+  return String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 }
-
 function showToast(msg, type = 'info') {
   const t = document.createElement('div');
   t.className = 'toast ' + type;
@@ -440,16 +428,11 @@ function showToast(msg, type = 'info') {
   document.body.appendChild(t);
   setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2500);
 }
-
-function closeAdminModal() {
-  document.getElementById('adminModalOverlay').classList.remove('active');
-}
-
+function closeAdminModal() { document.getElementById('adminModalOverlay').classList.remove('active'); }
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
   localStorage.setItem('dreamjosh_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
 }
-
 function toggleSidebar() {
   document.getElementById('adminSidebar').classList.toggle('open');
   document.getElementById('sidebarOverlay').classList.toggle('active');
@@ -465,25 +448,18 @@ function getAdminCreds() {
   } catch (e) {}
   return { ...DEFAULT_ADMIN };
 }
-function saveAdminCreds(username, password) {
-  localStorage.setItem(ADMIN_CREDS_KEY, JSON.stringify({ username, password }));
-}
+function saveAdminCreds(username, password) { localStorage.setItem(ADMIN_CREDS_KEY, JSON.stringify({ username, password })); }
 function isLoggedIn() {
   try {
     const s = localStorage.getItem(LOGIN_SESSION_KEY);
     if (!s) return false;
     const session = JSON.parse(s);
     if (!session.loggedIn || !session.loginTime) return false;
-    if (Date.now() - session.loginTime > SESSION_DURATION) {
-      localStorage.removeItem(LOGIN_SESSION_KEY);
-      return false;
-    }
+    if (Date.now() - session.loginTime > SESSION_DURATION) { localStorage.removeItem(LOGIN_SESSION_KEY); return false; }
     return true;
   } catch (e) { return false; }
 }
-function createSession(username) {
-  localStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify({ loggedIn: true, username, loginTime: Date.now() }));
-}
+function createSession(username) { localStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify({ loggedIn: true, username, loginTime: Date.now() })); }
 
 function handleLogin(event) {
   event.preventDefault();
@@ -492,28 +468,18 @@ function handleLogin(event) {
   const errorEl = document.getElementById('loginError');
   const errorText = document.getElementById('loginErrorText');
   const btn = document.getElementById('loginBtn');
-  if (!username || !password) {
-    errorText.textContent = 'Enter username and password';
-    errorEl.classList.add('show');
-    return;
-  }
+  if (!username || !password) { errorText.textContent = 'Enter username and password'; errorEl.classList.add('show'); return; }
   btn.disabled = true;
   setTimeout(() => {
     const creds = getAdminCreds();
     if (username === creds.username && password === creds.password) {
-      errorEl.classList.remove('show');
-      createSession(username);
-      showAdminPanel();
-      showToast('✅ Welcome, ' + username + '!', 'success');
+      errorEl.classList.remove('show'); createSession(username); showAdminPanel(); showToast('✅ Welcome, ' + username + '!', 'success');
     } else {
-      errorText.textContent = '❌ Invalid credentials';
-      errorEl.classList.add('show');
-      document.getElementById('loginPassword').value = '';
+      errorText.textContent = '❌ Invalid credentials'; errorEl.classList.add('show'); document.getElementById('loginPassword').value = '';
     }
     btn.disabled = false;
   }, 400);
 }
-
 function handleLogout() {
   if (!confirm('Logout?')) return;
   localStorage.removeItem(LOGIN_SESSION_KEY);
@@ -521,7 +487,6 @@ function handleLogout() {
   document.getElementById('adminWrapper').classList.remove('active');
   showToast('👋 Logged out', 'info');
 }
-
 function showAdminPanel() {
   document.getElementById('loginScreen').classList.remove('active');
   document.getElementById('adminWrapper').classList.add('active');
@@ -530,7 +495,6 @@ function showAdminPanel() {
   if (nameEl && session.username) nameEl.textContent = session.username;
   initAdminPanel();
 }
-
 function showLoginScreen() {
   document.getElementById('loginScreen').classList.add('active');
   document.getElementById('adminWrapper').classList.remove('active');
@@ -556,7 +520,6 @@ function renderSidebar() {
 function showAdminPage(page) {
   document.querySelectorAll('.admin-menu a').forEach(a => a.classList.remove('active'));
   document.querySelector(`.admin-menu a[data-page="${page}"]`)?.classList.add('active');
-
   const titles = {
     'dashboard': '📊 <span>Dashboard</span>',
     'jobs-manager': '💼 <span>Jobs Manager</span>',
@@ -565,7 +528,6 @@ function showAdminPage(page) {
     'settings': '⚙️ <span>Settings</span>'
   };
   document.getElementById('adminPageTitle').innerHTML = titles[page] || '📄 <span>Page</span>';
-
   document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
   const section = document.getElementById('adminPage-' + page);
   if (section) {
@@ -583,14 +545,8 @@ function showAdminPage(page) {
 // JOBS
 // ============================================================
 function loadJobs() {
-  try {
-    const s = localStorage.getItem(STORAGE_KEY);
-    if (s) { const p = JSON.parse(s); jobsData = p.jobsData || []; }
-  } catch (e) {}
-  if (!jobsData || !jobsData.length) {
-    jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS));
-    saveJobs();
-  }
+  try { const s = localStorage.getItem(STORAGE_KEY); if (s) { const p = JSON.parse(s); jobsData = p.jobsData || []; } } catch (e) {}
+  if (!jobsData || !jobsData.length) { jobsData = JSON.parse(JSON.stringify(DEFAULT_JOBS)); saveJobs(); }
 }
 function saveJobs() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify({ jobsData }));
@@ -600,57 +556,38 @@ async function loadJobsFromCloud() {
   if (!firebaseDB) return;
   try {
     const d = await firebaseDB.collection('dreamjosh').doc('jobsData').get();
-    if (d.exists && d.data().jobs) {
-      jobsData = d.data().jobs;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ jobsData }));
-    }
+    if (d.exists && d.data().jobs) { jobsData = d.data().jobs; localStorage.setItem(STORAGE_KEY, JSON.stringify({ jobsData })); }
   } catch (e) {}
 }
-
 function filterJobs(type) {
   currentJobFilter = type;
   document.querySelectorAll('#adminPage-jobs-manager .settings-tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('jobFilter-' + type)?.classList.add('active');
   renderJobsTable();
 }
-
 function renderJobsTable() {
   const c = document.getElementById('jobsContainer');
   if (!c) return;
   document.getElementById('jobsCountBadge').textContent = jobsData.length;
-
   let filtered = currentJobFilter === 'all' ? jobsData : jobsData.filter(j => j.jobType === currentJobFilter);
-  if (!filtered.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs yet</p></div>';
-    return;
-  }
-
+  if (!filtered.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No jobs yet</p></div>'; return; }
   const typeLabels = { central: '🏛️ Central', state: '🏜️ Rajasthan', private: '💼 Private' };
   const typeColors = { central: '#1976d2', state: '#16a34a', private: '#6c5ce7' };
-
   c.innerHTML = filtered.map((j, i) => {
     const realIdx = jobsData.indexOf(j);
-    return `
-      <div class="data-item">
-        <div class="item-sno">${i + 1}</div>
-        <div class="item-content">
-          <div class="item-title">${escapeHtml(j.title)}</div>
-          <div class="item-meta">
-            <span style="background:${typeColors[j.jobType] || '#666'};color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:600;">
-              ${typeLabels[j.jobType] || j.jobType}
-            </span>
-            ${j.department ? ` 📁 ${escapeHtml(j.department)}` : ''}
-          </div>
-        </div>
-        <div class="item-actions">
-          <button class="btn-i-edit" onclick="openJobModal(${realIdx})"><i class="fas fa-edit"></i></button>
-          <button class="btn-i-delete" onclick="deleteJob(${realIdx})"><i class="fas fa-trash"></i></button>
-        </div>
+    return `<div class="data-item">
+      <div class="item-sno">${i + 1}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(j.title)}</div>
+        <div class="item-meta"><span style="background:${typeColors[j.jobType] || '#666'};color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:600;">${typeLabels[j.jobType] || j.jobType}</span>${j.department ? ` 📁 ${escapeHtml(j.department)}` : ''}</div>
       </div>
-    `;
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openJobModal(${realIdx})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteJob(${realIdx})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>`;
   }).join('');
 }
-
 function openJobModal(idx = null) {
   const isEdit = idx !== null;
   const job = isEdit ? jobsData[idx] : { title: '', jobType: 'central', department: '', post: '', eligibility: '', age: '', website: '', description: '' };
@@ -684,7 +621,6 @@ function openJobModal(idx = null) {
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
-
 function saveJob() {
   const idx = parseInt(document.getElementById('jobIndex').value);
   const title = document.getElementById('jTitle').value.trim();
@@ -700,29 +636,17 @@ function saveJob() {
     description: document.getElementById('jDesc').value,
     createdAt: Date.now()
   };
-  if (idx >= 0) jobsData[idx] = { ...jobsData[idx], ...job };
-  else jobsData.push(job);
-  saveJobs();
-  renderJobsTable();
-  updateStats();
-  closeAdminModal();
-  showToast('✅ Saved!', 'success');
+  if (idx >= 0) jobsData[idx] = { ...jobsData[idx], ...job }; else jobsData.push(job);
+  saveJobs(); renderJobsTable(); updateStats(); closeAdminModal(); showToast('✅ Saved!', 'success');
 }
-
 function deleteJob(i) {
   if (!confirm('Delete this job?')) return;
-  jobsData.splice(i, 1);
-  saveJobs();
-  renderJobsTable();
-  updateStats();
-  showToast('🗑️ Deleted!', 'success');
+  jobsData.splice(i, 1); saveJobs(); renderJobsTable(); updateStats(); showToast('🗑️ Deleted!', 'success');
 }
-
 function openBulkJobModal() {
   document.getElementById('adminModalTitle').textContent = '📦 Bulk Add Jobs';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group">
-      <label>Format (one per line): Title | Type | Department</label>
+    <div class="form-group"><label>Format: Title | Type | Department</label>
       <textarea id="bulkJobsText" rows="10" placeholder="SSC CHSL | central | SSC"></textarea>
     </div>
     <div style="margin-top:16px;">
@@ -732,7 +656,6 @@ function openBulkJobModal() {
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
-
 function doBulkAddJobs() {
   const text = document.getElementById('bulkJobsText').value.trim();
   if (!text) return showToast('Data required', 'error');
@@ -743,39 +666,26 @@ function doBulkAddJobs() {
     jobsData.push({ title: p[0], jobType: p[1] || 'central', department: p[2] || '', createdAt: Date.now() });
     count++;
   });
-  saveJobs();
-  closeAdminModal();
-  renderJobsTable();
-  updateStats();
-  showToast(`✅ ${count} jobs added!`, 'success');
+  saveJobs(); closeAdminModal(); renderJobsTable(); updateStats(); showToast(`✅ ${count} jobs added!`, 'success');
 }
 
 // ============================================================
 // EDUCATION MANAGER (NEW)
 // ============================================================
 function loadEducationData() {
-  try {
-    const s = localStorage.getItem(EDUCATION_KEY);
-    if (s) educationData = JSON.parse(s) || [];
-  } catch (e) { educationData = []; }
+  try { const s = localStorage.getItem(EDUCATION_KEY); if (s) educationData = JSON.parse(s) || []; } catch (e) { educationData = []; }
 }
-
 function saveEducationData() {
   localStorage.setItem(EDUCATION_KEY, JSON.stringify(educationData));
   if (firebaseDB) firebaseDB.collection('dreamjosh').doc('educationData').set({ items: educationData }).catch(() => {});
 }
-
 async function loadEducationDataFromCloud() {
   if (!firebaseDB) return;
   try {
     const d = await firebaseDB.collection('dreamjosh').doc('educationData').get();
-    if (d.exists && d.data().items) {
-      educationData = d.data().items;
-      localStorage.setItem(EDUCATION_KEY, JSON.stringify(educationData));
-    }
+    if (d.exists && d.data().items) { educationData = d.data().items; localStorage.setItem(EDUCATION_KEY, JSON.stringify(educationData)); }
   } catch (e) {}
 }
-
 function filterEduAdmin(cat) {
   currentEduFilter = cat;
   document.querySelectorAll('#adminPage-education-manager .settings-tab-btn').forEach(b => b.classList.remove('active'));
@@ -783,59 +693,37 @@ function filterEduAdmin(cat) {
   document.getElementById('eduFilter-' + (idMap[cat] || cat))?.classList.add('active');
   renderEduAdmin();
 }
-
 function renderEduAdmin() {
   const c = document.getElementById('educationContainer');
   if (!c) return;
   document.getElementById('eduCountBadge').textContent = educationData.length;
-
   let items = currentEduFilter === 'all' ? educationData : educationData.filter(e => e.category === currentEduFilter);
-
-  if (!items.length) {
-    c.innerHTML = '<div class="empty-state"><i class="fas fa-graduation-cap"></i><p>No education items yet. Click Add.</p></div>';
-    return;
-  }
-
+  if (!items.length) { c.innerHTML = '<div class="empty-state"><i class="fas fa-graduation-cap"></i><p>No education items yet. Click Add.</p></div>'; return; }
   const icons = { 'Study Materials': '📘', 'Notes': '📝', 'Books': '📚', 'Syllabus': '📋', 'Videos': '🎥' };
-
   c.innerHTML = items.map((e, i) => {
     const realIdx = educationData.indexOf(e);
-    return `
-      <div class="data-item">
-        <div class="item-sno">${icons[e.category] || '📄'}</div>
-        <div class="item-content">
-          <div class="item-title">${escapeHtml(e.title)}</div>
-          <div class="item-meta">
-            <span style="background:var(--secondary-blue);color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:600;">
-              ${escapeHtml(e.category || 'Material')}
-            </span>
-            ${e.fileName ? ` 📎 ${escapeHtml(e.fileName)}` : ''}
-            ${e.link ? ` 🔗` : ''}
-          </div>
-        </div>
-        <div class="item-actions">
-          <button class="btn-i-edit" onclick="openEduModal(${realIdx})"><i class="fas fa-edit"></i></button>
-          <button class="btn-i-delete" onclick="deleteEduItem(${realIdx})"><i class="fas fa-trash"></i></button>
-        </div>
+    return `<div class="data-item">
+      <div class="item-sno">${icons[e.category] || '📄'}</div>
+      <div class="item-content">
+        <div class="item-title">${escapeHtml(e.title)}</div>
+        <div class="item-meta"><span style="background:var(--secondary-blue);color:#fff;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:600;">${escapeHtml(e.category || 'Material')}</span>${e.fileName ? ` 📎 ${escapeHtml(e.fileName)}` : ''}${e.link ? ` 🔗` : ''}</div>
       </div>
-    `;
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openEduModal(${realIdx})"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteEduItem(${realIdx})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>`;
   }).join('');
 }
-
 function openEduModal(idx = null) {
   const isEdit = idx !== null && idx !== undefined;
   const item = isEdit ? educationData[idx] : { title: '', category: 'Study Materials', description: '', link: '', fileUrl: '', fileName: '' };
-
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Education Item' : '📚 Add Education Item';
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Education' : '📚 Add Education';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="eduIdx" value="${isEdit ? idx : -1}">
     <div class="form-row">
-      <div class="form-group">
-        <label>Title *</label>
-        <input type="text" id="eduTitle" value="${escapeHtml(item.title)}" placeholder="e.g. SSC CGL Notes 2026">
-      </div>
-      <div class="form-group">
-        <label>Category *</label>
+      <div class="form-group"><label>Title *</label><input type="text" id="eduTitle" value="${escapeHtml(item.title)}" placeholder="e.g. SSC CGL Notes 2026"></div>
+      <div class="form-group"><label>Category *</label>
         <select id="eduCategory">
           <option value="Study Materials" ${item.category === 'Study Materials' ? 'selected' : ''}>📘 Study Materials</option>
           <option value="Notes" ${item.category === 'Notes' ? 'selected' : ''}>📝 Notes</option>
@@ -845,24 +733,12 @@ function openEduModal(idx = null) {
         </select>
       </div>
     </div>
-    <div class="form-group">
-      <label>Description</label>
-      <textarea id="eduDesc" rows="3" placeholder="Short description...">${escapeHtml(item.description || '')}</textarea>
-    </div>
+    <div class="form-group"><label>Description</label><textarea id="eduDesc" rows="3">${escapeHtml(item.description || '')}</textarea></div>
     <div class="form-row">
-      <div class="form-group">
-        <label>🔗 External Link (URL)</label>
-        <input type="url" id="eduLink" value="${escapeHtml(item.link || '')}" placeholder="https://...">
-      </div>
-      <div class="form-group">
-        <label>📎 File URL (PDF / Image)</label>
-        <input type="url" id="eduFileUrl" value="${escapeHtml(item.fileUrl || '')}" placeholder="https://.../file.pdf">
-      </div>
+      <div class="form-group"><label>🔗 External Link</label><input type="url" id="eduLink" value="${escapeHtml(item.link || '')}"></div>
+      <div class="form-group"><label>📎 File URL (PDF)</label><input type="url" id="eduFileUrl" value="${escapeHtml(item.fileUrl || '')}"></div>
     </div>
-    <div class="form-group">
-      <label>📄 Display File Name (optional)</label>
-      <input type="text" id="eduFileName" value="${escapeHtml(item.fileName || '')}" placeholder="e.g. SSC-CGL-Notes.pdf">
-    </div>
+    <div class="form-group"><label>📄 Display File Name</label><input type="text" id="eduFileName" value="${escapeHtml(item.fileName || '')}" placeholder="SSC-Notes.pdf"></div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="saveEduItem()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Save'}</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
@@ -870,12 +746,10 @@ function openEduModal(idx = null) {
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
-
 function saveEduItem() {
   const idx = parseInt(document.getElementById('eduIdx').value);
   const title = document.getElementById('eduTitle').value.trim();
   if (!title) return showToast('Title required!', 'error');
-
   const item = {
     id: (idx >= 0 && educationData[idx]?.id) ? educationData[idx].id : 'edu_' + Date.now(),
     title,
@@ -887,33 +761,18 @@ function saveEduItem() {
     createdAt: (idx >= 0 && educationData[idx]?.createdAt) ? educationData[idx].createdAt : Date.now(),
     updatedAt: Date.now()
   };
-
-  if (idx >= 0) educationData[idx] = item;
-  else educationData.push(item);
-
-  saveEducationData();
-  renderEduAdmin();
-  updateStats();
-  closeAdminModal();
-  showToast('✅ Saved!', 'success');
+  if (idx >= 0) educationData[idx] = item; else educationData.push(item);
+  saveEducationData(); renderEduAdmin(); updateStats(); closeAdminModal(); showToast('✅ Saved!', 'success');
 }
-
 function deleteEduItem(i) {
   if (!confirm('Delete this item?')) return;
-  educationData.splice(i, 1);
-  saveEducationData();
-  renderEduAdmin();
-  updateStats();
-  showToast('🗑️ Deleted!', 'success');
+  educationData.splice(i, 1); saveEducationData(); renderEduAdmin(); updateStats(); showToast('🗑️ Deleted!', 'success');
 }
-
 function openBulkEduModal() {
-  document.getElementById('adminModalTitle').textContent = '📦 Bulk Add Education Items';
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Add Education';
   document.getElementById('adminModalBody').innerHTML = `
-    <div class="form-group">
-      <label>Format (one per line): Title | Category | Link | FileName</label>
-      <textarea id="bulkEduText" rows="10" placeholder="SSC CGL Notes 2026 | Notes | https://example.com/ssc.pdf | SSC-Notes.pdf
-Rajasthan GK Book | Books | https://example.com/rgk.pdf | Rajasthan-GK.pdf"></textarea>
+    <div class="form-group"><label>Format: Title | Category | Link | FileName</label>
+      <textarea id="bulkEduText" rows="10" placeholder="SSC Notes | Notes | https://x.com/a.pdf | a.pdf"></textarea>
     </div>
     <div style="margin-top:16px;">
       <button class="btn-submit" onclick="doBulkAddEdu()"><i class="fas fa-layer-group"></i> Bulk Add</button>
@@ -922,7 +781,6 @@ Rajasthan GK Book | Books | https://example.com/rgk.pdf | Rajasthan-GK.pdf"></te
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
-
 function doBulkAddEdu() {
   const text = document.getElementById('bulkEduText').value.trim();
   if (!text) return showToast('Data required', 'error');
@@ -932,30 +790,16 @@ function doBulkAddEdu() {
     const p = line.split('|').map(x => x.trim());
     if (!p[0]) return;
     const cat = validCats.includes(p[1]) ? p[1] : 'Study Materials';
-    educationData.push({
-      id: 'edu_' + Date.now() + '_' + i,
-      title: p[0],
-      category: cat,
-      description: '',
-      link: p[2] || '',
-      fileUrl: p[2] || '',
-      fileName: p[3] || '',
-      createdAt: Date.now()
-    });
+    educationData.push({ id: 'edu_' + Date.now() + '_' + i, title: p[0], category: cat, description: '', link: p[2] || '', fileUrl: p[2] || '', fileName: p[3] || '', createdAt: Date.now() });
     count++;
   });
-  saveEducationData();
-  closeAdminModal();
-  renderEduAdmin();
-  updateStats();
-  showToast(`✅ ${count} items added!`, 'success');
+  saveEducationData(); closeAdminModal(); renderEduAdmin(); updateStats(); showToast(`✅ ${count} items added!`, 'success');
 }
-
 function exportEduData() {
   const blob = new Blob([JSON.stringify(educationData, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `education_data_${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `education_${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   showToast('📥 Exported!', 'success');
 }
@@ -963,40 +807,26 @@ function exportEduData() {
 // ============================================================
 // HOMEPAGE UPDATES
 // ============================================================
-let currentHomeTab = 'latest';
-
 function loadHomeUpdates() {
   try {
     const s = localStorage.getItem(HOME_UPDATES_KEY);
     if (s) homeUpdatesData = JSON.parse(s);
     else { homeUpdatesData = JSON.parse(JSON.stringify(DEFAULT_HOME_UPDATES)); saveHomeUpdates(); }
-  } catch (e) {
-    homeUpdatesData = JSON.parse(JSON.stringify(DEFAULT_HOME_UPDATES));
-  }
+  } catch (e) { homeUpdatesData = JSON.parse(JSON.stringify(DEFAULT_HOME_UPDATES)); }
   if (!homeUpdatesData.latest) homeUpdatesData.latest = [];
   if (!homeUpdatesData.forms) homeUpdatesData.forms = [];
 }
-
 function saveHomeUpdates() {
   localStorage.setItem(HOME_UPDATES_KEY, JSON.stringify(homeUpdatesData));
   if (firebaseDB) firebaseDB.collection('dreamjosh').doc('homeUpdates').set(homeUpdatesData).catch(() => {});
 }
-
 async function loadHomeUpdatesFromCloud() {
   if (!firebaseDB) return;
   try {
     const d = await firebaseDB.collection('dreamjosh').doc('homeUpdates').get();
-    if (d.exists) {
-      const cloud = d.data();
-      homeUpdatesData = {
-        latest: cloud.latest || [],
-        forms: cloud.forms || []
-      };
-      localStorage.setItem(HOME_UPDATES_KEY, JSON.stringify(homeUpdatesData));
-    }
+    if (d.exists) { const c = d.data(); homeUpdatesData = { latest: c.latest || [], forms: c.forms || [] }; localStorage.setItem(HOME_UPDATES_KEY, JSON.stringify(homeUpdatesData)); }
   } catch (e) {}
 }
-
 function switchHomeTab(tab) {
   currentHomeTab = tab;
   document.querySelectorAll('#adminPage-home-updates .content-tab-content').forEach(c => c.classList.remove('active'));
@@ -1004,73 +834,45 @@ function switchHomeTab(tab) {
   document.getElementById('home-tab-' + tab)?.classList.add('active');
   document.getElementById('htab-' + tab)?.classList.add('active');
 }
-
 function renderHomeUpdates() {
   renderHomeList('latest', 'latestUpdatesContainer', '🆕');
   renderHomeList('forms', 'importantFormsContainer', '📋');
 }
-
 function renderHomeList(type, containerId, icon) {
   const c = document.getElementById(containerId);
   if (!c) return;
   const items = homeUpdatesData[type] || [];
-  if (!items.length) {
-    c.innerHTML = `<div class="empty-state"><i class="fas fa-inbox"></i><p>No items yet</p></div>`;
-    return;
-  }
+  if (!items.length) { c.innerHTML = `<div class="empty-state"><i class="fas fa-inbox"></i><p>No items yet</p></div>`; return; }
   c.innerHTML = items.map((item, idx) => {
-    const titleHtml = item.link
-      ? `<a href="${escapeHtml(item.link)}" target="_blank" style="color:var(--text-color);text-decoration:none;">${escapeHtml(item.title)}</a>`
-      : escapeHtml(item.title);
-    return `
-      <div class="data-item">
-        <div class="item-sno">${item.icon || icon}</div>
-        <div class="item-content">
-          <div class="item-title">${titleHtml}</div>
-          <div class="item-meta">
-            ${item.subtitle ? `<span>📝 ${escapeHtml(item.subtitle)}</span>` : ''}
-            ${item.active === false ? ' <span style="color:#dc3545;font-weight:700;">⛔ Inactive</span>' : ' <span style="color:#16a34a;font-weight:700;">✅ Active</span>'}
-          </div>
-        </div>
-        <div class="item-actions">
-          <button class="btn-i-edit" onclick="openHomeUpdateModal(${idx}, '${type}')"><i class="fas fa-edit"></i></button>
-          <button class="btn-i-delete" onclick="deleteHomeUpdate('${type}', ${idx})"><i class="fas fa-trash"></i></button>
-        </div>
+    const titleHtml = item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" style="color:var(--text-color);text-decoration:none;">${escapeHtml(item.title)}</a>` : escapeHtml(item.title);
+    return `<div class="data-item">
+      <div class="item-sno">${item.icon || icon}</div>
+      <div class="item-content">
+        <div class="item-title">${titleHtml}</div>
+        <div class="item-meta">${item.subtitle ? `📝 ${escapeHtml(item.subtitle)}` : ''} ${item.active === false ? '<span style="color:#dc3545;font-weight:700;">⛔ Inactive</span>' : '<span style="color:#16a34a;font-weight:700;">✅ Active</span>'}</div>
       </div>
-    `;
+      <div class="item-actions">
+        <button class="btn-i-edit" onclick="openHomeUpdateModal(${idx}, '${type}')"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteHomeUpdate('${type}', ${idx})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>`;
   }).join('');
 }
-
 function openHomeUpdateModal(idx = null, type = null) {
   if (!type) type = currentHomeTab;
   const isEdit = idx !== null && idx !== undefined;
   const item = isEdit ? homeUpdatesData[type][idx] : { title: '', subtitle: '', link: '', icon: '📢', active: true };
-  const typeLabels = { latest: '🆕 Latest Update', forms: '📋 Important Form' };
-
-  document.getElementById('adminModalTitle').textContent = (isEdit ? '✏️ Edit ' : '➕ Add ') + (typeLabels[type] || 'Item');
+  document.getElementById('adminModalTitle').textContent = (isEdit ? '✏️ Edit ' : '➕ Add ') + type;
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="huIdx" value="${isEdit ? idx : -1}">
     <input type="hidden" id="huType" value="${type}">
     <div class="form-row">
-      <div class="form-group">
-        <label>Title *</label>
-        <input type="text" id="huTitle" value="${escapeHtml(item.title)}">
-      </div>
-      <div class="form-group">
-        <label>Icon (Emoji)</label>
-        <input type="text" id="huIcon" maxlength="4" value="${escapeHtml(item.icon || '📢')}">
-      </div>
+      <div class="form-group"><label>Title *</label><input type="text" id="huTitle" value="${escapeHtml(item.title)}"></div>
+      <div class="form-group"><label>Icon</label><input type="text" id="huIcon" maxlength="4" value="${escapeHtml(item.icon || '📢')}"></div>
     </div>
-    <div class="form-group">
-      <label>Subtitle</label>
-      <input type="text" id="huSubtitle" value="${escapeHtml(item.subtitle || '')}">
-    </div>
-    <div class="form-group">
-      <label>Link / URL</label>
-      <input type="url" id="huLink" value="${escapeHtml(item.link || '')}">
-    </div>
-    <div class="form-group">
-      <label>Status</label>
+    <div class="form-group"><label>Subtitle</label><input type="text" id="huSubtitle" value="${escapeHtml(item.subtitle || '')}"></div>
+    <div class="form-group"><label>Link</label><input type="url" id="huLink" value="${escapeHtml(item.link || '')}"></div>
+    <div class="form-group"><label>Status</label>
       <select id="huActive">
         <option value="true" ${item.active !== false ? 'selected' : ''}>✅ Active</option>
         <option value="false" ${item.active === false ? 'selected' : ''}>⛔ Inactive</option>
@@ -1083,7 +885,6 @@ function openHomeUpdateModal(idx = null, type = null) {
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
-
 function saveHomeUpdate() {
   const idx = parseInt(document.getElementById('huIdx').value);
   const type = document.getElementById('huType').value;
@@ -1099,31 +900,19 @@ function saveHomeUpdate() {
     active: document.getElementById('huActive').value === 'true',
     updatedAt: Date.now()
   };
-  if (idx >= 0) homeUpdatesData[type][idx] = item;
-  else homeUpdatesData[type].push(item);
-  saveHomeUpdates();
-  renderHomeUpdates();
-  updateStats();
-  closeAdminModal();
-  showToast('✅ Saved!', 'success');
+  if (idx >= 0) homeUpdatesData[type][idx] = item; else homeUpdatesData[type].push(item);
+  saveHomeUpdates(); renderHomeUpdates(); updateStats(); closeAdminModal(); showToast('✅ Saved!', 'success');
 }
-
 function deleteHomeUpdate(type, idx) {
   if (!confirm('Delete this item?')) return;
-  homeUpdatesData[type].splice(idx, 1);
-  saveHomeUpdates();
-  renderHomeUpdates();
-  updateStats();
-  showToast('🗑️ Deleted!', 'success');
+  homeUpdatesData[type].splice(idx, 1); saveHomeUpdates(); renderHomeUpdates(); updateStats(); showToast('🗑️ Deleted!', 'success');
 }
-
 function openBulkHomeUpdateModal() {
   const type = currentHomeTab;
   document.getElementById('adminModalTitle').textContent = '📦 Bulk Add';
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="bulkHuType" value="${type}">
-    <div class="form-group">
-      <label>Format: Title | Subtitle | Link | Icon</label>
+    <div class="form-group"><label>Format: Title | Subtitle | Link | Icon</label>
       <textarea id="bulkHuText" rows="10" placeholder="SSC CGL 2026 | Apply before 15 July | https://ssc.nic.in | 📢"></textarea>
     </div>
     <div style="margin-top:16px;">
@@ -1133,7 +922,6 @@ function openBulkHomeUpdateModal() {
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
-
 function doBulkAddHomeUpdate() {
   const type = document.getElementById('bulkHuType').value;
   const text = document.getElementById('bulkHuText').value.trim();
@@ -1143,29 +931,16 @@ function doBulkAddHomeUpdate() {
   text.split('\n').filter(l => l.trim()).forEach(line => {
     const p = line.split('|').map(x => x.trim());
     if (!p[0]) return;
-    homeUpdatesData[type].push({
-      id: 'hu_' + Date.now() + '_' + count,
-      title: p[0],
-      subtitle: p[1] || '',
-      link: p[2] || '',
-      icon: p[3] || '📢',
-      active: true,
-      updatedAt: Date.now()
-    });
+    homeUpdatesData[type].push({ id: 'hu_' + Date.now() + '_' + count, title: p[0], subtitle: p[1] || '', link: p[2] || '', icon: p[3] || '📢', active: true, updatedAt: Date.now() });
     count++;
   });
-  saveHomeUpdates();
-  closeAdminModal();
-  renderHomeUpdates();
-  updateStats();
-  showToast(`✅ ${count} items added!`, 'success');
+  saveHomeUpdates(); closeAdminModal(); renderHomeUpdates(); updateStats(); showToast(`✅ ${count} items added!`, 'success');
 }
-
 function exportHomeUpdates() {
   const blob = new Blob([JSON.stringify(homeUpdatesData, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `homepage_updates_${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `homepage_${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   showToast('📥 Exported!', 'success');
 }
@@ -1184,22 +959,13 @@ function loadSettingsForm() {
   set('setWhatsApp', settings.whatsapp || '');
   set('setAddress', settings.address || 'Jaipur, Rajasthan');
 }
-
 function saveSettings() {
   const gv = id => document.getElementById(id)?.value || '';
-  const settings = {
-    siteName: gv('setSiteName'),
-    tagline: gv('setTagline'),
-    email: gv('setEmail'),
-    phone: gv('setPhone'),
-    whatsapp: gv('setWhatsApp'),
-    address: gv('setAddress')
-  };
+  const settings = { siteName: gv('setSiteName'), tagline: gv('setTagline'), email: gv('setEmail'), phone: gv('setPhone'), whatsapp: gv('setWhatsApp'), address: gv('setAddress') };
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
   if (firebaseDB) firebaseDB.collection('dreamjosh').doc('settings').set(settings).catch(() => {});
   showToast('✅ Settings saved!', 'success');
 }
-
 function changeAdminPassword() {
   const cur = document.getElementById('setCurPassword').value;
   const n1 = document.getElementById('setNewPassword').value;
@@ -1215,7 +981,6 @@ function changeAdminPassword() {
   document.getElementById('setConfirmPassword').value = '';
   showToast('✅ Password changed!', 'success');
 }
-
 function exportAllData() {
   const data = { jobsData, educationData, homeUpdatesData };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -1225,7 +990,6 @@ function exportAllData() {
   a.click();
   showToast('📥 Backup!', 'success');
 }
-
 function importData() {
   const file = document.getElementById('restoreFileInput').files[0];
   if (!file) return showToast('File required', 'error');
@@ -1243,7 +1007,6 @@ function importData() {
   };
   reader.readAsText(file);
 }
-
 function clearAllAdminData() {
   if (!confirm('⚠️ All data delete?')) return;
   if (!confirm('Sure?')) return;
@@ -1259,7 +1022,6 @@ function updateStats() {
   document.getElementById('statJobs').textContent = jobsData.length;
   document.getElementById('statEducation').textContent = educationData.length;
   document.getElementById('statHomeUpdates').textContent = (homeUpdatesData.latest?.length || 0) + (homeUpdatesData.forms?.length || 0);
-  document.getElementById('statPages').textContent = 5;
 }
 
 // ============================================================
@@ -1279,16 +1041,11 @@ async function initAdminPanel() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('dreamjosh_theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-  }
-  if (isLoggedIn()) showAdminPanel();
-  else showLoginScreen();
+  if (localStorage.getItem('dreamjosh_theme') === 'dark') document.body.classList.add('dark-mode');
+  if (isLoggedIn()) showAdminPanel(); else showLoginScreen();
 });
 
-// ============================================================
 // EXPOSE GLOBALLY
-// ============================================================
 Object.assign(window, {
   handleLogin, handleLogout, showAdminPage, toggleSidebar, toggleDarkMode,
   openJobModal, saveJob, deleteJob, openBulkJobModal, doBulkAddJobs, filterJobs,
@@ -1298,6 +1055,5 @@ Object.assign(window, {
   closeAdminModal, showToast
 });
 </script>
-
 </body>
 </html>
