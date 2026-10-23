@@ -294,6 +294,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .admin-logo h1 span{-webkit-text-fill-color:#ffd700;}
 @keyframes idlePulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
 .idle-warning{animation:idlePulse 1.5s ease infinite;}
+
+/* ============ MORE PAGE SPECIFIC ============ */
+.more-category-bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px;background:var(--bg-color);padding:10px 16px;border-radius:10px;border:1px solid var(--border-color);}
+.more-category-bar label{font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;}
+.more-category-bar select{padding:8px 14px;border-radius:8px;border:2px solid var(--border-color);background:var(--card-bg);color:var(--text-color);font-size:13px;font-weight:500;cursor:pointer;min-width:200px;outline:none;font-family:inherit;}
+.more-category-bar select:focus{border-color:var(--secondary-blue);box-shadow:0 0 0 3px rgba(25,118,210,.1);}
+
+.more-file-item{background:var(--card-bg);border:1px solid var(--border-color);border-left:4px solid var(--secondary-blue);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:10px;transition:.2s;box-shadow:0 2px 6px var(--shadow-color);}
+.more-file-item:hover{border-left-color:var(--gold);box-shadow:0 6px 18px var(--shadow-color);transform:translateY(-1px);}
+.more-file-item .file-icon{width:44px;height:44px;border-radius:10px;background:rgba(25,118,210,.1);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--secondary-blue);flex-shrink:0;}
+.more-file-item .file-info{flex:1;min-width:0;}
+.more-file-item .file-name{font-weight:700;font-size:15px;margin-bottom:3px;word-break:break-word;}
+.more-file-item .file-name a{color:var(--text-color);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.2s;}
+.more-file-item .file-name a:hover{color:var(--secondary-blue);text-decoration:underline;}
+.more-file-item .file-meta{font-size:11px;color:var(--text-light);display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+.more-file-item .file-meta .badge-cat{padding:2px 10px;border-radius:12px;font-size:10px;font-weight:700;color:#fff;}
+.more-file-item .file-meta .badge-cat.study{background:#1976d2;}
+.more-file-item .file-meta .badge-cat.books{background:#16a34a;}
+.more-file-item .file-actions{display:flex;gap:4px;flex-shrink:0;}
+
+.more-upload-zone{border:2px dashed var(--border-color);border-radius:8px;padding:14px;text-align:center;cursor:pointer;transition:.3s;background:var(--bg-color);margin-bottom:8px;}
+.more-upload-zone:hover{border-color:var(--secondary-blue);background:rgba(25,118,210,.05);}
+.more-upload-zone i{font-size:24px;color:var(--secondary-blue);margin-bottom:4px;}
+.more-upload-zone p{font-size:11px;color:var(--text-light);}
+.more-uploaded-preview{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(25,118,210,.08);border:1px solid var(--secondary-blue);border-radius:6px;font-size:12px;margin-bottom:6px;}
+.more-uploaded-preview i{color:var(--secondary-blue);}
+.more-uploaded-preview .file-name{flex:1;word-break:break-all;}
+.more-uploaded-preview button{background:none;border:none;color:var(--warning-red);cursor:pointer;font-size:14px;}
 </style>
 </head>
 <body>
@@ -495,15 +523,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
       </div>
     </div>
 
-    <!-- MORE MANAGER -->
+    <!-- MORE MANAGER (UPDATED) -->
     <div id="adminPage-more-manager" class="admin-section">
       <div class="admin-card">
         <div class="card-header">
           <h4>📚 More Manager</h4>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn-add" onclick="openPageDataEditor('more')"><i class="fas fa-plus"></i> Add Content</button>
-            <button class="btn-add primary" onclick="exportPageData('more')"><i class="fas fa-download"></i> Export All</button>
+            <button class="btn-add" onclick="openMoreItemModal()"><i class="fas fa-plus"></i> Add Item</button>
+            <button class="btn-add bulk" onclick="openBulkMoreModal()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+            <button class="btn-add primary" onclick="exportMoreData()"><i class="fas fa-download"></i> Export All</button>
           </div>
+        </div>
+        <div class="more-category-bar">
+          <label><i class="fas fa-filter" style="color:var(--secondary-blue);"></i> Category:</label>
+          <select id="moreCategoryFilter" onchange="renderMorePage()">
+            <option value="all">📂 All Categories</option>
+            <option value="Study Materials">📘 Study Materials</option>
+            <option value="Books">📚 Books</option>
+          </select>
+          <span style="margin-left:auto;font-size:12px;color:var(--text-light);" id="moreCountLabel"></span>
         </div>
         <div id="moreContainer"></div>
       </div>
@@ -1100,7 +1138,7 @@ function showAdminPage(page) {
     if (page === 'blog-manager') renderPageData('blog');
     if (page === 'career-manager') renderPageData('career');
     if (page === 'service-manager') renderPageData('service');
-    if (page === 'more-manager') renderPageData('more');
+    if (page === 'more-manager') renderMorePage();
     if (page === 'rsr-manager') renderPageData('rsr');
     if (page === 'settings') loadSettingsForm();
   }
@@ -1679,162 +1717,281 @@ function renderPageItemsList(pageKey) {
   `).join('');
 }
 
-// ---- PAGE CONTENT EDITOR (Word + Excel + Uploads + Export) ----
-function openPageEditorModal(pageKey) {
-  const content = pageDataStore[pageKey]?.content || '';
-  document.getElementById('adminModalTitle').textContent = `✏️ Edit ${pageKey} Content`;
-  document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="pePageKey" value="${pageKey}">
+// ============================================================
+// MORE PAGE - CUSTOM MANAGER (UPDATED)
+// ============================================================
+function getMoreData() {
+  if (!pageDataStore.more) pageDataStore.more = { content: '', items: [], uploads: [] };
+  if (!pageDataStore.more.items) pageDataStore.more.items = [];
+  if (!pageDataStore.more.uploads) pageDataStore.more.uploads = [];
+  return pageDataStore.more;
+}
 
-    <!-- MODE TABS -->
-    <div style="display:flex;gap:6px;margin-bottom:12px;border-bottom:2px solid var(--border-color);padding-bottom:8px;">
-      <button class="settings-tab-btn active" onclick="switchPEMode('word')" id="pe-tab-word">📝 Word Editor</button>
-      <button class="settings-tab-btn" onclick="switchPEMode('excel')" id="pe-tab-excel">📊 Excel Editor</button>
-      <button class="settings-tab-btn" onclick="switchPEMode('upload')" id="pe-tab-upload">📤 Uploads</button>
-    </div>
+function renderMorePage() {
+  const c = document.getElementById('moreContainer');
+  if (!c) return;
+  const data = getMoreData();
+  const filterEl = document.getElementById('moreCategoryFilter');
+  const filter = filterEl ? filterEl.value : 'all';
+  let items = data.items || [];
 
-    <!-- WORD EDITOR -->
-    <div id="pe-mode-word" class="pe-mode">
-      ${getWordEditorHTML(content)}
-    </div>
+  if (filter !== 'all') {
+    items = items.filter(it => (it.category || '') === filter);
+  }
 
-    <!-- EXCEL EDITOR -->
-    <div id="pe-mode-excel" class="pe-mode" style="display:none;">
-      <div id="excelEditorContainer"></div>
-    </div>
+  const countLabel = document.getElementById('moreCountLabel');
+  if (countLabel) countLabel.textContent = `${items.length} item${items.length !== 1 ? 's' : ''} found`;
 
-    <!-- UPLOADS -->
-    <div id="pe-mode-upload" class="pe-mode" style="display:none;">
-      <div class="setting-group">
-        <h5>📄 Upload PDF</h5>
-        <input type="file" id="peUploadPdf" accept=".pdf" onchange="handlePageUpload('${pageKey}', 'pdf', this)">
-        <div class="uploaded-files" id="pe-files-pdf"></div>
+  if (!items.length) {
+    c.innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-folder-open"></i>
+        <p>No items${filter !== 'all' ? ' in "' + filter + '"' : ''} yet.</p>
+        <p style="font-size:12px;margin-top:8px;">Click <b>Add Item</b> or <b>Bulk Add</b> to start.</p>
+      </div>`;
+    return;
+  }
+
+  c.innerHTML = items.map((item, idx) => {
+    const realIdx = data.items.indexOf(item);
+    const cat = item.category || '';
+    const catClass = cat === 'Books' ? 'books' : 'study';
+    const hasFile = item.fileUrl || item.link;
+    const fileName = item.fileName || item.link || '';
+    const titleHtml = hasFile
+      ? `<a href="${escapeHtml(item.fileUrl || item.link)}" target="_blank" title="Click to open">${escapeHtml(item.title)} <i class="fas fa-external-link-alt" style="font-size:10px;opacity:.5;"></i></a>`
+      : escapeHtml(item.title);
+    return `
+    <div class="more-file-item">
+      <div class="file-icon">
+        ${cat === 'Books' ? '<i class="fas fa-book"></i>' : '<i class="fas fa-file-alt"></i>'}
       </div>
-      <div class="setting-group">
-        <h5>🖼️ Upload Photo</h5>
-        <input type="file" id="peUploadImg" accept="image/*" onchange="handlePageUpload('${pageKey}', 'image', this)">
-        <div class="uploaded-files" id="pe-files-img"></div>
+      <div class="file-info">
+        <div class="file-name">${titleHtml}</div>
+        <div class="file-meta">
+          ${cat ? `<span class="badge-cat ${catClass}">${escapeHtml(cat)}</span>` : ''}
+          ${fileName ? `<span>📎 ${escapeHtml(fileName)}</span>` : ''}
+          ${item.description ? `<span>📝 ${escapeHtml(stripHtml(item.description).slice(0, 60))}${stripHtml(item.description).length > 60 ? '...' : ''}</span>` : ''}
+        </div>
       </div>
-      <div class="setting-group">
-        <h5>📁 Upload Soft Copy (Any File)</h5>
-        <input type="file" id="peUploadFile" onchange="handlePageUpload('${pageKey}', 'file', this)">
-        <div class="uploaded-files" id="pe-files-file"></div>
+      <div class="file-actions">
+        <button class="btn-i-edit" onclick="openMoreItemModal(${realIdx})" title="Edit"><i class="fas fa-edit"></i></button>
+        <button class="btn-i-delete" onclick="deleteMoreItem(${realIdx})" title="Delete"><i class="fas fa-trash"></i></button>
       </div>
-      <div class="setting-group">
-        <h5>📊 Upload Excel</h5>
-        <input type="file" id="peUploadExcel" accept=".xlsx,.xls,.csv" onchange="handlePageUpload('${pageKey}', 'excel', this)">
-        <div class="uploaded-files" id="pe-files-excel"></div>
-      </div>
-    </div>
-
-    <!-- EXPORT BAR -->
-    <div class="export-bar">
-      <button class="btn-pdf" onclick="exportContentPDF('${pageKey}')"><i class="fas fa-file-pdf"></i> PDF</button>
-      <button class="btn-word" onclick="exportContentWord('${pageKey}')"><i class="fas fa-file-word"></i> Word</button>
-      <button class="btn-excel" onclick="exportContentExcel('${pageKey}')"><i class="fas fa-file-excel"></i> Excel</button>
-      <button class="btn-csv" onclick="exportContentCSV('${pageKey}')"><i class="fas fa-file-csv"></i> CSV</button>
-      <button class="btn-print" onclick="exportContentPrint('${pageKey}')"><i class="fas fa-print"></i> Print</button>
-    </div>
-
-    <div style="margin-top:16px;">
-      <button class="btn-submit" onclick="savePageContent('${pageKey}')"><i class="fas fa-save"></i> Save Content</button>
-      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
     </div>
   `;
-  document.getElementById('adminModalOverlay').classList.add('active');
-
-  // Load uploaded files
-  loadPageUploadedFiles(pageKey);
-  // Load Excel editor
-  setTimeout(() => initExcelEditor(), 100);
+  }).join('');
 }
 
-function switchPEMode(mode) {
-  document.querySelectorAll('.pe-mode').forEach(m => m.style.display = 'none');
-  document.querySelectorAll('[id^="pe-tab-"]').forEach(b => b.classList.remove('active'));
-  document.getElementById('pe-mode-' + mode).style.display = 'block';
-  document.getElementById('pe-tab-' + mode).classList.add('active');
-}
-
-function savePageContent(pageKey) {
-  if (!pageDataStore[pageKey]) pageDataStore[pageKey] = { content: '', items: [] };
-  pageDataStore[pageKey].content = document.getElementById('richEditor').innerHTML;
-  savePageData();
-  renderPageData(pageKey);
-  closeAdminModal();
-  showToast('✅ Content saved!', 'success');
-}
-
-// ---- PAGE ITEM EDITOR ----
-function openPageItemModal(pageKey, idx = null) {
+function openMoreItemModal(idx = null) {
   const isEdit = idx !== null;
-  const item = isEdit ? pageDataStore[pageKey].items[idx] : { title: '', description: '', category: '', link: '' };
-  document.getElementById('adminModalTitle').textContent = isEdit ? `✏️ Edit Item` : '➕ Add Item';
+  const data = getMoreData();
+  const item = isEdit ? data.items[idx] : {
+    title: '', category: 'Study Materials', description: '', link: '', fileUrl: '', fileName: ''
+  };
+  moreUploadsTemp = item.fileUrl ? [{ url: item.fileUrl, name: item.fileName || 'Uploaded File' }] : [];
+
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit More Item' : '➕ Add More Item';
   document.getElementById('adminModalBody').innerHTML = `
-    <input type="hidden" id="piPage" value="${pageKey}">
-    <input type="hidden" id="piIdx" value="${isEdit ? idx : -1}">
+    <input type="hidden" id="moreIdx" value="${isEdit ? idx : -1}">
+
     <div class="form-row">
-      <div class="form-group"><label>Title *</label><input type="text" id="piTitle" value="${escapeHtml(item.title)}"></div>
-      <div class="form-group"><label>Category</label><input type="text" id="piCategory" value="${escapeHtml(item.category)}"></div>
+      <div class="form-group">
+        <label>Title / File Name *</label>
+        <input type="text" id="moreTitle" value="${escapeHtml(item.title)}" placeholder="e.g. SSC CGL Study Material 2026">
+      </div>
+      <div class="form-group">
+        <label>Category *</label>
+        <select id="moreCategory">
+          <option value="Study Materials" ${item.category === 'Study Materials' ? 'selected' : ''}>📘 Study Materials</option>
+          <option value="Books" ${item.category === 'Books' ? 'selected' : ''}>📚 Books</option>
+        </select>
+      </div>
     </div>
-    <div class="form-group"><label>Link URL</label><input type="url" id="piLink" value="${escapeHtml(item.link || '')}"></div>
-    <div class="form-group"><label>📝 Description (Word Editor)</label>${getWordEditorHTML(item.description || '')}</div>
+
+    <div class="form-group">
+      <label>📎 Upload File (PDF / Image / Any)</label>
+      <div class="more-upload-zone" onclick="document.getElementById('moreFileInput').click()">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Click to upload file (PDF, DOC, Image, etc.)</p>
+        <p style="font-size:10px;margin-top:2px;">File name will be displayed as clickable link</p>
+      </div>
+      <input type="file" id="moreFileInput" style="display:none" onchange="handleMoreFileUpload(this)">
+      <div id="moreUploadPreview"></div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>🔗 Or External Link (URL)</label>
+        <input type="url" id="moreLink" value="${escapeHtml(item.link || '')}" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label>📝 Display File Name (optional)</label>
+        <input type="text" id="moreFileName" value="${escapeHtml(item.fileName || '')}" placeholder="Custom file name">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>📝 Description (Word Editor)</label>
+      ${getWordEditorHTML(item.description || '')}
+    </div>
+
     <div style="margin-top:16px;">
-      <button class="btn-submit" onclick="savePageItem()"><i class="fas fa-save"></i> Save</button>
+      <button class="btn-submit" onclick="saveMoreItem()"><i class="fas fa-save"></i> ${isEdit ? 'Update' : 'Save'}</button>
       <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
     </div>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
+  renderMoreUploadPreview();
 }
 
-function savePageItem() {
-  const pageKey = document.getElementById('piPage').value;
-  const idx = parseInt(document.getElementById('piIdx').value);
-  const title = document.getElementById('piTitle').value.trim();
+function renderMoreUploadPreview() {
+  const el = document.getElementById('moreUploadPreview');
+  if (!el) return;
+  if (!moreUploadsTemp.length) { el.innerHTML = ''; return; }
+  el.innerHTML = moreUploadsTemp.map((u, i) => `
+    <div class="more-uploaded-preview">
+      <i class="fas fa-file"></i>
+      <span class="file-name">${escapeHtml(u.name)}</span>
+      <a href="${u.url}" target="_blank" style="color:var(--secondary-blue);"><i class="fas fa-eye"></i></a>
+      <button onclick="removeMoreTempUpload(${i})"><i class="fas fa-times"></i></button>
+    </div>
+  `).join('');
+}
+
+function removeMoreTempUpload(i) {
+  moreUploadsTemp.splice(i, 1);
+  renderMoreUploadPreview();
+}
+
+async function handleMoreFileUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  showToast('⏳ Uploading...', 'info');
+  try {
+    let url = '';
+    if (firebaseStorage) {
+      const ref = firebaseStorage.ref(`more-uploads/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      url = await ref.getDownloadURL();
+    } else {
+      url = await new Promise((res) => {
+        const reader = new FileReader();
+        reader.onload = e => res(e.target.result);
+        reader.readAsDataURL(file);
+      });
+    }
+    moreUploadsTemp.push({ url, name: file.name });
+    renderMoreUploadPreview();
+    showToast('✅ File uploaded!', 'success');
+  } catch (err) {
+    showToast('Upload failed: ' + err.message, 'error');
+  }
+  input.value = '';
+}
+
+function saveMoreItem() {
+  const idx = parseInt(document.getElementById('moreIdx').value);
+  const title = document.getElementById('moreTitle').value.trim();
+  const category = document.getElementById('moreCategory').value;
   if (!title) return showToast('Title required!', 'error');
-  if (!pageDataStore[pageKey]) pageDataStore[pageKey] = { content: '', items: [] };
-  if (!pageDataStore[pageKey].items) pageDataStore[pageKey].items = [];
+
+  const data = getMoreData();
+  const uploadedFile = moreUploadsTemp[0] || null;
+  const externalLink = document.getElementById('moreLink').value.trim();
+  const fileName = document.getElementById('moreFileName').value.trim();
+
   const item = {
     title,
-    category: document.getElementById('piCategory').value,
+    category,
     description: document.getElementById('richEditor').innerHTML,
-    link: document.getElementById('piLink').value,
+    link: externalLink,
+    fileUrl: uploadedFile ? uploadedFile.url : '',
+    fileName: fileName || (uploadedFile ? uploadedFile.name : ''),
     createdAt: Date.now()
   };
-  if (idx >= 0) pageDataStore[pageKey].items[idx] = item;
-  else pageDataStore[pageKey].items.push(item);
+
+  if (idx >= 0) data.items[idx] = item;
+  else data.items.push(item);
+
+  // Save the uploads list persistently
+  if (uploadedFile) {
+    if (!data.uploads) data.uploads = [];
+    data.uploads.push({
+      type: 'more',
+      name: uploadedFile.name,
+      url: uploadedFile.url,
+      uploadedAt: Date.now()
+    });
+  }
+
   savePageData();
-  renderPageItemsList(pageKey);
-  renderPageData(pageKey);
+  renderMorePage();
   closeAdminModal();
   showToast('✅ Saved!', 'success');
 }
 
-function deletePageItem(pageKey, idx) {
+function deleteMoreItem(i) {
   if (!confirm('Delete?')) return;
-  pageDataStore[pageKey].items.splice(idx, 1);
+  const data = getMoreData();
+  data.items.splice(i, 1);
   savePageData();
-  renderPageData(pageKey);
+  renderMorePage();
   showToast('🗑️ Deleted!', 'success');
 }
 
-function previewItem(pageKey, idx) {
-  const item = pageDataStore[pageKey].items[idx];
-  if (!item) return;
-  document.getElementById('adminModalTitle').textContent = '👁️ Preview: ' + item.title;
+function openBulkMoreModal() {
+  document.getElementById('adminModalTitle').textContent = '📦 Bulk Add More Items';
   document.getElementById('adminModalBody').innerHTML = `
-    <div style="padding:16px;background:var(--bg-color);border-radius:8px;">
-      <h2 style="color:var(--primary-blue);margin-bottom:8px;">${escapeHtml(item.title)}</h2>
-      ${item.category ? `<div style="display:inline-block;background:var(--secondary-blue);color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;margin-bottom:8px;">${escapeHtml(item.category)}</div>` : ''}
-      <div style="margin-top:8px;">${item.description || ''}</div>
-      ${item.link ? `<div style="margin-top:12px;"><a href="${item.link}" target="_blank" style="background:var(--success-green);color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;">🔗 Open Link</a></div>` : ''}
+    <div class="form-group">
+      <label>Format (one per line): Title | Category | Link</label>
+      <textarea id="bulkMoreText" rows="10" placeholder="SSC CGL Notes 2026 | Study Materials | https://example.com/notes.pdf
+Physics Reference Book | Books | https://example.com/physics.pdf"></textarea>
     </div>
     <div style="margin-top:16px;">
-      <button class="btn-cancel" onclick="closeAdminModal()">Close</button>
+      <button class="btn-submit" onclick="doBulkAddMore()"><i class="fas fa-layer-group"></i> Bulk Add</button>
+      <button class="btn-cancel" onclick="closeAdminModal()">Cancel</button>
     </div>
   `;
   document.getElementById('adminModalOverlay').classList.add('active');
 }
+
+function doBulkAddMore() {
+  const text = document.getElementById('bulkMoreText').value.trim();
+  if (!text) return showToast('Data required', 'error');
+  const data = getMoreData();
+  let count = 0;
+  text.split('\n').filter(l => l.trim()).forEach(line => {
+    const p = line.split('|').map(x => x.trim());
+    if (!p[0]) return;
+    data.items.push({
+      title: p[0],
+      category: p[1] || 'Study Materials',
+      link: p[2] || '',
+      description: '',
+      fileUrl: '',
+      fileName: '',
+      createdAt: Date.now()
+    });
+    count++;
+  });
+  savePageData();
+  closeAdminModal();
+  renderMorePage();
+  showToast(`✅ ${count} items added!`, 'success');
+}
+
+function exportMoreData() {
+  const data = getMoreData();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `more_data_${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  showToast('📥 Exported!', 'success');
+}
+
+let moreUploadsTemp = [];
 
 // ============================================================
 // WORD EDITOR
@@ -1966,7 +2123,7 @@ function excelRemoveRow() { if (excelData.length > 1) { excelData.pop(); renderE
 function excelRemoveCol() { if (excelData[0].length > 1) { excelData.forEach(r => r.pop()); renderExcelTable(); } }
 
 // ============================================================
-// UPLOADS
+// UPLOADS (legacy for page editor)
 // ============================================================
 async function handlePageUpload(pageKey, type, input) {
   const file = input.files[0];
@@ -1983,7 +2140,6 @@ async function handlePageUpload(pageKey, type, input) {
       await ref.put(file);
       url = await ref.getDownloadURL();
     } else {
-      // Fallback: base64
       url = await new Promise((res) => {
         const reader = new FileReader();
         reader.onload = e => res(e.target.result);
@@ -2032,85 +2188,6 @@ function deletePageUpload(pageKey, url) {
     loadPageUploadedFiles(pageKey);
     showToast('🗑️ Removed', 'info');
   }
-}
-
-// ============================================================
-// EXPORT FUNCTIONS
-// ============================================================
-function exportContentPDF(pageKey) {
-  const editor = document.getElementById('richEditor');
-  if (!editor) return showToast('Editor not found', 'error');
-  const content = editor.innerHTML;
-
-  if (window.html2pdf) {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = content;
-    tempDiv.style.cssText = 'padding:20px;font-family:Arial;line-height:1.6;';
-    html2pdf().from(tempDiv).set({
-      margin: 10,
-      filename: `${pageKey}_content.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).save();
-    showToast('📥 PDF downloading...', 'success');
-  } else {
-    showToast('PDF library not loaded', 'error');
-  }
-}
-
-function exportContentWord(pageKey) {
-  const editor = document.getElementById('richEditor');
-  if (!editor) return;
-  const content = editor.innerHTML;
-  const html = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>${pageKey}</title><style>body{font-family:Arial;}</style></head><body>${content}</body></html>`;
-  const blob = new Blob(['\uFEFF' + html], { type: 'application/msword' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${pageKey}_content.doc`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('📥 Word downloaded!', 'success');
-}
-
-function exportContentExcel(pageKey) {
-  const data = [['Content'], [stripHtml(document.getElementById('richEditor')?.innerHTML || '')]];
-  const ws = XLSX.utils.aoa_to_sheet(data);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Content');
-  XLSX.writeFile(wb, `${pageKey}_content.xlsx`);
-  showToast('📥 Excel downloaded!', 'success');
-}
-
-function exportContentCSV(pageKey) {
-  const content = stripHtml(document.getElementById('richEditor')?.innerHTML || '');
-  const csv = '\uFEFF' + 'Content\n"' + content.replace(/"/g, '""') + '"';
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `${pageKey}_content.csv`;
-  a.click();
-  showToast('📥 CSV downloaded!', 'success');
-}
-
-function exportContentPrint(pageKey) {
-  const content = document.getElementById('richEditor')?.innerHTML || '';
-  const win = window.open('', '_blank');
-  win.document.write(`<html><head><title>Print</title><style>body{font-family:Arial;padding:40px;line-height:1.6;}table{border-collapse:collapse;width:100%;}td,th{border:1px solid #999;padding:8px;}img{max-width:100%;}</style></head><body>${content}</body></html>`);
-  win.document.close();
-  setTimeout(() => win.print(), 500);
-  showToast('🖨️ Print dialog opening...', 'info');
-}
-
-function exportPageData(pageKey) {
-  const data = pageDataStore[pageKey] || {};
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `${pageKey}_data.json`;
-  a.click();
-  showToast('📥 Exported!', 'success');
 }
 
 // ============================================================
@@ -2521,6 +2598,9 @@ document.addEventListener('DOMContentLoaded', () => {
   else showLoginScreen();
 });
 
+// ============================================================
+// EXPOSE GLOBALLY
+// ============================================================
 Object.assign(window, {
   handleLogin, handleLogout, showAdminPage, toggleSidebar,
   switchContentTab, switchContentTab,
@@ -2540,7 +2620,11 @@ Object.assign(window, {
   exportContent, exportContentPDF, exportContentWord, exportContentExcel, exportContentCSV, exportContentPrint, exportPageData,
   switchSettingsTab, saveSettingsGroup, changeAdminPassword, changeAdminUsername,
   exportAllData, exportAllDataCSV, importData, clearAllAdminData,
-  closeAdminModal, toggleDarkMode, showToast
+  closeAdminModal, toggleDarkMode, showToast,
+  // MORE PAGE
+  renderMorePage, openMoreItemModal, saveMoreItem, deleteMoreItem,
+  openBulkMoreModal, doBulkAddMore, handleMoreFileUpload, removeMoreTempUpload,
+  exportMoreData
 });
 </script>
 
