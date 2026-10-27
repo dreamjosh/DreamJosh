@@ -12,14 +12,11 @@
     }
 
     :root {
-      --bg-deep: #0a0f1e;
-      --bg-card: rgba(18, 26, 45, 0.85);
       --accent: #7c5cff;
       --accent-glow: #a88bff;
       --accent-2: #00e0c6;
       --text-light: #eef2ff;
       --text-dim: #a0b0d0;
-      --border-glow: rgba(124, 92, 255, 0.3);
     }
 
     body {
@@ -36,6 +33,7 @@
       overflow-x: hidden;
     }
 
+    /* Animated background glows */
     body::before,
     body::after {
       content: '';
@@ -76,6 +74,7 @@
       max-width: 1200px;
     }
 
+    /* Brand header */
     .brand {
       display: flex;
       align-items: center;
@@ -127,63 +126,47 @@
       font-weight: 600;
     }
 
-    /* Font toggle bar */
-    .font-toggle-bar {
+    /* Font mode bar — only Devlys option */
+    .font-mode-bar {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
       margin-bottom: 24px;
       flex-wrap: wrap;
     }
-    .font-toggle-label {
+    .font-mode-label {
       font-size: 0.85rem;
       color: var(--text-dim);
       font-weight: 500;
       letter-spacing: 0.3px;
     }
-    .font-toggle-btn {
+    .font-mode-badge {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 8px 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
+      gap: 9px;
+      padding: 10px 26px;
+      font-size: 0.95rem;
+      font-weight: 700;
       font-family: inherit;
       border-radius: 60px;
-      border: 1px solid rgba(124, 92, 255, 0.28);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-dim);
-      cursor: pointer;
-      transition: all 0.18s ease;
-      backdrop-filter: blur(6px);
-      letter-spacing: 0.2px;
+      background: linear-gradient(135deg, #ffb347, #ff8c1a);
+      color: #1a0f00;
+      border: 1px solid #ffcf8a;
+      box-shadow: 0 8px 24px -6px rgba(255, 140, 26, 0.6), 0 0 0 1px rgba(255,255,255,0.15) inset;
+      letter-spacing: 0.3px;
     }
-    .font-toggle-btn:hover {
-      border-color: var(--accent-glow);
-      color: var(--text-light);
-      background: rgba(124, 92, 255, 0.1);
-    }
-    .font-toggle-btn.active {
-      background: linear-gradient(135deg, #7c5cff, #5a3ee6);
-      border-color: #9d85ff;
-      color: #ffffff;
-      box-shadow: 0 6px 18px -4px rgba(124, 92, 255, 0.6);
-    }
-    .font-toggle-btn .dot-indicator {
-      width: 8px;
-      height: 8px;
+    .font-mode-badge .dot-indicator {
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
-      background: #5a6a8a;
-      transition: background 0.2s, box-shadow 0.2s;
-    }
-    .font-toggle-btn.active .dot-indicator {
-      background: #00e0c6;
-      box-shadow: 0 0 10px #00e0c6;
+      background: #1a0f00;
+      box-shadow: 0 0 8px #1a0f00;
     }
 
+    /* Main glass card */
     .card {
-      background: var(--bg-card);
+      background: rgba(18, 26, 45, 0.85);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
       border-radius: 36px;
@@ -199,6 +182,7 @@
       border-color: rgba(124, 92, 255, 0.4);
     }
 
+    /* Two-column grid */
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -253,6 +237,7 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
+    /* ---- WHITE BOXES (both textareas) ---- */
     textarea {
       width: 100%;
       min-height: 260px;
@@ -260,50 +245,39 @@
       font-size: 1.2rem;
       line-height: 1.8;
       border-radius: 22px;
-      border: 1.5px solid rgba(124, 92, 255, 0.18);
-      background: rgba(8, 12, 24, 0.72);
-      color: #eef2ff;
-      box-shadow: inset 0 6px 18px rgba(0, 0, 0, 0.4);
+      border: 1.5px solid #d0d9e8;
+      background: #ffffff;
+      color: #142b3c;
+      box-shadow: inset 0 4px 14px rgba(0, 0, 0, 0.06);
       resize: vertical;
-      font-family: 'Mangal', 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
-      transition: border 0.2s, box-shadow 0.2s, background 0.2s;
-      caret-color: var(--accent-2);
+      font-family: 'Kruti Dev 010', 'KrutiDev010', 'Kruti Dev', 'DevLys 010', 'DevLys', 'Mangal', 'Noto Sans Devanagari', monospace;
+      transition: border 0.2s, box-shadow 0.2s;
+      caret-color: #7c5cff;
     }
     textarea::placeholder {
-      color: #5a6a8a;
+      color: #8a9bb5;
       font-size: 1rem;
+      font-family: 'Mangal', 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
     }
     textarea:focus {
       outline: none;
-      border-color: var(--accent-glow);
-      box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.15), inset 0 6px 18px rgba(0, 0, 0, 0.45);
-      background: rgba(10, 16, 32, 0.9);
+      border-color: #7c5cff;
+      box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.18), inset 0 4px 14px rgba(0, 0, 0, 0.06);
+      background: #ffffff;
     }
     textarea[readonly] {
-      background: rgba(10, 18, 30, 0.55);
-      border-color: rgba(0, 224, 198, 0.22);
-      color: #d8f5ee;
+      background: #ffffff;
+      border-color: #c4e8e0;
+      color: #0d3b32;
       cursor: default;
+      font-family: 'Mangal', 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
     }
     textarea[readonly]:focus {
       border-color: var(--accent-2);
-      box-shadow: 0 0 0 4px rgba(0, 224, 198, 0.12);
+      box-shadow: 0 0 0 4px rgba(0, 224, 198, 0.15), inset 0 4px 14px rgba(0, 0, 0, 0.06);
     }
 
-    /* When Devlys font mode is active on input */
-    textarea.devlys-font {
-      font-family: 'Kruti Dev 010', 'KrutiDev010', 'Kruti Dev', 'DevLys 010', 'DevLys', 'Mangal', 'Noto Sans Devanagari', monospace !important;
-      font-size: 1.25rem;
-      letter-spacing: 0.3px;
-      color: #ffe9b0;
-      background: rgba(15, 10, 30, 0.8);
-      border-color: rgba(255, 179, 71, 0.35);
-    }
-    textarea.devlys-font:focus {
-      border-color: #ffb347;
-      box-shadow: 0 0 0 4px rgba(255, 179, 71, 0.15), inset 0 6px 18px rgba(0, 0, 0, 0.5);
-    }
-
+    /* Action bar */
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -377,6 +351,7 @@
       align-items: center;
     }
 
+    /* Footer badges */
     .footer-badges {
       display: flex;
       flex-wrap: wrap;
@@ -410,6 +385,7 @@
       color: #ffcf8a;
     }
 
+    /* Toast notification */
     .toast {
       position: fixed;
       bottom: 40px;
@@ -437,6 +413,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* Responsive tweaks */
     @media (max-width: 500px) {
       .brand h1 { font-size: 1.55rem; }
       .brand-logo { width: 44px; height: 44px; font-size: 1.4rem; }
@@ -444,14 +421,14 @@
       textarea { min-height: 200px; padding: 16px; font-size: 1.05rem; }
       button { padding: 11px 20px; font-size: 0.92rem; }
       button.primary { padding: 12px 26px; }
-      .font-toggle-bar { gap: 6px; }
-      .font-toggle-btn { padding: 7px 14px; font-size: 0.82rem; }
+      .font-mode-badge { padding: 9px 20px; font-size: 0.88rem; }
     }
   </style>
 </head>
 <body>
 
 <div class="container">
+  <!-- Brand -->
   <div class="brand">
     <div class="brand-logo">🚀</div>
     <h1>Dream <span class="josh">Josh</span> Translator</h1>
@@ -460,17 +437,15 @@
     <strong>देवलिस</strong> (Kruti Dev) → <strong>मंगल</strong> (Unicode) • तेज़ और सटीक
   </div>
 
-  <!-- Font mode toggle -->
-  <div class="font-toggle-bar">
-    <span class="font-toggle-label">टाइपिंग फ़ॉन्ट:</span>
-    <button class="font-toggle-btn active" id="fontMangalBtn" data-mode="mangal">
-      <span class="dot-indicator"></span> मंगल (Unicode)
-    </button>
-    <button class="font-toggle-btn" id="fontDevlysBtn" data-mode="devlys">
-      <span class="dot-indicator"></span> देवलिस (Kruti Dev)
-    </button>
+  <!-- Typing font bar — ONLY Devlys option -->
+  <div class="font-mode-bar">
+    <span class="font-mode-label">टाइपिंग फ़ॉन्ट:</span>
+    <span class="font-mode-badge">
+      <span class="dot-indicator"></span> देवलिस / Kruti Dev
+    </span>
   </div>
 
+  <!-- Main card -->
   <div class="card">
     <div class="grid">
       <!-- LEFT: Devlys input -->
@@ -510,6 +485,7 @@ fganh esa fy[kk gqvk ikB..."
       </div>
     </div>
 
+    <!-- Actions -->
     <div class="actions">
       <button class="primary" id="convertBtn">
         <span class="icon">⚡</span> कन्वर्ट करें
@@ -525,6 +501,7 @@ fganh esa fy[kk gqvk ikB..."
       </button>
     </div>
 
+    <!-- Footer badges -->
     <div class="footer-badges">
       <span class="badge green">✅ देवलिस → मंगल</span>
       <span class="badge">🔤 मानक हिंदी यूनिकोड</span>
@@ -533,6 +510,7 @@ fganh esa fy[kk gqvk ikB..."
   </div>
 </div>
 
+<!-- Toast -->
 <div id="toast" class="toast">
   <span>✅</span> <span id="toastMsg">कॉपी हो गया!</span>
 </div>
@@ -624,42 +602,8 @@ fganh esa fy[kk gqvk ikB..."
     const swapBtn = document.getElementById('swapBtn');
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toastMsg');
-    const fontMangalBtn = document.getElementById('fontMangalBtn');
-    const fontDevlysBtn = document.getElementById('fontDevlysBtn');
 
     let toastTimer = null;
-    let currentFontMode = 'mangal'; // 'mangal' | 'devlys'
-
-    // ---------- Font mode handling ----------
-    function setFontMode(mode) {
-      currentFontMode = mode;
-
-      // Update toggle button active states
-      if (mode === 'devlys') {
-        fontDevlysBtn.classList.add('active');
-        fontMangalBtn.classList.remove('active');
-        devlysInput.classList.add('devlys-font');
-        showToast('🔤 अब Devlys फ़ॉन्ट में टाइप करें');
-      } else {
-        fontMangalBtn.classList.add('active');
-        fontDevlysBtn.classList.remove('active');
-        devlysInput.classList.remove('devlys-font');
-        showToast('🔤 अब Mangal (Unicode) फ़ॉन्ट में टाइप करें');
-      }
-
-      // Refresh placeholder & conversion in case text exists
-      updatePlaceholder();
-      performConversion();
-      devlysInput.focus();
-    }
-
-    function updatePlaceholder() {
-      if (currentFontMode === 'devlys') {
-        devlysInput.placeholder = 'यहाँ Devlys / Kruti Dev फ़ॉन्ट में टाइप करें...\n\nउदाहरण (Devlys में):\nÅ;ksa dk lkFk vkSj Hkh vPNk gS\nfganh esa fy[kk gqvk ikB...';
-      } else {
-        devlysInput.placeholder = 'यहाँ मंगल (Unicode) में टाइप करें या Devlys टेक्स्ट पेस्ट करें...\n\nउदाहरण:\nआपका स्वागत है\nहिंदी में लिखा हुआ पाठ...';
-      }
-    }
 
     // ---------- Toast ----------
     function showToast(message) {
@@ -721,9 +665,6 @@ fganh esa fy[kk gqvk ikB..."
     copyBtn.addEventListener('click', copyMangal);
     swapBtn.addEventListener('click', swapText);
 
-    fontMangalBtn.addEventListener('click', () => setFontMode('mangal'));
-    fontDevlysBtn.addEventListener('click', () => setFontMode('devlys'));
-
     // Auto-convert on typing (debounced)
     let debounceTimer = null;
     devlysInput.addEventListener('input', function () {
@@ -744,7 +685,6 @@ fganh esa fy[kk gqvk ikB..."
 
     // ---------- Init ----------
     window.addEventListener('load', function () {
-      updatePlaceholder();
       if (devlysInput.value.trim() !== '') {
         performConversion();
       }
