@@ -101,6 +101,10 @@
     transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(255,140,26,.35);
   }
   button:active{transform:translateY(1px) scale(.985)}
+  button:disabled{
+    opacity:.5;cursor:not-allowed;transform:none!important;
+    box-shadow:0 4px 12px -6px rgba(20,40,70,.12)!important;
+  }
   button.primary{
     background:linear-gradient(135deg,var(--dj-orange-light),var(--dj-orange));
     border:1px solid var(--dj-orange);color:#1a0f00;
@@ -156,7 +160,7 @@
     position:relative;border-radius:20px;overflow:hidden;background:#0b1622;
     aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
   }
-  #videoPreview{width:100%;height:100%;object-fit:cover;display:none}
+  #videoPreview{width:100%;height:100%;object-fit:cover;display:none;transform:scaleX(1)}
   .cam-placeholder{color:#c8d4e2;text-align:center;padding:20px}
   .cam-placeholder .big{font-size:2.6rem;display:block;margin-bottom:8px}
   .capture-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;justify-content:center}
@@ -178,7 +182,7 @@
   }
   .ocr-status{
     margin-top:14px;padding:12px 16px;border-radius:14px;font-size:.9rem;font-weight:600;
-    display:none;align-items:center;gap:10px;
+    display:none;align-items:center;gap:10px;line-height:1.4;
   }
   .ocr-status.show{display:flex}
   .ocr-status.working{background:#fff8ec;color:#a15c00;border:1px solid #ffe2b8}
@@ -200,6 +204,16 @@
     transition:width .3s ease;
   }
 
+  /* --- Camera help box --- */
+  .cam-help{
+    margin-top:12px;padding:12px 16px;border-radius:14px;font-size:.85rem;
+    background:#fffaf3;border:1px solid #ffe2c2;color:#8a4a00;line-height:1.55;display:none;
+  }
+  .cam-help.show{display:block}
+  .cam-help b{color:#b85a00}
+  .cam-help ul{margin:6px 0 0 18px}
+  .cam-help li{margin-bottom:4px}
+
   .footer-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:26px;padding-top:20px;border-top:1px solid #eef1f6}
   .badge{
     display:inline-flex;align-items:center;gap:7px;padding:7px 16px;font-size:.82rem;
@@ -213,6 +227,7 @@
     background:#fff;color:#0b7a6b;padding:13px 30px;border-radius:60px;border:1.5px solid #c9ece5;
     box-shadow:0 18px 40px -12px rgba(20,40,70,.18);font-weight:600;font-size:.95rem;z-index:3000;
     opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;display:flex;align-items:center;gap:10px;
+    max-width:90vw;text-align:center;
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -307,6 +322,16 @@
         <button id="startCamBtn">▶ Start Camera</button>
         <button class="primary" id="captureBtn" disabled>📸 Capture &amp; OCR</button>
         <button id="stopCamBtn" style="display:none">⏹ Stop</button>
+      </div>
+      <div class="cam-help" id="camHelp">
+        <b>Camera not working? Try these:</b>
+        <ul>
+          <li>Use <b>https://</b> or <b>localhost</b> — browsers block camera on plain <code>http://</code>.</li>
+          <li>Allow camera permission when the browser asks (click the 🔒 icon in the address bar).</li>
+          <li>Close other apps/tabs that may be using the camera.</li>
+          <li>If you have multiple cameras, use the <b>Switch Camera</b> button.</li>
+          <li>Or simply use the <b>Upload File</b> tab instead.</li>
+        </ul>
       </div>
     </div>
 
@@ -427,42 +452,4 @@
         out.push(chars[i+1]); out.push(ch); i++;
       } else { out.push(ch); }
     }
-    return out.join("");
-  }
-
-  function devlysToUnicode(text){
-    if (!text) return "";
-    var out = "", i = 0, len = text.length;
-    while (i < len){
-      var matched = false;
-      for (var j = 0; j < D2U_keys.length; j++){
-        var key = D2U_keys[j];
-        if (i + key.length <= len && text.substr(i, key.length) === key){
-          out += D2U[key]; i += key.length; matched = true; break;
-        }
-      }
-      if (!matched){ out += text.charAt(i); i++; }
-    }
-    return reorderUnicode(out);
-  }
-
-  function unicodeToDevlys(text){
-    if (!text) return "";
-    var out = "", i = 0, len = text.length;
-    while (i < len){
-      var matched = false;
-      for (var j = 0; j < U2D_keys.length; j++){
-        var key = U2D_keys[j];
-        if (i + key.length <= len && text.substr(i, key.length) === key){
-          out += U2D[key]; i += key.length; matched = true; break;
-        }
-      }
-      if (!matched){ out += text.charAt(i); i++; }
-    }
-    return out;
-  }
-
-  /* ================================================================
-     DOM
-     ================================================================ */
-  var leftBox    = documen
+    return out.join(""
