@@ -3,15 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dream Josh Translator • देवलिस → मंगल</title>
+  <title>Dream Josh Translator • Devlys ⇄ Mangal</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* Dream Josh Education color palette */
     :root {
       --dj-orange: #ff8c1a;
       --dj-orange-light: #ffb347;
@@ -25,7 +20,6 @@
       --text-dim: #7a8ba3;
     }
 
-    /* ===== FULL WHITE PAGE ===== */
     body {
       font-family: 'Segoe UI', 'Mangal', 'Noto Sans Devanagari', system-ui, sans-serif;
       background: #ffffff;
@@ -40,368 +34,212 @@
       overflow-x: hidden;
     }
 
-    /* Very soft background accents — still white overall */
-    body::before,
-    body::after {
+    body::before, body::after {
       content: '';
       position: fixed;
-      width: 520px;
-      height: 520px;
+      width: 520px; height: 520px;
       border-radius: 50%;
       filter: blur(150px);
       opacity: 0.08;
       pointer-events: none;
       z-index: 0;
     }
-    body::before {
-      background: var(--dj-orange);
-      top: -220px;
-      left: -160px;
-    }
-    body::after {
-      background: var(--dj-green);
-      bottom: -260px;
-      right: -160px;
-    }
+    body::before { background: var(--dj-orange); top: -220px; left: -160px; }
+    body::after  { background: var(--dj-green);  bottom: -260px; right: -160px; }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 1200px;
-    }
+    .container { position: relative; z-index: 2; width: 100%; max-width: 1200px; }
 
-    /* Brand header — Dream Josh style */
     .brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; margin-bottom: 8px; flex-wrap: wrap;
     }
     .brand-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      width: 52px; height: 52px; border-radius: 16px;
       background: linear-gradient(135deg, var(--dj-orange), var(--dj-green));
       font-size: 1.7rem;
       box-shadow: 0 8px 24px -6px rgba(255, 140, 26, 0.45);
       animation: pulseGlow 3s ease-in-out infinite;
     }
     @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 8px 24px -6px rgba(255, 140, 26, 0.4); }
-      50%      { box-shadow: 0 8px 30px -4px rgba(0, 201, 177, 0.55); }
+      0%,100% { box-shadow: 0 8px 24px -6px rgba(255,140,26,0.4); }
+      50%     { box-shadow: 0 8px 30px -4px rgba(0,201,177,0.55); }
     }
     .brand h1 {
-      font-size: 2.1rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(90deg, #d96b00 10%, var(--dj-orange) 45%, var(--dj-green) 90%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-align: center;
+      font-size: 2.1rem; font-weight: 800; letter-spacing: -0.02em;
+      background: linear-gradient(90deg,#d96b00 10%,var(--dj-orange) 45%,var(--dj-green) 90%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; text-align: center;
     }
-    .brand h1 .josh {
-      font-style: italic;
-      font-weight: 900;
-    }
+    .brand h1 .josh { font-style: italic; font-weight: 900; }
 
     .tagline {
-      text-align: center;
-      color: var(--text-mid);
-      font-size: 1rem;
-      margin-bottom: 18px;
-      letter-spacing: 0.4px;
+      text-align: center; color: var(--text-mid); font-size: 1rem;
+      margin-bottom: 18px; letter-spacing: 0.4px;
     }
-    .tagline strong {
-      color: #d96b00;
-      font-weight: 600;
-    }
+    .tagline strong { color: #d96b00; font-weight: 600; }
 
-    /* Typing font bar — ONLY Devlys option */
-    .font-mode-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
+    /* Direction switch bar */
+    .dir-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 24px; flex-wrap: wrap;
     }
-    .font-mode-label {
-      font-size: 0.85rem;
-      color: var(--text-mid);
-      font-weight: 500;
-      letter-spacing: 0.3px;
+    .dir-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; font-size: 0.92rem; font-weight: 700;
+      font-family: inherit; border-radius: 60px; cursor: pointer;
+      background: #ffffff; color: var(--text-mid);
+      border: 1.5px solid #e6eaf2;
+      transition: all 0.18s ease;
+      box-shadow: 0 4px 12px -6px rgba(20,40,70,0.12);
     }
-    .font-mode-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 10px 26px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      font-family: inherit;
-      border-radius: 60px;
+    .dir-btn:hover { border-color: var(--dj-orange-glow); color: #b85a00; }
+    .dir-btn.active {
       background: linear-gradient(135deg, var(--dj-orange-light), var(--dj-orange));
-      color: #1a0f00;
-      border: 1px solid var(--dj-orange-glow);
-      box-shadow: 0 8px 24px -8px rgba(255, 140, 26, 0.55);
-      letter-spacing: 0.3px;
+      color: #1a0f00; border-color: var(--dj-orange);
+      box-shadow: 0 8px 22px -8px rgba(255,140,26,0.55);
     }
-    .font-mode-badge .dot-indicator {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #1a0f00;
-      box-shadow: 0 0 8px #1a0f00;
-    }
+    .dir-btn .arrow { font-size: 1.1rem; }
 
-    /* Main card — light on white */
     .card {
-      background: #ffffff;
-      border-radius: 36px;
+      background: #ffffff; border-radius: 36px;
       border: 1.5px solid #eef1f6;
-      box-shadow:
-        0 24px 60px -24px rgba(20, 40, 70, 0.18),
-        0 6px 20px -10px rgba(20, 40, 70, 0.08);
+      box-shadow: 0 24px 60px -24px rgba(20,40,70,0.18),
+                  0 6px 20px -10px rgba(20,40,70,0.08);
       padding: 30px 28px 26px;
       transition: border 0.3s, box-shadow 0.3s;
     }
     .card:hover {
       border-color: #ffe2c2;
-      box-shadow:
-        0 28px 70px -24px rgba(255, 140, 26, 0.22),
-        0 6px 20px -10px rgba(20, 40, 70, 0.08);
+      box-shadow: 0 28px 70px -24px rgba(255,140,26,0.22),
+                  0 6px 20px -10px rgba(20,40,70,0.08);
     }
 
-    /* Two-column grid */
     .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
     }
     @media (max-width: 780px) {
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 18px;
-      }
+      .grid { grid-template-columns: 1fr; gap: 18px; }
     }
 
-    .pane {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
+    .pane { display: flex; flex-direction: column; min-width: 0; }
 
     .pane-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      padding: 0 4px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px; padding: 0 4px;
     }
     .pane-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      font-size: 1.15rem;
-      color: var(--text-dark);
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 600; font-size: 1.15rem; color: var(--text-dark);
     }
     .pane-title .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
+      width: 10px; height: 10px; border-radius: 50%; display: inline-block;
     }
-    .dot.legacy { background: var(--dj-orange); box-shadow: 0 0 10px #ff8c1a66; }
-    .dot.unicode { background: var(--dj-green); box-shadow: 0 0 10px #00c9b166; }
+    .dot.legacy  { background: var(--dj-orange); box-shadow: 0 0 10px #ff8c1a66; }
+    .dot.unicode { background: var(--dj-green);  box-shadow: 0 0 10px #00c9b166; }
 
     .pill {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 40px;
-      background: #f4f6fb;
-      color: var(--text-dim);
-      border: 1px solid #e6eaf2;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.6px;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 40px;
+      background: #f4f6fb; color: var(--text-dim); border: 1px solid #e6eaf2;
     }
 
-    /* ---- WHITE BOXES (both textareas) ---- */
     textarea {
-      width: 100%;
-      min-height: 260px;
-      padding: 20px 20px;
-      font-size: 1.2rem;
-      line-height: 1.8;
-      border-radius: 22px;
-      border: 1.5px solid #dfe5ef;
-      background: #ffffff;
-      color: #142b3c;
-      box-shadow: inset 0 2px 8px rgba(20, 40, 70, 0.03);
+      width: 100%; min-height: 260px; padding: 20px;
+      font-size: 1.2rem; line-height: 1.8; border-radius: 22px;
+      border: 1.5px solid #dfe5ef; background: #ffffff; color: #142b3c;
+      box-shadow: inset 0 2px 8px rgba(20,40,70,0.03);
       resize: vertical;
-      font-family: 'Kruti Dev 010', 'KrutiDev010', 'Kruti Dev', 'DevLys 010', 'DevLys', 'Mangal', 'Noto Sans Devanagari', monospace;
+      font-family: 'Kruti Dev 010','KrutiDev010','Kruti Dev','DevLys 010','DevLys','Mangal','Noto Sans Devanagari',monospace;
       transition: border 0.2s, box-shadow 0.2s;
       caret-color: var(--dj-orange);
     }
     textarea::placeholder {
-      color: #9aa8bd;
-      font-size: 1rem;
-      font-family: 'Mangal', 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
+      color: #9aa8bd; font-size: 1rem;
+      font-family: 'Mangal','Noto Sans Devanagari','Segoe UI',sans-serif;
     }
     textarea:focus {
-      outline: none;
-      border-color: var(--dj-orange);
-      box-shadow: 0 0 0 4px rgba(255, 140, 26, 0.14), inset 0 2px 8px rgba(20, 40, 70, 0.03);
+      outline: none; border-color: var(--dj-orange);
+      box-shadow: 0 0 0 4px rgba(255,140,26,0.14), inset 0 2px 8px rgba(20,40,70,0.03);
       background: #ffffff;
     }
-    textarea[readonly] {
-      background: #ffffff;
+    textarea.mangal-box {
+      font-family: 'Mangal','Noto Sans Devanagari','Segoe UI',sans-serif;
       border-color: #c9ece5;
       color: #0d3b32;
-      cursor: default;
-      font-family: 'Mangal', 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
     }
-    textarea[readonly]:focus {
+    textarea.mangal-box:focus {
       border-color: var(--dj-green);
-      box-shadow: 0 0 0 4px rgba(0, 201, 177, 0.13), inset 0 2px 8px rgba(20, 40, 70, 0.03);
+      box-shadow: 0 0 0 4px rgba(0,201,177,0.13), inset 0 2px 8px rgba(20,40,70,0.03);
     }
 
-    /* Action bar */
     .actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 14px;
-      margin-top: 28px;
-      padding-top: 24px;
-      border-top: 1px solid #eef1f6;
+      display: flex; flex-wrap: wrap; justify-content: center;
+      align-items: center; gap: 14px; margin-top: 28px;
+      padding-top: 24px; border-top: 1px solid #eef1f6;
     }
 
     button {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      padding: 12px 26px;
-      font-size: 1rem;
-      font-weight: 600;
-      font-family: inherit;
-      border-radius: 60px;
-      border: 1.5px solid #e6eaf2;
-      background: #ffffff;
-      color: var(--text-mid);
-      cursor: pointer;
+      position: relative; display: inline-flex; align-items: center;
+      justify-content: center; gap: 9px; padding: 12px 26px;
+      font-size: 1rem; font-weight: 600; font-family: inherit;
+      border-radius: 60px; border: 1.5px solid #e6eaf2;
+      background: #ffffff; color: var(--text-mid); cursor: pointer;
       transition: all 0.18s ease;
-      box-shadow: 0 4px 12px -6px rgba(20, 40, 70, 0.12);
-      letter-spacing: 0.2px;
-      overflow: hidden;
+      box-shadow: 0 4px 12px -6px rgba(20,40,70,0.12);
+      letter-spacing: 0.2px; overflow: hidden;
     }
     button:hover {
-      border-color: var(--dj-orange-glow);
-      background: #fffaf3;
-      color: #b85a00;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 22px -10px rgba(255, 140, 26, 0.35);
+      border-color: var(--dj-orange-glow); background: #fffaf3;
+      color: #b85a00; transform: translateY(-2px);
+      box-shadow: 0 10px 22px -10px rgba(255,140,26,0.35);
     }
     button:active {
       transform: translateY(1px) scale(0.985);
-      box-shadow: 0 3px 8px -4px rgba(20, 40, 70, 0.15);
+      box-shadow: 0 3px 8px -4px rgba(20,40,70,0.15);
     }
 
     button.primary {
       background: linear-gradient(135deg, var(--dj-orange-light), var(--dj-orange));
-      border: 1px solid var(--dj-orange);
-      color: #1a0f00;
-      box-shadow: 0 10px 26px -8px rgba(255, 140, 26, 0.55);
-      font-size: 1.05rem;
-      padding: 13px 34px;
+      border: 1px solid var(--dj-orange); color: #1a0f00;
+      box-shadow: 0 10px 26px -8px rgba(255,140,26,0.55);
+      font-size: 1.05rem; padding: 13px 34px;
     }
     button.primary:hover {
-      background: linear-gradient(135deg, #ffc36b, #ff9a2e);
+      background: linear-gradient(135deg,#ffc36b,#ff9a2e);
       color: #1a0f00;
-      box-shadow: 0 14px 32px -8px rgba(255, 140, 26, 0.7);
+      box-shadow: 0 14px 32px -8px rgba(255,140,26,0.7);
       transform: translateY(-2px);
     }
 
-    .icon {
-      font-size: 1.15rem;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-    }
+    .icon { font-size: 1.15rem; line-height: 1; display: inline-flex; align-items: center; }
 
-    /* Footer badges */
     .footer-badges {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 26px;
-      padding-top: 20px;
-      border-top: 1px solid #eef1f6;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+      margin-top: 26px; padding-top: 20px; border-top: 1px solid #eef1f6;
     }
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 16px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      border-radius: 60px;
-      background: #fbfcfe;
-      border: 1px solid #e9edf5;
-      color: var(--text-mid);
-      letter-spacing: 0.2px;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 7px 16px; font-size: 0.82rem; font-weight: 500;
+      border-radius: 60px; background: #fbfcfe; border: 1px solid #e9edf5;
+      color: var(--text-mid); letter-spacing: 0.2px;
     }
-    .badge.green {
-      background: #f0fdfa;
-      border-color: #c9ece5;
-      color: #0b7a6b;
-    }
-    .badge.orange {
-      background: #fffaf3;
-      border-color: #ffe2c2;
-      color: #b85a00;
-    }
+    .badge.green  { background: #f0fdfa; border-color: #c9ece5; color: #0b7a6b; }
+    .badge.orange { background: #fffaf3; border-color: #ffe2c2; color: #b85a00; }
 
-    /* Toast notification */
     .toast {
-      position: fixed;
-      bottom: 40px;
-      left: 50%;
+      position: fixed; bottom: 40px; left: 50%;
       transform: translateX(-50%) translateY(20px);
-      background: #ffffff;
-      color: #0b7a6b;
-      padding: 13px 30px;
-      border-radius: 60px;
-      border: 1.5px solid #c9ece5;
-      box-shadow: 0 18px 40px -12px rgba(20, 40, 70, 0.18), 0 0 0 4px rgba(0, 201, 177, 0.06);
-      font-weight: 600;
-      font-size: 0.95rem;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
+      background: #ffffff; color: #0b7a6b; padding: 13px 30px;
+      border-radius: 60px; border: 1.5px solid #c9ece5;
+      box-shadow: 0 18px 40px -12px rgba(20,40,70,0.18), 0 0 0 4px rgba(0,201,177,0.06);
+      font-weight: 600; font-size: 0.95rem; z-index: 1000;
+      opacity: 0; pointer-events: none;
       transition: opacity 0.3s, transform 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* Responsive tweaks */
     @media (max-width: 500px) {
       .brand h1 { font-size: 1.55rem; }
       .brand-logo { width: 44px; height: 44px; font-size: 1.4rem; }
@@ -409,71 +247,67 @@
       textarea { min-height: 200px; padding: 16px; font-size: 1.05rem; }
       button { padding: 11px 20px; font-size: 0.92rem; }
       button.primary { padding: 12px 26px; }
-      .font-mode-badge { padding: 9px 20px; font-size: 0.88rem; }
+      .dir-btn { padding: 9px 16px; font-size: 0.85rem; }
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <!-- Brand -->
   <div class="brand">
     <div class="brand-logo">🚀</div>
     <h1>Dream <span class="josh">Josh</span> Translator</h1>
   </div>
   <div class="tagline">
-    <strong>देवलिस</strong> (Kruti Dev) → <strong>मंगल</strong> (Unicode) • तेज़ और सटीक
+    <strong>देवलिस</strong> (Kruti Dev) ⇄ <strong>मंगल</strong> (Unicode) • दोनों तरफ़ टाइप करें
   </div>
 
-  <!-- Typing font bar — ONLY Devlys option -->
-  <div class="font-mode-bar">
-    <span class="font-mode-label">टाइपिंग फ़ॉन्ट:</span>
-    <span class="font-mode-badge">
-      <span class="dot-indicator"></span> देवलिस / Kruti Dev
-    </span>
+  <!-- Direction switch -->
+  <div class="dir-bar">
+    <button class="dir-btn active" id="dirD2M">
+      देवलिस <span class="arrow">→</span> मंगल
+    </button>
+    <button class="dir-btn" id="dirM2D">
+      मंगल <span class="arrow">→</span> देवलिस
+    </button>
   </div>
 
-  <!-- Main card -->
   <div class="card">
     <div class="grid">
-      <!-- LEFT: Devlys input -->
+      <!-- LEFT pane -->
       <div class="pane">
         <div class="pane-header">
           <div class="pane-title">
             <span class="dot legacy"></span>
-            <span>Devlys / Kruti Dev</span>
+            <span id="leftTitle">Devlys / Kruti Dev</span>
           </div>
-          <span class="pill">LEGACY</span>
+          <span class="pill" id="leftPill">LEGACY</span>
         </div>
         <textarea
-          id="devlysInput"
-          placeholder="यहाँ देवलिस / कृतिदेव टेक्स्ट लिखें या पेस्ट करें...
-
-उदाहरण:
-Å;ksa dk lkFk vkSj Hkh vPNk gS
-fganh esa fy[kk gqvk ikB..."
+          id="leftBox"
+          placeholder="यहाँ देवलिस / कृतिदेव टेक्स्ट लिखें या पेस्ट करें...&#10;&#10;उदाहरण:&#10;Å;ksa dk lkFk vkSj Hkh vPNk gS"
           spellcheck="false"
         ></textarea>
       </div>
 
-      <!-- RIGHT: Mangal output -->
+      <!-- RIGHT pane -->
       <div class="pane">
         <div class="pane-header">
           <div class="pane-title">
             <span class="dot unicode"></span>
-            <span>Mangal (Unicode)</span>
+            <span id="rightTitle">Mangal (Unicode)</span>
           </div>
-          <span class="pill">हिंदी</span>
+          <span class="pill" id="rightPill">हिंदी</span>
         </div>
         <textarea
-          id="mangalOutput"
-          readonly
-          placeholder="यहाँ यूनिकोड (मंगल) टेक्स्ट दिखेगा..."
+          id="rightBox"
+          class="mangal-box"
+          placeholder="यहाँ यूनिकोड (मंगल) टेक्स्ट दिखेगा / टाइप करें..."
+          spellcheck="false"
         ></textarea>
       </div>
     </div>
 
-    <!-- Actions -->
     <div class="actions">
       <button class="primary" id="convertBtn">
         <span class="icon">⚡</span> कन्वर्ट करें
@@ -482,202 +316,314 @@ fganh esa fy[kk gqvk ikB..."
         <span class="icon">🗑️</span> साफ़ करें
       </button>
       <button id="copyBtn">
-        <span class="icon">📋</span> मंगल कॉपी करें
+        <span class="icon">📋</span> कॉपी करें
       </button>
       <button id="swapBtn">
         <span class="icon">🔁</span> बदलें (Swap)
       </button>
     </div>
 
-    <!-- Footer badges -->
     <div class="footer-badges">
-      <span class="badge green">✅ देवलिस → मंगल</span>
+      <span class="badge green">✅ देवलिस ⇄ मंगल</span>
       <span class="badge">🔤 मानक हिंदी यूनिकोड</span>
       <span class="badge orange">⚡ Dream Josh Engine</span>
     </div>
   </div>
 </div>
 
-<!-- Toast -->
 <div id="toast" class="toast">
   <span>✅</span> <span id="toastMsg">कॉपी हो गया!</span>
 </div>
 
 <script>
-  (function () {
-    // --------------------------------------------------------------
-    // Devlys (Kruti Dev) → Unicode (Mangal) conversion map
-    // --------------------------------------------------------------
-    const devlysToUnicodeMap = {
-      'vk': 'आ', 'v': 'अ', 'b': 'इ', 'bZ': 'ई', 'm': 'उ', 'Å': 'ऊ',
-      '_,': 'ऋ', 'M': 'ए', 'sv': 'ऐ', 'vks': 'ओ', 'vkS': 'औ',
-      'd': 'क', 'x': 'ग', '?k': 'घ', '³': 'ङ',
-      'p': 'च', 'N': 'छ', 't': 'ज', '>k': 'झ', '¥': 'ञ',
-      'V': 'ट', 'B': 'ठ', 'M+': 'ड', '<': 'ढ', '.k': 'ण',
-      'r': 'त', 'Fk': 'थ', 'n': 'द', '/k': 'ध', 'u': 'न',
-      'i': 'प', 'Q': 'फ', 'c': 'ब', 'Hk': 'भ', 'e': 'म',
-      ';': 'य', 'j': 'र', 'y': 'ल', 'o': 'व',
-      'k': 'श', '"k': 'ष', 'l': 'स', 'g': 'ह',
-      '{k': 'क्ष', '=k': 'त्र', 'K': 'ज्ञ',
-      'D': 'क्', 'X': 'ग्', '?': 'घ्', 'P': 'च्', 'T': 'ट्', 'M': 'ड्',
-      'R': 'त्', 'F': 'थ्', 'N': 'द्', 'U': 'न्', 'I': 'प्', 'C': 'ब्',
-      'E': 'म्', 'J': 'र्', 'Y': 'ल्', 'O': 'व्', 'K': 'श्',
-      'k': 'ा', 'f': 'ि', 'h': 'ी', 'q': 'ु', 'w': 'ू', '`': 'ृ',
-      's': 'े', 'S': 'ै', 'ks': 'ो', 'kS': 'ौ', 'a': 'ं', '¡': 'ँ',
-      '%': 'ः', '~': '्', 'z': '्र', 'Z': 'र्', 'ƒ': 'ऱ्',
-      '0': '०', '1': '१', '2': '२', '3': '३', '4': '४',
-      '5': '५', '6': '६', '7': '७', '8': '८', '9': '९',
-      'A': '।', '&': '-', '=': '=', '+': '+', '*': '*',
-      '/': '/', '\\': '\\', '|': '|', '-': '-',
-      '[': '[', ']': ']', '(': '(', ')': ')',
-      ':': ':', ';': ';', ',': ',', '.': '.',
-      '?': '?', '!': '!', '@': '@', '#': '#', '$': '$',
-      '^': '^', '_': '_', '`': '`', '{': '{', '}': '}',
-      '~': '~', "'": "'", '"': '"', ' ': ' ',
-      'Dk': 'क', 'Dr': 'क्त', 'D;': 'क्य', 'De': 'कम',
-      'Fk': 'थ', 'Fkk': 'था', 'Fks': 'थे', 'Fkh': 'थी',
-      'Hkh': 'भी', 'gS': 'है', 'gSa': 'हैं', 'vkSj': 'और',
-      'ysfdu': 'लेकिन', 'fd': 'कि', 'dk': 'का', 'ds': 'के',
-      'dh': 'की', 'dks': 'को', 'ls': 'से', 'esa': 'में',
-      'ij': 'पर', 'tgka': 'जहाँ', 'og': 'वह', ';g': 'यह',
-      'vkidk': 'आपका', 'vkidh': 'आपकी', 'vki': 'आप',
-      'uke': 'नाम', 'dke': 'काम', 'jkTk': 'राज', "ns'k": 'देश',
-      'fganh': 'हिंदी', 'Hkk"kk': 'भाषा', 'lHkh': 'सभी',
-      'vPNk': 'अच्छा', 'cM+k': 'बड़ा', 'NksVk': 'छोटा',
-      'lqUnj': 'सुंदर', "f'k{kk": 'शिक्षा', 'Kku': 'ज्ञान',
-      'fo|k': 'विद्या', 'iqLrd': 'पुस्तक', 'ys[kd': 'लेखक',
-      'dk;Z': 'कार्य', "fo'ks\"k": 'विशेष', "iz'u": 'प्रश्न',
-      'mRrj': 'उत्तर', 'lgk;rk': 'सहायता', 'Lokxr': 'स्वागत',
-      'èkU;okn': 'धन्यवाद', 'fnu': 'दिन', 'jkr': 'रात',
-      'le;': 'समय', 'vktexZ': 'आजमगढ़', 'y[kuÅ': 'लखनऊ',
-    };
+(function () {
+  /* ============================================================
+     1. Devlys → Mangal (Unicode) map
+     ============================================================ */
+  const devlysToUnicodeMap = {
+    'vk':'आ','v':'अ','b':'इ','bZ':'ई','m':'उ','Å':'ऊ',
+    '_,':'ऋ','M':'ए','sv':'ऐ','vks':'ओ','vkS':'औ',
+    'd':'क','x':'ग','?k':'घ','³':'ङ',
+    'p':'च','N':'छ','t':'ज','>k':'झ','¥':'ञ',
+    'V':'ट','B':'ठ','M+':'ड','<':'ढ','.k':'ण',
+    'r':'त','Fk':'थ','n':'द','/k':'ध','u':'न',
+    'i':'प','Q':'फ','c':'ब','Hk':'भ','e':'म',
+    ';':'य','j':'र','y':'ल','o':'व',
+    'k':'श','"k':'ष','l':'स','g':'ह',
+    '{k':'क्ष','=k':'त्र','K':'ज्ञ',
+    'D':'क्','X':'ग्','?':'घ्','P':'च्','T':'ट्',
+    'R':'त्','F':'थ्','N':'द्','U':'न्','I':'प्','C':'ब्',
+    'E':'म्','J':'र्','Y':'ल्','O':'व्','K':'श्',
+    'f':'ि','h':'ी','q':'ु','w':'ू','`':'ृ',
+    's':'े','S':'ै','ks':'ो','kS':'ौ','a':'ं','¡':'ँ',
+    '%':'ः','~':'्','z':'्र','Z':'र्','ƒ':'ऱ्',
+    '0':'०','1':'१','2':'२','3':'३','4':'४',
+    '5':'५','6':'६','7':'७','8':'८','9':'९',
+    'A':'।','&':'-','=':'=','+':'+','*':'*',
+    '/':'/','\\':'\\','|':'|','-':'-',
+    '[':'[',']':']','(':'(',')':')',
+    ':':':',';':';',',':',','.':'.',
+    '?':'?','!':'!','@':'@','#':'#','$':'$',
+    '^':'^','_':'_','`':'`','{':'{','}':'}',
+    '~':'~',"'":"'",'"':'"',' ':' ',
+    'Dk':'क','Dr':'क्त','D;':'क्य','De':'कम',
+    'Fkk':'था','Fks':'थे','Fkh':'थी',
+    'Hkh':'भी','gS':'है','gSa':'हैं','vkSj':'और',
+    'ysfdu':'लेकिन','fd':'कि','dk':'का','ds':'के',
+    'dh':'की','dks':'को','ls':'से','esa':'में',
+    'ij':'पर','tgka':'जहाँ','og':'वह',';g':'यह',
+    'vkidk':'आपका','vkidh':'आपकी','vki':'आप',
+    'uke':'नाम','dke':'काम','jkTk':'राज',"ns'k":'देश',
+    'fganh':'हिंदी','Hkk"kk':'भाषा','lHkh':'सभी',
+    'vPNk':'अच्छा','cM+k':'बड़ा','NksVk':'छोटा',
+    'lqUnj':'सुंदर',"f'k{kk":'शिक्षा','Kku':'ज्ञान',
+    'fo|k':'विद्या','iqLrd':'पुस्तक','ys[kd':'लेखक',
+    'dk;Z':'कार्य',"fo'ks\"k":'विशेष',"iz'u":'प्रश्न',
+    'mRrj':'उत्तर','lgk;rk':'सहायता','Lokxr':'स्वागत',
+    'èkU;okn':'धन्यवाद','fnu':'दिन','jkr':'रात',
+    'le;':'समय','vktexZ':'आजमगढ़','y[kuÅ':'लखनऊ',
+  };
 
-    const sortedKeys = Object.keys(devlysToUnicodeMap).sort(
-      (a, b) => b.length - a.length
-    );
+  /* ============================================================
+     2. Reverse map: Mangal (Unicode) → Devlys
+        (Built automatically from the forward map, but with
+         manual overrides for cases where multiple Devlys keys
+         map to the same Unicode — we pick the canonical one.)
+     ============================================================ */
+  const unicodeToDevlysMap = {};
+  // Preferred reverse pairs (order matters — later entries win)
+  const reverseOverrides = {
+    'आ':'vk','अ':'v','इ':'b','ई':'bZ','उ':'m','ऊ':'Å',
+    'ऋ':'_,','ए':'M','ऐ':'sv','ओ':'vks','औ':'vkS',
+    'क':'d','ग':'x','घ','?k':'?k','ङ':'³',
+    'च':'p','छ':'N','ज':'t','झ':'>k','ञ':'¥',
+    'ट':'V','ठ':'B','ड':'M+','ढ':'<','ण':'.k',
+    'त':'r','थ':'Fk','द':'n','ध':'/k','न':'u',
+    'प':'i','फ':'Q','ब':'c','भ':'Hk','म':'e',
+    'य':';','र':'j','ल':'y','व':'o',
+    'श':'k','ष':'"k','स':'l','ह':'g',
+    'क्ष':'{k','त्र':'=k','ज्ञ':'K',
+    'ि':'f','ी':'h','ु':'q','ू':'w','ृ':'`',
+    'े':'s','ै':'S','ो':'ks','ौ':'kS','ं':'a','ँ':'¡',
+    'ः':'%','्':'~','्र':'z',
+    '०':'0','१':'1','२':'2','३':'3','४':'4',
+    '५':'5','६':'6','७':'7','८':'8','९':'9',
+    '।':'A',' ':' ',
+  };
+  // Build reverse map from forward map, then apply overrides
+  for (const [dk, uk] of Object.entries(devlysToUnicodeMap)) {
+    if (!(uk in unicodeToDevlysMap)) unicodeToDevlysMap[uk] = dk;
+  }
+  for (const [uk, dk] of Object.entries(reverseOverrides)) {
+    unicodeToDevlysMap[uk] = dk;
+  }
+  // Some common overrides to keep output clean
+  unicodeToDevlysMap['ओ'] = 'vks';
+  unicodeToDevlysMap['औ'] = 'vkS';
+  unicodeToDevlysMap['ा'] = 'k';
 
-    function devlysToMangal(text) {
-      if (!text) return '';
-      let result = '';
-      let i = 0;
-      const len = text.length;
+  /* Sort keys by length desc for longest-match-first */
+  const forwardKeys = Object.keys(devlysToUnicodeMap).sort((a,b)=>b.length-a.length);
+  const reverseKeys = Object.keys(unicodeToDevlysMap).sort((a,b)=>b.length-a.length);
 
-      while (i < len) {
-        let matched = false;
-        for (const key of sortedKeys) {
-          const keyLen = key.length;
-          if (i + keyLen <= len && text.substring(i, i + keyLen) === key) {
-            result += devlysToUnicodeMap[key];
-            i += keyLen;
-            matched = true;
-            break;
-          }
+  /* ============================================================
+     3. Conversion functions
+     ============================================================ */
+  function devlysToMangal(text) {
+    if (!text) return '';
+    let out = '', i = 0;
+    while (i < text.length) {
+      let matched = false;
+      for (const k of forwardKeys) {
+        if (i + k.length <= text.length && text.substr(i, k.length) === k) {
+          out += devlysToUnicodeMap[k];
+          i += k.length;
+          matched = true;
+          break;
         }
-        if (!matched) {
-          result += text[i];
-          i++;
+      }
+      if (!matched) { out += text[i]; i++; }
+    }
+    return out;
+  }
+
+  function mangalToDevlys(text) {
+    if (!text) return '';
+    let out = '', i = 0;
+    while (i < text.length) {
+      let matched = false;
+      for (const k of reverseKeys) {
+        if (i + k.length <= text.length && text.substr(i, k.length) === k) {
+          out += unicodeToDevlysMap[k];
+          i += k.length;
+          matched = true;
+          break;
         }
       }
-      return result;
+      if (!matched) { out += text[i]; i++; }
     }
+    return out;
+  }
 
-    // ---------- DOM refs ----------
-    const devlysInput = document.getElementById('devlysInput');
-    const mangalOutput = document.getElementById('mangalOutput');
-    const convertBtn = document.getElementById('convertBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const copyBtn = document.getElementById('copyBtn');
-    const swapBtn = document.getElementById('swapBtn');
-    const toast = document.getElementById('toast');
-    const toastMsg = document.getElementById('toastMsg');
+  /* ============================================================
+     4. DOM refs
+     ============================================================ */
+  const leftBox     = document.getElementById('leftBox');
+  const rightBox    = document.getElementById('rightBox');
+  const leftTitle   = document.getElementById('leftTitle');
+  const rightTitle  = document.getElementById('rightTitle');
+  const leftPill    = document.getElementById('leftPill');
+  const rightPill   = document.getElementById('rightPill');
+  const convertBtn  = document.getElementById('convertBtn');
+  const clearBtn    = document.getElementById('clearBtn');
+  const copyBtn     = document.getElementById('copyBtn');
+  const swapBtn     = document.getElementById('swapBtn');
+  const dirD2M      = document.getElementById('dirD2M');
+  const dirM2D      = document.getElementById('dirM2D');
+  const toast       = document.getElementById('toast');
+  const toastMsg    = document.getElementById('toastMsg');
 
-    let toastTimer = null;
+  let toastTimer = null;
+  let direction = 'D2M'; // 'D2M' = Devlys→Mangal, 'M2D' = Mangal→Devlys
 
-    // ---------- Toast ----------
-    function showToast(message) {
-      toastMsg.textContent = message;
-      toast.classList.add('show');
-      if (toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 1800);
+  /* ============================================================
+     5. Helpers
+     ============================================================ */
+  function showToast(msg) {
+    toastMsg.textContent = msg;
+    toast.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  function setDirection(dir) {
+    direction = dir;
+    if (dir === 'D2M') {
+      dirD2M.classList.add('active');
+      dirM2D.classList.remove('active');
+      leftTitle.textContent  = 'Devlys / Kruti Dev';
+      leftPill.textContent   = 'LEGACY';
+      rightTitle.textContent = 'Mangal (Unicode)';
+      rightPill.textContent  = 'हिंदी';
+      leftBox.className  = '';
+      rightBox.className = 'mangal-box';
+      leftBox.placeholder  = 'यहाँ देवलिस / कृतिदेव टेक्स्ट लिखें या पेस्ट करें...\n\nउदाहरण:\nÅ;ksa dk lkFk vkSj Hkh vPNk gS';
+      rightBox.placeholder = 'यहाँ यूनिकोड (मंगल) टेक्स्ट दिखेगा / टाइप करें...';
+    } else {
+      dirM2D.classList.add('active');
+      dirD2M.classList.remove('active');
+      leftTitle.textContent  = 'Mangal (Unicode)';
+      leftPill.textContent   = 'हिंदी';
+      rightTitle.textContent = 'Devlys / Kruti Dev';
+      rightPill.textContent  = 'LEGACY';
+      leftBox.className  = 'mangal-box';
+      rightBox.className = '';
+      leftBox.placeholder  = 'यहाँ यूनिकोड (मंगल) टेक्स्ट लिखें या पेस्ट करें...\n\nउदाहरण:\nहिंदी में लिखा हुआ पाठ';
+      rightBox.placeholder = 'यहाँ देवलिस / कृतिदेव टेक्स्ट दिखेगा / टाइप करें...';
     }
+  }
 
-    // ---------- Conversion ----------
-    function performConversion() {
-      const legacyText = devlysInput.value;
-      mangalOutput.value = devlysToMangal(legacyText);
+  /* Main conversion: left → right */
+  function convert() {
+    const src = leftBox.value;
+    rightBox.value = (direction === 'D2M')
+      ? devlysToMangal(src)
+      : mangalToDevlys(src);
+  }
+
+  /* Auto-convert from left while typing */
+  let debounceTimer = null;
+  leftBox.addEventListener('input', () => {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(convert, 220);
+  });
+
+  /* Auto-convert from right too (reverse direction) */
+  let rightDebounce = null;
+  rightBox.addEventListener('input', () => {
+    if (rightDebounce) clearTimeout(rightDebounce);
+    rightDebounce = setTimeout(() => {
+      const src = rightBox.value;
+      leftBox.value = (direction === 'D2M')
+        ? devlysToMangal(src)     // wait — actually reverse: Mangal→Devlys
+        : mangalToDevlys(src);
+      // Fix: for right box typing we always do the *reverse* direction
+      leftBox.value = (direction === 'D2M')
+        ? mangalToDevlys(src)
+        : devlysToMangal(src);
+    }, 220);
+  });
+
+  /* ============================================================
+     6. Buttons
+     ============================================================ */
+  convertBtn.addEventListener('click', () => {
+    convert();
+    showToast('कन्वर्ट हो गया! ⚡');
+  });
+
+  clearBtn.addEventListener('click', () => {
+    leftBox.value = '';
+    rightBox.value = '';
+    leftBox.focus();
+    showToast('साफ़ हो गया!');
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    const out = rightBox.value;
+    if (!out.trim()) { showToast('पहले कुछ कन्वर्ट करें!'); return; }
+    try {
+      await navigator.clipboard.writeText(out);
+      showToast('कॉपी हो गया!');
+    } catch (e) {
+      rightBox.select();
+      document.execCommand('copy');
+      showToast('कॉपी हो गया (fallback)');
     }
+  });
 
-    function clearAll() {
-      devlysInput.value = '';
-      mangalOutput.value = '';
-      devlysInput.focus();
-      showToast('साफ़ हो गया!');
-    }
+  swapBtn.addEventListener('click', () => {
+    const l = leftBox.value;
+    const r = rightBox.value;
+    leftBox.value = r;
+    rightBox.value = l;
+    // flip direction
+    setDirection(direction === 'D2M' ? 'M2D' : 'D2M');
+    showToast('टेक्स्ट बदल दिया गया!');
+  });
 
-    async function copyMangal() {
-      const outputText = mangalOutput.value;
-      if (!outputText.trim()) {
-        showToast('पहले कुछ कन्वर्ट करें!');
-        return;
-      }
-      try {
-        await navigator.clipboard.writeText(outputText);
-        showToast('मंगल टेक्स्ट कॉपी हो गया!');
-      } catch (err) {
-        mangalOutput.select();
-        document.execCommand('copy');
-        showToast('कॉपी हो गया (fallback)');
-      }
-    }
+  dirD2M.addEventListener('click', () => {
+    setDirection('D2M');
+    convert();
+  });
+  dirM2D.addEventListener('click', () => {
+    setDirection('M2D');
+    convert();
+  });
 
-    function swapText() {
-      const mangalText = mangalOutput.value;
-      if (mangalText.trim() === '') {
-        showToast('मंगल टेक्स्ट खाली है!');
-        return;
-      }
-      devlysInput.value = mangalText;
-      performConversion();
-      showToast('टेक्स्ट बदल दिया गया!');
-    }
-
-    // ---------- Event listeners ----------
-    convertBtn.addEventListener('click', () => {
-      performConversion();
+  /* Ctrl+Enter convert */
+  leftBox.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      convert();
       showToast('कन्वर्ट हो गया! ⚡');
-    });
+    }
+  });
+  rightBox.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      // Reverse convert: right → left
+      const src = rightBox.value;
+      leftBox.value = (direction === 'D2M')
+        ? mangalToDevlys(src)
+        : devlysToMangal(src);
+      showToast('कन्वर्ट हो गया! ⚡');
+    }
+  });
 
-    clearBtn.addEventListener('click', clearAll);
-    copyBtn.addEventListener('click', copyMangal);
-    swapBtn.addEventListener('click', swapText);
-
-    // Auto-convert on typing (debounced)
-    let debounceTimer = null;
-    devlysInput.addEventListener('input', function () {
-      if (debounceTimer) clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        performConversion();
-      }, 220);
-    });
-
-    // Ctrl+Enter to convert
-    devlysInput.addEventListener('keydown', function (e) {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-        e.preventDefault();
-        performConversion();
-        showToast('कन्वर्ट हो गया! ⚡');
-      }
-    });
-
-    // ---------- Init ----------
-    window.addEventListener('load', function () {
-      if (devlysInput.value.trim() !== '') {
-        performConversion();
-      }
-    });
-  })();
+  /* Init */
+  setDirection('D2M');
+})();
 </script>
 </body>
 </html>
