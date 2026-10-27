@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dream Josh Translator • देवलिस → मंगल</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-deep: #0a0f1e;
+      --bg-card: rgba(18, 26, 45, 0.85);
+      --accent: #7c5cff;
+      --accent-glow: #a88bff;
+      --accent-2: #00e0c6;
+      --text-light: #eef2ff;
+      --text-dim: #a0b0d0;
+      --border-glow: rgba(124, 92, 255, 0.3);
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Mangal', 'Noto Sans Devanagari', system-ui, sans-serif;
+      background: radial-gradient(circle at 20% 10%, #1a2340 0%, #0a0f1e 60%, #050812 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      color: var(--text-light);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      background: #7c5cff;
+      top: -200px;
+      left: -150px;
+      animation: float1 14s ease-in-out infinite alternate;
+    }
+    body::after {
+      background: #00e0c6;
+      bottom: -250px;
+      right: -150px;
+      animation: float2 16s ease-in-out infinite alternate;
+    }
+    @keyframes float1 {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(80px, 60px) scale(1.15); }
+    }
+    @keyframes float2 {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(-70px, -50px) scale(1.2); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #7c5cff, #00e0c6);
+      font-size: 1.7rem;
+      box-shadow: 0 0 30px rgba(124, 92, 255, 0.5);
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 24px rgba(124, 92, 255, 0.4); }
+      50%      { box-shadow: 0 0 42px rgba(0, 224, 198, 0.65); }
+    }
+    .brand h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #ffffff 10%, #a88bff 45%, #00e0c6 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+    }
+    .brand h1 .josh {
+      font-style: italic;
+      font-weight: 900;
+    }
+
+    .tagline {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 1rem;
+      margin-bottom: 18px;
+      letter-spacing: 0.4px;
+    }
+    .tagline strong {
+      color: var(--accent-glow);
+      font-weight: 600;
+    }
+
+    /* Font toggle bar */
+    .font-toggle-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .font-toggle-label {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .font-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      border-radius: 60px;
+      border: 1px solid rgba(124, 92, 255, 0.28);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      backdrop-filter: blur(6px);
+      letter-spacing: 0.2px;
+    }
+    .font-toggle-btn:hover {
+      border-color: var(--accent-glow);
+      color: var(--text-light);
+      background: rgba(124, 92, 255, 0.1);
+    }
+    .font-toggle-btn.active {
+      background: linear-gradient(135deg, #7c5cff, #5a3ee6);
+      border-color: #9d85ff;
+      color: #ffffff;
+      box-shadow: 0 6px 18px -4px rgba(124, 92, 255, 0.6);
+    }
+    .font-toggle-btn .dot-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #5a6a8a;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .font-toggle-btn.active .dot-indicator {
+      background: #00e0c6;
+      box-shadow: 0 0 10px #00e0c6;
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-radius: 36px;
+      border: 1px solid rgba(124, 92, 255, 0.22);
+      box-shadow:
+        0 30px 70px -20px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+        0 0 80px -20px rgba(124, 92, 255, 0.25);
+      padding: 30px 28px 26px;
+      transition: border 0.3s;
+    }
+    .card:hover {
+      border-color: rgba(124, 92, 255, 0.4);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+    @media (max-width: 780px) {
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+    }
+
+    .pane {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .pane-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+    .pane-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: #ffffff;
+    }
+    .pane-title .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.legacy { background: #ffb347; box-shadow: 0 0 12px #ffb34799; }
+    .dot.unicode { background: var(--accent-2); box-shadow: 0 0 12px #00e0c699; }
+
+    .pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 40px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text-dim);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 260px;
+      padding: 20px 20px;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      border-radius: 22px;
+      border: 1.5px solid rgba(124, 92, 255, 0.18);
+      background: rgba(8, 12, 24, 0.72);
+      color: #eef2ff;
+      box-shadow: inset 0 6px 18px rgba(0, 0, 0, 0.4);
+      resize: vertical;
+      font-family: 'Mangal', 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
+      transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+      caret-color: var(--accent-2);
+    }
+    textarea::placeholder {
+      color: #5a6a8a;
+      font-size: 1rem;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-glow);
+      box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.15), inset 0 6px 18px rgba(0, 0, 0, 0.45);
+      background: rgba(10, 16, 32, 0.9);
+    }
+    textarea[readonly] {
+      background: rgba(10, 18, 30, 0.55);
+      border-color: rgba(0, 224, 198, 0.22);
+      color: #d8f5ee;
+      cursor: default;
+    }
+    textarea[readonly]:focus {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 4px rgba(0, 224, 198, 0.12);
+    }
+
+    /* When Devlys font mode is active on input */
+    textarea.devlys-font {
+      font-family: 'Kruti Dev 010', 'KrutiDev010', 'Kruti Dev', 'DevLys 010', 'DevLys', 'Mangal', 'Noto Sans Devanagari', monospace !important;
+      font-size: 1.25rem;
+      letter-spacing: 0.3px;
+      color: #ffe9b0;
+      background: rgba(15, 10, 30, 0.8);
+      border-color: rgba(255, 179, 71, 0.35);
+    }
+    textarea.devlys-font:focus {
+      border-color: #ffb347;
+      box-shadow: 0 0 0 4px rgba(255, 179, 71, 0.15), inset 0 6px 18px rgba(0, 0, 0, 0.5);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(124, 92, 255, 0.15);
+    }
+
+    button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 26px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      border-radius: 60px;
+      border: 1px solid rgba(124, 92, 255, 0.3);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.6);
+      letter-spacing: 0.2px;
+      backdrop-filter: blur(6px);
+      overflow: hidden;
+    }
+    button::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    button:hover::after { opacity: 1; }
+    button:hover {
+      border-color: var(--accent-glow);
+      background: rgba(124, 92, 255, 0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -10px rgba(124, 92, 255, 0.45);
+    }
+    button:active {
+      transform: translateY(1px) scale(0.985);
+      box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.7);
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, #7c5cff, #5a3ee6);
+      border: 1px solid #9d85ff;
+      color: #ffffff;
+      box-shadow: 0 10px 28px -8px rgba(124, 92, 255, 0.7);
+      font-size: 1.05rem;
+      padding: 13px 34px;
+    }
+    button.primary:hover {
+      background: linear-gradient(135deg, #8b6dff, #6b4eff);
+      box-shadow: 0 14px 34px -8px rgba(124, 92, 255, 0.85);
+      transform: translateY(-2px);
+    }
+
+    .icon {
+      font-size: 1.15rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .footer-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 26px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(124, 92, 255, 0.12);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 16px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: 60px;
+      background: rgba(124, 92, 255, 0.08);
+      border: 1px solid rgba(124, 92, 255, 0.2);
+      color: #c4b5ff;
+      letter-spacing: 0.2px;
+    }
+    .badge.green {
+      background: rgba(0, 224, 198, 0.08);
+      border-color: rgba(0, 224, 198, 0.25);
+      color: #8bf0e0;
+    }
+    .badge.orange {
+      background: rgba(255, 179, 71, 0.08);
+      border-color: rgba(255, 179, 71, 0.25);
+      color: #ffcf8a;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(18, 26, 45, 0.95);
+      backdrop-filter: blur(14px);
+      color: var(--accent-2);
+      padding: 13px 30px;
+      border-radius: 60px;
+      border: 1px solid rgba(0, 224, 198, 0.4);
+      box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(0, 224, 198, 0.35);
+      font-weight: 600;
+      font-size: 0.95rem;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 500px) {
+      .brand h1 { font-size: 1.55rem; }
+      .brand-logo { width: 44px; height: 44px; font-size: 1.4rem; }
+      .card { padding: 20px 16px 18px; border-radius: 28px; }
+      textarea { min-height: 200px; padding: 16px; font-size: 1.05rem; }
+      button { padding: 11px 20px; font-size: 0.92rem; }
+      button.primary { padding: 12px 26px; }
+      .font-toggle-bar { gap: 6px; }
+      .font-toggle-btn { padding: 7px 14px; font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="brand">
+    <div class="brand-logo">🚀</div>
+    <h1>Dream <span class="josh">Josh</span> Translator</h1>
+  </div>
+  <div class="tagline">
+    <strong>देवलिस</strong> (Kruti Dev) → <strong>मंगल</strong> (Unicode) • तेज़ और सटीक
+  </div>
+
+  <!-- Font mode toggle -->
+  <div class="font-toggle-bar">
+    <span class="font-toggle-label">टाइपिंग फ़ॉन्ट:</span>
+    <button class="font-toggle-btn active" id="fontMangalBtn" data-mode="mangal">
+      <span class="dot-indicator"></span> मंगल (Unicode)
+    </button>
+    <button class="font-toggle-btn" id="fontDevlysBtn" data-mode="devlys">
+      <span class="dot-indicator"></span> देवलिस (Kruti Dev)
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="grid">
+      <!-- LEFT: Devlys input -->
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title">
+            <span class="dot legacy"></span>
+            <span>Devlys / Kruti Dev</span>
+          </div>
+          <span class="pill">LEGACY</span>
+        </div>
+        <textarea
+          id="devlysInput"
+          placeholder="यहाँ देवलिस / कृतिदेव टेक्स्ट लिखें या पेस्ट करें...
+
+उदाहरण:
+Å;ksa dk lkFk vkSj Hkh vPNk gS
+fganh esa fy[kk gqvk ikB..."
+          spellcheck="false"
+        ></textarea>
+      </div>
+
+      <!-- RIGHT: Mangal output -->
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-title">
+            <span class="dot unicode"></span>
+            <span>Mangal (Unicode)</span>
+          </div>
+          <span class="pill">हिंदी</span>
+        </div>
+        <textarea
+          id="mangalOutput"
+          readonly
+          placeholder="यहाँ यूनिकोड (मंगल) टेक्स्ट दिखेगा..."
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="convertBtn">
+        <span class="icon">⚡</span> कन्वर्ट करें
+      </button>
+      <button id="clearBtn">
+        <span class="icon">🗑️</span> साफ़ करें
+      </button>
+      <button id="copyBtn">
+        <span class="icon">📋</span> मंगल कॉपी करें
+      </button>
+      <button id="swapBtn">
+        <span class="icon">🔁</span> बदलें (Swap)
+      </button>
+    </div>
+
+    <div class="footer-badges">
+      <span class="badge green">✅ देवलिस → मंगल</span>
+      <span class="badge">🔤 मानक हिंदी यूनिकोड</span>
+      <span class="badge orange">⚡ Dream Josh Engine</span>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast">
+  <span>✅</span> <span id="toastMsg">कॉपी हो गया!</span>
+</div>
+
+<script>
+  (function () {
+    // --------------------------------------------------------------
+    // Devlys (Kruti Dev) → Unicode (Mangal) conversion map
+    // --------------------------------------------------------------
+    const devlysToUnicodeMap = {
+      'vk': 'आ', 'v': 'अ', 'b': 'इ', 'bZ': 'ई', 'm': 'उ', 'Å': 'ऊ',
+      '_,': 'ऋ', 'M': 'ए', 'sv': 'ऐ', 'vks': 'ओ', 'vkS': 'औ',
+      'd': 'क', 'x': 'ग', '?k': 'घ', '³': 'ङ',
+      'p': 'च', 'N': 'छ', 't': 'ज', '>k': 'झ', '¥': 'ञ',
+      'V': 'ट', 'B': 'ठ', 'M+': 'ड', '<': 'ढ', '.k': 'ण',
+      'r': 'त', 'Fk': 'थ', 'n': 'द', '/k': 'ध', 'u': 'न',
+      'i': 'प', 'Q': 'फ', 'c': 'ब', 'Hk': 'भ', 'e': 'म',
+      ';': 'य', 'j': 'र', 'y': 'ल', 'o': 'व',
+      'k': 'श', '"k': 'ष', 'l': 'स', 'g': 'ह',
+      '{k': 'क्ष', '=k': 'त्र', 'K': 'ज्ञ',
+      'D': 'क्', 'X': 'ग्', '?': 'घ्', 'P': 'च्', 'T': 'ट्', 'M': 'ड्',
+      'R': 'त्', 'F': 'थ्', 'N': 'द्', 'U': 'न्', 'I': 'प्', 'C': 'ब्',
+      'E': 'म्', 'J': 'र्', 'Y': 'ल्', 'O': 'व्', 'K': 'श्',
+      'k': 'ा', 'f': 'ि', 'h': 'ी', 'q': 'ु', 'w': 'ू', '`': 'ृ',
+      's': 'े', 'S': 'ै', 'ks': 'ो', 'kS': 'ौ', 'a': 'ं', '¡': 'ँ',
+      '%': 'ः', '~': '्', 'z': '्र', 'Z': 'र्', 'ƒ': 'ऱ्',
+      '0': '०', '1': '१', '2': '२', '3': '३', '4': '४',
+      '5': '५', '6': '६', '7': '७', '8': '८', '9': '९',
+      'A': '।', '&': '-', '=': '=', '+': '+', '*': '*',
+      '/': '/', '\\': '\\', '|': '|', '-': '-',
+      '[': '[', ']': ']', '(': '(', ')': ')',
+      ':': ':', ';': ';', ',': ',', '.': '.',
+      '?': '?', '!': '!', '@': '@', '#': '#', '$': '$',
+      '^': '^', '_': '_', '`': '`', '{': '{', '}': '}',
+      '~': '~', "'": "'", '"': '"', ' ': ' ',
+      'Dk': 'क', 'Dr': 'क्त', 'D;': 'क्य', 'De': 'कम',
+      'Fk': 'थ', 'Fkk': 'था', 'Fks': 'थे', 'Fkh': 'थी',
+      'Hkh': 'भी', 'gS': 'है', 'gSa': 'हैं', 'vkSj': 'और',
+      'ysfdu': 'लेकिन', 'fd': 'कि', 'dk': 'का', 'ds': 'के',
+      'dh': 'की', 'dks': 'को', 'ls': 'से', 'esa': 'में',
+      'ij': 'पर', 'tgka': 'जहाँ', 'og': 'वह', ';g': 'यह',
+      'vkidk': 'आपका', 'vkidh': 'आपकी', 'vki': 'आप',
+      'uke': 'नाम', 'dke': 'काम', 'jkTk': 'राज', "ns'k": 'देश',
+      'fganh': 'हिंदी', 'Hkk"kk': 'भाषा', 'lHkh': 'सभी',
+      'vPNk': 'अच्छा', 'cM+k': 'बड़ा', 'NksVk': 'छोटा',
+      'lqUnj': 'सुंदर', "f'k{kk": 'शिक्षा', 'Kku': 'ज्ञान',
+      'fo|k': 'विद्या', 'iqLrd': 'पुस्तक', 'ys[kd': 'लेखक',
+      'dk;Z': 'कार्य', "fo'ks\"k": 'विशेष', "iz'u": 'प्रश्न',
+      'mRrj': 'उत्तर', 'lgk;rk': 'सहायता', 'Lokxr': 'स्वागत',
+      'èkU;okn': 'धन्यवाद', 'fnu': 'दिन', 'jkr': 'रात',
+      'le;': 'समय', 'vktexZ': 'आजमगढ़', 'y[kuÅ': 'लखनऊ',
+    };
+
+    const sortedKeys = Object.keys(devlysToUnicodeMap).sort(
+      (a, b) => b.length - a.length
+    );
+
+    function devlysToMangal(text) {
+      if (!text) return '';
+      let result = '';
+      let i = 0;
+      const len = text.length;
+
+      while (i < len) {
+        let matched = false;
+        for (const key of sortedKeys) {
+          const keyLen = key.length;
+          if (i + keyLen <= len && text.substring(i, i + keyLen) === key) {
+            result += devlysToUnicodeMap[key];
+            i += keyLen;
+            matched = true;
+            break;
+          }
+        }
+        if (!matched) {
+          result += text[i];
+          i++;
+        }
+      }
+      return result;
+    }
+
+    // ---------- DOM refs ----------
+    const devlysInput = document.getElementById('devlysInput');
+    const mangalOutput = document.getElementById('mangalOutput');
+    const convertBtn = document.getElementById('convertBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const swapBtn = document.getElementById('swapBtn');
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    const fontMangalBtn = document.getElementById('fontMangalBtn');
+    const fontDevlysBtn = document.getElementById('fontDevlysBtn');
+
+    let toastTimer = null;
+    let currentFontMode = 'mangal'; // 'mangal' | 'devlys'
+
+    // ---------- Font mode handling ----------
+    function setFontMode(mode) {
+      currentFontMode = mode;
+
+      // Update toggle button active states
+      if (mode === 'devlys') {
+        fontDevlysBtn.classList.add('active');
+        fontMangalBtn.classList.remove('active');
+        devlysInput.classList.add('devlys-font');
+        showToast('🔤 अब Devlys फ़ॉन्ट में टाइप करें');
+      } else {
+        fontMangalBtn.classList.add('active');
+        fontDevlysBtn.classList.remove('active');
+        devlysInput.classList.remove('devlys-font');
+        showToast('🔤 अब Mangal (Unicode) फ़ॉन्ट में टाइप करें');
+      }
+
+      // Refresh placeholder & conversion in case text exists
+      updatePlaceholder();
+      performConversion();
+      devlysInput.focus();
+    }
+
+    function updatePlaceholder() {
+      if (currentFontMode === 'devlys') {
+        devlysInput.placeholder = 'यहाँ Devlys / Kruti Dev फ़ॉन्ट में टाइप करें...\n\nउदाहरण (Devlys में):\nÅ;ksa dk lkFk vkSj Hkh vPNk gS\nfganh esa fy[kk gqvk ikB...';
+      } else {
+        devlysInput.placeholder = 'यहाँ मंगल (Unicode) में टाइप करें या Devlys टेक्स्ट पेस्ट करें...\n\nउदाहरण:\nआपका स्वागत है\nहिंदी में लिखा हुआ पाठ...';
+      }
+    }
+
+    // ---------- Toast ----------
+    function showToast(message) {
+      toastMsg.textContent = message;
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 1800);
+    }
+
+    // ---------- Conversion ----------
+    function performConversion() {
+      const legacyText = devlysInput.value;
+      mangalOutput.value = devlysToMangal(legacyText);
+    }
+
+    function clearAll() {
+      devlysInput.value = '';
+      mangalOutput.value = '';
+      devlysInput.focus();
+      showToast('साफ़ हो गया!');
+    }
+
+    async function copyMangal() {
+      const outputText = mangalOutput.value;
+      if (!outputText.trim()) {
+        showToast('पहले कुछ कन्वर्ट करें!');
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(outputText);
+        showToast('मंगल टेक्स्ट कॉपी हो गया!');
+      } catch (err) {
+        mangalOutput.select();
+        document.execCommand('copy');
+        showToast('कॉपी हो गया (fallback)');
+      }
+    }
+
+    function swapText() {
+      const mangalText = mangalOutput.value;
+      if (mangalText.trim() === '') {
+        showToast('मंगल टेक्स्ट खाली है!');
+        return;
+      }
+      devlysInput.value = mangalText;
+      performConversion();
+      showToast('टेक्स्ट बदल दिया गया!');
+    }
+
+    // ---------- Event listeners ----------
+    convertBtn.addEventListener('click', () => {
+      performConversion();
+      showToast('कन्वर्ट हो गया! ⚡');
+    });
+
+    clearBtn.addEventListener('click', clearAll);
+    copyBtn.addEventListener('click', copyMangal);
+    swapBtn.addEventListener('click', swapText);
+
+    fontMangalBtn.addEventListener('click', () => setFontMode('mangal'));
+    fontDevlysBtn.addEventListener('click', () => setFontMode('devlys'));
+
+    // Auto-convert on typing (debounced)
+    let debounceTimer = null;
+    devlysInput.addEventListener('input', function () {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        performConversion();
+      }, 220);
+    });
+
+    // Ctrl+Enter to convert
+    devlysInput.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        performConversion();
+        showToast('कन्वर्ट हो गया! ⚡');
+      }
+    });
+
+    // ---------- Init ----------
+    window.addEventListener('load', function () {
+      updatePlaceholder();
+      if (devlysInput.value.trim() !== '') {
+        performConversion();
+      }
+    });
+  })();
+</script>
+</body>
+</html>
