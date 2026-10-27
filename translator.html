@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dream Josh Translator • Devlys ⇄ Mangal + OCR</title>
+<title>Dream Josh Translator • Devlys ⇄ Mangal + Auto OCR</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   :root{
@@ -13,7 +13,7 @@
   body{
     font-family:'Segoe UI','Mangal','Noto Sans Devanagari',system-ui,sans-serif;
     background:#fff;min-height:100vh;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;padding:24px 16px;color:var(--text-dark);
+    align-items:center;justify-content:flex-start;padding:24px 16px;color:var(--text-dark);
   }
   .container{width:100%;max-width:1200px}
   .brand{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px;flex-wrap:wrap}
@@ -96,21 +96,18 @@
     border-radius:60px;border:1.5px solid #e6eaf2;background:#fff;color:var(--text-mid);
     cursor:pointer;transition:all .18s ease;box-shadow:0 4px 12px -6px rgba(20,40,70,.12);
   }
-  button:hover{
+  button:hover:not(:disabled){
     border-color:var(--dj-orange-glow);background:#fffaf3;color:#b85a00;
     transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(255,140,26,.35);
   }
-  button:active{transform:translateY(1px) scale(.985)}
-  button:disabled{
-    opacity:.5;cursor:not-allowed;transform:none!important;
-    box-shadow:0 4px 12px -6px rgba(20,40,70,.12)!important;
-  }
+  button:active:not(:disabled){transform:translateY(1px) scale(.985)}
+  button:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
   button.primary{
     background:linear-gradient(135deg,var(--dj-orange-light),var(--dj-orange));
     border:1px solid var(--dj-orange);color:#1a0f00;
     box-shadow:0 10px 26px -8px rgba(255,140,26,.55);font-size:1.05rem;padding:13px 34px;
   }
-  button.primary:hover{
+  button.primary:hover:not(:disabled){
     background:linear-gradient(135deg,#ffc36b,#ff9a2e);color:#1a0f00;
     box-shadow:0 14px 32px -8px rgba(255,140,26,.7);transform:translateY(-2px);
   }
@@ -118,12 +115,12 @@
     background:linear-gradient(135deg,#e0f7f3,#b2ece0);
     border-color:var(--dj-green);color:#0b5a4e;
   }
-  button.ocr-btn:hover{
+  button.ocr-btn:hover:not(:disabled){
     background:linear-gradient(135deg,#c8f2ea,#8ee3d4);color:#084a40;
   }
   .icon{font-size:1.15rem;line-height:1}
 
-  /* ---- Camera / Upload modal ---- */
+  /* ---- Modal ---- */
   .modal-overlay{
     position:fixed;inset:0;background:rgba(15,30,50,.55);backdrop-filter:blur(4px);
     display:none;align-items:center;justify-content:center;z-index:2000;padding:16px;
@@ -160,11 +157,11 @@
     position:relative;border-radius:20px;overflow:hidden;background:#0b1622;
     aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
   }
-  #videoPreview{width:100%;height:100%;object-fit:cover;display:none;transform:scaleX(1)}
+  #videoPreview{width:100%;height:100%;object-fit:cover;display:none}
   .cam-placeholder{color:#c8d4e2;text-align:center;padding:20px}
   .cam-placeholder .big{font-size:2.6rem;display:block;margin-bottom:8px}
   .capture-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;justify-content:center}
-  .capture-row button{flex:1;min-width:130px}
+  .capture-row button{flex:1;min-width:120px}
 
   .file-drop{
     border:2.5px dashed #cfe3ee;border-radius:22px;padding:38px 20px;text-align:center;
@@ -204,16 +201,6 @@
     transition:width .3s ease;
   }
 
-  /* --- Camera help box --- */
-  .cam-help{
-    margin-top:12px;padding:12px 16px;border-radius:14px;font-size:.85rem;
-    background:#fffaf3;border:1px solid #ffe2c2;color:#8a4a00;line-height:1.55;display:none;
-  }
-  .cam-help.show{display:block}
-  .cam-help b{color:#b85a00}
-  .cam-help ul{margin:6px 0 0 18px}
-  .cam-help li{margin-bottom:4px}
-
   .footer-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:26px;padding-top:20px;border-top:1px solid #eef1f6}
   .badge{
     display:inline-flex;align-items:center;gap:7px;padding:7px 16px;font-size:.82rem;
@@ -230,6 +217,16 @@
     max-width:90vw;text-align:center;
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  .engine-status{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    font-size:.78rem;color:var(--text-dim);margin-top:10px;min-height:18px;
+  }
+  .engine-status .dot-sm{
+    width:7px;height:7px;border-radius:50%;background:#ccc;display:inline-block;
+  }
+  .engine-status.ready .dot-sm{background:var(--dj-green);box-shadow:0 0 6px #00c9b1}
+  .engine-status.busy .dot-sm{background:var(--dj-orange);box-shadow:0 0 6px #ff8c1a}
 
   @media(max-width:500px){
     .brand h1{font-size:1.55rem}
@@ -250,7 +247,7 @@
     <h1>Dream <span class="josh">Josh</span> Translator</h1>
   </div>
   <div class="tagline">
-    <strong>Devlys</strong> (Kruti Dev) ⇄ <strong>Mangal</strong> (Unicode) &nbsp;+&nbsp; 📷 OCR
+    <strong>Devlys</strong> ⇄ <strong>Mangal</strong> &nbsp;+&nbsp; 📷 Auto OCR
   </div>
 
   <div class="dir-bar">
@@ -287,11 +284,16 @@
       <button class="ocr-btn" id="ocrBtn"><span class="icon">📷</span> Photo / PDF → Text</button>
     </div>
 
+    <div class="engine-status" id="engineStatus">
+      <span class="dot-sm"></span>
+      <span id="engineStatusText">Loading OCR engine...</span>
+    </div>
+
     <div class="footer-badges">
-      <span class="badge green">✅ Devlys ⇄ Mangal</span>
-      <span class="badge">🔤 Standard Hindi Unicode</span>
-      <span class="badge orange">⚡ Dream Josh Engine</span>
-      <span class="badge">📷 Camera &amp; PDF OCR</span>
+      <span class="badge green">✅ Auto Convert</span>
+      <span class="badge">🔤 Hindi Unicode</span>
+      <span class="badge orange">⚡ Auto OCR</span>
+      <span class="badge">📷 Camera + PDF</span>
     </div>
   </div>
 </div>
@@ -300,7 +302,7 @@
 <div class="modal-overlay" id="ocrModal">
   <div class="modal-box">
     <div class="modal-head">
-      <h2>📷 Photo / PDF → Text</h2>
+      <h2>📷 Photo / PDF → Text (Auto)</h2>
       <button class="modal-close" id="modalClose">✕</button>
     </div>
 
@@ -315,23 +317,13 @@
         <video id="videoPreview" autoplay playsinline muted></video>
         <div class="cam-placeholder" id="camPlaceholder">
           <span class="big">📷</span>
-          Click <b>Start Camera</b> to begin
+          Starting camera automatically...
         </div>
       </div>
       <div class="capture-row">
-        <button id="startCamBtn">▶ Start Camera</button>
         <button class="primary" id="captureBtn" disabled>📸 Capture &amp; OCR</button>
-        <button id="stopCamBtn" style="display:none">⏹ Stop</button>
-      </div>
-      <div class="cam-help" id="camHelp">
-        <b>Camera not working? Try these:</b>
-        <ul>
-          <li>Use <b>https://</b> or <b>localhost</b> — browsers block camera on plain <code>http://</code>.</li>
-          <li>Allow camera permission when the browser asks (click the 🔒 icon in the address bar).</li>
-          <li>Close other apps/tabs that may be using the camera.</li>
-          <li>If you have multiple cameras, use the <b>Switch Camera</b> button.</li>
-          <li>Or simply use the <b>Upload File</b> tab instead.</li>
-        </ul>
+        <button id="retryCamBtn">🔄 Retry Camera</button>
+        <button id="switchCamBtn" style="display:none">🔄 Switch</button>
       </div>
     </div>
 
@@ -340,7 +332,7 @@
       <div class="file-drop" id="fileDrop">
         <span class="big">📄🖼️</span>
         <p><b>Click to choose a file</b> or drag &amp; drop here</p>
-        <small>Supports: PDF, JPG, PNG, WEBP, BMP (max ~10 MB)</small>
+        <small>PDF, JPG, PNG, WEBP, BMP (max 10 MB)</small>
       </div>
       <input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.webp,.bmp">
       <img id="previewImg" class="preview-img" alt="preview">
@@ -358,9 +350,8 @@
 
 <div id="toast" class="toast"><span>✅</span> <span id="toastMsg">Copied!</span></div>
 
-<!-- ================= Tesseract.js (OCR engine) ================= -->
+<!-- ================= Libraries (auto-loaded) ================= -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-<!-- ================= PDF.js (PDF → image) ================= -->
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.min.js"></script>
 
 <script>
@@ -452,4 +443,20 @@
         out.push(chars[i+1]); out.push(ch); i++;
       } else { out.push(ch); }
     }
-    return out.join(""
+    return out.join("");
+  }
+
+  function devlysToUnicode(text){
+    if (!text) return "";
+    var out = "", i = 0, len = text.length;
+    while (i < len){
+      var matched = false;
+      for (var j = 0; j < D2U_keys.length; j++){
+        var key = D2U_keys[j];
+        if (i + key.length <= len && text.substr(i, key.length) === key){
+          out += D2U[key]; i += key.length; matched = true; break;
+        }
+      }
+      if (!matched){ out += text.charAt(i); i++; }
+    }
+    ret
