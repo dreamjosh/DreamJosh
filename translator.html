@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dream Josh Translator • Devlys ⇄ Mangal</title>
+<title>Dream Josh Translator • Devlys ⇄ Mangal + OCR</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   :root{
@@ -110,7 +110,95 @@
     background:linear-gradient(135deg,#ffc36b,#ff9a2e);color:#1a0f00;
     box-shadow:0 14px 32px -8px rgba(255,140,26,.7);transform:translateY(-2px);
   }
+  button.ocr-btn{
+    background:linear-gradient(135deg,#e0f7f3,#b2ece0);
+    border-color:var(--dj-green);color:#0b5a4e;
+  }
+  button.ocr-btn:hover{
+    background:linear-gradient(135deg,#c8f2ea,#8ee3d4);color:#084a40;
+  }
   .icon{font-size:1.15rem;line-height:1}
+
+  /* ---- Camera / Upload modal ---- */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(15,30,50,.55);backdrop-filter:blur(4px);
+    display:none;align-items:center;justify-content:center;z-index:2000;padding:16px;
+  }
+  .modal-overlay.show{display:flex}
+  .modal-box{
+    background:#fff;border-radius:28px;max-width:640px;width:100%;
+    box-shadow:0 30px 80px -20px rgba(10,20,40,.5);padding:26px 24px 22px;
+    max-height:92vh;overflow-y:auto;animation:pop .25s ease;
+  }
+  @keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+  .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .modal-head h2{font-size:1.25rem;color:var(--text-dark)}
+  .modal-close{
+    border:none;background:#f4f6fb;color:var(--text-mid);width:38px;height:38px;
+    border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .modal-close:hover{background:#ffe2c2;color:#b85a00}
+
+  .tabs{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+  .tab-btn{
+    flex:1;min-width:120px;padding:12px 14px;border-radius:16px;border:1.5px solid #e6eaf2;
+    background:#fff;color:var(--text-mid);font-weight:700;font-family:inherit;cursor:pointer;
+    font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s;
+  }
+  .tab-btn.active{
+    background:linear-gradient(135deg,var(--dj-orange-light),var(--dj-orange));
+    color:#1a0f00;border-color:var(--dj-orange);
+  }
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+
+  .cam-wrap{
+    position:relative;border-radius:20px;overflow:hidden;background:#0b1622;
+    aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+  }
+  #videoPreview{width:100%;height:100%;object-fit:cover;display:none}
+  .cam-placeholder{color:#c8d4e2;text-align:center;padding:20px}
+  .cam-placeholder .big{font-size:2.6rem;display:block;margin-bottom:8px}
+  .capture-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+  .capture-row button{flex:1;min-width:130px}
+
+  .file-drop{
+    border:2.5px dashed #cfe3ee;border-radius:22px;padding:38px 20px;text-align:center;
+    background:#fafdff;transition:all .2s;cursor:pointer;
+  }
+  .file-drop:hover,.file-drop.dragover{border-color:var(--dj-green);background:#f0fdfa}
+  .file-drop .big{font-size:2.6rem;display:block;margin-bottom:10px}
+  .file-drop p{color:var(--text-mid);font-size:.95rem;margin-bottom:6px}
+  .file-drop small{color:var(--text-dim);font-size:.8rem}
+  #fileInput{display:none}
+
+  .preview-img{
+    max-width:100%;border-radius:16px;margin-top:14px;max-height:260px;object-fit:contain;
+    border:1px solid #e6eaf2;display:none;
+  }
+  .ocr-status{
+    margin-top:14px;padding:12px 16px;border-radius:14px;font-size:.9rem;font-weight:600;
+    display:none;align-items:center;gap:10px;
+  }
+  .ocr-status.show{display:flex}
+  .ocr-status.working{background:#fff8ec;color:#a15c00;border:1px solid #ffe2b8}
+  .ocr-status.ok{background:#f0fdfa;color:#0b7a6b;border:1px solid #c9ece5}
+  .ocr-status.err{background:#fff0f0;color:#b02a2a;border:1px solid #ffd6d6}
+  .spinner{
+    width:18px;height:18px;border:2.5px solid #ffd9a8;border-top-color:#ff8c1a;
+    border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .progress-bar{
+    height:8px;background:#eef1f6;border-radius:10px;overflow:hidden;margin-top:12px;display:none;
+  }
+  .progress-bar.show{display:block}
+  .progress-fill{
+    height:100%;width:0%;border-radius:10px;
+    background:linear-gradient(90deg,var(--dj-orange),var(--dj-green));
+    transition:width .3s ease;
+  }
 
   .footer-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:26px;padding-top:20px;border-top:1px solid #eef1f6}
   .badge{
@@ -123,7 +211,7 @@
   .toast{
     position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(20px);
     background:#fff;color:#0b7a6b;padding:13px 30px;border-radius:60px;border:1.5px solid #c9ece5;
-    box-shadow:0 18px 40px -12px rgba(20,40,70,.18);font-weight:600;font-size:.95rem;z-index:1000;
+    box-shadow:0 18px 40px -12px rgba(20,40,70,.18);font-weight:600;font-size:.95rem;z-index:3000;
     opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;display:flex;align-items:center;gap:10px;
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -135,6 +223,7 @@
     textarea{min-height:200px;padding:16px;font-size:1.05rem}
     button{padding:11px 20px;font-size:.92rem}
     button.primary{padding:12px 26px}
+    .modal-box{padding:20px 16px 18px;border-radius:22px}
   }
 </style>
 </head>
@@ -146,7 +235,7 @@
     <h1>Dream <span class="josh">Josh</span> Translator</h1>
   </div>
   <div class="tagline">
-    <strong>Devlys</strong> (Kruti Dev) ⇄ <strong>Mangal</strong> (Unicode)
+    <strong>Devlys</strong> (Kruti Dev) ⇄ <strong>Mangal</strong> (Unicode) &nbsp;+&nbsp; 📷 OCR
   </div>
 
   <div class="dir-bar">
@@ -180,30 +269,85 @@
       <button id="clearBtn"><span class="icon">🗑️</span> Clear</button>
       <button id="copyBtn"><span class="icon">📋</span> Copy</button>
       <button id="swapBtn"><span class="icon">🔁</span> Swap</button>
+      <button class="ocr-btn" id="ocrBtn"><span class="icon">📷</span> Photo / PDF → Text</button>
     </div>
 
     <div class="footer-badges">
       <span class="badge green">✅ Devlys ⇄ Mangal</span>
       <span class="badge">🔤 Standard Hindi Unicode</span>
       <span class="badge orange">⚡ Dream Josh Engine</span>
+      <span class="badge">📷 Camera &amp; PDF OCR</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= OCR MODAL ================= -->
+<div class="modal-overlay" id="ocrModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>📷 Photo / PDF → Text</h2>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="cam">📸 Camera</button>
+      <button class="tab-btn" data-tab="file">📁 Upload File</button>
+    </div>
+
+    <!-- CAMERA TAB -->
+    <div class="tab-panel active" id="tab-cam">
+      <div class="cam-wrap">
+        <video id="videoPreview" autoplay playsinline muted></video>
+        <div class="cam-placeholder" id="camPlaceholder">
+          <span class="big">📷</span>
+          Click <b>Start Camera</b> to begin
+        </div>
+      </div>
+      <div class="capture-row">
+        <button id="startCamBtn">▶ Start Camera</button>
+        <button class="primary" id="captureBtn" disabled>📸 Capture &amp; OCR</button>
+        <button id="stopCamBtn" style="display:none">⏹ Stop</button>
+      </div>
+    </div>
+
+    <!-- FILE TAB -->
+    <div class="tab-panel" id="tab-file">
+      <div class="file-drop" id="fileDrop">
+        <span class="big">📄🖼️</span>
+        <p><b>Click to choose a file</b> or drag &amp; drop here</p>
+        <small>Supports: PDF, JPG, PNG, WEBP, BMP (max ~10 MB)</small>
+      </div>
+      <input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.webp,.bmp">
+      <img id="previewImg" class="preview-img" alt="preview">
+    </div>
+
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="ocr-status" id="ocrStatus">
+      <span class="spinner" id="ocrSpinner"></span>
+      <span id="ocrStatusText">Processing...</span>
     </div>
   </div>
 </div>
 
 <div id="toast" class="toast"><span>✅</span> <span id="toastMsg">Copied!</span></div>
 
+<!-- ================= Tesseract.js (OCR engine) ================= -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<!-- ================= PDF.js (PDF → image) ================= -->
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.min.js"></script>
+
 <script>
 (function(){
   "use strict";
 
   /* ================================================================
-     IMPROVED DEVLY'S (KRUTI DEV) → UNICODE (MANGAL) MAPPING
+     DEVLY'S → UNICODE MAPPING
      ================================================================ */
   var D2U = {
-    // Independent vowels
     "vk":"आ","v":"अ","b":"इ","bZ":"ई","m":"उ","Å":"ऊ","_,":"ऋ",
     "M":"ए","sv":"ऐ","vks":"ओ","vkS":"औ",
-    // Consonants
     "d":"क","[k":"ख","x":"ग","?k":"घ","³":"ङ",
     "p":"च","N":"छ","t":"ज",">k":"झ","¥":"ञ",
     "V":"ट","B":"ठ","M+":"ड","<":"ढ",".k":"ण",
@@ -212,18 +356,14 @@
     ";":"य","j":"र","y":"ल","o":"व",
     "k":"श",'"k':"ष","l":"स","g":"ह",
     "{k":"क्ष","=k":"त्र","K":"ज्ञ",
-    // Half consonants (halant forms)
     "D":"क्","X":"ग्","?":"घ्","P":"च्","T":"ट्","M+":"ड्",
     "R":"त्","F":"थ्","N":"द्","U":"न्","I":"प्","C":"ब्",
     "E":"म्","J":"र्","Y":"ल्","O":"व्","K2":"श्",
-    // Matras
     "k2":"ा","f":"ि","h":"ी","q":"ु","w":"ू","`":"ृ",
     "s":"े","S":"ै","ks":"ो","kS":"ौ","a":"ं","¡":"ँ",
     "%":"ः","~":"्","z":"्र","Z":"र्","ƒ":"ऱ्",
-    // Digits
     "0":"०","1":"१","2":"२","3":"३","4":"४",
     "5":"५","6":"६","7":"७","8":"८","9":"९",
-    // Punctuation / common
     "A":"।","&":"-","=":"=","+":"+","*":"*",
     "/":"/","\\":"\\","|":"|","-":"-",
     "[":"[","]":"]","(":"(",")":")",
@@ -231,7 +371,6 @@
     "?":"?","!":"!","@":"@","#":"#","$":"$",
     "^":"^","_":"_","{":"{","}":"}","~":"~",
     "'":"'",'"':'"'," ":" ",
-    // Common words (longest first)
     "vkSj":"और","vkSjr":"औरत","ysfdu":"लेकिन","fd":"कि",
     "dk":"का","ds":"के","dh":"की","dks":"को","ls":"से",
     "esa":"में","ij":"पर","tgka":"जहाँ","og":"वह",";g":"यह",
@@ -247,11 +386,7 @@
     "vkidh":"आपकी","jkTk":"राज","y[kuÅ":"लखनऊ","vktexZ":"आजमगढ़"
   };
 
-  /* ================================================================
-     BUILD REVERSE MAP UNICODE → DEVLY'S
-     ================================================================ */
   var U2D = {};
-
   var manual = {
     "अ":"v","आ":"vk","इ":"b","ई":"bZ","उ":"m","ऊ":"Å","ऋ":"_,",
     "ए":"M","ऐ":"sv","ओ":"vks","औ":"vkS",
@@ -272,48 +407,29 @@
   };
   for (var k in manual) if (manual.hasOwnProperty(k)) U2D[k] = manual[k];
 
-  /* ================================================================
-     SORTED KEY LISTS (longest first)
-     ================================================================ */
   function sortedKeys(obj){
     return Object.keys(obj).sort(function(a,b){ return b.length - a.length; });
   }
   var D2U_keys = sortedKeys(D2U);
   var U2D_keys = sortedKeys(U2D);
 
-  /* ================================================================
-     HELPER: MATRA / VIRAMA REORDERING FOR UNICODE OUTPUT
-     ================================================================ */
   var MATRAS = "ािीुूृेैोौंँः";
   var CONSONANTS = "कखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह";
   var NUKTA_CONSONANTS = "क़ख़ग़ज़ड़ढ़फ़य़";
-
-  function isConsonant(ch){
-    return CONSONANTS.indexOf(ch) !== -1 || NUKTA_CONSONANTS.indexOf(ch) !== -1;
-  }
-  function isMatra(ch){
-    return MATRAS.indexOf(ch) !== -1;
-  }
+  function isConsonant(ch){ return CONSONANTS.indexOf(ch) !== -1 || NUKTA_CONSONANTS.indexOf(ch) !== -1; }
+  function isMatra(ch){ return MATRAS.indexOf(ch) !== -1; }
 
   function reorderUnicode(text){
-    var chars = text.split("");
-    var out = [];
+    var chars = text.split(""), out = [];
     for (var i = 0; i < chars.length; i++){
       var ch = chars[i];
       if (isMatra(ch) && i + 1 < chars.length && isConsonant(chars[i+1])){
-        out.push(chars[i+1]);
-        out.push(ch);
-        i++;
-      } else {
-        out.push(ch);
-      }
+        out.push(chars[i+1]); out.push(ch); i++;
+      } else { out.push(ch); }
     }
     return out.join("");
   }
 
-  /* ================================================================
-     CONVERSION FUNCTIONS
-     ================================================================ */
   function devlysToUnicode(text){
     if (!text) return "";
     var out = "", i = 0, len = text.length;
@@ -322,10 +438,7 @@
       for (var j = 0; j < D2U_keys.length; j++){
         var key = D2U_keys[j];
         if (i + key.length <= len && text.substr(i, key.length) === key){
-          out += D2U[key];
-          i += key.length;
-          matched = true;
-          break;
+          out += D2U[key]; i += key.length; matched = true; break;
         }
       }
       if (!matched){ out += text.charAt(i); i++; }
@@ -341,10 +454,7 @@
       for (var j = 0; j < U2D_keys.length; j++){
         var key = U2D_keys[j];
         if (i + key.length <= len && text.substr(i, key.length) === key){
-          out += U2D[key];
-          i += key.length;
-          matched = true;
-          break;
+          out += U2D[key]; i += key.length; matched = true; break;
         }
       }
       if (!matched){ out += text.charAt(i); i++; }
@@ -353,142 +463,6 @@
   }
 
   /* ================================================================
-     DOM REFERENCES
+     DOM
      ================================================================ */
-  var leftBox    = document.getElementById("leftBox");
-  var rightBox   = document.getElementById("rightBox");
-  var leftTitle  = document.getElementById("leftTitle");
-  var rightTitle = document.getElementById("rightTitle");
-  var leftPill   = document.getElementById("leftPill");
-  var rightPill  = document.getElementById("rightPill");
-  var convertBtn = document.getElementById("convertBtn");
-  var clearBtn   = document.getElementById("clearBtn");
-  var copyBtn    = document.getElementById("copyBtn");
-  var swapBtn    = document.getElementById("swapBtn");
-  var dirD2M     = document.getElementById("dirD2M");
-  var dirM2D     = document.getElementById("dirM2D");
-  var toast      = document.getElementById("toast");
-  var toastMsg   = document.getElementById("toastMsg");
-
-  var direction = "D2M";
-  var toastTimer = null;
-
-  function showToast(msg){
-    toastMsg.textContent = msg;
-    toast.classList.add("show");
-    if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(function(){ toast.classList.remove("show"); }, 1800);
-  }
-
-  function setDirection(dir){
-    direction = dir;
-    if (dir === "D2M"){
-      dirD2M.classList.add("active");
-      dirM2D.classList.remove("active");
-      leftTitle.textContent  = "Devlys / Kruti Dev";
-      leftPill.textContent   = "LEGACY";
-      rightTitle.textContent = "Mangal (Unicode)";
-      rightPill.textContent  = "HINDI";
-      leftBox.className  = "";
-      rightBox.className = "mangal-box";
-    } else {
-      dirM2D.classList.add("active");
-      dirD2M.classList.remove("active");
-      leftTitle.textContent  = "Mangal (Unicode)";
-      leftPill.textContent   = "HINDI";
-      rightTitle.textContent = "Devlys / Kruti Dev";
-      rightPill.textContent  = "LEGACY";
-      leftBox.className  = "mangal-box";
-      rightBox.className = "";
-    }
-  }
-
-  function convertLeftToRight(){
-    var src = leftBox.value;
-    rightBox.value = (direction === "D2M")
-      ? devlysToUnicode(src)
-      : unicodeToDevlys(src);
-  }
-
-  function convertRightToLeft(){
-    var src = rightBox.value;
-    leftBox.value = (direction === "D2M")
-      ? unicodeToDevlys(src)
-      : devlysToUnicode(src);
-  }
-
-  /* ================================================================
-     EVENT LISTENERS
-     ================================================================ */
-  var leftTimer = null;
-  leftBox.addEventListener("input", function(){
-    if (leftTimer) clearTimeout(leftTimer);
-    leftTimer = setTimeout(convertLeftToRight, 200);
-  });
-
-  var rightTimer = null;
-  rightBox.addEventListener("input", function(){
-    if (rightTimer) clearTimeout(rightTimer);
-    rightTimer = setTimeout(convertRightToLeft, 200);
-  });
-
-  convertBtn.addEventListener("click", function(){
-    convertLeftToRight();
-    showToast("Converted successfully! ⚡");
-  });
-
-  clearBtn.addEventListener("click", function(){
-    leftBox.value = "";
-    rightBox.value = "";
-    leftBox.focus();
-    showToast("Cleared!");
-  });
-
-  copyBtn.addEventListener("click", function(){
-    var out = rightBox.value;
-    if (!out.trim()){ showToast("Nothing to copy yet!"); return; }
-    if (navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(out).then(function(){
-        showToast("Copied!");
-      }).catch(function(){
-        rightBox.select(); document.execCommand("copy");
-        showToast("Copied!");
-      });
-    } else {
-      rightBox.select(); document.execCommand("copy");
-      showToast("Copied!");
-    }
-  });
-
-  swapBtn.addEventListener("click", function(){
-    var l = leftBox.value;
-    var r = rightBox.value;
-    leftBox.value = r;
-    rightBox.value = l;
-    setDirection(direction === "D2M" ? "M2D" : "D2M");
-    showToast("Direction and text swapped!");
-  });
-
-  dirD2M.addEventListener("click", function(){ setDirection("D2M"); convertLeftToRight(); });
-  dirM2D.addEventListener("click", function(){ setDirection("M2D"); convertLeftToRight(); });
-
-  /* Ctrl+Enter */
-  leftBox.addEventListener("keydown", function(e){
-    if ((e.ctrlKey || e.metaKey) && e.key === "Enter"){
-      e.preventDefault(); convertLeftToRight();
-      showToast("Converted successfully! ⚡");
-    }
-  });
-  rightBox.addEventListener("keydown", function(e){
-    if ((e.ctrlKey || e.metaKey) && e.key === "Enter"){
-      e.preventDefault(); convertRightToLeft();
-      showToast("Converted successfully! ⚡");
-    }
-  });
-
-  /* Init */
-  setDirection("D2M");
-})();
-</script>
-</body>
-</html>
+  var leftBox    = documen
