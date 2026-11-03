@@ -163,38 +163,112 @@
 <script>
 (function(){
   "use strict";
-  // ==================== DevLys ⇄ Unicode mapping (fixed syntax) ====================
+
+  /* ================================================================
+     ADVANCED DEV LYS → UNICODE MAPPING (Numbers kept in English)
+     ================================================================ */
   var D2U = {
-    "vk":"आ","v":"अ","b":"इ","bZ":"ई","m":"उ","Å":"ऊ","_,":"ऋ","M":"ए","sv":"ऐ","vks":"ओ","vkS":"औ",
-    "d":"क","[k":"ख","x":"ग","?k":"घ","³":"ङ","p":"च","N":"छ","t":"ज",">k":"झ","¥":"ञ",
-    "V":"ट","B":"ठ","M+":"ड","<":"ढ",".k":"ण","r":"त","Fk":"थ","n":"द","/k":"ध","u":"न",
-    "i":"प","Q":"फ","c":"ब","Hk":"भ","e":"म",";":"य","j":"र","y":"ल","o":"व",
-    "k":"श",'"k':"ष","l":"स","g":"ह","{k":"क्ष","=k":"त्र","K":"ज्ञ",
-    "D":"क्","X":"ग्","?":"घ्","P":"च्","T":"ट्","R":"त्","F":"थ्","N":"द्","U":"न्","I":"प्","C":"ब्","E":"म्","J":"र्","Y":"ल्","O":"व्",
-    "k2":"ा","f":"ि","h":"ी","q":"ु","w":"ू","`":"ृ","s":"े","S":"ै","ks":"ो","kS":"ौ","a":"ं","¡":"ँ","%":"ः","~":"्","z":"्र","Z":"र्",
-    "0":"०","1":"१","2":"२","3":"३","4":"४","5":"५","6":"६","7":"७","8":"८","9":"९",
-    "A":"।","&":"-","=":"=","+":"+","*":"*","/":"/","\\":"\\","|":"|","-":"-","[":"[","]":"]","(":"(",")":")",":":":",";":";",",":",",".": ".","?":"?","!":"!","@":"@","#":"#","$":"$","^":"^","_":"_","{":"{","}":"}","'":"'",'"':'"'," ":" ",
-    "vkSj":"और","vkSjr":"औरत","ysfdu":"लेकिन","fd":"कि","dk":"का","ds":"के","dh":"की","dks":"को","ls":"से","esa":"में","ij":"पर","gS":"है","gSa":"हैं","Fkk":"था","Hkh":"भी","vPNk":"अच्छा","cM+k":"बड़ा","NksVk":"छोटा","lqUnj":"सुंदर","fganh":"हिंदी","Hkk\"kk":"भाषा","lHkh":"सभी","uke":"नाम","dke":"काम","ns'k":"देश","f'k{kk":"शिक्षा","Kku":"ज्ञान","iqLrd":"पुस्तक","ys[kd":"लेखक","iz'u":"प्रश्न","mRrj":"उत्तर","Lokxr":"स्वागत","fnu":"दिन","jkr":"रात","le;":"समय","vki":"आप","vkidk":"आपका","vkidh":"आपकी","jkTk":"राज","y[kuÅ":"लखनऊ","vktexZ":"आजमगढ़"
+    /* Full words fast-path */
+    "Jhheru":"श्रीमान", "vfrfjDr":"अतिरिक्त", "egkfuns'kd":"महानिदेशक", "iqfyl":"पुलिस",
+    "vk;qDr":"आयुक्त", "cVkfy;Ul":"बटालियन्स", "jktLFkku":"राजस्थान", "t;iqj":"जयपुर",
+    "ds":"के", "dk":"का", "dh":"की", "dks":"को", "esa":"में", "gS":"है", "gSa":"हैं", 
+    "vkSj":"और", "ysfdu":"लेकिन", "fd":"कि", "Fkk":"था", "Hkh":"भी", "ij":"पर",
+    "gksrk":"होता", "gksrh":"होती", "gksuk":"होना", "djrs":"करते", "djrk":"करता", 
+    "djrh":"करती", "djus":"करने", "fd;k":"किया", "fy;k":"लिया", "fn;k":"दिया", 
+    "x;k":"गया", "x;h":"गई", "viuk":"अपना", "vkidk":"आपका", "vkidh":"आपकी", 
+    "vki":"आप", "ge":"हम", "oge":"वह", ";g":"यह", "fnu":"दिन", "jkr":"रात", 
+    "le;":"समय", "uke":"नाम", "dke":"काम", "ns'k":"देश", "lHkh":"सभी", 
+    "f'k{kk":"शिक्षा", "Kku":"ज्ञान", "iqLrd":"पुस्तक", "ys[kd":"लेखक", 
+    "iz'u":"प्रश्न", "mRrj":"उत्तर", "Lokxr":"स्वागत", "èkU;okn":"धन्यवाद",
+    "vPNk":"अच्छा", "cM+k":"बड़ा", "NksVk":"छोटा", "lqUnj":"सुंदर", "fganh":"हिंदी",
+    
+    /* Vowels */
+    "vk":"आ","v":"अ","b":"इ","bZ":"ई","m":"उ","Å":"ऊ","_,":"ऋ",
+    "M":"ए","sv":"ऐ","vks":"ओ","vkS":"औ",
+    
+    /* Consonants */
+    "d":"क","[k":"ख","x":"ग","?k":"घ","³":"ङ",
+    "p":"च","N":"छ","t":"ज",">k":"झ","¥":"ञ",
+    "V":"ट","B":"ठ","M+":"ड़","<":"ढ",".k":"ण",
+    "r":"त","Fk":"थ","n":"द","/k":"ध","u":"न",
+    "i":"प","Q":"फ","c":"ब","Hk":"भ","e":"म",
+    ";":"य","j":"र","y":"ल","o":"व",
+    "k":"श",'"k':"ष","l":"स","g":"ह",
+    "{k":"क्ष","=k":"त्र","K":"ज्ञ",
+    
+    /* Half letters / Halant */
+    "D":"क्","X":"ग्","?":"घ्","P":"च्","T":"ट्","R":"त्",
+    "F":"थ्","N":"द्","U":"न्","I":"प्","C":"ब्","E":"म्",
+    "J":"र्","Y":"ल्","O":"व्", "z":"्र", "Z":"र्",
+    
+    /* Matras */
+    "k2":"ा","f":"ि","h":"ी","q":"ु","w":"ू","`":"ृ",
+    "s":"े","S":"ै","ks":"ो","kS":"ौ","a":"ं","¡":"ँ","%":"ः","~":"्",
+    
+    /* Punctuation */
+    "A":"।","&":"-","=":"=","+":"+","*":"*","/":"/","\\":"\\","|":"|","-":"-",
+    "[":"[","]":"]","(":"(",")":")",":":":",";":";",",":",",".": ".","?":"?","!":"!",
+    "@":"@","#":"#","$":"$","^":"^","_":"_","{":"{","}":"}","~":"~","'":"'",'"':'"'," ":" "
+    
+    /* NOTE: English numbers (0-9) ki mapping hata di gayi hai taaki wo waise hi rahein */
   };
+
   var U2D = {};
-  var manual = {"अ":"v","आ":"vk","इ":"b","ई":"bZ","उ":"m","ऊ":"Å","ऋ":"_,","ए":"M","ऐ":"sv","ओ":"vks","औ":"vkS","क":"d","ख":"[k","ग":"x","घ":"?k","ङ":"³","च":"p","छ":"N","ज":"t","झ":">k","ञ":"¥","ट":"V","ठ":"B","ड":"M+","ढ":"<","ण":".k","त":"r","थ":"Fk","द":"n","ध":"/k","न":"u","प":"i","फ":"Q","ब":"c","भ":"Hk","म":"e","य":";","र":"j","ल":"y","व":"o","श":"k","ष":'"k',"स":"l","ह":"g","क्ष":"{k","त्र":"=k","ज्ञ":"K","ा":"k2","ि":"f","ी":"h","ु":"q","ू":"w","ृ":"`","े":"s","ै":"S","ो":"ks","ौ":"kS","ं":"a","ँ":"¡","ः":"%","्":"~","्र":"z","र्":"Z","०":"0","१":"1","२":"2","३":"3","४":"4","५":"5","६":"6","७":"7","८":"8","९":"9","।":"A"," ":" "};
+  var manual = {
+    "श्रीमान":"Jhheru", "अतिरिक्त":"vfrfjDr", "महानिदेशक":"egkfuns'kd", "पुलिस":"iqfyl",
+    "आयुक्त":"vk;qDr", "बटालियन्स":"cVkfy;Ul", "राजस्थान":"jktLFkku", "जयपुर":"t;iqj",
+    "के":"ds","का":"dk","की":"dh","को":"dks","में":"esa","है":"gS","हैं":"gSa",
+    "और":"vkSj","लेकिन":"ysfdu","कि":"fd","था":"Fkk","भी":"Hkh","पर":"ij",
+    "अ":"v","आ":"vk","इ":"b","ई":"bZ","उ":"m","ऊ":"Å","ऋ":"_,",
+    "ए":"M","ऐ":"sv","ओ":"vks","औ":"vkS",
+    "क":"d","ख":"[k","ग":"x","घ":"?k","ङ":"³",
+    "च":"p","छ":"N","ज":"t","झ":">k","ञ":"¥",
+    "ट":"V","ठ":"B","ड":"M+","ढ":"<","ण":".k",
+    "त":"r","थ":"Fk","द":"n","ध":"/k","न":"u",
+    "प":"i","फ":"Q","ब":"c","भ":"Hk","म":"e",
+    "य":";","र":"j","ल":"y","व":"o",
+    "श":"k","ष":'"k',"स":"l","ह":"g",
+    "क्ष":"{k","त्र":"=k","ज्ञ":"K",
+    "ा":"k2","ि":"f","ी":"h","ु":"q","ू":"w","ृ":"`",
+    "े":"s","ै":"S","ो":"ks","ौ":"kS","ं":"a","ँ":"¡",
+    "ः":"%","्":"~","्र":"z","र्":"Z",
+    "।":"A"," ":" "
+    /* Hindi numbers ki mapping bhi hata di gayi hai */
+  };
   for (var k in manual) if (manual.hasOwnProperty(k)) U2D[k] = manual[k];
-  function sortedKeys(obj){ return Object.keys(obj).sort(function(a,b){ return b.length - a.length; }); }
+
+  function sortedKeys(obj){
+    return Object.keys(obj).sort(function(a,b){ return b.length - a.length; });
+  }
   var D2U_keys = sortedKeys(D2U);
   var U2D_keys = sortedKeys(U2D);
-  var MATRAS = "ािीुूृेैोौंँः";
-  var CONSONANTS = "कखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह";
+
+  var CONSONANTS = "कखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसहड़";
+
   function isConsonant(ch){ return CONSONANTS.indexOf(ch) !== -1; }
-  function isMatra(ch){ return MATRAS.indexOf(ch) !== -1; }
+
   function reorderUnicode(text){
-    var chars = text.split(""), out = [];
+    var chars = text.split("");
+    var out = [];
     for (var i = 0; i < chars.length; i++){
       var ch = chars[i];
-      if (isMatra(ch) && i + 1 < chars.length && isConsonant(chars[i+1])){ out.push(chars[i+1]); out.push(ch); i++; }
-      else { out.push(ch); }
+      if (ch === "ि" && i + 1 < chars.length){
+        var j = i + 1;
+        while (j < chars.length && !isConsonant(chars[j]) && chars[j] !== "्") j++;
+        
+        if (j < chars.length && isConsonant(chars[j])){
+          out.push(chars[j]);
+          out.push("ि");
+          for (var m = i + 1; m < j; m++) out.push(chars[m]);
+          i = j;
+          continue;
+        }
+      }
+      out.push(ch);
     }
     return out.join("");
   }
+
   function devlysToUnicode(text){
     if (!text) return "";
     var out = "", i = 0, len = text.length;
@@ -202,12 +276,18 @@
       var matched = false;
       for (var j = 0; j < D2U_keys.length; j++){
         var key = D2U_keys[j];
-        if (i + key.length <= len && text.substr(i, key.length) === key){ out += D2U[key]; i += key.length; matched = true; break; }
+        if (i + key.length <= len && text.substr(i, key.length) === key){
+          out += D2U[key]; 
+          i += key.length; 
+          matched = true; 
+          break;
+        }
       }
       if (!matched){ out += text.charAt(i); i++; }
     }
     return reorderUnicode(out);
   }
+
   function unicodeToDevlys(text){
     if (!text) return "";
     var out = "", i = 0, len = text.length;
@@ -215,14 +295,19 @@
       var matched = false;
       for (var j = 0; j < U2D_keys.length; j++){
         var key = U2D_keys[j];
-        if (i + key.length <= len && text.substr(i, key.length) === key){ out += U2D[key]; i += key.length; matched = true; break; }
+        if (i + key.length <= len && text.substr(i, key.length) === key){
+          out += U2D[key]; 
+          i += key.length; 
+          matched = true; 
+          break;
+        }
       }
       if (!matched){ out += text.charAt(i); i++; }
     }
     return out;
   }
 
-  // ==================== DOM references ====================
+  /* ==================== DOM refs ==================== */
   var leftBox = document.getElementById('leftBox'), rightBox = document.getElementById('rightBox');
   var dirD2M = document.getElementById('dirD2M'), dirM2D = document.getElementById('dirM2D');
   var leftTitle = document.getElementById('leftTitle'), rightTitle = document.getElementById('rightTitle');
@@ -241,27 +326,23 @@
   var tesseractWorker = null;
   var cameraStream = null;
 
-  // ==================== Direction toggle ====================
+  /* ==================== Direction Toggle ==================== */
   function setDirection(dir){
     currentDirection = dir;
     if (dir === 'D2M'){
       dirD2M.classList.add('active'); dirM2D.classList.remove('active');
       leftTitle.textContent = 'Devlys / Kruti Dev'; rightTitle.textContent = 'Mangal (Unicode)';
       leftPill.textContent = 'LEGACY'; rightPill.textContent = 'HINDI';
-      leftBox.placeholder = 'Type or paste Devlys / Kruti Dev text here...';
-      rightBox.placeholder = 'Unicode (Mangal) text will appear here...';
     } else {
       dirM2D.classList.add('active'); dirD2M.classList.remove('active');
       leftTitle.textContent = 'Mangal (Unicode)'; rightTitle.textContent = 'Devlys / Kruti Dev';
       leftPill.textContent = 'HINDI'; rightPill.textContent = 'LEGACY';
-      leftBox.placeholder = 'Type or paste Unicode (Mangal) text here...';
-      rightBox.placeholder = 'Devlys / Kruti Dev text will appear here...';
     }
   }
   dirD2M.addEventListener('click', function(){ setDirection('D2M'); });
   dirM2D.addEventListener('click', function(){ setDirection('M2D'); });
 
-  // ==================== Convert / Clear / Copy / Swap ====================
+  /* ==================== Buttons ==================== */
   document.getElementById('convertBtn').addEventListener('click', function(){
     var input = leftBox.value;
     if (currentDirection === 'D2M'){ rightBox.value = devlysToUnicode(input); }
@@ -269,9 +350,8 @@
   });
   document.getElementById('clearBtn').addEventListener('click', function(){ leftBox.value = ''; rightBox.value = ''; });
   document.getElementById('copyBtn').addEventListener('click', function(){
-    var text = rightBox.value;
-    if (!text) return;
-    navigator.clipboard.writeText(text).then(function(){ showToast('Copied!'); });
+    if (!rightBox.value) return;
+    navigator.clipboard.writeText(rightBox.value).then(function(){ showToast('Copied!'); });
   });
   document.getElementById('swapBtn').addEventListener('click', function(){
     var l = leftBox.value; leftBox.value = rightBox.value; rightBox.value = l;
@@ -280,12 +360,13 @@
 
   function showToast(msg){ toastMsg.textContent = msg; toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); }, 1800); }
 
-  // ==================== Tesseract worker init ====================
+  /* ==================== OCR Init ==================== */
   function setEngineStatus(state, text){
     engineStatus.className = 'engine-status ' + (state || '');
     engineStatusText.textContent = text;
   }
   async function initTesseract(){
+    if (tesseractWorker) return tesseractWorker;
     setEngineStatus('busy', 'Loading OCR engine...');
     try {
       if (!window.Tesseract) throw new Error('Tesseract.js not loaded');
@@ -300,14 +381,15 @@
         }
       });
       setEngineStatus('ready', 'OCR engine ready (Hindi + English)');
+      return tesseractWorker;
     } catch(e){
-      console.error(e);
-      setEngineStatus('', 'OCR engine failed to load. Check internet.');
+      setEngineStatus('', 'OCR engine failed. Check internet.');
       tesseractWorker = null;
+      return null;
     }
   }
 
-  // ==================== OCR modal ====================
+  /* ==================== Modal & Camera ==================== */
   document.getElementById('ocrBtn').addEventListener('click', function(){
     ocrModal.classList.add('show');
     if (!tesseractWorker) initTesseract();
@@ -325,7 +407,6 @@
     });
   });
 
-  // ==================== Camera ====================
   async function startCamera(){
     stopCamera();
     camPlaceholder.style.display = 'flex';
@@ -333,14 +414,13 @@
     videoPreview.style.display = 'none';
     captureBtn.disabled = true;
     try {
-      cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
       videoPreview.srcObject = cameraStream;
       videoPreview.style.display = 'block';
       camPlaceholder.style.display = 'none';
       captureBtn.disabled = false;
     } catch(e){
-      console.error(e);
-      camPlaceholder.innerHTML = '<span class="big">🚫</span>Camera access denied.<br>Use HTTPS or localhost.';
+      camPlaceholder.innerHTML = '<span class="big">🚫</span>Camera access denied.<br><small>Use HTTPS or localhost</small>';
       captureBtn.disabled = true;
     }
   }
@@ -354,13 +434,11 @@
     var canvas = document.createElement('canvas');
     canvas.width = videoPreview.videoWidth;
     canvas.height = videoPreview.videoHeight;
-    var ctx = canvas.getContext('2d');
-    ctx.drawImage(videoPreview, 0, 0);
-    var dataUrl = canvas.toDataURL('image/png');
-    await runOCR(dataUrl, 'camera');
+    canvas.getContext('2d').drawImage(videoPreview, 0, 0);
+    await runOCR(canvas.toDataURL('image/png'), 'camera');
   });
 
-  // ==================== File upload + PDF ====================
+  /* ==================== File & PDF ==================== */
   fileDrop.addEventListener('click', function(){ fileInput.click(); });
   fileInput.addEventListener('change', function(){ if (fileInput.files.length) handleFile(fileInput.files[0]); });
   fileDrop.addEventListener('dragover', function(e){ e.preventDefault(); fileDrop.classList.add('dragover'); });
@@ -390,10 +468,10 @@
     try {
       if (!window.pdfjsLib) throw new Error('PDF.js not loaded');
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.worker.min.js';
-      var arrayBuffer = await file.arrayBuffer();
-      var pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      var pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
       var totalPages = pdf.numPages;
       var allText = '';
+      if (!tesseractWorker) await initTesseract();
       for (var pageNum = 1; pageNum <= totalPages; pageNum++){
         progressFill.style.width = Math.round((pageNum / totalPages) * 100) + '%';
         ocrStatusText.textContent = 'Processing page ' + pageNum + ' / ' + totalPages + '...';
@@ -401,26 +479,20 @@
         var viewport = page.getViewport({ scale: 2.0 });
         var canvas = document.createElement('canvas');
         canvas.width = viewport.width; canvas.height = viewport.height;
-        var ctx = canvas.getContext('2d');
-        await page.render({ canvasContext: ctx, viewport: viewport }).promise;
-        var dataUrl = canvas.toDataURL('image/png');
-        if (!tesseractWorker) await initTesseract();
-        if (!tesseractWorker) throw new Error('OCR engine not ready');
-        var result = await tesseractWorker.recognize(dataUrl);
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise;
+        var result = await tesseractWorker.recognize(canvas.toDataURL('image/png'));
         allText += result.data.text + '\n';
       }
       leftBox.value = allText.trim();
       showOCRStatus('ok', 'PDF extracted: ' + totalPages + ' page(s).');
       document.getElementById('convertBtn').click();
     } catch(e){
-      console.error(e);
       showOCRStatus('err', 'PDF error: ' + e.message);
     } finally {
       progressBar.classList.remove('show');
     }
   }
 
-  // ==================== OCR run (single image) ====================
   async function runOCR(dataUrl, source){
     if (!tesseractWorker) await initTesseract();
     if (!tesseractWorker){ showOCRStatus('err', 'OCR engine not ready.'); return; }
@@ -429,12 +501,10 @@
     progressFill.style.width = '0%';
     try {
       var result = await tesseractWorker.recognize(dataUrl);
-      var text = result.data.text;
-      leftBox.value = text;
-      showOCRStatus('ok', 'Text extracted! (source: ' + source + ')');
+      leftBox.value = result.data.text;
+      showOCRStatus('ok', 'Text extracted!');
       document.getElementById('convertBtn').click();
     } catch(e){
-      console.error(e);
       showOCRStatus('err', 'OCR failed: ' + e.message);
     } finally {
       progressBar.classList.remove('show');
@@ -447,7 +517,6 @@
     ocrStatusText.textContent = msg;
   }
 
-  // ==================== Auto-start ====================
   setDirection('D2M');
   initTesseract();
 })();
