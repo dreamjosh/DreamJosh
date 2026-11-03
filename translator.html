@@ -10,272 +10,112 @@
     --dj-orange:#ff8c1a;--dj-orange-light:#ffb347;--dj-orange-glow:#ffcf8a;
     --dj-green:#00c9b1;--text-dark:#1a2b40;--text-mid:#4a5b73;--text-dim:#7a8ba3;
   }
-  body{
-    font-family:'Segoe UI','Mangal','Noto Sans Devanagari',system-ui,sans-serif;
-    background:#fff;min-height:100vh;display:flex;flex-direction:column;
-    align-items:center;justify-content:flex-start;padding:24px 16px;color:var(--text-dark);
-  }
+  body{font-family:'Segoe UI','Mangal','Noto Sans Devanagari',system-ui,sans-serif;background:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px 16px;color:var(--text-dark);}
   .container{width:100%;max-width:1200px}
   .brand{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px;flex-wrap:wrap}
-  .brand-logo{
-    display:flex;align-items:center;justify-content:center;width:52px;height:52px;
-    border-radius:16px;background:linear-gradient(135deg,var(--dj-orange),var(--dj-green));
-    font-size:1.7rem;box-shadow:0 8px 24px -6px rgba(255,140,26,.45);
-  }
-  .brand h1{
-    font-size:2.1rem;font-weight:800;
-    background:linear-gradient(90deg,#d96b00 10%,var(--dj-orange) 45%,var(--dj-green) 90%);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  }
+  .brand-logo{display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--dj-orange),var(--dj-green));font-size:1.7rem;box-shadow:0 8px 24px -6px rgba(255,140,26,.45);}
+  .brand h1{font-size:2.1rem;font-weight:800;background:linear-gradient(90deg,#d96b00 10%,var(--dj-orange) 45%,var(--dj-green) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
   .brand h1 .josh{font-style:italic;font-weight:900}
   .tagline{text-align:center;color:var(--text-mid);font-size:1rem;margin-bottom:18px}
   .tagline strong{color:#d96b00;font-weight:600}
-
   .dir-bar{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:24px;flex-wrap:wrap}
-  .dir-btn{
-    display:inline-flex;align-items:center;gap:8px;padding:10px 22px;
-    font-size:.92rem;font-weight:700;font-family:inherit;border-radius:60px;cursor:pointer;
-    background:#fff;color:var(--text-mid);border:1.5px solid #e6eaf2;
-    transition:all .18s ease;box-shadow:0 4px 12px -6px rgba(20,40,70,.12);
-  }
+  .dir-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;font-size:.92rem;font-weight:700;font-family:inherit;border-radius:60px;cursor:pointer;background:#fff;color:var(--text-mid);border:1.5px solid #e6eaf2;transition:all .18s ease;box-shadow:0 4px 12px -6px rgba(20,40,70,.12);}
   .dir-btn:hover{border-color:var(--dj-orange-glow);color:#b85a00}
-  .dir-btn.active{
-    background:linear-gradient(135deg,var(--dj-orange-light),var(--dj-orange));
-    color:#1a0f00;border-color:var(--dj-orange);
-    box-shadow:0 8px 22px -8px rgba(255,140,26,.55);
-  }
+  .dir-btn.active{background:linear-gradient(135deg,var(--dj-orange-light),var(--dj-orange));color:#1a0f00;border-color:var(--dj-orange);box-shadow:0 8px 22px -8px rgba(255,140,26,.55);}
   .dir-btn .arrow{font-size:1.1rem}
-
-  .card{
-    background:#fff;border-radius:36px;border:1.5px solid #eef1f6;
-    box-shadow:0 24px 60px -24px rgba(20,40,70,.18),0 6px 20px -10px rgba(20,40,70,.08);
-    padding:30px 28px 26px;
-  }
+  .card{background:#fff;border-radius:36px;border:1.5px solid #eef1f6;box-shadow:0 24px 60px -24px rgba(20,40,70,.18),0 6px 20px -10px rgba(20,40,70,.08);padding:30px 28px 26px;}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   @media(max-width:780px){.grid{grid-template-columns:1fr;gap:18px}}
-
   .pane{display:flex;flex-direction:column;min-width:0}
   .pane-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:0 4px}
   .pane-title{display:flex;align-items:center;gap:10px;font-weight:600;font-size:1.15rem;color:var(--text-dark)}
   .pane-title .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
   .dot.legacy{background:var(--dj-orange);box-shadow:0 0 10px #ff8c1a66}
   .dot.unicode{background:var(--dj-green);box-shadow:0 0 10px #00c9b166}
-  .pill{
-    font-size:.72rem;font-weight:600;letter-spacing:.6px;text-transform:uppercase;
-    padding:4px 12px;border-radius:40px;background:#f4f6fb;color:var(--text-dim);border:1px solid #e6eaf2;
-  }
-
-  textarea{
-    width:100%;min-height:260px;padding:20px;font-size:1.2rem;line-height:1.8;
-    border-radius:22px;border:1.5px solid #dfe5ef;background:#fff;color:#142b3c;
-    box-shadow:inset 0 2px 8px rgba(20,40,70,.03);resize:vertical;
-    font-family:'Kruti Dev 010','KrutiDev010','Kruti Dev','DevLys 010','DevLys','Mangal','Noto Sans Devanagari',monospace;
-    transition:border .2s,box-shadow .2s;caret-color:var(--dj-orange);
-  }
+  .pill{font-size:.72rem;font-weight:600;letter-spacing:.6px;text-transform:uppercase;padding:4px 12px;border-radius:40px;background:#f4f6fb;color:var(--text-dim);border:1px solid #e6eaf2;}
+  textarea{width:100%;min-height:260px;padding:20px;font-size:1.2rem;line-height:1.8;border-radius:22px;border:1.5px solid #dfe5ef;background:#fff;color:#142b3c;box-shadow:inset 0 2px 8px rgba(20,40,70,.03);resize:vertical;font-family:'Kruti Dev 010','KrutiDev010','Kruti Dev','DevLys 010','DevLys','Mangal','Noto Sans Devanagari',monospace;transition:border .2s,box-shadow .2s;caret-color:var(--dj-orange);}
   textarea::placeholder{color:#9aa8bd;font-size:1rem;font-family:'Mangal','Noto Sans Devanagari','Segoe UI',sans-serif}
-  textarea:focus{
-    outline:none;border-color:var(--dj-orange);
-    box-shadow:0 0 0 4px rgba(255,140,26,.14),inset 0 2px 8px rgba(20,40,70,.03);
-  }
-  textarea.mangal-box{
-    font-family:'Mangal','Noto Sans Devanagari','Segoe UI',sans-serif;
-    border-color:#c9ece5;color:#0d3b32;
-  }
-  textarea.mangal-box:focus{
-    border-color:var(--dj-green);
-    box-shadow:0 0 0 4px rgba(0,201,177,.13),inset 0 2px 8px rgba(20,40,70,.03);
-  }
-
-  .actions{
-    display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
-    gap:14px;margin-top:28px;padding-top:24px;border-top:1px solid #eef1f6;
-  }
-  button{
-    display:inline-flex;align-items:center;justify-content:center;gap:9px;
-    padding:12px 26px;font-size:1rem;font-weight:600;font-family:inherit;
-    border-radius:60px;border:1.5px solid #e6eaf2;background:#fff;color:var(--text-mid);
-    cursor:pointer;transition:all .18s ease;box-shadow:0 4px 12px -6px rgba(20,40,70,.12);
-  }
-  button:hover:not(:disabled){
-    border-color:var(--dj-orange-glow);background:#fffaf3;color:#b85a00;
-    transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(255,140,26,.35);
-  }
+  textarea:focus{outline:none;border-color:var(--dj-orange);box-shadow:0 0 0 4px rgba(255,140,26,.14),inset 0 2px 8px rgba(20,40,70,.03);}
+  textarea.mangal-box{font-family:'Mangal','Noto Sans Devanagari','Segoe UI',sans-serif;border-color:#c9ece5;color:#0d3b32;}
+  textarea.mangal-box:focus{border-color:var(--dj-green);box-shadow:0 0 0 4px rgba(0,201,177,.13),inset 0 2px 8px rgba(20,40,70,.03);}
+  .actions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px;margin-top:28px;padding-top:24px;border-top:1px solid #eef1f6;}
+  button{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 26px;font-size:1rem;font-weight:600;font-family:inherit;border-radius:60px;border:1.5px solid #e6eaf2;background:#fff;color:var(--text-mid);cursor:pointer;transition:all .18s ease;box-shadow:0 4px 12px -6px rgba(20,40,70,.12);}
+  button:hover:not(:disabled){border-color:var(--dj-orange-glow);background:#fffaf3;color:#b85a00;transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(255,140,26,.35);}
   button:active:not(:disabled){transform:translateY(1px) scale(.985)}
   button:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
-  button.primary{
-    background:linear-gradient(135deg,var(--dj-orange-light),var(--dj-orange));
-    border:1px solid var(--dj-orange);color:#1a0f00;
-    box-shadow:0 10px 26px -8px rgba(255,140,26,.55);font-size:1.05rem;padding:13px 34px;
-  }
-  button.primary:hover:not(:disabled){
-    background:linear-gradient(135deg,#ffc36b,#ff9a2e);color:#1a0f00;
-    box-shadow:0 14px 32px -8px rgba(255,140,26,.7);transform:translateY(-2px);
-  }
-  button.ocr-btn{
-    background:linear-gradient(135deg,#e0f7f3,#b2ece0);
-    border-color:var(--dj-green);color:#0b5a4e;
-  }
-  button.ocr-btn:hover:not(:disabled){
-    background:linear-gradient(135deg,#c8f2ea,#8ee3d4);color:#084a40;
-  }
+  button.primary{background:linear-gradient(135deg,var(--dj-orange-light),var(--dj-orange));border:1px solid var(--dj-orange);color:#1a0f00;box-shadow:0 10px 26px -8px rgba(255,140,26,.55);font-size:1.05rem;padding:13px 34px;}
+  button.primary:hover:not(:disabled){background:linear-gradient(135deg,#ffc36b,#ff9a2e);color:#1a0f00;box-shadow:0 14px 32px -8px rgba(255,140,26,.7);transform:translateY(-2px);}
+  button.ocr-btn{background:linear-gradient(135deg,#e0f7f3,#b2ece0);border-color:var(--dj-green);color:#0b5a4e;}
+  button.ocr-btn:hover:not(:disabled){background:linear-gradient(135deg,#c8f2ea,#8ee3d4);color:#084a40;}
   .icon{font-size:1.15rem;line-height:1}
-
-  /* ---- Modal ---- */
-  .modal-overlay{
-    position:fixed;inset:0;background:rgba(15,30,50,.55);backdrop-filter:blur(4px);
-    display:none;align-items:center;justify-content:center;z-index:2000;padding:16px;
-  }
+  .modal-overlay{position:fixed;inset:0;background:rgba(15,30,50,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:2000;padding:16px;}
   .modal-overlay.show{display:flex}
-  .modal-box{
-    background:#fff;border-radius:28px;max-width:640px;width:100%;
-    box-shadow:0 30px 80px -20px rgba(10,20,40,.5);padding:26px 24px 22px;
-    max-height:92vh;overflow-y:auto;animation:pop .25s ease;
-  }
+  .modal-box{background:#fff;border-radius:28px;max-width:640px;width:100%;box-shadow:0 30px 80px -20px rgba(10,20,40,.5);padding:26px 24px 22px;max-height:92vh;overflow-y:auto;animation:pop .25s ease;}
   @keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
   .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
   .modal-head h2{font-size:1.25rem;color:var(--text-dark)}
-  .modal-close{
-    border:none;background:#f4f6fb;color:var(--text-mid);width:38px;height:38px;
-    border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  }
+  .modal-close{border:none;background:#f4f6fb;color:var(--text-mid);width:38px;height:38px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
   .modal-close:hover{background:#ffe2c2;color:#b85a00}
-
   .tabs{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
-  .tab-btn{
-    flex:1;min-width:120px;padding:12px 14px;border-radius:16px;border:1.5px solid #e6eaf2;
-    background:#fff;color:var(--text-mid);font-weight:700;font-family:inherit;cursor:pointer;
-    font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s;
-  }
-  .tab-btn.active{
-    background:linear-gradient(135deg,var(--dj-orange-light),var(--dj-orange));
-    color:#1a0f00;border-color:var(--dj-orange);
-  }
+  .tab-btn{flex:1;min-width:120px;padding:12px 14px;border-radius:16px;border:1.5px solid #e6eaf2;background:#fff;color:var(--text-mid);font-weight:700;font-family:inherit;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s;}
+  .tab-btn.active{background:linear-gradient(135deg,var(--dj-orange-light),var(--dj-orange));color:#1a0f00;border-color:var(--dj-orange);}
   .tab-panel{display:none}
   .tab-panel.active{display:block}
-
-  .cam-wrap{
-    position:relative;border-radius:20px;overflow:hidden;background:#0b1622;
-    aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
-  }
+  .cam-wrap{position:relative;border-radius:20px;overflow:hidden;background:#0b1622;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;}
   #videoPreview{width:100%;height:100%;object-fit:cover;display:none}
   .cam-placeholder{color:#c8d4e2;text-align:center;padding:20px}
   .cam-placeholder .big{font-size:2.6rem;display:block;margin-bottom:8px}
   .capture-row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;justify-content:center}
   .capture-row button{flex:1;min-width:120px}
-
-  .file-drop{
-    border:2.5px dashed #cfe3ee;border-radius:22px;padding:38px 20px;text-align:center;
-    background:#fafdff;transition:all .2s;cursor:pointer;
-  }
+  .file-drop{border:2.5px dashed #cfe3ee;border-radius:22px;padding:38px 20px;text-align:center;background:#fafdff;transition:all .2s;cursor:pointer;}
   .file-drop:hover,.file-drop.dragover{border-color:var(--dj-green);background:#f0fdfa}
   .file-drop .big{font-size:2.6rem;display:block;margin-bottom:10px}
   .file-drop p{color:var(--text-mid);font-size:.95rem;margin-bottom:6px}
   .file-drop small{color:var(--text-dim);font-size:.8rem}
   #fileInput{display:none}
-
-  .preview-img{
-    max-width:100%;border-radius:16px;margin-top:14px;max-height:260px;object-fit:contain;
-    border:1px solid #e6eaf2;display:none;
-  }
-  .ocr-status{
-    margin-top:14px;padding:12px 16px;border-radius:14px;font-size:.9rem;font-weight:600;
-    display:none;align-items:center;gap:10px;line-height:1.4;
-  }
+  .preview-img{max-width:100%;border-radius:16px;margin-top:14px;max-height:260px;object-fit:contain;border:1px solid #e6eaf2;display:none;}
+  .ocr-status{margin-top:14px;padding:12px 16px;border-radius:14px;font-size:.9rem;font-weight:600;display:none;align-items:center;gap:10px;line-height:1.4;}
   .ocr-status.show{display:flex}
   .ocr-status.working{background:#fff8ec;color:#a15c00;border:1px solid #ffe2b8}
   .ocr-status.ok{background:#f0fdfa;color:#0b7a6b;border:1px solid #c9ece5}
   .ocr-status.err{background:#fff0f0;color:#b02a2a;border:1px solid #ffd6d6}
-  .spinner{
-    width:18px;height:18px;border:2.5px solid #ffd9a8;border-top-color:#ff8c1a;
-    border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;
-  }
+  .spinner{width:18px;height:18px;border:2.5px solid #ffd9a8;border-top-color:#ff8c1a;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;}
   @keyframes spin{to{transform:rotate(360deg)}}
-
-  .progress-bar{
-    height:8px;background:#eef1f6;border-radius:10px;overflow:hidden;margin-top:12px;display:none;
-  }
+  .progress-bar{height:8px;background:#eef1f6;border-radius:10px;overflow:hidden;margin-top:12px;display:none;}
   .progress-bar.show{display:block}
-  .progress-fill{
-    height:100%;width:0%;border-radius:10px;
-    background:linear-gradient(90deg,var(--dj-orange),var(--dj-green));
-    transition:width .3s ease;
-  }
-
+  .progress-fill{height:100%;width:0%;border-radius:10px;background:linear-gradient(90deg,var(--dj-orange),var(--dj-green));transition:width .3s ease;}
   .footer-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:26px;padding-top:20px;border-top:1px solid #eef1f6}
-  .badge{
-    display:inline-flex;align-items:center;gap:7px;padding:7px 16px;font-size:.82rem;
-    font-weight:500;border-radius:60px;background:#fbfcfe;border:1px solid #e9edf5;color:var(--text-mid);
-  }
+  .badge{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;font-size:.82rem;font-weight:500;border-radius:60px;background:#fbfcfe;border:1px solid #e9edf5;color:var(--text-mid);}
   .badge.green{background:#f0fdfa;border-color:#c9ece5;color:#0b7a6b}
   .badge.orange{background:#fffaf3;border-color:#ffe2c2;color:#b85a00}
-
-  .toast{
-    position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(20px);
-    background:#fff;color:#0b7a6b;padding:13px 30px;border-radius:60px;border:1.5px solid #c9ece5;
-    box-shadow:0 18px 40px -12px rgba(20,40,70,.18);font-weight:600;font-size:.95rem;z-index:3000;
-    opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;display:flex;align-items:center;gap:10px;
-    max-width:90vw;text-align:center;
-  }
+  .toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(20px);background:#fff;color:#0b7a6b;padding:13px 30px;border-radius:60px;border:1.5px solid #c9ece5;box-shadow:0 18px 40px -12px rgba(20,40,70,.18);font-weight:600;font-size:.95rem;z-index:3000;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;display:flex;align-items:center;gap:10px;max-width:90vw;text-align:center;}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-  .engine-status{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    font-size:.78rem;color:var(--text-dim);margin-top:10px;min-height:18px;
-  }
-  .engine-status .dot-sm{
-    width:7px;height:7px;border-radius:50%;background:#ccc;display:inline-block;
-  }
+  .engine-status{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.78rem;color:var(--text-dim);margin-top:10px;min-height:18px;}
+  .engine-status .dot-sm{width:7px;height:7px;border-radius:50%;background:#ccc;display:inline-block;}
   .engine-status.ready .dot-sm{background:var(--dj-green);box-shadow:0 0 6px #00c9b1}
   .engine-status.busy .dot-sm{background:var(--dj-orange);box-shadow:0 0 6px #ff8c1a}
-
-  @media(max-width:500px){
-    .brand h1{font-size:1.55rem}
-    .brand-logo{width:44px;height:44px;font-size:1.4rem}
-    .card{padding:20px 16px 18px;border-radius:28px}
-    textarea{min-height:200px;padding:16px;font-size:1.05rem}
-    button{padding:11px 20px;font-size:.92rem}
-    button.primary{padding:12px 26px}
-    .modal-box{padding:20px 16px 18px;border-radius:22px}
-  }
+  @media(max-width:500px){.brand h1{font-size:1.55rem}.brand-logo{width:44px;height:44px;font-size:1.4rem}.card{padding:20px 16px 18px;border-radius:28px}textarea{min-height:200px;padding:16px;font-size:1.05rem}button{padding:11px 20px;font-size:.92rem}button.primary{padding:12px 26px}.modal-box{padding:20px 16px 18px;border-radius:22px}}
 </style>
 </head>
 <body>
-
 <div class="container">
-  <div class="brand">
-    <div class="brand-logo">🚀</div>
-    <h1>Dream <span class="josh">Josh</span> Translator</h1>
-  </div>
-  <div class="tagline">
-    <strong>Devlys</strong> ⇄ <strong>Mangal</strong> &nbsp;+&nbsp; 📷 Auto OCR
-  </div>
-
+  <div class="brand"><div class="brand-logo">🚀</div><h1>Dream <span class="josh">Josh</span> Translator</h1></div>
+  <div class="tagline"><strong>Devlys</strong> ⇄ <strong>Mangal</strong> &nbsp;+&nbsp; 📷 Auto OCR</div>
   <div class="dir-bar">
     <button class="dir-btn active" id="dirD2M">Devlys <span class="arrow">→</span> Mangal</button>
     <button class="dir-btn" id="dirM2D">Mangal <span class="arrow">→</span> Devlys</button>
   </div>
-
   <div class="card">
     <div class="grid">
       <div class="pane">
-        <div class="pane-header">
-          <div class="pane-title"><span class="dot legacy"></span><span id="leftTitle">Devlys / Kruti Dev</span></div>
-          <span class="pill" id="leftPill">LEGACY</span>
-        </div>
-        <textarea id="leftBox" spellcheck="false"
-          placeholder="Type or paste Devlys / Kruti Dev text here..."></textarea>
+        <div class="pane-header"><div class="pane-title"><span class="dot legacy"></span><span id="leftTitle">Devlys / Kruti Dev</span></div><span class="pill" id="leftPill">LEGACY</span></div>
+        <textarea id="leftBox" spellcheck="false" placeholder="Type or paste Devlys / Kruti Dev text here..."></textarea>
       </div>
-
       <div class="pane">
-        <div class="pane-header">
-          <div class="pane-title"><span class="dot unicode"></span><span id="rightTitle">Mangal (Unicode)</span></div>
-          <span class="pill" id="rightPill">HINDI</span>
-        </div>
-        <textarea id="rightBox" class="mangal-box" spellcheck="false"
-          placeholder="Unicode (Mangal) text will appear here, or type here..."></textarea>
+        <div class="pane-header"><div class="pane-title"><span class="dot unicode"></span><span id="rightTitle">Mangal (Unicode)</span></div><span class="pill" id="rightPill">HINDI</span></div>
+        <textarea id="rightBox" class="mangal-box" spellcheck="false" placeholder="Unicode (Mangal) text will appear here, or type here..."></textarea>
       </div>
     </div>
-
     <div class="actions">
       <button class="primary" id="convertBtn"><span class="icon">⚡</span> Convert</button>
       <button id="clearBtn"><span class="icon">🗑️</span> Clear</button>
@@ -283,169 +123,78 @@
       <button id="swapBtn"><span class="icon">🔁</span> Swap</button>
       <button class="ocr-btn" id="ocrBtn"><span class="icon">📷</span> Photo / PDF → Text</button>
     </div>
-
-    <div class="engine-status" id="engineStatus">
-      <span class="dot-sm"></span>
-      <span id="engineStatusText">Loading OCR engine...</span>
-    </div>
-
+    <div class="engine-status" id="engineStatus"><span class="dot-sm"></span><span id="engineStatusText">Loading OCR engine...</span></div>
     <div class="footer-badges">
-      <span class="badge green">✅ Auto Convert</span>
-      <span class="badge">🔤 Hindi Unicode</span>
-      <span class="badge orange">⚡ Auto OCR</span>
-      <span class="badge">📷 Camera + PDF</span>
+      <span class="badge green">✅ Auto Convert</span><span class="badge">🔤 Hindi Unicode</span><span class="badge orange">⚡ Auto OCR</span><span class="badge">📷 Camera + PDF</span>
     </div>
   </div>
 </div>
 
-<!-- ================= OCR MODAL ================= -->
 <div class="modal-overlay" id="ocrModal">
   <div class="modal-box">
-    <div class="modal-head">
-      <h2>📷 Photo / PDF → Text (Auto)</h2>
-      <button class="modal-close" id="modalClose">✕</button>
-    </div>
-
+    <div class="modal-head"><h2>📷 Photo / PDF → Text (Auto)</h2><button class="modal-close" id="modalClose">✕</button></div>
     <div class="tabs">
       <button class="tab-btn active" data-tab="cam">📸 Camera</button>
       <button class="tab-btn" data-tab="file">📁 Upload File</button>
     </div>
-
-    <!-- CAMERA TAB -->
     <div class="tab-panel active" id="tab-cam">
       <div class="cam-wrap">
         <video id="videoPreview" autoplay playsinline muted></video>
-        <div class="cam-placeholder" id="camPlaceholder">
-          <span class="big">📷</span>
-          Starting camera automatically...
-        </div>
+        <div class="cam-placeholder" id="camPlaceholder"><span class="big">📷</span>Starting camera automatically...</div>
       </div>
       <div class="capture-row">
         <button class="primary" id="captureBtn" disabled>📸 Capture &amp; OCR</button>
         <button id="retryCamBtn">🔄 Retry Camera</button>
-        <button id="switchCamBtn" style="display:none">🔄 Switch</button>
       </div>
     </div>
-
-    <!-- FILE TAB -->
     <div class="tab-panel" id="tab-file">
-      <div class="file-drop" id="fileDrop">
-        <span class="big">📄🖼️</span>
-        <p><b>Click to choose a file</b> or drag &amp; drop here</p>
-        <small>PDF, JPG, PNG, WEBP, BMP (max 10 MB)</small>
-      </div>
+      <div class="file-drop" id="fileDrop"><span class="big">📄🖼️</span><p><b>Click to choose a file</b> or drag &amp; drop here</p><small>PDF, JPG, PNG, WEBP, BMP (max 10 MB)</small></div>
       <input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.webp,.bmp">
       <img id="previewImg" class="preview-img" alt="preview">
     </div>
-
-    <div class="progress-bar" id="progressBar">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-    <div class="ocr-status" id="ocrStatus">
-      <span class="spinner" id="ocrSpinner"></span>
-      <span id="ocrStatusText">Processing...</span>
-    </div>
+    <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="ocr-status" id="ocrStatus"><span class="spinner" id="ocrSpinner"></span><span id="ocrStatusText">Processing...</span></div>
   </div>
 </div>
-
 <div id="toast" class="toast"><span>✅</span> <span id="toastMsg">Copied!</span></div>
 
-<!-- ================= Libraries (auto-loaded) ================= -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.min.js"></script>
-
 <script>
 (function(){
   "use strict";
-
-  /* ================================================================
-     DEVLY'S → UNICODE MAPPING
-     ================================================================ */
+  // ==================== DevLys ⇄ Unicode mapping (fixed syntax) ====================
   var D2U = {
-    "vk":"आ","v":"अ","b":"इ","bZ":"ई","m":"उ","Å":"ऊ","_,":"ऋ",
-    "M":"ए","sv":"ऐ","vks":"ओ","vkS":"औ",
-    "d":"क","[k":"ख","x":"ग","?k":"घ","³":"ङ",
-    "p":"च","N":"छ","t":"ज",">k":"झ","¥":"ञ",
-    "V":"ट","B":"ठ","M+":"ड","<":"ढ",".k":"ण",
-    "r":"त","Fk":"थ","n":"द","/k":"ध","u":"न",
-    "i":"प","Q":"फ","c":"ब","Hk":"भ","e":"म",
-    ";":"य","j":"र","y":"ल","o":"व",
-    "k":"श",'"k':"ष","l":"स","g":"ह",
-    "{k":"क्ष","=k":"त्र","K":"ज्ञ",
-    "D":"क्","X":"ग्","?":"घ्","P":"च्","T":"ट्","M+":"ड्",
-    "R":"त्","F":"थ्","N":"द्","U":"न्","I":"प्","C":"ब्",
-    "E":"म्","J":"र्","Y":"ल्","O":"व्","K2":"श्",
-    "k2":"ा","f":"ि","h":"ी","q":"ु","w":"ू","`":"ृ",
-    "s":"े","S":"ै","ks":"ो","kS":"ौ","a":"ं","¡":"ँ",
-    "%":"ः","~":"्","z":"्र","Z":"र्","ƒ":"ऱ्",
-    "0":"०","1":"१","2":"२","3":"३","4":"४",
-    "5":"५","6":"६","7":"७","8":"८","9":"९",
-    "A":"।","&":"-","=":"=","+":"+","*":"*",
-    "/":"/","\\":"\\","|":"|","-":"-",
-    "[":"[","]":"]","(":"(",")":")",
-    ":":":",";":";",",":",",".": ".",
-    "?":"?","!":"!","@":"@","#":"#","$":"$",
-    "^":"^","_":"_","{":"{","}":"}","~":"~",
-    "'":"'",'"':'"'," ":" ",
-    "vkSj":"और","vkSjr":"औरत","ysfdu":"लेकिन","fd":"कि",
-    "dk":"का","ds":"के","dh":"की","dks":"को","ls":"से",
-    "esa":"में","ij":"पर","tgka":"जहाँ","og":"वह",";g":"यह",
-    "gS":"है","gSa":"हैं","Fkk":"था","Fks":"थे","Fkh":"थी",
-    "Hkh":"भी","vPNk":"अच्छा","cM+k":"बड़ा","NksVk":"छोटा",
-    "lqUnj":"सुंदर","fganh":"हिंदी","Hkk\"kk":"भाषा",
-    "lHkh":"सभी","uke":"नाम","dke":"काम","ns'k":"देश",
-    "f'k{kk":"शिक्षा","Kku":"ज्ञान","fo|k":"विद्या",
-    "iqLrd":"पुस्तक","ys[kd":"लेखक","dk;Z":"कार्य",
-    "iz'u":"प्रश्न","mRrj":"उत्तर","lgk;rk":"सहायता",
-    "Lokxr":"स्वागत","èkU;okn":"धन्यवाद","fnu":"दिन",
-    "jkr":"रात","le;":"समय","vki":"आप","vkidk":"आपका",
-    "vkidh":"आपकी","jkTk":"राज","y[kuÅ":"लखनऊ","vktexZ":"आजमगढ़"
+    "vk":"आ","v":"अ","b":"इ","bZ":"ई","m":"उ","Å":"ऊ","_,":"ऋ","M":"ए","sv":"ऐ","vks":"ओ","vkS":"औ",
+    "d":"क","[k":"ख","x":"ग","?k":"घ","³":"ङ","p":"च","N":"छ","t":"ज",">k":"झ","¥":"ञ",
+    "V":"ट","B":"ठ","M+":"ड","<":"ढ",".k":"ण","r":"त","Fk":"थ","n":"द","/k":"ध","u":"न",
+    "i":"प","Q":"फ","c":"ब","Hk":"भ","e":"म",";":"य","j":"र","y":"ल","o":"व",
+    "k":"श",'"k':"ष","l":"स","g":"ह","{k":"क्ष","=k":"त्र","K":"ज्ञ",
+    "D":"क्","X":"ग्","?":"घ्","P":"च्","T":"ट्","R":"त्","F":"थ्","N":"द्","U":"न्","I":"प्","C":"ब्","E":"म्","J":"र्","Y":"ल्","O":"व्",
+    "k2":"ा","f":"ि","h":"ी","q":"ु","w":"ू","`":"ृ","s":"े","S":"ै","ks":"ो","kS":"ौ","a":"ं","¡":"ँ","%":"ः","~":"्","z":"्र","Z":"र्",
+    "0":"०","1":"१","2":"२","3":"३","4":"४","5":"५","6":"६","7":"७","8":"८","9":"९",
+    "A":"।","&":"-","=":"=","+":"+","*":"*","/":"/","\\":"\\","|":"|","-":"-","[":"[","]":"]","(":"(",")":")",":":":",";":";",",":",",".": ".","?":"?","!":"!","@":"@","#":"#","$":"$","^":"^","_":"_","{":"{","}":"}","'":"'",'"':'"'," ":" ",
+    "vkSj":"और","vkSjr":"औरत","ysfdu":"लेकिन","fd":"कि","dk":"का","ds":"के","dh":"की","dks":"को","ls":"से","esa":"में","ij":"पर","gS":"है","gSa":"हैं","Fkk":"था","Hkh":"भी","vPNk":"अच्छा","cM+k":"बड़ा","NksVk":"छोटा","lqUnj":"सुंदर","fganh":"हिंदी","Hkk\"kk":"भाषा","lHkh":"सभी","uke":"नाम","dke":"काम","ns'k":"देश","f'k{kk":"शिक्षा","Kku":"ज्ञान","iqLrd":"पुस्तक","ys[kd":"लेखक","iz'u":"प्रश्न","mRrj":"उत्तर","Lokxr":"स्वागत","fnu":"दिन","jkr":"रात","le;":"समय","vki":"आप","vkidk":"आपका","vkidh":"आपकी","jkTk":"राज","y[kuÅ":"लखनऊ","vktexZ":"आजमगढ़"
   };
-
   var U2D = {};
-  var manual = {
-    "अ":"v","आ":"vk","इ":"b","ई":"bZ","उ":"m","ऊ":"Å","ऋ":"_,",
-    "ए":"M","ऐ":"sv","ओ":"vks","औ":"vkS",
-    "क":"d","ख":"[k","ग":"x","घ":"?k","ङ":"³",
-    "च":"p","छ":"N","ज":"t","झ":">k","ञ":"¥",
-    "ट":"V","ठ":"B","ड":"M+","ढ":"<","ण":".k",
-    "त":"r","थ":"Fk","द":"n","ध":"/k","न":"u",
-    "प":"i","फ":"Q","ब":"c","भ":"Hk","म":"e",
-    "य":";","र":"j","ल":"y","व":"o",
-    "श":"k","ष":'"k',"स":"l","ह":"g",
-    "क्ष":"{k","त्र":"=k","ज्ञ":"K",
-    "ा":"k2","ि":"f","ी":"h","ु":"q","ू":"w","ृ":"`",
-    "े":"s","ै":"S","ो":"ks","ौ":"kS","ं":"a","ँ":"¡",
-    "ः":"%","्":"~","्र":"z","र्":"Z",
-    "०":"0","१":"1","२":"2","३":"3","४":"4",
-    "५":"5","६":"6","७":"7","८":"8","९":"9",
-    "।":"A"," ":" "
-  };
+  var manual = {"अ":"v","आ":"vk","इ":"b","ई":"bZ","उ":"m","ऊ":"Å","ऋ":"_,","ए":"M","ऐ":"sv","ओ":"vks","औ":"vkS","क":"d","ख":"[k","ग":"x","घ":"?k","ङ":"³","च":"p","छ":"N","ज":"t","झ":">k","ञ":"¥","ट":"V","ठ":"B","ड":"M+","ढ":"<","ण":".k","त":"r","थ":"Fk","द":"n","ध":"/k","न":"u","प":"i","फ":"Q","ब":"c","भ":"Hk","म":"e","य":";","र":"j","ल":"y","व":"o","श":"k","ष":'"k',"स":"l","ह":"g","क्ष":"{k","त्र":"=k","ज्ञ":"K","ा":"k2","ि":"f","ी":"h","ु":"q","ू":"w","ृ":"`","े":"s","ै":"S","ो":"ks","ौ":"kS","ं":"a","ँ":"¡","ः":"%","्":"~","्र":"z","र्":"Z","०":"0","१":"1","२":"2","३":"3","४":"4","५":"5","६":"6","७":"7","८":"8","९":"9","।":"A"," ":" "};
   for (var k in manual) if (manual.hasOwnProperty(k)) U2D[k] = manual[k];
-
-  function sortedKeys(obj){
-    return Object.keys(obj).sort(function(a,b){ return b.length - a.length; });
-  }
+  function sortedKeys(obj){ return Object.keys(obj).sort(function(a,b){ return b.length - a.length; }); }
   var D2U_keys = sortedKeys(D2U);
   var U2D_keys = sortedKeys(U2D);
-
   var MATRAS = "ािीुूृेैोौंँः";
   var CONSONANTS = "कखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह";
-  var NUKTA_CONSONANTS = "क़ख़ग़ज़ड़ढ़फ़य़";
-  function isConsonant(ch){ return CONSONANTS.indexOf(ch) !== -1 || NUKTA_CONSONANTS.indexOf(ch) !== -1; }
+  function isConsonant(ch){ return CONSONANTS.indexOf(ch) !== -1; }
   function isMatra(ch){ return MATRAS.indexOf(ch) !== -1; }
-
   function reorderUnicode(text){
     var chars = text.split(""), out = [];
     for (var i = 0; i < chars.length; i++){
       var ch = chars[i];
-      if (isMatra(ch) && i + 1 < chars.length && isConsonant(chars[i+1])){
-        out.push(chars[i+1]); out.push(ch); i++;
-      } else { out.push(ch); }
+      if (isMatra(ch) && i + 1 < chars.length && isConsonant(chars[i+1])){ out.push(chars[i+1]); out.push(ch); i++; }
+      else { out.push(ch); }
     }
     return out.join("");
   }
-
   function devlysToUnicode(text){
     if (!text) return "";
     var out = "", i = 0, len = text.length;
@@ -453,10 +202,255 @@
       var matched = false;
       for (var j = 0; j < D2U_keys.length; j++){
         var key = D2U_keys[j];
-        if (i + key.length <= len && text.substr(i, key.length) === key){
-          out += D2U[key]; i += key.length; matched = true; break;
-        }
+        if (i + key.length <= len && text.substr(i, key.length) === key){ out += D2U[key]; i += key.length; matched = true; break; }
       }
       if (!matched){ out += text.charAt(i); i++; }
     }
-    ret
+    return reorderUnicode(out);
+  }
+  function unicodeToDevlys(text){
+    if (!text) return "";
+    var out = "", i = 0, len = text.length;
+    while (i < len){
+      var matched = false;
+      for (var j = 0; j < U2D_keys.length; j++){
+        var key = U2D_keys[j];
+        if (i + key.length <= len && text.substr(i, key.length) === key){ out += U2D[key]; i += key.length; matched = true; break; }
+      }
+      if (!matched){ out += text.charAt(i); i++; }
+    }
+    return out;
+  }
+
+  // ==================== DOM references ====================
+  var leftBox = document.getElementById('leftBox'), rightBox = document.getElementById('rightBox');
+  var dirD2M = document.getElementById('dirD2M'), dirM2D = document.getElementById('dirM2D');
+  var leftTitle = document.getElementById('leftTitle'), rightTitle = document.getElementById('rightTitle');
+  var leftPill = document.getElementById('leftPill'), rightPill = document.getElementById('rightPill');
+  var engineStatus = document.getElementById('engineStatus'), engineStatusText = document.getElementById('engineStatusText');
+  var ocrModal = document.getElementById('ocrModal'), modalClose = document.getElementById('modalClose');
+  var tabBtns = document.querySelectorAll('.tab-btn'), tabCam = document.getElementById('tab-cam'), tabFile = document.getElementById('tab-file');
+  var videoPreview = document.getElementById('videoPreview'), camPlaceholder = document.getElementById('camPlaceholder');
+  var captureBtn = document.getElementById('captureBtn'), retryCamBtn = document.getElementById('retryCamBtn');
+  var fileDrop = document.getElementById('fileDrop'), fileInput = document.getElementById('fileInput'), previewImg = document.getElementById('previewImg');
+  var ocrStatus = document.getElementById('ocrStatus'), ocrStatusText = document.getElementById('ocrStatusText');
+  var progressBar = document.getElementById('progressBar'), progressFill = document.getElementById('progressFill');
+  var toast = document.getElementById('toast'), toastMsg = document.getElementById('toastMsg');
+
+  var currentDirection = 'D2M';
+  var tesseractWorker = null;
+  var cameraStream = null;
+
+  // ==================== Direction toggle ====================
+  function setDirection(dir){
+    currentDirection = dir;
+    if (dir === 'D2M'){
+      dirD2M.classList.add('active'); dirM2D.classList.remove('active');
+      leftTitle.textContent = 'Devlys / Kruti Dev'; rightTitle.textContent = 'Mangal (Unicode)';
+      leftPill.textContent = 'LEGACY'; rightPill.textContent = 'HINDI';
+      leftBox.placeholder = 'Type or paste Devlys / Kruti Dev text here...';
+      rightBox.placeholder = 'Unicode (Mangal) text will appear here...';
+    } else {
+      dirM2D.classList.add('active'); dirD2M.classList.remove('active');
+      leftTitle.textContent = 'Mangal (Unicode)'; rightTitle.textContent = 'Devlys / Kruti Dev';
+      leftPill.textContent = 'HINDI'; rightPill.textContent = 'LEGACY';
+      leftBox.placeholder = 'Type or paste Unicode (Mangal) text here...';
+      rightBox.placeholder = 'Devlys / Kruti Dev text will appear here...';
+    }
+  }
+  dirD2M.addEventListener('click', function(){ setDirection('D2M'); });
+  dirM2D.addEventListener('click', function(){ setDirection('M2D'); });
+
+  // ==================== Convert / Clear / Copy / Swap ====================
+  document.getElementById('convertBtn').addEventListener('click', function(){
+    var input = leftBox.value;
+    if (currentDirection === 'D2M'){ rightBox.value = devlysToUnicode(input); }
+    else { rightBox.value = unicodeToDevlys(input); }
+  });
+  document.getElementById('clearBtn').addEventListener('click', function(){ leftBox.value = ''; rightBox.value = ''; });
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var text = rightBox.value;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(function(){ showToast('Copied!'); });
+  });
+  document.getElementById('swapBtn').addEventListener('click', function(){
+    var l = leftBox.value; leftBox.value = rightBox.value; rightBox.value = l;
+    setDirection(currentDirection === 'D2M' ? 'M2D' : 'D2M');
+  });
+
+  function showToast(msg){ toastMsg.textContent = msg; toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); }, 1800); }
+
+  // ==================== Tesseract worker init ====================
+  function setEngineStatus(state, text){
+    engineStatus.className = 'engine-status ' + (state || '');
+    engineStatusText.textContent = text;
+  }
+  async function initTesseract(){
+    setEngineStatus('busy', 'Loading OCR engine...');
+    try {
+      if (!window.Tesseract) throw new Error('Tesseract.js not loaded');
+      tesseractWorker = await Tesseract.createWorker('hin+eng', 1, {
+        logger: function(m){
+          if (m.status === 'recognizing text'){
+            var pct = Math.round(m.progress * 100);
+            progressBar.classList.add('show');
+            progressFill.style.width = pct + '%';
+            ocrStatusText.textContent = 'Recognizing... ' + pct + '%';
+          }
+        }
+      });
+      setEngineStatus('ready', 'OCR engine ready (Hindi + English)');
+    } catch(e){
+      console.error(e);
+      setEngineStatus('', 'OCR engine failed to load. Check internet.');
+      tesseractWorker = null;
+    }
+  }
+
+  // ==================== OCR modal ====================
+  document.getElementById('ocrBtn').addEventListener('click', function(){
+    ocrModal.classList.add('show');
+    if (!tesseractWorker) initTesseract();
+    startCamera();
+  });
+  modalClose.addEventListener('click', function(){ ocrModal.classList.remove('show'); stopCamera(); });
+  ocrModal.addEventListener('click', function(e){ if (e.target === ocrModal){ ocrModal.classList.remove('show'); stopCamera(); } });
+
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      if (btn.dataset.tab === 'cam'){ tabCam.classList.add('active'); tabFile.classList.remove('active'); startCamera(); }
+      else { tabFile.classList.add('active'); tabCam.classList.remove('active'); stopCamera(); }
+    });
+  });
+
+  // ==================== Camera ====================
+  async function startCamera(){
+    stopCamera();
+    camPlaceholder.style.display = 'flex';
+    camPlaceholder.innerHTML = '<span class="big">📷</span>Starting camera...';
+    videoPreview.style.display = 'none';
+    captureBtn.disabled = true;
+    try {
+      cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      videoPreview.srcObject = cameraStream;
+      videoPreview.style.display = 'block';
+      camPlaceholder.style.display = 'none';
+      captureBtn.disabled = false;
+    } catch(e){
+      console.error(e);
+      camPlaceholder.innerHTML = '<span class="big">🚫</span>Camera access denied.<br>Use HTTPS or localhost.';
+      captureBtn.disabled = true;
+    }
+  }
+  function stopCamera(){
+    if (cameraStream){ cameraStream.getTracks().forEach(function(t){ t.stop(); }); cameraStream = null; }
+  }
+  retryCamBtn.addEventListener('click', startCamera);
+
+  captureBtn.addEventListener('click', async function(){
+    if (!videoPreview.videoWidth) return;
+    var canvas = document.createElement('canvas');
+    canvas.width = videoPreview.videoWidth;
+    canvas.height = videoPreview.videoHeight;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(videoPreview, 0, 0);
+    var dataUrl = canvas.toDataURL('image/png');
+    await runOCR(dataUrl, 'camera');
+  });
+
+  // ==================== File upload + PDF ====================
+  fileDrop.addEventListener('click', function(){ fileInput.click(); });
+  fileInput.addEventListener('change', function(){ if (fileInput.files.length) handleFile(fileInput.files[0]); });
+  fileDrop.addEventListener('dragover', function(e){ e.preventDefault(); fileDrop.classList.add('dragover'); });
+  fileDrop.addEventListener('dragleave', function(){ fileDrop.classList.remove('dragover'); });
+  fileDrop.addEventListener('drop', function(e){ e.preventDefault(); fileDrop.classList.remove('dragover'); if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+
+  async function handleFile(file){
+    if (file.size > 10 * 1024 * 1024){ showOCRStatus('err', 'File too large (max 10 MB).'); return; }
+    if (file.type === 'application/pdf'){
+      await processPDF(file);
+    } else if (file.type.startsWith('image/')){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        previewImg.src = e.target.result; previewImg.style.display = 'block';
+        runOCR(e.target.result, 'file');
+      };
+      reader.readAsDataURL(file);
+    } else {
+      showOCRStatus('err', 'Unsupported file type.');
+    }
+  }
+
+  async function processPDF(file){
+    showOCRStatus('working', 'Loading PDF...');
+    progressBar.classList.add('show');
+    progressFill.style.width = '0%';
+    try {
+      if (!window.pdfjsLib) throw new Error('PDF.js not loaded');
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.worker.min.js';
+      var arrayBuffer = await file.arrayBuffer();
+      var pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      var totalPages = pdf.numPages;
+      var allText = '';
+      for (var pageNum = 1; pageNum <= totalPages; pageNum++){
+        progressFill.style.width = Math.round((pageNum / totalPages) * 100) + '%';
+        ocrStatusText.textContent = 'Processing page ' + pageNum + ' / ' + totalPages + '...';
+        var page = await pdf.getPage(pageNum);
+        var viewport = page.getViewport({ scale: 2.0 });
+        var canvas = document.createElement('canvas');
+        canvas.width = viewport.width; canvas.height = viewport.height;
+        var ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+        var dataUrl = canvas.toDataURL('image/png');
+        if (!tesseractWorker) await initTesseract();
+        if (!tesseractWorker) throw new Error('OCR engine not ready');
+        var result = await tesseractWorker.recognize(dataUrl);
+        allText += result.data.text + '\n';
+      }
+      leftBox.value = allText.trim();
+      showOCRStatus('ok', 'PDF extracted: ' + totalPages + ' page(s).');
+      document.getElementById('convertBtn').click();
+    } catch(e){
+      console.error(e);
+      showOCRStatus('err', 'PDF error: ' + e.message);
+    } finally {
+      progressBar.classList.remove('show');
+    }
+  }
+
+  // ==================== OCR run (single image) ====================
+  async function runOCR(dataUrl, source){
+    if (!tesseractWorker) await initTesseract();
+    if (!tesseractWorker){ showOCRStatus('err', 'OCR engine not ready.'); return; }
+    showOCRStatus('working', 'Recognizing text...');
+    progressBar.classList.add('show');
+    progressFill.style.width = '0%';
+    try {
+      var result = await tesseractWorker.recognize(dataUrl);
+      var text = result.data.text;
+      leftBox.value = text;
+      showOCRStatus('ok', 'Text extracted! (source: ' + source + ')');
+      document.getElementById('convertBtn').click();
+    } catch(e){
+      console.error(e);
+      showOCRStatus('err', 'OCR failed: ' + e.message);
+    } finally {
+      progressBar.classList.remove('show');
+      progressFill.style.width = '0%';
+    }
+  }
+
+  function showOCRStatus(type, msg){
+    ocrStatus.className = 'ocr-status show ' + type;
+    ocrStatusText.textContent = msg;
+  }
+
+  // ==================== Auto-start ====================
+  setDirection('D2M');
+  initTesseract();
+})();
+</script>
+</body>
+</html>
