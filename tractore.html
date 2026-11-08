@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Damor Tractore Service · Tractor Book</title>
+<title>Damor Tractore Service · Kheti Ka Kaam, Hamare Tractor Se</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <style>
-:root{--primary:#2a5c36;--primary-dark:#1e4429;--accent:#f5b042;--bg:#f3f7f0;--card-bg:#fff;--text:#1e2f23;--text-light:#4d6552;--border:#dfeadb;--danger:#b13b3b;--success:#1e7a3a;}
+:root{--primary:#2a5c36;--primary-dark:#1e4429;--accent:#f5b042;--bg:#f3f7f0;--card-bg:#fff;--text:#1e2f23;--text-light:#4d6552;--border:#dfeadb;--danger:#b13b3b;--success:#1e7a3a;--earth:#8b5e34;--leaf:#4caf50;}
 body.theme-blue{--primary:#1e3a8a;--primary-dark:#172554;--accent:#60a5fa;--bg:#f0f4ff;--border:#dbeafe;--text:#1e293b;--text-light:#475569;}
 body.theme-dark{--primary:#2a5c36;--primary-dark:#1a3a22;--accent:#f5b042;--bg:#121826;--card-bg:#1e293b;--border:#334155;--text:#f1f5f9;--text-light:#94a3b8;}
 body.theme-dark input,body.theme-dark select,body.theme-dark textarea{background:#0f172a;color:#f1f5f9;border-color:#334155;}
@@ -75,40 +75,120 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .worklog-list{max-height:400px;overflow-y:auto;padding-right:4px;}
 .share-box{background:var(--bg);border-radius:20px;padding:1rem;border:1px solid var(--border);}
 
-.hero{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;background:linear-gradient(145deg,var(--card-bg) 0%,var(--bg) 100%);border-radius:40px;padding:2.5rem;border:1px solid var(--border);margin-bottom:2rem;}
-.hero-content h2{font-size:2.4rem;line-height:1.2;color:var(--primary);margin-bottom:1rem;}
-.hero-content h2 span{color:var(--accent);background:var(--primary);padding:0 0.4rem;border-radius:12px;display:inline-block;}
-.hero-content p{font-size:1.05rem;color:var(--text-light);line-height:1.6;margin-bottom:1.5rem;}
-.hero-stats{display:flex;gap:2rem;flex-wrap:wrap;}
-.stat-item{text-align:center;}
-.stat-item .number{font-size:2rem;font-weight:700;color:var(--primary);line-height:1;}
-.stat-item .label{font-size:0.8rem;color:var(--text-light);text-transform:uppercase;letter-spacing:0.05em;}
-.hero-image{background:var(--card-bg);border-radius:28px;min-height:260px;display:flex;align-items:center;justify-content:center;border:2px dashed var(--border);overflow:hidden;padding:1rem;box-shadow:0 4px 12px rgba(0,0,0,0.03);}
-.hero-image img{max-width:100%;max-height:300px;object-fit:contain;border-radius:16px;}
-.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin:2rem 0;}
-.feature-card{background:var(--card-bg);border-radius:24px;padding:1.5rem;border:1px solid var(--border);text-align:center;transition:0.15s;}
-.feature-card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.04);}
-.feature-card i{font-size:2.2rem;color:var(--accent);background:var(--primary);padding:0.8rem;border-radius:20px;margin-bottom:1rem;}
-.feature-card h3{font-size:1.1rem;margin-bottom:0.5rem;color:var(--primary);}
-.feature-card p{font-size:0.85rem;color:var(--text-light);line-height:1.5;}
+.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:2rem;align-items:center;background:linear-gradient(135deg,#1e4429 0%,#2a5c36 60%,#3d7a4a 100%);border-radius:40px;padding:3rem 2.5rem;margin-bottom:2rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-80px;top:-80px;width:320px;height:320px;background:rgba(245,176,66,0.12);border-radius:50%;}
+.hero::after{content:'';position:absolute;left:-60px;bottom:-100px;width:260px;height:260px;background:rgba(255,255,255,0.05);border-radius:50%;}
+.hero-content{position:relative;z-index:2;}
+.hero-content .hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(245,176,66,0.2);color:var(--accent);padding:0.4rem 1rem;border-radius:40px;font-size:0.8rem;font-weight:600;margin-bottom:1rem;border:1px solid rgba(245,176,66,0.35);}
+.hero-content h2{font-size:2.6rem;line-height:1.15;color:#fff;margin-bottom:1rem;font-weight:800;}
+.hero-content h2 span{color:var(--accent);background:rgba(245,176,66,0.15);padding:0 0.4rem;border-radius:12px;display:inline-block;border-bottom:3px solid var(--accent);}
+.hero-content p{font-size:1.05rem;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:1.5rem;max-width:520px;}
+.hero-content .flex-row{justify-content:flex-start;}
+.hero .btn{background:var(--accent);color:#1e2f23;box-shadow:0 6px 18px rgba(245,176,66,0.35);}
+.hero .btn:hover{background:#ffc25c;}
+.hero .btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.6);box-shadow:none;}
+.hero .btn-outline:hover{background:rgba(255,255,255,0.12);}
+.hero-stats{display:flex;gap:2rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.15);}
+.stat-item{text-align:left;}
+.stat-item .number{font-size:2rem;font-weight:800;color:var(--accent);line-height:1;}
+.stat-item .label{font-size:0.75rem;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.06em;margin-top:0.3rem;}
+.hero-image{position:relative;z-index:2;background:rgba(255,255,255,0.08);border-radius:28px;min-height:300px;display:flex;align-items:center;justify-content:center;border:2px dashed rgba(255,255,255,0.25);overflow:hidden;padding:1rem;backdrop-filter:blur(4px);}
+.hero-image img{max-width:100%;max-height:320px;object-fit:cover;border-radius:20px;}
+.hero-image i{color:rgba(255,255,255,0.4);}
+.hero-float-badge{position:absolute;bottom:18px;left:18px;background:#fff;color:var(--primary);padding:0.6rem 1rem;border-radius:40px;font-size:0.8rem;font-weight:700;display:flex;align-items:center;gap:0.5rem;box-shadow:0 8px 20px rgba(0,0,0,0.2);z-index:3;}
+.hero-float-badge i{color:var(--accent);}
 
-.service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin:2rem 0;}
-.service-card{background:var(--card-bg);border-radius:28px;padding:1.8rem;border:1px solid var(--border);transition:0.15s;}
-.service-card:hover{box-shadow:0 12px 28px rgba(42,92,54,0.08);}
-.service-card i{font-size:2rem;color:var(--primary);background:var(--bg);padding:1rem;border-radius:20px;margin-bottom:1rem;}
-.service-card h3{font-size:1.2rem;margin-bottom:0.6rem;}
-.service-card p{font-size:0.9rem;color:var(--text-light);line-height:1.6;margin-bottom:1rem;}
-.service-card .price-tag{background:var(--primary);color:white;padding:0.4rem 1rem;border-radius:40px;font-size:0.8rem;font-weight:600;display:inline-block;}
+.section-head{text-align:center;max-width:680px;margin:0 auto 2rem;}
+.section-head .eyebrow{display:inline-block;background:rgba(42,92,54,0.08);color:var(--primary);padding:0.35rem 1rem;border-radius:40px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.8rem;}
+.section-head h2{font-size:2rem;color:var(--primary);margin-bottom:0.6rem;}
+.section-head p{color:var(--text-light);font-size:0.95rem;line-height:1.6;}
+
+.work-preview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.2rem;margin:2rem 0;}
+.work-preview{background:var(--card-bg);border-radius:24px;padding:1.5rem;border:1px solid var(--border);transition:0.2s;position:relative;overflow:hidden;}
+.work-preview:hover{transform:translateY(-5px);box-shadow:0 16px 32px rgba(42,92,54,0.1);border-color:var(--primary);}
+.work-preview .wp-icon{width:54px;height:54px;border-radius:16px;background:rgba(42,92,54,0.08);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1rem;}
+.work-preview h3{font-size:1.05rem;margin-bottom:0.4rem;color:var(--primary);}
+.work-preview p{font-size:0.85rem;color:var(--text-light);line-height:1.5;margin-bottom:0.8rem;}
+.work-preview .wp-rate{display:inline-block;background:var(--primary);color:#fff;padding:0.3rem 0.9rem;border-radius:40px;font-size:0.78rem;font-weight:700;}
+.work-preview .wp-time{font-size:0.72rem;color:var(--text-light);margin-top:0.5rem;}
+
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;margin:2rem 0;}
+.why-card{background:var(--card-bg);border-radius:22px;padding:1.5rem;border:1px solid var(--border);text-align:center;transition:0.2s;}
+.why-card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.05);}
+.why-card i{font-size:1.8rem;color:var(--accent);background:var(--primary);padding:0.8rem;border-radius:18px;margin-bottom:0.8rem;}
+.why-card h4{font-size:0.98rem;color:var(--primary);margin-bottom:0.3rem;}
+.why-card p{font-size:0.82rem;color:var(--text-light);line-height:1.5;}
+
+.rate-home-table{background:var(--card-bg);border-radius:28px;border:1px solid var(--border);overflow:hidden;margin:2rem 0;box-shadow:0 8px 24px rgba(0,0,0,0.04);}
+.rate-home-table .rht-head{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
+.rate-home-table .rht-head h3{color:#fff;font-size:1.15rem;display:flex;align-items:center;gap:0.5rem;}
+.rate-home-table .rht-head span{background:rgba(245,176,66,0.25);color:var(--accent);padding:0.3rem 0.8rem;border-radius:30px;font-size:0.72rem;font-weight:700;}
+.rate-home-table table{width:100%;}
+.rate-home-table th{background:rgba(42,92,54,0.04);padding:0.8rem 1.5rem;font-size:0.72rem;}
+.rate-home-table td{padding:0.9rem 1.5rem;}
+.rate-home-table tr:hover td{background:rgba(245,176,66,0.06);}
+.rate-home-table .rate-amt{font-weight:800;color:var(--primary);font-size:1rem;}
+
+.cta-band{background:linear-gradient(135deg,#f5b042 0%,#e89a2c 100%);border-radius:32px;padding:2.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin:2rem 0;position:relative;overflow:hidden;}
+.cta-band::before{content:'\f0d1';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-size:8rem;color:rgba(255,255,255,0.18);}
+.cta-band h2{color:#1e2f23;font-size:1.8rem;margin-bottom:0.4rem;}
+.cta-band p{color:rgba(30,47,35,0.8);font-size:0.95rem;max-width:480px;}
+.cta-band .btn{background:#1e2f23;color:#fff;box-shadow:0 8px 20px rgba(30,47,35,0.3);}
+.cta-band .btn:hover{background:#0f1a12;}
+.cta-band .btn-outline{background:transparent;color:#1e2f23;border:2px solid #1e2f23;}
+.cta-band .btn-outline:hover{background:rgba(30,47,35,0.1);}
+
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin:2rem 0;counter-reset:step;}
+.step-card{background:var(--card-bg);border-radius:22px;padding:1.5rem;border:1px solid var(--border);position:relative;padding-top:2.2rem;}
+.step-card::before{counter-increment:step;content:counter(step);position:absolute;top:-18px;left:1.5rem;width:42px;height:42px;background:var(--primary);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;box-shadow:0 6px 14px rgba(42,92,54,0.3);}
+.step-card h4{font-size:1rem;color:var(--primary);margin-bottom:0.4rem;}
+.step-card p{font-size:0.85rem;color:var(--text-light);line-height:1.5;}
+
+.services-page-hero{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);border-radius:32px;padding:2.5rem;color:#fff;margin-bottom:2rem;position:relative;overflow:hidden;}
+.services-page-hero::after{content:'\f0d1';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;right:2rem;bottom:-1rem;font-size:9rem;color:rgba(255,255,255,0.08);}
+.services-page-hero h1{color:#fff;margin-bottom:0.5rem;}
+.services-page-hero h1 i{background:var(--accent);color:#1e2f23;}
+.services-page-hero p{color:rgba(255,255,255,0.85);max-width:640px;line-height:1.7;position:relative;z-index:2;}
+.service-category{margin-bottom:2.5rem;}
+.service-category-head{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;}
+.service-category-head .sc-icon{width:44px;height:44px;border-radius:14px;background:var(--primary);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.service-category-head h2{font-size:1.35rem;color:var(--primary);margin:0;}
+.service-category-head span{font-size:0.75rem;color:var(--text-light);background:var(--bg);padding:0.25rem 0.7rem;border-radius:20px;margin-left:auto;}
+
+.service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;}
+.service-card{background:var(--card-bg);border-radius:24px;padding:1.6rem;border:1px solid var(--border);transition:0.2s;position:relative;display:flex;flex-direction:column;}
+.service-card:hover{box-shadow:0 16px 32px rgba(42,92,54,0.1);transform:translateY(-4px);border-color:var(--primary);}
+.service-card .sc-top{display:flex;align-items:flex-start;gap:0.9rem;margin-bottom:0.8rem;}
+.service-card .sc-icon{flex-shrink:0;width:52px;height:52px;border-radius:16px;background:rgba(42,92,54,0.08);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.service-card h3{font-size:1.08rem;margin-bottom:0.2rem;color:var(--primary);}
+.service-card .sc-hindi{font-size:0.75rem;color:var(--text-light);}
+.service-card p{font-size:0.85rem;color:var(--text-light);line-height:1.55;margin-bottom:1rem;flex:1;}
+.service-card .sc-meta{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;padding-top:0.8rem;border-top:1px dashed var(--border);}
+.service-card .price-tag{background:var(--primary);color:white;padding:0.4rem 1rem;border-radius:40px;font-size:0.85rem;font-weight:800;}
+.service-card .sc-time{font-size:0.72rem;color:var(--text-light);display:flex;align-items:center;gap:0.3rem;}
+
+.about-page-hero{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);border-radius:32px;padding:2.5rem;color:#fff;margin-bottom:2rem;position:relative;overflow:hidden;}
+.about-page-hero::after{content:'\f4d7';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;right:2rem;bottom:-1rem;font-size:9rem;color:rgba(255,255,255,0.08);}
+.about-page-hero h1{color:#fff;}
+.about-page-hero h1 i{background:var(--accent);color:#1e2f23;}
+.about-page-hero p{color:rgba(255,255,255,0.85);max-width:640px;line-height:1.7;position:relative;z-index:2;}
 
 .about-flex{display:flex;gap:2rem;align-items:center;flex-wrap:wrap;margin:2rem 0;}
-.about-text{flex:1 1 300px;}
+.about-text{flex:1 1 320px;}
 .about-text h2{font-size:1.8rem;margin-bottom:1rem;color:var(--primary);}
-.about-text p{font-size:0.95rem;color:var(--text-light);line-height:1.7;margin-bottom:1rem;}
-.about-icon{flex:0 0 200px;background:var(--bg);border-radius:40px;padding:3rem 2rem;text-align:center;border:2px dashed var(--border);font-size:5rem;color:var(--primary);}
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;margin-top:2rem;}
-.team-member{background:var(--card-bg);border-radius:24px;padding:1.5rem;text-align:center;border:1px solid var(--border);}
-.team-member i{font-size:2.5rem;color:var(--primary);background:var(--bg);padding:1rem;border-radius:50%;margin-bottom:0.8rem;}
-.team-member h4{font-size:1rem;margin-bottom:0.2rem;}
+.about-text p{font-size:0.95rem;color:var(--text-light);line-height:1.75;margin-bottom:1rem;}
+.about-icon{flex:0 0 240px;background:linear-gradient(135deg,rgba(42,92,54,0.08),rgba(245,176,66,0.15));border-radius:40px;padding:3rem 2rem;text-align:center;border:2px dashed var(--border);font-size:5rem;color:var(--primary);position:relative;overflow:hidden;}
+.about-icon::after{content:'';position:absolute;width:120px;height:120px;background:rgba(245,176,66,0.25);border-radius:50%;top:-30px;right:-30px;}
+.about-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:2rem 0;}
+.about-stat{background:var(--card-bg);border-radius:20px;padding:1.3rem;text-align:center;border:1px solid var(--border);}
+.about-stat .num{font-size:1.8rem;font-weight:800;color:var(--primary);}
+.about-stat .lbl{font-size:0.75rem;color:var(--text-light);text-transform:uppercase;letter-spacing:0.05em;}
+
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.2rem;margin-top:2rem;}
+.team-member{background:var(--card-bg);border-radius:24px;padding:1.5rem;text-align:center;border:1px solid var(--border);transition:0.2s;}
+.team-member:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.05);}
+.team-member i{font-size:2.2rem;color:var(--accent);background:var(--primary);padding:1rem;border-radius:50%;margin-bottom:0.8rem;}
+.team-member h4{font-size:1rem;margin-bottom:0.2rem;color:var(--primary);}
 .team-member p{font-size:0.8rem;color:var(--text-light);}
 
 .login-box{max-width:420px;margin:3rem auto;background:var(--card-bg);border-radius:28px;padding:2.5rem;border:1px solid var(--border);box-shadow:0 12px 32px rgba(0,0,0,0.04);text-align:center;}
@@ -150,7 +230,8 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .rate-panel .rate-label{font-size:0.75rem;color:var(--text-light);text-transform:uppercase;letter-spacing:0.03em;}
 .hours-badge{background:var(--bg);color:var(--primary);padding:0.2rem 0.6rem;border-radius:100px;font-size:0.7rem;font-weight:700;}
 .img-settings-panel{background:var(--bg);border-radius:20px;padding:1.2rem;border:1px solid var(--border);margin-bottom:1.5rem;}
-.site-footer{text-align:center;padding:1.5rem;font-size:0.8rem;color:var(--text-light);border-top:1px solid var(--border);margin-top:2rem;}
+.site-footer{text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--text-light);border-top:1px solid var(--border);margin-top:2rem;background:var(--card-bg);}
+.site-footer .footer-brand{font-weight:700;color:var(--primary);font-size:1rem;margin-bottom:0.3rem;}
 
 .staff-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.8rem 1rem;background:var(--bg);border-radius:16px;margin-bottom:0.6rem;border:1px solid var(--border);flex-wrap:wrap;}
 .staff-row .staff-info{flex:1;min-width:180px;}
@@ -171,27 +252,19 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 
 .bill-card-view{background:var(--bg);border-radius:20px;padding:1.5rem;border:1px solid var(--border);margin-bottom:1rem;}
 
-/* ==== BILL / WORK TABLES: FIXED COLUMNS, NO OVERFLOW ==== */
 .bill-table-wrap{width:100%;overflow-x:auto;}
 .bill-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:0.9rem;}
-.bill-table th,.bill-table td{
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  word-break:break-word;
-}
+.bill-table th,.bill-table td{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-break:break-word;}
 .bill-table th:nth-child(1),.bill-table td:nth-child(1){width:38%;}
 .bill-table th:nth-child(2),.bill-table td:nth-child(2){width:16%;}
 .bill-table th:nth-child(3),.bill-table td:nth-child(3){width:14%;}
 .bill-table th:nth-child(4),.bill-table td:nth-child(4){width:16%;}
 .bill-table th:nth-child(5),.bill-table td:nth-child(5){width:16%;}
-
 .pay-table{width:100%;table-layout:fixed;}
 .pay-table th:nth-child(1),.pay-table td:nth-child(1){width:30%;}
 .pay-table th:nth-child(2),.pay-table td:nth-child(2){width:25%;}
 .pay-table th:nth-child(3),.pay-table td:nth-child(3){width:45%;}
 .pay-table th,.pay-table td{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-
 .worklog-list table{width:100%;table-layout:fixed;}
 .worklog-list table th:nth-child(1),.worklog-list table td:nth-child(1){width:34%;}
 .worklog-list table th:nth-child(2),.worklog-list table td:nth-child(2){width:14%;}
@@ -205,14 +278,26 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .days-overdue{background:var(--danger);color:white;padding:0.15rem 0.6rem;border-radius:100px;font-size:0.7rem;font-weight:700;}
 .days-warn{background:var(--accent);color:#1e2f23;padding:0.15rem 0.6rem;border-radius:100px;font-size:0.7rem;font-weight:700;}
 
+/* Home & Services editor styles */
+.editor-section{border:1px dashed var(--border);border-radius:20px;padding:1rem;margin-bottom:1rem;background:rgba(42,92,54,0.02);}
+.editor-section h4{font-size:0.9rem;color:var(--primary);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.4rem;}
+.editor-section .grid-3,.editor-section .grid-2{gap:0.6rem;}
+.preview-box{background:var(--bg);border-radius:14px;padding:0.8rem;margin-top:0.6rem;font-size:0.8rem;color:var(--text-light);}
+.preview-box strong{color:var(--primary);}
+.rate-hint{font-size:0.72rem;color:var(--text-light);margin-top:0.2rem;}
+
 @media (max-width:900px){
   .grid-2{grid-template-columns:1fr;}
   .grid-3{grid-template-columns:1fr;}
-  .hero{grid-template-columns:1fr;}
+  .hero{grid-template-columns:1fr;padding:2rem 1.5rem;}
+  .hero-content h2{font-size:2rem;}
   .navbar{flex-direction:column;align-items:stretch;}
   .nav-links{justify-content:center;}
   .page-container{padding:1rem;}
   .login-tab{font-size:0.72rem;padding:0.7rem 0.2rem;}
+  .cta-band{flex-direction:column;text-align:center;}
+  .cta-band::before{display:none;}
+  .rate-home-table th,.rate-home-table td{padding:0.7rem 1rem;font-size:0.8rem;}
 }
 </style>
 </head>
@@ -226,7 +311,7 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
   </a>
   <div class="nav-links">
     <a href="#" class="active" data-page="home" onclick="switchPage('home');return false;"><i class="fas fa-home"></i> <span data-lang="nav_home">Home</span></a>
-    <a href="#" data-page="services" onclick="switchPage('services');return false;"><i class="fas fa-tools"></i> <span data-lang="nav_services">Services</span></a>
+    <a href="#" data-page="services" onclick="switchPage('services');return false;"><i class="fas fa-tools"></i> <span data-lang="nav_services">Kaam / Services</span></a>
     <a href="#" data-page="about" onclick="switchPage('about');return false;"><i class="fas fa-info-circle"></i> <span data-lang="nav_about">About</span></a>
     <a href="#" data-page="admin" onclick="switchPage('admin');return false;"><i class="fas fa-user-shield"></i> <span data-lang="nav_admin">Admin</span></a>
   </div>
@@ -234,55 +319,140 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 
 <div class="page-container">
 
+<!-- ================= HOME PAGE (fully editable via Admin) ================= -->
 <div class="page active" id="homePage">
+
   <div class="hero">
     <div class="hero-content">
-      <h2 id="heroTitleEl" data-lang="hero_title">Keep your <span>tractor</span> running like new</h2>
-      <p id="heroDescEl" data-lang="hero_desc">Welcome to Damor Tractore Service — your trusted partner for tractor maintenance, repair, and complete service management.</p>
+      <div class="hero-tag" id="heroTagEl"><i class="fas fa-seedling"></i> <span>Kheti ka kaam · Tractor se · Time par</span></div>
+      <h2 id="heroTitleEl">Aapke khet ka kaam, <span>hamare tractor</span> se</h2>
+      <p id="heroDescEl">Jutung, rotavator, buwai, katai aur trolley transport — [Gaon/Tehsil] ke aas-paas experienced driver ke saath. Booking ke liye call ya WhatsApp karein.</p>
       <div class="flex-row">
-        <a href="#" class="btn" onclick="switchPage('admin');return false;"><i class="fas fa-wrench"></i> <span data-lang="btn_open_book">Open Tractor Book</span></a>
-        <a href="#" class="btn btn-outline" onclick="switchPage('services');return false;"><i class="fas fa-list"></i> <span data-lang="btn_view_services">View Services</span></a>
+        <a href="#" class="btn" id="heroBookBtn"><i class="fab fa-whatsapp"></i> <span id="heroBtn1Text">WhatsApp par Book karein</span></a>
+        <a href="#" class="btn btn-outline" onclick="switchPage('services');return false;"><i class="fas fa-list"></i> <span id="heroBtn2Text">Rate List Dekhein</span></a>
       </div>
-      <div class="hero-stats mt-2">
-        <div class="stat-item"><div class="number">1200+</div><div class="label" data-lang="stat_tractors">Tractors Serviced</div></div>
-        <div class="stat-item"><div class="number">15+</div><div class="label" data-lang="stat_years">Years Experience</div></div>
-        <div class="stat-item"><div class="number">4.9★</div><div class="label" data-lang="stat_rating">Customer Rating</div></div>
+      <div class="hero-stats" id="heroStatsEl">
+        <div class="stat-item"><div class="number">500+</div><div class="label">Khet Kaam Kiye</div></div>
+        <div class="stat-item"><div class="number">15+</div><div class="label">Saal Ka Anubhav</div></div>
+        <div class="stat-item"><div class="number">4.9★</div><div class="label">Kisan Rating</div></div>
       </div>
     </div>
     <div class="hero-image">
-      <img id="heroSlideImg" src="" alt="Tractor" style="display:none;">
-      <i class="fas fa-tractor" id="heroPlaceholderIcon" style="font-size:6rem;color:var(--primary);opacity:0.5;"></i>
+      <img id="heroSlideImg" src="" alt="Tractor in field" style="display:none;">
+      <i class="fas fa-tractor" id="heroPlaceholderIcon" style="font-size:6rem;opacity:0.6;"></i>
+      <div class="hero-float-badge" id="heroFloatBadgeEl"><i class="fas fa-check-circle"></i> On-time · Experienced Driver</div>
     </div>
   </div>
-  <div class="feature-grid">
-    <div class="feature-card"><i class="fas fa-file-invoice"></i><h3 data-lang="feat_bill">Bill Management</h3><p data-lang="feat_bill_desc">Create and share professional bills with PDF export.</p></div>
-    <div class="feature-card"><i class="fas fa-camera"></i><h3 data-lang="feat_photo">Photo Attachments</h3><p data-lang="feat_photo_desc">Attach photos of work spots and conditions.</p></div>
-    <div class="feature-card"><i class="fas fa-clock"></i><h3 data-lang="feat_hourly">Hourly Work</h3><p data-lang="feat_hourly_desc">Set hourly rate and auto-calculate bill by hours worked.</p></div>
-    <div class="feature-card"><i class="fas fa-chart-line"></i><h3 data-lang="feat_history">Work History</h3><p data-lang="feat_history_desc">Complete log of all services and parts replaced.</p></div>
+
+  <div class="section-head" id="homeWorkHeadEl">
+    <span class="eyebrow">Hamare Kaam</span>
+    <h2>Kheti ke liye tractor ka poora kaam</h2>
+    <p>Jutung se lekar katai tak — aapke khet ka har kaam hum tractor se karte hai. Rate saaf, kaam time par.</p>
+  </div>
+  <div class="work-preview-grid" id="homeWorkPreview"></div>
+
+  <div class="section-head" id="homeWhyHeadEl">
+    <span class="eyebrow">Kisan Kyun Chunte Hai</span>
+    <h2>Kyun hum par bharosa karein</h2>
+  </div>
+  <div class="why-grid" id="homeWhyGrid"></div>
+
+  <div class="rate-home-table">
+    <div class="rht-head">
+      <h3><i class="fas fa-rupee-sign"></i> <span id="homeRateHeadEl">Aaj ke Rate</span></h3>
+      <span id="homeRateSeasonEl">Season 2025</span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th>Kaam</th><th>Rate</th><th>Kitna Time</th></tr></thead>
+        <tbody id="homeRateBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-head" id="homeStepsHeadEl">
+    <span class="eyebrow">Kaise Kaam Karta Hai</span>
+    <h2>Booking ke 3 aasan step</h2>
+  </div>
+  <div class="steps" id="homeStepsEl"></div>
+
+  <div class="cta-band" id="homeCtaBand">
+    <div>
+      <h2 id="homeCtaTitleEl">Khet ka kaam hai? Aaj hi book karein!</h2>
+      <p id="homeCtaDescEl">WhatsApp par message karein ya call karein — hum turant jawab denge.</p>
+    </div>
+    <div class="flex-row" style="gap:0.6rem;">
+      <a href="#" class="btn" id="ctaWhatsappBtn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="#" class="btn btn-outline" id="ctaCallBtn"><i class="fas fa-phone"></i> Call</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= SERVICES PAGE (fully editable via Admin) ================= -->
+<div class="page" id="servicesPage">
+  <div class="services-page-hero">
+    <h1><i class="fas fa-tractor"></i> <span id="svcPageTitleEl" data-lang="services_title">Hamare Kaam / Services</span></h1>
+    <p id="svcPageDescEl">Kheti ka har kaam — jutung, rotavator, buwai, katai, threshing, trolley transport. Rate saaf, kaam time par. Har service ke saath kitna time lagega wo bhi diya hai.</p>
+  </div>
+  <div id="servicesGridEl"></div>
+
+  <div class="cta-band" style="margin-top:2.5rem;" id="svcCtaBand">
+    <div>
+      <h2 id="svcCtaTitleEl">Rate pasand aaya? Book karein!</h2>
+      <p id="svcCtaDescEl">Apne khet ka kaam humse karwayein — call ya WhatsApp par.</p>
+    </div>
+    <div class="flex-row" style="gap:0.6rem;">
+      <a href="#" class="btn" id="svcWhatsappBtn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="#" class="btn btn-outline" id="svcCallBtn"><i class="fas fa-phone"></i> Call</a>
+    </div>
   </div>
 </div>
 
-<div class="page" id="servicesPage">
-  <h1><i class="fas fa-tools"></i> <span data-lang="services_title">Our Services</span></h1>
-  <p class="text-small" style="margin-bottom:1.5rem;" data-lang="services_desc">Expert tractor maintenance and repair services.</p>
-  <div class="service-grid" id="servicesGridEl"></div>
-</div>
-
+<!-- ================= ABOUT PAGE ================= -->
 <div class="page" id="aboutPage">
-  <h1><i class="fas fa-info-circle"></i> <span data-lang="about_title">About Damor Tractore Service</span></h1>
+  <div class="about-page-hero">
+    <h1><i class="fas fa-info-circle"></i> <span data-lang="about_title">Hamare Baare Mein</span></h1>
+    <p id="aboutHeroDescEl">Hum ek tractor service hai jo kisanon ke khet ka kaam karti hai — jutung se katai tak, time par aur saaf rate par.</p>
+  </div>
+
   <div class="about-flex">
     <div class="about-text">
-      <h2 id="aboutSubEl" data-lang="about_sub">Trusted tractor care since 2010</h2>
-      <p id="aboutP1El" data-lang="about_p1">Damor Tractore Service is a dedicated team of tractor mechanics and service professionals.</p>
-      <p id="aboutP2El" data-lang="about_p2">With over 15 years of experience, we understand the critical role tractors play in agriculture.</p>
-      <p id="aboutP3El" data-lang="about_p3">Our Tractor Book system allows you to track all work done, payments made, and pending dues.</p>
+      <h2 id="aboutSubEl">2010 se kisanon ke saath</h2>
+      <p id="aboutP1El">Hum [aapka naam] hai, aur [X] saal se kheti ke kaam mein tractor chalate hai. Hamare paas [45 HP] tractor aur rotavator, cultivator, trolley jaise sabhi implement hai.</p>
+      <p id="aboutP2El">Hum [gaon/tehsil] ke aas-paas ke kisanon ke khet mein jutung, buwai, katai aur transport ka kaam karte hai — time par, saaf rate par.</p>
+      <p id="aboutP3El">Booking ke liye phone ya WhatsApp karein: [aapka number]. Aap chahe to is website se bill bhi dekh sakte hai.</p>
     </div>
     <div class="about-icon"><i class="fas fa-tractor"></i></div>
   </div>
-  <h2 style="margin-top:2rem;" data-lang="about_team">Meet the team</h2>
+
+  <div class="about-stats" id="aboutStatsEl">
+    <div class="about-stat"><div class="num">500+</div><div class="lbl">Khet Kaam</div></div>
+    <div class="about-stat"><div class="num">15+</div><div class="lbl">Saal Anubhav</div></div>
+    <div class="about-stat"><div class="num">4.9★</div><div class="lbl">Kisan Rating</div></div>
+    <div class="about-stat"><div class="num">100%</div><div class="lbl">Time Par</div></div>
+  </div>
+
+  <div class="section-head" style="margin-top:2.5rem;">
+    <span class="eyebrow">Hamari Team</span>
+    <h2>Kaun kaam karta hai</h2>
+    <p>Hamari team mein experienced driver aur helpers hai jo aapke khet ka kaam sambhalte hai.</p>
+  </div>
   <div class="team-grid" id="teamGridEl"></div>
+
+  <div class="cta-band" id="aboutCtaBand">
+    <div>
+      <h2 id="aboutCtaTitleEl">Humse baat karein</h2>
+      <p id="aboutCtaDescEl">Apne khet ka kaam humse karwayein — call ya WhatsApp par.</p>
+    </div>
+    <div class="flex-row" style="gap:0.6rem;">
+      <a href="#" class="btn" id="aboutWhatsappBtn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="#" class="btn btn-outline" id="aboutCallBtn"><i class="fas fa-phone"></i> Call</a>
+    </div>
+  </div>
 </div>
 
+<!-- ================= ADMIN PAGE (FULLY UNCHANGED) ================= -->
 <div class="page" id="adminPage">
 
   <div id="adminLoginScreen">
@@ -594,26 +764,134 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
             </div>
           </div>
 
-          <!-- NEW: Home Page Content Editor (Admin only) -->
+          <!-- ===== NEW: FULL HOME & SERVICES EDITOR ===== -->
           <div class="card" id="homeContentCard">
-            <h2><i class="fas fa-edit"></i> Home / Services / About Content</h2>
-            <p class="text-small mt-1">Edit home page text, add/update services, and edit about page content.</p>
+            <h2><i class="fas fa-edit"></i> Home & Services Page Editor</h2>
+            <p class="text-small mt-1">Yahan se Home page aur Kaam/Services page ka poora content badal sakte hai. Har section save hone par turant public page par update ho jata hai.</p>
 
-            <div class="tractor-card mt-2">
-              <h3 style="font-size:0.95rem;margin-bottom:0.6rem;"><i class="fas fa-home"></i> Home Page</h3>
-              <div><label>Hero Title (HTML allowed, e.g. &lt;span&gt;tractor&lt;/span&gt;)</label><input type="text" id="hcHeroTitle" placeholder="Keep your <span>tractor</span> running like new"></div>
-              <div class="mt-1"><label>Hero Description</label><textarea id="hcHeroDesc" rows="2" placeholder="Welcome to..."></textarea></div>
-              <button class="btn btn-small mt-1" id="saveHomeContentBtn"><i class="fas fa-save"></i> Save Home</button>
+            <!-- Home Hero -->
+            <div class="editor-section mt-2">
+              <h4><i class="fas fa-home"></i> Home — Hero Section</h4>
+              <div><label>Hero Tag (chhota text upar)</label><input type="text" id="hcHeroTag" placeholder="Kheti ka kaam · Tractor se · Time par"></div>
+              <div class="mt-1"><label>Hero Title (HTML allowed, e.g. &lt;span&gt;tractor&lt;/span&gt;)</label><input type="text" id="hcHeroTitle" placeholder="Aapke khet ka kaam, &lt;span&gt;hamare tractor&lt;/span&gt; se"></div>
+              <div class="mt-1"><label>Hero Description</label><textarea id="hcHeroDesc" rows="2"></textarea></div>
+              <div class="grid-2 mt-1">
+                <div><label>Button 1 Text (WhatsApp)</label><input type="text" id="hcHeroBtn1" placeholder="WhatsApp par Book karein"></div>
+                <div><label>Button 2 Text (Rate List)</label><input type="text" id="hcHeroBtn2" placeholder="Rate List Dekhein"></div>
+              </div>
+              <div class="mt-1"><label>Hero Badge (image ke neeche)</label><input type="text" id="hcHeroBadge" placeholder="On-time · Experienced Driver"></div>
+              <div class="mt-1"><label>Hero Stats (3 numbers — comma se alag)</label><input type="text" id="hcHeroStats" placeholder="500+|Khet Kaam Kiye, 15+|Saal Ka Anubhav, 4.9★|Kisan Rating"></div>
+              <div class="rate-hint">Format: number|label, number|label, number|label</div>
+              <button class="btn btn-small mt-1" id="saveHomeHeroBtn"><i class="fas fa-save"></i> Save Home Hero</button>
             </div>
 
-            <div class="tractor-card mt-2">
-              <h3 style="font-size:0.95rem;margin-bottom:0.6rem;"><i class="fas fa-tools"></i> Services (Add / Update / Delete)</h3>
-              <div class="grid-3">
-                <div><label>Icon (FontAwesome class)</label><input type="text" id="svcIcon" placeholder="fas fa-oil-can"></div>
-                <div><label>Title</label><input type="text" id="svcTitle" placeholder="Engine Oil Change"></div>
-                <div><label>Price tag</label><input type="text" id="svcPrice" placeholder="Starting ₹1,200"></div>
+            <!-- Home section heads -->
+            <div class="editor-section">
+              <h4><i class="fas fa-heading"></i> Home — Section Headings</h4>
+              <div class="mt-1"><label>"Hamare Kaam" heading</label><input type="text" id="hcWorkEyebrow" placeholder="Hamare Kaam"></div>
+              <div class="mt-1"><label>Title</label><input type="text" id="hcWorkTitle" placeholder="Kheti ke liye tractor ka poora kaam"></div>
+              <div class="mt-1"><label>Description</label><textarea id="hcWorkDesc" rows="2"></textarea></div>
+              <div class="mt-2" style="border-top:1px dashed var(--border);padding-top:0.8rem;"></div>
+              <div><label>"Kisan Kyun Chunte Hai" eyebrow</label><input type="text" id="hcWhyEyebrow" placeholder="Kisan Kyun Chunte Hai"></div>
+              <div class="mt-1"><label>Title</label><input type="text" id="hcWhyTitle" placeholder="Kyun hum par bharosa karein"></div>
+              <button class="btn btn-small mt-1" id="saveHomeHeadsBtn"><i class="fas fa-save"></i> Save Headings</button>
+            </div>
+
+            <!-- Why cards -->
+            <div class="editor-section">
+              <h4><i class="fas fa-check-circle"></i> Home — "Kyun hum par bharosa" Cards</h4>
+              <div class="mt-1"><label>Card 1 Icon / Title / Text</label>
+                <div class="grid-3" style="grid-template-columns:0.7fr 1fr 2fr;">
+                  <input type="text" id="hcWhy1Icon" placeholder="fas fa-clock">
+                  <input type="text" id="hcWhy1Title" placeholder="Time par kaam">
+                  <input type="text" id="hcWhy1Desc" placeholder="Subah se shaam tak...">
+                </div>
               </div>
-              <div class="mt-1"><label>Description</label><input type="text" id="svcDesc" placeholder="Complete oil drain and refill..."></div>
+              <div class="mt-1"><label>Card 2</label>
+                <div class="grid-3" style="grid-template-columns:0.7fr 1fr 2fr;">
+                  <input type="text" id="hcWhy2Icon" placeholder="fas fa-hand-holding-usd">
+                  <input type="text" id="hcWhy2Title" placeholder="Saaf rate">
+                  <input type="text" id="hcWhy2Desc" placeholder="Per acre / per hour...">
+                </div>
+              </div>
+              <div class="mt-1"><label>Card 3</label>
+                <div class="grid-3" style="grid-template-columns:0.7fr 1fr 2fr;">
+                  <input type="text" id="hcWhy3Icon" placeholder="fas fa-user-cog">
+                  <input type="text" id="hcWhy3Title" placeholder="Experienced driver">
+                  <input type="text" id="hcWhy3Desc" placeholder="15+ saal ka anubhav...">
+                </div>
+              </div>
+              <div class="mt-1"><label>Card 4</label>
+                <div class="grid-3" style="grid-template-columns:0.7fr 1fr 2fr;">
+                  <input type="text" id="hcWhy4Icon" placeholder="fas fa-tools">
+                  <input type="text" id="hcWhy4Title" placeholder="Ready implements">
+                  <input type="text" id="hcWhy4Desc" placeholder="Rotavator, cultivator...">
+                </div>
+              </div>
+              <button class="btn btn-small mt-1" id="saveHomeWhyBtn"><i class="fas fa-save"></i> Save Why Cards</button>
+            </div>
+
+            <!-- Rate table head + steps -->
+            <div class="editor-section">
+              <h4><i class="fas fa-rupee-sign"></i> Home — Rate Table & Booking Steps</h4>
+              <div class="grid-2 mt-1">
+                <div><label>Rate Table Title</label><input type="text" id="hcRateHead" placeholder="Aaj ke Rate"></div>
+                <div><label>Season / Year</label><input type="text" id="hcRateSeason" placeholder="Season 2025"></div>
+              </div>
+              <div class="mt-2" style="border-top:1px dashed var(--border);padding-top:0.8rem;"></div>
+              <div><label>"Kaise Kaam Karta Hai" eyebrow</label><input type="text" id="hcStepsEyebrow" placeholder="Kaise Kaam Karta Hai"></div>
+              <div class="mt-1"><label>Title</label><input type="text" id="hcStepsTitle" placeholder="Booking ke 3 aasan step"></div>
+              <div class="mt-1"><label>Step 1 Title / Text</label>
+                <div class="grid-2"><input type="text" id="hcStep1Title" placeholder="Call / WhatsApp karein"><input type="text" id="hcStep1Desc" placeholder="Apna naam, gaon aur kaam batayein."></div>
+              </div>
+              <div class="mt-1"><label>Step 2</label>
+                <div class="grid-2"><input type="text" id="hcStep2Title" placeholder="Rate aur time tay karein"><input type="text" id="hcStep2Desc" placeholder="Hum rate aur kaam ka din confirm karte hai."></div>
+              </div>
+              <div class="mt-1"><label>Step 3</label>
+                <div class="grid-2"><input type="text" id="hcStep3Title" placeholder="Tractor aayega, kaam hoga"><input type="text" id="hcStep3Desc" placeholder="Time par tractor pahunchega, kaam poora hoga."></div>
+              </div>
+              <button class="btn btn-small mt-1" id="saveHomeRateStepsBtn"><i class="fas fa-save"></i> Save Rate & Steps</button>
+            </div>
+
+            <!-- Home CTA -->
+            <div class="editor-section">
+              <h4><i class="fas fa-bullhorn"></i> Home — CTA Band</h4>
+              <div><label>CTA Title</label><input type="text" id="hcCtaTitle" placeholder="Khet ka kaam hai? Aaj hi book karein!"></div>
+              <div class="mt-1"><label>CTA Description</label><input type="text" id="hcCtaDesc" placeholder="WhatsApp par message karein..."></div>
+              <button class="btn btn-small mt-1" id="saveHomeCtaBtn"><i class="fas fa-save"></i> Save CTA</button>
+            </div>
+
+            <!-- Services page head + CTA -->
+            <div class="editor-section">
+              <h4><i class="fas fa-tools"></i> Services Page — Header & CTA</h4>
+              <div><label>Page Title</label><input type="text" id="hcSvcTitle" placeholder="Hamare Kaam / Services"></div>
+              <div class="mt-1"><label>Page Description</label><textarea id="hcSvcDesc" rows="2"></textarea></div>
+              <div class="mt-2" style="border-top:1px dashed var(--border);padding-top:0.8rem;"></div>
+              <div><label>CTA Title</label><input type="text" id="hcSvcCtaTitle" placeholder="Rate pasand aaya? Book karein!"></div>
+              <div class="mt-1"><label>CTA Description</label><input type="text" id="hcSvcCtaDesc" placeholder="Apne khet ka kaam humse karwayein..."></div>
+              <button class="btn btn-small mt-1" id="saveSvcPageBtn"><i class="fas fa-save"></i> Save Services Page</button>
+            </div>
+
+            <!-- Services list -->
+            <div class="editor-section">
+              <h4><i class="fas fa-list"></i> Services List (Add / Update / Delete)</h4>
+              <div class="grid-3">
+                <div><label>Icon</label><input type="text" id="svcIcon" placeholder="fas fa-tractor"></div>
+                <div><label>Title</label><input type="text" id="svcTitle" placeholder="Jutung / Ploughing"></div>
+                <div><label>Price</label><input type="text" id="svcPrice" placeholder="₹1,200 per acre"></div>
+              </div>
+              <div class="grid-3 mt-1">
+                <div><label>Hindi name (optional)</label><input type="text" id="svcHindi" placeholder="जुताई"></div>
+                <div><label>Time</label><input type="text" id="svcTime" placeholder="2-3 ghante per acre"></div>
+                <div><label>Category</label>
+                  <select id="svcCategory">
+                    <option value="field">Kheti ke Kaam</option>
+                    <option value="transport">Transport</option>
+                    <option value="repair">Repair & Help</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mt-1"><label>Description</label><input type="text" id="svcDesc" placeholder="Hal chalana, gehri jutung..."></div>
               <div class="flex-row mt-1">
                 <button class="btn btn-small" id="saveServiceBtn"><i class="fas fa-plus"></i> Add / Update Service</button>
                 <button class="btn btn-small btn-outline" id="clearServiceBtn"><i class="fas fa-eraser"></i> Clear</button>
@@ -622,21 +900,26 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
               <div class="mt-2" id="servicesAdminList"></div>
             </div>
 
-            <div class="tractor-card mt-2">
-              <h3 style="font-size:0.95rem;margin-bottom:0.6rem;"><i class="fas fa-info-circle"></i> About Page</h3>
-              <div><label>About Sub Title</label><input type="text" id="hcAboutSub" placeholder="Trusted tractor care since 2010"></div>
+            <!-- About page -->
+            <div class="editor-section">
+              <h4><i class="fas fa-info-circle"></i> About Page</h4>
+              <div><label>Hero Description</label><input type="text" id="hcAboutHero" placeholder="Hum ek tractor service hai..."></div>
+              <div class="mt-1"><label>Sub Title</label><input type="text" id="hcAboutSub" placeholder="2010 se kisanon ke saath"></div>
               <div class="mt-1"><label>Paragraph 1</label><textarea id="hcAboutP1" rows="2"></textarea></div>
               <div class="mt-1"><label>Paragraph 2</label><textarea id="hcAboutP2" rows="2"></textarea></div>
               <div class="mt-1"><label>Paragraph 3</label><textarea id="hcAboutP3" rows="2"></textarea></div>
-              <button class="btn btn-small mt-1" id="saveAboutContentBtn"><i class="fas fa-save"></i> Save About</button>
+              <div class="mt-1"><label>Stats (4 numbers — comma se alag)</label><input type="text" id="hcAboutStats" placeholder="500+|Khet Kaam, 15+|Saal Anubhav, 4.9★|Kisan Rating, 100%|Time Par"></div>
+              <div class="rate-hint">Format: number|label, number|label, number|label, number|label</div>
+              <button class="btn btn-small mt-1" id="saveAboutContentBtn"><i class="fas fa-save"></i> Save About Page</button>
             </div>
 
-            <div class="tractor-card mt-2">
-              <h3 style="font-size:0.95rem;margin-bottom:0.6rem;"><i class="fas fa-users"></i> Team Members (Add / Update / Delete)</h3>
+            <!-- Team -->
+            <div class="editor-section">
+              <h4><i class="fas fa-users"></i> Team Members</h4>
               <div class="grid-3">
                 <div><label>Icon</label><input type="text" id="tmIcon" placeholder="fas fa-user-tie"></div>
                 <div><label>Name</label><input type="text" id="tmName" placeholder="Rajesh Damor"></div>
-                <div><label>Role</label><input type="text" id="tmRole" placeholder="Owner & Senior Mechanic"></div>
+                <div><label>Role</label><input type="text" id="tmRole" placeholder="Owner / Driver"></div>
               </div>
               <div class="flex-row mt-1">
                 <button class="btn btn-small" id="saveTeamBtn"><i class="fas fa-plus"></i> Add / Update Member</button>
@@ -644,6 +927,29 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
               </div>
               <input type="hidden" id="tmEditIdx">
               <div class="mt-2" id="teamAdminList"></div>
+            </div>
+
+            <!-- About CTA -->
+            <div class="editor-section">
+              <h4><i class="fas fa-bullhorn"></i> About Page — CTA Band</h4>
+              <div><label>CTA Title</label><input type="text" id="hcAboutCtaTitle" placeholder="Humse baat karein"></div>
+              <div class="mt-1"><label>CTA Description</label><input type="text" id="hcAboutCtaDesc" placeholder="Apne khet ka kaam humse karwayein..."></div>
+              <button class="btn btn-small mt-1" id="saveAboutCtaBtn"><i class="fas fa-save"></i> Save About CTA</button>
+            </div>
+
+            <!-- Contact phone -->
+            <div class="editor-section">
+              <h4><i class="fas fa-phone"></i> WhatsApp / Call Number</h4>
+              <div><label>Phone Number (10 digit)</label><input type="text" id="hcPhone" placeholder="9876543210" maxlength="10"></div>
+              <div class="rate-hint">Yeh number sab WhatsApp aur Call buttons par use hoga.</div>
+              <button class="btn btn-small mt-1" id="savePhoneBtn"><i class="fas fa-save"></i> Save Number</button>
+            </div>
+
+            <!-- Reset -->
+            <div class="editor-section" style="border-color:var(--danger);">
+              <h4><i class="fas fa-undo" style="color:var(--danger);"></i> Reset Home & Services Content</h4>
+              <p class="text-small">Yeh home aur services page ko default content par reset kar dega. Aapke bills/customers safe rahenge.</p>
+              <button class="btn btn-small btn-danger mt-1" id="resetHomeContentBtn"><i class="fas fa-undo"></i> Reset to Default</button>
             </div>
           </div>
         </div>
@@ -659,7 +965,10 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 
 </div>
 
-<div class="site-footer"><span data-lang="footer_text">Damor Tractore Service · Tractor Book · All data stored in your browser</span></div>
+<div class="site-footer">
+  <div class="footer-brand">Damor Tractore Service</div>
+  <span data-lang="footer_text">Kheti ka kaam · Tractor se · Time par · Saaf rate</span>
+</div>
 
 <div class="modal-overlay" id="pdfLangModal">
   <div class="modal-box">
@@ -677,48 +986,48 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 // ================= TRANSLATIONS =================
 const translations = {
   en: {
-    brand:"Damor Tractore Service", nav_home:"Home", nav_services:"Services", nav_about:"About", nav_admin:"Admin",
-    hero_title:"Keep your <span>tractor</span> running like new",
-    hero_desc:"Welcome to Damor Tractore Service — your trusted partner for tractor maintenance, repair, and complete service management.",
-    btn_open_book:"Open Tractor Book", btn_view_services:"View Services",
-    stat_tractors:"Tractors Serviced", stat_years:"Years Experience", stat_rating:"Customer Rating",
+    brand:"Damor Tractore Service", nav_home:"Home", nav_services:"Kaam / Services", nav_about:"About", nav_admin:"Admin",
+    hero_title:"Aapke khet ka kaam, <span>hamare tractor</span> se",
+    hero_desc:"Jutung, rotavator, buwai, katai aur trolley transport — [Gaon/Tehsil] ke aas-paas experienced driver ke saath. Booking ke liye call ya WhatsApp karein.",
+    btn_open_book:"Open Tractor Book", btn_view_services:"Rate List Dekhein",
+    stat_tractors:"Khet Kaam Kiye", stat_years:"Saal Ka Anubhav", stat_rating:"Kisan Rating",
     feat_bill:"Bill Management", feat_bill_desc:"Create and share professional bills with PDF export.",
     feat_photo:"Photo Attachments", feat_photo_desc:"Attach photos of work spots and conditions.",
     feat_hourly:"Hourly Work", feat_hourly_desc:"Set hourly rate and auto-calculate bill by hours worked.",
     feat_history:"Work History", feat_history_desc:"Complete log of all services and parts replaced.",
-    services_title:"Our Services", services_desc:"Expert tractor maintenance and repair services.",
-    about_title:"About Damor Tractore Service", about_sub:"Trusted tractor care since 2010",
-    about_p1:"Dedicated team of tractor mechanics and service professionals.",
-    about_p2:"15+ years of experience in agriculture equipment care.",
-    about_p3:"Track all work, payments, and dues in one place.",
-    about_team:"Meet the team",
+    services_title:"Hamare Kaam / Services", services_desc:"Kheti ka har kaam — jutung, rotavator, buwai, katai, threshing, trolley transport.",
+    about_title:"Hamare Baare Mein", about_sub:"2010 se kisanon ke saath",
+    about_p1:"Hum [aapka naam] hai, aur [X] saal se kheti ke kaam mein tractor chalate hai.",
+    about_p2:"Hum [gaon/tehsil] ke aas-paas ke kisanon ke khet mein jutung, buwai, katai aur transport ka kaam karte hai.",
+    about_p3:"Booking ke liye phone ya WhatsApp karein: [aapka number].",
+    about_team:"Hamari Team",
     login_title:"Login", login_desc:"Enter your details to access the Tractor Book",
     dash_title:"Tractor Book · Dashboard",
     tab_farmers:"Farmers", tab_bills:"Bills", tab_more:"More", tab_settings:"Settings",
     farmers_title:"Farmers / Customers",
-    footer_text:"Damor Tractore Service · Tractor Book · All data stored in your browser"
+    footer_text:"Kheti ka kaam · Tractor se · Time par · Saaf rate"
   },
   hi: {
-    brand:"दामोर ट्रैक्टर सर्विस", nav_home:"होम", nav_services:"सेवाएं", nav_about:"हमारे बारे में", nav_admin:"एडमिन",
-    hero_title:"अपने <span>ट्रैक्टर</span> को नया जैसा बनाए रखें",
-    hero_desc:"दामोर ट्रैक्टर सर्विस में आपका स्वागत है — ट्रैक्टर रखरखाव, मरम्मत और पूर्ण सेवा प्रबंधन के लिए आपका विश्वसनीय साथी।",
-    btn_open_book:"ट्रैक्टर बुक खोलें", btn_view_services:"सेवाएं देखें",
-    stat_tractors:"ट्रैक्टर सर्विस किए", stat_years:"वर्षों का अनुभव", stat_rating:"ग्राहक रेटिंग",
+    brand:"दामोर ट्रैक्टर सर्विस", nav_home:"होम", nav_services:"काम / सेवाएं", nav_about:"हमारे बारे में", nav_admin:"एडमिन",
+    hero_title:"आपके खेत का काम, <span>हमारे ट्रैक्टर</span> से",
+    hero_desc:"जुताई, रोटावेटर, बुवाई, कटाई और ट्रॉली ट्रांसपोर्ट — [गाँव/तहसील] के आस-पास अनुभवी ड्राइवर के साथ। बुकिंग के लिए कॉल या व्हाट्सएप करें।",
+    btn_open_book:"ट्रैक्टर बुक खोलें", btn_view_services:"रेट लिस्ट देखें",
+    stat_tractors:"खेत काम किए", stat_years:"साल का अनुभव", stat_rating:"किसान रेटिंग",
     feat_bill:"बिल प्रबंधन", feat_bill_desc:"पीडीएफ एक्सपोर्ट के साथ पेशेवर बिल बनाएं।",
-    feat_photo:"फोटो अटैचमेंट", feat_photo_desc:"काम की जगह और स्थिति की तस्वीरें संलग्न करें।",
+    feat_photo:"फोटो अटैचमेंट", feat_photo_desc:"काम की जगह की तस्वीरें संलग्न करें।",
     feat_hourly:"प्रति घंटा काम", feat_hourly_desc:"प्रति घंटा दर निर्धारित करें और बिल की गणना करें।",
     feat_history:"कार्य इतिहास", feat_history_desc:"सभी सेवाओं का पूरा लॉग।",
-    services_title:"हमारी सेवाएं", services_desc:"विशेषज्ञ ट्रैक्टर रखरखाव और मरम्मत सेवाएं।",
-    about_title:"दामोर ट्रैक्टर सर्विस के बारे में", about_sub:"2010 से भरोसेमंद ट्रैक्टर देखभाल",
-    about_p1:"ट्रैक्टर मैकेनिकों और सेवा पेशेवरों की समर्पित टीम।",
-    about_p2:"कृषि उपकरण देखभाल में 15+ वर्षों का अनुभव।",
-    about_p3:"सभी काम, भुगतान और बकाया एक ही स्थान पर ट्रैक करें।",
-    about_team:"टीम से मिलें",
+    services_title:"हमारे काम / सेवाएं", services_desc:"खेती का हर काम — जुताई, रोटावेटर, बुवाई, कटाई, थ्रेशिंग, ट्रॉली ट्रांसपोर्ट।",
+    about_title:"हमारे बारे में", about_sub:"2010 से किसानों के साथ",
+    about_p1:"हम [आपका नाम] हैं, और [X] साल से खेती के काम में ट्रैक्टर चलाते हैं।",
+    about_p2:"हम [गाँव/तहसील] के आस-पास के किसानों के खेत में जुताई, बुवाई, कटाई और ट्रांसपोर्ट का काम करते हैं।",
+    about_p3:"बुकिंग के लिए फोन या व्हाट्सएप करें: [आपका नंबर]।",
+    about_team:"हमारी टीम",
     login_title:"लॉगिन", login_desc:"ट्रैक्टर बुक का उपयोग करने के लिए विवरण दर्ज करें",
     dash_title:"ट्रैक्टर बुक · डैशबोर्ड",
     tab_farmers:"किसान", tab_bills:"बिल", tab_more:"अधिक", tab_settings:"सेटिंग्स",
     farmers_title:"किसान / ग्राहक",
-    footer_text:"दामोर ट्रैक्टर सर्विस · ट्रैक्टर बुक · सारा डेटा आपके ब्राउज़र में सुरक्षित है"
+    footer_text:"खेती का काम · ट्रैक्टर से · समय पर · साफ रेट"
   }
 };
 
@@ -729,9 +1038,9 @@ function applyLanguage(lang){
   localStorage.setItem('damor_lang', lang);
   document.querySelectorAll('[data-lang]').forEach(el=>{
     const key = el.getAttribute('data-lang');
-    // Don't override admin-edited home content
-    if(el.id === 'heroTitleEl' || el.id === 'heroDescEl' ||
-       el.id === 'aboutSubEl' || el.id === 'aboutP1El' || el.id === 'aboutP2El' || el.id === 'aboutP3El') return;
+    if(el.id === 'heroTitleEl' || el.id === 'heroDescEl' || el.id === 'svcPageTitleEl' ||
+       el.id === 'aboutSubEl' || el.id === 'aboutP1El' || el.id === 'aboutP2El' || el.id === 'aboutP3El' ||
+       el.id === 'aboutHeroDescEl') return;
     if(translations[lang] && translations[lang][key]){
       el.innerHTML = translations[lang][key];
     }
@@ -752,44 +1061,81 @@ const PASSBOOK_KEY='damor_passbook_v1';
 const TOOLS_KEY='damor_tools_v1';
 const BOOKINGS_KEY='damor_bookings_v1';
 const JOBS_KEY='damor_jobs_v1';
-const HOME_CONTENT_KEY='damor_home_content_v1';
+const HOME_CONTENT_KEY='damor_home_content_v2';
+const PHONE_KEY='damor_phone_v1';
 const DEFAULT_USER='admin';
 const DEFAULT_PASSWORD='damor123';
 const CUSTOMER_DEFAULT_PASSWORD='123';
+const DEFAULT_PHONE='9876543210';
 
 function getAdminUser(){ return localStorage.getItem(ADMIN_USER_KEY) || DEFAULT_USER; }
 function getAdminPassword(){ return localStorage.getItem(ADMIN_PASSWORD_KEY) || DEFAULT_PASSWORD; }
+function getPhone(){ return localStorage.getItem(PHONE_KEY) || DEFAULT_PHONE; }
 
-function loadStaff(){
-  try { return JSON.parse(localStorage.getItem(STAFF_KEY)) || []; }
-  catch(e){ return []; }
-}
+function loadStaff(){ try { return JSON.parse(localStorage.getItem(STAFF_KEY)) || []; } catch(e){ return []; } }
 function saveStaff(arr){ localStorage.setItem(STAFF_KEY, JSON.stringify(arr)); }
 
-// ================= HOME CONTENT (services/about/team) =================
+// ================= HOME CONTENT (fully editable) =================
 const DEFAULT_SERVICES = [
-  {icon:'fas fa-oil-can', title:'Engine Oil Change', desc:'Complete oil drain and refill with premium grade oil.', price:'Starting ₹1,200'},
-  {icon:'fas fa-filter', title:'Air Filter Cleaning', desc:'Thorough cleaning of air filters for optimal engine performance.', price:'₹350'},
-  {icon:'fas fa-cogs', title:'Transmission Repair', desc:'Full transmission inspection, fluid change, and gear repair.', price:'Starting ₹3,500'},
-  {icon:'fas fa-bolt', title:'Electrical System', desc:'Battery check, wiring repair, alternator and starter service.', price:'Starting ₹800'},
-  {icon:'fas fa-tire', title:'Tire & Brake Service', desc:'Tire rotation, pressure check, brake pad replacement.', price:'Starting ₹1,500'},
-  {icon:'fas fa-clipboard-check', title:'Full Tractor Inspection', desc:'Comprehensive 50-point check covering engine, hydraulics.', price:'Starting ₹2,000'}
+  {icon:'fas fa-tractor', title:'Jutung / Ploughing', hindi:'जुताई', desc:'Hal chalana, gehri jutung. Mitti ko taiyar karna.', price:'₹1,200 per acre', time:'2-3 ghante per acre', category:'field'},
+  {icon:'fas fa-seedling', title:'Rotavator', hindi:'रोटावेटर', desc:'Mitti bhur-bhura karna, beej ke liye taiyar karna.', price:'₹1,000 per acre', time:'1.5-2 ghante per acre', category:'field'},
+  {icon:'fas fa-seedling', title:'Buwai / Seed Drill', hindi:'बुवाई', desc:'Beej bona, line se line. Time par buwai.', price:'₹800 per acre', time:'2 ghante per acre', category:'field'},
+  {icon:'fas fa-wheat-awn', title:'Katai / Harvesting', hindi:'कटाई', desc:'Fasal ki katai, saaf aur jaldi.', price:'₹1,500 per acre', time:'3-4 ghante per acre', category:'field'},
+  {icon:'fas fa-truck', title:'Trolley Transport', hindi:'ट्रॉली ट्रांसपोर्ट', desc:'Khad, beej, fasal mandi tak. Saaman dhona.', price:'₹500 per trip', time:'1-2 ghante per trip', category:'transport'},
+  {icon:'fas fa-water', title:'Irrigation Help', hindi:'सिंचाई', desc:'Pani / pump ka kaam, khet tak pani pahunchana.', price:'₹400 per hour', time:'Per hour', category:'field'},
+  {icon:'fas fa-tools', title:'Tractor Repair', hindi:'ट्रैक्टर मरम्मत', desc:'Servicing, tyre, battery help. Khet par hi.', price:'₹500 per visit', time:'1-2 ghante', category:'repair'},
+  {icon:'fas fa-tractor', title:'Bund / Med Making', hindi:'मेड़ बनाना', desc:'Khet ki med banana, pani rokna.', price:'₹600 per hour', time:'Per hour', category:'field'}
 ];
 const DEFAULT_TEAM = [
-  {icon:'fas fa-user-tie', name:'Rajesh Damor', role:'Owner & Senior Mechanic'},
-  {icon:'fas fa-user-cog', name:'Suresh Patel', role:'Engine Specialist'},
-  {icon:'fas fa-user-hard-hat', name:'Mahesh Singh', role:'Field Technician'},
+  {icon:'fas fa-user-tie', name:'Rajesh Damor', role:'Owner / Tractor Driver'},
+  {icon:'fas fa-user-cog', name:'Suresh Patel', role:'Driver'},
+  {icon:'fas fa-user-hard-hat', name:'Mahesh Singh', role:'Field Helper'},
   {icon:'fas fa-user-graduate', name:'Priya Sharma', role:'Customer Support'}
 ];
 const DEFAULT_HOME_CONTENT = {
-  heroTitle:'Keep your <span>tractor</span> running like new',
-  heroDesc:'Welcome to Damor Tractore Service — your trusted partner for tractor maintenance, repair, and complete service management.',
+  heroTag:'Kheti ka kaam · Tractor se · Time par',
+  heroTitle:'Aapke khet ka kaam, <span>hamare tractor</span> se',
+  heroDesc:'Jutung, rotavator, buwai, katai aur trolley transport — [Gaon/Tehsil] ke aas-paas experienced driver ke saath. Booking ke liye call ya WhatsApp karein.',
+  heroBtn1:'WhatsApp par Book karein',
+  heroBtn2:'Rate List Dekhein',
+  heroBadge:'On-time · Experienced Driver',
+  heroStats:[{num:'500+',label:'Khet Kaam Kiye'},{num:'15+',label:'Saal Ka Anubhav'},{num:'4.9★',label:'Kisan Rating'}],
+  workEyebrow:'Hamare Kaam',
+  workTitle:'Kheti ke liye tractor ka poora kaam',
+  workDesc:'Jutung se lekar katai tak — aapke khet ka har kaam hum tractor se karte hai. Rate saaf, kaam time par.',
+  whyEyebrow:'Kisan Kyun Chunte Hai',
+  whyTitle:'Kyun hum par bharosa karein',
+  whyCards:[
+    {icon:'fas fa-clock', title:'Time par kaam', desc:'Subah se shaam tak, aapke khet par sahi samay par pahunchte hai.'},
+    {icon:'fas fa-hand-holding-usd', title:'Saaf rate', desc:'Per acre / per hour rate pehle se tay — koi chhupa kharcha nahi.'},
+    {icon:'fas fa-user-cog', title:'Experienced driver', desc:'15+ saal ka anubhav, achhi quality ka kaam.'},
+    {icon:'fas fa-tools', title:'Ready implements', desc:'Rotavator, cultivator, trolley, seed drill — sab kuch ready.'}
+  ],
+  rateHead:'Aaj ke Rate',
+  rateSeason:'Season 2025',
+  stepsEyebrow:'Kaise Kaam Karta Hai',
+  stepsTitle:'Booking ke 3 aasan step',
+  steps:[
+    {title:'Call / WhatsApp karein', desc:'Apna naam, gaon aur kaam batayein.'},
+    {title:'Rate aur time tay karein', desc:'Hum rate aur kaam ka din confirm karte hai.'},
+    {title:'Tractor aayega, kaam hoga', desc:'Time par tractor pahunchega, kaam poora hoga.'}
+  ],
+  ctaTitle:'Khet ka kaam hai? Aaj hi book karein!',
+  ctaDesc:'WhatsApp par message karein ya call karein — hum turant jawab denge.',
   services: DEFAULT_SERVICES,
-  aboutSub:'Trusted tractor care since 2010',
-  aboutP1:'Damor Tractore Service is a dedicated team of tractor mechanics and service professionals.',
-  aboutP2:'With over 15 years of experience, we understand the critical role tractors play in agriculture.',
-  aboutP3:'Our Tractor Book system allows you to track all work done, payments made, and pending dues.',
-  team: DEFAULT_TEAM
+  svcPageTitle:'Hamare Kaam / Services',
+  svcPageDesc:'Kheti ka har kaam — jutung, rotavator, buwai, katai, threshing, trolley transport. Rate saaf, kaam time par. Har service ke saath kitna time lagega wo bhi diya hai.',
+  svcCtaTitle:'Rate pasand aaya? Book karein!',
+  svcCtaDesc:'Apne khet ka kaam humse karwayein — call ya WhatsApp par.',
+  aboutHeroDesc:'Hum ek tractor service hai jo kisanon ke khet ka kaam karti hai — jutung se katai tak, time par aur saaf rate par.',
+  aboutSub:'2010 se kisanon ke saath',
+  aboutP1:'Hum [aapka naam] hai, aur [X] saal se kheti ke kaam mein tractor chalate hai. Hamare paas [45 HP] tractor aur rotavator, cultivator, trolley jaise sabhi implement hai.',
+  aboutP2:'Hum [gaon/tehsil] ke aas-paas ke kisanon ke khet mein jutung, buwai, katai aur transport ka kaam karte hai — time par, saaf rate par.',
+  aboutP3:'Booking ke liye phone ya WhatsApp karein: [aapka number]. Aap chahe to is website se bill bhi dekh sakte hai.',
+  aboutStats:[{num:'500+',label:'Khet Kaam'},{num:'15+',label:'Saal Anubhav'},{num:'4.9★',label:'Kisan Rating'},{num:'100%',label:'Time Par'}],
+  team: DEFAULT_TEAM,
+  aboutCtaTitle:'Humse baat karein',
+  aboutCtaDesc:'Apne khet ka kaam humse karwayein — call ya WhatsApp par.'
 };
 
 function loadHomeContent(){
@@ -797,42 +1143,183 @@ function loadHomeContent(){
     const raw = JSON.parse(localStorage.getItem(HOME_CONTENT_KEY));
     if(raw && typeof raw === 'object') return Object.assign({}, DEFAULT_HOME_CONTENT, raw);
   } catch(e){}
-  return Object.assign({}, DEFAULT_HOME_CONTENT);
+  return JSON.parse(JSON.stringify(DEFAULT_HOME_CONTENT));
 }
 function saveHomeContent(obj){ localStorage.setItem(HOME_CONTENT_KEY, JSON.stringify(obj)); }
 
+function parseStats(str){
+  if(!str) return [];
+  return str.split(',').map(s=>{
+    const parts = s.trim().split('|');
+    return {num: (parts[0]||'').trim(), label: (parts[1]||'').trim()};
+  }).filter(s=>s.num||s.label);
+}
+
 function renderHomeContent(){
   const hc = loadHomeContent();
-  // Home hero
-  const titleEl = document.getElementById('heroTitleEl');
-  const descEl = document.getElementById('heroDescEl');
-  if(titleEl && hc.heroTitle) titleEl.innerHTML = hc.heroTitle;
-  if(descEl && hc.heroDesc) descEl.textContent = hc.heroDesc;
 
-  // Services grid
+  // Hero
+  const tagEl = document.getElementById('heroTagEl');
+  if(tagEl) tagEl.innerHTML = `<i class="fas fa-seedling"></i> <span>${hc.heroTag||''}</span>`;
+  const titleEl = document.getElementById('heroTitleEl');
+  if(titleEl) titleEl.innerHTML = hc.heroTitle||'';
+  const descEl = document.getElementById('heroDescEl');
+  if(descEl) descEl.textContent = hc.heroDesc||'';
+  const b1 = document.getElementById('heroBtn1Text'); if(b1) b1.textContent = hc.heroBtn1||'';
+  const b2 = document.getElementById('heroBtn2Text'); if(b2) b2.textContent = hc.heroBtn2||'';
+  const badge = document.getElementById('heroFloatBadgeEl');
+  if(badge) badge.innerHTML = `<i class="fas fa-check-circle"></i> ${hc.heroBadge||''}`;
+  const statsEl = document.getElementById('heroStatsEl');
+  if(statsEl){
+    statsEl.innerHTML = '';
+    (hc.heroStats||[]).forEach(s=>{
+      const d = document.createElement('div');
+      d.className = 'stat-item';
+      d.innerHTML = `<div class="number">${s.num||''}</div><div class="label">${s.label||''}</div>`;
+      statsEl.appendChild(d);
+    });
+  }
+
+  // Work preview head
+  const wh = document.getElementById('homeWorkHeadEl');
+  if(wh) wh.innerHTML = `<span class="eyebrow">${hc.workEyebrow||''}</span><h2>${hc.workTitle||''}</h2><p>${hc.workDesc||''}</p>`;
+
+  // Work preview grid (first 4)
+  const homePreview = document.getElementById('homeWorkPreview');
+  if(homePreview){
+    homePreview.innerHTML = '';
+    (hc.services||[]).slice(0,4).forEach(s=>{
+      const d = document.createElement('div');
+      d.className = 'work-preview';
+      d.innerHTML = `<div class="wp-icon"><i class="${s.icon||'fas fa-tractor'}"></i></div>
+        <h3>${s.title||''}</h3>
+        <p>${s.desc||''}</p>
+        <span class="wp-rate">${s.price||''}</span>
+        ${s.time ? `<div class="wp-time"><i class="fas fa-clock"></i> ${s.time}</div>` : ''}`;
+      homePreview.appendChild(d);
+    });
+  }
+
+  // Why head
+  const whyHead = document.getElementById('homeWhyHeadEl');
+  if(whyHead) whyHead.innerHTML = `<span class="eyebrow">${hc.whyEyebrow||''}</span><h2>${hc.whyTitle||''}</h2>`;
+
+  // Why cards
+  const whyGrid = document.getElementById('homeWhyGrid');
+  if(whyGrid){
+    whyGrid.innerHTML = '';
+    (hc.whyCards||[]).forEach(w=>{
+      const d = document.createElement('div');
+      d.className = 'why-card';
+      d.innerHTML = `<i class="${w.icon||'fas fa-check'}"></i><h4>${w.title||''}</h4><p>${w.desc||''}</p>`;
+      whyGrid.appendChild(d);
+    });
+  }
+
+  // Rate table head
+  const rh = document.getElementById('homeRateHeadEl'); if(rh) rh.textContent = hc.rateHead||'';
+  const rs = document.getElementById('homeRateSeasonEl'); if(rs) rs.textContent = hc.rateSeason||'';
+  const rateBody = document.getElementById('homeRateBody');
+  if(rateBody){
+    rateBody.innerHTML = '';
+    (hc.services||[]).slice(0,6).forEach(s=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td><strong>${s.title||''}</strong></td><td class="rate-amt">${s.price||''}</td><td>${s.time||'—'}</td>`;
+      rateBody.appendChild(tr);
+    });
+  }
+
+  // Steps head
+  const sh = document.getElementById('homeStepsHeadEl');
+  if(sh) sh.innerHTML = `<span class="eyebrow">${hc.stepsEyebrow||''}</span><h2>${hc.stepsTitle||''}</h2>`;
+  const stepsEl = document.getElementById('homeStepsEl');
+  if(stepsEl){
+    stepsEl.innerHTML = '';
+    (hc.steps||[]).forEach(st=>{
+      const d = document.createElement('div');
+      d.className = 'step-card';
+      d.innerHTML = `<h4>${st.title||''}</h4><p>${st.desc||''}</p>`;
+      stepsEl.appendChild(d);
+    });
+  }
+
+  // Home CTA
+  const ct = document.getElementById('homeCtaTitleEl'); if(ct) ct.textContent = hc.ctaTitle||'';
+  const cd = document.getElementById('homeCtaDescEl'); if(cd) cd.textContent = hc.ctaDesc||'';
+
+  // Services page head + CTA
+  const spt = document.getElementById('svcPageTitleEl'); if(spt) spt.textContent = hc.svcPageTitle||'';
+  const spd = document.getElementById('svcPageDescEl'); if(spd) spd.textContent = hc.svcPageDesc||'';
+  const sct = document.getElementById('svcCtaTitleEl'); if(sct) sct.textContent = hc.svcCtaTitle||'';
+  const scd = document.getElementById('svcCtaDescEl'); if(scd) scd.textContent = hc.svcCtaDesc||'';
+
+  // Services page full grid with categories
   const svcGrid = document.getElementById('servicesGridEl');
   if(svcGrid){
     svcGrid.innerHTML = '';
+    const fieldWork = [], transport = [], repair = [];
     (hc.services||[]).forEach(s=>{
-      const d = document.createElement('div');
-      d.className = 'service-card';
-      d.innerHTML = `<i class="${s.icon||'fas fa-tools'}"></i><h3>${s.title||''}</h3><p>${s.desc||''}</p><span class="price-tag">${s.price||''}</span>`;
-      svcGrid.appendChild(d);
+      const cat = s.category || 'field';
+      if(cat === 'transport') transport.push(s);
+      else if(cat === 'repair') repair.push(s);
+      else fieldWork.push(s);
     });
+    const makeCategory = (title, icon, list) => {
+      if(!list.length) return '';
+      return `
+        <div class="service-category">
+          <div class="service-category-head">
+            <div class="sc-icon"><i class="${icon}"></i></div>
+            <h2>${title}</h2>
+            <span>${list.length} services</span>
+          </div>
+          <div class="service-grid">
+            ${list.map(s=>`
+              <div class="service-card">
+                <div class="sc-top">
+                  <div class="sc-icon"><i class="${s.icon||'fas fa-tractor'}"></i></div>
+                  <div>
+                    <h3>${s.title||''}</h3>
+                    ${s.hindi ? `<div class="sc-hindi">${s.hindi}</div>` : ''}
+                  </div>
+                </div>
+                <p>${s.desc||''}</p>
+                <div class="sc-meta">
+                  <span class="price-tag">${s.price||''}</span>
+                  ${s.time ? `<span class="sc-time"><i class="fas fa-clock"></i> ${s.time}</span>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>`;
+    };
+    svcGrid.innerHTML =
+      makeCategory('Kheti ke Kaam (Field Work)', 'fas fa-seedling', fieldWork) +
+      makeCategory('Transport ka Kaam', 'fas fa-truck', transport) +
+      makeCategory('Tractor Repair & Help', 'fas fa-tools', repair);
     if(!(hc.services||[]).length){
       svcGrid.innerHTML = '<p class="text-small">No services added yet.</p>';
     }
   }
 
   // About
-  const subEl = document.getElementById('aboutSubEl');
-  const p1El = document.getElementById('aboutP1El');
-  const p2El = document.getElementById('aboutP2El');
-  const p3El = document.getElementById('aboutP3El');
-  if(subEl) subEl.textContent = hc.aboutSub||'';
-  if(p1El) p1El.textContent = hc.aboutP1||'';
-  if(p2El) p2El.textContent = hc.aboutP2||'';
-  if(p3El) p3El.textContent = hc.aboutP3||'';
+  const ah = document.getElementById('aboutHeroDescEl'); if(ah) ah.textContent = hc.aboutHeroDesc||'';
+  const as = document.getElementById('aboutSubEl'); if(as) as.textContent = hc.aboutSub||'';
+  const p1 = document.getElementById('aboutP1El'); if(p1) p1.textContent = hc.aboutP1||'';
+  const p2 = document.getElementById('aboutP2El'); if(p2) p2.textContent = hc.aboutP2||'';
+  const p3 = document.getElementById('aboutP3El'); if(p3) p3.textContent = hc.aboutP3||'';
+  const statsBox = document.getElementById('aboutStatsEl');
+  if(statsBox){
+    statsBox.innerHTML = '';
+    (hc.aboutStats||[]).forEach(s=>{
+      const d = document.createElement('div');
+      d.className = 'about-stat';
+      d.innerHTML = `<div class="num">${s.num||''}</div><div class="lbl">${s.label||''}</div>`;
+      statsBox.appendChild(d);
+    });
+  }
+  const act = document.getElementById('aboutCtaTitleEl'); if(act) act.textContent = hc.aboutCtaTitle||'';
+  const acd = document.getElementById('aboutCtaDescEl'); if(acd) acd.textContent = hc.aboutCtaDesc||'';
 
   // Team
   const teamGrid = document.getElementById('teamGridEl');
@@ -849,9 +1336,9 @@ function renderHomeContent(){
     }
   }
 
-  // Admin list rendering if settings open
   renderServicesAdminList();
   renderTeamAdminList();
+  bindContactButtons();
 }
 
 function renderServicesAdminList(){
@@ -864,8 +1351,8 @@ function renderServicesAdminList(){
     row.className='staff-row';
     row.innerHTML = `
       <div class="staff-info">
-        <div class="staff-name"><i class="${s.icon||'fas fa-tools'}"></i> ${s.title||''}</div>
-        <div class="staff-meta">${s.price||''} — ${s.desc||''}</div>
+        <div class="staff-name"><i class="${s.icon||'fas fa-tools'}"></i> ${s.title||''} <span class="badge" style="font-size:0.6rem;">${s.category||'field'}</span></div>
+        <div class="staff-meta">${s.price||''} — ${s.desc||''} ${s.time?'· '+s.time:''}</div>
       </div>
       <div class="staff-actions">
         <button class="btn btn-small btn-outline" data-svc-edit="${idx}"><i class="fas fa-edit"></i></button>
@@ -876,6 +1363,9 @@ function renderServicesAdminList(){
       document.getElementById('svcTitle').value = s.title||'';
       document.getElementById('svcPrice').value = s.price||'';
       document.getElementById('svcDesc').value = s.desc||'';
+      document.getElementById('svcHindi').value = s.hindi||'';
+      document.getElementById('svcTime').value = s.time||'';
+      document.getElementById('svcCategory').value = s.category||'field';
       document.getElementById('svcEditIdx').value = idx;
     });
     row.querySelector('[data-svc-del]').addEventListener('click', ()=>{
@@ -921,6 +1411,55 @@ function renderTeamAdminList(){
     });
     cont.appendChild(row);
   });
+}
+
+function loadHomeContentIntoInputs(){
+  const hc = loadHomeContent();
+  const set = (id,val)=>{ const el=document.getElementById(id); if(el) el.value = val||''; };
+  set('hcHeroTag', hc.heroTag);
+  set('hcHeroTitle', hc.heroTitle);
+  set('hcHeroDesc', hc.heroDesc);
+  set('hcHeroBtn1', hc.heroBtn1);
+  set('hcHeroBtn2', hc.heroBtn2);
+  set('hcHeroBadge', hc.heroBadge);
+  set('hcHeroStats', (hc.heroStats||[]).map(s=>s.num+'|'+s.label).join(', '));
+  set('hcWorkEyebrow', hc.workEyebrow);
+  set('hcWorkTitle', hc.workTitle);
+  set('hcWorkDesc', hc.workDesc);
+  set('hcWhyEyebrow', hc.whyEyebrow);
+  set('hcWhyTitle', hc.whyTitle);
+  const wc = hc.whyCards||[];
+  for(let i=1;i<=4;i++){
+    const w = wc[i-1]||{};
+    set('hcWhy'+i+'Icon', w.icon);
+    set('hcWhy'+i+'Title', w.title);
+    set('hcWhy'+i+'Desc', w.desc);
+  }
+  set('hcRateHead', hc.rateHead);
+  set('hcRateSeason', hc.rateSeason);
+  set('hcStepsEyebrow', hc.stepsEyebrow);
+  set('hcStepsTitle', hc.stepsTitle);
+  const st = hc.steps||[];
+  for(let i=1;i<=3;i++){
+    const s = st[i-1]||{};
+    set('hcStep'+i+'Title', s.title);
+    set('hcStep'+i+'Desc', s.desc);
+  }
+  set('hcCtaTitle', hc.ctaTitle);
+  set('hcCtaDesc', hc.ctaDesc);
+  set('hcSvcTitle', hc.svcPageTitle);
+  set('hcSvcDesc', hc.svcPageDesc);
+  set('hcSvcCtaTitle', hc.svcCtaTitle);
+  set('hcSvcCtaDesc', hc.svcCtaDesc);
+  set('hcAboutHero', hc.aboutHeroDesc);
+  set('hcAboutSub', hc.aboutSub);
+  set('hcAboutP1', hc.aboutP1);
+  set('hcAboutP2', hc.aboutP2);
+  set('hcAboutP3', hc.aboutP3);
+  set('hcAboutStats', (hc.aboutStats||[]).map(s=>s.num+'|'+s.label).join(', '));
+  set('hcAboutCtaTitle', hc.aboutCtaTitle);
+  set('hcAboutCtaDesc', hc.aboutCtaDesc);
+  set('hcPhone', getPhone());
 }
 
 // ================= SESSION =================
@@ -993,15 +1532,9 @@ function handleStaffLogin(){
   }
   const staff = loadStaff();
   const found = staff.find(s => s.mobile===mobile && (s.role==='supervisor'||s.role==='driver'));
-  if(!found){
-    err.style.display='block'; err.innerText='Staff mobile not registered. Contact admin.'; return;
-  }
-  if(!found.power){
-    err.style.display='block'; err.innerText='Your access is turned OFF. Contact admin.'; return;
-  }
-  if(found.password !== pwd){
-    err.style.display='block'; err.innerText='Wrong password.'; return;
-  }
+  if(!found){ err.style.display='block'; err.innerText='Staff mobile not registered. Contact admin.'; return; }
+  if(!found.power){ err.style.display='block'; err.innerText='Your access is turned OFF. Contact admin.'; return; }
+  if(found.password !== pwd){ err.style.display='block'; err.innerText='Wrong password.'; return; }
   setLoggedIn(true, found.role, found.name, found.mobile, found.id);
   err.style.display='none';
   updateAdminUI();
@@ -1016,15 +1549,9 @@ function handleCustomerLogin(){
   }
   const staff = loadStaff();
   const found = staff.find(s => s.mobile===mobile && s.role==='customer');
-  if(!found){
-    err.style.display='block'; err.innerText='Customer mobile not registered. Contact admin.'; return;
-  }
-  if(!found.power){
-    err.style.display='block'; err.innerText='Your access is turned OFF. Contact admin.'; return;
-  }
-  if(found.password !== pwd){
-    err.style.display='block'; err.innerText='Wrong password.'; return;
-  }
+  if(!found){ err.style.display='block'; err.innerText='Customer mobile not registered. Contact admin.'; return; }
+  if(!found.power){ err.style.display='block'; err.innerText='Your access is turned OFF. Contact admin.'; return; }
+  if(found.password !== pwd){ err.style.display='block'; err.innerText='Wrong password.'; return; }
   setLoggedIn(true, 'customer', found.name, found.mobile, found.id);
   err.style.display='none';
   updateAdminUI();
@@ -1045,23 +1572,18 @@ function updateAdminUI(){
     dashboard.classList.remove('hidden');
     document.getElementById('loggedInUserName').innerText = loggedInUserName || 'User';
 
-    // Admin-only cards
     document.getElementById('adminSecurityCard').classList.toggle('hidden', !isAdmin);
     document.getElementById('staffManagementCard').classList.toggle('hidden', !isAdmin);
     document.getElementById('brandingCard').classList.toggle('hidden', !isAdmin);
     document.getElementById('homeContentCard').classList.toggle('hidden', !isAdmin);
     document.getElementById('myPasswordCard').classList.toggle('hidden', isAdmin || isCustomer);
 
-    // Supervisor: can see Bills tab (create bills), and More tab. Hide Farmers tab (admin only).
-    // Driver: can see Bills (for adding work/payment) and More, hide Farmers.
     document.getElementById('tabBtnFarmers').classList.toggle('hidden', isCustomer || isStaff);
     document.getElementById('tabBtnBills').classList.toggle('hidden', isCustomer);
     document.getElementById('tabBtnMore').classList.toggle('hidden', isCustomer);
     document.getElementById('tabBtnMyBill').classList.toggle('hidden', !isCustomer);
     document.getElementById('tabBtnSettings').classList.remove('hidden');
 
-    // Customers cannot edit work (backend also guarded), supervisors can create bills + add work/payment.
-    // Hide admin-only controls in the Bill panel for non-admin
     const adminControls = document.querySelector('.admin-panel');
     if(adminControls) adminControls.classList.toggle('hidden', !isAdmin);
 
@@ -1106,27 +1628,13 @@ function switchDashTab(tab){
   if(tab==='mybill') renderCustomerBillView();
 }
 
-function loadHomeContentIntoInputs(){
-  const hc = loadHomeContent();
-  const set = (id,val)=>{ const el=document.getElementById(id); if(el) el.value = val||''; };
-  set('hcHeroTitle', hc.heroTitle);
-  set('hcHeroDesc', hc.heroDesc);
-  set('hcAboutSub', hc.aboutSub);
-  set('hcAboutP1', hc.aboutP1);
-  set('hcAboutP2', hc.aboutP2);
-  set('hcAboutP3', hc.aboutP3);
-}
-
 // ================= CUSTOMER DATA =================
 let activeCustomerId = null;
 
 function getHourlyRate(){ const r=localStorage.getItem(HOURLY_RATE_KEY); return r?parseFloat(r):500; }
 function setHourlyRate(rate){ localStorage.setItem(HOURLY_RATE_KEY, rate); }
 
-function loadAllCustomers(){
-  try { return JSON.parse(localStorage.getItem(CUSTOMERS_KEY)) || []; }
-  catch(e){ return []; }
-}
+function loadAllCustomers(){ try { return JSON.parse(localStorage.getItem(CUSTOMERS_KEY)) || []; } catch(e){ return []; } }
 function saveAllCustomers(arr){ localStorage.setItem(CUSTOMERS_KEY, JSON.stringify(arr)); }
 
 function loadCustomers(){
@@ -1290,7 +1798,7 @@ function renderWorkTableForCustomer(works){
   tbody.innerHTML='';
   if(!works || works.length===0){
     tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text-light);">No work entries.</td></tr>';
-    document.getElementById('workCount').innerText='0';
+    const wc = document.getElementById('workCount'); if(wc) wc.innerText='0';
     return;
   }
   works.forEach((work, index)=>{
@@ -1307,7 +1815,7 @@ function renderWorkTableForCustomer(works){
     `;
     tbody.appendChild(row);
   });
-  document.getElementById('workCount').innerText = works.length;
+  const wc = document.getElementById('workCount'); if(wc) wc.innerText = works.length;
 }
 
 window.deleteWork = function(customerId, index){
@@ -1499,37 +2007,26 @@ function startHeroSlideshow(){
 }
 
 // ================= PASSBOOK / TOOLS / BOOKINGS / REPORTS =================
-
 function loadPassbook(){ try { return JSON.parse(localStorage.getItem(PASSBOOK_KEY)) || []; } catch(e){ return []; } }
 function savePassbook(arr){ localStorage.setItem(PASSBOOK_KEY, JSON.stringify(arr)); }
-
-function addPassbookEntry(entry){
-  const arr = loadPassbook();
-  arr.push({id:generateId(), ...entry});
-  savePassbook(arr);
-}
-
+function addPassbookEntry(entry){ const arr = loadPassbook(); arr.push({id:generateId(), ...entry}); savePassbook(arr); }
 function loadTools(){ try { return JSON.parse(localStorage.getItem(TOOLS_KEY)) || []; } catch(e){ return []; } }
 function saveTools(arr){ localStorage.setItem(TOOLS_KEY, JSON.stringify(arr)); }
-
 function loadBookings(){ try { return JSON.parse(localStorage.getItem(BOOKINGS_KEY)) || []; } catch(e){ return []; } }
 function saveBookings(arr){ localStorage.setItem(BOOKINGS_KEY, JSON.stringify(arr)); }
-
 function loadJobs(){ try { return JSON.parse(localStorage.getItem(JOBS_KEY)) || []; } catch(e){ return []; } }
 function saveJobs(arr){ localStorage.setItem(JOBS_KEY, JSON.stringify(arr)); }
 
 function renderReportPanel(container){
   const passbook = loadPassbook();
   const tools = loadTools();
-
   const monthly = {};
   const yearly = {};
   passbook.forEach(e=>{
     if(!e.date) return;
     const d = new Date(e.date);
     if(isNaN(d)) return;
-    const y = d.getFullYear();
-    const m = d.getMonth()+1;
+    const y = d.getFullYear(); const m = d.getMonth()+1;
     const key = y+'-'+String(m).padStart(2,'0');
     if(!monthly[key]) monthly[key] = {income:0, expense:0};
     if(e.type==='income' || e.type==='payment') monthly[key].income += Number(e.amount)||0;
@@ -1537,42 +2034,32 @@ function renderReportPanel(container){
   });
   tools.forEach(t=>{
     if(!t.date) return;
-    const d = new Date(t.date);
-    if(isNaN(d)) return;
-    const y = d.getFullYear();
-    const m = d.getMonth()+1;
+    const d = new Date(t.date); if(isNaN(d)) return;
+    const y = d.getFullYear(); const m = d.getMonth()+1;
     const key = y+'-'+String(m).padStart(2,'0');
     if(!monthly[key]) monthly[key] = {income:0, expense:0};
     monthly[key].expense += Number(t.cost)||0;
   });
-
   Object.keys(monthly).forEach(k=>{
     const y = k.split('-')[0];
     if(!yearly[y]) yearly[y] = {income:0, expense:0};
     yearly[y].income += monthly[k].income;
     yearly[y].expense += monthly[k].expense;
   });
-
   const monthlyRows = Object.entries(monthly).sort().reverse().map(([k,v])=>`
     <tr><td>${k}</td><td>${formatCurrency(v.income)}</td><td>${formatCurrency(v.expense)}</td><td>${formatCurrency(v.income - v.expense)}</td></tr>
   `).join('') || '<tr><td colspan="4" class="text-small">No data.</td></tr>';
-
   const yearlyRows = Object.entries(yearly).sort().reverse().map(([y,v])=>`
     <tr><td>${y}</td><td>${formatCurrency(v.income)}</td><td>${formatCurrency(v.expense)}</td><td>${formatCurrency(v.income - v.expense)}</td></tr>
   `).join('') || '<tr><td colspan="4" class="text-small">No data.</td></tr>';
-
   container.innerHTML = `
     <div class="card">
-      <h3><i class="fas fa-chart-line"></i> Monthly Report (Income / Expense / Profit)</h3>
-      <div style="overflow-x:auto;">
-        <table><thead><tr><th>Month</th><th>Income</th><th>Expense</th><th>Profit</th></tr></thead><tbody>${monthlyRows}</tbody></table>
-      </div>
+      <h3><i class="fas fa-chart-line"></i> Monthly Report</h3>
+      <div style="overflow-x:auto;"><table><thead><tr><th>Month</th><th>Income</th><th>Expense</th><th>Profit</th></tr></thead><tbody>${monthlyRows}</tbody></table></div>
     </div>
     <div class="card mt-2">
       <h3><i class="fas fa-chart-pie"></i> Yearly Report</h3>
-      <div style="overflow-x:auto;">
-        <table><thead><tr><th>Year</th><th>Income</th><th>Expense</th><th>Profit</th></tr></thead><tbody>${yearlyRows}</tbody></table>
-      </div>
+      <div style="overflow-x:auto;"><table><thead><tr><th>Year</th><th>Income</th><th>Expense</th><th>Profit</th></tr></thead><tbody>${yearlyRows}</tbody></table></div>
     </div>
     <div class="card mt-2">
       <button class="btn btn-small btn-outline" id="exportReportBtn"><i class="fas fa-download"></i> Export Report as CSV</button>
@@ -1594,13 +2081,11 @@ function renderReportPanel(container){
   }
 }
 
-// ================= BILLS REPORT (pending / paid / overdue) =================
 function getDaysSince(dateStr){
   if(!dateStr) return 0;
   const d = new Date(dateStr);
   if(isNaN(d)) return 0;
-  const now = new Date();
-  return Math.max(0, Math.floor((now - d) / (1000*60*60*24)));
+  return Math.max(0, Math.floor((new Date() - d) / (1000*60*60*24)));
 }
 
 function renderBillsReport(container){
@@ -1608,17 +2093,12 @@ function renderBillsReport(container){
   let totalBilled = 0, totalPaid = 0, totalPending = 0;
   const pendingList = [];
   const paidList = [];
-
   customers.forEach(c=>{
     const total = (c.works||[]).reduce((s,w)=>s+(Number(w.price)||0),0);
     const paid = (c.payments||[]).reduce((s,p)=>s+(Number(p.amount)||0),0);
     const due = Math.max(0, total-paid);
-    totalBilled += total;
-    totalPaid += paid;
-    totalPending += due;
-
+    totalBilled += total; totalPaid += paid; totalPending += due;
     if(due > 0){
-      // Find oldest unpaid reference date (bill date or oldest work date)
       let refDate = c.billDate || null;
       const lastPayment = (c.payments||[]).length ? [...c.payments].sort((a,b)=>new Date(b.date)-new Date(a.date))[0] : null;
       if(lastPayment && lastPayment.date) refDate = lastPayment.date;
@@ -1628,9 +2108,7 @@ function renderBillsReport(container){
       paidList.push({c, total, paid, due:0});
     }
   });
-
   pendingList.sort((a,b)=> b.days - a.days);
-
   const pendingRows = pendingList.map(p=>{
     const badge = p.days > 30
       ? `<span class="days-overdue">${p.days} days overdue</span>`
@@ -1646,7 +2124,6 @@ function renderBillsReport(container){
       <td><button class="btn btn-small btn-outline" onclick="openBillFromReport('${p.c.id}')"><i class="fas fa-file-invoice"></i> Bill</button></td>
     </tr>`;
   }).join('') || '<tr><td colspan="8" class="text-small" style="text-align:center;">No pending bills 🎉</td></tr>';
-
   const paidRows = paidList.map(p=>`
     <tr>
       <td>${p.c.customerName||'—'}<br><span class="text-small">${p.c.customerMobile||''}</span></td>
@@ -1655,7 +2132,6 @@ function renderBillsReport(container){
       <td class="paid">${formatCurrency(p.paid)}</td>
       <td><button class="btn btn-small btn-outline" onclick="openBillFromReport('${p.c.id}')"><i class="fas fa-file-invoice"></i> Bill</button></td>
     </tr>`).join('') || '<tr><td colspan="5" class="text-small" style="text-align:center;">No fully paid bills.</td></tr>';
-
   container.innerHTML = `
     <div class="card">
       <h3><i class="fas fa-chart-bar"></i> Bills Summary</h3>
@@ -1666,34 +2142,46 @@ function renderBillsReport(container){
         <div class="summary-item"><i class="fas fa-clock"></i><div class="info"><div class="value">${pendingList.length}</div><div class="label">Pending Bills</div></div></div>
       </div>
     </div>
-
     <div class="card">
       <h3><i class="fas fa-exclamation-circle" style="color:var(--danger);"></i> Pending Payments (longest overdue first)</h3>
       <div style="overflow-x:auto;margin-top:0.6rem;">
-        <table>
-          <thead><tr><th>Customer</th><th>Bill No</th><th>Since</th><th>Total</th><th>Paid</th><th>Due</th><th>Overdue</th><th></th></tr></thead>
-          <tbody>${pendingRows}</tbody>
-        </table>
+        <table><thead><tr><th>Customer</th><th>Bill No</th><th>Since</th><th>Total</th><th>Paid</th><th>Due</th><th>Overdue</th><th></th></tr></thead><tbody>${pendingRows}</tbody></table>
       </div>
     </div>
-
     <div class="card">
       <h3><i class="fas fa-check-circle" style="color:var(--success);"></i> Fully Paid Bills</h3>
       <div style="overflow-x:auto;margin-top:0.6rem;">
-        <table>
-          <thead><tr><th>Customer</th><th>Bill No</th><th>Total</th><th>Paid</th><th></th></tr></thead>
-          <tbody>${paidRows}</tbody>
-        </table>
+        <table><thead><tr><th>Customer</th><th>Bill No</th><th>Total</th><th>Paid</th><th></th></tr></thead><tbody>${paidRows}</tbody></table>
       </div>
     </div>
   `;
-
   window.openBillFromReport = function(cid){
     activeCustomerId = cid;
     document.getElementById('toolPanel').classList.add('hidden');
     switchDashTab('bills');
     loadCustomerIntoEditor(cid);
   };
+}
+
+// ================= WHATSAPP / CALL HELPERS =================
+function whatsappLink(){ return 'https://wa.me/91'+getPhone(); }
+function telLink(){ return 'tel:'+getPhone(); }
+
+function bindContactButtons(){
+  const ids = ['heroBookBtn','ctaWhatsappBtn','svcWhatsappBtn','aboutWhatsappBtn'];
+  ids.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el){
+      el.href = whatsappLink();
+      el.target = '_blank';
+      el.rel = 'noopener';
+    }
+  });
+  const callIds = ['ctaCallBtn','svcCallBtn','aboutCallBtn'];
+  callIds.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.href = telLink();
+  });
 }
 
 // ================= EVENT BINDINGS =================
@@ -1769,28 +2257,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const name = document.getElementById('staffNameInput').value.trim();
     const mobile = document.getElementById('staffMobileInputAdd').value.trim();
     const editId = document.getElementById('staffEditId').value;
-
     let password = document.getElementById('staffPasswordInputAdd').value.trim();
-    if(role === 'customer' && !password){
-      password = CUSTOMER_DEFAULT_PASSWORD;
-    }
-
+    if(role === 'customer' && !password) password = CUSTOMER_DEFAULT_PASSWORD;
     if(!name){ alert('Enter name'); return; }
     if(mobile.length!==10 || isNaN(mobile)){ alert('Enter valid 10-digit mobile'); return; }
     if(!password){ alert('Enter password'); return; }
-
     const staff = loadStaff();
     const existing = staff.find(s=>s.mobile===mobile && s.id !== editId);
     if(existing){ alert('This mobile is already registered'); return; }
-
     if(editId){
       const idx = staff.findIndex(s=>s.id===editId);
-      if(idx>=0){
-        staff[idx].role = role;
-        staff[idx].name = name;
-        staff[idx].mobile = mobile;
-        staff[idx].password = password;
-      }
+      if(idx>=0){ staff[idx].role = role; staff[idx].name = name; staff[idx].mobile = mobile; staff[idx].password = password; }
     } else {
       staff.push({ id: 'U'+Date.now()+Math.random().toString(36).substr(2,4), role, name, mobile, password, power:true });
     }
@@ -1801,100 +2278,172 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
 
   document.getElementById('clearStaffFormBtn').addEventListener('click', clearStaffForm);
-
   document.getElementById('staffRoleInput').addEventListener('change', function(){
     const pwdInput = document.getElementById('staffPasswordInputAdd');
-    if(this.value === 'customer' && !pwdInput.value){
-      pwdInput.value = CUSTOMER_DEFAULT_PASSWORD;
-    }
+    if(this.value === 'customer' && !pwdInput.value) pwdInput.value = CUSTOMER_DEFAULT_PASSWORD;
   });
 
   document.getElementById('applyLogoBtn').addEventListener('click', ()=>{
     const fileInput = document.getElementById('logoUpload');
     if(!fileInput.files || !fileInput.files[0]){ alert('Choose a logo file'); return; }
     const reader = new FileReader();
-    reader.onload = (e)=>{
-      localStorage.setItem(LOGO_KEY, e.target.result);
-      applyLogo(); loadLogoPreview();
-      alert('Logo applied!');
-    };
+    reader.onload = (e)=>{ localStorage.setItem(LOGO_KEY, e.target.result); applyLogo(); loadLogoPreview(); alert('Logo applied!'); };
     reader.readAsDataURL(fileInput.files[0]);
   });
-
   document.getElementById('removeLogoBtn').addEventListener('click', ()=>{
-    localStorage.removeItem(LOGO_KEY);
-    applyLogo(); loadLogoPreview();
-    alert('Logo removed');
+    localStorage.removeItem(LOGO_KEY); applyLogo(); loadLogoPreview(); alert('Logo removed');
   });
-
   document.getElementById('addSlideBtn').addEventListener('click', ()=>{
     const fileInput = document.getElementById('slideUpload');
     if(!fileInput.files || !fileInput.files[0]){ alert('Choose an image'); return; }
     const reader = new FileReader();
     reader.onload = (e)=>{
-      const arr = loadSlides();
-      arr.push(e.target.result);
-      saveSlides(arr);
-      renderSlideList();
-      startHeroSlideshow();
-      fileInput.value='';
-      alert('Slide added!');
+      const arr = loadSlides(); arr.push(e.target.result); saveSlides(arr);
+      renderSlideList(); startHeroSlideshow(); fileInput.value=''; alert('Slide added!');
     };
     reader.readAsDataURL(fileInput.files[0]);
   });
 
-  // ===== HOME CONTENT EDITORS =====
-  document.getElementById('saveHomeContentBtn').addEventListener('click', ()=>{
+  // ===== HOME HERO SAVE =====
+  document.getElementById('saveHomeHeroBtn').addEventListener('click', ()=>{
     if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
     const hc = loadHomeContent();
+    hc.heroTag = document.getElementById('hcHeroTag').value.trim();
     hc.heroTitle = document.getElementById('hcHeroTitle').value.trim();
     hc.heroDesc = document.getElementById('hcHeroDesc').value.trim();
+    hc.heroBtn1 = document.getElementById('hcHeroBtn1').value.trim();
+    hc.heroBtn2 = document.getElementById('hcHeroBtn2').value.trim();
+    hc.heroBadge = document.getElementById('hcHeroBadge').value.trim();
+    hc.heroStats = parseStats(document.getElementById('hcHeroStats').value);
     saveHomeContent(hc);
     renderHomeContent();
-    alert('Home content saved!');
+    alert('Home hero saved!');
   });
 
-  document.getElementById('saveAboutContentBtn').addEventListener('click', ()=>{
+  // ===== HOME SECTION HEADS =====
+  document.getElementById('saveHomeHeadsBtn').addEventListener('click', ()=>{
     if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
     const hc = loadHomeContent();
-    hc.aboutSub = document.getElementById('hcAboutSub').value.trim();
-    hc.aboutP1 = document.getElementById('hcAboutP1').value.trim();
-    hc.aboutP2 = document.getElementById('hcAboutP2').value.trim();
-    hc.aboutP3 = document.getElementById('hcAboutP3').value.trim();
+    hc.workEyebrow = document.getElementById('hcWorkEyebrow').value.trim();
+    hc.workTitle = document.getElementById('hcWorkTitle').value.trim();
+    hc.workDesc = document.getElementById('hcWorkDesc').value.trim();
+    hc.whyEyebrow = document.getElementById('hcWhyEyebrow').value.trim();
+    hc.whyTitle = document.getElementById('hcWhyTitle').value.trim();
     saveHomeContent(hc);
     renderHomeContent();
-    alert('About content saved!');
+    alert('Section headings saved!');
   });
 
+  // ===== WHY CARDS =====
+  document.getElementById('saveHomeWhyBtn').addEventListener('click', ()=>{
+    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    const hc = loadHomeContent();
+    const cards = [];
+    for(let i=1;i<=4;i++){
+      cards.push({
+        icon: document.getElementById('hcWhy'+i+'Icon').value.trim() || 'fas fa-check',
+        title: document.getElementById('hcWhy'+i+'Title').value.trim(),
+        desc: document.getElementById('hcWhy'+i+'Desc').value.trim()
+      });
+    }
+    hc.whyCards = cards;
+    saveHomeContent(hc);
+    renderHomeContent();
+    alert('Why cards saved!');
+  });
+
+  // ===== RATE + STEPS =====
+  document.getElementById('saveHomeRateStepsBtn').addEventListener('click', ()=>{
+    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    const hc = loadHomeContent();
+    hc.rateHead = document.getElementById('hcRateHead').value.trim();
+    hc.rateSeason = document.getElementById('hcRateSeason').value.trim();
+    hc.stepsEyebrow = document.getElementById('hcStepsEyebrow').value.trim();
+    hc.stepsTitle = document.getElementById('hcStepsTitle').value.trim();
+    hc.steps = [];
+    for(let i=1;i<=3;i++){
+      hc.steps.push({
+        title: document.getElementById('hcStep'+i+'Title').value.trim(),
+        desc: document.getElementById('hcStep'+i+'Desc').value.trim()
+      });
+    }
+    saveHomeContent(hc);
+    renderHomeContent();
+    alert('Rate & steps saved!');
+  });
+
+  // ===== HOME CTA =====
+  document.getElementById('saveHomeCtaBtn').addEventListener('click', ()=>{
+    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    const hc = loadHomeContent();
+    hc.ctaTitle = document.getElementById('hcCtaTitle').value.trim();
+    hc.ctaDesc = document.getElementById('hcCtaDesc').value.trim();
+    saveHomeContent(hc);
+    renderHomeContent();
+    alert('CTA saved!');
+  });
+
+  // ===== SERVICES PAGE HEAD + CTA =====
+  document.getElementById('saveSvcPageBtn').addEventListener('click', ()=>{
+    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    const hc = loadHomeContent();
+    hc.svcPageTitle = document.getElementById('hcSvcTitle').value.trim();
+    hc.svcPageDesc = document.getElementById('hcSvcDesc').value.trim();
+    hc.svcCtaTitle = document.getElementById('hcSvcCtaTitle').value.trim();
+    hc.svcCtaDesc = document.getElementById('hcSvcCtaDesc').value.trim();
+    saveHomeContent(hc);
+    renderHomeContent();
+    alert('Services page saved!');
+  });
+
+  // ===== SERVICES LIST =====
   document.getElementById('saveServiceBtn').addEventListener('click', ()=>{
     if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
-    const icon = document.getElementById('svcIcon').value.trim() || 'fas fa-tools';
+    const icon = document.getElementById('svcIcon').value.trim() || 'fas fa-tractor';
     const title = document.getElementById('svcTitle').value.trim();
     const price = document.getElementById('svcPrice').value.trim();
     const desc = document.getElementById('svcDesc').value.trim();
+    const hindi = document.getElementById('svcHindi').value.trim();
+    const time = document.getElementById('svcTime').value.trim();
+    const category = document.getElementById('svcCategory').value;
     if(!title){ alert('Enter service title'); return; }
     const hc = loadHomeContent();
     const editIdx = document.getElementById('svcEditIdx').value;
-    const item = {icon, title, price, desc};
-    if(editIdx !== ''){
-      hc.services[Number(editIdx)] = item;
-    } else {
-      hc.services.push(item);
-    }
+    const item = {icon, title, price, desc, hindi, time, category};
+    if(editIdx !== '') hc.services[Number(editIdx)] = item;
+    else hc.services.push(item);
     saveHomeContent(hc);
     renderHomeContent();
     document.getElementById('clearServiceBtn').click();
     alert('Service saved!');
   });
-
   document.getElementById('clearServiceBtn').addEventListener('click', ()=>{
     document.getElementById('svcIcon').value='';
     document.getElementById('svcTitle').value='';
     document.getElementById('svcPrice').value='';
     document.getElementById('svcDesc').value='';
+    document.getElementById('svcHindi').value='';
+    document.getElementById('svcTime').value='';
+    document.getElementById('svcCategory').value='field';
     document.getElementById('svcEditIdx').value='';
   });
 
+  // ===== ABOUT =====
+  document.getElementById('saveAboutContentBtn').addEventListener('click', ()=>{
+    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    const hc = loadHomeContent();
+    hc.aboutHeroDesc = document.getElementById('hcAboutHero').value.trim();
+    hc.aboutSub = document.getElementById('hcAboutSub').value.trim();
+    hc.aboutP1 = document.getElementById('hcAboutP1').value.trim();
+    hc.aboutP2 = document.getElementById('hcAboutP2').value.trim();
+    hc.aboutP3 = document.getElementById('hcAboutP3').value.trim();
+    hc.aboutStats = parseStats(document.getElementById('hcAboutStats').value);
+    saveHomeContent(hc);
+    renderHomeContent();
+    alert('About page saved!');
+  });
+
+  // ===== TEAM =====
   document.getElementById('saveTeamBtn').addEventListener('click', ()=>{
     if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
     const icon = document.getElementById('tmIcon').value.trim() || 'fas fa-user';
@@ -1904,17 +2453,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const hc = loadHomeContent();
     const editIdx = document.getElementById('tmEditIdx').value;
     const item = {icon, name, role};
-    if(editIdx !== ''){
-      hc.team[Number(editIdx)] = item;
-    } else {
-      hc.team.push(item);
-    }
+    if(editIdx !== '') hc.team[Number(editIdx)] = item;
+    else hc.team.push(item);
     saveHomeContent(hc);
     renderHomeContent();
     document.getElementById('clearTeamBtn').click();
     alert('Team member saved!');
   });
-
   document.getElementById('clearTeamBtn').addEventListener('click', ()=>{
     document.getElementById('tmIcon').value='';
     document.getElementById('tmName').value='';
@@ -1922,7 +2467,38 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('tmEditIdx').value='';
   });
 
-  // ===== BILL EDITOR ACTIONS =====
+  // ===== ABOUT CTA =====
+  document.getElementById('saveAboutCtaBtn').addEventListener('click', ()=>{
+    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    const hc = loadHomeContent();
+    hc.aboutCtaTitle = document.getElementById('hcAboutCtaTitle').value.trim();
+    hc.aboutCtaDesc = document.getElementById('hcAboutCtaDesc').value.trim();
+    saveHomeContent(hc);
+    renderHomeContent();
+    alert('About CTA saved!');
+  });
+
+  // ===== PHONE =====
+  document.getElementById('savePhoneBtn').addEventListener('click', ()=>{
+    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    const num = document.getElementById('hcPhone').value.trim();
+    if(num.length!==10 || isNaN(num)){ alert('Enter valid 10-digit number'); return; }
+    localStorage.setItem(PHONE_KEY, num);
+    bindContactButtons();
+    alert('Phone number saved!');
+  });
+
+  // ===== RESET =====
+  document.getElementById('resetHomeContentBtn').addEventListener('click', ()=>{
+    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(!confirm('Reset home & services content to default? Bills/customers safe rahenge.')) return;
+    localStorage.removeItem(HOME_CONTENT_KEY);
+    loadHomeContentIntoInputs();
+    renderHomeContent();
+    alert('Content reset to default!');
+  });
+
+  // ===== BILL EDITOR =====
   document.getElementById('setHourlyRateBtn').addEventListener('click', ()=>{
     if(loggedInUserType==='customer'){ alert('Not allowed'); return; }
     const rate = parseFloat(document.getElementById('hourlyRateInput').value)||0;
@@ -2042,9 +2618,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     c.payments.push({ id:generateId(), amount, date, note });
     if(note.toLowerCase().includes('remind') || note.toLowerCase().includes('due')) c.reminder = note;
     saveCustomers(customers);
-
     addPassbookEntry({ type:'income', amount, note, date, customerName:c.customerName, billNo:c.billNo });
-
     renderPaymentTableForCustomer(c.payments);
     updateSummaryForCustomer(c);
     refreshDashboard();
@@ -2075,24 +2649,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
       };
       customers.push(newCustomer);
       saveCustomers(customers);
-
       const mobile = newCustomer.customerMobile;
       if(mobile && mobile.length===10){
         const staff = loadStaff();
         const exists = staff.find(s=>s.mobile===mobile && s.role==='customer');
         if(!exists){
-          staff.push({
-            id:'U'+Date.now()+Math.random().toString(36).substr(2,4),
-            role:'customer',
-            name:newCustomer.customerName,
-            mobile:mobile,
-            password:CUSTOMER_DEFAULT_PASSWORD,
-            power:true
-          });
+          staff.push({ id:'U'+Date.now()+Math.random().toString(36).substr(2,4), role:'customer', name:newCustomer.customerName, mobile:mobile, password:CUSTOMER_DEFAULT_PASSWORD, power:true });
           saveStaff(staff);
         }
       }
-
       activeCustomerId = newId;
       loadCustomerIntoEditor(newId);
       refreshDashboard();
@@ -2192,20 +2757,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
       title.innerHTML = `<i class="fas fa-toolbox"></i> ${toolName}`;
       content.innerHTML = '';
 
-      if(toolName === 'BillsReport'){
-        renderBillsReport(content);
-      } else if(toolName === 'Passbook'){
+      if(toolName === 'BillsReport'){ renderBillsReport(content); }
+      else if(toolName === 'Passbook'){
         const passbook = loadPassbook();
         const rows = passbook.slice().reverse().map(e=>`
           <tr><td>${e.date||'—'}</td><td>${e.type}</td><td>${e.customerName||'—'}</td><td>${e.billNo||'—'}</td><td>${formatCurrency(e.amount||0)}</td><td>${e.note||'—'}</td></tr>
         `).join('') || '<tr><td colspan="6" class="text-small">No entries.</td></tr>';
         content.innerHTML = `
-          <div class="card">
-            <h3>Passbook Entries</h3>
+          <div class="card"><h3>Passbook Entries</h3>
             <div style="overflow-x:auto;"><table><thead><tr><th>Date</th><th>Type</th><th>Customer</th><th>Bill No</th><th>Amount</th><th>Note</th></tr></thead><tbody>${rows}</tbody></table></div>
           </div>
-          <div class="card mt-2">
-            <h3>Add Manual Entry (Admin only)</h3>
+          <div class="card mt-2"><h3>Add Manual Entry (Admin only)</h3>
             <div class="grid-3">
               <div><label>Type</label><select id="passbookType"><option value="income">Income</option><option value="expense">Expense</option></select></div>
               <div><label>Amount</label><input type="number" id="passbookAmount" placeholder="0" min="0"></div>
@@ -2213,8 +2775,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             </div>
             <div class="mt-1"><label>Note</label><input type="text" id="passbookNote" placeholder="e.g. Diesel refill"></div>
             <button class="btn btn-small mt-1" id="addPassbookBtn"><i class="fas fa-plus"></i> Add Entry</button>
-          </div>
-        `;
+          </div>`;
         const addBtn = content.querySelector('#addPassbookBtn');
         if(addBtn){
           addBtn.addEventListener('click', ()=>{
@@ -2225,8 +2786,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             const note = content.querySelector('#passbookNote').value.trim();
             if(amount<=0){ alert('Enter amount'); return; }
             addPassbookEntry({ type, amount, date, note, customerName:'Manual', billNo:'' });
-            alert('Entry added!');
-            card.click();
+            alert('Entry added!'); card.click();
           });
         }
       } else if(toolName === 'Tools'){
@@ -2236,12 +2796,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
           <td><button class="btn btn-small btn-danger" onclick="deleteTool('${t.id}')"><i class="fas fa-trash"></i></button></td></tr>
         `).join('') || '<tr><td colspan="5" class="text-small">No tools/expenses.</td></tr>';
         content.innerHTML = `
-          <div class="card">
-            <h3>Tools & Expenses</h3>
+          <div class="card"><h3>Tools & Expenses</h3>
             <div style="overflow-x:auto;"><table><thead><tr><th>Name</th><th>Cost</th><th>Date</th><th>Note</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
           </div>
-          <div class="card mt-2">
-            <h3>Add Tool / Expense (Admin only)</h3>
+          <div class="card mt-2"><h3>Add Tool / Expense (Admin only)</h3>
             <div class="grid-3">
               <div><label>Tool name</label><input type="text" id="toolName" placeholder="e.g. Spanner set"></div>
               <div><label>Cost (₹)</label><input type="number" id="toolCost" placeholder="0" min="0"></div>
@@ -2249,8 +2807,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             </div>
             <div class="mt-1"><label>Note</label><input type="text" id="toolNote" placeholder="optional"></div>
             <button class="btn btn-small mt-1" id="addToolBtn"><i class="fas fa-plus"></i> Add Tool</button>
-          </div>
-        `;
+          </div>`;
         const addBtn = content.querySelector('#addToolBtn');
         if(addBtn){
           addBtn.addEventListener('click', ()=>{
@@ -2264,8 +2821,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             arr.push({id:generateId(), name, cost, date, note});
             saveTools(arr);
             addPassbookEntry({ type:'expense', amount:cost, note:'Tool: '+name, date, customerName:'', billNo:'' });
-            alert('Tool added!');
-            card.click();
+            alert('Tool added!'); card.click();
           });
         }
       } else if(toolName === 'Jobs'){
@@ -2273,19 +2829,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const rows = customers.filter(c=>c.works && c.works.length>0).map(c=>{
           const total = (c.works||[]).reduce((s,w)=>s+(Number(w.price)||0),0);
           return `<tr>
-            <td>${c.customerName||'—'}</td>
-            <td>${c.customerMobile||'—'}</td>
-            <td>${c.works.length} entries</td>
-            <td>${formatCurrency(total)}</td>
+            <td>${c.customerName||'—'}</td><td>${c.customerMobile||'—'}</td><td>${c.works.length} entries</td><td>${formatCurrency(total)}</td>
             <td><button class="btn btn-small btn-outline" onclick="loadJobCustomer('${c.id}')"><i class="fas fa-file-invoice"></i> Show Bill</button></td>
           </tr>`;
         }).join('') || '<tr><td colspan="5" class="text-small">No jobs yet.</td></tr>';
         content.innerHTML = `
-          <div class="card">
-            <h3>Jobs (Customers with work done)</h3>
+          <div class="card"><h3>Jobs (Customers with work done)</h3>
             <div style="overflow-x:auto;"><table><thead><tr><th>Customer</th><th>Mobile</th><th>Works</th><th>Total</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div>
-          </div>
-        `;
+          </div>`;
         window.loadJobCustomer = function(cid){
           activeCustomerId = cid;
           switchDashTab('bills');
@@ -2299,24 +2850,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
           <td><button class="btn btn-small btn-danger" onclick="deleteBooking('${b.id}')"><i class="fas fa-trash"></i></button></td></tr>
         `).join('') || '<tr><td colspan="6" class="text-small">No bookings.</td></tr>';
         content.innerHTML = `
-          <div class="card">
-            <h3>Customer Bookings</h3>
+          <div class="card"><h3>Customer Bookings</h3>
             <div style="overflow-x:auto;"><table><thead><tr><th>Customer</th><th>Mobile</th><th>Work</th><th>Date</th><th>Time</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
           </div>
-          <div class="card mt-2">
-            <h3>Add Booking (Admin only)</h3>
+          <div class="card mt-2"><h3>Add Booking (Admin only)</h3>
             <div class="grid-3">
               <div><label>Customer name</label><input type="text" id="bookingName" placeholder="Ramesh Patel"></div>
               <div><label>Mobile</label><input type="text" id="bookingMobile" placeholder="9876543210" maxlength="10"></div>
-              <div><label>Work description</label><input type="text" id="bookingWork" placeholder="e.g. Oil change"></div>
+              <div><label>Work description</label><input type="text" id="bookingWork" placeholder="e.g. Jutung"></div>
             </div>
             <div class="grid-3 mt-1">
               <div><label>Date</label><input type="date" id="bookingDate"></div>
               <div><label>Time</label><input type="time" id="bookingTime"></div>
               <div style="display:flex;align-items:flex-end;"><button class="btn btn-small" id="addBookingBtn"><i class="fas fa-plus"></i> Add Booking</button></div>
             </div>
-          </div>
-        `;
+          </div>`;
         const addBtn = content.querySelector('#addBookingBtn');
         if(addBtn){
           addBtn.addEventListener('click', ()=>{
@@ -2330,35 +2878,27 @@ document.addEventListener('DOMContentLoaded', ()=>{
             const arr = loadBookings();
             arr.push({id:generateId(), customerName:name, customerMobile:mobile, workDesc, date, time});
             saveBookings(arr);
-            alert('Booking added!');
-            card.click();
+            alert('Booking added!'); card.click();
           });
         }
-      } else if(toolName === 'Reports'){
-        renderReportPanel(content);
-      } else {
-        content.innerHTML = `<div class="card"><p class="text-small">The ${toolName} module is coming soon!</p></div>`;
-      }
+      } else if(toolName === 'Reports'){ renderReportPanel(content); }
+      else { content.innerHTML = `<div class="card"><p class="text-small">The ${toolName} module is coming soon!</p></div>`; }
     });
   });
 
-  document.getElementById('closeToolBtn').addEventListener('click', ()=>{
-    document.getElementById('toolPanel').classList.add('hidden');
-  });
+  document.getElementById('closeToolBtn').addEventListener('click', ()=> document.getElementById('toolPanel').classList.add('hidden'));
 
   window.deleteTool = function(id){
     if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
     const arr = loadTools().filter(t=>t.id!==id);
-    saveTools(arr);
-    alert('Tool deleted');
+    saveTools(arr); alert('Tool deleted');
     const card = document.querySelector('.more-card[data-tool="Tools"]');
     if(card) card.click();
   };
   window.deleteBooking = function(id){
     if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
     const arr = loadBookings().filter(b=>b.id!==id);
-    saveBookings(arr);
-    alert('Booking deleted');
+    saveBookings(arr); alert('Booking deleted');
     const card = document.querySelector('.more-card[data-tool="Bookings"]');
     if(card) card.click();
   };
@@ -2375,13 +2915,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
       tractorModel: 'Sonalika DI-745 III',
       hourlyRate: 500,
       works: [
-        { id: generateId(), desc: 'Engine oil change', type: 'fixed', hours: 0, rate: 0, price: 1200, photo: null },
-        { id: generateId(), desc: 'Tractor servicing', type: 'hourly', hours: 2, rate: 500, price: 1000, photo: null }
+        { id: generateId(), desc: 'Jutung - 2 acre', type: 'fixed', hours: 0, rate: 0, price: 2400, photo: null },
+        { id: generateId(), desc: 'Rotavator - 2 acre', type: 'hourly', hours: 4, rate: 500, price: 2000, photo: null }
       ],
       payments: [
-        { id: generateId(), amount: 800, date: new Date().toISOString().split('T')[0], note: 'Advance' }
+        { id: generateId(), amount: 1500, date: new Date().toISOString().split('T')[0], note: 'Advance' }
       ],
-      reminder: 'Next service due 15 Nov',
+      reminder: 'Next kaam 15 Nov',
       createdByMobile: 'admin',
       createdByName: 'Admin',
       createdByRole: 'admin'
@@ -2410,46 +2950,15 @@ function generatePdf(lang){
     c = customers.find(x=>x.id===activeCustomerId);
   }
   if(!c){ alert('Customer not found'); return; }
-
   if(!window.jspdf || !window.jspdf.jsPDF){
     alert('PDF library load nahi hui. Internet check karein aur page refresh karein.');
     return;
   }
   const { jsPDF } = window.jspdf;
-
   const {total,paid,due} = calculateTotalsForCustomer(c);
-
   const L = {
-    en: {
-      title:'Damor Tractore Service',
-      subtitle:'Tractor Book - Bill Receipt',
-      billNo:'Bill No', date:'Date',
-      customer:'Customer', mobile:'Mobile', tractor:'Tractor',
-      workTitle:'Work & Service',
-      desc:'Description', type:'Type', price:'Price',
-      total:'Total', paid:'Paid', due:'Due',
-      payHistory:'Payment History',
-      amount:'Amount', note:'Note',
-      reminder:'Reminder',
-      generated:'Generated via Damor Tractore Service',
-      noWork:'No work entries', noPay:'No payments',
-      fixed:'Fixed', hourly:'Hourly'
-    },
-    hi: {
-      title:'Damor Tractore Service',
-      subtitle:'Tractor Book - Bill Receipt',
-      billNo:'Bill No', date:'Date',
-      customer:'Customer', mobile:'Mobile', tractor:'Tractor',
-      workTitle:'Kaam aur Seva',
-      desc:'Vivaran', type:'Prakar', price:'Mulya',
-      total:'Kul', paid:'Bhugtan', due:'Bakaya',
-      payHistory:'Bhugtan Itihas',
-      amount:'Rashi', note:'Note',
-      reminder:'Reminder',
-      generated:'Damor Tractore Service',
-      noWork:'Koi kaam nahi', noPay:'Koi bhugtan nahi',
-      fixed:'Fixed', hourly:'Hourly'
-    }
+    en: { title:'Damor Tractore Service', subtitle:'Tractor Book - Bill Receipt', billNo:'Bill No', date:'Date', customer:'Customer', mobile:'Mobile', tractor:'Tractor', workTitle:'Work & Service', desc:'Description', type:'Type', price:'Price', total:'Total', paid:'Paid', due:'Due', payHistory:'Payment History', amount:'Amount', note:'Note', reminder:'Reminder', generated:'Generated via Damor Tractore Service', noWork:'No work entries', noPay:'No payments', fixed:'Fixed', hourly:'Hourly' },
+    hi: { title:'Damor Tractore Service', subtitle:'Tractor Book - Bill Receipt', billNo:'Bill No', date:'Date', customer:'Customer', mobile:'Mobile', tractor:'Tractor', workTitle:'Kaam aur Seva', desc:'Vivaran', type:'Prakar', price:'Mulya', total:'Kul', paid:'Bhugtan', due:'Bakaya', payHistory:'Bhugtan Itihas', amount:'Rashi', note:'Note', reminder:'Reminder', generated:'Damor Tractore Service', noWork:'Koi kaam nahi', noPay:'Koi bhugtan nahi', fixed:'Fixed', hourly:'Hourly' }
   }[lang];
 
   const doc = new jsPDF({ unit:'mm', format:'a4', orientation:'portrait' });
@@ -2460,134 +2969,76 @@ function generatePdf(lang){
   doc.setFillColor(42,92,54);
   doc.rect(0, 0, pageW, 30, 'F');
   doc.setTextColor(255,255,255);
-  doc.setFont('helvetica','bold');
-  doc.setFontSize(18);
+  doc.setFont('helvetica','bold'); doc.setFontSize(18);
   doc.text(L.title, margin, 13);
-  doc.setFont('helvetica','normal');
-  doc.setFontSize(10);
+  doc.setFont('helvetica','normal'); doc.setFontSize(10);
   doc.text(L.subtitle, margin, 20);
-
   doc.setFontSize(10);
   doc.text(`${L.billNo}: ${c.billNo||'N/A'}`, pageW - margin, 13, { align:'right' });
   doc.text(`${L.date}: ${c.billDate||'-'}`, pageW - margin, 20, { align:'right' });
-
   y = 38;
 
   doc.setFillColor(247,252,245);
   doc.setDrawColor(203,220,199);
   doc.roundedRect(margin, y, pageW - margin*2, 22, 3, 3, 'FD');
-
   doc.setTextColor(30,47,35);
-  doc.setFont('helvetica','bold');
-  doc.setFontSize(10);
+  doc.setFont('helvetica','bold'); doc.setFontSize(10);
   doc.text(`${L.customer}:`, margin + 4, y + 7);
   doc.setFont('helvetica','normal');
   doc.text(`${c.customerName || '-'}`, margin + 30, y + 7);
-
   doc.setFont('helvetica','bold');
   doc.text(`${L.mobile}:`, margin + 4, y + 14);
   doc.setFont('helvetica','normal');
   doc.text(`${c.customerMobile || '-'}`, margin + 30, y + 14);
-
   doc.setFont('helvetica','bold');
   doc.text(`${L.tractor}:`, margin + 95, y + 7);
   doc.setFont('helvetica','normal');
-  const tractorTxt = (c.tractorModel || '-').substring(0, 45);
-  doc.text(tractorTxt, margin + 120, y + 7);
-
+  doc.text((c.tractorModel || '-').substring(0, 45), margin + 120, y + 7);
   y += 30;
 
   const workBody = [];
-  if(!c.works || c.works.length===0){
-    workBody.push([L.noWork, '', '']);
-  } else {
-    c.works.forEach(w=>{
-      const typeLabel = w.type==='hourly' ? `${L.hourly} (${w.hours} hr)` : L.fixed;
-      workBody.push([w.desc || '-', typeLabel, formatCurrency(w.price || 0)]);
-    });
-  }
+  if(!c.works || c.works.length===0){ workBody.push([L.noWork, '', '']); }
+  else { c.works.forEach(w=>{ const typeLabel = w.type==='hourly' ? `${L.hourly} (${w.hours} hr)` : L.fixed; workBody.push([w.desc || '-', typeLabel, formatCurrency(w.price || 0)]); }); }
 
-  doc.setFontSize(11);
-  doc.setFont('helvetica','bold');
-  doc.setTextColor(42,92,54);
-  doc.text(L.workTitle, margin, y);
-  y += 3;
-
-  doc.autoTable({
-    startY: y,
-    head: [[L.desc, L.type, L.price]],
-    body: workBody,
-    theme: 'grid',
+  doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(42,92,54);
+  doc.text(L.workTitle, margin, y); y += 3;
+  doc.autoTable({ startY: y, head: [[L.desc, L.type, L.price]], body: workBody, theme: 'grid',
     headStyles: { fillColor: [238,243,234], textColor: [42,92,54], fontStyle: 'bold', fontSize: 10 },
     bodyStyles: { fontSize: 9, textColor: [30,47,35] },
     alternateRowStyles: { fillColor: [250,252,249] },
-    columnStyles: {
-      0: { cellWidth: 'auto' },
-      1: { cellWidth: 45 },
-      2: { cellWidth: 35, halign: 'right' }
-    },
+    columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 45 }, 2: { cellWidth: 35, halign: 'right' } },
     margin: { left: margin, right: margin }
   });
-
   y = doc.lastAutoTable.finalY + 6;
 
-  doc.setFillColor(247,252,245);
-  doc.setDrawColor(203,220,199);
+  doc.setFillColor(247,252,245); doc.setDrawColor(203,220,199);
   doc.roundedRect(margin, y, pageW - margin*2, 16, 3, 3, 'FD');
-
-  doc.setFont('helvetica','bold');
-  doc.setFontSize(11);
-  doc.setTextColor(30,47,35);
+  doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(30,47,35);
   doc.text(`${L.total}: ${formatCurrency(total)}`, margin + 4, y + 10);
   doc.text(`${L.paid}: ${formatCurrency(paid)}`, margin + 70, y + 10);
   doc.setTextColor(177,59,59);
   doc.text(`${L.due}: ${formatCurrency(due)}`, pageW - margin - 4, y + 10, { align:'right' });
-
   y += 24;
 
   const payBody = [];
-  if(!c.payments || c.payments.length===0){
-    payBody.push([L.noPay, '', '']);
-  } else {
-    [...c.payments].sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach(p=>{
-      payBody.push([p.date || '-', formatCurrency(p.amount || 0), p.note || '-']);
-    });
-  }
+  if(!c.payments || c.payments.length===0){ payBody.push([L.noPay, '', '']); }
+  else { [...c.payments].sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach(p=>{ payBody.push([p.date || '-', formatCurrency(p.amount || 0), p.note || '-']); }); }
 
-  doc.setFont('helvetica','bold');
-  doc.setFontSize(11);
-  doc.setTextColor(42,92,54);
-  doc.text(L.payHistory, margin, y);
-  y += 3;
-
-  doc.autoTable({
-    startY: y,
-    head: [[L.date, L.amount, L.note]],
-    body: payBody,
-    theme: 'grid',
+  doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(42,92,54);
+  doc.text(L.payHistory, margin, y); y += 3;
+  doc.autoTable({ startY: y, head: [[L.date, L.amount, L.note]], body: payBody, theme: 'grid',
     headStyles: { fillColor: [238,243,234], textColor: [42,92,54], fontStyle: 'bold', fontSize: 10 },
     bodyStyles: { fontSize: 9, textColor: [30,47,35] },
-    columnStyles: {
-      0: { cellWidth: 40 },
-      1: { cellWidth: 35, halign: 'right' },
-      2: { cellWidth: 'auto' }
-    },
+    columnStyles: { 0: { cellWidth: 40 }, 1: { cellWidth: 35, halign: 'right' }, 2: { cellWidth: 'auto' } },
     margin: { left: margin, right: margin }
   });
-
   y = doc.lastAutoTable.finalY + 6;
 
   if(c.reminder){
-    doc.setFont('helvetica','italic');
-    doc.setFontSize(9);
-    doc.setTextColor(125,145,127);
-    doc.text(`${L.reminder}: ${c.reminder}`, margin, y);
-    y += 6;
+    doc.setFont('helvetica','italic'); doc.setFontSize(9); doc.setTextColor(125,145,127);
+    doc.text(`${L.reminder}: ${c.reminder}`, margin, y); y += 6;
   }
-
-  doc.setFont('helvetica','normal');
-  doc.setFontSize(8);
-  doc.setTextColor(143,168,148);
+  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(143,168,148);
   doc.text(L.generated, pageW/2, doc.internal.pageSize.getHeight() - 10, { align:'center' });
 
   const safeBill = (c.billNo||'N').replace(/[^a-zA-Z0-9_-]/g,'');
