@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Damor Tractore Service · Kheti Ka Kaam, Hamare Tractor Se</title>
+<title>दामोर ट्रैक्टर सर्विस · खेती का काम, हमारे ट्रैक्टर से</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <style>
@@ -17,7 +17,7 @@ body.theme-dark .card,body.theme-dark .navbar,body.theme-dark .dash-tabs,body.th
 body.theme-dark .tractor-card,body.theme-dark .share-box,body.theme-dark .summary-item{background:#0f172a;border-color:#334155;}
 body.theme-dark .rate-panel{background:#2a2618;border-color:#b8860b;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);transition:background 0.3s,color 0.3s;}
+body{font-family:'Noto Sans Devanagari','Inter',sans-serif;background:var(--bg);color:var(--text);transition:background 0.3s,color 0.3s;}
 
 .navbar{background:var(--card-bg);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;box-shadow:0 4px 12px rgba(0,0,0,0.02);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
 .logo{display:flex;align-items:center;gap:0.75rem;font-size:1.5rem;font-weight:700;color:var(--primary);text-decoration:none;}
@@ -43,7 +43,7 @@ h1 i{color:var(--accent);background:var(--primary);padding:0.5rem;border-radius:
 .grid-2{display:grid;grid-template-columns:1fr 1.2fr;gap:1.5rem;}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
 label{font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-light);display:block;margin-bottom:0.35rem;}
-input,select,textarea{width:100%;padding:0.7rem 1rem;border-radius:18px;border:1.5px solid var(--border);background:var(--card-bg);color:var(--text);font-family:'Inter',sans-serif;font-size:0.95rem;transition:0.15s;}
+input,select,textarea{width:100%;padding:0.7rem 1rem;border-radius:18px;border:1.5px solid var(--border);background:var(--card-bg);color:var(--text);font-family:'Noto Sans Devanagari','Inter',sans-serif;font-size:0.95rem;transition:0.15s;}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(42,92,54,0.1);}
 .btn{border:none;background:var(--primary);color:white;padding:0.85rem 1.5rem;border-radius:40px;font-weight:600;font-size:0.95rem;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;cursor:pointer;transition:0.15s;box-shadow:0 4px 10px rgba(0,0,0,0.1);text-decoration:none;}
 .btn:hover{background:var(--primary-dark);transform:translateY(-1px);}
@@ -80,9 +80,9 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .hero::after{content:'';position:absolute;left:-60px;bottom:-100px;width:260px;height:260px;background:rgba(255,255,255,0.05);border-radius:50%;}
 .hero-content{position:relative;z-index:2;}
 .hero-content .hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(245,176,66,0.2);color:var(--accent);padding:0.4rem 1rem;border-radius:40px;font-size:0.8rem;font-weight:600;margin-bottom:1rem;border:1px solid rgba(245,176,66,0.35);}
-.hero-content h2{font-size:2.6rem;line-height:1.15;color:#fff;margin-bottom:1rem;font-weight:800;}
+.hero-content h2{font-size:2.4rem;line-height:1.25;color:#fff;margin-bottom:1rem;font-weight:800;}
 .hero-content h2 span{color:var(--accent);background:rgba(245,176,66,0.15);padding:0 0.4rem;border-radius:12px;display:inline-block;border-bottom:3px solid var(--accent);}
-.hero-content p{font-size:1.05rem;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:1.5rem;max-width:520px;}
+.hero-content p{font-size:1.05rem;color:rgba(255,255,255,0.85);line-height:1.75;margin-bottom:1.5rem;max-width:540px;}
 .hero-content .flex-row{justify-content:flex-start;}
 .hero .btn{background:var(--accent);color:#1e2f23;box-shadow:0 6px 18px rgba(245,176,66,0.35);}
 .hero .btn:hover{background:#ffc25c;}
@@ -101,14 +101,14 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .section-head{text-align:center;max-width:680px;margin:0 auto 2rem;}
 .section-head .eyebrow{display:inline-block;background:rgba(42,92,54,0.08);color:var(--primary);padding:0.35rem 1rem;border-radius:40px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.8rem;}
 .section-head h2{font-size:2rem;color:var(--primary);margin-bottom:0.6rem;}
-.section-head p{color:var(--text-light);font-size:0.95rem;line-height:1.6;}
+.section-head p{color:var(--text-light);font-size:0.95rem;line-height:1.7;}
 
 .work-preview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.2rem;margin:2rem 0;}
 .work-preview{background:var(--card-bg);border-radius:24px;padding:1.5rem;border:1px solid var(--border);transition:0.2s;position:relative;overflow:hidden;}
 .work-preview:hover{transform:translateY(-5px);box-shadow:0 16px 32px rgba(42,92,54,0.1);border-color:var(--primary);}
 .work-preview .wp-icon{width:54px;height:54px;border-radius:16px;background:rgba(42,92,54,0.08);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1rem;}
 .work-preview h3{font-size:1.05rem;margin-bottom:0.4rem;color:var(--primary);}
-.work-preview p{font-size:0.85rem;color:var(--text-light);line-height:1.5;margin-bottom:0.8rem;}
+.work-preview p{font-size:0.85rem;color:var(--text-light);line-height:1.6;margin-bottom:0.8rem;}
 .work-preview .wp-rate{display:inline-block;background:var(--primary);color:#fff;padding:0.3rem 0.9rem;border-radius:40px;font-size:0.78rem;font-weight:700;}
 .work-preview .wp-time{font-size:0.72rem;color:var(--text-light);margin-top:0.5rem;}
 
@@ -117,7 +117,7 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .why-card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.05);}
 .why-card i{font-size:1.8rem;color:var(--accent);background:var(--primary);padding:0.8rem;border-radius:18px;margin-bottom:0.8rem;}
 .why-card h4{font-size:0.98rem;color:var(--primary);margin-bottom:0.3rem;}
-.why-card p{font-size:0.82rem;color:var(--text-light);line-height:1.5;}
+.why-card p{font-size:0.82rem;color:var(--text-light);line-height:1.6;}
 
 .rate-home-table{background:var(--card-bg);border-radius:28px;border:1px solid var(--border);overflow:hidden;margin:2rem 0;box-shadow:0 8px 24px rgba(0,0,0,0.04);}
 .rate-home-table .rht-head{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
@@ -142,13 +142,13 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .step-card{background:var(--card-bg);border-radius:22px;padding:1.5rem;border:1px solid var(--border);position:relative;padding-top:2.2rem;}
 .step-card::before{counter-increment:step;content:counter(step);position:absolute;top:-18px;left:1.5rem;width:42px;height:42px;background:var(--primary);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;box-shadow:0 6px 14px rgba(42,92,54,0.3);}
 .step-card h4{font-size:1rem;color:var(--primary);margin-bottom:0.4rem;}
-.step-card p{font-size:0.85rem;color:var(--text-light);line-height:1.5;}
+.step-card p{font-size:0.85rem;color:var(--text-light);line-height:1.6;}
 
 .services-page-hero{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);border-radius:32px;padding:2.5rem;color:#fff;margin-bottom:2rem;position:relative;overflow:hidden;}
 .services-page-hero::after{content:'\f0d1';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;right:2rem;bottom:-1rem;font-size:9rem;color:rgba(255,255,255,0.08);}
 .services-page-hero h1{color:#fff;margin-bottom:0.5rem;}
 .services-page-hero h1 i{background:var(--accent);color:#1e2f23;}
-.services-page-hero p{color:rgba(255,255,255,0.85);max-width:640px;line-height:1.7;position:relative;z-index:2;}
+.services-page-hero p{color:rgba(255,255,255,0.85);max-width:640px;line-height:1.75;position:relative;z-index:2;}
 .service-category{margin-bottom:2.5rem;}
 .service-category-head{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;}
 .service-category-head .sc-icon{width:44px;height:44px;border-radius:14px;background:var(--primary);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
@@ -162,7 +162,7 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .service-card .sc-icon{flex-shrink:0;width:52px;height:52px;border-radius:16px;background:rgba(42,92,54,0.08);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
 .service-card h3{font-size:1.08rem;margin-bottom:0.2rem;color:var(--primary);}
 .service-card .sc-hindi{font-size:0.75rem;color:var(--text-light);}
-.service-card p{font-size:0.85rem;color:var(--text-light);line-height:1.55;margin-bottom:1rem;flex:1;}
+.service-card p{font-size:0.85rem;color:var(--text-light);line-height:1.6;margin-bottom:1rem;flex:1;}
 .service-card .sc-meta{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;padding-top:0.8rem;border-top:1px dashed var(--border);}
 .service-card .price-tag{background:var(--primary);color:white;padding:0.4rem 1rem;border-radius:40px;font-size:0.85rem;font-weight:800;}
 .service-card .sc-time{font-size:0.72rem;color:var(--text-light);display:flex;align-items:center;gap:0.3rem;}
@@ -171,12 +171,12 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .about-page-hero::after{content:'\f4d7';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;right:2rem;bottom:-1rem;font-size:9rem;color:rgba(255,255,255,0.08);}
 .about-page-hero h1{color:#fff;}
 .about-page-hero h1 i{background:var(--accent);color:#1e2f23;}
-.about-page-hero p{color:rgba(255,255,255,0.85);max-width:640px;line-height:1.7;position:relative;z-index:2;}
+.about-page-hero p{color:rgba(255,255,255,0.85);max-width:640px;line-height:1.75;position:relative;z-index:2;}
 
 .about-flex{display:flex;gap:2rem;align-items:center;flex-wrap:wrap;margin:2rem 0;}
 .about-text{flex:1 1 320px;}
 .about-text h2{font-size:1.8rem;margin-bottom:1rem;color:var(--primary);}
-.about-text p{font-size:0.95rem;color:var(--text-light);line-height:1.75;margin-bottom:1rem;}
+.about-text p{font-size:0.95rem;color:var(--text-light);line-height:1.8;margin-bottom:1rem;}
 .about-icon{flex:0 0 240px;background:linear-gradient(135deg,rgba(42,92,54,0.08),rgba(245,176,66,0.15));border-radius:40px;padding:3rem 2rem;text-align:center;border:2px dashed var(--border);font-size:5rem;color:var(--primary);position:relative;overflow:hidden;}
 .about-icon::after{content:'';position:absolute;width:120px;height:120px;background:rgba(245,176,66,0.25);border-radius:50%;top:-30px;right:-30px;}
 .about-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:2rem 0;}
@@ -214,7 +214,7 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .btn-sms{background:var(--primary);}
 
 .dash-tabs{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;background:var(--card-bg);padding:0.5rem;border-radius:40px;border:1px solid var(--border);}
-.dash-tabs .tab-btn{padding:0.7rem 1.5rem;border-radius:40px;border:none;background:transparent;font-family:'Inter',sans-serif;font-weight:600;font-size:0.9rem;color:var(--text-light);cursor:pointer;transition:0.15s;display:flex;align-items:center;gap:0.4rem;}
+.dash-tabs .tab-btn{padding:0.7rem 1.5rem;border-radius:40px;border:none;background:transparent;font-family:'Noto Sans Devanagari','Inter',sans-serif;font-weight:600;font-size:0.9rem;color:var(--text-light);cursor:pointer;transition:0.15s;display:flex;align-items:center;gap:0.4rem;}
 .dash-tabs .tab-btn:hover{background:rgba(42,92,54,0.1);color:var(--primary);}
 .dash-tabs .tab-btn.active{background:var(--primary);color:white;}
 .dash-tabs .tab-btn.active i{color:var(--accent);}
@@ -278,7 +278,6 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 .days-overdue{background:var(--danger);color:white;padding:0.15rem 0.6rem;border-radius:100px;font-size:0.7rem;font-weight:700;}
 .days-warn{background:var(--accent);color:#1e2f23;padding:0.15rem 0.6rem;border-radius:100px;font-size:0.7rem;font-weight:700;}
 
-/* Home & Services editor styles */
 .editor-section{border:1px dashed var(--border);border-radius:20px;padding:1rem;margin-bottom:1rem;background:rgba(42,92,54,0.02);}
 .editor-section h4{font-size:0.9rem;color:var(--primary);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.4rem;}
 .editor-section .grid-3,.editor-section .grid-2{gap:0.6rem;}
@@ -290,7 +289,7 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
   .grid-2{grid-template-columns:1fr;}
   .grid-3{grid-template-columns:1fr;}
   .hero{grid-template-columns:1fr;padding:2rem 1.5rem;}
-  .hero-content h2{font-size:2rem;}
+  .hero-content h2{font-size:1.9rem;}
   .navbar{flex-direction:column;align-items:stretch;}
   .nav-links{justify-content:center;}
   .page-container{padding:1rem;}
@@ -307,188 +306,188 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
   <a href="#" class="logo" onclick="switchPage('home');return false;">
     <img id="navLogoImg" src="" style="display:none;" alt="Logo">
     <i class="fas fa-tractor" id="navLogoIcon"></i>
-    <span data-lang="brand">Damor Tractore Service</span>
+    <span data-lang="brand">दामोर ट्रैक्टर सर्विस</span>
   </a>
   <div class="nav-links">
-    <a href="#" class="active" data-page="home" onclick="switchPage('home');return false;"><i class="fas fa-home"></i> <span data-lang="nav_home">Home</span></a>
-    <a href="#" data-page="services" onclick="switchPage('services');return false;"><i class="fas fa-tools"></i> <span data-lang="nav_services">Kaam / Services</span></a>
-    <a href="#" data-page="about" onclick="switchPage('about');return false;"><i class="fas fa-info-circle"></i> <span data-lang="nav_about">About</span></a>
-    <a href="#" data-page="admin" onclick="switchPage('admin');return false;"><i class="fas fa-user-shield"></i> <span data-lang="nav_admin">Admin</span></a>
+    <a href="#" class="active" data-page="home" onclick="switchPage('home');return false;"><i class="fas fa-home"></i> <span data-lang="nav_home">होम</span></a>
+    <a href="#" data-page="services" onclick="switchPage('services');return false;"><i class="fas fa-tools"></i> <span data-lang="nav_services">काम / सेवाएं</span></a>
+    <a href="#" data-page="about" onclick="switchPage('about');return false;"><i class="fas fa-info-circle"></i> <span data-lang="nav_about">हमारे बारे में</span></a>
+    <a href="#" data-page="admin" onclick="switchPage('admin');return false;"><i class="fas fa-user-shield"></i> <span data-lang="nav_admin">एडमिन</span></a>
   </div>
 </nav>
 
 <div class="page-container">
 
-<!-- ================= HOME PAGE (fully editable via Admin) ================= -->
+<!-- ================= होम पेज ================= -->
 <div class="page active" id="homePage">
 
   <div class="hero">
     <div class="hero-content">
-      <div class="hero-tag" id="heroTagEl"><i class="fas fa-seedling"></i> <span>Kheti ka kaam · Tractor se · Time par</span></div>
-      <h2 id="heroTitleEl">Aapke khet ka kaam, <span>hamare tractor</span> se</h2>
-      <p id="heroDescEl">Jutung, rotavator, buwai, katai aur trolley transport — [Gaon/Tehsil] ke aas-paas experienced driver ke saath. Booking ke liye call ya WhatsApp karein.</p>
+      <div class="hero-tag" id="heroTagEl"><i class="fas fa-seedling"></i> <span>खेती का काम · ट्रैक्टर से · समय पर</span></div>
+      <h2 id="heroTitleEl">आपके खेत का काम, <span>हमारे ट्रैक्टर</span> से</h2>
+      <p id="heroDescEl">जुताई, रोटावेटर, बुवाई, कटाई और ट्रॉली ट्रांसपोर्ट — [गाँव/तहसील] के आस-पास अनुभवी ड्राइवर के साथ। बुकिंग के लिए कॉल या व्हाट्सएप करें।</p>
       <div class="flex-row">
-        <a href="#" class="btn" id="heroBookBtn"><i class="fab fa-whatsapp"></i> <span id="heroBtn1Text">WhatsApp par Book karein</span></a>
-        <a href="#" class="btn btn-outline" onclick="switchPage('services');return false;"><i class="fas fa-list"></i> <span id="heroBtn2Text">Rate List Dekhein</span></a>
+        <a href="#" class="btn" id="heroBookBtn"><i class="fab fa-whatsapp"></i> <span id="heroBtn1Text">व्हाट्सएप पर बुक करें</span></a>
+        <a href="#" class="btn btn-outline" onclick="switchPage('services');return false;"><i class="fas fa-list"></i> <span id="heroBtn2Text">रेट लिस्ट देखें</span></a>
       </div>
       <div class="hero-stats" id="heroStatsEl">
-        <div class="stat-item"><div class="number">500+</div><div class="label">Khet Kaam Kiye</div></div>
-        <div class="stat-item"><div class="number">15+</div><div class="label">Saal Ka Anubhav</div></div>
-        <div class="stat-item"><div class="number">4.9★</div><div class="label">Kisan Rating</div></div>
+        <div class="stat-item"><div class="number">500+</div><div class="label">खेत काम किए</div></div>
+        <div class="stat-item"><div class="number">15+</div><div class="label">साल का अनुभव</div></div>
+        <div class="stat-item"><div class="number">4.9★</div><div class="label">किसान रेटिंग</div></div>
       </div>
     </div>
     <div class="hero-image">
-      <img id="heroSlideImg" src="" alt="Tractor in field" style="display:none;">
+      <img id="heroSlideImg" src="" alt="खेत में ट्रैक्टर" style="display:none;">
       <i class="fas fa-tractor" id="heroPlaceholderIcon" style="font-size:6rem;opacity:0.6;"></i>
-      <div class="hero-float-badge" id="heroFloatBadgeEl"><i class="fas fa-check-circle"></i> On-time · Experienced Driver</div>
+      <div class="hero-float-badge" id="heroFloatBadgeEl"><i class="fas fa-check-circle"></i> समय पर · अनुभवी ड्राइवर</div>
     </div>
   </div>
 
   <div class="section-head" id="homeWorkHeadEl">
-    <span class="eyebrow">Hamare Kaam</span>
-    <h2>Kheti ke liye tractor ka poora kaam</h2>
-    <p>Jutung se lekar katai tak — aapke khet ka har kaam hum tractor se karte hai. Rate saaf, kaam time par.</p>
+    <span class="eyebrow">हमारे काम</span>
+    <h2>खेती के लिए ट्रैक्टर का पूरा काम</h2>
+    <p>जुताई से लेकर कटाई तक — आपके खेत का हर काम हम ट्रैक्टर से करते हैं। रेट साफ, काम समय पर।</p>
   </div>
   <div class="work-preview-grid" id="homeWorkPreview"></div>
 
   <div class="section-head" id="homeWhyHeadEl">
-    <span class="eyebrow">Kisan Kyun Chunte Hai</span>
-    <h2>Kyun hum par bharosa karein</h2>
+    <span class="eyebrow">किसान क्यों चुनते हैं</span>
+    <h2>क्यों हम पर भरोसा करें</h2>
   </div>
   <div class="why-grid" id="homeWhyGrid"></div>
 
   <div class="rate-home-table">
     <div class="rht-head">
-      <h3><i class="fas fa-rupee-sign"></i> <span id="homeRateHeadEl">Aaj ke Rate</span></h3>
-      <span id="homeRateSeasonEl">Season 2025</span>
+      <h3><i class="fas fa-rupee-sign"></i> <span id="homeRateHeadEl">आज के रेट</span></h3>
+      <span id="homeRateSeasonEl">सीज़न 2025</span>
     </div>
     <div style="overflow-x:auto;">
       <table>
-        <thead><tr><th>Kaam</th><th>Rate</th><th>Kitna Time</th></tr></thead>
+        <thead><tr><th>काम</th><th>रेट</th><th>कितना समय</th></tr></thead>
         <tbody id="homeRateBody"></tbody>
       </table>
     </div>
   </div>
 
   <div class="section-head" id="homeStepsHeadEl">
-    <span class="eyebrow">Kaise Kaam Karta Hai</span>
-    <h2>Booking ke 3 aasan step</h2>
+    <span class="eyebrow">कैसे काम करता है</span>
+    <h2>बुकिंग के 3 आसान स्टेप</h2>
   </div>
   <div class="steps" id="homeStepsEl"></div>
 
   <div class="cta-band" id="homeCtaBand">
     <div>
-      <h2 id="homeCtaTitleEl">Khet ka kaam hai? Aaj hi book karein!</h2>
-      <p id="homeCtaDescEl">WhatsApp par message karein ya call karein — hum turant jawab denge.</p>
+      <h2 id="homeCtaTitleEl">खेत का काम है? आज ही बुक करें!</h2>
+      <p id="homeCtaDescEl">व्हाट्सएप पर मैसेज करें या कॉल करें — हम तुरंत जवाब देंगे।</p>
     </div>
     <div class="flex-row" style="gap:0.6rem;">
-      <a href="#" class="btn" id="ctaWhatsappBtn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      <a href="#" class="btn btn-outline" id="ctaCallBtn"><i class="fas fa-phone"></i> Call</a>
+      <a href="#" class="btn" id="ctaWhatsappBtn"><i class="fab fa-whatsapp"></i> व्हाट्सएप</a>
+      <a href="#" class="btn btn-outline" id="ctaCallBtn"><i class="fas fa-phone"></i> कॉल</a>
     </div>
   </div>
 
 </div>
 
-<!-- ================= SERVICES PAGE (fully editable via Admin) ================= -->
+<!-- ================= काम / सेवाएं पेज ================= -->
 <div class="page" id="servicesPage">
   <div class="services-page-hero">
-    <h1><i class="fas fa-tractor"></i> <span id="svcPageTitleEl" data-lang="services_title">Hamare Kaam / Services</span></h1>
-    <p id="svcPageDescEl">Kheti ka har kaam — jutung, rotavator, buwai, katai, threshing, trolley transport. Rate saaf, kaam time par. Har service ke saath kitna time lagega wo bhi diya hai.</p>
+    <h1><i class="fas fa-tractor"></i> <span id="svcPageTitleEl" data-lang="services_title">हमारे काम / सेवाएं</span></h1>
+    <p id="svcPageDescEl">खेती का हर काम — जुताई, रोटावेटर, बुवाई, कटाई, थ्रेशिंग, ट्रॉली ट्रांसपोर्ट। रेट साफ, काम समय पर। हर सेवा के साथ कितना समय लगेगा वो भी दिया है।</p>
   </div>
   <div id="servicesGridEl"></div>
 
   <div class="cta-band" style="margin-top:2.5rem;" id="svcCtaBand">
     <div>
-      <h2 id="svcCtaTitleEl">Rate pasand aaya? Book karein!</h2>
-      <p id="svcCtaDescEl">Apne khet ka kaam humse karwayein — call ya WhatsApp par.</p>
+      <h2 id="svcCtaTitleEl">रेट पसंद आया? बुक करें!</h2>
+      <p id="svcCtaDescEl">अपने खेत का काम हमसे करवाएं — कॉल या व्हाट्सएप पर।</p>
     </div>
     <div class="flex-row" style="gap:0.6rem;">
-      <a href="#" class="btn" id="svcWhatsappBtn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      <a href="#" class="btn btn-outline" id="svcCallBtn"><i class="fas fa-phone"></i> Call</a>
+      <a href="#" class="btn" id="svcWhatsappBtn"><i class="fab fa-whatsapp"></i> व्हाट्सएप</a>
+      <a href="#" class="btn btn-outline" id="svcCallBtn"><i class="fas fa-phone"></i> कॉल</a>
     </div>
   </div>
 </div>
 
-<!-- ================= ABOUT PAGE ================= -->
+<!-- ================= हमारे बारे में पेज ================= -->
 <div class="page" id="aboutPage">
   <div class="about-page-hero">
-    <h1><i class="fas fa-info-circle"></i> <span data-lang="about_title">Hamare Baare Mein</span></h1>
-    <p id="aboutHeroDescEl">Hum ek tractor service hai jo kisanon ke khet ka kaam karti hai — jutung se katai tak, time par aur saaf rate par.</p>
+    <h1><i class="fas fa-info-circle"></i> <span data-lang="about_title">हमारे बारे में</span></h1>
+    <p id="aboutHeroDescEl">हम एक ट्रैक्टर सर्विस हैं जो किसानों के खेत का काम करती है — जुताई से कटाई तक, समय पर और साफ रेट पर।</p>
   </div>
 
   <div class="about-flex">
     <div class="about-text">
-      <h2 id="aboutSubEl">2010 se kisanon ke saath</h2>
-      <p id="aboutP1El">Hum [aapka naam] hai, aur [X] saal se kheti ke kaam mein tractor chalate hai. Hamare paas [45 HP] tractor aur rotavator, cultivator, trolley jaise sabhi implement hai.</p>
-      <p id="aboutP2El">Hum [gaon/tehsil] ke aas-paas ke kisanon ke khet mein jutung, buwai, katai aur transport ka kaam karte hai — time par, saaf rate par.</p>
-      <p id="aboutP3El">Booking ke liye phone ya WhatsApp karein: [aapka number]. Aap chahe to is website se bill bhi dekh sakte hai.</p>
+      <h2 id="aboutSubEl">2010 से किसानों के साथ</h2>
+      <p id="aboutP1El">हम [आपका नाम] हैं, और [X] साल से खेती के काम में ट्रैक्टर चलाते हैं। हमारे पास [45 HP] ट्रैक्टर और रोटावेटर, कल्टीवेटर, ट्रॉली जैसे सभी उपकरण हैं।</p>
+      <p id="aboutP2El">हम [गाँव/तहसील] के आस-पास के किसानों के खेत में जुताई, बुवाई, कटाई और ट्रांसपोर्ट का काम करते हैं — समय पर, साफ रेट पर।</p>
+      <p id="aboutP3El">बुकिंग के लिए फोन या व्हाट्सएप करें: [आपका नंबर]। आप चाहें तो इस वेबसाइट से बिल भी देख सकते हैं।</p>
     </div>
     <div class="about-icon"><i class="fas fa-tractor"></i></div>
   </div>
 
   <div class="about-stats" id="aboutStatsEl">
-    <div class="about-stat"><div class="num">500+</div><div class="lbl">Khet Kaam</div></div>
-    <div class="about-stat"><div class="num">15+</div><div class="lbl">Saal Anubhav</div></div>
-    <div class="about-stat"><div class="num">4.9★</div><div class="lbl">Kisan Rating</div></div>
-    <div class="about-stat"><div class="num">100%</div><div class="lbl">Time Par</div></div>
+    <div class="about-stat"><div class="num">500+</div><div class="lbl">खेत काम</div></div>
+    <div class="about-stat"><div class="num">15+</div><div class="lbl">साल अनुभव</div></div>
+    <div class="about-stat"><div class="num">4.9★</div><div class="lbl">किसान रेटिंग</div></div>
+    <div class="about-stat"><div class="num">100%</div><div class="lbl">समय पर</div></div>
   </div>
 
   <div class="section-head" style="margin-top:2.5rem;">
-    <span class="eyebrow">Hamari Team</span>
-    <h2>Kaun kaam karta hai</h2>
-    <p>Hamari team mein experienced driver aur helpers hai jo aapke khet ka kaam sambhalte hai.</p>
+    <span class="eyebrow">हमारी टीम</span>
+    <h2>कौन काम करता है</h2>
+    <p>हमारी टीम में अनुभवी ड्राइवर और सहायक हैं जो आपके खेत का काम संभालते हैं।</p>
   </div>
   <div class="team-grid" id="teamGridEl"></div>
 
   <div class="cta-band" id="aboutCtaBand">
     <div>
-      <h2 id="aboutCtaTitleEl">Humse baat karein</h2>
-      <p id="aboutCtaDescEl">Apne khet ka kaam humse karwayein — call ya WhatsApp par.</p>
+      <h2 id="aboutCtaTitleEl">हमसे बात करें</h2>
+      <p id="aboutCtaDescEl">अपने खेत का काम हमसे करवाएं — कॉल या व्हाट्सएप पर।</p>
     </div>
     <div class="flex-row" style="gap:0.6rem;">
-      <a href="#" class="btn" id="aboutWhatsappBtn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      <a href="#" class="btn btn-outline" id="aboutCallBtn"><i class="fas fa-phone"></i> Call</a>
+      <a href="#" class="btn" id="aboutWhatsappBtn"><i class="fab fa-whatsapp"></i> व्हाट्सएप</a>
+      <a href="#" class="btn btn-outline" id="aboutCallBtn"><i class="fas fa-phone"></i> कॉल</a>
     </div>
   </div>
 </div>
 
-<!-- ================= ADMIN PAGE (FULLY UNCHANGED) ================= -->
+<!-- ================= एडमिन पेज ================= -->
 <div class="page" id="adminPage">
 
   <div id="adminLoginScreen">
     <div class="login-box">
       <i class="fas fa-user-shield login-icon"></i>
-      <h2 data-lang="login_title">Login</h2>
-      <p data-lang="login_desc">Enter your details to access the Tractor Book</p>
+      <h2 data-lang="login_title">लॉगिन</h2>
+      <p data-lang="login_desc">ट्रैक्टर बुक का उपयोग करने के लिए विवरण दर्ज करें</p>
 
       <div class="login-tabs">
-        <div class="login-tab active" id="tabAdminLogin" onclick="switchLoginTab('admin')">Admin</div>
-        <div class="login-tab" id="tabStaffLogin" onclick="switchLoginTab('staff')">Staff</div>
-        <div class="login-tab" id="tabCustomerLogin" onclick="switchLoginTab('customer')">Customer</div>
+        <div class="login-tab active" id="tabAdminLogin" onclick="switchLoginTab('admin')">एडमिन</div>
+        <div class="login-tab" id="tabStaffLogin" onclick="switchLoginTab('staff')">स्टाफ</div>
+        <div class="login-tab" id="tabCustomerLogin" onclick="switchLoginTab('customer')">ग्राहक</div>
       </div>
 
       <div id="adminLoginForm">
-        <label>Username</label>
-        <input type="text" id="adminUsernameInput" placeholder="Enter Username" value="admin" autocomplete="off">
-        <label>Password</label>
-        <input type="password" id="adminPasswordInput" placeholder="Enter Password" value="damor123" autocomplete="off">
-        <button class="btn mt-1" id="adminLoginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+        <label>उपयोगकर्ता नाम</label>
+        <input type="text" id="adminUsernameInput" placeholder="उपयोगकर्ता नाम दर्ज करें" value="admin" autocomplete="off">
+        <label>पासवर्ड</label>
+        <input type="password" id="adminPasswordInput" placeholder="पासवर्ड दर्ज करें" value="damor123" autocomplete="off">
+        <button class="btn mt-1" id="adminLoginBtn"><i class="fas fa-sign-in-alt"></i> लॉगिन</button>
       </div>
 
       <div id="staffLoginForm" class="hidden">
-        <label>Mobile Number</label>
-        <input type="text" id="loginStaffMobile" placeholder="Enter 10-digit Mobile No" maxlength="10">
-        <label>Password</label>
-        <input type="password" id="loginStaffPassword" placeholder="Enter Password">
-        <button class="btn mt-1" id="staffLoginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+        <label>मोबाइल नंबर</label>
+        <input type="text" id="loginStaffMobile" placeholder="10-अंकों का मोबाइल नंबर दर्ज करें" maxlength="10">
+        <label>पासवर्ड</label>
+        <input type="password" id="loginStaffPassword" placeholder="पासवर्ड दर्ज करें">
+        <button class="btn mt-1" id="staffLoginBtn"><i class="fas fa-sign-in-alt"></i> लॉगिन</button>
       </div>
 
       <div id="customerLoginForm" class="hidden">
-        <label>Mobile Number</label>
-        <input type="text" id="loginCustomerMobile" placeholder="Enter 10-digit Mobile No" maxlength="10">
-        <label>Password</label>
-        <input type="password" id="loginCustomerPassword" placeholder="Enter Password">
-        <button class="btn mt-1" id="customerLoginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+        <label>मोबाइल नंबर</label>
+        <input type="text" id="loginCustomerMobile" placeholder="10-अंकों का मोबाइल नंबर दर्ज करें" maxlength="10">
+        <label>पासवर्ड</label>
+        <input type="password" id="loginCustomerPassword" placeholder="पासवर्ड दर्ज करें">
+        <button class="btn mt-1" id="customerLoginBtn"><i class="fas fa-sign-in-alt"></i> लॉगिन</button>
       </div>
 
       <div class="login-error" id="loginError"></div>
@@ -498,37 +497,37 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
   <div id="adminDashboard" class="hidden">
     <div class="flex-row mb-1">
       <h1 style="margin-bottom:0;">
-        <i class="fas fa-tractor"></i> <span data-lang="dash_title">Tractor Book · Dashboard</span>
+        <i class="fas fa-tractor"></i> <span data-lang="dash_title">ट्रैक्टर बुक · डैशबोर्ड</span>
         <span class="badge"><i class="fas fa-lock-open"></i> <span id="loggedInUserName">admin</span></span>
       </h1>
       <div class="flex-row" style="gap:0.5rem;">
-        <button class="btn btn-small btn-outline" id="goToSettingsBtn"><i class="fas fa-cog"></i> Settings</button>
-        <button class="btn btn-small btn-outline" id="adminLogoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        <button class="btn btn-small btn-outline" id="goToSettingsBtn"><i class="fas fa-cog"></i> सेटिंग्स</button>
+        <button class="btn btn-small btn-outline" id="adminLogoutBtn"><i class="fas fa-sign-out-alt"></i> लॉगआउट</button>
       </div>
     </div>
 
     <div class="dash-tabs" id="dashTabs">
-      <button class="tab-btn active" data-tab="farmers" id="tabBtnFarmers"><i class="fas fa-users"></i> <span data-lang="tab_farmers">Farmers</span></button>
-      <button class="tab-btn" data-tab="bills" id="tabBtnBills"><i class="fas fa-file-invoice"></i> <span data-lang="tab_bills">Bills</span></button>
-      <button class="tab-btn" data-tab="more" id="tabBtnMore"><i class="fas fa-ellipsis-h"></i> <span data-lang="tab_more">More</span></button>
-      <button class="tab-btn" data-tab="settings" id="tabBtnSettings"><i class="fas fa-cog"></i> <span data-lang="tab_settings">Settings</span></button>
-      <button class="tab-btn hidden" data-tab="mybill" id="tabBtnMyBill"><i class="fas fa-file-invoice-dollar"></i> My Bill</button>
+      <button class="tab-btn active" data-tab="farmers" id="tabBtnFarmers"><i class="fas fa-users"></i> <span data-lang="tab_farmers">किसान</span></button>
+      <button class="tab-btn" data-tab="bills" id="tabBtnBills"><i class="fas fa-file-invoice"></i> <span data-lang="tab_bills">बिल</span></button>
+      <button class="tab-btn" data-tab="more" id="tabBtnMore"><i class="fas fa-ellipsis-h"></i> <span data-lang="tab_more">अधिक</span></button>
+      <button class="tab-btn" data-tab="settings" id="tabBtnSettings"><i class="fas fa-cog"></i> <span data-lang="tab_settings">सेटिंग्स</span></button>
+      <button class="tab-btn hidden" data-tab="mybill" id="tabBtnMyBill"><i class="fas fa-file-invoice-dollar"></i> मेरा बिल</button>
     </div>
 
     <div class="tab-panel" id="tabFarmers">
       <div class="card">
         <div class="flex-row">
-          <h2><i class="fas fa-users"></i> <span data-lang="farmers_title">Farmers / Customers</span></h2>
-          <button class="btn btn-small" id="addFarmerBtn"><i class="fas fa-user-plus"></i> Add Farmer</button>
+          <h2><i class="fas fa-users"></i> <span data-lang="farmers_title">किसान / ग्राहक</span></h2>
+          <button class="btn btn-small" id="addFarmerBtn"><i class="fas fa-user-plus"></i> किसान जोड़ें</button>
         </div>
         <div class="summary-grid mt-2">
-          <div class="summary-item"><i class="fas fa-users"></i><div class="info"><div class="value" id="totalFarmersCount">0</div><div class="label">Total Farmers</div></div></div>
-          <div class="summary-item"><i class="fas fa-rupee-sign"></i><div class="info"><div class="value" id="totalRevenueFarmers">₹0</div><div class="label">Total Revenue</div></div></div>
-          <div class="summary-item"><i class="fas fa-exclamation-triangle"></i><div class="info"><div class="value" id="totalDueFarmers">₹0</div><div class="label">Total Due</div></div></div>
+          <div class="summary-item"><i class="fas fa-users"></i><div class="info"><div class="value" id="totalFarmersCount">0</div><div class="label">कुल किसान</div></div></div>
+          <div class="summary-item"><i class="fas fa-rupee-sign"></i><div class="info"><div class="value" id="totalRevenueFarmers">₹0</div><div class="label">कुल आय</div></div></div>
+          <div class="summary-item"><i class="fas fa-exclamation-triangle"></i><div class="info"><div class="value" id="totalDueFarmers">₹0</div><div class="label">कुल बकाया</div></div></div>
         </div>
         <div style="overflow-x:auto;margin-top:1rem;">
           <table>
-            <thead><tr><th>Farmer</th><th>Mobile</th><th>Tractor</th><th>Added By</th><th>Bills</th><th>Total</th><th>Due</th><th>Actions</th></tr></thead>
+            <thead><tr><th>किसान</th><th>मोबाइल</th><th>ट्रैक्टर</th><th>जोड़ने वाला</th><th>बिल</th><th>कुल</th><th>बकाया</th><th>कार्य</th></tr></thead>
             <tbody id="farmerListBody"></tbody>
           </table>
         </div>
@@ -539,115 +538,115 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
       <div class="grid-2">
         <div>
           <div class="card">
-            <h2><i class="fas fa-user-plus" style="color:var(--accent);"></i> Customer & Bill</h2>
-            <div class="mt-1"><label>Customer name</label><input type="text" id="customerName" placeholder="e.g. Ramesh Patel"></div>
+            <h2><i class="fas fa-user-plus" style="color:var(--accent);"></i> ग्राहक और बिल</h2>
+            <div class="mt-1"><label>ग्राहक का नाम</label><input type="text" id="customerName" placeholder="जैसे: रमेश पटेल"></div>
             <div class="grid-3 mt-1">
-              <div><label>Mobile</label><input type="text" id="customerMobile" placeholder="9876543210"></div>
-              <div><label>Bill No.</label><input type="text" id="billNo" placeholder="Auto" readonly style="background:var(--bg);"></div>
-              <div><label>Date</label><input type="date" id="billDate"></div>
+              <div><label>मोबाइल</label><input type="text" id="customerMobile" placeholder="9876543210"></div>
+              <div><label>बिल नंबर</label><input type="text" id="billNo" placeholder="ऑटो" readonly style="background:var(--bg);"></div>
+              <div><label>तारीख</label><input type="date" id="billDate"></div>
             </div>
-            <div class="mt-2"><label>Tractor model / Reg No.</label><input type="text" id="tractorModel" placeholder="e.g. Sonalika DI-745"></div>
+            <div class="mt-2"><label>ट्रैक्टर मॉडल / रजिस्ट्रेशन नंबर</label><input type="text" id="tractorModel" placeholder="जैसे: सोनालिका DI-745"></div>
 
             <div class="rate-panel mt-2">
               <div class="flex-row">
                 <div>
-                  <div class="rate-label"><i class="fas fa-clock"></i> Hourly Rate (₹/hr)</div>
+                  <div class="rate-label"><i class="fas fa-clock"></i> प्रति घंटा दर (₹/घंटा)</div>
                   <div class="rate-value" id="displayHourlyRate">₹500</div>
                 </div>
                 <div style="display:flex;gap:0.5rem;align-items:center;">
                   <input type="number" id="hourlyRateInput" placeholder="500" value="500" min="0" step="10" style="max-width:120px;">
-                  <button class="btn btn-small btn-warning" id="setHourlyRateBtn"><i class="fas fa-save"></i> Set Rate</button>
+                  <button class="btn btn-small btn-warning" id="setHourlyRateBtn"><i class="fas fa-save"></i> दर सेट करें</button>
                 </div>
               </div>
               <div class="mt-1 text-small" style="display:flex;gap:1.2rem;flex-wrap:wrap;align-items:center;">
-                <label style="display:inline-flex;align-items:center;gap:0.3rem;text-transform:none;font-weight:500;margin:0;"><input type="checkbox" id="billOptionShowHours" checked style="width:auto;"> Show hours in bill</label>
-                <label style="display:inline-flex;align-items:center;gap:0.3rem;text-transform:none;font-weight:500;margin:0;"><input type="checkbox" id="billOptionShowRate" checked style="width:auto;"> Show rate per hour</label>
-                <label style="display:inline-flex;align-items:center;gap:0.3rem;text-transform:none;font-weight:500;margin:0;"><input type="checkbox" id="billOptionShowTime" checked style="width:auto;"> Show time (30 min = 0.5 hr)</label>
+                <label style="display:inline-flex;align-items:center;gap:0.3rem;text-transform:none;font-weight:500;margin:0;"><input type="checkbox" id="billOptionShowHours" checked style="width:auto;"> बिल में घंटे दिखाएं</label>
+                <label style="display:inline-flex;align-items:center;gap:0.3rem;text-transform:none;font-weight:500;margin:0;"><input type="checkbox" id="billOptionShowRate" checked style="width:auto;"> प्रति घंटा दर दिखाएं</label>
+                <label style="display:inline-flex;align-items:center;gap:0.3rem;text-transform:none;font-weight:500;margin:0;"><input type="checkbox" id="billOptionShowTime" checked style="width:auto;"> समय दिखाएं (30 मिनट = 0.5 घंटा)</label>
               </div>
             </div>
 
             <div class="tractor-card mt-2">
-              <h3 style="font-size:1rem;margin-bottom:0.8rem;"><i class="fas fa-wrench"></i> Add work / service</h3>
+              <h3 style="font-size:1rem;margin-bottom:0.8rem;"><i class="fas fa-wrench"></i> काम / सेवा जोड़ें</h3>
               <div class="grid-3">
-                <div><label>Work description</label><input type="text" id="workDesc" placeholder="e.g. Engine oil change"></div>
-                <div><label>Work type</label>
+                <div><label>काम का विवरण</label><input type="text" id="workDesc" placeholder="जैसे: इंजन ऑयल बदलना"></div>
+                <div><label>काम का प्रकार</label>
                   <select id="workType">
-                    <option value="fixed">Fixed price (₹)</option>
-                    <option value="hourly">Hourly (per hour)</option>
+                    <option value="fixed">तय कीमत (₹)</option>
+                    <option value="hourly">प्रति घंटा</option>
                   </select>
                 </div>
-                <div><label id="priceLabel">Price (₹)</label><input type="number" id="workPrice" placeholder="0" value="0" min="0"></div>
+                <div><label id="priceLabel">कीमत (₹)</label><input type="number" id="workPrice" placeholder="0" value="0" min="0"></div>
               </div>
               <div class="grid-3 mt-1">
                 <div>
-                  <label>Hours worked (0.5 = 30 min)</label>
+                  <label>काम के घंटे (0.5 = 30 मिनट)</label>
                   <input type="number" id="workHours" placeholder="0" value="0" min="0" step="0.5" disabled style="background:var(--bg);">
                 </div>
-                <div><label>Photo (optional)</label><input type="file" id="workPhoto" accept="image/*" style="padding:0.4rem;"></div>
+                <div><label>फोटो (वैकल्पिक)</label><input type="file" id="workPhoto" accept="image/*" style="padding:0.4rem;"></div>
                 <div style="display:flex;align-items:flex-end;"><div class="text-small" id="calcPreview" style="font-weight:600;color:var(--primary);"></div></div>
               </div>
-              <div class="flex-row mt-1"><button class="btn btn-small" id="addWorkBtn"><i class="fas fa-plus-circle"></i> Add work entry</button></div>
+              <div class="flex-row mt-1"><button class="btn btn-small" id="addWorkBtn"><i class="fas fa-plus-circle"></i> काम जोड़ें</button></div>
             </div>
 
             <div class="tractor-card mt-2">
-              <h3 style="font-size:1rem;margin-bottom:0.8rem;"><i class="fas fa-money-bill-wave"></i> Payment / Reminder</h3>
+              <h3 style="font-size:1rem;margin-bottom:0.8rem;"><i class="fas fa-money-bill-wave"></i> भुगतान / रिमाइंडर</h3>
               <div class="grid-3">
-                <div><label>Amount paid (₹)</label><input type="number" id="paymentAmount" placeholder="0" value="0" min="0"></div>
-                <div><label>Payment date</label><input type="date" id="paymentDate"></div>
-                <div><label>Reminder note</label><input type="text" id="paymentNote" placeholder="e.g. next due 10 Nov"></div>
+                <div><label>भुगतान राशि (₹)</label><input type="number" id="paymentAmount" placeholder="0" value="0" min="0"></div>
+                <div><label>भुगतान तारीख</label><input type="date" id="paymentDate"></div>
+                <div><label>रिमाइंडर नोट</label><input type="text" id="paymentNote" placeholder="जैसे: अगली तारीख 10 नवंबर"></div>
               </div>
-              <button class="btn btn-outline btn-small mt-1" id="addPaymentBtn"><i class="fas fa-rupee-sign"></i> Record payment</button>
+              <button class="btn btn-outline btn-small mt-1" id="addPaymentBtn"><i class="fas fa-rupee-sign"></i> भुगतान दर्ज करें</button>
             </div>
           </div>
 
           <div class="card share-box">
             <div class="flex-row">
-              <div class="total-box"><i class="fas fa-calculator"></i> Total: <span id="displayTotal">₹0</span></div>
+              <div class="total-box"><i class="fas fa-calculator"></i> कुल: <span id="displayTotal">₹0</span></div>
               <div class="payment-status">
-                <span>Paid: <span class="paid" id="displayPaid">₹0</span></span>
-                <span>Due: <span class="due" id="displayDue">₹0</span></span>
+                <span>चुकाया: <span class="paid" id="displayPaid">₹0</span></span>
+                <span>बकाया: <span class="due" id="displayDue">₹0</span></span>
               </div>
             </div>
             <div class="flex-row mt-2">
-              <button class="btn" id="sharePdfBtn"><i class="fas fa-file-pdf"></i> Share Bill as PDF</button>
-              <button class="btn btn-outline" id="saveCustomerBtn"><i class="fas fa-save"></i> Save Customer</button>
-              <button class="btn btn-outline" id="newCustomerBtn"><i class="fas fa-user-plus"></i> New Customer</button>
+              <button class="btn" id="sharePdfBtn"><i class="fas fa-file-pdf"></i> बिल PDF शेयर करें</button>
+              <button class="btn btn-outline" id="saveCustomerBtn"><i class="fas fa-save"></i> ग्राहक सेव करें</button>
+              <button class="btn btn-outline" id="newCustomerBtn"><i class="fas fa-user-plus"></i> नया ग्राहक</button>
             </div>
-            <div class="text-small mt-1" id="reminderText"><i class="fas fa-bell"></i> No active reminders</div>
+            <div class="text-small mt-1" id="reminderText"><i class="fas fa-bell"></i> कोई सक्रिय रिमाइंडर नहीं</div>
           </div>
         </div>
 
         <div>
           <div class="card">
-            <div class="flex-row"><h2><i class="fas fa-list-ul"></i> Work log</h2><span class="badge" id="workCount">0</span></div>
+            <div class="flex-row"><h2><i class="fas fa-list-ul"></i> काम का लॉग</h2><span class="badge" id="workCount">0</span></div>
             <div class="worklog-list mt-1" style="max-height:320px;">
               <table>
-                <thead><tr><th>Work</th><th>Type</th><th>Hours</th><th>Price</th><th>Photo</th><th></th></tr></thead>
+                <thead><tr><th>काम</th><th>प्रकार</th><th>घंटे</th><th>कीमत</th><th>फोटो</th><th></th></tr></thead>
                 <tbody id="workTableBody"></tbody>
               </table>
             </div>
           </div>
 
           <div class="card">
-            <h2><i class="fas fa-history"></i> Payment history</h2>
+            <h2><i class="fas fa-history"></i> भुगतान इतिहास</h2>
             <div style="max-height:140px;overflow-y:auto;" class="mt-1">
-              <table><thead><tr><th>Date</th><th>Amount</th><th>Note</th></tr></thead><tbody id="paymentTableBody"></tbody></table>
+              <table><thead><tr><th>तारीख</th><th>राशि</th><th>नोट</th></tr></thead><tbody id="paymentTableBody"></tbody></table>
             </div>
-            <div class="reminder-tag mt-1" id="reminderBadge"><i class="fas fa-clock"></i> Reminder: none</div>
+            <div class="reminder-tag mt-1" id="reminderBadge"><i class="fas fa-clock"></i> रिमाइंडर: कोई नहीं</div>
           </div>
 
           <div class="card admin-panel">
-            <h3><i class="fas fa-user-cog"></i> Admin controls</h3>
+            <h3><i class="fas fa-user-cog"></i> एडमिन नियंत्रण</h3>
             <div class="grid-3 mt-1">
-              <button class="btn btn-small btn-outline" id="clearWorkLogBtn"><i class="fas fa-trash-alt"></i> Clear work</button>
-              <button class="btn btn-small btn-outline" id="clearPaymentsBtn"><i class="fas fa-eraser"></i> Clear payments</button>
-              <button class="btn btn-small btn-danger" id="deleteCustomerBtn"><i class="fas fa-user-minus"></i> Delete Customer</button>
+              <button class="btn btn-small btn-outline" id="clearWorkLogBtn"><i class="fas fa-trash-alt"></i> काम साफ करें</button>
+              <button class="btn btn-small btn-outline" id="clearPaymentsBtn"><i class="fas fa-eraser"></i> भुगतान साफ करें</button>
+              <button class="btn btn-small btn-danger" id="deleteCustomerBtn"><i class="fas fa-user-minus"></i> ग्राहक हटाएं</button>
             </div>
             <div class="mt-2">
-              <label>Set bill no. manually</label>
+              <label>बिल नंबर मैन्युअली सेट करें</label>
               <div class="flex-row">
                 <input type="text" id="adminBillNo" placeholder="TS-101" style="max-width:200px;">
-                <button class="btn btn-small btn-warning" id="setBillNoBtn"><i class="fas fa-save"></i> Update</button>
+                <button class="btn btn-small btn-warning" id="setBillNoBtn"><i class="fas fa-save"></i> अपडेट</button>
               </div>
             </div>
           </div>
@@ -657,21 +656,21 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 
     <div class="tab-panel hidden" id="tabMore">
       <div class="card">
-        <h2><i class="fas fa-ellipsis-h"></i> More Tools</h2>
+        <h2><i class="fas fa-ellipsis-h"></i> और टूल्स</h2>
         <div class="more-grid">
-          <div class="more-card" data-tool="BillsReport"><i class="fas fa-file-invoice-dollar"></i><h4>Bills Report</h4></div>
-          <div class="more-card" data-tool="Passbook"><i class="fas fa-book"></i><h4>Passbook</h4></div>
-          <div class="more-card" data-tool="Tools"><i class="fas fa-toolbox"></i><h4>Tools & Expenses</h4></div>
-          <div class="more-card" data-tool="Jobs"><i class="fas fa-briefcase"></i><h4>Jobs</h4></div>
-          <div class="more-card" data-tool="Bookings"><i class="fas fa-calendar-check"></i><h4>Bookings</h4></div>
-          <div class="more-card" data-tool="Reports"><i class="fas fa-chart-pie"></i><h4>Monthly/Yearly Reports</h4></div>
-          <div class="more-card" data-tool="Calculator"><i class="fas fa-calculator"></i><h4>Calculator</h4></div>
-          <div class="more-card" data-tool="Drivers"><i class="fas fa-user-tie"></i><h4>Drivers</h4></div>
-          <div class="more-card" data-tool="Vehicles"><i class="fas fa-tractor"></i><h4>Vehicles</h4></div>
+          <div class="more-card" data-tool="BillsReport"><i class="fas fa-file-invoice-dollar"></i><h4>बिल रिपोर्ट</h4></div>
+          <div class="more-card" data-tool="Passbook"><i class="fas fa-book"></i><h4>पासबुक</h4></div>
+          <div class="more-card" data-tool="Tools"><i class="fas fa-toolbox"></i><h4>औज़ार और खर्च</h4></div>
+          <div class="more-card" data-tool="Jobs"><i class="fas fa-briefcase"></i><h4>काम</h4></div>
+          <div class="more-card" data-tool="Bookings"><i class="fas fa-calendar-check"></i><h4>बुकिंग</h4></div>
+          <div class="more-card" data-tool="Reports"><i class="fas fa-chart-pie"></i><h4>मासिक/वार्षिक रिपोर्ट</h4></div>
+          <div class="more-card" data-tool="Calculator"><i class="fas fa-calculator"></i><h4>कैलकुलेटर</h4></div>
+          <div class="more-card" data-tool="Drivers"><i class="fas fa-user-tie"></i><h4>ड्राइवर</h4></div>
+          <div class="more-card" data-tool="Vehicles"><i class="fas fa-tractor"></i><h4>वाहन</h4></div>
         </div>
       </div>
       <div class="card hidden" id="toolPanel">
-        <div class="flex-row"><h2 id="toolPanelTitle">Tool</h2><button class="btn btn-small btn-outline" id="closeToolBtn"><i class="fas fa-times"></i> Close</button></div>
+        <div class="flex-row"><h2 id="toolPanelTitle">टूल</h2><button class="btn btn-small btn-outline" id="closeToolBtn"><i class="fas fa-times"></i> बंद करें</button></div>
         <div id="toolPanelContent" class="mt-1"></div>
       </div>
     </div>
@@ -680,276 +679,276 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
       <div class="grid-2">
         <div>
           <div class="card" id="adminSecurityCard">
-            <h2><i class="fas fa-key"></i> Admin Security</h2>
-            <div class="mt-2"><label>Admin Username</label><input type="text" id="settingsUsername" value="admin"></div>
-            <div class="mt-1"><label>Admin Password (leave blank to keep current)</label><input type="password" id="settingsPassword" placeholder="New Password"></div>
-            <button class="btn mt-1" id="saveSecurityBtn"><i class="fas fa-save"></i> Update Admin</button>
+            <h2><i class="fas fa-key"></i> एडमिन सुरक्षा</h2>
+            <div class="mt-2"><label>एडमिन उपयोगकर्ता नाम</label><input type="text" id="settingsUsername" value="admin"></div>
+            <div class="mt-1"><label>एडमिन पासवर्ड (वर्तमान रखने के लिए खाली छोड़ें)</label><input type="password" id="settingsPassword" placeholder="नया पासवर्ड"></div>
+            <button class="btn mt-1" id="saveSecurityBtn"><i class="fas fa-save"></i> एडमिन अपडेट करें</button>
           </div>
 
           <div class="card" id="staffManagementCard">
-            <h2><i class="fas fa-users-cog"></i> Staff & Customer Management</h2>
-            <p class="text-small mt-1">Add supervisors, drivers and customers. Customers default password is <strong>123</strong>.</p>
+            <h2><i class="fas fa-users-cog"></i> स्टाफ और ग्राहक प्रबंधन</h2>
+            <p class="text-small mt-1">सुपरवाइज़र, ड्राइवर और ग्राहक जोड़ें। ग्राहक का डिफ़ॉल्ट पासवर्ड <strong>123</strong> है।</p>
 
             <div class="tractor-card mt-2">
-              <h3 style="font-size:0.95rem;margin-bottom:0.6rem;"><i class="fas fa-user-plus"></i> Add / Update User</h3>
+              <h3 style="font-size:0.95rem;margin-bottom:0.6rem;"><i class="fas fa-user-plus"></i> उपयोगकर्ता जोड़ें / अपडेट करें</h3>
               <div class="grid-3">
-                <div><label>Role</label>
+                <div><label>भूमिका</label>
                   <select id="staffRoleInput">
-                    <option value="supervisor">Supervisor</option>
-                    <option value="driver">Driver</option>
-                    <option value="customer">Customer</option>
+                    <option value="supervisor">सुपरवाइज़र</option>
+                    <option value="driver">ड्राइवर</option>
+                    <option value="customer">ग्राहक</option>
                   </select>
                 </div>
-                <div><label>Name</label><input type="text" id="staffNameInput" placeholder="e.g. Suresh Patel"></div>
-                <div><label>Mobile (10 digit)</label><input type="text" id="staffMobileInputAdd" placeholder="9876543210" maxlength="10"></div>
+                <div><label>नाम</label><input type="text" id="staffNameInput" placeholder="जैसे: सुरेश पटेल"></div>
+                <div><label>मोबाइल (10 अंक)</label><input type="text" id="staffMobileInputAdd" placeholder="9876543210" maxlength="10"></div>
               </div>
               <div class="grid-3 mt-1">
-                <div><label>Password</label><input type="text" id="staffPasswordInputAdd" placeholder="e.g. staff123"></div>
+                <div><label>पासवर्ड</label><input type="text" id="staffPasswordInputAdd" placeholder="जैसे: staff123"></div>
                 <div style="display:flex;align-items:flex-end;">
-                  <button class="btn btn-small" id="addStaffBtn"><i class="fas fa-plus"></i> Add / Update</button>
+                  <button class="btn btn-small" id="addStaffBtn"><i class="fas fa-plus"></i> जोड़ें / अपडेट</button>
                 </div>
                 <div style="display:flex;align-items:flex-end;">
-                  <button class="btn btn-small btn-outline" id="clearStaffFormBtn"><i class="fas fa-eraser"></i> Clear</button>
+                  <button class="btn btn-small btn-outline" id="clearStaffFormBtn"><i class="fas fa-eraser"></i> साफ करें</button>
                 </div>
               </div>
               <input type="hidden" id="staffEditId">
             </div>
 
             <div class="mt-2">
-              <h3 style="font-size:0.95rem;margin-bottom:0.6rem;"><i class="fas fa-list"></i> Users List</h3>
+              <h3 style="font-size:0.95rem;margin-bottom:0.6rem;"><i class="fas fa-list"></i> उपयोगकर्ता सूची</h3>
               <div id="staffListContainer"></div>
             </div>
           </div>
 
           <div class="card hidden" id="myPasswordCard">
-            <h2><i class="fas fa-lock"></i> My Password</h2>
-            <div class="mt-2"><label>New Password</label><input type="password" id="myNewPassword" placeholder="New Password"></div>
-            <div class="mt-1"><label>Confirm Password</label><input type="password" id="myConfirmPassword" placeholder="Confirm Password"></div>
-            <button class="btn mt-1" id="saveMyPasswordBtn"><i class="fas fa-save"></i> Update Password</button>
+            <h2><i class="fas fa-lock"></i> मेरा पासवर्ड</h2>
+            <div class="mt-2"><label>नया पासवर्ड</label><input type="password" id="myNewPassword" placeholder="नया पासवर्ड"></div>
+            <div class="mt-1"><label>पासवर्ड की पुष्टि करें</label><input type="password" id="myConfirmPassword" placeholder="पासवर्ड की पुष्टि करें"></div>
+            <button class="btn mt-1" id="saveMyPasswordBtn"><i class="fas fa-save"></i> पासवर्ड अपडेट करें</button>
           </div>
         </div>
 
         <div>
           <div class="card">
-            <h2><i class="fas fa-palette"></i> Appearance</h2>
+            <h2><i class="fas fa-palette"></i> रूप-रंग</h2>
             <div class="mt-2">
-              <label>Language / भाषा</label>
-              <select id="settingsLanguage"><option value="en">English</option><option value="hi">हिन्दी (Hindi)</option></select>
+              <label>भाषा / Language</label>
+              <select id="settingsLanguage"><option value="hi">हिन्दी (Hindi)</option><option value="en">English</option></select>
             </div>
             <div class="mt-2">
-              <label>Theme / Color</label>
-              <select id="settingsTheme"><option value="default">Green (Default)</option><option value="blue">Blue</option><option value="dark">Dark Mode</option></select>
+              <label>थीम / रंग</label>
+              <select id="settingsTheme"><option value="default">हरा (डिफ़ॉल्ट)</option><option value="blue">नीला</option><option value="dark">डार्क मोड</option></select>
             </div>
-            <button class="btn mt-1" id="saveAppearanceBtn"><i class="fas fa-save"></i> Save</button>
+            <button class="btn mt-1" id="saveAppearanceBtn"><i class="fas fa-save"></i> सेव करें</button>
           </div>
 
           <div class="card" id="brandingCard">
-            <h2><i class="fas fa-image"></i> Branding (Logo & Slides)</h2>
+            <h2><i class="fas fa-image"></i> ब्रांडिंग (लोगो और स्लाइड)</h2>
             <div class="mt-2">
-              <label>Website Logo</label>
+              <label>वेबसाइट लोगो</label>
               <div class="flex-row">
                 <img id="logoPreview" class="logo-preview" src="" style="display:none;" alt="Logo">
                 <input type="file" id="logoUpload" accept="image/*" style="padding:0.4rem;flex:1;">
               </div>
-              <button class="btn btn-small btn-outline mt-1" id="applyLogoBtn"><i class="fas fa-check"></i> Apply Logo</button>
-              <button class="btn btn-small btn-danger mt-1" id="removeLogoBtn"><i class="fas fa-trash"></i> Remove</button>
+              <button class="btn btn-small btn-outline mt-1" id="applyLogoBtn"><i class="fas fa-check"></i> लोगो लगाएं</button>
+              <button class="btn btn-small btn-danger mt-1" id="removeLogoBtn"><i class="fas fa-trash"></i> हटाएं</button>
             </div>
             <div class="mt-2" style="border-top:1px dashed var(--border); padding-top:1rem;">
-              <label>Home Hero Slide Image(s)</label>
+              <label>होम हीरो स्लाइड इमेज</label>
               <div class="flex-row">
                 <input type="file" id="slideUpload" accept="image/*" style="padding:0.4rem;flex:1;">
-                <button class="btn btn-small" id="addSlideBtn"><i class="fas fa-plus"></i> Add</button>
+                <button class="btn btn-small" id="addSlideBtn"><i class="fas fa-plus"></i> जोड़ें</button>
               </div>
               <div id="slideListContainer" class="mt-1" style="display:flex;gap:0.5rem;flex-wrap:wrap;"></div>
             </div>
           </div>
 
-          <!-- ===== NEW: FULL HOME & SERVICES EDITOR ===== -->
+          <!-- होम और सेवाएं पेज एडिटर -->
           <div class="card" id="homeContentCard">
-            <h2><i class="fas fa-edit"></i> Home & Services Page Editor</h2>
-            <p class="text-small mt-1">Yahan se Home page aur Kaam/Services page ka poora content badal sakte hai. Har section save hone par turant public page par update ho jata hai.</p>
+            <h2><i class="fas fa-edit"></i> होम और सेवाएं पेज एडिटर</h2>
+            <p class="text-small mt-1">यहाँ से होम पेज और काम/सेवाएं पेज का पूरा कंटेंट बदल सकते हैं। हर सेक्शन सेव होने पर तुरंत पब्लिक पेज पर अपडेट हो जाता है।</p>
 
-            <!-- Home Hero -->
+            <!-- होम हीरो -->
             <div class="editor-section mt-2">
-              <h4><i class="fas fa-home"></i> Home — Hero Section</h4>
-              <div><label>Hero Tag (chhota text upar)</label><input type="text" id="hcHeroTag" placeholder="Kheti ka kaam · Tractor se · Time par"></div>
-              <div class="mt-1"><label>Hero Title (HTML allowed, e.g. &lt;span&gt;tractor&lt;/span&gt;)</label><input type="text" id="hcHeroTitle" placeholder="Aapke khet ka kaam, &lt;span&gt;hamare tractor&lt;/span&gt; se"></div>
-              <div class="mt-1"><label>Hero Description</label><textarea id="hcHeroDesc" rows="2"></textarea></div>
+              <h4><i class="fas fa-home"></i> होम — हीरो सेक्शन</h4>
+              <div><label>हीरो टैग (ऊपर छोटा टेक्स्ट)</label><input type="text" id="hcHeroTag" placeholder="खेती का काम · ट्रैक्टर से · समय पर"></div>
+              <div class="mt-1"><label>हीरो शीर्षक (HTML अनुमत, जैसे &lt;span&gt;ट्रैक्टर&lt;/span&gt;)</label><input type="text" id="hcHeroTitle" placeholder="आपके खेत का काम, &lt;span&gt;हमारे ट्रैक्टर&lt;/span&gt; से"></div>
+              <div class="mt-1"><label>हीरो विवरण</label><textarea id="hcHeroDesc" rows="2"></textarea></div>
               <div class="grid-2 mt-1">
-                <div><label>Button 1 Text (WhatsApp)</label><input type="text" id="hcHeroBtn1" placeholder="WhatsApp par Book karein"></div>
-                <div><label>Button 2 Text (Rate List)</label><input type="text" id="hcHeroBtn2" placeholder="Rate List Dekhein"></div>
+                <div><label>बटन 1 टेक्स्ट (व्हाट्सएप)</label><input type="text" id="hcHeroBtn1" placeholder="व्हाट्सएप पर बुक करें"></div>
+                <div><label>बटन 2 टेक्स्ट (रेट लिस्ट)</label><input type="text" id="hcHeroBtn2" placeholder="रेट लिस्ट देखें"></div>
               </div>
-              <div class="mt-1"><label>Hero Badge (image ke neeche)</label><input type="text" id="hcHeroBadge" placeholder="On-time · Experienced Driver"></div>
-              <div class="mt-1"><label>Hero Stats (3 numbers — comma se alag)</label><input type="text" id="hcHeroStats" placeholder="500+|Khet Kaam Kiye, 15+|Saal Ka Anubhav, 4.9★|Kisan Rating"></div>
-              <div class="rate-hint">Format: number|label, number|label, number|label</div>
-              <button class="btn btn-small mt-1" id="saveHomeHeroBtn"><i class="fas fa-save"></i> Save Home Hero</button>
+              <div class="mt-1"><label>हीरो बैज (इमेज के नीचे)</label><input type="text" id="hcHeroBadge" placeholder="समय पर · अनुभवी ड्राइवर"></div>
+              <div class="mt-1"><label>हीरो आँकड़े (3 संख्याएं — कॉमा से अलग)</label><input type="text" id="hcHeroStats" placeholder="500+|खेत काम किए, 15+|साल का अनुभव, 4.9★|किसान रेटिंग"></div>
+              <div class="rate-hint">प्रारूप: संख्या|लेबल, संख्या|लेबल, संख्या|लेबल</div>
+              <button class="btn btn-small mt-1" id="saveHomeHeroBtn"><i class="fas fa-save"></i> होम हीरो सेव करें</button>
             </div>
 
-            <!-- Home section heads -->
+            <!-- होम सेक्शन शीर्षक -->
             <div class="editor-section">
-              <h4><i class="fas fa-heading"></i> Home — Section Headings</h4>
-              <div class="mt-1"><label>"Hamare Kaam" heading</label><input type="text" id="hcWorkEyebrow" placeholder="Hamare Kaam"></div>
-              <div class="mt-1"><label>Title</label><input type="text" id="hcWorkTitle" placeholder="Kheti ke liye tractor ka poora kaam"></div>
-              <div class="mt-1"><label>Description</label><textarea id="hcWorkDesc" rows="2"></textarea></div>
+              <h4><i class="fas fa-heading"></i> होम — सेक्शन शीर्षक</h4>
+              <div class="mt-1"><label>"हमारे काम" शीर्षक</label><input type="text" id="hcWorkEyebrow" placeholder="हमारे काम"></div>
+              <div class="mt-1"><label>मुख्य शीर्षक</label><input type="text" id="hcWorkTitle" placeholder="खेती के लिए ट्रैक्टर का पूरा काम"></div>
+              <div class="mt-1"><label>विवरण</label><textarea id="hcWorkDesc" rows="2"></textarea></div>
               <div class="mt-2" style="border-top:1px dashed var(--border);padding-top:0.8rem;"></div>
-              <div><label>"Kisan Kyun Chunte Hai" eyebrow</label><input type="text" id="hcWhyEyebrow" placeholder="Kisan Kyun Chunte Hai"></div>
-              <div class="mt-1"><label>Title</label><input type="text" id="hcWhyTitle" placeholder="Kyun hum par bharosa karein"></div>
-              <button class="btn btn-small mt-1" id="saveHomeHeadsBtn"><i class="fas fa-save"></i> Save Headings</button>
+              <div><label>"किसान क्यों चुनते हैं" शीर्षक</label><input type="text" id="hcWhyEyebrow" placeholder="किसान क्यों चुनते हैं"></div>
+              <div class="mt-1"><label>मुख्य शीर्षक</label><input type="text" id="hcWhyTitle" placeholder="क्यों हम पर भरोसा करें"></div>
+              <button class="btn btn-small mt-1" id="saveHomeHeadsBtn"><i class="fas fa-save"></i> शीर्षक सेव करें</button>
             </div>
 
-            <!-- Why cards -->
+            <!-- क्यों कार्ड -->
             <div class="editor-section">
-              <h4><i class="fas fa-check-circle"></i> Home — "Kyun hum par bharosa" Cards</h4>
-              <div class="mt-1"><label>Card 1 Icon / Title / Text</label>
+              <h4><i class="fas fa-check-circle"></i> होम — "क्यों हम पर भरोसा" कार्ड</h4>
+              <div class="mt-1"><label>कार्ड 1 आइकन / शीर्षक / टेक्स्ट</label>
                 <div class="grid-3" style="grid-template-columns:0.7fr 1fr 2fr;">
                   <input type="text" id="hcWhy1Icon" placeholder="fas fa-clock">
-                  <input type="text" id="hcWhy1Title" placeholder="Time par kaam">
-                  <input type="text" id="hcWhy1Desc" placeholder="Subah se shaam tak...">
+                  <input type="text" id="hcWhy1Title" placeholder="समय पर काम">
+                  <input type="text" id="hcWhy1Desc" placeholder="सुबह से शाम तक...">
                 </div>
               </div>
-              <div class="mt-1"><label>Card 2</label>
+              <div class="mt-1"><label>कार्ड 2</label>
                 <div class="grid-3" style="grid-template-columns:0.7fr 1fr 2fr;">
                   <input type="text" id="hcWhy2Icon" placeholder="fas fa-hand-holding-usd">
-                  <input type="text" id="hcWhy2Title" placeholder="Saaf rate">
-                  <input type="text" id="hcWhy2Desc" placeholder="Per acre / per hour...">
+                  <input type="text" id="hcWhy2Title" placeholder="साफ रेट">
+                  <input type="text" id="hcWhy2Desc" placeholder="प्रति एकड़ / प्रति घंटा...">
                 </div>
               </div>
-              <div class="mt-1"><label>Card 3</label>
+              <div class="mt-1"><label>कार्ड 3</label>
                 <div class="grid-3" style="grid-template-columns:0.7fr 1fr 2fr;">
                   <input type="text" id="hcWhy3Icon" placeholder="fas fa-user-cog">
-                  <input type="text" id="hcWhy3Title" placeholder="Experienced driver">
-                  <input type="text" id="hcWhy3Desc" placeholder="15+ saal ka anubhav...">
+                  <input type="text" id="hcWhy3Title" placeholder="अनुभवी ड्राइवर">
+                  <input type="text" id="hcWhy3Desc" placeholder="15+ साल का अनुभव...">
                 </div>
               </div>
-              <div class="mt-1"><label>Card 4</label>
+              <div class="mt-1"><label>कार्ड 4</label>
                 <div class="grid-3" style="grid-template-columns:0.7fr 1fr 2fr;">
                   <input type="text" id="hcWhy4Icon" placeholder="fas fa-tools">
-                  <input type="text" id="hcWhy4Title" placeholder="Ready implements">
-                  <input type="text" id="hcWhy4Desc" placeholder="Rotavator, cultivator...">
+                  <input type="text" id="hcWhy4Title" placeholder="तैयार उपकरण">
+                  <input type="text" id="hcWhy4Desc" placeholder="रोटावेटर, कल्टीवेटर...">
                 </div>
               </div>
-              <button class="btn btn-small mt-1" id="saveHomeWhyBtn"><i class="fas fa-save"></i> Save Why Cards</button>
+              <button class="btn btn-small mt-1" id="saveHomeWhyBtn"><i class="fas fa-save"></i> क्यों कार्ड सेव करें</button>
             </div>
 
-            <!-- Rate table head + steps -->
+            <!-- रेट टेबल + स्टेप -->
             <div class="editor-section">
-              <h4><i class="fas fa-rupee-sign"></i> Home — Rate Table & Booking Steps</h4>
+              <h4><i class="fas fa-rupee-sign"></i> होम — रेट टेबल और बुकिंग स्टेप</h4>
               <div class="grid-2 mt-1">
-                <div><label>Rate Table Title</label><input type="text" id="hcRateHead" placeholder="Aaj ke Rate"></div>
-                <div><label>Season / Year</label><input type="text" id="hcRateSeason" placeholder="Season 2025"></div>
+                <div><label>रेट टेबल शीर्षक</label><input type="text" id="hcRateHead" placeholder="आज के रेट"></div>
+                <div><label>सीज़न / वर्ष</label><input type="text" id="hcRateSeason" placeholder="सीज़न 2025"></div>
               </div>
               <div class="mt-2" style="border-top:1px dashed var(--border);padding-top:0.8rem;"></div>
-              <div><label>"Kaise Kaam Karta Hai" eyebrow</label><input type="text" id="hcStepsEyebrow" placeholder="Kaise Kaam Karta Hai"></div>
-              <div class="mt-1"><label>Title</label><input type="text" id="hcStepsTitle" placeholder="Booking ke 3 aasan step"></div>
-              <div class="mt-1"><label>Step 1 Title / Text</label>
-                <div class="grid-2"><input type="text" id="hcStep1Title" placeholder="Call / WhatsApp karein"><input type="text" id="hcStep1Desc" placeholder="Apna naam, gaon aur kaam batayein."></div>
+              <div><label>"कैसे काम करता है" शीर्षक</label><input type="text" id="hcStepsEyebrow" placeholder="कैसे काम करता है"></div>
+              <div class="mt-1"><label>मुख्य शीर्षक</label><input type="text" id="hcStepsTitle" placeholder="बुकिंग के 3 आसान स्टेप"></div>
+              <div class="mt-1"><label>स्टेप 1 शीर्षक / टेक्स्ट</label>
+                <div class="grid-2"><input type="text" id="hcStep1Title" placeholder="कॉल / व्हाट्सएप करें"><input type="text" id="hcStep1Desc" placeholder="अपना नाम, गाँव और काम बताएं।"></div>
               </div>
-              <div class="mt-1"><label>Step 2</label>
-                <div class="grid-2"><input type="text" id="hcStep2Title" placeholder="Rate aur time tay karein"><input type="text" id="hcStep2Desc" placeholder="Hum rate aur kaam ka din confirm karte hai."></div>
+              <div class="mt-1"><label>स्टेप 2</label>
+                <div class="grid-2"><input type="text" id="hcStep2Title" placeholder="रेट और समय तय करें"><input type="text" id="hcStep2Desc" placeholder="हम रेट और काम का दिन कन्फर्म करते हैं।"></div>
               </div>
-              <div class="mt-1"><label>Step 3</label>
-                <div class="grid-2"><input type="text" id="hcStep3Title" placeholder="Tractor aayega, kaam hoga"><input type="text" id="hcStep3Desc" placeholder="Time par tractor pahunchega, kaam poora hoga."></div>
+              <div class="mt-1"><label>स्टेप 3</label>
+                <div class="grid-2"><input type="text" id="hcStep3Title" placeholder="ट्रैक्टर आएगा, काम होगा"><input type="text" id="hcStep3Desc" placeholder="समय पर ट्रैक्टर पहुँचेगा, काम पूरा होगा।"></div>
               </div>
-              <button class="btn btn-small mt-1" id="saveHomeRateStepsBtn"><i class="fas fa-save"></i> Save Rate & Steps</button>
+              <button class="btn btn-small mt-1" id="saveHomeRateStepsBtn"><i class="fas fa-save"></i> रेट और स्टेप सेव करें</button>
             </div>
 
-            <!-- Home CTA -->
+            <!-- होम CTA -->
             <div class="editor-section">
-              <h4><i class="fas fa-bullhorn"></i> Home — CTA Band</h4>
-              <div><label>CTA Title</label><input type="text" id="hcCtaTitle" placeholder="Khet ka kaam hai? Aaj hi book karein!"></div>
-              <div class="mt-1"><label>CTA Description</label><input type="text" id="hcCtaDesc" placeholder="WhatsApp par message karein..."></div>
-              <button class="btn btn-small mt-1" id="saveHomeCtaBtn"><i class="fas fa-save"></i> Save CTA</button>
+              <h4><i class="fas fa-bullhorn"></i> होम — CTA बैंड</h4>
+              <div><label>CTA शीर्षक</label><input type="text" id="hcCtaTitle" placeholder="खेत का काम है? आज ही बुक करें!"></div>
+              <div class="mt-1"><label>CTA विवरण</label><input type="text" id="hcCtaDesc" placeholder="व्हाट्सएप पर मैसेज करें..."></div>
+              <button class="btn btn-small mt-1" id="saveHomeCtaBtn"><i class="fas fa-save"></i> CTA सेव करें</button>
             </div>
 
-            <!-- Services page head + CTA -->
+            <!-- सेवाएं पेज हेडर + CTA -->
             <div class="editor-section">
-              <h4><i class="fas fa-tools"></i> Services Page — Header & CTA</h4>
-              <div><label>Page Title</label><input type="text" id="hcSvcTitle" placeholder="Hamare Kaam / Services"></div>
-              <div class="mt-1"><label>Page Description</label><textarea id="hcSvcDesc" rows="2"></textarea></div>
+              <h4><i class="fas fa-tools"></i> सेवाएं पेज — हेडर और CTA</h4>
+              <div><label>पेज शीर्षक</label><input type="text" id="hcSvcTitle" placeholder="हमारे काम / सेवाएं"></div>
+              <div class="mt-1"><label>पेज विवरण</label><textarea id="hcSvcDesc" rows="2"></textarea></div>
               <div class="mt-2" style="border-top:1px dashed var(--border);padding-top:0.8rem;"></div>
-              <div><label>CTA Title</label><input type="text" id="hcSvcCtaTitle" placeholder="Rate pasand aaya? Book karein!"></div>
-              <div class="mt-1"><label>CTA Description</label><input type="text" id="hcSvcCtaDesc" placeholder="Apne khet ka kaam humse karwayein..."></div>
-              <button class="btn btn-small mt-1" id="saveSvcPageBtn"><i class="fas fa-save"></i> Save Services Page</button>
+              <div><label>CTA शीर्षक</label><input type="text" id="hcSvcCtaTitle" placeholder="रेट पसंद आया? बुक करें!"></div>
+              <div class="mt-1"><label>CTA विवरण</label><input type="text" id="hcSvcCtaDesc" placeholder="अपने खेत का काम हमसे करवाएं..."></div>
+              <button class="btn btn-small mt-1" id="saveSvcPageBtn"><i class="fas fa-save"></i> सेवाएं पेज सेव करें</button>
             </div>
 
-            <!-- Services list -->
+            <!-- सेवाएं सूची -->
             <div class="editor-section">
-              <h4><i class="fas fa-list"></i> Services List (Add / Update / Delete)</h4>
+              <h4><i class="fas fa-list"></i> सेवाएं सूची (जोड़ें / अपडेट / हटाएं)</h4>
               <div class="grid-3">
-                <div><label>Icon</label><input type="text" id="svcIcon" placeholder="fas fa-tractor"></div>
-                <div><label>Title</label><input type="text" id="svcTitle" placeholder="Jutung / Ploughing"></div>
-                <div><label>Price</label><input type="text" id="svcPrice" placeholder="₹1,200 per acre"></div>
+                <div><label>आइकन</label><input type="text" id="svcIcon" placeholder="fas fa-tractor"></div>
+                <div><label>शीर्षक</label><input type="text" id="svcTitle" placeholder="जुताई"></div>
+                <div><label>कीमत</label><input type="text" id="svcPrice" placeholder="₹1,200 प्रति एकड़"></div>
               </div>
               <div class="grid-3 mt-1">
-                <div><label>Hindi name (optional)</label><input type="text" id="svcHindi" placeholder="जुताई"></div>
-                <div><label>Time</label><input type="text" id="svcTime" placeholder="2-3 ghante per acre"></div>
-                <div><label>Category</label>
+                <div><label>हिंदी नाम (वैकल्पिक)</label><input type="text" id="svcHindi" placeholder="जुताई"></div>
+                <div><label>समय</label><input type="text" id="svcTime" placeholder="2-3 घंटे प्रति एकड़"></div>
+                <div><label>श्रेणी</label>
                   <select id="svcCategory">
-                    <option value="field">Kheti ke Kaam</option>
-                    <option value="transport">Transport</option>
-                    <option value="repair">Repair & Help</option>
+                    <option value="field">खेती के काम</option>
+                    <option value="transport">ट्रांसपोर्ट</option>
+                    <option value="repair">मरम्मत और सहायता</option>
                   </select>
                 </div>
               </div>
-              <div class="mt-1"><label>Description</label><input type="text" id="svcDesc" placeholder="Hal chalana, gehri jutung..."></div>
+              <div class="mt-1"><label>विवरण</label><input type="text" id="svcDesc" placeholder="हल चलाना, गहरी जुताई..."></div>
               <div class="flex-row mt-1">
-                <button class="btn btn-small" id="saveServiceBtn"><i class="fas fa-plus"></i> Add / Update Service</button>
-                <button class="btn btn-small btn-outline" id="clearServiceBtn"><i class="fas fa-eraser"></i> Clear</button>
+                <button class="btn btn-small" id="saveServiceBtn"><i class="fas fa-plus"></i> सेवा जोड़ें / अपडेट</button>
+                <button class="btn btn-small btn-outline" id="clearServiceBtn"><i class="fas fa-eraser"></i> साफ करें</button>
               </div>
               <input type="hidden" id="svcEditIdx">
               <div class="mt-2" id="servicesAdminList"></div>
             </div>
 
-            <!-- About page -->
+            <!-- हमारे बारे में -->
             <div class="editor-section">
-              <h4><i class="fas fa-info-circle"></i> About Page</h4>
-              <div><label>Hero Description</label><input type="text" id="hcAboutHero" placeholder="Hum ek tractor service hai..."></div>
-              <div class="mt-1"><label>Sub Title</label><input type="text" id="hcAboutSub" placeholder="2010 se kisanon ke saath"></div>
-              <div class="mt-1"><label>Paragraph 1</label><textarea id="hcAboutP1" rows="2"></textarea></div>
-              <div class="mt-1"><label>Paragraph 2</label><textarea id="hcAboutP2" rows="2"></textarea></div>
-              <div class="mt-1"><label>Paragraph 3</label><textarea id="hcAboutP3" rows="2"></textarea></div>
-              <div class="mt-1"><label>Stats (4 numbers — comma se alag)</label><input type="text" id="hcAboutStats" placeholder="500+|Khet Kaam, 15+|Saal Anubhav, 4.9★|Kisan Rating, 100%|Time Par"></div>
-              <div class="rate-hint">Format: number|label, number|label, number|label, number|label</div>
-              <button class="btn btn-small mt-1" id="saveAboutContentBtn"><i class="fas fa-save"></i> Save About Page</button>
+              <h4><i class="fas fa-info-circle"></i> हमारे बारे में पेज</h4>
+              <div><label>हीरो विवरण</label><input type="text" id="hcAboutHero" placeholder="हम एक ट्रैक्टर सर्विस हैं..."></div>
+              <div class="mt-1"><label>उपशीर्षक</label><input type="text" id="hcAboutSub" placeholder="2010 से किसानों के साथ"></div>
+              <div class="mt-1"><label>पैराग्राफ 1</label><textarea id="hcAboutP1" rows="2"></textarea></div>
+              <div class="mt-1"><label>पैराग्राफ 2</label><textarea id="hcAboutP2" rows="2"></textarea></div>
+              <div class="mt-1"><label>पैराग्राफ 3</label><textarea id="hcAboutP3" rows="2"></textarea></div>
+              <div class="mt-1"><label>आँकड़े (4 संख्याएं — कॉमा से अलग)</label><input type="text" id="hcAboutStats" placeholder="500+|खेत काम, 15+|साल अनुभव, 4.9★|किसान रेटिंग, 100%|समय पर"></div>
+              <div class="rate-hint">प्रारूप: संख्या|लेबल, संख्या|लेबल, संख्या|लेबल, संख्या|लेबल</div>
+              <button class="btn btn-small mt-1" id="saveAboutContentBtn"><i class="fas fa-save"></i> हमारे बारे में सेव करें</button>
             </div>
 
-            <!-- Team -->
+            <!-- टीम -->
             <div class="editor-section">
-              <h4><i class="fas fa-users"></i> Team Members</h4>
+              <h4><i class="fas fa-users"></i> टीम सदस्य</h4>
               <div class="grid-3">
-                <div><label>Icon</label><input type="text" id="tmIcon" placeholder="fas fa-user-tie"></div>
-                <div><label>Name</label><input type="text" id="tmName" placeholder="Rajesh Damor"></div>
-                <div><label>Role</label><input type="text" id="tmRole" placeholder="Owner / Driver"></div>
+                <div><label>आइकन</label><input type="text" id="tmIcon" placeholder="fas fa-user-tie"></div>
+                <div><label>नाम</label><input type="text" id="tmName" placeholder="राजेश दामोर"></div>
+                <div><label>भूमिका</label><input type="text" id="tmRole" placeholder="मालिक / ड्राइवर"></div>
               </div>
               <div class="flex-row mt-1">
-                <button class="btn btn-small" id="saveTeamBtn"><i class="fas fa-plus"></i> Add / Update Member</button>
-                <button class="btn btn-small btn-outline" id="clearTeamBtn"><i class="fas fa-eraser"></i> Clear</button>
+                <button class="btn btn-small" id="saveTeamBtn"><i class="fas fa-plus"></i> सदस्य जोड़ें / अपडेट</button>
+                <button class="btn btn-small btn-outline" id="clearTeamBtn"><i class="fas fa-eraser"></i> साफ करें</button>
               </div>
               <input type="hidden" id="tmEditIdx">
               <div class="mt-2" id="teamAdminList"></div>
             </div>
 
-            <!-- About CTA -->
+            <!-- हमारे बारे में CTA -->
             <div class="editor-section">
-              <h4><i class="fas fa-bullhorn"></i> About Page — CTA Band</h4>
-              <div><label>CTA Title</label><input type="text" id="hcAboutCtaTitle" placeholder="Humse baat karein"></div>
-              <div class="mt-1"><label>CTA Description</label><input type="text" id="hcAboutCtaDesc" placeholder="Apne khet ka kaam humse karwayein..."></div>
-              <button class="btn btn-small mt-1" id="saveAboutCtaBtn"><i class="fas fa-save"></i> Save About CTA</button>
+              <h4><i class="fas fa-bullhorn"></i> हमारे बारे में — CTA बैंड</h4>
+              <div><label>CTA शीर्षक</label><input type="text" id="hcAboutCtaTitle" placeholder="हमसे बात करें"></div>
+              <div class="mt-1"><label>CTA विवरण</label><input type="text" id="hcAboutCtaDesc" placeholder="अपने खेत का काम हमसे करवाएं..."></div>
+              <button class="btn btn-small mt-1" id="saveAboutCtaBtn"><i class="fas fa-save"></i> CTA सेव करें</button>
             </div>
 
-            <!-- Contact phone -->
+            <!-- फोन नंबर -->
             <div class="editor-section">
-              <h4><i class="fas fa-phone"></i> WhatsApp / Call Number</h4>
-              <div><label>Phone Number (10 digit)</label><input type="text" id="hcPhone" placeholder="9876543210" maxlength="10"></div>
-              <div class="rate-hint">Yeh number sab WhatsApp aur Call buttons par use hoga.</div>
-              <button class="btn btn-small mt-1" id="savePhoneBtn"><i class="fas fa-save"></i> Save Number</button>
+              <h4><i class="fas fa-phone"></i> व्हाट्सएप / कॉल नंबर</h4>
+              <div><label>फोन नंबर (10 अंक)</label><input type="text" id="hcPhone" placeholder="9876543210" maxlength="10"></div>
+              <div class="rate-hint">यह नंबर सभी व्हाट्सएप और कॉल बटन पर उपयोग होगा।</div>
+              <button class="btn btn-small mt-1" id="savePhoneBtn"><i class="fas fa-save"></i> नंबर सेव करें</button>
             </div>
 
-            <!-- Reset -->
+            <!-- रीसेट -->
             <div class="editor-section" style="border-color:var(--danger);">
-              <h4><i class="fas fa-undo" style="color:var(--danger);"></i> Reset Home & Services Content</h4>
-              <p class="text-small">Yeh home aur services page ko default content par reset kar dega. Aapke bills/customers safe rahenge.</p>
-              <button class="btn btn-small btn-danger mt-1" id="resetHomeContentBtn"><i class="fas fa-undo"></i> Reset to Default</button>
+              <h4><i class="fas fa-undo" style="color:var(--danger);"></i> होम और सेवाएं कंटेंट रीसेट करें</h4>
+              <p class="text-small">यह होम और सेवाएं पेज को डिफ़ॉल्ट कंटेंट पर रीसेट कर देगा। आपके बिल/ग्राहक सुरक्षित रहेंगे।</p>
+              <button class="btn btn-small btn-danger mt-1" id="resetHomeContentBtn"><i class="fas fa-undo"></i> डिफ़ॉल्ट पर रीसेट करें</button>
             </div>
           </div>
         </div>
@@ -966,47 +965,25 @@ td{padding:0.7rem 0.3rem;border-bottom:1px solid var(--border);vertical-align:mi
 </div>
 
 <div class="site-footer">
-  <div class="footer-brand">Damor Tractore Service</div>
-  <span data-lang="footer_text">Kheti ka kaam · Tractor se · Time par · Saaf rate</span>
+  <div class="footer-brand">दामोर ट्रैक्टर सर्विस</div>
+  <span data-lang="footer_text">खेती का काम · ट्रैक्टर से · समय पर · साफ रेट</span>
 </div>
 
 <div class="modal-overlay" id="pdfLangModal">
   <div class="modal-box">
-    <h3><i class="fas fa-file-pdf"></i> Choose Bill Language</h3>
-    <p class="text-small" style="margin-bottom:1rem;">Generate the bill PDF in Hindi or English (no GST).</p>
+    <h3><i class="fas fa-file-pdf"></i> बिल की भाषा चुनें</h3>
+    <p class="text-small" style="margin-bottom:1rem;">बिल PDF हिंदी या अंग्रेजी में बनाएं (GST नहीं)।</p>
     <div class="grid-2">
       <button class="btn" id="pdfLangEnBtn"><i class="fas fa-language"></i> English</button>
       <button class="btn btn-warning" id="pdfLangHiBtn"><i class="fas fa-language"></i> हिन्दी</button>
     </div>
-    <button class="btn btn-outline btn-small mt-2" id="closePdfModalBtn" style="width:100%;">Cancel</button>
+    <button class="btn btn-outline btn-small mt-2" id="closePdfModalBtn" style="width:100%;">रद्द करें</button>
   </div>
 </div>
 
 <script>
 // ================= TRANSLATIONS =================
 const translations = {
-  en: {
-    brand:"Damor Tractore Service", nav_home:"Home", nav_services:"Kaam / Services", nav_about:"About", nav_admin:"Admin",
-    hero_title:"Aapke khet ka kaam, <span>hamare tractor</span> se",
-    hero_desc:"Jutung, rotavator, buwai, katai aur trolley transport — [Gaon/Tehsil] ke aas-paas experienced driver ke saath. Booking ke liye call ya WhatsApp karein.",
-    btn_open_book:"Open Tractor Book", btn_view_services:"Rate List Dekhein",
-    stat_tractors:"Khet Kaam Kiye", stat_years:"Saal Ka Anubhav", stat_rating:"Kisan Rating",
-    feat_bill:"Bill Management", feat_bill_desc:"Create and share professional bills with PDF export.",
-    feat_photo:"Photo Attachments", feat_photo_desc:"Attach photos of work spots and conditions.",
-    feat_hourly:"Hourly Work", feat_hourly_desc:"Set hourly rate and auto-calculate bill by hours worked.",
-    feat_history:"Work History", feat_history_desc:"Complete log of all services and parts replaced.",
-    services_title:"Hamare Kaam / Services", services_desc:"Kheti ka har kaam — jutung, rotavator, buwai, katai, threshing, trolley transport.",
-    about_title:"Hamare Baare Mein", about_sub:"2010 se kisanon ke saath",
-    about_p1:"Hum [aapka naam] hai, aur [X] saal se kheti ke kaam mein tractor chalate hai.",
-    about_p2:"Hum [gaon/tehsil] ke aas-paas ke kisanon ke khet mein jutung, buwai, katai aur transport ka kaam karte hai.",
-    about_p3:"Booking ke liye phone ya WhatsApp karein: [aapka number].",
-    about_team:"Hamari Team",
-    login_title:"Login", login_desc:"Enter your details to access the Tractor Book",
-    dash_title:"Tractor Book · Dashboard",
-    tab_farmers:"Farmers", tab_bills:"Bills", tab_more:"More", tab_settings:"Settings",
-    farmers_title:"Farmers / Customers",
-    footer_text:"Kheti ka kaam · Tractor se · Time par · Saaf rate"
-  },
   hi: {
     brand:"दामोर ट्रैक्टर सर्विस", nav_home:"होम", nav_services:"काम / सेवाएं", nav_about:"हमारे बारे में", nav_admin:"एडमिन",
     hero_title:"आपके खेत का काम, <span>हमारे ट्रैक्टर</span> से",
@@ -1028,10 +1005,32 @@ const translations = {
     tab_farmers:"किसान", tab_bills:"बिल", tab_more:"अधिक", tab_settings:"सेटिंग्स",
     farmers_title:"किसान / ग्राहक",
     footer_text:"खेती का काम · ट्रैक्टर से · समय पर · साफ रेट"
+  },
+  en: {
+    brand:"Damor Tractore Service", nav_home:"Home", nav_services:"Kaam / Services", nav_about:"About", nav_admin:"Admin",
+    hero_title:"Aapke khet ka kaam, <span>hamare tractor</span> se",
+    hero_desc:"Jutung, rotavator, buwai, katai aur trolley transport — [Gaon/Tehsil] ke aas-paas experienced driver ke saath. Booking ke liye call ya WhatsApp karein.",
+    btn_open_book:"Open Tractor Book", btn_view_services:"Rate List Dekhein",
+    stat_tractors:"Khet Kaam Kiye", stat_years:"Saal Ka Anubhav", stat_rating:"Kisan Rating",
+    feat_bill:"Bill Management", feat_bill_desc:"Create and share professional bills with PDF export.",
+    feat_photo:"Photo Attachments", feat_photo_desc:"Attach photos of work spots and conditions.",
+    feat_hourly:"Hourly Work", feat_hourly_desc:"Set hourly rate and auto-calculate bill by hours worked.",
+    feat_history:"Work History", feat_history_desc:"Complete log of all services and parts replaced.",
+    services_title:"Hamare Kaam / Services", services_desc:"Kheti ka har kaam — jutung, rotavator, buwai, katai, threshing, trolley transport.",
+    about_title:"Hamare Baare Mein", about_sub:"2010 se kisanon ke saath",
+    about_p1:"Hum [aapka naam] hai, aur [X] saal se kheti ke kaam mein tractor chalate hai.",
+    about_p2:"Hum [gaon/tehsil] ke aas-paas ke kisanon ke khet mein jutung, buwai, katai aur transport ka kaam karte hai.",
+    about_p3:"Booking ke liye phone ya WhatsApp karein: [aapka number].",
+    about_team:"Hamari Team",
+    login_title:"Login", login_desc:"Enter your details to access the Tractor Book",
+    dash_title:"Tractor Book · Dashboard",
+    tab_farmers:"Farmers", tab_bills:"Bills", tab_more:"More", tab_settings:"Settings",
+    farmers_title:"Farmers / Customers",
+    footer_text:"Kheti ka kaam · Tractor se · Time par · Saaf rate"
   }
 };
 
-let currentLang = localStorage.getItem('damor_lang') || 'en';
+let currentLang = localStorage.getItem('damor_lang') || 'hi';
 
 function applyLanguage(lang){
   currentLang = lang;
@@ -1077,65 +1076,65 @@ function saveStaff(arr){ localStorage.setItem(STAFF_KEY, JSON.stringify(arr)); }
 
 // ================= HOME CONTENT (fully editable) =================
 const DEFAULT_SERVICES = [
-  {icon:'fas fa-tractor', title:'Jutung / Ploughing', hindi:'जुताई', desc:'Hal chalana, gehri jutung. Mitti ko taiyar karna.', price:'₹1,200 per acre', time:'2-3 ghante per acre', category:'field'},
-  {icon:'fas fa-seedling', title:'Rotavator', hindi:'रोटावेटर', desc:'Mitti bhur-bhura karna, beej ke liye taiyar karna.', price:'₹1,000 per acre', time:'1.5-2 ghante per acre', category:'field'},
-  {icon:'fas fa-seedling', title:'Buwai / Seed Drill', hindi:'बुवाई', desc:'Beej bona, line se line. Time par buwai.', price:'₹800 per acre', time:'2 ghante per acre', category:'field'},
-  {icon:'fas fa-wheat-awn', title:'Katai / Harvesting', hindi:'कटाई', desc:'Fasal ki katai, saaf aur jaldi.', price:'₹1,500 per acre', time:'3-4 ghante per acre', category:'field'},
-  {icon:'fas fa-truck', title:'Trolley Transport', hindi:'ट्रॉली ट्रांसपोर्ट', desc:'Khad, beej, fasal mandi tak. Saaman dhona.', price:'₹500 per trip', time:'1-2 ghante per trip', category:'transport'},
-  {icon:'fas fa-water', title:'Irrigation Help', hindi:'सिंचाई', desc:'Pani / pump ka kaam, khet tak pani pahunchana.', price:'₹400 per hour', time:'Per hour', category:'field'},
-  {icon:'fas fa-tools', title:'Tractor Repair', hindi:'ट्रैक्टर मरम्मत', desc:'Servicing, tyre, battery help. Khet par hi.', price:'₹500 per visit', time:'1-2 ghante', category:'repair'},
-  {icon:'fas fa-tractor', title:'Bund / Med Making', hindi:'मेड़ बनाना', desc:'Khet ki med banana, pani rokna.', price:'₹600 per hour', time:'Per hour', category:'field'}
+  {icon:'fas fa-tractor', title:'जुताई (हल चलाना)', hindi:'जुताई', desc:'हल चलाना, गहरी जुताई। मिट्टी को तैयार करना।', price:'₹1,200 प्रति एकड़', time:'2-3 घंटे प्रति एकड़', category:'field'},
+  {icon:'fas fa-seedling', title:'रोटावेटर', hindi:'रोटावेटर', desc:'मिट्टी भुरभुरी करना, बीज के लिए तैयार करना।', price:'₹1,000 प्रति एकड़', time:'1.5-2 घंटे प्रति एकड़', category:'field'},
+  {icon:'fas fa-seedling', title:'बुवाई / सीड ड्रिल', hindi:'बुवाई', desc:'बीज बोना, लाइन से लाइन। समय पर बुवाई।', price:'₹800 प्रति एकड़', time:'2 घंटे प्रति एकड़', category:'field'},
+  {icon:'fas fa-wheat-awn', title:'कटाई / हार्वेस्टिंग', hindi:'कटाई', desc:'फसल की कटाई, साफ और जल्दी।', price:'₹1,500 प्रति एकड़', time:'3-4 घंटे प्रति एकड़', category:'field'},
+  {icon:'fas fa-truck', title:'ट्रॉली ट्रांसपोर्ट', hindi:'ट्रॉली ट्रांसपोर्ट', desc:'खाद, बीज, फसल मंडी तक। सामान ढोना।', price:'₹500 प्रति ट्रिप', time:'1-2 घंटे प्रति ट्रिप', category:'transport'},
+  {icon:'fas fa-water', title:'सिंचाई सहायता', hindi:'सिंचाई', desc:'पानी / पंप का काम, खेत तक पानी पहुँचाना।', price:'₹400 प्रति घंटा', time:'प्रति घंटा', category:'field'},
+  {icon:'fas fa-tools', title:'ट्रैक्टर मरम्मत', hindi:'ट्रैक्टर मरम्मत', desc:'सर्विसिंग, टायर, बैटरी सहायता। खेत पर ही।', price:'₹500 प्रति विज़िट', time:'1-2 घंटे', category:'repair'},
+  {icon:'fas fa-tractor', title:'मेड़ बनाना', hindi:'मेड़ बनाना', desc:'खेत की मेड़ बनाना, पानी रोकना।', price:'₹600 प्रति घंटा', time:'प्रति घंटा', category:'field'}
 ];
 const DEFAULT_TEAM = [
-  {icon:'fas fa-user-tie', name:'Rajesh Damor', role:'Owner / Tractor Driver'},
-  {icon:'fas fa-user-cog', name:'Suresh Patel', role:'Driver'},
-  {icon:'fas fa-user-hard-hat', name:'Mahesh Singh', role:'Field Helper'},
-  {icon:'fas fa-user-graduate', name:'Priya Sharma', role:'Customer Support'}
+  {icon:'fas fa-user-tie', name:'राजेश दामोर', role:'मालिक / ट्रैक्टर ड्राइवर'},
+  {icon:'fas fa-user-cog', name:'सुरेश पटेल', role:'ड्राइवर'},
+  {icon:'fas fa-user-hard-hat', name:'महेश सिंह', role:'खेत सहायक'},
+  {icon:'fas fa-user-graduate', name:'प्रिया शर्मा', role:'ग्राहक सहायता'}
 ];
 const DEFAULT_HOME_CONTENT = {
-  heroTag:'Kheti ka kaam · Tractor se · Time par',
-  heroTitle:'Aapke khet ka kaam, <span>hamare tractor</span> se',
-  heroDesc:'Jutung, rotavator, buwai, katai aur trolley transport — [Gaon/Tehsil] ke aas-paas experienced driver ke saath. Booking ke liye call ya WhatsApp karein.',
-  heroBtn1:'WhatsApp par Book karein',
-  heroBtn2:'Rate List Dekhein',
-  heroBadge:'On-time · Experienced Driver',
-  heroStats:[{num:'500+',label:'Khet Kaam Kiye'},{num:'15+',label:'Saal Ka Anubhav'},{num:'4.9★',label:'Kisan Rating'}],
-  workEyebrow:'Hamare Kaam',
-  workTitle:'Kheti ke liye tractor ka poora kaam',
-  workDesc:'Jutung se lekar katai tak — aapke khet ka har kaam hum tractor se karte hai. Rate saaf, kaam time par.',
-  whyEyebrow:'Kisan Kyun Chunte Hai',
-  whyTitle:'Kyun hum par bharosa karein',
+  heroTag:'खेती का काम · ट्रैक्टर से · समय पर',
+  heroTitle:'आपके खेत का काम, <span>हमारे ट्रैक्टर</span> से',
+  heroDesc:'जुताई, रोटावेटर, बुवाई, कटाई और ट्रॉली ट्रांसपोर्ट — [गाँव/तहसील] के आस-पास अनुभवी ड्राइवर के साथ। बुकिंग के लिए कॉल या व्हाट्सएप करें।',
+  heroBtn1:'व्हाट्सएप पर बुक करें',
+  heroBtn2:'रेट लिस्ट देखें',
+  heroBadge:'समय पर · अनुभवी ड्राइवर',
+  heroStats:[{num:'500+',label:'खेत काम किए'},{num:'15+',label:'साल का अनुभव'},{num:'4.9★',label:'किसान रेटिंग'}],
+  workEyebrow:'हमारे काम',
+  workTitle:'खेती के लिए ट्रैक्टर का पूरा काम',
+  workDesc:'जुताई से लेकर कटाई तक — आपके खेत का हर काम हम ट्रैक्टर से करते हैं। रेट साफ, काम समय पर।',
+  whyEyebrow:'किसान क्यों चुनते हैं',
+  whyTitle:'क्यों हम पर भरोसा करें',
   whyCards:[
-    {icon:'fas fa-clock', title:'Time par kaam', desc:'Subah se shaam tak, aapke khet par sahi samay par pahunchte hai.'},
-    {icon:'fas fa-hand-holding-usd', title:'Saaf rate', desc:'Per acre / per hour rate pehle se tay — koi chhupa kharcha nahi.'},
-    {icon:'fas fa-user-cog', title:'Experienced driver', desc:'15+ saal ka anubhav, achhi quality ka kaam.'},
-    {icon:'fas fa-tools', title:'Ready implements', desc:'Rotavator, cultivator, trolley, seed drill — sab kuch ready.'}
+    {icon:'fas fa-clock', title:'समय पर काम', desc:'सुबह से शाम तक, आपके खेत पर सही समय पर पहुँचते हैं।'},
+    {icon:'fas fa-hand-holding-usd', title:'साफ रेट', desc:'प्रति एकड़ / प्रति घंटा रेट पहले से तय — कोई छुपा खर्च नहीं।'},
+    {icon:'fas fa-user-cog', title:'अनुभवी ड्राइवर', desc:'15+ साल का अनुभव, अच्छी गुणवत्ता का काम।'},
+    {icon:'fas fa-tools', title:'तैयार उपकरण', desc:'रोटावेटर, कल्टीवेटर, ट्रॉली, सीड ड्रिल — सब कुछ तैयार।'}
   ],
-  rateHead:'Aaj ke Rate',
-  rateSeason:'Season 2025',
-  stepsEyebrow:'Kaise Kaam Karta Hai',
-  stepsTitle:'Booking ke 3 aasan step',
+  rateHead:'आज के रेट',
+  rateSeason:'सीज़न 2025',
+  stepsEyebrow:'कैसे काम करता है',
+  stepsTitle:'बुकिंग के 3 आसान स्टेप',
   steps:[
-    {title:'Call / WhatsApp karein', desc:'Apna naam, gaon aur kaam batayein.'},
-    {title:'Rate aur time tay karein', desc:'Hum rate aur kaam ka din confirm karte hai.'},
-    {title:'Tractor aayega, kaam hoga', desc:'Time par tractor pahunchega, kaam poora hoga.'}
+    {title:'कॉल / व्हाट्सएप करें', desc:'अपना नाम, गाँव और काम बताएं।'},
+    {title:'रेट और समय तय करें', desc:'हम रेट और काम का दिन कन्फर्म करते हैं।'},
+    {title:'ट्रैक्टर आएगा, काम होगा', desc:'समय पर ट्रैक्टर पहुँचेगा, काम पूरा होगा।'}
   ],
-  ctaTitle:'Khet ka kaam hai? Aaj hi book karein!',
-  ctaDesc:'WhatsApp par message karein ya call karein — hum turant jawab denge.',
+  ctaTitle:'खेत का काम है? आज ही बुक करें!',
+  ctaDesc:'व्हाट्सएप पर मैसेज करें या कॉल करें — हम तुरंत जवाब देंगे।',
   services: DEFAULT_SERVICES,
-  svcPageTitle:'Hamare Kaam / Services',
-  svcPageDesc:'Kheti ka har kaam — jutung, rotavator, buwai, katai, threshing, trolley transport. Rate saaf, kaam time par. Har service ke saath kitna time lagega wo bhi diya hai.',
-  svcCtaTitle:'Rate pasand aaya? Book karein!',
-  svcCtaDesc:'Apne khet ka kaam humse karwayein — call ya WhatsApp par.',
-  aboutHeroDesc:'Hum ek tractor service hai jo kisanon ke khet ka kaam karti hai — jutung se katai tak, time par aur saaf rate par.',
-  aboutSub:'2010 se kisanon ke saath',
-  aboutP1:'Hum [aapka naam] hai, aur [X] saal se kheti ke kaam mein tractor chalate hai. Hamare paas [45 HP] tractor aur rotavator, cultivator, trolley jaise sabhi implement hai.',
-  aboutP2:'Hum [gaon/tehsil] ke aas-paas ke kisanon ke khet mein jutung, buwai, katai aur transport ka kaam karte hai — time par, saaf rate par.',
-  aboutP3:'Booking ke liye phone ya WhatsApp karein: [aapka number]. Aap chahe to is website se bill bhi dekh sakte hai.',
-  aboutStats:[{num:'500+',label:'Khet Kaam'},{num:'15+',label:'Saal Anubhav'},{num:'4.9★',label:'Kisan Rating'},{num:'100%',label:'Time Par'}],
+  svcPageTitle:'हमारे काम / सेवाएं',
+  svcPageDesc:'खेती का हर काम — जुताई, रोटावेटर, बुवाई, कटाई, थ्रेशिंग, ट्रॉली ट्रांसपोर्ट। रेट साफ, काम समय पर। हर सेवा के साथ कितना समय लगेगा वो भी दिया है।',
+  svcCtaTitle:'रेट पसंद आया? बुक करें!',
+  svcCtaDesc:'अपने खेत का काम हमसे करवाएं — कॉल या व्हाट्सएप पर।',
+  aboutHeroDesc:'हम एक ट्रैक्टर सर्विस हैं जो किसानों के खेत का काम करती है — जुताई से कटाई तक, समय पर और साफ रेट पर।',
+  aboutSub:'2010 से किसानों के साथ',
+  aboutP1:'हम [आपका नाम] हैं, और [X] साल से खेती के काम में ट्रैक्टर चलाते हैं। हमारे पास [45 HP] ट्रैक्टर और रोटावेटर, कल्टीवेटर, ट्रॉली जैसे सभी उपकरण हैं।',
+  aboutP2:'हम [गाँव/तहसील] के आस-पास के किसानों के खेत में जुताई, बुवाई, कटाई और ट्रांसपोर्ट का काम करते हैं — समय पर, साफ रेट पर।',
+  aboutP3:'बुकिंग के लिए फोन या व्हाट्सएप करें: [आपका नंबर]। आप चाहें तो इस वेबसाइट से बिल भी देख सकते हैं।',
+  aboutStats:[{num:'500+',label:'खेत काम'},{num:'15+',label:'साल अनुभव'},{num:'4.9★',label:'किसान रेटिंग'},{num:'100%',label:'समय पर'}],
   team: DEFAULT_TEAM,
-  aboutCtaTitle:'Humse baat karein',
-  aboutCtaDesc:'Apne khet ka kaam humse karwayein — call ya WhatsApp par.'
+  aboutCtaTitle:'हमसे बात करें',
+  aboutCtaDesc:'अपने खेत का काम हमसे करवाएं — कॉल या व्हाट्सएप पर।'
 };
 
 function loadHomeContent(){
@@ -1271,7 +1270,7 @@ function renderHomeContent(){
           <div class="service-category-head">
             <div class="sc-icon"><i class="${icon}"></i></div>
             <h2>${title}</h2>
-            <span>${list.length} services</span>
+            <span>${list.length} सेवाएं</span>
           </div>
           <div class="service-grid">
             ${list.map(s=>`
@@ -1294,11 +1293,11 @@ function renderHomeContent(){
         </div>`;
     };
     svcGrid.innerHTML =
-      makeCategory('Kheti ke Kaam (Field Work)', 'fas fa-seedling', fieldWork) +
-      makeCategory('Transport ka Kaam', 'fas fa-truck', transport) +
-      makeCategory('Tractor Repair & Help', 'fas fa-tools', repair);
+      makeCategory('खेती के काम', 'fas fa-seedling', fieldWork) +
+      makeCategory('ट्रांसपोर्ट का काम', 'fas fa-truck', transport) +
+      makeCategory('ट्रैक्टर मरम्मत और सहायता', 'fas fa-tools', repair);
     if(!(hc.services||[]).length){
-      svcGrid.innerHTML = '<p class="text-small">No services added yet.</p>';
+      svcGrid.innerHTML = '<p class="text-small">अभी कोई सेवा नहीं जोड़ी गई है।</p>';
     }
   }
 
@@ -1332,7 +1331,7 @@ function renderHomeContent(){
       teamGrid.appendChild(d);
     });
     if(!(hc.team||[]).length){
-      teamGrid.innerHTML = '<p class="text-small">No team members added yet.</p>';
+      teamGrid.innerHTML = '<p class="text-small">अभी कोई टीम सदस्य नहीं जोड़ा गया है।</p>';
     }
   }
 
@@ -1369,7 +1368,7 @@ function renderServicesAdminList(){
       document.getElementById('svcEditIdx').value = idx;
     });
     row.querySelector('[data-svc-del]').addEventListener('click', ()=>{
-      if(!confirm('Delete this service?')) return;
+      if(!confirm('क्या आप यह सेवा हटाना चाहते हैं?')) return;
       const hc2 = loadHomeContent();
       hc2.services.splice(idx,1);
       saveHomeContent(hc2);
@@ -1403,7 +1402,7 @@ function renderTeamAdminList(){
       document.getElementById('tmEditIdx').value = idx;
     });
     row.querySelector('[data-tm-del]').addEventListener('click', ()=>{
-      if(!confirm('Delete this team member?')) return;
+      if(!confirm('क्या आप यह टीम सदस्य हटाना चाहते हैं?')) return;
       const hc2 = loadHomeContent();
       hc2.team.splice(idx,1);
       saveHomeContent(hc2);
@@ -1519,7 +1518,7 @@ function handleAdminLogin(){
     updateAdminUI();
   } else {
     err.style.display='block';
-    err.innerText='Wrong Username or Password.';
+    err.innerText='गलत उपयोगकर्ता नाम या पासवर्ड।';
   }
 }
 
@@ -1528,13 +1527,13 @@ function handleStaffLogin(){
   const pwd = document.getElementById('loginStaffPassword').value;
   const err = document.getElementById('loginError');
   if(mobile.length!==10 || isNaN(mobile)){
-    err.style.display='block'; err.innerText='Enter a valid 10-digit mobile number.'; return;
+    err.style.display='block'; err.innerText='10-अंकों का सही मोबाइल नंबर दर्ज करें।'; return;
   }
   const staff = loadStaff();
   const found = staff.find(s => s.mobile===mobile && (s.role==='supervisor'||s.role==='driver'));
-  if(!found){ err.style.display='block'; err.innerText='Staff mobile not registered. Contact admin.'; return; }
-  if(!found.power){ err.style.display='block'; err.innerText='Your access is turned OFF. Contact admin.'; return; }
-  if(found.password !== pwd){ err.style.display='block'; err.innerText='Wrong password.'; return; }
+  if(!found){ err.style.display='block'; err.innerText='स्टाफ मोबाइल पंजीकृत नहीं है। एडमिन से संपर्क करें।'; return; }
+  if(!found.power){ err.style.display='block'; err.innerText='आपकी पहुँच बंद है। एडमिन से संपर्क करें।'; return; }
+  if(found.password !== pwd){ err.style.display='block'; err.innerText='गलत पासवर्ड।'; return; }
   setLoggedIn(true, found.role, found.name, found.mobile, found.id);
   err.style.display='none';
   updateAdminUI();
@@ -1545,13 +1544,13 @@ function handleCustomerLogin(){
   const pwd = document.getElementById('loginCustomerPassword').value;
   const err = document.getElementById('loginError');
   if(mobile.length!==10 || isNaN(mobile)){
-    err.style.display='block'; err.innerText='Enter a valid 10-digit mobile number.'; return;
+    err.style.display='block'; err.innerText='10-अंकों का सही मोबाइल नंबर दर्ज करें।'; return;
   }
   const staff = loadStaff();
   const found = staff.find(s => s.mobile===mobile && s.role==='customer');
-  if(!found){ err.style.display='block'; err.innerText='Customer mobile not registered. Contact admin.'; return; }
-  if(!found.power){ err.style.display='block'; err.innerText='Your access is turned OFF. Contact admin.'; return; }
-  if(found.password !== pwd){ err.style.display='block'; err.innerText='Wrong password.'; return; }
+  if(!found){ err.style.display='block'; err.innerText='ग्राहक मोबाइल पंजीकृत नहीं है। एडमिन से संपर्क करें।'; return; }
+  if(!found.power){ err.style.display='block'; err.innerText='आपकी पहुँच बंद है। एडमिन से संपर्क करें।'; return; }
+  if(found.password !== pwd){ err.style.display='block'; err.innerText='गलत पासवर्ड।'; return; }
   setLoggedIn(true, 'customer', found.name, found.mobile, found.id);
   err.style.display='none';
   updateAdminUI();
@@ -1570,7 +1569,7 @@ function updateAdminUI(){
   if(isLoggedIn()){
     loginScreen.classList.add('hidden');
     dashboard.classList.remove('hidden');
-    document.getElementById('loggedInUserName').innerText = loggedInUserName || 'User';
+    document.getElementById('loggedInUserName').innerText = loggedInUserName || 'उपयोगकर्ता';
 
     document.getElementById('adminSecurityCard').classList.toggle('hidden', !isAdmin);
     document.getElementById('staffManagementCard').classList.toggle('hidden', !isAdmin);
@@ -1614,7 +1613,7 @@ function switchDashTab(tab){
   const toolPanel = document.getElementById('toolPanel');
   if(toolPanel) toolPanel.classList.add('hidden');
   if(tab==='settings'){
-    document.getElementById('settingsLanguage').value = localStorage.getItem('damor_lang') || 'en';
+    document.getElementById('settingsLanguage').value = localStorage.getItem('damor_lang') || 'hi';
     document.getElementById('settingsTheme').value = localStorage.getItem('damor_theme') || 'default';
     document.getElementById('settingsUsername').value = getAdminUser();
     document.getElementById('settingsPassword').value = '';
@@ -1676,7 +1675,7 @@ function refreshDashboard(){
   if(!tbody) return;
   tbody.innerHTML='';
   if(customers.length===0){
-    tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--text-light);">No farmers yet.</td></tr>';
+    tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--text-light);">अभी कोई किसान नहीं।</td></tr>';
     return;
   }
   customers.forEach(c=>{
@@ -1690,7 +1689,7 @@ function refreshDashboard(){
       <td><strong>${c.customerName||'—'}</strong></td>
       <td>${c.customerMobile||'—'}</td>
       <td>${c.tractorModel||'—'}</td>
-      <td>${c.createdByName||'Admin'}</td>
+      <td>${c.createdByName||'एडमिन'}</td>
       <td>${billCount}</td>
       <td>${formatCurrency(total)}</td>
       <td class="due">${formatCurrency(due)}</td>
@@ -1715,7 +1714,7 @@ function renderCustomerBillView(){
   const myList = getMyCustomers();
   container.innerHTML = '';
   if(myList.length===0){
-    container.innerHTML = `<div class="card"><p class="text-small">No bill found for your mobile number (${loggedInUserMobile}). Please contact admin.</p></div>`;
+    container.innerHTML = `<div class="card"><p class="text-small">आपके मोबाइल नंबर (${loggedInUserMobile}) के लिए कोई बिल नहीं मिला। कृपया एडमिन से संपर्क करें।</p></div>`;
     return;
   }
   myList.forEach(c=>{
@@ -1724,44 +1723,44 @@ function renderCustomerBillView(){
     card.className = 'card';
     card.innerHTML = `
       <div class="flex-row">
-        <h2><i class="fas fa-file-invoice"></i> Bill ${c.billNo||'N/A'}</h2>
+        <h2><i class="fas fa-file-invoice"></i> बिल ${c.billNo||'N/A'}</h2>
         <span class="badge">${c.billDate||'—'}</span>
       </div>
       <div class="bill-card-view mt-1">
-        <p><strong>Customer:</strong> ${c.customerName||'—'} &nbsp; <strong>Mobile:</strong> ${c.customerMobile||'—'}</p>
-        <p><strong>Tractor:</strong> ${c.tractorModel||'—'}</p>
+        <p><strong>ग्राहक:</strong> ${c.customerName||'—'} &nbsp; <strong>मोबाइल:</strong> ${c.customerMobile||'—'}</p>
+        <p><strong>ट्रैक्टर:</strong> ${c.tractorModel||'—'}</p>
       </div>
-      <h3 class="mt-1" style="font-size:1rem;">Work & Service</h3>
+      <h3 class="mt-1" style="font-size:1rem;">काम और सेवा</h3>
       <div class="bill-table-wrap">
         <table class="bill-table">
-          <thead><tr><th>Work</th><th>Type</th><th>Hours</th><th>Price</th></tr></thead>
+          <thead><tr><th>काम</th><th>प्रकार</th><th>घंटे</th><th>कीमत</th></tr></thead>
           <tbody>
             ${(c.works||[]).map(w=>{
-              const typeLabel = w.type==='hourly' ? 'Hourly' : 'Fixed';
-              const hoursLabel = w.type==='hourly' ? (w.hours||0)+' hrs' : '—';
+              const typeLabel = w.type==='hourly' ? 'प्रति घंटा' : 'तय';
+              const hoursLabel = w.type==='hourly' ? (w.hours||0)+' घंटे' : '—';
               return `<tr><td title="${(w.desc||'').replace(/"/g,'&quot;')}">${w.desc||'—'}</td><td>${typeLabel}</td><td>${hoursLabel}</td><td>${formatCurrency(w.price||0)}</td></tr>`;
-            }).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--text-light);">No work entries.</td></tr>'}
+            }).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--text-light);">कोई काम दर्ज नहीं।</td></tr>'}
           </tbody>
         </table>
       </div>
       <div class="flex-row mt-2">
-        <div class="total-box"><i class="fas fa-calculator"></i> Total: <span>${formatCurrency(total)}</span></div>
+        <div class="total-box"><i class="fas fa-calculator"></i> कुल: <span>${formatCurrency(total)}</span></div>
         <div class="payment-status">
-          <span>Paid: <span class="paid">${formatCurrency(paid)}</span></span>
-          <span>Due: <span class="due">${formatCurrency(due)}</span></span>
+          <span>चुकाया: <span class="paid">${formatCurrency(paid)}</span></span>
+          <span>बकाया: <span class="due">${formatCurrency(due)}</span></span>
         </div>
       </div>
-      <h3 class="mt-2" style="font-size:1rem;">Payment History</h3>
+      <h3 class="mt-2" style="font-size:1rem;">भुगतान इतिहास</h3>
       <div class="bill-table-wrap">
         <table class="pay-table">
-          <thead><tr><th>Date</th><th>Amount</th><th>Note</th></tr></thead>
+          <thead><tr><th>तारीख</th><th>राशि</th><th>नोट</th></tr></thead>
           <tbody>
-            ${(c.payments||[]).length > 0 ? [...c.payments].sort((a,b)=>new Date(b.date)-new Date(a.date)).map(p=>`<tr><td>${p.date||'—'}</td><td>${formatCurrency(p.amount||0)}</td><td title="${(p.note||'').replace(/"/g,'&quot;')}">${p.note||'—'}</td></tr>`).join('') : '<tr><td colspan="3" style="text-align:center;color:var(--text-light);">No payments.</td></tr>'}
+            ${(c.payments||[]).length > 0 ? [...c.payments].sort((a,b)=>new Date(b.date)-new Date(a.date)).map(p=>`<tr><td>${p.date||'—'}</td><td>${formatCurrency(p.amount||0)}</td><td title="${(p.note||'').replace(/"/g,'&quot;')}">${p.note||'—'}</td></tr>`).join('') : '<tr><td colspan="3" style="text-align:center;color:var(--text-light);">कोई भुगतान नहीं।</td></tr>'}
           </tbody>
         </table>
       </div>
       <div class="flex-row mt-2">
-        <button class="btn" data-download-cust="${c.id}"><i class="fas fa-file-pdf"></i> Download Bill PDF</button>
+        <button class="btn" data-download-cust="${c.id}"><i class="fas fa-file-pdf"></i> बिल PDF डाउनलोड करें</button>
       </div>
     `;
     container.appendChild(card);
@@ -1797,14 +1796,14 @@ function renderWorkTableForCustomer(works){
   if(!tbody) return;
   tbody.innerHTML='';
   if(!works || works.length===0){
-    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text-light);">No work entries.</td></tr>';
+    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text-light);">कोई काम दर्ज नहीं।</td></tr>';
     const wc = document.getElementById('workCount'); if(wc) wc.innerText='0';
     return;
   }
   works.forEach((work, index)=>{
     const row = document.createElement('tr');
-    const typeLabel = work.type==='hourly' ? '<span class="hours-badge">Hourly</span>' : '<span class="hours-badge" style="background:var(--border);">Fixed</span>';
-    const hoursLabel = work.type==='hourly' ? (work.hours||0)+' hrs' : '—';
+    const typeLabel = work.type==='hourly' ? '<span class="hours-badge">प्रति घंटा</span>' : '<span class="hours-badge" style="background:var(--border);">तय</span>';
+    const hoursLabel = work.type==='hourly' ? (work.hours||0)+' घंटे' : '—';
     row.innerHTML = `
       <td title="${(work.desc||'').replace(/"/g,'&quot;')}">${work.desc||'—'}</td>
       <td>${typeLabel}</td>
@@ -1819,7 +1818,7 @@ function renderWorkTableForCustomer(works){
 }
 
 window.deleteWork = function(customerId, index){
-  if(loggedInUserType==='customer'){ alert('Not allowed'); return; }
+  if(loggedInUserType==='customer'){ alert('अनुमति नहीं'); return; }
   const customers = loadCustomers();
   const c = customers.find(x=>x.id===customerId);
   if(c && c.works){
@@ -1836,7 +1835,7 @@ function renderPaymentTableForCustomer(payments){
   if(!tbody) return;
   tbody.innerHTML='';
   if(!payments || payments.length===0){
-    tbody.innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--text-light);">No payments.</td></tr>';
+    tbody.innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--text-light);">कोई भुगतान नहीं।</td></tr>';
     return;
   }
   [...payments].sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach(p=>{
@@ -1860,13 +1859,13 @@ function updateSummaryForCustomer(c){
   document.getElementById('displayDue').innerText = formatCurrency(due);
   const reminderEl = document.getElementById('reminderText');
   const reminderBadge = document.getElementById('reminderBadge');
-  let msg = c.reminder || (currentLang==='hi'?'कोई रिमाइंडर नहीं':'No active reminders');
+  let msg = c.reminder || 'कोई सक्रिय रिमाइंडर नहीं';
   if(due>0){
-    msg += ` · Due: ${formatCurrency(due)}`;
+    msg += ` · बकाया: ${formatCurrency(due)}`;
     reminderEl.innerHTML = `<i class="fas fa-bell"></i> ${msg}`;
-    reminderBadge.innerHTML = `<i class="fas fa-clock"></i> Reminder: ${msg}`;
+    reminderBadge.innerHTML = `<i class="fas fa-clock"></i> रिमाइंडर: ${msg}`;
   } else {
-    reminderEl.innerHTML = `<i class="fas fa-check-circle" style="color:var(--success);"></i> All clear · ${msg}`;
+    reminderEl.innerHTML = `<i class="fas fa-check-circle" style="color:var(--success);"></i> सब क्लियर · ${msg}`;
     reminderBadge.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
   }
 }
@@ -1893,7 +1892,7 @@ function renderStaffList(){
   const staff = loadStaff();
   container.innerHTML = '';
   if(staff.length===0){
-    container.innerHTML = '<p class="text-small">No users added yet.</p>';
+    container.innerHTML = '<p class="text-small">अभी कोई उपयोगकर्ता नहीं जोड़ा गया।</p>';
     return;
   }
   staff.forEach(s=>{
@@ -1906,7 +1905,7 @@ function renderStaffList(){
         <div class="staff-meta"><i class="fas fa-mobile-alt"></i> ${s.mobile}</div>
       </div>
       <div class="staff-actions">
-        <button class="toggle-switch ${s.power?'active':''}" data-id="${s.id}" title="Power ON/OFF"></button>
+        <button class="toggle-switch ${s.power?'active':''}" data-id="${s.id}" title="पावर चालू/बंद"></button>
         <button class="btn btn-small btn-outline" data-edit="${s.id}"><i class="fas fa-edit"></i></button>
         <button class="btn btn-small btn-danger" data-del="${s.id}"><i class="fas fa-trash"></i></button>
       </div>
@@ -1924,7 +1923,7 @@ function renderStaffList(){
       document.getElementById('staffEditId').value = s.id;
     });
     row.querySelector('[data-del]').addEventListener('click', ()=>{
-      if(!confirm('Delete this user?')) return;
+      if(!confirm('क्या आप यह उपयोगकर्ता हटाना चाहते हैं?')) return;
       const arr = loadStaff().filter(x=>x.id!==s.id);
       saveStaff(arr);
       renderStaffList();
@@ -1972,7 +1971,7 @@ function renderSlideList(){
   if(!container) return;
   const slides = loadSlides();
   container.innerHTML='';
-  if(slides.length===0){ container.innerHTML='<p class="text-small">No slides added.</p>'; return; }
+  if(slides.length===0){ container.innerHTML='<p class="text-small">कोई स्लाइड नहीं जोड़ी गई।</p>'; return; }
   slides.forEach((s, idx)=>{
     const div = document.createElement('div');
     div.style.cssText='position:relative;display:inline-block;';
@@ -2048,27 +2047,27 @@ function renderReportPanel(container){
   });
   const monthlyRows = Object.entries(monthly).sort().reverse().map(([k,v])=>`
     <tr><td>${k}</td><td>${formatCurrency(v.income)}</td><td>${formatCurrency(v.expense)}</td><td>${formatCurrency(v.income - v.expense)}</td></tr>
-  `).join('') || '<tr><td colspan="4" class="text-small">No data.</td></tr>';
+  `).join('') || '<tr><td colspan="4" class="text-small">कोई डेटा नहीं।</td></tr>';
   const yearlyRows = Object.entries(yearly).sort().reverse().map(([y,v])=>`
     <tr><td>${y}</td><td>${formatCurrency(v.income)}</td><td>${formatCurrency(v.expense)}</td><td>${formatCurrency(v.income - v.expense)}</td></tr>
-  `).join('') || '<tr><td colspan="4" class="text-small">No data.</td></tr>';
+  `).join('') || '<tr><td colspan="4" class="text-small">कोई डेटा नहीं।</td></tr>';
   container.innerHTML = `
     <div class="card">
-      <h3><i class="fas fa-chart-line"></i> Monthly Report</h3>
-      <div style="overflow-x:auto;"><table><thead><tr><th>Month</th><th>Income</th><th>Expense</th><th>Profit</th></tr></thead><tbody>${monthlyRows}</tbody></table></div>
+      <h3><i class="fas fa-chart-line"></i> मासिक रिपोर्ट</h3>
+      <div style="overflow-x:auto;"><table><thead><tr><th>महीना</th><th>आय</th><th>खर्च</th><th>लाभ</th></tr></thead><tbody>${monthlyRows}</tbody></table></div>
     </div>
     <div class="card mt-2">
-      <h3><i class="fas fa-chart-pie"></i> Yearly Report</h3>
-      <div style="overflow-x:auto;"><table><thead><tr><th>Year</th><th>Income</th><th>Expense</th><th>Profit</th></tr></thead><tbody>${yearlyRows}</tbody></table></div>
+      <h3><i class="fas fa-chart-pie"></i> वार्षिक रिपोर्ट</h3>
+      <div style="overflow-x:auto;"><table><thead><tr><th>वर्ष</th><th>आय</th><th>खर्च</th><th>लाभ</th></tr></thead><tbody>${yearlyRows}</tbody></table></div>
     </div>
     <div class="card mt-2">
-      <button class="btn btn-small btn-outline" id="exportReportBtn"><i class="fas fa-download"></i> Export Report as CSV</button>
+      <button class="btn btn-small btn-outline" id="exportReportBtn"><i class="fas fa-download"></i> रिपोर्ट CSV में डाउनलोड करें</button>
     </div>
   `;
   const exportBtn = container.querySelector('#exportReportBtn');
   if(exportBtn){
     exportBtn.addEventListener('click', ()=>{
-      let csv = 'Month,Income,Expense,Profit\n';
+      let csv = 'महीना,आय,खर्च,लाभ\n';
       Object.entries(monthly).sort().reverse().forEach(([k,v])=>{
         csv += `${k},${v.income},${v.expense},${v.income-v.expense}\n`;
       });
@@ -2111,8 +2110,8 @@ function renderBillsReport(container){
   pendingList.sort((a,b)=> b.days - a.days);
   const pendingRows = pendingList.map(p=>{
     const badge = p.days > 30
-      ? `<span class="days-overdue">${p.days} days overdue</span>`
-      : (p.days > 7 ? `<span class="days-warn">${p.days} days</span>` : `<span class="badge">${p.days} days</span>`);
+      ? `<span class="days-overdue">${p.days} दिन विलंब</span>`
+      : (p.days > 7 ? `<span class="days-warn">${p.days} दिन</span>` : `<span class="badge">${p.days} दिन</span>`);
     return `<tr class="pending-row">
       <td><strong>${p.c.customerName||'—'}</strong><br><span class="text-small">${p.c.customerMobile||''}</span></td>
       <td>${p.c.billNo||'—'}</td>
@@ -2121,37 +2120,37 @@ function renderBillsReport(container){
       <td class="paid">${formatCurrency(p.paid)}</td>
       <td class="due">${formatCurrency(p.due)}</td>
       <td>${badge}</td>
-      <td><button class="btn btn-small btn-outline" onclick="openBillFromReport('${p.c.id}')"><i class="fas fa-file-invoice"></i> Bill</button></td>
+      <td><button class="btn btn-small btn-outline" onclick="openBillFromReport('${p.c.id}')"><i class="fas fa-file-invoice"></i> बिल</button></td>
     </tr>`;
-  }).join('') || '<tr><td colspan="8" class="text-small" style="text-align:center;">No pending bills 🎉</td></tr>';
+  }).join('') || '<tr><td colspan="8" class="text-small" style="text-align:center;">कोई बकाया बिल नहीं 🎉</td></tr>';
   const paidRows = paidList.map(p=>`
     <tr>
       <td>${p.c.customerName||'—'}<br><span class="text-small">${p.c.customerMobile||''}</span></td>
       <td>${p.c.billNo||'—'}</td>
       <td>${formatCurrency(p.total)}</td>
       <td class="paid">${formatCurrency(p.paid)}</td>
-      <td><button class="btn btn-small btn-outline" onclick="openBillFromReport('${p.c.id}')"><i class="fas fa-file-invoice"></i> Bill</button></td>
-    </tr>`).join('') || '<tr><td colspan="5" class="text-small" style="text-align:center;">No fully paid bills.</td></tr>';
+      <td><button class="btn btn-small btn-outline" onclick="openBillFromReport('${p.c.id}')"><i class="fas fa-file-invoice"></i> बिल</button></td>
+    </tr>`).join('') || '<tr><td colspan="5" class="text-small" style="text-align:center;">कोई पूर्ण भुगतान बिल नहीं।</td></tr>';
   container.innerHTML = `
     <div class="card">
-      <h3><i class="fas fa-chart-bar"></i> Bills Summary</h3>
+      <h3><i class="fas fa-chart-bar"></i> बिल सारांश</h3>
       <div class="summary-grid mt-2">
-        <div class="summary-item"><i class="fas fa-file-invoice"></i><div class="info"><div class="value">${formatCurrency(totalBilled)}</div><div class="label">Total Billed</div></div></div>
-        <div class="summary-item"><i class="fas fa-check-circle"></i><div class="info"><div class="value paid">${formatCurrency(totalPaid)}</div><div class="label">Total Paid</div></div></div>
-        <div class="summary-item"><i class="fas fa-exclamation-triangle"></i><div class="info"><div class="value due">${formatCurrency(totalPending)}</div><div class="label">Total Pending</div></div></div>
-        <div class="summary-item"><i class="fas fa-clock"></i><div class="info"><div class="value">${pendingList.length}</div><div class="label">Pending Bills</div></div></div>
+        <div class="summary-item"><i class="fas fa-file-invoice"></i><div class="info"><div class="value">${formatCurrency(totalBilled)}</div><div class="label">कुल बिल</div></div></div>
+        <div class="summary-item"><i class="fas fa-check-circle"></i><div class="info"><div class="value paid">${formatCurrency(totalPaid)}</div><div class="label">कुल चुकाया</div></div></div>
+        <div class="summary-item"><i class="fas fa-exclamation-triangle"></i><div class="info"><div class="value due">${formatCurrency(totalPending)}</div><div class="label">कुल बकाया</div></div></div>
+        <div class="summary-item"><i class="fas fa-clock"></i><div class="info"><div class="value">${pendingList.length}</div><div class="label">बकाया बिल</div></div></div>
       </div>
     </div>
     <div class="card">
-      <h3><i class="fas fa-exclamation-circle" style="color:var(--danger);"></i> Pending Payments (longest overdue first)</h3>
+      <h3><i class="fas fa-exclamation-circle" style="color:var(--danger);"></i> बकाया भुगतान (सबसे पुराना पहले)</h3>
       <div style="overflow-x:auto;margin-top:0.6rem;">
-        <table><thead><tr><th>Customer</th><th>Bill No</th><th>Since</th><th>Total</th><th>Paid</th><th>Due</th><th>Overdue</th><th></th></tr></thead><tbody>${pendingRows}</tbody></table>
+        <table><thead><tr><th>ग्राहक</th><th>बिल नंबर</th><th>से</th><th>कुल</th><th>चुकाया</th><th>बकाया</th><th>विलंब</th><th></th></tr></thead><tbody>${pendingRows}</tbody></table>
       </div>
     </div>
     <div class="card">
-      <h3><i class="fas fa-check-circle" style="color:var(--success);"></i> Fully Paid Bills</h3>
+      <h3><i class="fas fa-check-circle" style="color:var(--success);"></i> पूर्ण भुगतान बिल</h3>
       <div style="overflow-x:auto;margin-top:0.6rem;">
-        <table><thead><tr><th>Customer</th><th>Bill No</th><th>Total</th><th>Paid</th><th></th></tr></thead><tbody>${paidRows}</tbody></table>
+        <table><thead><tr><th>ग्राहक</th><th>बिल नंबर</th><th>कुल</th><th>चुकाया</th><th></th></tr></thead><tbody>${paidRows}</tbody></table>
       </div>
     </div>
   `;
@@ -2220,51 +2219,51 @@ document.addEventListener('DOMContentLoaded', ()=>{
     localStorage.setItem('damor_lang', lang);
     localStorage.setItem('damor_theme', theme);
     applyTheme(theme); applyLanguage(lang);
-    alert('Settings saved!');
+    alert('सेटिंग्स सेव हो गईं!');
   });
 
   document.getElementById('saveSecurityBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin can do this.'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन यह कर सकता है।'); return; }
     const newUser = document.getElementById('settingsUsername').value.trim();
     const newPass = document.getElementById('settingsPassword').value;
-    if(!newUser){ alert('Username cannot be empty'); return; }
+    if(!newUser){ alert('उपयोगकर्ता नाम खाली नहीं हो सकता'); return; }
     localStorage.setItem(ADMIN_USER_KEY, newUser);
     if(newPass){ localStorage.setItem(ADMIN_PASSWORD_KEY, newPass); }
     document.getElementById('settingsPassword').value='';
     loggedInUserName = newUser;
     sessionStorage.setItem('damor_logged_in_name', newUser);
     document.getElementById('loggedInUserName').innerText = newUser;
-    alert('Admin credentials updated!');
+    alert('एडमिन क्रेडेंशियल अपडेट हो गए!');
   });
 
   document.getElementById('saveMyPasswordBtn').addEventListener('click', ()=>{
     if(loggedInUserType==='admin') return;
     const p1 = document.getElementById('myNewPassword').value;
     const p2 = document.getElementById('myConfirmPassword').value;
-    if(!p1){ alert('Enter new password'); return; }
-    if(p1!==p2){ alert('Passwords do not match'); return; }
+    if(!p1){ alert('नया पासवर्ड दर्ज करें'); return; }
+    if(p1!==p2){ alert('पासवर्ड मेल नहीं खाते'); return; }
     const staff = loadStaff();
     const me = staff.find(s=>s.id===loggedInUserId);
-    if(me){ me.password = p1; saveStaff(staff); alert('Password updated!'); }
-    else alert('User not found');
+    if(me){ me.password = p1; saveStaff(staff); alert('पासवर्ड अपडेट हो गया!'); }
+    else alert('उपयोगकर्ता नहीं मिला');
     document.getElementById('myNewPassword').value='';
     document.getElementById('myConfirmPassword').value='';
   });
 
   document.getElementById('addStaffBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin can do this.'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन यह कर सकता है।'); return; }
     const role = document.getElementById('staffRoleInput').value;
     const name = document.getElementById('staffNameInput').value.trim();
     const mobile = document.getElementById('staffMobileInputAdd').value.trim();
     const editId = document.getElementById('staffEditId').value;
     let password = document.getElementById('staffPasswordInputAdd').value.trim();
     if(role === 'customer' && !password) password = CUSTOMER_DEFAULT_PASSWORD;
-    if(!name){ alert('Enter name'); return; }
-    if(mobile.length!==10 || isNaN(mobile)){ alert('Enter valid 10-digit mobile'); return; }
-    if(!password){ alert('Enter password'); return; }
+    if(!name){ alert('नाम दर्ज करें'); return; }
+    if(mobile.length!==10 || isNaN(mobile)){ alert('सही 10-अंकों का मोबाइल दर्ज करें'); return; }
+    if(!password){ alert('पासवर्ड दर्ज करें'); return; }
     const staff = loadStaff();
     const existing = staff.find(s=>s.mobile===mobile && s.id !== editId);
-    if(existing){ alert('This mobile is already registered'); return; }
+    if(existing){ alert('यह मोबाइल पहले से पंजीकृत है'); return; }
     if(editId){
       const idx = staff.findIndex(s=>s.id===editId);
       if(idx>=0){ staff[idx].role = role; staff[idx].name = name; staff[idx].mobile = mobile; staff[idx].password = password; }
@@ -2274,7 +2273,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     saveStaff(staff);
     clearStaffForm();
     renderStaffList();
-    alert('User saved!' + (role==='customer' ? ' (Default password: 123)' : ''));
+    alert('उपयोगकर्ता सेव हो गया!' + (role==='customer' ? ' (डिफ़ॉल्ट पासवर्ड: 123)' : ''));
   });
 
   document.getElementById('clearStaffFormBtn').addEventListener('click', clearStaffForm);
@@ -2285,28 +2284,28 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   document.getElementById('applyLogoBtn').addEventListener('click', ()=>{
     const fileInput = document.getElementById('logoUpload');
-    if(!fileInput.files || !fileInput.files[0]){ alert('Choose a logo file'); return; }
+    if(!fileInput.files || !fileInput.files[0]){ alert('लोगो फाइल चुनें'); return; }
     const reader = new FileReader();
-    reader.onload = (e)=>{ localStorage.setItem(LOGO_KEY, e.target.result); applyLogo(); loadLogoPreview(); alert('Logo applied!'); };
+    reader.onload = (e)=>{ localStorage.setItem(LOGO_KEY, e.target.result); applyLogo(); loadLogoPreview(); alert('लोगो लग गया!'); };
     reader.readAsDataURL(fileInput.files[0]);
   });
   document.getElementById('removeLogoBtn').addEventListener('click', ()=>{
-    localStorage.removeItem(LOGO_KEY); applyLogo(); loadLogoPreview(); alert('Logo removed');
+    localStorage.removeItem(LOGO_KEY); applyLogo(); loadLogoPreview(); alert('लोगो हट गया');
   });
   document.getElementById('addSlideBtn').addEventListener('click', ()=>{
     const fileInput = document.getElementById('slideUpload');
-    if(!fileInput.files || !fileInput.files[0]){ alert('Choose an image'); return; }
+    if(!fileInput.files || !fileInput.files[0]){ alert('इमेज चुनें'); return; }
     const reader = new FileReader();
     reader.onload = (e)=>{
       const arr = loadSlides(); arr.push(e.target.result); saveSlides(arr);
-      renderSlideList(); startHeroSlideshow(); fileInput.value=''; alert('Slide added!');
+      renderSlideList(); startHeroSlideshow(); fileInput.value=''; alert('स्लाइड जुड़ गई!');
     };
     reader.readAsDataURL(fileInput.files[0]);
   });
 
-  // ===== HOME HERO SAVE =====
+  // ===== होम हीरो सेव =====
   document.getElementById('saveHomeHeroBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const hc = loadHomeContent();
     hc.heroTag = document.getElementById('hcHeroTag').value.trim();
     hc.heroTitle = document.getElementById('hcHeroTitle').value.trim();
@@ -2317,12 +2316,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     hc.heroStats = parseStats(document.getElementById('hcHeroStats').value);
     saveHomeContent(hc);
     renderHomeContent();
-    alert('Home hero saved!');
+    alert('होम हीरो सेव हो गया!');
   });
 
-  // ===== HOME SECTION HEADS =====
+  // ===== होम सेक्शन शीर्षक =====
   document.getElementById('saveHomeHeadsBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const hc = loadHomeContent();
     hc.workEyebrow = document.getElementById('hcWorkEyebrow').value.trim();
     hc.workTitle = document.getElementById('hcWorkTitle').value.trim();
@@ -2331,12 +2330,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     hc.whyTitle = document.getElementById('hcWhyTitle').value.trim();
     saveHomeContent(hc);
     renderHomeContent();
-    alert('Section headings saved!');
+    alert('सेक्शन शीर्षक सेव हो गए!');
   });
 
-  // ===== WHY CARDS =====
+  // ===== क्यों कार्ड =====
   document.getElementById('saveHomeWhyBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const hc = loadHomeContent();
     const cards = [];
     for(let i=1;i<=4;i++){
@@ -2349,12 +2348,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     hc.whyCards = cards;
     saveHomeContent(hc);
     renderHomeContent();
-    alert('Why cards saved!');
+    alert('क्यों कार्ड सेव हो गए!');
   });
 
-  // ===== RATE + STEPS =====
+  // ===== रेट + स्टेप =====
   document.getElementById('saveHomeRateStepsBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const hc = loadHomeContent();
     hc.rateHead = document.getElementById('hcRateHead').value.trim();
     hc.rateSeason = document.getElementById('hcRateSeason').value.trim();
@@ -2369,23 +2368,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     saveHomeContent(hc);
     renderHomeContent();
-    alert('Rate & steps saved!');
+    alert('रेट और स्टेप सेव हो गए!');
   });
 
-  // ===== HOME CTA =====
+  // ===== होम CTA =====
   document.getElementById('saveHomeCtaBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const hc = loadHomeContent();
     hc.ctaTitle = document.getElementById('hcCtaTitle').value.trim();
     hc.ctaDesc = document.getElementById('hcCtaDesc').value.trim();
     saveHomeContent(hc);
     renderHomeContent();
-    alert('CTA saved!');
+    alert('CTA सेव हो गया!');
   });
 
-  // ===== SERVICES PAGE HEAD + CTA =====
+  // ===== सेवाएं पेज हेड + CTA =====
   document.getElementById('saveSvcPageBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const hc = loadHomeContent();
     hc.svcPageTitle = document.getElementById('hcSvcTitle').value.trim();
     hc.svcPageDesc = document.getElementById('hcSvcDesc').value.trim();
@@ -2393,12 +2392,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     hc.svcCtaDesc = document.getElementById('hcSvcCtaDesc').value.trim();
     saveHomeContent(hc);
     renderHomeContent();
-    alert('Services page saved!');
+    alert('सेवाएं पेज सेव हो गया!');
   });
 
-  // ===== SERVICES LIST =====
+  // ===== सेवाएं सूची =====
   document.getElementById('saveServiceBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const icon = document.getElementById('svcIcon').value.trim() || 'fas fa-tractor';
     const title = document.getElementById('svcTitle').value.trim();
     const price = document.getElementById('svcPrice').value.trim();
@@ -2406,7 +2405,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const hindi = document.getElementById('svcHindi').value.trim();
     const time = document.getElementById('svcTime').value.trim();
     const category = document.getElementById('svcCategory').value;
-    if(!title){ alert('Enter service title'); return; }
+    if(!title){ alert('सेवा शीर्षक दर्ज करें'); return; }
     const hc = loadHomeContent();
     const editIdx = document.getElementById('svcEditIdx').value;
     const item = {icon, title, price, desc, hindi, time, category};
@@ -2415,7 +2414,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     saveHomeContent(hc);
     renderHomeContent();
     document.getElementById('clearServiceBtn').click();
-    alert('Service saved!');
+    alert('सेवा सेव हो गई!');
   });
   document.getElementById('clearServiceBtn').addEventListener('click', ()=>{
     document.getElementById('svcIcon').value='';
@@ -2428,9 +2427,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('svcEditIdx').value='';
   });
 
-  // ===== ABOUT =====
+  // ===== हमारे बारे में =====
   document.getElementById('saveAboutContentBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const hc = loadHomeContent();
     hc.aboutHeroDesc = document.getElementById('hcAboutHero').value.trim();
     hc.aboutSub = document.getElementById('hcAboutSub').value.trim();
@@ -2440,16 +2439,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
     hc.aboutStats = parseStats(document.getElementById('hcAboutStats').value);
     saveHomeContent(hc);
     renderHomeContent();
-    alert('About page saved!');
+    alert('हमारे बारे में पेज सेव हो गया!');
   });
 
-  // ===== TEAM =====
+  // ===== टीम =====
   document.getElementById('saveTeamBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const icon = document.getElementById('tmIcon').value.trim() || 'fas fa-user';
     const name = document.getElementById('tmName').value.trim();
     const role = document.getElementById('tmRole').value.trim();
-    if(!name){ alert('Enter member name'); return; }
+    if(!name){ alert('सदस्य का नाम दर्ज करें'); return; }
     const hc = loadHomeContent();
     const editIdx = document.getElementById('tmEditIdx').value;
     const item = {icon, name, role};
@@ -2458,7 +2457,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     saveHomeContent(hc);
     renderHomeContent();
     document.getElementById('clearTeamBtn').click();
-    alert('Team member saved!');
+    alert('टीम सदस्य सेव हो गया!');
   });
   document.getElementById('clearTeamBtn').addEventListener('click', ()=>{
     document.getElementById('tmIcon').value='';
@@ -2467,42 +2466,42 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('tmEditIdx').value='';
   });
 
-  // ===== ABOUT CTA =====
+  // ===== हमारे बारे में CTA =====
   document.getElementById('saveAboutCtaBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const hc = loadHomeContent();
     hc.aboutCtaTitle = document.getElementById('hcAboutCtaTitle').value.trim();
     hc.aboutCtaDesc = document.getElementById('hcAboutCtaDesc').value.trim();
     saveHomeContent(hc);
     renderHomeContent();
-    alert('About CTA saved!');
+    alert('हमारे बारे में CTA सेव हो गया!');
   });
 
-  // ===== PHONE =====
+  // ===== फोन =====
   document.getElementById('savePhoneBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const num = document.getElementById('hcPhone').value.trim();
-    if(num.length!==10 || isNaN(num)){ alert('Enter valid 10-digit number'); return; }
+    if(num.length!==10 || isNaN(num)){ alert('सही 10-अंकों का नंबर दर्ज करें'); return; }
     localStorage.setItem(PHONE_KEY, num);
     bindContactButtons();
-    alert('Phone number saved!');
+    alert('फोन नंबर सेव हो गया!');
   });
 
-  // ===== RESET =====
+  // ===== रीसेट =====
   document.getElementById('resetHomeContentBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
-    if(!confirm('Reset home & services content to default? Bills/customers safe rahenge.')) return;
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
+    if(!confirm('होम और सेवाएं कंटेंट डिफ़ॉल्ट पर रीसेट करें? बिल/ग्राहक सुरक्षित रहेंगे।')) return;
     localStorage.removeItem(HOME_CONTENT_KEY);
     loadHomeContentIntoInputs();
     renderHomeContent();
-    alert('Content reset to default!');
+    alert('कंटेंट डिफ़ॉल्ट पर रीसेट हो गया!');
   });
 
-  // ===== BILL EDITOR =====
+  // ===== बिल एडिटर =====
   document.getElementById('setHourlyRateBtn').addEventListener('click', ()=>{
-    if(loggedInUserType==='customer'){ alert('Not allowed'); return; }
+    if(loggedInUserType==='customer'){ alert('अनुमति नहीं'); return; }
     const rate = parseFloat(document.getElementById('hourlyRateInput').value)||0;
-    if(rate<=0){ alert('Enter valid rate'); return; }
+    if(rate<=0){ alert('सही दर दर्ज करें'); return; }
     setHourlyRate(rate);
     document.getElementById('displayHourlyRate').innerText = formatCurrency(rate);
     if(activeCustomerId){
@@ -2510,7 +2509,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const c = customers.find(x=>x.id===activeCustomerId);
       if(c){ c.hourlyRate = rate; saveCustomers(customers); }
     }
-    alert('Hourly rate set!');
+    alert('प्रति घंटा दर सेट हो गई!');
   });
 
   document.getElementById('workType').addEventListener('change', e=>{
@@ -2520,13 +2519,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const priceLabel = document.getElementById('priceLabel');
     const calcPreview = document.getElementById('calcPreview');
     if(type==='hourly'){
-      priceLabel.innerText = 'Rate (₹/hr)';
+      priceLabel.innerText = 'दर (₹/घंटा)';
       priceInput.value = getHourlyRate();
       hoursInput.disabled = false;
       hoursInput.style.background = 'var(--card-bg)';
       calcPreview.innerText = '';
     } else {
-      priceLabel.innerText = 'Price (₹)';
+      priceLabel.innerText = 'कीमत (₹)';
       priceInput.value = '0';
       hoursInput.disabled = true;
       hoursInput.style.background = 'var(--bg)';
@@ -2541,28 +2540,28 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const hours = parseFloat(document.getElementById('workHours').value)||0;
     const calcPreview = document.getElementById('calcPreview');
     if(type==='hourly' && hours>0 && rate>0){
-      calcPreview.innerText = `= ${hours} hrs × ${formatCurrency(rate)} = ${formatCurrency(hours*rate)}`;
+      calcPreview.innerText = `= ${hours} घंटे × ${formatCurrency(rate)} = ${formatCurrency(hours*rate)}`;
     } else calcPreview.innerText = '';
   }
   document.getElementById('workPrice').addEventListener('input', updateHourlyPreview);
   document.getElementById('workHours').addEventListener('input', updateHourlyPreview);
 
   document.getElementById('addWorkBtn').addEventListener('click', ()=>{
-    if(loggedInUserType==='customer'){ alert('Not allowed'); return; }
-    if(!activeCustomerId){ alert('Select a customer first.'); return; }
+    if(loggedInUserType==='customer'){ alert('अनुमति नहीं'); return; }
+    if(!activeCustomerId){ alert('पहले ग्राहक चुनें।'); return; }
     const desc = document.getElementById('workDesc').value.trim();
     const type = document.getElementById('workType').value;
     const priceInput = parseFloat(document.getElementById('workPrice').value)||0;
     const hours = parseFloat(document.getElementById('workHours').value)||0;
     const photoInput = document.getElementById('workPhoto');
-    if(!desc){ alert('Enter work description'); return; }
+    if(!desc){ alert('काम का विवरण दर्ज करें'); return; }
     let finalPrice = 0;
     if(type==='hourly'){
-      if(hours<=0){ alert('Enter hours worked'); return; }
-      if(priceInput<=0){ alert('Set hourly rate'); return; }
+      if(hours<=0){ alert('काम के घंटे दर्ज करें'); return; }
+      if(priceInput<=0){ alert('प्रति घंटा दर सेट करें'); return; }
       finalPrice = hours * priceInput;
     } else {
-      if(priceInput<=0){ alert('Enter price'); return; }
+      if(priceInput<=0){ alert('कीमत दर्ज करें'); return; }
       finalPrice = priceInput;
     }
     const newWork = { id:generateId(), desc, type, hours: type==='hourly'?hours:0, rate: type==='hourly'?priceInput:0, price:finalPrice, photo:null };
@@ -2599,24 +2598,24 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('workHours').value='0';
     document.getElementById('workHours').disabled=true;
     document.getElementById('workHours').style.background='var(--bg)';
-    document.getElementById('priceLabel').innerText='Price (₹)';
+    document.getElementById('priceLabel').innerText='कीमत (₹)';
     document.getElementById('workPhoto').value='';
     document.getElementById('calcPreview').innerText='';
   }
 
   document.getElementById('addPaymentBtn').addEventListener('click', ()=>{
-    if(loggedInUserType==='customer'){ alert('Not allowed'); return; }
-    if(!activeCustomerId){ alert('Select a customer first.'); return; }
+    if(loggedInUserType==='customer'){ alert('अनुमति नहीं'); return; }
+    if(!activeCustomerId){ alert('पहले ग्राहक चुनें।'); return; }
     const amount = parseFloat(document.getElementById('paymentAmount').value)||0;
     const date = document.getElementById('paymentDate').value || new Date().toISOString().split('T')[0];
-    const note = document.getElementById('paymentNote').value.trim() || 'Payment';
-    if(amount<=0){ alert('Enter amount'); return; }
+    const note = document.getElementById('paymentNote').value.trim() || 'भुगतान';
+    if(amount<=0){ alert('राशि दर्ज करें'); return; }
     const customers = loadCustomers();
     const c = customers.find(x=>x.id===activeCustomerId);
     if(!c) return;
     if(!c.payments) c.payments = [];
     c.payments.push({ id:generateId(), amount, date, note });
-    if(note.toLowerCase().includes('remind') || note.toLowerCase().includes('due')) c.reminder = note;
+    if(note.toLowerCase().includes('रिमाइंड') || note.toLowerCase().includes('बकाया')) c.reminder = note;
     saveCustomers(customers);
     addPassbookEntry({ type:'income', amount, note, date, customerName:c.customerName, billNo:c.billNo });
     renderPaymentTableForCustomer(c.payments);
@@ -2627,16 +2626,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
 
   document.getElementById('saveCustomerBtn').addEventListener('click', ()=>{
-    if(loggedInUserType==='customer'){ alert('Not allowed'); return; }
+    if(loggedInUserType==='customer'){ alert('अनुमति नहीं'); return; }
     if(activeCustomerId){
       syncActiveCustomerFromInputs();
-      alert('Customer data saved.');
+      alert('ग्राहक डेटा सेव हो गया।');
     } else {
       const customers = loadCustomers();
       const newId = generateId();
       const newCustomer = {
         id:newId,
-        customerName: document.getElementById('customerName').value.trim() || 'Unnamed',
+        customerName: document.getElementById('customerName').value.trim() || 'बिना नाम',
         customerMobile: document.getElementById('customerMobile').value.trim(),
         billNo: document.getElementById('billNo').value.trim() || 'TS-'+(customers.length+101),
         billDate: document.getElementById('billDate').value || new Date().toISOString().split('T')[0],
@@ -2644,7 +2643,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         hourlyRate: getHourlyRate(),
         works: [], payments: [], reminder:'',
         createdByMobile: loggedInUserMobile || 'admin',
-        createdByName: loggedInUserName || 'Admin',
+        createdByName: loggedInUserName || 'एडमिन',
         createdByRole: loggedInUserType || 'admin'
       };
       customers.push(newCustomer);
@@ -2661,12 +2660,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
       activeCustomerId = newId;
       loadCustomerIntoEditor(newId);
       refreshDashboard();
-      alert('New customer created. Login password: 123');
+      alert('नया ग्राहक बन गया। लॉगिन पासवर्ड: 123');
     }
   });
 
   document.getElementById('newCustomerBtn').addEventListener('click', ()=>{
-    if(loggedInUserType==='customer'){ alert('Not allowed'); return; }
+    if(loggedInUserType==='customer'){ alert('अनुमति नहीं'); return; }
     activeCustomerId = null;
     const customers = loadCustomers();
     const nextNum = customers.length + 101;
@@ -2685,21 +2684,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('displayTotal').innerText='₹0';
     document.getElementById('displayPaid').innerText='₹0';
     document.getElementById('displayDue').innerText='₹0';
-    document.getElementById('reminderText').innerHTML='<i class="fas fa-bell"></i> No active reminders';
-    document.getElementById('reminderBadge').innerHTML='<i class="fas fa-clock"></i> Reminder: none';
+    document.getElementById('reminderText').innerHTML='<i class="fas fa-bell"></i> कोई सक्रिय रिमाइंडर नहीं';
+    document.getElementById('reminderBadge').innerHTML='<i class="fas fa-clock"></i> रिमाइंडर: कोई नहीं';
     clearWorkInputs();
   });
 
   document.getElementById('addFarmerBtn').addEventListener('click', ()=>{
-    if(loggedInUserType==='customer'){ alert('Not allowed'); return; }
+    if(loggedInUserType==='customer'){ alert('अनुमति नहीं'); return; }
     switchDashTab('bills');
     setTimeout(()=> document.getElementById('newCustomerBtn').click(), 50);
   });
 
   document.getElementById('deleteCustomerBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin can delete customers'); return; }
-    if(!activeCustomerId){ alert('No customer selected.'); return; }
-    if(!confirm('Delete this customer and all data?')) return;
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन ग्राहक हटा सकता है'); return; }
+    if(!activeCustomerId){ alert('कोई ग्राहक चुना नहीं गया।'); return; }
+    if(!confirm('इस ग्राहक और सारा डेटा हटाएं?')) return;
     let customers = loadCustomers();
     customers = customers.filter(x=>x.id!==activeCustomerId);
     saveCustomers(customers);
@@ -2709,25 +2708,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
 
   document.getElementById('clearWorkLogBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     if(!activeCustomerId) return;
-    if(!confirm('Delete all work entries?')) return;
+    if(!confirm('सभी काम प्रविष्टियाँ हटाएं?')) return;
     const customers = loadCustomers();
     const c = customers.find(x=>x.id===activeCustomerId);
     if(c){ c.works=[]; saveCustomers(customers); renderWorkTableForCustomer([]); updateSummaryForCustomer(c); refreshDashboard(); }
   });
 
   document.getElementById('clearPaymentsBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     if(!activeCustomerId) return;
-    if(!confirm('Delete all payment records?')) return;
+    if(!confirm('सभी भुगतान रिकॉर्ड हटाएं?')) return;
     const customers = loadCustomers();
     const c = customers.find(x=>x.id===activeCustomerId);
     if(c){ c.payments=[]; saveCustomers(customers); renderPaymentTableForCustomer([]); updateSummaryForCustomer(c); refreshDashboard(); }
   });
 
   document.getElementById('setBillNoBtn').addEventListener('click', ()=>{
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     if(!activeCustomerId) return;
     const newBill = document.getElementById('adminBillNo').value.trim();
     if(!newBill) return;
@@ -2737,8 +2736,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
 
   document.getElementById('sharePdfBtn').addEventListener('click', ()=>{
-    if(loggedInUserType==='customer'){ alert('Not allowed'); return; }
-    if(!activeCustomerId){ alert('Select a customer first.'); return; }
+    if(loggedInUserType==='customer'){ alert('अनुमति नहीं'); return; }
+    if(!activeCustomerId){ alert('पहले ग्राहक चुनें।'); return; }
     syncActiveCustomerFromInputs();
     document.getElementById('pdfLangModal').classList.add('active');
   });
@@ -2746,7 +2745,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.getElementById('pdfLangEnBtn').addEventListener('click', ()=>{ generatePdf('en'); document.getElementById('pdfLangModal').classList.remove('active'); });
   document.getElementById('pdfLangHiBtn').addEventListener('click', ()=>{ generatePdf('hi'); document.getElementById('pdfLangModal').classList.remove('active'); });
 
-  // ===== MORE CARDS =====
+  // ===== अधिक कार्ड =====
   document.querySelectorAll('.more-card').forEach(card=>{
     card.addEventListener('click', ()=>{
       const toolName = card.dataset.tool;
@@ -2762,31 +2761,31 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const passbook = loadPassbook();
         const rows = passbook.slice().reverse().map(e=>`
           <tr><td>${e.date||'—'}</td><td>${e.type}</td><td>${e.customerName||'—'}</td><td>${e.billNo||'—'}</td><td>${formatCurrency(e.amount||0)}</td><td>${e.note||'—'}</td></tr>
-        `).join('') || '<tr><td colspan="6" class="text-small">No entries.</td></tr>';
+        `).join('') || '<tr><td colspan="6" class="text-small">कोई प्रविष्टि नहीं।</td></tr>';
         content.innerHTML = `
-          <div class="card"><h3>Passbook Entries</h3>
-            <div style="overflow-x:auto;"><table><thead><tr><th>Date</th><th>Type</th><th>Customer</th><th>Bill No</th><th>Amount</th><th>Note</th></tr></thead><tbody>${rows}</tbody></table></div>
+          <div class="card"><h3>पासबुक प्रविष्टियाँ</h3>
+            <div style="overflow-x:auto;"><table><thead><tr><th>तारीख</th><th>प्रकार</th><th>ग्राहक</th><th>बिल नंबर</th><th>राशि</th><th>नोट</th></tr></thead><tbody>${rows}</tbody></table></div>
           </div>
-          <div class="card mt-2"><h3>Add Manual Entry (Admin only)</h3>
+          <div class="card mt-2"><h3>मैन्युअल प्रविष्टि जोड़ें (सिर्फ एडमिन)</h3>
             <div class="grid-3">
-              <div><label>Type</label><select id="passbookType"><option value="income">Income</option><option value="expense">Expense</option></select></div>
-              <div><label>Amount</label><input type="number" id="passbookAmount" placeholder="0" min="0"></div>
-              <div><label>Date</label><input type="date" id="passbookDate"></div>
+              <div><label>प्रकार</label><select id="passbookType"><option value="income">आय</option><option value="expense">खर्च</option></select></div>
+              <div><label>राशि</label><input type="number" id="passbookAmount" placeholder="0" min="0"></div>
+              <div><label>तारीख</label><input type="date" id="passbookDate"></div>
             </div>
-            <div class="mt-1"><label>Note</label><input type="text" id="passbookNote" placeholder="e.g. Diesel refill"></div>
-            <button class="btn btn-small mt-1" id="addPassbookBtn"><i class="fas fa-plus"></i> Add Entry</button>
+            <div class="mt-1"><label>नोट</label><input type="text" id="passbookNote" placeholder="जैसे: डीजल रिफिल"></div>
+            <button class="btn btn-small mt-1" id="addPassbookBtn"><i class="fas fa-plus"></i> प्रविष्टि जोड़ें</button>
           </div>`;
         const addBtn = content.querySelector('#addPassbookBtn');
         if(addBtn){
           addBtn.addEventListener('click', ()=>{
-            if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+            if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
             const type = content.querySelector('#passbookType').value;
             const amount = parseFloat(content.querySelector('#passbookAmount').value)||0;
             const date = content.querySelector('#passbookDate').value || new Date().toISOString().split('T')[0];
             const note = content.querySelector('#passbookNote').value.trim();
-            if(amount<=0){ alert('Enter amount'); return; }
-            addPassbookEntry({ type, amount, date, note, customerName:'Manual', billNo:'' });
-            alert('Entry added!'); card.click();
+            if(amount<=0){ alert('राशि दर्ज करें'); return; }
+            addPassbookEntry({ type, amount, date, note, customerName:'मैन्युअल', billNo:'' });
+            alert('प्रविष्टि जोड़ी गई!'); card.click();
           });
         }
       } else if(toolName === 'Tools'){
@@ -2794,34 +2793,34 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const rows = tools.map(t=>`
           <tr><td>${t.name||'—'}</td><td>${formatCurrency(t.cost||0)}</td><td>${t.date||'—'}</td><td>${t.note||'—'}</td>
           <td><button class="btn btn-small btn-danger" onclick="deleteTool('${t.id}')"><i class="fas fa-trash"></i></button></td></tr>
-        `).join('') || '<tr><td colspan="5" class="text-small">No tools/expenses.</td></tr>';
+        `).join('') || '<tr><td colspan="5" class="text-small">कोई औज़ार/खर्च नहीं।</td></tr>';
         content.innerHTML = `
-          <div class="card"><h3>Tools & Expenses</h3>
-            <div style="overflow-x:auto;"><table><thead><tr><th>Name</th><th>Cost</th><th>Date</th><th>Note</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+          <div class="card"><h3>औज़ार और खर्च</h3>
+            <div style="overflow-x:auto;"><table><thead><tr><th>नाम</th><th>लागत</th><th>तारीख</th><th>नोट</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
           </div>
-          <div class="card mt-2"><h3>Add Tool / Expense (Admin only)</h3>
+          <div class="card mt-2"><h3>औज़ार/खर्च जोड़ें (सिर्फ एडमिन)</h3>
             <div class="grid-3">
-              <div><label>Tool name</label><input type="text" id="toolName" placeholder="e.g. Spanner set"></div>
-              <div><label>Cost (₹)</label><input type="number" id="toolCost" placeholder="0" min="0"></div>
-              <div><label>Date</label><input type="date" id="toolDate"></div>
+              <div><label>औज़ार का नाम</label><input type="text" id="toolName" placeholder="जैसे: स्पैनर सेट"></div>
+              <div><label>लागत (₹)</label><input type="number" id="toolCost" placeholder="0" min="0"></div>
+              <div><label>तारीख</label><input type="date" id="toolDate"></div>
             </div>
-            <div class="mt-1"><label>Note</label><input type="text" id="toolNote" placeholder="optional"></div>
-            <button class="btn btn-small mt-1" id="addToolBtn"><i class="fas fa-plus"></i> Add Tool</button>
+            <div class="mt-1"><label>नोट</label><input type="text" id="toolNote" placeholder="वैकल्पिक"></div>
+            <button class="btn btn-small mt-1" id="addToolBtn"><i class="fas fa-plus"></i> औज़ार जोड़ें</button>
           </div>`;
         const addBtn = content.querySelector('#addToolBtn');
         if(addBtn){
           addBtn.addEventListener('click', ()=>{
-            if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+            if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
             const name = content.querySelector('#toolName').value.trim();
             const cost = parseFloat(content.querySelector('#toolCost').value)||0;
             const date = content.querySelector('#toolDate').value || new Date().toISOString().split('T')[0];
             const note = content.querySelector('#toolNote').value.trim();
-            if(!name || cost<=0){ alert('Enter name and cost'); return; }
+            if(!name || cost<=0){ alert('नाम और लागत दर्ज करें'); return; }
             const arr = loadTools();
             arr.push({id:generateId(), name, cost, date, note});
             saveTools(arr);
-            addPassbookEntry({ type:'expense', amount:cost, note:'Tool: '+name, date, customerName:'', billNo:'' });
-            alert('Tool added!'); card.click();
+            addPassbookEntry({ type:'expense', amount:cost, note:'औज़ार: '+name, date, customerName:'', billNo:'' });
+            alert('औज़ार जोड़ा गया!'); card.click();
           });
         }
       } else if(toolName === 'Jobs'){
@@ -2829,13 +2828,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const rows = customers.filter(c=>c.works && c.works.length>0).map(c=>{
           const total = (c.works||[]).reduce((s,w)=>s+(Number(w.price)||0),0);
           return `<tr>
-            <td>${c.customerName||'—'}</td><td>${c.customerMobile||'—'}</td><td>${c.works.length} entries</td><td>${formatCurrency(total)}</td>
-            <td><button class="btn btn-small btn-outline" onclick="loadJobCustomer('${c.id}')"><i class="fas fa-file-invoice"></i> Show Bill</button></td>
+            <td>${c.customerName||'—'}</td><td>${c.customerMobile||'—'}</td><td>${c.works.length} प्रविष्टियाँ</td><td>${formatCurrency(total)}</td>
+            <td><button class="btn btn-small btn-outline" onclick="loadJobCustomer('${c.id}')"><i class="fas fa-file-invoice"></i> बिल दिखाएं</button></td>
           </tr>`;
-        }).join('') || '<tr><td colspan="5" class="text-small">No jobs yet.</td></tr>';
+        }).join('') || '<tr><td colspan="5" class="text-small">अभी कोई काम नहीं।</td></tr>';
         content.innerHTML = `
-          <div class="card"><h3>Jobs (Customers with work done)</h3>
-            <div style="overflow-x:auto;"><table><thead><tr><th>Customer</th><th>Mobile</th><th>Works</th><th>Total</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div>
+          <div class="card"><h3>काम (जिन ग्राहकों का काम हुआ)</h3>
+            <div style="overflow-x:auto;"><table><thead><tr><th>ग्राहक</th><th>मोबाइल</th><th>काम</th><th>कुल</th><th>कार्य</th></tr></thead><tbody>${rows}</tbody></table></div>
           </div>`;
         window.loadJobCustomer = function(cid){
           activeCustomerId = cid;
@@ -2848,57 +2847,57 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const rows = bookings.map(b=>`
           <tr><td>${b.customerName||'—'}</td><td>${b.customerMobile||'—'}</td><td>${b.workDesc||'—'}</td><td>${b.date||'—'}</td><td>${b.time||'—'}</td>
           <td><button class="btn btn-small btn-danger" onclick="deleteBooking('${b.id}')"><i class="fas fa-trash"></i></button></td></tr>
-        `).join('') || '<tr><td colspan="6" class="text-small">No bookings.</td></tr>';
+        `).join('') || '<tr><td colspan="6" class="text-small">कोई बुकिंग नहीं।</td></tr>';
         content.innerHTML = `
-          <div class="card"><h3>Customer Bookings</h3>
-            <div style="overflow-x:auto;"><table><thead><tr><th>Customer</th><th>Mobile</th><th>Work</th><th>Date</th><th>Time</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+          <div class="card"><h3>ग्राहक बुकिंग</h3>
+            <div style="overflow-x:auto;"><table><thead><tr><th>ग्राहक</th><th>मोबाइल</th><th>काम</th><th>तारीख</th><th>समय</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
           </div>
-          <div class="card mt-2"><h3>Add Booking (Admin only)</h3>
+          <div class="card mt-2"><h3>बुकिंग जोड़ें (सिर्फ एडमिन)</h3>
             <div class="grid-3">
-              <div><label>Customer name</label><input type="text" id="bookingName" placeholder="Ramesh Patel"></div>
-              <div><label>Mobile</label><input type="text" id="bookingMobile" placeholder="9876543210" maxlength="10"></div>
-              <div><label>Work description</label><input type="text" id="bookingWork" placeholder="e.g. Jutung"></div>
+              <div><label>ग्राहक का नाम</label><input type="text" id="bookingName" placeholder="रमेश पटेल"></div>
+              <div><label>मोबाइल</label><input type="text" id="bookingMobile" placeholder="9876543210" maxlength="10"></div>
+              <div><label>काम का विवरण</label><input type="text" id="bookingWork" placeholder="जैसे: जुताई"></div>
             </div>
             <div class="grid-3 mt-1">
-              <div><label>Date</label><input type="date" id="bookingDate"></div>
-              <div><label>Time</label><input type="time" id="bookingTime"></div>
-              <div style="display:flex;align-items:flex-end;"><button class="btn btn-small" id="addBookingBtn"><i class="fas fa-plus"></i> Add Booking</button></div>
+              <div><label>तारीख</label><input type="date" id="bookingDate"></div>
+              <div><label>समय</label><input type="time" id="bookingTime"></div>
+              <div style="display:flex;align-items:flex-end;"><button class="btn btn-small" id="addBookingBtn"><i class="fas fa-plus"></i> बुकिंग जोड़ें</button></div>
             </div>
           </div>`;
         const addBtn = content.querySelector('#addBookingBtn');
         if(addBtn){
           addBtn.addEventListener('click', ()=>{
-            if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+            if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
             const name = content.querySelector('#bookingName').value.trim();
             const mobile = content.querySelector('#bookingMobile').value.trim();
             const workDesc = content.querySelector('#bookingWork').value.trim();
             const date = content.querySelector('#bookingDate').value;
             const time = content.querySelector('#bookingTime').value;
-            if(!name || !workDesc || !date){ alert('Fill name, work and date'); return; }
+            if(!name || !workDesc || !date){ alert('नाम, काम और तारीख भरें'); return; }
             const arr = loadBookings();
             arr.push({id:generateId(), customerName:name, customerMobile:mobile, workDesc, date, time});
             saveBookings(arr);
-            alert('Booking added!'); card.click();
+            alert('बुकिंग जोड़ी गई!'); card.click();
           });
         }
       } else if(toolName === 'Reports'){ renderReportPanel(content); }
-      else { content.innerHTML = `<div class="card"><p class="text-small">The ${toolName} module is coming soon!</p></div>`; }
+      else { content.innerHTML = `<div class="card"><p class="text-small">${toolName} मॉड्यूल जल्द आ रहा है!</p></div>`; }
     });
   });
 
   document.getElementById('closeToolBtn').addEventListener('click', ()=> document.getElementById('toolPanel').classList.add('hidden'));
 
   window.deleteTool = function(id){
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const arr = loadTools().filter(t=>t.id!==id);
-    saveTools(arr); alert('Tool deleted');
+    saveTools(arr); alert('औज़ार हटा दिया');
     const card = document.querySelector('.more-card[data-tool="Tools"]');
     if(card) card.click();
   };
   window.deleteBooking = function(id){
-    if(loggedInUserType!=='admin'){ alert('Only admin'); return; }
+    if(loggedInUserType!=='admin'){ alert('सिर्फ एडमिन'); return; }
     const arr = loadBookings().filter(b=>b.id!==id);
-    saveBookings(arr); alert('Booking deleted');
+    saveBookings(arr); alert('बुकिंग हटा दी');
     const card = document.querySelector('.more-card[data-tool="Bookings"]');
     if(card) card.click();
   };
@@ -2908,22 +2907,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(loadAllCustomers().length === 0){
     const demoCustomer = {
       id: generateId(),
-      customerName: 'Ramesh Patel',
+      customerName: 'रमेश पटेल',
       customerMobile: '9876543210',
       billNo: 'TS-101',
       billDate: new Date().toISOString().split('T')[0],
-      tractorModel: 'Sonalika DI-745 III',
+      tractorModel: 'सोनालिका DI-745 III',
       hourlyRate: 500,
       works: [
-        { id: generateId(), desc: 'Jutung - 2 acre', type: 'fixed', hours: 0, rate: 0, price: 2400, photo: null },
-        { id: generateId(), desc: 'Rotavator - 2 acre', type: 'hourly', hours: 4, rate: 500, price: 2000, photo: null }
+        { id: generateId(), desc: 'जुताई - 2 एकड़', type: 'fixed', hours: 0, rate: 0, price: 2400, photo: null },
+        { id: generateId(), desc: 'रोटावेटर - 2 एकड़', type: 'hourly', hours: 4, rate: 500, price: 2000, photo: null }
       ],
       payments: [
-        { id: generateId(), amount: 1500, date: new Date().toISOString().split('T')[0], note: 'Advance' }
+        { id: generateId(), amount: 1500, date: new Date().toISOString().split('T')[0], note: 'अग्रिम' }
       ],
-      reminder: 'Next kaam 15 Nov',
+      reminder: 'अगला काम 15 नवंबर',
       createdByMobile: 'admin',
-      createdByName: 'Admin',
+      createdByName: 'एडमिन',
       createdByRole: 'admin'
     };
     saveAllCustomers([demoCustomer]);
@@ -2932,9 +2931,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   if(loadStaff().length === 0){
     saveStaff([
-      { id:'U-DEMO-CUST', role:'customer', name:'Ramesh Patel', mobile:'9876543210', password:CUSTOMER_DEFAULT_PASSWORD, power:true },
-      { id:'U-DEMO-SUP', role:'supervisor', name:'Suresh Patel', mobile:'9876543211', password:'sup123', power:true },
-      { id:'U-DEMO-DRV', role:'driver', name:'Mahesh Singh', mobile:'9876543212', password:'drv123', power:true }
+      { id:'U-DEMO-CUST', role:'customer', name:'रमेश पटेल', mobile:'9876543210', password:CUSTOMER_DEFAULT_PASSWORD, power:true },
+      { id:'U-DEMO-SUP', role:'supervisor', name:'सुरेश पटेल', mobile:'9876543211', password:'sup123', power:true },
+      { id:'U-DEMO-DRV', role:'driver', name:'महेश सिंह', mobile:'9876543212', password:'drv123', power:true }
     ]);
   }
 });
@@ -2949,16 +2948,16 @@ function generatePdf(lang){
     const customers = loadCustomers();
     c = customers.find(x=>x.id===activeCustomerId);
   }
-  if(!c){ alert('Customer not found'); return; }
+  if(!c){ alert('ग्राहक नहीं मिला'); return; }
   if(!window.jspdf || !window.jspdf.jsPDF){
-    alert('PDF library load nahi hui. Internet check karein aur page refresh karein.');
+    alert('PDF लाइब्रेरी लोड नहीं हुई। इंटरनेट जांचें और पेज रिफ्रेश करें।');
     return;
   }
   const { jsPDF } = window.jspdf;
   const {total,paid,due} = calculateTotalsForCustomer(c);
   const L = {
     en: { title:'Damor Tractore Service', subtitle:'Tractor Book - Bill Receipt', billNo:'Bill No', date:'Date', customer:'Customer', mobile:'Mobile', tractor:'Tractor', workTitle:'Work & Service', desc:'Description', type:'Type', price:'Price', total:'Total', paid:'Paid', due:'Due', payHistory:'Payment History', amount:'Amount', note:'Note', reminder:'Reminder', generated:'Generated via Damor Tractore Service', noWork:'No work entries', noPay:'No payments', fixed:'Fixed', hourly:'Hourly' },
-    hi: { title:'Damor Tractore Service', subtitle:'Tractor Book - Bill Receipt', billNo:'Bill No', date:'Date', customer:'Customer', mobile:'Mobile', tractor:'Tractor', workTitle:'Kaam aur Seva', desc:'Vivaran', type:'Prakar', price:'Mulya', total:'Kul', paid:'Bhugtan', due:'Bakaya', payHistory:'Bhugtan Itihas', amount:'Rashi', note:'Note', reminder:'Reminder', generated:'Damor Tractore Service', noWork:'Koi kaam nahi', noPay:'Koi bhugtan nahi', fixed:'Fixed', hourly:'Hourly' }
+    hi: { title:'दामोर ट्रैक्टर सर्विस', subtitle:'ट्रैक्टर बुक - बिल रसीद', billNo:'बिल नंबर', date:'तारीख', customer:'ग्राहक', mobile:'मोबाइल', tractor:'ट्रैक्टर', workTitle:'काम और सेवा', desc:'विवरण', type:'प्रकार', price:'कीमत', total:'कुल', paid:'चुकाया', due:'बकाया', payHistory:'भुगतान इतिहास', amount:'राशि', note:'नोट', reminder:'रिमाइंडर', generated:'दामोर ट्रैक्टर सर्विस से बनाया गया', noWork:'कोई काम नहीं', noPay:'कोई भुगतान नहीं', fixed:'तय', hourly:'प्रति घंटा' }
   }[lang];
 
   const doc = new jsPDF({ unit:'mm', format:'a4', orientation:'portrait' });
