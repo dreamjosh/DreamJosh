@@ -2938,7 +2938,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 });
 
-// PDF generation
+// PDF generation (Updated & Fixed - Payment Column & Slogan)
 function generatePdf(lang){
   let c;
   if(loggedInUserType==='customer'){
@@ -2953,11 +2953,34 @@ function generatePdf(lang){
     alert('PDF लाइब्रेरी लोड नहीं हुई। इंटरनेट जांचें और पेज रिफ्रेश करें।');
     return;
   }
+  
   const { jsPDF } = window.jspdf;
   const {total,paid,due} = calculateTotalsForCustomer(c);
+  
+  // भाषा और शब्दावली सेटिंग
   const L = {
-    en: { title:'Damor Tractore Service', subtitle:'Tractor Book - Bill Receipt', billNo:'Bill No', date:'Date', customer:'Customer', mobile:'Mobile', tractor:'Tractor', workTitle:'Work & Service', desc:'Description', type:'Type', price:'Price', total:'Total', paid:'Paid', due:'Due', payHistory:'Payment History', amount:'Amount', note:'Note', reminder:'Reminder', generated:'Generated via Damor Tractore Service', noWork:'No work entries', noPay:'No payments', fixed:'Fixed', hourly:'Hourly' },
-    hi: { title:'Damor Tractore Service', subtitle:'ट्रैक्टर बुक - बिल रसीद', billNo:'बिल नंबर', date:'तारीख', customer:'ग्राहक', mobile:'मोबाइल', tractor:'ट्रैक्टर', workTitle:'काम और सेवा', desc:'विवरण', type:'प्रकार', price:'कीमत', total:'कुल', paid:'चुकाया', due:'बकाया', payHistory:'भुगतान इतिहास', amount:'राशि', note:'नोट', reminder:'रिमाइंडर', generated:'दामोर ट्रैक्टर सर्विस से बनाया गया', noWork:'कोई काम नहीं', noPay:'कोई भुगतान नहीं', fixed:'तय', hourly:'प्रति घंटा' }
+    en: { 
+      title:'Damor Tractore Service', 
+      subtitle:'Tractor Book - Bill Receipt', 
+      billNo:'Bill No', date:'Date', customer:'Customer', mobile:'Mobile', tractor:'Tractor', 
+      workTitle:'Work & Service', desc:'Description', type:'Type', price:'Price', 
+      total:'Total', paid:'Paid', due:'Due', payHistory:'Payment History', 
+      amount:'Amount', note:'Note', reminder:'Reminder', 
+      generated:'Thank you for choosing Damor Tractore Service.', 
+      slogan:'Aapke khet ka kaam, hamare tractor se - Samay par, Saaf rate par!',
+      noWork:'No work entries', noPay:'No payments', fixed:'Fixed', hourly:'Hourly' 
+    },
+    hi: { 
+      title:'Damor Tractore Service', 
+      subtitle:'ट्रैक्टर बुक - बिल रसीद', 
+      billNo:'बिल नंबर', date:'तारीख', customer:'ग्राहक', mobile:'मोबाइल', tractor:'ट्रैक्टर', 
+      workTitle:'काम और सेवा', desc:'विवरण', type:'प्रकार', price:'कीमत', 
+      total:'कुल', paid:'चुकाया', due:'बकाया', payHistory:'भुगतान इतिहास', 
+      amount:'राशि', note:'नोट', reminder:'रिमाइंडर', 
+      generated:'दामोर ट्रैक्टर सर्विस से बनाया गया', 
+      slogan:'आपके खेत का काम, हमारे ट्रैक्टर से - समय पर, साफ रेट पर!',
+      noWork:'कोई काम नहीं', noPay:'कोई भुगतान नहीं', fixed:'तय', hourly:'प्रति घंटा' 
+    }
   }[lang];
 
   const doc = new jsPDF({ unit:'mm', format:'a4', orientation:'portrait' });
@@ -2965,6 +2988,7 @@ function generatePdf(lang){
   const margin = 14;
   let y = margin;
 
+  // Header Section
   doc.setFillColor(42,92,54);
   doc.rect(0, 0, pageW, 30, 'F');
   doc.setTextColor(255,255,255);
@@ -2977,6 +3001,7 @@ function generatePdf(lang){
   doc.text(`${L.date}: ${c.billDate||'-'}`, pageW - margin, 20, { align:'right' });
   y = 38;
 
+  // Customer Info Box
   doc.setFillColor(247,252,245);
   doc.setDrawColor(203,220,199);
   doc.roundedRect(margin, y, pageW - margin*2, 22, 3, 3, 'FD');
@@ -2995,51 +3020,76 @@ function generatePdf(lang){
   doc.text((c.tractorModel || '-').substring(0, 45), margin + 120, y + 7);
   y += 30;
 
+  // Work Table
   const workBody = [];
   if(!c.works || c.works.length===0){ workBody.push([L.noWork, '', '']); }
-  else { c.works.forEach(w=>{ const typeLabel = w.type==='hourly' ? `${L.hourly} (${w.hours} hr)` : L.fixed; workBody.push([w.desc || '-', typeLabel, formatCurrency(w.price || 0)]); }); }
+  else { c.works.forEach(w=>{ const typeLabel = w.type==='hourly' ? `${L.hourly} (${w.hours} hr)` : L.fixed; workBody.push([w.desc || '-', typeLabel, 'Rs. ' + (w.price || 0).toFixed(0)]); }); }
 
   doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(42,92,54);
   doc.text(L.workTitle, margin, y); y += 3;
+  
   doc.autoTable({ startY: y, head: [[L.desc, L.type, L.price]], body: workBody, theme: 'grid',
     headStyles: { fillColor: [238,243,234], textColor: [42,92,54], fontStyle: 'bold', fontSize: 10 },
     bodyStyles: { fontSize: 9, textColor: [30,47,35] },
     alternateRowStyles: { fillColor: [250,252,249] },
-    columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 45 }, 2: { cellWidth: 35, halign: 'right' } },
+    columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 50 }, 2: { cellWidth: 40, halign: 'right' } },
     margin: { left: margin, right: margin }
   });
   y = doc.lastAutoTable.finalY + 6;
 
+  // Totals Box
   doc.setFillColor(247,252,245); doc.setDrawColor(203,220,199);
   doc.roundedRect(margin, y, pageW - margin*2, 16, 3, 3, 'FD');
   doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(30,47,35);
-  doc.text(`${L.total}: ${formatCurrency(total)}`, margin + 4, y + 10);
-  doc.text(`${L.paid}: ${formatCurrency(paid)}`, margin + 70, y + 10);
+  doc.text(`${L.total}: Rs. ${(total).toFixed(0)}`, margin + 4, y + 10);
+  doc.text(`${L.paid}: Rs. ${(paid).toFixed(0)}`, margin + 70, y + 10);
   doc.setTextColor(177,59,59);
-  doc.text(`${L.due}: ${formatCurrency(due)}`, pageW - margin - 4, y + 10, { align:'right' });
+  doc.text(`${L.due}: Rs. ${(due).toFixed(0)}`, pageW - margin - 4, y + 10, { align:'right' });
   y += 24;
 
+  // Payment History Table (Fixed alignment)
   const payBody = [];
   if(!c.payments || c.payments.length===0){ payBody.push([L.noPay, '', '']); }
-  else { [...c.payments].sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach(p=>{ payBody.push([p.date || '-', formatCurrency(p.amount || 0), p.note || '-']); }); }
+  else { 
+    [...c.payments].sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach(p=>{ 
+      // Amount को 'Rs. ' के साथ String में बदला ताकि कॉलम में सही से फिट हो जाए
+      payBody.push([p.date || '-', 'Rs. ' + (p.amount || 0).toFixed(0), p.note || '-']); 
+    }); 
+  }
 
   doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(42,92,54);
   doc.text(L.payHistory, margin, y); y += 3;
+  
   doc.autoTable({ startY: y, head: [[L.date, L.amount, L.note]], body: payBody, theme: 'grid',
     headStyles: { fillColor: [238,243,234], textColor: [42,92,54], fontStyle: 'bold', fontSize: 10 },
     bodyStyles: { fontSize: 9, textColor: [30,47,35] },
-    columnStyles: { 0: { cellWidth: 40 }, 1: { cellWidth: 35, halign: 'right' }, 2: { cellWidth: 'auto' } },
+    // यहाँ Column Width और Alignment को फिक्स किया गया है
+    columnStyles: { 
+      0: { cellWidth: 35 }, 
+      1: { cellWidth: 45, halign: 'right' }, // Amount Right Aligned
+      2: { cellWidth: 'auto' } 
+    },
     margin: { left: margin, right: margin }
   });
   y = doc.lastAutoTable.finalY + 6;
 
+  // Reminder
   if(c.reminder){
     doc.setFont('helvetica','italic'); doc.setFontSize(9); doc.setTextColor(125,145,127);
     doc.text(`${L.reminder}: ${c.reminder}`, margin, y); y += 6;
   }
+
+  // NEW: Slogan for repeat business (footer के ऊपर)
+  doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(42,92,54);
+  // Center alignment for slogan
+  doc.text(L.slogan, pageW/2, y + 4, { align:'center' }); 
+  y += 12;
+
+  // Footer
   doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(143,168,148);
   doc.text(L.generated, pageW/2, doc.internal.pageSize.getHeight() - 10, { align:'center' });
 
+  // Save File
   const safeBill = (c.billNo||'N').replace(/[^a-zA-Z0-9_-]/g,'');
   const safeDate = (c.billDate||'').replace(/[^a-zA-Z0-9_-]/g,'');
   doc.save(`Damor_Bill_${safeBill}_${safeDate}.pdf`);
